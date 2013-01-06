@@ -52,7 +52,7 @@ public:
     float getInterval(int nIndex);
 
     float getDefaultValue(int nIndex);
-    void setDefaultValue(int nIndex, const String& strDefault);
+    void setDefaultValue(int nIndex, const String& strDefault, bool updateValue);
 
     float getValue(int nIndex);
     void setValue(int nIndex, float fValue);

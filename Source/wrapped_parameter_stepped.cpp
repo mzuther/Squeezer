@@ -87,9 +87,14 @@ float WrappedParameterStepped::getDefaultValue()
 }
 
 
-void WrappedParameterStepped::setDefaultValue(const String& strDefault)
+void WrappedParameterStepped::setDefaultValue(const String& strDefault, bool updateValue)
 {
     strDefaultValue = strDefault;
+
+    if (updateValue)
+    {
+        setText(strDefaultValue);
+    }
 }
 
 

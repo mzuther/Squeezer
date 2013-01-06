@@ -31,6 +31,8 @@
 
 SqueezerPluginParameters::SqueezerPluginParameters()
 {
+    PluginParameters();
+
     strSettingsID = "SQUEEZER_SETTINGS";
 
     WrappedParameterStepped* ParameterThresholdSwitch = new WrappedParameterStepped;
@@ -68,7 +70,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterThresholdSwitch->addValue(+10.0f, "+10 dB");
     ParameterThresholdSwitch->addValue(+12.0f, "+12 dB");
 
-    ParameterThresholdSwitch->setDefaultValue("-12 dB");
+    ParameterThresholdSwitch->setDefaultValue("-12 dB", true);
     add(ParameterThresholdSwitch);
 
     WrappedParameterStepped* ParameterRatioSwitch = new WrappedParameterStepped;
@@ -83,7 +85,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterRatioSwitch->addValue(10.00f,   "10:1");
     ParameterRatioSwitch->addValue(-1.00f, "Manual");
 
-    ParameterRatioSwitch->setDefaultValue("2:1");
+    ParameterRatioSwitch->setDefaultValue("2:1", true);
     add(ParameterRatioSwitch);
 
     WrappedParameterStepped* ParameterAttackRateSwitch = new WrappedParameterStepped;
@@ -99,7 +101,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterAttackRateSwitch->addValue(100.000f, "100 ms");
     ParameterAttackRateSwitch->addValue(-1.000f,  "Manual");
 
-    ParameterAttackRateSwitch->setDefaultValue("3 ms");
+    ParameterAttackRateSwitch->setDefaultValue("3 ms", true);
     add(ParameterAttackRateSwitch);
 
     WrappedParameterStepped* ParameterReleaseRateSwitch = new WrappedParameterStepped;
@@ -113,7 +115,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterReleaseRateSwitch->addValue(2000.0f,   "2 s");
     ParameterReleaseRateSwitch->addValue(-1.0f,   "Manual");
 
-    ParameterReleaseRateSwitch->setDefaultValue("200 ms");
+    ParameterReleaseRateSwitch->setDefaultValue("200 ms", true);
     add(ParameterReleaseRateSwitch);
 
     WrappedParameterStepped* ParameterInputGainSwitch = new WrappedParameterStepped;
@@ -169,7 +171,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterInputGainSwitch->addValue(+11.5f, "+11.5 dB");
     ParameterInputGainSwitch->addValue(+12.0f, "+12.0 dB");
 
-    ParameterInputGainSwitch->setDefaultValue("0 dB");
+    ParameterInputGainSwitch->setDefaultValue("0 dB", true);
     add(ParameterInputGainSwitch);
 
     WrappedParameterStepped* ParameterOutputGainSwitch = new WrappedParameterStepped;
@@ -225,7 +227,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterOutputGainSwitch->addValue(+11.5f, "+11.5 dB");
     ParameterOutputGainSwitch->addValue(+12.0f, "+12.0 dB");
 
-    ParameterOutputGainSwitch->setDefaultValue("0 dB");
+    ParameterOutputGainSwitch->setDefaultValue("0 dB", true);
     add(ParameterOutputGainSwitch);
 }
 

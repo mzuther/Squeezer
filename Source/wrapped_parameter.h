@@ -41,7 +41,7 @@ public:
     virtual void setName(const String& strParameterName) = 0;
 
     virtual float getDefaultValue() = 0;
-    virtual void setDefaultValue(const String& strDefault) = 0;
+    virtual void setDefaultValue(const String& strDefault, bool updateValue) = 0;
 
     virtual float getValue() = 0;
     virtual void setValue(float fValue) = 0;

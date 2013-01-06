@@ -113,10 +113,10 @@ float PluginParameters::getDefaultValue(int nIndex)
     return arrParameters[nIndex]->getDefaultValue();
 }
 
-void PluginParameters::setDefaultValue(int nIndex, const String& strDefault)
+void PluginParameters::setDefaultValue(int nIndex, const String& strDefault, bool updateValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setDefaultValue(strDefault);
+    arrParameters[nIndex]->setDefaultValue(strDefault, updateValue);
 }
 
 

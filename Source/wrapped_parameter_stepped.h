@@ -46,7 +46,7 @@ public:
     float getInterval();
 
     float getDefaultValue();
-    void setDefaultValue(const String& strDefault);
+    void setDefaultValue(const String& strDefault, bool updateValue);
 
     float getValue();
     void setValue(float fValue);
