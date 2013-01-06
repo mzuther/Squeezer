@@ -373,8 +373,12 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     {
         for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
         {
-            float* pSampleValue = buffer.getSampleData(nChannel, nSample);
-            float fSampleValueNew = pGainReducer[nChannel]->processSample(*pSampleValue);
+            float fSampleValue = *buffer.getSampleData(nChannel, nSample);
+            float fInputLevel = GainReducer::level2decibel(fabs(fSampleValue));
+
+            float fGainReduction = pGainReducer[nChannel]->processSample(fInputLevel);
+            float fSampleValueNew = fSampleValue * GainReducer::decibel2level(fGainReduction);
+
             buffer.copyFrom(nChannel, nSample, &fSampleValueNew, 1);
         }
 

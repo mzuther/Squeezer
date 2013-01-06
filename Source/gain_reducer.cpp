@@ -231,20 +231,18 @@ float GainReducer::calculateFinalGainReduction(float fInputLevel)
 }
 
 
-float GainReducer::processSample(float fSampleValue)
+float GainReducer::processSample(float fInputLevel)
 /*  Process a single audio sample value.
 
-    fSampleValue (float): current audio sample value
+    fInputLevel (float): current audio sample value in decibels
 
-    return value: processed sample value
+    return value: current gain reduction in decibels
 */
 {
-    float fInputLevel = level2decibel(fabs(fSampleValue));
     float fGainReductionFinal = calculateFinalGainReduction(fInputLevel);
-
     applyLogarithmicEnvelope(fGainReductionFinal);
 
-    return fSampleValue * decibel2level(fGainReduction - fGainCompensation);
+    return (fGainReduction - fGainCompensation);
 }
 
 
