@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.00.0"
+              bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
+              buildAU="1" pluginName="Squeezer" pluginDesc="Flexible general-purpose compressor with a touch of lemon"
+              pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="sqzr"
+              pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="0" pluginWantsMidiIn="0"
+              pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
+              pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
+              pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
+              jucerVersion="3.0.0" companyName="mzuther">
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX" objCExtraSuffix="V6MScW" juceFolder="libraries/juce/modules"
+               vstFolder="~/SDKs/vstsdk2.4">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Squeezer"
+                       osxSDK="default" osxCompatibility="default" osxArchitecture="default"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="Squeezer"
+                       osxSDK="default" osxCompatibility="default" osxArchitecture="default"/>
+      </CONFIGURATIONS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MAINGROUP id="fQBrG5" name="Squeezer">
+    <GROUP id="{C1484ADF-3ACB-5E6A-3FF0-53F97F27901A}" name="Source">
+      <GROUP id="{151F3196-39E8-9BBC-924E-874945A80C98}" name="resources">
+        <FILE id="hqup8b" name="resources.cpp" compile="1" resource="0" file="Source/resources/resources.cpp"/>
+        <FILE id="H5FiGf" name="resources.h" compile="0" resource="0" file="Source/resources/resources.h"/>
+      </GROUP>
+      <FILE id="SarLdE" name="gain_reducer.cpp" compile="1" resource="0"
+            file="Source/gain_reducer.cpp"/>
+      <FILE id="oXf9mm" name="gain_reducer.h" compile="0" resource="0" file="Source/gain_reducer.h"/>
+      <FILE id="OQU2aQ" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
+      <FILE id="kcR6Va" name="plugin_editor_squeezer.cpp" compile="1" resource="0"
+            file="Source/plugin_editor_squeezer.cpp"/>
+      <FILE id="CHnWHa" name="plugin_editor_squeezer.h" compile="0" resource="0"
+            file="Source/plugin_editor_squeezer.h"/>
+      <FILE id="GMxAtQ" name="plugin_parameters.cpp" compile="1" resource="0"
+            file="Source/plugin_parameters.cpp"/>
+      <FILE id="qESt36" name="plugin_parameters.h" compile="0" resource="0"
+            file="Source/plugin_parameters.h"/>
+      <FILE id="ftRrIS" name="plugin_parameters_squeezer.cpp" compile="1"
+            resource="0" file="Source/plugin_parameters_squeezer.cpp"/>
+      <FILE id="OD1Xzr" name="plugin_parameters_squeezer.h" compile="0" resource="0"
+            file="Source/plugin_parameters_squeezer.h"/>
+      <FILE id="OzGwpl" name="plugin_processor_squeezer.cpp" compile="1"
+            resource="0" file="Source/plugin_processor_squeezer.cpp"/>
+      <FILE id="lk6KCc" name="plugin_processor_squeezer.h" compile="0" resource="0"
+            file="Source/plugin_processor_squeezer.h"/>
+      <FILE id="bPHKxX" name="prohibiting_bounds_constrainer.h" compile="0"
+            resource="0" file="Source/prohibiting_bounds_constrainer.h"/>
+      <FILE id="czgNaX" name="slider_stepped.cpp" compile="1" resource="0"
+            file="Source/slider_stepped.cpp"/>
+      <FILE id="RNFjIv" name="slider_stepped.h" compile="0" resource="0"
+            file="Source/slider_stepped.h"/>
+      <FILE id="T1tNMH" name="standalone_application.cpp" compile="1" resource="0"
+            file="Source/standalone_application.cpp"/>
+      <FILE id="cSEZP1" name="standalone_application.h" compile="0" resource="0"
+            file="Source/standalone_application.h"/>
+      <FILE id="o601ja" name="window_about.cpp" compile="1" resource="0"
+            file="Source/window_about.cpp"/>
+      <FILE id="gCLujc" name="window_about.h" compile="0" resource="0" file="Source/window_about.h"/>
+      <FILE id="Yb1nqL" name="wrapped_parameter.h" compile="0" resource="0"
+            file="Source/wrapped_parameter.h"/>
+      <FILE id="sCD2nh" name="wrapped_parameter_stepped.cpp" compile="1"
+            resource="0" file="Source/wrapped_parameter_stepped.cpp"/>
+      <FILE id="tKdFnh" name="wrapped_parameter_stepped.h" compile="0" resource="0"
+            file="Source/wrapped_parameter_stepped.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_audio" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+</JUCERPROJECT>
