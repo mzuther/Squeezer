@@ -110,6 +110,7 @@ private:
     bool bSampleRateIsValid;
     float fCrestFactor;
 
+    bool bDesignModern;
     float fInputGain;
     float fOutputGain;
 

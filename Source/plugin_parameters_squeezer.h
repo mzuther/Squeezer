@@ -45,7 +45,10 @@ public:
 
     enum Parameters  // public namespace!
     {
-        selThresholdSwitch = 0,
+        selBypassSwitch = 0,
+        selDesignSwitch,
+        selSensorSwitch,
+        selThresholdSwitch,
         selRatioSwitch,
         selAttackRateSwitch,
         selReleaseRateSwitch,
@@ -54,7 +57,13 @@ public:
 
         nNumParametersRevealed,
 
-        nNumParametersComplete = nNumParametersRevealed
+        nNumParametersComplete = nNumParametersRevealed,
+
+        selDesignModern = 0,
+        selDesignVintage,
+
+        selSensorPeak = 0,
+        selSensorRms,
     };
 
 private:

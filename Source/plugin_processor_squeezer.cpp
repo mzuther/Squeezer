@@ -42,6 +42,7 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
 
     fProcessedSeconds = 0.0f;
 
+    bDesignModern = false;
     fInputGain = 1.0f;
     fOutputGain = 1.0f;
 }
@@ -132,32 +133,63 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
 
         switch (nIndex)
         {
+        case SqueezerPluginParameters::selDesignSwitch:
+        {
+            int nDesign = roundf(fRealValue);
+            bDesignModern = (nDesign == SqueezerPluginParameters::selDesignModern);
+
+            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
+            {
+                pGainReducer[nChannel]->setDesign(nDesign);
+            }
+        }
+        break;
+
+        case SqueezerPluginParameters::selSensorSwitch:
+        {
+            int nSensor = roundf(fRealValue);
+
+            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
+            {
+                pGainReducer[nChannel]->setSensor(nSensor);
+            }
+        }
+        break;
+
         case SqueezerPluginParameters::selThresholdSwitch:
+
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setThreshold(fRealValue);
             }
+
             break;
 
         case SqueezerPluginParameters::selRatioSwitch:
+
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setRatio(fRealValue);
             }
+
             break;
 
         case SqueezerPluginParameters::selAttackRateSwitch:
+
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setAttackRate(fRealValue);
             }
+
             break;
 
         case SqueezerPluginParameters::selReleaseRateSwitch:
+
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setReleaseRate(fRealValue);
             }
+
             break;
 
         case SqueezerPluginParameters::selInputGainSwitch:
@@ -311,16 +343,29 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     DBG("[Squeezer] number of input channels: " + String(nNumInputChannels));
 
+    int nDesign = roundf(pPluginParameters->getRealValue(SqueezerPluginParameters::selDesignSwitch));
+    int nSensor = roundf(pPluginParameters->getRealValue(SqueezerPluginParameters::selSensorSwitch));
+
     float fThreshold = pPluginParameters->getRealValue(SqueezerPluginParameters::selThresholdSwitch);
     float fRatio = pPluginParameters->getRealValue(SqueezerPluginParameters::selRatioSwitch);
-    int fAttackRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selAttackRateSwitch);;
-    int fReleaseRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selReleaseRateSwitch);;
+
+    float fAttackRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selAttackRateSwitch);
+    float fReleaseRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selReleaseRateSwitch);
 
     pGainReducer = new GainReducer*[nNumInputChannels];
 
     for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
     {
-        pGainReducer[nChannel] = new GainReducer((int) sampleRate, fThreshold, fRatio, fAttackRate, fReleaseRate);
+        pGainReducer[nChannel] = new GainReducer((int) sampleRate);
+
+        pGainReducer[nChannel]->setDesign(nDesign);
+        pGainReducer[nChannel]->setSensor(nSensor);
+
+        pGainReducer[nChannel]->setThreshold(fThreshold);
+        pGainReducer[nChannel]->setRatio(fRatio);
+
+        pGainReducer[nChannel]->setAttackRate(fAttackRate);
+        pGainReducer[nChannel]->setReleaseRate(fReleaseRate);
     }
 
     nSamplesInBuffer = 0;
@@ -398,26 +443,52 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     {
         for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
         {
-            float fSampleValue = *buffer.getSampleData(nChannel, nSample);
+            // get current input sample
+            float fInputSample = *buffer.getSampleData(nChannel, nSample);
+            float fOutputSample;
 
+            // apply input gain
             if (fInputGain != 1.0f)
             {
-                fSampleValue = fSampleValue * fInputGain;
+                fInputSample = fInputSample * fInputGain;
             }
 
-            float fInputLevel = GainReducer::level2decibel(fabs(fSampleValue)) + fCrestFactor;
+            // "modern" (feed-forward) design
+            if (bDesignModern)
+            {
+                // send current input sample to gain reduction unit
+                float fInputLevel = GainReducer::level2decibel(fabs(fInputSample)) + fCrestFactor;
+                pGainReducer[nChannel]->processSample(fInputLevel);
 
-            float fGainReduction = pGainReducer[nChannel]->processSample(fInputLevel);
-            float fSampleValueNew = fSampleValue * GainReducer::decibel2level(fGainReduction) * fOutputGain;
+                // apply gain reduction to current input sample
+                float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
+                fOutputSample = fInputSample * GainReducer::decibel2level(fGainReduction);
+            }
+            // "vintage" (feed-back) design
+            else
+            {
+                // get "old" gain reduction and apply it to current
+                // input sample
+                float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
+                fOutputSample = fInputSample * GainReducer::decibel2level(fGainReduction);
 
-            buffer.copyFrom(nChannel, nSample, &fSampleValueNew, 1);
+                // feed current output sample back to gain reduction unit
+                float fOutputLevel = GainReducer::level2decibel(fabs(fOutputSample)) + fCrestFactor;
+                pGainReducer[nChannel]->processSample(fOutputLevel);
+            }
+
+            // apply output gain
+            fOutputSample = fOutputSample * fOutputGain;
+
+            // save current output sample
+            buffer.copyFrom(nChannel, nSample, &fOutputSample, 1);
         }
 
         if (nSample % 2000 == 0)
         {
             String strTemp;
 
-            for (int i = -3 * pGainReducer[0]->getGainReduction(); i > 0; i--)
+            for (int i = -3 * pGainReducer[0]->getGainReduction(false); i > 0; i--)
             {
                 strTemp += "**";
             }

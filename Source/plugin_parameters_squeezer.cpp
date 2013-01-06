@@ -35,6 +35,42 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     strSettingsID = "SQUEEZER_SETTINGS";
 
+    WrappedParameterStepped* ParameterBypassSwitch = new WrappedParameterStepped;
+    ParameterBypassSwitch->setName("Bypass Switch");
+
+    ParameterBypassSwitch->addValue(0.0f, "In");
+    ParameterBypassSwitch->addValue(1.0f, "Out");
+
+    ParameterBypassSwitch->setDefaultValue("In", true);
+    add(ParameterBypassSwitch);
+
+    jassert(arrParameters.size() == selBypassSwitch + 1);
+
+
+    WrappedParameterStepped* ParameterDesignSwitch = new WrappedParameterStepped;
+    ParameterDesignSwitch->setName("Design Switch");
+
+    ParameterDesignSwitch->addValue(selDesignModern, "Modern");
+    ParameterDesignSwitch->addValue(selDesignVintage, "Vintage");
+
+    ParameterDesignSwitch->setDefaultValue("Modern", true);
+    add(ParameterDesignSwitch);
+
+    jassert(arrParameters.size() == selDesignSwitch + 1);
+
+
+    WrappedParameterStepped* ParameterSensorSwitch = new WrappedParameterStepped;
+    ParameterSensorSwitch->setName("Sensor Switch");
+
+    ParameterSensorSwitch->addValue(selSensorPeak, "Peak");
+    ParameterSensorSwitch->addValue(selSensorRms, "RMS");
+
+    ParameterSensorSwitch->setDefaultValue("Peak", true);
+    add(ParameterSensorSwitch);
+
+    jassert(arrParameters.size() == selSensorSwitch + 1);
+
+
     WrappedParameterStepped* ParameterThresholdSwitch = new WrappedParameterStepped;
     ParameterThresholdSwitch->setName("Threshold Switch");
 
@@ -69,6 +105,9 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterThresholdSwitch->addValue(+8.0f,   "+8 dB");
     ParameterThresholdSwitch->addValue(+10.0f, "+10 dB");
     ParameterThresholdSwitch->addValue(+12.0f, "+12 dB");
+    ParameterThresholdSwitch->addValue(+14.0f, "+14 dB");
+    ParameterThresholdSwitch->addValue(+16.0f, "+16 dB");
+    ParameterThresholdSwitch->addValue(+18.0f, "+18 dB");
 
     ParameterThresholdSwitch->setDefaultValue("-12 dB", true);
     add(ParameterThresholdSwitch);

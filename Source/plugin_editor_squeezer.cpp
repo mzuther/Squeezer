@@ -39,6 +39,24 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
+    ButtonDesignModern = new TextButton("Modern");
+    ButtonDesignModern->setRadioGroupId(1);
+    ButtonDesignModern->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDesignModern->setColour(TextButton::buttonOnColourId, Colours::orange);
+
+    ButtonDesignModern->addListener(this);
+    addAndMakeVisible(ButtonDesignModern);
+
+
+    ButtonDesignVintage = new TextButton("Vintage");
+    ButtonDesignVintage->setRadioGroupId(1);
+    ButtonDesignVintage->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDesignVintage->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonDesignVintage->addListener(this);
+    addAndMakeVisible(ButtonDesignVintage);
+
+
     int nIndex = SqueezerPluginParameters::selThresholdSwitch;
     String strName = parameters->getName(nIndex);
     SliderThresholdSwitch = new SliderStepped(strName, 50, parameters, nIndex);
@@ -46,6 +64,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     SliderThresholdSwitch->addListener(this);
     addAndMakeVisible(SliderThresholdSwitch);
+
 
     nIndex = SqueezerPluginParameters::selRatioSwitch;
     strName = parameters->getName(nIndex);
@@ -55,6 +74,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderRatioSwitch->addListener(this);
     addAndMakeVisible(SliderRatioSwitch);
 
+
     nIndex = SqueezerPluginParameters::selAttackRateSwitch;
     strName = parameters->getName(nIndex);
     SliderAttackRateSwitch = new SliderStepped(strName, 50, parameters, nIndex);
@@ -62,6 +82,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     SliderAttackRateSwitch->addListener(this);
     addAndMakeVisible(SliderAttackRateSwitch);
+
 
     nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
     strName = parameters->getName(nIndex);
@@ -71,6 +92,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderReleaseRateSwitch->addListener(this);
     addAndMakeVisible(SliderReleaseRateSwitch);
 
+
     nIndex = SqueezerPluginParameters::selInputGainSwitch;
     strName = parameters->getName(nIndex);
     SliderInputGainSwitch = new SliderStepped(strName, 50, parameters, nIndex);
@@ -79,6 +101,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderInputGainSwitch->addListener(this);
     addAndMakeVisible(SliderInputGainSwitch);
 
+
     nIndex = SqueezerPluginParameters::selOutputGainSwitch;
     strName = parameters->getName(nIndex);
     SliderOutputGainSwitch = new SliderStepped(strName, 50, parameters, nIndex);
@@ -86,6 +109,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     SliderOutputGainSwitch->addListener(this);
     addAndMakeVisible(SliderOutputGainSwitch);
+
 
 #ifdef DEBUG
     LabelDebug = new Label("Debug Notification", "DEBUG");
@@ -96,6 +120,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     LabelDebug = NULL;
 #endif
 
+
     ButtonAbout = new TextButton("About");
     ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
@@ -103,10 +128,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonAbout->addListener(this);
     addAndMakeVisible(ButtonAbout);
 
+
     // This is where our plug-in editor's size is set.
     resizeEditor();
 
     pProcessor->addActionListenerParameters(this);
+
+    nIndex = SqueezerPluginParameters::selDesignSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
     nIndex = SqueezerPluginParameters::selThresholdSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
@@ -139,19 +168,22 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
-    nHeight = 100;
+    nHeight = 150;
     nRightColumnStart = 450;
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    SliderThresholdSwitch->setBounds(10, 20, 70, 60);
-    SliderRatioSwitch->setBounds(70, 20, 70, 60);
+    ButtonDesignModern->setBounds(10, 10, 60, 20);
+    ButtonDesignVintage->setBounds(10, 35, 60, 20);
 
-    SliderAttackRateSwitch->setBounds(150, 20, 70, 60);
-    SliderReleaseRateSwitch->setBounds(210, 20, 70, 60);
+    SliderThresholdSwitch->setBounds(10, 70, 70, 60);
+    SliderRatioSwitch->setBounds(70, 70, 70, 60);
 
-    SliderInputGainSwitch->setBounds(290, 20, 70, 60);
-    SliderOutputGainSwitch->setBounds(350, 20, 70, 60);
+    SliderAttackRateSwitch->setBounds(150, 70, 70, 60);
+    SliderReleaseRateSwitch->setBounds(210, 70, 70, 60);
+
+    SliderInputGainSwitch->setBounds(290, 70, 70, 60);
+    SliderOutputGainSwitch->setBounds(350, 70, 70, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -208,6 +240,18 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
 {
     switch (nIndex)
     {
+    case SqueezerPluginParameters::selDesignSwitch:
+
+        if (fValue == SqueezerPluginParameters::selDesignModern)
+        {
+            ButtonDesignModern->setToggleState(true, false);
+        }
+        else
+        {
+            ButtonDesignVintage->setToggleState(true, false);
+        }
+
+        break;
     case SqueezerPluginParameters::selThresholdSwitch:
         SliderThresholdSwitch->setValue(fValue, false);
         break;
@@ -240,7 +284,15 @@ void SqueezerAudioProcessorEditor::paint(Graphics& g)
 
 void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 {
-    if (button == ButtonAbout)
+    if (button == ButtonDesignModern)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selDesignSwitch, SqueezerPluginParameters::selDesignModern);
+    }
+    else if (button == ButtonDesignVintage)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selDesignSwitch, SqueezerPluginParameters::selDesignVintage);
+    }
+    else if (button == ButtonAbout)
     {
         WindowAbout* windowAbout = new WindowAbout(getWidth(), getHeight());
         addAndMakeVisible(windowAbout);

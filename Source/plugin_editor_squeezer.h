@@ -65,7 +65,11 @@ private:
 
     SqueezerAudioProcessor* pProcessor;
 
-    TextButton* ButtonAbout;
+    TextButton* ButtonDesignModern;
+    TextButton* ButtonDesignVintage;
+
+    TextButton* ButtonSensorPeak;
+    TextButton* ButtonSensorRms;
 
     SliderStepped* SliderThresholdSwitch;
     SliderStepped* SliderRatioSwitch;
@@ -75,6 +79,9 @@ private:
 
     SliderStepped* SliderInputGainSwitch;
     SliderStepped* SliderOutputGainSwitch;
+
+    TextButton* ButtonBypass;
+    TextButton* ButtonAbout;
 
     Label* LabelDebug;
 };

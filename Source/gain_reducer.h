@@ -36,11 +36,17 @@
 class GainReducer
 {
 public:
-    GainReducer(int sample_rate, float threshold, float ratio, int attack_rate, int release_rate);
+    GainReducer(int nSampleRate);
     ~GainReducer();
 
     void setSampleRate(int nSampleRate);
     void reset();
+
+    int getDesign();
+    void setDesign(int nDesignNew);
+
+    int getSensor();
+    void setSensor(int nSensorNew);
 
     float getThreshold();
     void setThreshold(float fThresholdNew);
@@ -48,16 +54,15 @@ public:
     float getRatio();
     void setRatio(float fRatioNew);
 
-
     int getAttackRate();
     void setAttackRate(int nAttackRateNew);
 
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
 
-    float getGainReduction();
+    float getGainReduction(bool useGainCompensation);
 
-    float processSample(float fSampleValue);
+    void processSample(float fSampleValue);
 
     static float level2decibel(float fLevel);
     static float decibel2level(float fDecibels);
@@ -68,6 +73,9 @@ private:
     int nCrestFactorAutoGain;
     float fGainReduction;
     float fGainCompensation;
+
+    int nDesign;
+    int nSensor;
 
     float fThreshold;
     float fRatio;

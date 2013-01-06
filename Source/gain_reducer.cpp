@@ -29,19 +29,22 @@
 float GainReducer::fMeterMinimumDecibel;
 
 
-GainReducer::GainReducer(int sample_rate, float threshold, float ratio, int attack_rate, int release_rate)
+GainReducer::GainReducer(int nSampleRate)
 /*  Constructor.
 
     return value: none
 */
 {
-    setSampleRate(sample_rate);
+    setSampleRate(nSampleRate);
 
-    setThreshold(threshold);
-    setRatio(ratio);
+    setDesign(SqueezerPluginParameters::selDesignModern);
+    setSensor(SqueezerPluginParameters::selSensorPeak);
 
-    setAttackRate(attack_rate);
-    setReleaseRate(release_rate);
+    setThreshold(-12.0f);
+    setRatio(2.0f);
+
+    setAttackRate(10.0f);
+    setReleaseRate(100.0f);
 
     nCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;
@@ -82,6 +85,50 @@ void GainReducer::setSampleRate(int nSampleRate)
     // calculate time that passes for every sample (in fractional
     // seconds)
     fTimePassed = 1.0f / nSampleRate;
+}
+
+
+int GainReducer::getDesign()
+/*  Get current compressor design.
+
+    return value (integer): returns the current compressor design
+ */
+{
+    return nDesign;
+}
+
+
+void GainReducer::setDesign(int nDesignNew)
+/*  Set new compressor design.
+
+    nDesignNew (integer): new compressor design
+
+    return value: none
+ */
+{
+    nDesign = nDesignNew;
+}
+
+
+int GainReducer::getSensor()
+/*  Get current compressor sensor.
+
+    return value (integer): returns the current compressor sensor
+ */
+{
+    return nSensor;
+}
+
+
+void GainReducer::setSensor(int nSensorNew)
+/*  Set new compressor sensor.
+
+    nSensorNew (integer): new compressor sensor
+
+    return value: none
+ */
+{
+    nSensor = nSensorNew;
 }
 
 
@@ -201,14 +248,24 @@ void GainReducer::setReleaseRate(int nReleaseRateNew)
 }
 
 
-float GainReducer::getGainReduction()
+float GainReducer::getGainReduction(bool useGainCompensation)
 /*  Get current gain reduction.
+
+    useGainCompensation (boolean): determines whether the gain
+    reduction should be level compensated or not
 
     return value (float): returns the current gain reduction in
     decibel
  */
 {
-    return fGainReduction;
+    if (useGainCompensation)
+    {
+        return fGainReduction - fGainCompensation;
+    }
+    else
+    {
+        return fGainReduction;
+    }
 }
 
 
@@ -231,7 +288,7 @@ float GainReducer::calculateFinalGainReduction(float fInputLevel)
 }
 
 
-float GainReducer::processSample(float fInputLevel)
+void GainReducer::processSample(float fInputLevel)
 /*  Process a single audio sample value.
 
     fInputLevel (float): current audio sample value in decibels
@@ -241,8 +298,6 @@ float GainReducer::processSample(float fInputLevel)
 {
     float fGainReductionFinal = calculateFinalGainReduction(fInputLevel);
     applyLogarithmicEnvelope(fGainReductionFinal);
-
-    return (fGainReduction - fGainCompensation);
 }
 
 
