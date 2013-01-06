@@ -70,7 +70,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterThresholdSwitch->addValue(+10.0f, "+10 dB");
     ParameterThresholdSwitch->addValue(+12.0f, "+12 dB");
 
-    ParameterThresholdSwitch->setDefaultValue("-18 dB", true);
+    ParameterThresholdSwitch->setDefaultValue("-12 dB", true);
     add(ParameterThresholdSwitch);
 
     WrappedParameterStepped* ParameterRatioSwitch = new WrappedParameterStepped;

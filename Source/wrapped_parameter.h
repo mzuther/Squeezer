@@ -54,6 +54,7 @@ public:
 
     virtual bool hasChanged() = 0;
     virtual void clearChangeFlag() = 0;
+    virtual void setChangeFlag() = 0;
 
     virtual float getInterval() = 0;
 

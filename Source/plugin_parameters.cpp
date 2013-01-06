@@ -197,6 +197,13 @@ void PluginParameters::clearChangeFlag(int nIndex)
 }
 
 
+void PluginParameters::setChangeFlag(int nIndex)
+{
+    jassert((nIndex >= 0) && (nIndex < nNumParameters));
+    return arrParameters[nIndex]->setChangeFlag();
+}
+
+
 void PluginParameters::loadFromXml(XmlElement* xml)
 {
     if (xml && xml->hasTagName(strSettingsID))

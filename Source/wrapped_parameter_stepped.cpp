@@ -36,7 +36,7 @@ WrappedParameterStepped::WrappedParameterStepped()
     fValueInternal = 0.0f;
     fInterval = 0.0f;
 
-    clearChangeFlag();
+    setChangeFlag();
 }
 
 
@@ -111,7 +111,10 @@ void WrappedParameterStepped::setValue(float fValue)
     fValueInternal = fValue;
     nCurrentIndex = roundf(fValueInternal / fInterval);
 
-    bChangedValue = (nCurrentIndex == nCurrentIndexOld);
+    if (nCurrentIndex != nCurrentIndexOld)
+    {
+        setChangeFlag();
+    }
 }
 
 
@@ -132,7 +135,10 @@ void WrappedParameterStepped::setRealValue(float fValue)
         fValueInternal = nCurrentIndex * fInterval;
     }
 
-    bChangedValue = (nCurrentIndex == nCurrentIndexOld);
+    if (nCurrentIndex != nCurrentIndexOld)
+    {
+        setChangeFlag();
+    }
 }
 
 
@@ -153,7 +159,10 @@ void WrappedParameterStepped::setText(const String& strText)
         fValueInternal = nCurrentIndex * fInterval;
     }
 
-    bChangedValue = (nCurrentIndex == nCurrentIndexOld);
+    if (nCurrentIndex != nCurrentIndexOld)
+    {
+        setChangeFlag();
+    }
 }
 
 
@@ -180,6 +189,12 @@ bool WrappedParameterStepped::hasChanged()
 void WrappedParameterStepped::clearChangeFlag()
 {
     bChangedValue = false;
+}
+
+
+void WrappedParameterStepped::setChangeFlag()
+{
+    bChangedValue = true;
 }
 
 

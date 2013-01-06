@@ -63,6 +63,7 @@ public:
 
     bool hasChanged();
     void clearChangeFlag();
+    void setChangeFlag();
 
     void loadFromXml(XmlElement* xml);
     void storeAsXml(XmlElement* xml);

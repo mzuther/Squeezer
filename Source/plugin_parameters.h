@@ -65,6 +65,7 @@ public:
 
     bool hasChanged(int nIndex);
     void clearChangeFlag(int nIndex);
+    void setChangeFlag(int nIndex);
 
     float getValueFromText(int nIndex, const String& strText);
     String getTextFromValue(int nIndex, float fValue);

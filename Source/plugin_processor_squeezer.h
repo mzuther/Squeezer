@@ -70,7 +70,9 @@ public:
     void changeParameter(int nIndex, float fNewValue);
 
     void clearChangeFlag(int nIndex);
+    void setChangeFlag(int nIndex);
     bool hasChanged(int nIndex);
+    void updateParameters();
 
     //==========================================================================
     const String getName() const;

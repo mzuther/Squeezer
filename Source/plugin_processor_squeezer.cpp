@@ -179,9 +179,28 @@ void SqueezerAudioProcessor::clearChangeFlag(int nIndex)
 }
 
 
+void SqueezerAudioProcessor::setChangeFlag(int nIndex)
+{
+    pPluginParameters->setChangeFlag(nIndex);
+}
+
+
 bool SqueezerAudioProcessor::hasChanged(int nIndex)
 {
     return pPluginParameters->hasChanged(nIndex);
+}
+
+
+void SqueezerAudioProcessor::updateParameters()
+{
+    for (int nIndex = 0; nIndex < pPluginParameters->getNumParameters(true); nIndex++)
+    {
+        if (pPluginParameters->hasChanged(nIndex))
+        {
+            float fNewValue = pPluginParameters->getValue(nIndex);
+            changeParameter(nIndex, fNewValue);
+        }
+    }
 }
 
 
@@ -424,6 +443,8 @@ void SqueezerAudioProcessor::setStateInformation(const void* data, int sizeInByt
 {
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     pPluginParameters->loadFromXml(xml);
+
+    updateParameters();
 }
 
 //==============================================================================
