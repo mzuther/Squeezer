@@ -110,7 +110,9 @@ private:
     bool bSampleRateIsValid;
     float fCrestFactor;
 
+    bool bBypassCompressor;
     bool bDesignModern;
+
     float fInputGain;
     float fOutputGain;
 

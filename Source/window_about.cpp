@@ -100,16 +100,16 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"bram@smartelectronix\n\n"
     );
 
-    // display the beta testers
-    TextEditorAbout->setFont(fontHeadline);
-    TextEditorAbout->insertTextAtCaret(
-        "Beta testing\n"
-    );
+    // // display the beta testers
+    // TextEditorAbout->setFont(fontHeadline);
+    // TextEditorAbout->insertTextAtCaret(
+    //     "Beta testing\n"
+    // );
 
-    TextEditorAbout->setFont(fontRegular);
-    TextEditorAbout->insertTextAtCaret(
-        L"Rickard (Interfearing Sounds)\n\n"
-    );
+    // TextEditorAbout->setFont(fontRegular);
+    // TextEditorAbout->insertTextAtCaret(
+    //     L"Rickard (Interfearing Sounds)\n\n"
+    // );
 
     // display thanks
     TextEditorAbout->setFont(fontHeadline);
@@ -200,7 +200,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"You should have received a copy of the GNU General Public License "
         L"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n"
 
-        L"Thank you for using free software!\n\n"
+        L"Thank you for using free software!\n"
     );
 
     // in case the text has become too long to fit into the text

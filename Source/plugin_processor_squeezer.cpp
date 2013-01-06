@@ -42,7 +42,9 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
 
     fProcessedSeconds = 0.0f;
 
+    bBypassCompressor = false;
     bDesignModern = false;
+
     fInputGain = 1.0f;
     fOutputGain = 1.0f;
 }
@@ -133,6 +135,12 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
 
         switch (nIndex)
         {
+        case SqueezerPluginParameters::selBypassSwitch:
+        {
+            bBypassCompressor = roundf(fRealValue);
+        }
+        break;
+
         case SqueezerPluginParameters::selDesignSwitch:
         {
             int nDesign = roundf(fRealValue);
@@ -441,6 +449,11 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
 
     for (int nSample = 0; nSample < nNumSamples; nSample++)
     {
+        if (bBypassCompressor)
+        {
+            continue;
+        }
+
         for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
         {
             // get current input sample

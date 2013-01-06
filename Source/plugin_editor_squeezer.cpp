@@ -39,6 +39,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
+    ButtonBypass = new TextButton("Bypass");
+    ButtonBypass->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonBypass->setColour(TextButton::buttonOnColourId, Colours::red);
+
+    ButtonBypass->addListener(this);
+    addAndMakeVisible(ButtonBypass);
+
+
     ButtonDesignModern = new TextButton("Modern");
     ButtonDesignModern->setRadioGroupId(1);
     ButtonDesignModern->setColour(TextButton::buttonColourId, Colours::grey);
@@ -134,6 +142,9 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     pProcessor->addActionListenerParameters(this);
 
+    nIndex = SqueezerPluginParameters::selBypassSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
     nIndex = SqueezerPluginParameters::selDesignSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
@@ -168,22 +179,24 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
-    nHeight = 150;
+    nHeight = 160;
     nRightColumnStart = 450;
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    ButtonDesignModern->setBounds(10, 10, 60, 20);
-    ButtonDesignVintage->setBounds(10, 35, 60, 20);
+    ButtonBypass->setBounds(20, 95, 50, 20);
 
-    SliderThresholdSwitch->setBounds(10, 70, 70, 60);
-    SliderRatioSwitch->setBounds(70, 70, 70, 60);
+    ButtonDesignModern->setBounds(80, 95, 50, 20);
+    ButtonDesignVintage->setBounds(80, 120, 50, 20);
 
-    SliderAttackRateSwitch->setBounds(150, 70, 70, 60);
-    SliderReleaseRateSwitch->setBounds(210, 70, 70, 60);
+    SliderThresholdSwitch->setBounds(10, 15, 70, 60);
+    SliderRatioSwitch->setBounds(70, 15, 70, 60);
 
-    SliderInputGainSwitch->setBounds(290, 70, 70, 60);
-    SliderOutputGainSwitch->setBounds(350, 70, 70, 60);
+    SliderAttackRateSwitch->setBounds(150, 15, 70, 60);
+    SliderReleaseRateSwitch->setBounds(210, 15, 70, 60);
+
+    SliderInputGainSwitch->setBounds(290, 15, 70, 60);
+    SliderOutputGainSwitch->setBounds(350, 15, 70, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -240,6 +253,9 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
 {
     switch (nIndex)
     {
+    case SqueezerPluginParameters::selBypassSwitch:
+        ButtonBypass->setToggleState(fValue != 0.0f, false);
+        break;
     case SqueezerPluginParameters::selDesignSwitch:
 
         if (fValue == SqueezerPluginParameters::selDesignModern)
@@ -284,7 +300,11 @@ void SqueezerAudioProcessorEditor::paint(Graphics& g)
 
 void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 {
-    if (button == ButtonDesignModern)
+    if (button == ButtonBypass)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selBypassSwitch, !button->getToggleState());
+    }
+    else if (button == ButtonDesignModern)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDesignSwitch, SqueezerPluginParameters::selDesignModern);
     }
