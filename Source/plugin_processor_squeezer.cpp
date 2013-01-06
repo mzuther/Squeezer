@@ -32,6 +32,7 @@
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
     bSampleRateIsValid = false;
+    fCrestFactor = 20.0f;
 
     nNumInputChannels = 0;
     pGainReducer = NULL;
@@ -374,7 +375,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
         {
             float fSampleValue = *buffer.getSampleData(nChannel, nSample);
-            float fInputLevel = GainReducer::level2decibel(fabs(fSampleValue));
+            float fInputLevel = GainReducer::level2decibel(fabs(fSampleValue)) + fCrestFactor;
 
             float fGainReduction = pGainReducer[nChannel]->processSample(fInputLevel);
             float fSampleValueNew = fSampleValue * GainReducer::decibel2level(fGainReduction);

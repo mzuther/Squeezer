@@ -106,6 +106,7 @@ private:
     int nNumInputChannels;
     bool isStereo;
     bool bSampleRateIsValid;
+    float fCrestFactor;
 
     GainReducer** pGainReducer;
 
