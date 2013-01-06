@@ -49,8 +49,8 @@ public:
         selRatioSwitch,
         selAttackRateSwitch,
         selReleaseRateSwitch,
-        selInputGain,
-        selOutputGain,
+        selInputGainSwitch,
+        selOutputGainSwitch,
 
         nNumParametersRevealed,
 

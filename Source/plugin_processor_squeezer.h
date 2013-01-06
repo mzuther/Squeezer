@@ -110,6 +110,9 @@ private:
     bool bSampleRateIsValid;
     float fCrestFactor;
 
+    float fInputGain;
+    float fOutputGain;
+
     GainReducer** pGainReducer;
 
     int nSamplesInBuffer;

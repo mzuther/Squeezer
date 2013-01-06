@@ -71,6 +71,22 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderReleaseRateSwitch->addListener(this);
     addAndMakeVisible(SliderReleaseRateSwitch);
 
+    nIndex = SqueezerPluginParameters::selInputGainSwitch;
+    strName = parameters->getName(nIndex);
+    SliderInputGainSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    SliderInputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
+
+    SliderInputGainSwitch->addListener(this);
+    addAndMakeVisible(SliderInputGainSwitch);
+
+    nIndex = SqueezerPluginParameters::selOutputGainSwitch;
+    strName = parameters->getName(nIndex);
+    SliderOutputGainSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    SliderOutputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
+
+    SliderOutputGainSwitch->addListener(this);
+    addAndMakeVisible(SliderOutputGainSwitch);
+
 #ifdef DEBUG
     LabelDebug = new Label("Debug Notification", "DEBUG");
     LabelDebug->setColour(Label::textColourId, Colours::red);
@@ -103,6 +119,12 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
+    nIndex = SqueezerPluginParameters::selInputGainSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
+    nIndex = SqueezerPluginParameters::selOutputGainSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
 }
 
 
@@ -118,15 +140,18 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 100;
-    nRightColumnStart = 300;
+    nRightColumnStart = 450;
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    SliderThresholdSwitch->setBounds(10, 10, 70, 60);
-    SliderRatioSwitch->setBounds(70, 10, 70, 60);
+    SliderThresholdSwitch->setBounds(10, 20, 70, 60);
+    SliderRatioSwitch->setBounds(70, 20, 70, 60);
 
-    SliderAttackRateSwitch->setBounds(150, 10, 70, 60);
-    SliderReleaseRateSwitch->setBounds(210, 10, 70, 60);
+    SliderAttackRateSwitch->setBounds(150, 20, 70, 60);
+    SliderReleaseRateSwitch->setBounds(210, 20, 70, 60);
+
+    SliderInputGainSwitch->setBounds(290, 20, 70, 60);
+    SliderOutputGainSwitch->setBounds(350, 20, 70, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -195,6 +220,12 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
     case SqueezerPluginParameters::selReleaseRateSwitch:
         SliderReleaseRateSwitch->setValue(fValue, false);
         break;
+    case SqueezerPluginParameters::selInputGainSwitch:
+        SliderInputGainSwitch->setValue(fValue, false);
+        break;
+    case SqueezerPluginParameters::selOutputGainSwitch:
+        SliderOutputGainSwitch->setValue(fValue, false);
+        break;
     }
 }
 
@@ -225,25 +256,31 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 
 void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
 {
+    float fValue = slider->getValue();
+
     if (slider == SliderThresholdSwitch)
     {
-        float fValue = slider->getValue();
         pProcessor->changeParameter(SqueezerPluginParameters::selThresholdSwitch, fValue);
     }
     else if (slider == SliderRatioSwitch)
     {
-        float fValue = slider->getValue();
         pProcessor->changeParameter(SqueezerPluginParameters::selRatioSwitch, fValue);
     }
     else if (slider == SliderAttackRateSwitch)
     {
-        float fValue = slider->getValue();
         pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateSwitch, fValue);
     }
     else if (slider == SliderReleaseRateSwitch)
     {
-        float fValue = slider->getValue();
         pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
+    }
+    else if (slider == SliderInputGainSwitch)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selInputGainSwitch, fValue);
+    }
+    else if (slider == SliderOutputGainSwitch)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selOutputGainSwitch, fValue);
     }
 }
 

@@ -41,6 +41,9 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
     pPluginParameters = new SqueezerPluginParameters();
 
     fProcessedSeconds = 0.0f;
+
+    fInputGain = 1.0f;
+    fOutputGain = 1.0f;
 }
 
 
@@ -130,39 +133,39 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
         switch (nIndex)
         {
         case SqueezerPluginParameters::selThresholdSwitch:
-
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setThreshold(fRealValue);
             }
-
             break;
 
         case SqueezerPluginParameters::selRatioSwitch:
-
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setRatio(fRealValue);
             }
-
             break;
 
         case SqueezerPluginParameters::selAttackRateSwitch:
-
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setAttackRate(fRealValue);
             }
-
             break;
 
         case SqueezerPluginParameters::selReleaseRateSwitch:
-
             for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
             {
                 pGainReducer[nChannel]->setReleaseRate(fRealValue);
             }
+            break;
 
+        case SqueezerPluginParameters::selInputGainSwitch:
+            fInputGain = GainReducer::decibel2level(fRealValue);
+            break;
+
+        case SqueezerPluginParameters::selOutputGainSwitch:
+            fOutputGain = GainReducer::decibel2level(fRealValue);
             break;
         }
     }
@@ -193,7 +196,9 @@ bool SqueezerAudioProcessor::hasChanged(int nIndex)
 
 void SqueezerAudioProcessor::updateParameters()
 {
-    for (int nIndex = 0; nIndex < pPluginParameters->getNumParameters(true); nIndex++)
+    int nNumParameters = pPluginParameters->getNumParameters(true);
+
+    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
     {
         if (pPluginParameters->hasChanged(nIndex))
         {
@@ -394,10 +399,16 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
         {
             float fSampleValue = *buffer.getSampleData(nChannel, nSample);
+
+            if (fInputGain != 1.0f)
+            {
+                fSampleValue = fSampleValue * fInputGain;
+            }
+
             float fInputLevel = GainReducer::level2decibel(fabs(fSampleValue)) + fCrestFactor;
 
             float fGainReduction = pGainReducer[nChannel]->processSample(fInputLevel);
-            float fSampleValueNew = fSampleValue * GainReducer::decibel2level(fGainReduction);
+            float fSampleValueNew = fSampleValue * GainReducer::decibel2level(fGainReduction) * fOutputGain;
 
             buffer.copyFrom(nChannel, nSample, &fSampleValueNew, 1);
         }

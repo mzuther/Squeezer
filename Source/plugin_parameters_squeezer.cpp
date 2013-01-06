@@ -73,36 +73,43 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterThresholdSwitch->setDefaultValue("-12 dB", true);
     add(ParameterThresholdSwitch);
 
+    jassert(arrParameters.size() == selThresholdSwitch + 1);
+
+
     WrappedParameterStepped* ParameterRatioSwitch = new WrappedParameterStepped;
     ParameterRatioSwitch->setName("Ratio Switch");
 
-    ParameterRatioSwitch->addValue(1.25f,  "1.25:1");
-    ParameterRatioSwitch->addValue(1.50f,   "1.5:1");
-    ParameterRatioSwitch->addValue(2.00f,     "2:1");
-    ParameterRatioSwitch->addValue(3.00f,     "3:1");
-    ParameterRatioSwitch->addValue(4.00f,     "4:1");
-    ParameterRatioSwitch->addValue(6.00f,     "6:1");
-    ParameterRatioSwitch->addValue(10.00f,   "10:1");
-    ParameterRatioSwitch->addValue(-1.00f, "Manual");
+    ParameterRatioSwitch->addValue(1.2f,   "1.2:1");
+    ParameterRatioSwitch->addValue(1.5f,   "1.5:1");
+    ParameterRatioSwitch->addValue(2.0f,     "2:1");
+    ParameterRatioSwitch->addValue(3.0f,     "3:1");
+    ParameterRatioSwitch->addValue(4.0f,     "4:1");
+    ParameterRatioSwitch->addValue(6.0f,     "6:1");
+    ParameterRatioSwitch->addValue(10.0f,   "10:1");
+    ParameterRatioSwitch->addValue(-1.0f, "Manual");
 
     ParameterRatioSwitch->setDefaultValue("2:1", true);
     add(ParameterRatioSwitch);
 
+    jassert(arrParameters.size() == selRatioSwitch + 1);
+
+
     WrappedParameterStepped* ParameterAttackRateSwitch = new WrappedParameterStepped;
     ParameterAttackRateSwitch->setName("Attack Rate Switch");
 
-    ParameterAttackRateSwitch->addValue(0.030f,    "30 us");
-    ParameterAttackRateSwitch->addValue(0.100f,   "100 us");
-    ParameterAttackRateSwitch->addValue(0.300f,   "300 us");
-    ParameterAttackRateSwitch->addValue(1.000f,     "1 ms");
-    ParameterAttackRateSwitch->addValue(3.000f,     "3 ms");
-    ParameterAttackRateSwitch->addValue(10.000f,   "10 ms");
-    ParameterAttackRateSwitch->addValue(30.000f,   "30 ms");
-    ParameterAttackRateSwitch->addValue(100.000f, "100 ms");
-    ParameterAttackRateSwitch->addValue(-1.000f,  "Manual");
+    ParameterAttackRateSwitch->addValue(2.0f,     "2 ms");
+    ParameterAttackRateSwitch->addValue(5.0f,     "5 ms");
+    ParameterAttackRateSwitch->addValue(10.0f,   "10 ms");
+    ParameterAttackRateSwitch->addValue(20.0f,   "20 ms");
+    ParameterAttackRateSwitch->addValue(50.0f,   "50 ms");
+    ParameterAttackRateSwitch->addValue(100.0f, "100 ms");
+    ParameterAttackRateSwitch->addValue(-1.0f,  "Manual");
 
     ParameterAttackRateSwitch->setDefaultValue("10 ms", true);
     add(ParameterAttackRateSwitch);
+
+    jassert(arrParameters.size() == selAttackRateSwitch + 1);
+
 
     WrappedParameterStepped* ParameterReleaseRateSwitch = new WrappedParameterStepped;
     ParameterReleaseRateSwitch->setName("Release Rate Switch");
@@ -118,117 +125,77 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterReleaseRateSwitch->setDefaultValue("100 ms", true);
     add(ParameterReleaseRateSwitch);
 
+    jassert(arrParameters.size() == selReleaseRateSwitch + 1);
+
+
     WrappedParameterStepped* ParameterInputGainSwitch = new WrappedParameterStepped;
     ParameterInputGainSwitch->setName("Input Gain Switch");
 
-    ParameterInputGainSwitch->addValue(-12.0f, "-12.0 dB");
-    ParameterInputGainSwitch->addValue(-11.5f, "-11.5 dB");
-    ParameterInputGainSwitch->addValue(-11.0f, "-11.0 dB");
-    ParameterInputGainSwitch->addValue(-10.5f, "-10.5 dB");
-    ParameterInputGainSwitch->addValue(-10.0f, "-10.0 dB");
-    ParameterInputGainSwitch->addValue(-9.5f,   "-9.5 dB");
-    ParameterInputGainSwitch->addValue(-9.0f,   "-9.0 dB");
-    ParameterInputGainSwitch->addValue(-8.5f,   "-8.5 dB");
-    ParameterInputGainSwitch->addValue(-8.0f,   "-8.0 dB");
-    ParameterInputGainSwitch->addValue(-7.5f,   "-7.5 dB");
-    ParameterInputGainSwitch->addValue(-7.0f,   "-7.0 dB");
-    ParameterInputGainSwitch->addValue(-6.5f,   "-6.5 dB");
-    ParameterInputGainSwitch->addValue(-6.0f,   "-6.0 dB");
-    ParameterInputGainSwitch->addValue(-5.5f,   "-5.5 dB");
-    ParameterInputGainSwitch->addValue(-5.0f,   "-5.0 dB");
-    ParameterInputGainSwitch->addValue(-4.5f,   "-4.5 dB");
-    ParameterInputGainSwitch->addValue(-4.0f,   "-4.0 dB");
-    ParameterInputGainSwitch->addValue(-3.5f,   "-3.5 dB");
-    ParameterInputGainSwitch->addValue(-3.0f,   "-3.0 dB");
-    ParameterInputGainSwitch->addValue(-2.5f,   "-2.5 dB");
-    ParameterInputGainSwitch->addValue(-2.0f,   "-2.0 dB");
-    ParameterInputGainSwitch->addValue(-1.5f,   "-1.5 dB");
-    ParameterInputGainSwitch->addValue(-1.0f,   "-1.0 dB");
-    ParameterInputGainSwitch->addValue(-0.5f,   "-0.5 dB");
-    ParameterInputGainSwitch->addValue(0.0f,     "0.0 dB");
-    ParameterInputGainSwitch->addValue(+0.5f,   "+0.5 dB");
-    ParameterInputGainSwitch->addValue(+1.0f,   "+1.0 dB");
-    ParameterInputGainSwitch->addValue(+1.5f,   "+1.5 dB");
-    ParameterInputGainSwitch->addValue(+2.0f,   "+2.0 dB");
-    ParameterInputGainSwitch->addValue(+2.5f,   "+2.5 dB");
-    ParameterInputGainSwitch->addValue(+3.0f,   "+3.0 dB");
-    ParameterInputGainSwitch->addValue(+3.5f,   "+3.5 dB");
-    ParameterInputGainSwitch->addValue(+4.0f,   "+4.0 dB");
-    ParameterInputGainSwitch->addValue(+4.5f,   "+4.5 dB");
-    ParameterInputGainSwitch->addValue(+5.0f,   "+5.0 dB");
-    ParameterInputGainSwitch->addValue(+5.5f,   "+5.5 dB");
-    ParameterInputGainSwitch->addValue(+6.0f,   "+6.0 dB");
-    ParameterInputGainSwitch->addValue(+6.5f,   "+6.5 dB");
-    ParameterInputGainSwitch->addValue(+7.0f,   "+7.0 dB");
-    ParameterInputGainSwitch->addValue(+7.5f,   "+7.5 dB");
-    ParameterInputGainSwitch->addValue(+8.0f,   "+8.0 dB");
-    ParameterInputGainSwitch->addValue(+8.5f,   "+8.5 dB");
-    ParameterInputGainSwitch->addValue(+9.0f,   "+9.0 dB");
-    ParameterInputGainSwitch->addValue(+9.5f,   "+9.5 dB");
-    ParameterInputGainSwitch->addValue(+10.0f, "+10.0 dB");
-    ParameterInputGainSwitch->addValue(+10.5f, "+10.5 dB");
-    ParameterInputGainSwitch->addValue(+11.0f, "+11.0 dB");
-    ParameterInputGainSwitch->addValue(+11.5f, "+11.5 dB");
-    ParameterInputGainSwitch->addValue(+12.0f, "+12.0 dB");
+    ParameterInputGainSwitch->addValue(-12.0f, "-12 dB");
+    ParameterInputGainSwitch->addValue(-11.0f, "-11 dB");
+    ParameterInputGainSwitch->addValue(-10.0f, "-10 dB");
+    ParameterInputGainSwitch->addValue(-9.0f,   "-9 dB");
+    ParameterInputGainSwitch->addValue(-8.0f,   "-8 dB");
+    ParameterInputGainSwitch->addValue(-7.0f,   "-7 dB");
+    ParameterInputGainSwitch->addValue(-6.0f,   "-6 dB");
+    ParameterInputGainSwitch->addValue(-5.0f,   "-5 dB");
+    ParameterInputGainSwitch->addValue(-4.0f,   "-4 dB");
+    ParameterInputGainSwitch->addValue(-3.0f,   "-3 dB");
+    ParameterInputGainSwitch->addValue(-2.0f,   "-2 dB");
+    ParameterInputGainSwitch->addValue(-1.0f,   "-1 dB");
+    ParameterInputGainSwitch->addValue(0.0f,     "0 dB");
+    ParameterInputGainSwitch->addValue(+1.0f,   "+1 dB");
+    ParameterInputGainSwitch->addValue(+2.0f,   "+2 dB");
+    ParameterInputGainSwitch->addValue(+3.0f,   "+3 dB");
+    ParameterInputGainSwitch->addValue(+4.0f,   "+4 dB");
+    ParameterInputGainSwitch->addValue(+5.0f,   "+5 dB");
+    ParameterInputGainSwitch->addValue(+6.0f,   "+6 dB");
+    ParameterInputGainSwitch->addValue(+7.0f,   "+7 dB");
+    ParameterInputGainSwitch->addValue(+8.0f,   "+8 dB");
+    ParameterInputGainSwitch->addValue(+9.0f,   "+9 dB");
+    ParameterInputGainSwitch->addValue(+10.0f, "+10 dB");
+    ParameterInputGainSwitch->addValue(+11.0f, "+11 dB");
+    ParameterInputGainSwitch->addValue(+12.0f, "+12 dB");
 
     ParameterInputGainSwitch->setDefaultValue("0 dB", true);
     add(ParameterInputGainSwitch);
 
+    jassert(arrParameters.size() == selInputGainSwitch + 1);
+
+
     WrappedParameterStepped* ParameterOutputGainSwitch = new WrappedParameterStepped;
     ParameterOutputGainSwitch->setName("Output Gain Switch");
 
-    ParameterOutputGainSwitch->addValue(-12.0f, "-12.0 dB");
-    ParameterOutputGainSwitch->addValue(-11.5f, "-11.5 dB");
-    ParameterOutputGainSwitch->addValue(-11.0f, "-11.0 dB");
-    ParameterOutputGainSwitch->addValue(-10.5f, "-10.5 dB");
-    ParameterOutputGainSwitch->addValue(-10.0f, "-10.0 dB");
-    ParameterOutputGainSwitch->addValue(-9.5f,   "-9.5 dB");
-    ParameterOutputGainSwitch->addValue(-9.0f,   "-9.0 dB");
-    ParameterOutputGainSwitch->addValue(-8.5f,   "-8.5 dB");
-    ParameterOutputGainSwitch->addValue(-8.0f,   "-8.0 dB");
-    ParameterOutputGainSwitch->addValue(-7.5f,   "-7.5 dB");
-    ParameterOutputGainSwitch->addValue(-7.0f,   "-7.0 dB");
-    ParameterOutputGainSwitch->addValue(-6.5f,   "-6.5 dB");
-    ParameterOutputGainSwitch->addValue(-6.0f,   "-6.0 dB");
-    ParameterOutputGainSwitch->addValue(-5.5f,   "-5.5 dB");
-    ParameterOutputGainSwitch->addValue(-5.0f,   "-5.0 dB");
-    ParameterOutputGainSwitch->addValue(-4.5f,   "-4.5 dB");
-    ParameterOutputGainSwitch->addValue(-4.0f,   "-4.0 dB");
-    ParameterOutputGainSwitch->addValue(-3.5f,   "-3.5 dB");
-    ParameterOutputGainSwitch->addValue(-3.0f,   "-3.0 dB");
-    ParameterOutputGainSwitch->addValue(-2.5f,   "-2.5 dB");
-    ParameterOutputGainSwitch->addValue(-2.0f,   "-2.0 dB");
-    ParameterOutputGainSwitch->addValue(-1.5f,   "-1.5 dB");
-    ParameterOutputGainSwitch->addValue(-1.0f,   "-1.0 dB");
-    ParameterOutputGainSwitch->addValue(-0.5f,   "-0.5 dB");
-    ParameterOutputGainSwitch->addValue(0.0f,     "0.0 dB");
-    ParameterOutputGainSwitch->addValue(+0.5f,   "+0.5 dB");
-    ParameterOutputGainSwitch->addValue(+1.0f,   "+1.0 dB");
-    ParameterOutputGainSwitch->addValue(+1.5f,   "+1.5 dB");
-    ParameterOutputGainSwitch->addValue(+2.0f,   "+2.0 dB");
-    ParameterOutputGainSwitch->addValue(+2.5f,   "+2.5 dB");
-    ParameterOutputGainSwitch->addValue(+3.0f,   "+3.0 dB");
-    ParameterOutputGainSwitch->addValue(+3.5f,   "+3.5 dB");
-    ParameterOutputGainSwitch->addValue(+4.0f,   "+4.0 dB");
-    ParameterOutputGainSwitch->addValue(+4.5f,   "+4.5 dB");
-    ParameterOutputGainSwitch->addValue(+5.0f,   "+5.0 dB");
-    ParameterOutputGainSwitch->addValue(+5.5f,   "+5.5 dB");
-    ParameterOutputGainSwitch->addValue(+6.0f,   "+6.0 dB");
-    ParameterOutputGainSwitch->addValue(+6.5f,   "+6.5 dB");
-    ParameterOutputGainSwitch->addValue(+7.0f,   "+7.0 dB");
-    ParameterOutputGainSwitch->addValue(+7.5f,   "+7.5 dB");
-    ParameterOutputGainSwitch->addValue(+8.0f,   "+8.0 dB");
-    ParameterOutputGainSwitch->addValue(+8.5f,   "+8.5 dB");
-    ParameterOutputGainSwitch->addValue(+9.0f,   "+9.0 dB");
-    ParameterOutputGainSwitch->addValue(+9.5f,   "+9.5 dB");
-    ParameterOutputGainSwitch->addValue(+10.0f, "+10.0 dB");
-    ParameterOutputGainSwitch->addValue(+10.5f, "+10.5 dB");
-    ParameterOutputGainSwitch->addValue(+11.0f, "+11.0 dB");
-    ParameterOutputGainSwitch->addValue(+11.5f, "+11.5 dB");
-    ParameterOutputGainSwitch->addValue(+12.0f, "+12.0 dB");
+    ParameterOutputGainSwitch->addValue(-12.0f, "-12 dB");
+    ParameterOutputGainSwitch->addValue(-11.0f, "-11 dB");
+    ParameterOutputGainSwitch->addValue(-10.0f, "-10 dB");
+    ParameterOutputGainSwitch->addValue(-9.0f,   "-9 dB");
+    ParameterOutputGainSwitch->addValue(-8.0f,   "-8 dB");
+    ParameterOutputGainSwitch->addValue(-7.0f,   "-7 dB");
+    ParameterOutputGainSwitch->addValue(-6.0f,   "-6 dB");
+    ParameterOutputGainSwitch->addValue(-5.0f,   "-5 dB");
+    ParameterOutputGainSwitch->addValue(-4.0f,   "-4 dB");
+    ParameterOutputGainSwitch->addValue(-3.0f,   "-3 dB");
+    ParameterOutputGainSwitch->addValue(-2.0f,   "-2 dB");
+    ParameterOutputGainSwitch->addValue(-1.0f,   "-1 dB");
+    ParameterOutputGainSwitch->addValue(0.0f,     "0 dB");
+    ParameterOutputGainSwitch->addValue(+1.0f,   "+1 dB");
+    ParameterOutputGainSwitch->addValue(+2.0f,   "+2 dB");
+    ParameterOutputGainSwitch->addValue(+3.0f,   "+3 dB");
+    ParameterOutputGainSwitch->addValue(+4.0f,   "+4 dB");
+    ParameterOutputGainSwitch->addValue(+5.0f,   "+5 dB");
+    ParameterOutputGainSwitch->addValue(+6.0f,   "+6 dB");
+    ParameterOutputGainSwitch->addValue(+7.0f,   "+7 dB");
+    ParameterOutputGainSwitch->addValue(+8.0f,   "+8 dB");
+    ParameterOutputGainSwitch->addValue(+9.0f,   "+9 dB");
+    ParameterOutputGainSwitch->addValue(+10.0f, "+10 dB");
+    ParameterOutputGainSwitch->addValue(+11.0f, "+11 dB");
+    ParameterOutputGainSwitch->addValue(+12.0f, "+12 dB");
 
     ParameterOutputGainSwitch->setDefaultValue("0 dB", true);
     add(ParameterOutputGainSwitch);
+
+    jassert(arrParameters.size() == selOutputGainSwitch + 1);
 }
 
 

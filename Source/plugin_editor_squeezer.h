@@ -73,8 +73,8 @@ private:
     SliderStepped* SliderAttackRateSwitch;
     SliderStepped* SliderReleaseRateSwitch;
 
-    Slider* SliderInputGainSwitch;
-    Slider* SliderOutputGainSwitch;
+    SliderStepped* SliderInputGainSwitch;
+    SliderStepped* SliderOutputGainSwitch;
 
     Label* LabelDebug;
 };

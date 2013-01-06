@@ -43,7 +43,7 @@ GainReducer::GainReducer(int sample_rate, float threshold, float ratio, int atta
     setAttackRate(attack_rate);
     setReleaseRate(release_rate);
 
-    nCrestFactorAutoGain = -20.0f;
+    nCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;
 
     // reset (i.e. initialise) all relevant variables
