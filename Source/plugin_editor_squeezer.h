@@ -77,6 +77,8 @@ private:
     SliderStepped* SliderAttackRateSwitch;
     SliderStepped* SliderReleaseRateSwitch;
 
+    SliderStepped* SliderStereoLinkSwitch;
+
     SliderStepped* SliderInputGainSwitch;
     SliderStepped* SliderOutputGainSwitch;
 

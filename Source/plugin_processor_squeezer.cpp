@@ -154,6 +154,10 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
             pCompressor->setReleaseRate(fRealValue);
             break;
 
+        case SqueezerPluginParameters::selStereoLinkSwitch:
+            pCompressor->setStereoLink(roundf(fRealValue));
+            break;
+
         case SqueezerPluginParameters::selInputGainSwitch:
             pCompressor->setInputGain(GainReducer::decibel2level(fRealValue));
             break;
@@ -314,6 +318,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fAttackRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selAttackRateSwitch);
     float fReleaseRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selReleaseRateSwitch);
 
+    int nStereoLink = roundf(pPluginParameters->getRealValue(SqueezerPluginParameters::selStereoLinkSwitch));
+
     float fInputGain = pPluginParameters->getRealValue(SqueezerPluginParameters::selInputGainSwitch);
     float fOutputGain = pPluginParameters->getRealValue(SqueezerPluginParameters::selOutputGainSwitch);
 
@@ -329,6 +335,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setAttackRate(fAttackRate);
     pCompressor->setReleaseRate(fReleaseRate);
+
+    pCompressor->setStereoLink(nStereoLink);
 
     pCompressor->setInputGain(fInputGain);
     pCompressor->setOutputGain(fOutputGain);

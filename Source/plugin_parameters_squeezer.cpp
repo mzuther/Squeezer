@@ -167,6 +167,21 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selReleaseRateSwitch + 1);
 
 
+    WrappedParameterStepped* ParameterStereoLinkSwitch = new WrappedParameterStepped;
+    ParameterStereoLinkSwitch->setName("Stereo Link Switch");
+
+    ParameterStereoLinkSwitch->addValue(0.0f,     "0 %");
+    ParameterStereoLinkSwitch->addValue(50.0f,   "50 %");
+    ParameterStereoLinkSwitch->addValue(75.0f,   "75 %");
+    ParameterStereoLinkSwitch->addValue(90.0f,   "90 %");
+    ParameterStereoLinkSwitch->addValue(100.0f, "100 %");
+
+    ParameterStereoLinkSwitch->setDefaultValue("100 %", true);
+    add(ParameterStereoLinkSwitch);
+
+    jassert(arrParameters.size() == selStereoLinkSwitch + 1);
+
+
     WrappedParameterStepped* ParameterInputGainSwitch = new WrappedParameterStepped;
     ParameterInputGainSwitch->setName("Input Gain Switch");
 

@@ -52,6 +52,7 @@ public:
         selRatioSwitch,
         selAttackRateSwitch,
         selReleaseRateSwitch,
+        selStereoLinkSwitch,
         selInputGainSwitch,
         selOutputGainSwitch,
 

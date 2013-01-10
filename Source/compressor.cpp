@@ -36,17 +36,28 @@ Compressor::Compressor(int channels, int sample_rate)
     fCrestFactor = 20.0f;
 
     pGainReducer = NULL;
-    bBypassCompressor = false;
-    bDesignModern = false;
 
-    fInputGain = 1.0f;
-    fOutputGain = 1.0f;
+    setBypass(false);
+    bDesignModern = true;
+
+    setStereoLink(100);
+
+    setInputGain(1.0f);
+    setOutputGain(1.0f);
 
     pGainReducer = new GainReducer*[nChannels];
+
+    pInputSamples = new float[nChannels];
+    pOutputSamples = new float[nChannels];
+    pGainReductions = new float[nChannels];
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
         pGainReducer[nChannel] = new GainReducer(sample_rate);
+
+        pInputSamples[nChannel] = 0.0f;
+        pOutputSamples[nChannel] = 0.0f;
+        pGainReductions[nChannel] = 0.0f;
     }
 }
 
@@ -61,6 +72,15 @@ Compressor::~Compressor()
 
     delete[] pGainReducer;
     pGainReducer = NULL;
+
+    delete[] pInputSamples;
+    pInputSamples = NULL;
+
+    delete[] pOutputSamples;
+    pOutputSamples = NULL;
+
+    delete[] pGainReductions;
+    pGainReductions = NULL;
 }
 
 
@@ -240,6 +260,37 @@ void Compressor::setReleaseRate(int nReleaseRateNew)
 }
 
 
+int Compressor::getStereoLink()
+/*  Get current stereo link percentage.
+
+    return value (integer): returns the current stereo link percentage
+    (0 to 100)
+ */
+{
+    return nStereoLink;
+}
+
+
+void Compressor::setStereoLink(int nStereoLinkNew)
+/*  Set new stereo link percentage.
+
+    nStereoLinkNew (integer): new stereo link percentage (0 to 100)
+
+    return value: none
+ */
+{
+    nStereoLink = nStereoLinkNew;
+
+    // amplification factor for other channel ranging from 0.0 (no
+    // stereo linking) to 0.5 (full stereo linking)
+    fStereoLinkOther = nStereoLink / 200.0f;
+
+    // amplification factor for original channel ranging from 1.0 (no
+    // stereo linking) to 0.5 (full stereo linking)
+    fStereoLinkOriginal = 1.0f - fStereoLinkOther;
+}
+
+
 float Compressor::getInputGain()
 /*  Get current input gain.
 
@@ -284,21 +335,18 @@ void Compressor::setOutputGain(float fOutputGainNew)
 }
 
 
-float Compressor::getGainReduction(int nChannel, bool useGainCompensation)
+float Compressor::getGainReduction(int nChannel)
 /*  Get current gain reduction.
 
     nChannel (integer): queried audio channel
-
-    useGainCompensation (boolean): determines whether the gain
-    reduction should be level-compensated or not
 
     return value (float): returns the current gain reduction in
     decibel
  */
 {
-    jassert((nChannel == 1) || (nChannel == 2));
+    jassert((nChannel >= 0) && (nChannel < nChannels));
 
-    return pGainReducer[nChannel]->getGainReduction(useGainCompensation);
+    return pGainReductions[nChannel];
 }
 
 
@@ -306,6 +354,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 {
     int nNumSamples = buffer.getNumSamples();
 
+    // loop over input buffer samples
     for (int nSample = 0; nSample < nNumSamples; nSample++)
     {
         if (bBypassCompressor)
@@ -313,47 +362,95 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             continue;
         }
 
+        // get and prepare input samples (all channels have to be
+        // prepared before any processing can take place!)
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
             // get current input sample
-            float fInputSample = *buffer.getSampleData(nChannel, nSample);
-            float fOutputSample;
+            pInputSamples[nChannel] = *buffer.getSampleData(nChannel, nSample);
 
             // apply input gain
             if (fInputGain != 1.0f)
             {
-                fInputSample = fInputSample * fInputGain;
+                pInputSamples[nChannel] *= fInputGain;
             }
+        }
 
+        // compress channels
+        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        {
             // "modern" (feed-forward) design
             if (bDesignModern)
             {
+                float fInputLevel;
+
+                // stereo linking is off (save some processing time)
+                if (fStereoLinkOriginal == 0.0f)
+                {
+                    fInputLevel = GainReducer::level2decibel(fabs(pInputSamples[nChannel]));
+                }
+                // stereo linking is on
+                else
+                {
+                    // get ID of other channel
+                    int nChannelOther = (nChannel == 0) ? 1 : 0;
+
+                    // mix stereo input samples according to stereo
+                    // link percentage
+                    fInputLevel = GainReducer::level2decibel(fabs(pInputSamples[nChannel]) * fStereoLinkOriginal + fabs(pInputSamples[nChannelOther]) * fStereoLinkOther);
+                }
+
+                // apply crest factor
+                fInputLevel += fCrestFactor;
+
                 // send current input sample to gain reduction unit
-                float fInputLevel = GainReducer::level2decibel(fabs(fInputSample)) + fCrestFactor;
                 pGainReducer[nChannel]->processSample(fInputLevel);
-
-                // apply gain reduction to current input sample
-                float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
-                fOutputSample = fInputSample * GainReducer::decibel2level(fGainReduction);
             }
-            // "vintage" (feed-back) design
-            else
-            {
-                // get "old" gain reduction and apply it to current
-                // input sample
-                float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
-                fOutputSample = fInputSample * GainReducer::decibel2level(fGainReduction);
 
-                // feed current output sample back to gain reduction unit
-                float fOutputLevel = GainReducer::level2decibel(fabs(fOutputSample)) + fCrestFactor;
-                pGainReducer[nChannel]->processSample(fOutputLevel);
-            }
+            // apply gain reduction to current input sample
+            //
+            //  "modern" (feed-forward) design:  current gain reduction
+            //  "vintage" (feed-back) design:  "old" gain reduction
+            pGainReductions[nChannel] = pGainReducer[nChannel]->getGainReduction(true);
+            pOutputSamples[nChannel] = pInputSamples[nChannel] * GainReducer::decibel2level(pGainReductions[nChannel]);
 
             // apply output gain
-            fOutputSample = fOutputSample * fOutputGain;
+            pOutputSamples[nChannel] *= fOutputGain;
 
             // save current output sample
-            buffer.copyFrom(nChannel, nSample, &fOutputSample, 1);
+            buffer.copyFrom(nChannel, nSample, &pOutputSamples[nChannel], 1);
+        }
+
+        // post-processing for "vintage" (feed-back) design
+        if (!bDesignModern)
+        {
+            float fOutputLevel;
+
+            // loop over channels
+            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            {
+                // stereo linking is off (save some processing time)
+                if (fStereoLinkOriginal == 0.0f)
+                {
+                    fOutputLevel = GainReducer::level2decibel(fabs(pOutputSamples[nChannel]));
+                }
+                // stereo linking is on
+                else
+                {
+                    // get ID of other channel
+                    int nChannelOther = (nChannel == 0) ? 1 : 0;
+
+                    // mix stereo output samples according to stereo
+                    // link percentage
+                    fOutputLevel = GainReducer::level2decibel(fabs(pOutputSamples[nChannel]) * fStereoLinkOriginal + fabs(pOutputSamples[nChannelOther]) * fStereoLinkOther);
+                }
+
+                // apply crest factor
+                fOutputLevel += fCrestFactor;
+
+                // feed current output sample back to gain reduction unit
+                pGainReducer[nChannel]->processSample(fOutputLevel);
+            }
         }
 
         if (nSample % 2000 == 0)

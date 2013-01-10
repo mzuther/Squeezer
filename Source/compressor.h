@@ -63,13 +63,16 @@ public:
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
 
+    int getStereoLink();
+    void setStereoLink(int nStereoLinkNew);
+
     float getInputGain();
     void setInputGain(float fInputGainNew);
 
     float getOutputGain();
     void setOutputGain(float fOutputGainNew);
 
-    float getGainReduction(int nChannel, bool useGainCompensation);
+    float getGainReduction(int nChannel);
 
     void processBlock(AudioSampleBuffer& buffer);
 
@@ -79,11 +82,19 @@ private:
 
     GainReducer** pGainReducer;
 
+    float* pInputSamples;
+    float* pOutputSamples;
+    float* pGainReductions;
+
     int nChannels;
     float fCrestFactor;
 
     bool bBypassCompressor;
     bool bDesignModern;
+
+    int nStereoLink;
+    float fStereoLinkOriginal;
+    float fStereoLinkOther;
 
     float fInputGain;
     float fOutputGain;

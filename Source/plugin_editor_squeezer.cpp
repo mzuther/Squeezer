@@ -67,7 +67,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     int nIndex = SqueezerPluginParameters::selThresholdSwitch;
     String strName = parameters->getName(nIndex);
-    SliderThresholdSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    int nLabelWidth = 50;
+    SliderThresholdSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
     SliderThresholdSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderThresholdSwitch->addListener(this);
@@ -76,7 +77,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selRatioSwitch;
     strName = parameters->getName(nIndex);
-    SliderRatioSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    nLabelWidth = 50;
+    SliderRatioSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
     SliderRatioSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderRatioSwitch->addListener(this);
@@ -85,7 +87,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selAttackRateSwitch;
     strName = parameters->getName(nIndex);
-    SliderAttackRateSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    nLabelWidth = 50;
+    SliderAttackRateSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
     SliderAttackRateSwitch->setSliderColour(Colours::yellow);
 
     SliderAttackRateSwitch->addListener(this);
@@ -94,16 +97,28 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
     strName = parameters->getName(nIndex);
-    SliderReleaseRateSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    nLabelWidth = 50;
+    SliderReleaseRateSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
     SliderReleaseRateSwitch->setSliderColour(Colours::yellow);
 
     SliderReleaseRateSwitch->addListener(this);
     addAndMakeVisible(SliderReleaseRateSwitch);
 
 
+    nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
+    strName = parameters->getName(nIndex);
+    nLabelWidth = 50;
+    SliderStereoLinkSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderStereoLinkSwitch->setSliderColour(Colours::purple.brighter(0.2f));
+
+    SliderStereoLinkSwitch->addListener(this);
+    addAndMakeVisible(SliderStereoLinkSwitch);
+
+
     nIndex = SqueezerPluginParameters::selInputGainSwitch;
     strName = parameters->getName(nIndex);
-    SliderInputGainSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    nLabelWidth = 50;
+    SliderInputGainSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
     SliderInputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderInputGainSwitch->addListener(this);
@@ -112,7 +127,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selOutputGainSwitch;
     strName = parameters->getName(nIndex);
-    SliderOutputGainSwitch = new SliderStepped(strName, 50, parameters, nIndex);
+    nLabelWidth = 50;
+    SliderOutputGainSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
     SliderOutputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderOutputGainSwitch->addListener(this);
@@ -160,6 +176,9 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
+    nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
     nIndex = SqueezerPluginParameters::selInputGainSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
@@ -180,7 +199,7 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 160;
-    nRightColumnStart = 450;
+    nRightColumnStart = 500;
 
     setSize(nRightColumnStart + 70, nHeight);
 
@@ -195,8 +214,10 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderAttackRateSwitch->setBounds(150, 15, 70, 60);
     SliderReleaseRateSwitch->setBounds(210, 15, 70, 60);
 
-    SliderInputGainSwitch->setBounds(290, 15, 70, 60);
-    SliderOutputGainSwitch->setBounds(350, 15, 70, 60);
+    SliderStereoLinkSwitch->setBounds(290, 15, 70, 60);
+
+    SliderInputGainSwitch->setBounds(350, 15, 70, 60);
+    SliderOutputGainSwitch->setBounds(410, 15, 70, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -280,6 +301,9 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
     case SqueezerPluginParameters::selReleaseRateSwitch:
         SliderReleaseRateSwitch->setValue(fValue, false);
         break;
+    case SqueezerPluginParameters::selStereoLinkSwitch:
+        SliderStereoLinkSwitch->setValue(fValue, false);
+        break;
     case SqueezerPluginParameters::selInputGainSwitch:
         SliderInputGainSwitch->setValue(fValue, false);
         break;
@@ -345,6 +369,10 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == SliderReleaseRateSwitch)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
+    }
+    else if (slider == SliderStereoLinkSwitch)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selStereoLinkSwitch, fValue);
     }
     else if (slider == SliderInputGainSwitch)
     {
