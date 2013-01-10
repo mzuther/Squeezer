@@ -1,0 +1,97 @@
+/* ----------------------------------------------------------------------------
+
+   Squeezer
+   ========
+   Flexible general-purpose compressor with a touch of lemon
+
+   Copyright (c) 2013 Martin Zuther (http://www.mzuther.de/)
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+   Thank you for using free software!
+
+---------------------------------------------------------------------------- */
+
+#ifndef __COMPRESSOR_H__
+#define __COMPRESSOR_H__
+
+class Compressor;
+class GainReducer;
+
+#include "../JuceLibraryCode/JuceHeader.h"
+#include "gain_reducer.h"
+
+
+//============================================================================
+class Compressor
+{
+public:
+    //==========================================================================
+
+    Compressor(int channels, int sample_rate);
+    ~Compressor();
+
+    bool getBypass();
+    void setBypass(bool bBypassCompressorNew);
+
+    int getDesign();
+    void setDesign(int nDesignNew);
+
+    int getSensor();
+    void setSensor(int nSensorNew);
+
+    float getThreshold();
+    void setThreshold(float fThresholdNew);
+
+    float getRatio();
+    void setRatio(float fRatioNew);
+
+    int getAttackRate();
+    void setAttackRate(int nAttackRateNew);
+
+    int getReleaseRate();
+    void setReleaseRate(int nReleaseRateNew);
+
+    float getInputGain();
+    void setInputGain(float fInputGainNew);
+
+    float getOutputGain();
+    void setOutputGain(float fOutputGainNew);
+
+    float getGainReduction(int nChannel, bool useGainCompensation);
+
+    void processBlock(AudioSampleBuffer& buffer);
+
+    juce_UseDebuggingNewOperator
+private:
+    JUCE_LEAK_DETECTOR(Compressor);
+
+    GainReducer** pGainReducer;
+
+    int nChannels;
+    float fCrestFactor;
+
+    bool bBypassCompressor;
+    bool bDesignModern;
+
+    float fInputGain;
+    float fOutputGain;
+};
+
+#endif  // __COMPRESSOR_H__
+
+
+// Local Variables:
+// ispell-local-dictionary: "british"
+// End:

@@ -117,6 +117,7 @@ OBJECTS := \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
+	$(OBJDIR)/compressor.o \
 	$(OBJDIR)/plugin_processor_squeezer.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/juce_audio_basics.o \
@@ -217,6 +218,9 @@ $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters_squeezer.o: ../../../Source/plugin_parameters_squeezer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/compressor.o: ../../../Source/compressor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor_squeezer.o: ../../../Source/plugin_processor_squeezer.cpp

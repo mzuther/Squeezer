@@ -27,11 +27,11 @@
 #define __SQUEEZER_PLUGINPROCESSOR_H__
 
 class SqueezerAudioProcessor;
-class GainReducer;
+class Compressor;
 class SqueezerPluginParameters;
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "gain_reducer.h"
+#include "compressor.h"
 #include "plugin_parameters_squeezer.h"
 
 
@@ -59,9 +59,7 @@ public:
 
     //==========================================================================
     int getNumParameters();
-
     float getParameter(int nIndex);
-
     void setParameter(int nIndex, float newValue);
 
     const String getParameterName(int nIndex);
@@ -79,6 +77,7 @@ public:
 
     const String getInputChannelName(int channelIndex) const;
     const String getOutputChannelName(int channelIndex) const;
+
     bool isInputChannelStereoPair(int nIndex) const;
     bool isOutputChannelStereoPair(int nIndex) const;
 
@@ -88,8 +87,10 @@ public:
     //==========================================================================
     int getNumPrograms();
     int getNumChannels();
+
     int getCurrentProgram();
     void setCurrentProgram(int nIndex);
+
     const String getProgramName(int nIndex);
     void changeProgramName(int nIndex, const String& newName);
 
@@ -104,22 +105,10 @@ private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessor);
 
     SqueezerPluginParameters* pPluginParameters;
+    Compressor* pCompressor;
 
     int nNumInputChannels;
-    bool isStereo;
     bool bSampleRateIsValid;
-    float fCrestFactor;
-
-    bool bBypassCompressor;
-    bool bDesignModern;
-
-    float fInputGain;
-    float fOutputGain;
-
-    GainReducer** pGainReducer;
-
-    int nSamplesInBuffer;
-    float fProcessedSeconds;
 };
 
 #endif  // __SQUEEZER_PLUGINPROCESSOR_H__

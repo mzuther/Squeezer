@@ -32,21 +32,12 @@
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
     bSampleRateIsValid = false;
-    fCrestFactor = 20.0f;
-
     nNumInputChannels = 0;
-    pGainReducer = NULL;
+
+    pCompressor = NULL;
 
     setLatencySamples(0);
     pPluginParameters = new SqueezerPluginParameters();
-
-    fProcessedSeconds = 0.0f;
-
-    bBypassCompressor = false;
-    bDesignModern = false;
-
-    fInputGain = 1.0f;
-    fOutputGain = 1.0f;
 }
 
 
@@ -129,83 +120,46 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
 {
     pPluginParameters->setValue(nIndex, fNewValue);
 
-    if (pGainReducer)
+    if (pCompressor)
     {
         float fRealValue = pPluginParameters->getRealValue(nIndex);
 
         switch (nIndex)
         {
         case SqueezerPluginParameters::selBypassSwitch:
-        {
-            bBypassCompressor = roundf(fRealValue);
-        }
-        break;
+            pCompressor->setBypass(roundf(fRealValue));
+            break;
 
         case SqueezerPluginParameters::selDesignSwitch:
-        {
-            int nDesign = roundf(fRealValue);
-            bDesignModern = (nDesign == SqueezerPluginParameters::selDesignModern);
-
-            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-            {
-                pGainReducer[nChannel]->setDesign(nDesign);
-            }
-        }
-        break;
+            pCompressor->setDesign(roundf(fRealValue));
+            break;
 
         case SqueezerPluginParameters::selSensorSwitch:
-        {
-            int nSensor = roundf(fRealValue);
-
-            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-            {
-                pGainReducer[nChannel]->setSensor(nSensor);
-            }
-        }
-        break;
+            pCompressor->setSensor(roundf(fRealValue));
+            break;
 
         case SqueezerPluginParameters::selThresholdSwitch:
-
-            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-            {
-                pGainReducer[nChannel]->setThreshold(fRealValue);
-            }
-
+            pCompressor->setThreshold(fRealValue);
             break;
 
         case SqueezerPluginParameters::selRatioSwitch:
-
-            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-            {
-                pGainReducer[nChannel]->setRatio(fRealValue);
-            }
-
+            pCompressor->setRatio(fRealValue);
             break;
 
         case SqueezerPluginParameters::selAttackRateSwitch:
-
-            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-            {
-                pGainReducer[nChannel]->setAttackRate(fRealValue);
-            }
-
+            pCompressor->setAttackRate(fRealValue);
             break;
 
         case SqueezerPluginParameters::selReleaseRateSwitch:
-
-            for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-            {
-                pGainReducer[nChannel]->setReleaseRate(fRealValue);
-            }
-
+            pCompressor->setReleaseRate(fRealValue);
             break;
 
         case SqueezerPluginParameters::selInputGainSwitch:
-            fInputGain = GainReducer::decibel2level(fRealValue);
+            pCompressor->setInputGain(GainReducer::decibel2level(fRealValue));
             break;
 
         case SqueezerPluginParameters::selOutputGainSwitch:
-            fOutputGain = GainReducer::decibel2level(fRealValue);
+            pCompressor->setOutputGain(GainReducer::decibel2level(fRealValue));
             break;
         }
     }
@@ -347,9 +301,9 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     }
 
     nNumInputChannels = getNumInputChannels();
-    isStereo = (nNumInputChannels == 2);
-
     DBG("[Squeezer] number of input channels: " + String(nNumInputChannels));
+
+    bool bBypassCompressor = roundf(pPluginParameters->getRealValue(SqueezerPluginParameters::selBypassSwitch));
 
     int nDesign = roundf(pPluginParameters->getRealValue(SqueezerPluginParameters::selDesignSwitch));
     int nSensor = roundf(pPluginParameters->getRealValue(SqueezerPluginParameters::selSensorSwitch));
@@ -360,23 +314,24 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fAttackRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selAttackRateSwitch);
     float fReleaseRate = pPluginParameters->getRealValue(SqueezerPluginParameters::selReleaseRateSwitch);
 
-    pGainReducer = new GainReducer*[nNumInputChannels];
+    float fInputGain = pPluginParameters->getRealValue(SqueezerPluginParameters::selInputGainSwitch);
+    float fOutputGain = pPluginParameters->getRealValue(SqueezerPluginParameters::selOutputGainSwitch);
 
-    for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-    {
-        pGainReducer[nChannel] = new GainReducer((int) sampleRate);
+    pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
 
-        pGainReducer[nChannel]->setDesign(nDesign);
-        pGainReducer[nChannel]->setSensor(nSensor);
+    pCompressor->setBypass(bBypassCompressor);
 
-        pGainReducer[nChannel]->setThreshold(fThreshold);
-        pGainReducer[nChannel]->setRatio(fRatio);
+    pCompressor->setDesign(nDesign);
+    pCompressor->setSensor(nSensor);
 
-        pGainReducer[nChannel]->setAttackRate(fAttackRate);
-        pGainReducer[nChannel]->setReleaseRate(fReleaseRate);
-    }
+    pCompressor->setThreshold(fThreshold);
+    pCompressor->setRatio(fRatio);
 
-    nSamplesInBuffer = 0;
+    pCompressor->setAttackRate(fAttackRate);
+    pCompressor->setReleaseRate(fReleaseRate);
+
+    pCompressor->setInputGain(fInputGain);
+    pCompressor->setOutputGain(fOutputGain);
 }
 
 
@@ -392,16 +347,10 @@ void SqueezerAudioProcessor::releaseResources()
         return;
     }
 
-    if (pGainReducer != NULL)
+    if (pCompressor != NULL)
     {
-        for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-        {
-            delete pGainReducer[nChannel];
-            pGainReducer[nChannel] = NULL;
-        }
-
-        delete[] pGainReducer;
-        pGainReducer = NULL;
+        delete pCompressor;
+        pCompressor = NULL;
     }
 }
 
@@ -447,68 +396,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         buffer.clear(nChannel, 0, nNumSamples);
     }
 
-    for (int nSample = 0; nSample < nNumSamples; nSample++)
-    {
-        if (bBypassCompressor)
-        {
-            continue;
-        }
-
-        for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
-        {
-            // get current input sample
-            float fInputSample = *buffer.getSampleData(nChannel, nSample);
-            float fOutputSample;
-
-            // apply input gain
-            if (fInputGain != 1.0f)
-            {
-                fInputSample = fInputSample * fInputGain;
-            }
-
-            // "modern" (feed-forward) design
-            if (bDesignModern)
-            {
-                // send current input sample to gain reduction unit
-                float fInputLevel = GainReducer::level2decibel(fabs(fInputSample)) + fCrestFactor;
-                pGainReducer[nChannel]->processSample(fInputLevel);
-
-                // apply gain reduction to current input sample
-                float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
-                fOutputSample = fInputSample * GainReducer::decibel2level(fGainReduction);
-            }
-            // "vintage" (feed-back) design
-            else
-            {
-                // get "old" gain reduction and apply it to current
-                // input sample
-                float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
-                fOutputSample = fInputSample * GainReducer::decibel2level(fGainReduction);
-
-                // feed current output sample back to gain reduction unit
-                float fOutputLevel = GainReducer::level2decibel(fabs(fOutputSample)) + fCrestFactor;
-                pGainReducer[nChannel]->processSample(fOutputLevel);
-            }
-
-            // apply output gain
-            fOutputSample = fOutputSample * fOutputGain;
-
-            // save current output sample
-            buffer.copyFrom(nChannel, nSample, &fOutputSample, 1);
-        }
-
-        if (nSample % 2000 == 0)
-        {
-            String strTemp;
-
-            for (int i = -3 * pGainReducer[0]->getGainReduction(false); i > 0; i--)
-            {
-                strTemp += "**";
-            }
-
-            DBG(strTemp);
-        }
-    }
+    pCompressor->processBlock(buffer);
 }
 
 
