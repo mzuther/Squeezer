@@ -45,21 +45,34 @@ public:
     void addValue(const float fRealValue, const String& strText);
     float getInterval();
 
-    float getDefaultValue();
-    void setDefaultValue(const String& strDefault, bool updateValue);
+    float getDefaultFloat();
+    bool getDefaultBoolean();
+    int getDefaultInteger();
+    void setDefaultString(const String& strDefault, bool updateValue);
 
-    float getValue();
-    void setValue(float fValue);
+    float getFloat();
+    void setFloat(float fValue);
 
-    float getRealValue();
-    void setRealValue(float fValue);
+    float getRealFloat();
+    void setRealFloat(float fValue);
+
+    bool getBoolean();
+    void setBoolean(bool bValue);
+
+    int getInteger();
+    void setInteger(int nValue);
+
+    int getRealInteger();
+    void setRealInteger(int nValue);
 
     String getText();
     void setText(const String& strText);
 
-    float getValueFromText(const String& strText);
-    String getTextFromValue(float fValue);
-    float getRealValue(float fValue);
+    float getFloatFromText(const String& strText);
+    String getTextFromFloat(float fValue);
+
+    int getIntegerFromText(const String& strText);
+    String getTextFromInteger(int nValue);
 
     bool hasChanged();
     void clearChangeFlag();

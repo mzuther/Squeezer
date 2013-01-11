@@ -51,14 +51,25 @@ public:
 
     float getInterval(int nIndex);
 
-    float getDefaultValue(int nIndex);
-    void setDefaultValue(int nIndex, const String& strDefault, bool updateValue);
+    float getDefaultFloat(int nIndex);
+    bool getDefaultBoolean(int nIndex);
+    int getDefaultInteger(int nIndex);
+    void setDefaultString(int nIndex, const String& strDefault, bool updateValue);
 
-    float getValue(int nIndex);
-    void setValue(int nIndex, float fValue);
+    float getFloat(int nIndex);
+    void setFloat(int nIndex, float fValue);
 
-    float getRealValue(int nIndex);
-    void setRealValue(int nIndex, float fValue);
+    bool getBoolean(int nIndex);
+    void setBoolean(int nIndex, bool bValue);
+
+    float getRealFloat(int nIndex);
+    void setRealFloat(int nIndex, float fValue);
+
+    int getInteger(int nIndex);
+    void setInteger(int nIndex, int nValue);
+
+    int getRealInteger(int nIndex);
+    void setRealInteger(int nIndex, int nValue);
 
     String getText(int nIndex);
     void setText(int nIndex, const String& strText);
@@ -67,8 +78,11 @@ public:
     void clearChangeFlag(int nIndex);
     void setChangeFlag(int nIndex);
 
-    float getValueFromText(int nIndex, const String& strText);
-    String getTextFromValue(int nIndex, float fValue);
+    float getFloatFromText(int nIndex, const String& strText);
+    String getTextFromFloat(int nIndex, float fValue);
+
+    int getIntegerFromText(int nIndex, const String& strText);
+    String getTextFromInteger(int nIndex, int nValue);
 
     void loadFromXml(XmlElement* xml);
     XmlElement storeAsXml();

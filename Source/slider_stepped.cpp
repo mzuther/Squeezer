@@ -40,7 +40,7 @@ SliderStepped::SliderStepped(const String& componentName, int nWidth, SqueezerPl
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
     setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
 
-    setDoubleClickReturnValue(true, pPluginParameters->getDefaultValue(nParameterIndex));
+    setDoubleClickReturnValue(true, pPluginParameters->getDefaultFloat(nParameterIndex));
 }
 
 
@@ -57,13 +57,13 @@ void SliderStepped::setSliderColour(const Colour& colour)
 
 double SliderStepped::getValueFromText(const String& strText)
 {
-    return pPluginParameters->getValueFromText(nParameterIndex, strText);
+    return pPluginParameters->getFloatFromText(nParameterIndex, strText);
 }
 
 
 String SliderStepped::getTextFromValue(double fValue)
 {
-    return pPluginParameters->getTextFromValue(nParameterIndex, fValue);
+    return pPluginParameters->getTextFromFloat(nParameterIndex, fValue);
 }
 
 

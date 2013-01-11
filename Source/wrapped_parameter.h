@@ -40,14 +40,25 @@ public:
     virtual String getName() = 0;
     virtual void setName(const String& strParameterName) = 0;
 
-    virtual float getDefaultValue() = 0;
-    virtual void setDefaultValue(const String& strDefault, bool updateValue) = 0;
+    virtual float getDefaultFloat() = 0;
+    virtual bool getDefaultBoolean() = 0;
+    virtual int getDefaultInteger() = 0;
+    virtual void setDefaultString(const String& strDefault, bool updateValue) = 0;
 
-    virtual float getValue() = 0;
-    virtual void setValue(float fValue) = 0;
+    virtual float getFloat() = 0;
+    virtual void setFloat(float fValue) = 0;
 
-    virtual float getRealValue() = 0;
-    virtual void setRealValue(float fValue) = 0;
+    virtual float getRealFloat() = 0;
+    virtual void setRealFloat(float fValue) = 0;
+
+    virtual bool getBoolean() = 0;
+    virtual void setBoolean(bool bValue) = 0;
+
+    virtual int getInteger() = 0;
+    virtual void setInteger(int nValue) = 0;
+
+    virtual int getRealInteger() = 0;
+    virtual void setRealInteger(int nValue) = 0;
 
     virtual String getText() = 0;
     virtual void setText(const String& strText) = 0;
@@ -58,8 +69,11 @@ public:
 
     virtual float getInterval() = 0;
 
-    virtual float getValueFromText(const String& strText) = 0;
-    virtual String getTextFromValue(float fValue) = 0;
+    virtual float getFloatFromText(const String& strText) = 0;
+    virtual String getTextFromFloat(float fValue) = 0;
+
+    virtual int getIntegerFromText(const String& strText) = 0;
+    virtual String getTextFromInteger(int nValue) = 0;
 
     virtual void loadFromXml(XmlElement* xml) = 0;
     virtual void storeAsXml(XmlElement* xml) = 0;

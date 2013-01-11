@@ -72,7 +72,7 @@ float WrappedParameterStepped::getInterval()
 }
 
 
-float WrappedParameterStepped::getDefaultValue()
+float WrappedParameterStepped::getDefaultFloat()
 {
     int nIndex = strValues.indexOf(strDefaultValue);
 
@@ -87,7 +87,19 @@ float WrappedParameterStepped::getDefaultValue()
 }
 
 
-void WrappedParameterStepped::setDefaultValue(const String& strDefault, bool updateValue)
+bool WrappedParameterStepped::getDefaultBoolean()
+{
+    return getDefaultFloat() != 0.0f;
+}
+
+
+int WrappedParameterStepped::getDefaultInteger()
+{
+    return roundf(getDefaultFloat());
+}
+
+
+void WrappedParameterStepped::setDefaultString(const String& strDefault, bool updateValue)
 {
     strDefaultValue = strDefault;
 
@@ -98,13 +110,13 @@ void WrappedParameterStepped::setDefaultValue(const String& strDefault, bool upd
 }
 
 
-float WrappedParameterStepped::getValue()
+float WrappedParameterStepped::getFloat()
 {
     return fValueInternal;
 }
 
 
-void WrappedParameterStepped::setValue(float fValue)
+void WrappedParameterStepped::setFloat(float fValue)
 {
     int nCurrentIndexOld = nCurrentIndex;
 
@@ -118,13 +130,13 @@ void WrappedParameterStepped::setValue(float fValue)
 }
 
 
-float WrappedParameterStepped::getRealValue()
+float WrappedParameterStepped::getRealFloat()
 {
     return fRealValues[nCurrentIndex];
 }
 
 
-void WrappedParameterStepped::setRealValue(float fValue)
+void WrappedParameterStepped::setRealFloat(float fValue)
 {
     int nCurrentIndexOld = nCurrentIndex;
     int nIndex = fRealValues.indexOf(fValue);
@@ -139,6 +151,42 @@ void WrappedParameterStepped::setRealValue(float fValue)
     {
         setChangeFlag();
     }
+}
+
+
+bool WrappedParameterStepped::getBoolean()
+{
+    return getRealFloat() != 0.0f;
+}
+
+
+void WrappedParameterStepped::setBoolean(bool bValue)
+{
+    setRealFloat(bValue ? 1.0f : 0.0f);
+}
+
+
+int WrappedParameterStepped::getInteger()
+{
+    return roundf(getFloat());
+}
+
+
+void WrappedParameterStepped::setInteger(int nValue)
+{
+    setFloat(nValue);
+}
+
+
+int WrappedParameterStepped::getRealInteger()
+{
+    return roundf(getRealFloat());
+}
+
+
+void WrappedParameterStepped::setRealInteger(int nValue)
+{
+    setRealFloat(nValue);
 }
 
 
@@ -166,17 +214,29 @@ void WrappedParameterStepped::setText(const String& strText)
 }
 
 
-float WrappedParameterStepped::getValueFromText(const String& strText)
+float WrappedParameterStepped::getFloatFromText(const String& strText)
 {
     int nIndex = strValues.indexOf(strText);
     return nIndex * fInterval;
 }
 
 
-String WrappedParameterStepped::getTextFromValue(float fValue)
+String WrappedParameterStepped::getTextFromFloat(float fValue)
 {
     int nIndex = roundf(fValue / fInterval);
     return strValues[nIndex];
+}
+
+
+int WrappedParameterStepped::getIntegerFromText(const String& strText)
+{
+    return roundf(getFloatFromText(strText));
+}
+
+
+String WrappedParameterStepped::getTextFromInteger(int nValue)
+{
+    return getTextFromFloat(nValue);
 }
 
 
@@ -200,13 +260,13 @@ void WrappedParameterStepped::setChangeFlag()
 
 void WrappedParameterStepped::loadFromXml(XmlElement* xml)
 {
-    setRealValue(xml->getDoubleAttribute(strAttribute, getRealValue()));
+    setRealFloat(xml->getDoubleAttribute(strAttribute, getRealFloat()));
 }
 
 
 void WrappedParameterStepped::storeAsXml(XmlElement* xml)
 {
-    xml->setAttribute(strAttribute, getRealValue());
+    xml->setAttribute(strAttribute, getRealFloat());
 }
 
 
