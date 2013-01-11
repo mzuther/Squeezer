@@ -125,7 +125,6 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterRatioSwitch->addValue(4.0f,     "4:1");
     ParameterRatioSwitch->addValue(6.0f,     "6:1");
     ParameterRatioSwitch->addValue(10.0f,   "10:1");
-    ParameterRatioSwitch->addValue(-1.0f, "Manual");
 
     ParameterRatioSwitch->setDefaultValue("2:1", true);
     add(ParameterRatioSwitch);
@@ -142,7 +141,6 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterAttackRateSwitch->addValue(20.0f,   "20 ms");
     ParameterAttackRateSwitch->addValue(50.0f,   "50 ms");
     ParameterAttackRateSwitch->addValue(100.0f, "100 ms");
-    ParameterAttackRateSwitch->addValue(-1.0f,  "Manual");
 
     ParameterAttackRateSwitch->setDefaultValue("10 ms", true);
     add(ParameterAttackRateSwitch);
@@ -159,7 +157,6 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterReleaseRateSwitch->addValue(500.0f,  "500 ms");
     ParameterReleaseRateSwitch->addValue(1000.0f,   "1 s");
     ParameterReleaseRateSwitch->addValue(2000.0f,   "2 s");
-    ParameterReleaseRateSwitch->addValue(-1.0f,   "Manual");
 
     ParameterReleaseRateSwitch->setDefaultValue("100 ms", true);
     add(ParameterReleaseRateSwitch);
@@ -250,6 +247,36 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterOutputGainSwitch);
 
     jassert(arrParameters.size() == selOutputGainSwitch + 1);
+
+
+    WrappedParameterStepped* ParameterWetMixSwitch = new WrappedParameterStepped;
+    ParameterWetMixSwitch->setName("Wet Mix Switch");
+
+    ParameterWetMixSwitch->addValue(100.0f, "100 %");
+    ParameterWetMixSwitch->addValue(95.0f,   "95 %");
+    ParameterWetMixSwitch->addValue(90.0f,   "90 %");
+    ParameterWetMixSwitch->addValue(85.0f,   "85 %");
+    ParameterWetMixSwitch->addValue(80.0f,   "80 %");
+    ParameterWetMixSwitch->addValue(75.0f,   "75 %");
+    ParameterWetMixSwitch->addValue(70.0f,   "70 %");
+    ParameterWetMixSwitch->addValue(65.0f,   "65 %");
+    ParameterWetMixSwitch->addValue(60.0f,   "60 %");
+    ParameterWetMixSwitch->addValue(55.0f,   "55 %");
+    ParameterWetMixSwitch->addValue(50.0f,   "50 %");
+    ParameterWetMixSwitch->addValue(45.0f,   "45 %");
+    ParameterWetMixSwitch->addValue(40.0f,   "40 %");
+    ParameterWetMixSwitch->addValue(35.0f,   "35 %");
+    ParameterWetMixSwitch->addValue(30.0f,   "30 %");
+    ParameterWetMixSwitch->addValue(25.0f,   "25 %");
+    ParameterWetMixSwitch->addValue(20.0f,   "20 %");
+    ParameterWetMixSwitch->addValue(15.0f,   "15 %");
+    ParameterWetMixSwitch->addValue(10.0f,   "10 %");
+    ParameterWetMixSwitch->addValue(5.0f,     "5 %");
+
+    ParameterWetMixSwitch->setDefaultValue("100 %", true);
+    add(ParameterWetMixSwitch);
+
+    jassert(arrParameters.size() == selWetMixSwitch + 1);
 }
 
 

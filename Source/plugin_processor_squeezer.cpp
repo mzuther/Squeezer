@@ -165,6 +165,10 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
         case SqueezerPluginParameters::selOutputGainSwitch:
             pCompressor->setOutputGain(GainReducer::decibel2level(fRealValue));
             break;
+
+        case SqueezerPluginParameters::selWetMixSwitch:
+            pCompressor->setWetMix(roundf(fRealValue));
+            break;
         }
     }
 
@@ -328,6 +332,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     float fInputGain = pPluginParameters->getRealValue(SqueezerPluginParameters::selInputGainSwitch);
     float fOutputGain = pPluginParameters->getRealValue(SqueezerPluginParameters::selOutputGainSwitch);
+    int nWetMix = roundf(pPluginParameters->getRealValue(SqueezerPluginParameters::selWetMixSwitch));
 
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
 
@@ -346,6 +351,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setInputGain(fInputGain);
     pCompressor->setOutputGain(fOutputGain);
+    pCompressor->setWetMix(nWetMix);
 }
 
 

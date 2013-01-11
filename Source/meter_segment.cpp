@@ -139,7 +139,7 @@ void MeterSegment::setLevels(float fLevel, float fLevelPeak)
         if (discreteLevels)
         {
             // set meter segment to dark
-            fBrightness = 0.25f;
+            fBrightness = 0.10f;
         }
         else
         {
@@ -151,7 +151,7 @@ void MeterSegment::setLevels(float fLevel, float fLevelPeak)
     else if (fLevel <= fLowerThreshold)
     {
         // set meter segment to dark
-        fBrightness = 0.25f;
+        fBrightness = 0.10f;
     }
     // current level lies within thresholds or on upper threshold
     else
@@ -168,7 +168,7 @@ void MeterSegment::setLevels(float fLevel, float fLevelPeak)
 
             // to look well, meter segments should be left with some
             // colour and not have maximum brightness
-            fBrightness = fBrightness * 0.72f + 0.25f;
+            fBrightness = fBrightness * 0.87f + 0.10f;
         }
     }
 

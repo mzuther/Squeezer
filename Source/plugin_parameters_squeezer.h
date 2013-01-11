@@ -55,6 +55,7 @@ public:
         selStereoLinkSwitch,
         selInputGainSwitch,
         selOutputGainSwitch,
+        selWetMixSwitch,
 
         nNumParametersRevealed,
 

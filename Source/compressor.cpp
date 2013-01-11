@@ -44,6 +44,7 @@ Compressor::Compressor(int channels, int sample_rate)
 
     setInputGain(1.0f);
     setOutputGain(1.0f);
+    setWetMix(100);
 
     pGainReducer = new GainReducer*[nChannels];
 
@@ -330,6 +331,32 @@ void Compressor::setOutputGain(float fOutputGainNew)
 }
 
 
+int Compressor::getWetMix()
+/*  Get current wet mix percentage.
+
+    return value (integer): returns the current wet mix percentage
+    (0 to 100)
+ */
+{
+    return nWetMix;
+}
+
+
+void Compressor::setWetMix(int nWetMixNew)
+/*  Set new wet mix percentage.
+
+    nWetMixNew (integer): new wet mix percentage (0 to 100)
+
+    return value: none
+ */
+{
+    nWetMix = nWetMixNew;
+
+    fWetMix = nWetMix / 100.0f;
+    fDryMix = 1.0f - fWetMix;
+}
+
+
 float Compressor::getGainReduction(int nChannel)
 /*  Get current gain reduction.
 
@@ -341,7 +368,14 @@ float Compressor::getGainReduction(int nChannel)
 {
     jassert((nChannel >= 0) && (nChannel < nChannels));
 
-    return pGainReducer[nChannel]->getGainReduction(false);
+    if (bBypassCompressor)
+    {
+        return 0.0f;
+    }
+    else
+    {
+        return pGainReducer[nChannel]->getGainReduction(false);
+    }
 }
 
 
@@ -411,6 +445,13 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
             // apply output gain
             pOutputSamples[nChannel] *= fOutputGain;
+
+            // dry shall be mixed in (test to save some processing time)
+            if (nWetMix < 100)
+            {
+                pOutputSamples[nChannel] *= fWetMix;
+                pOutputSamples[nChannel] += pInputSamples[nChannel] * fDryMix;
+            }
 
             // save current output sample
             buffer.copyFrom(nChannel, nSample, &pOutputSamples[nChannel], 1);

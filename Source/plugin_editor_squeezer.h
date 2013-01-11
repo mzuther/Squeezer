@@ -85,6 +85,7 @@ private:
 
     SliderStepped* SliderInputGainSwitch;
     SliderStepped* SliderOutputGainSwitch;
+    SliderStepped* SliderWetMixSwitch;
 
     TextButton* ButtonBypass;
     TextButton* ButtonAbout;

@@ -72,6 +72,9 @@ public:
     float getOutputGain();
     void setOutputGain(float fOutputGainNew);
 
+    int getWetMix();
+    void setWetMix(int nWetMixNew);
+
     float getGainReduction(int nChannel);
 
     void processBlock(AudioSampleBuffer& buffer);
@@ -97,6 +100,10 @@ private:
 
     float fInputGain;
     float fOutputGain;
+
+    int nWetMix;
+    float fWetMix;
+    float fDryMix;
 };
 
 #endif  // __COMPRESSOR_H__

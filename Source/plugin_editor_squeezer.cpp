@@ -137,6 +137,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderOutputGainSwitch);
 
 
+    nIndex = SqueezerPluginParameters::selWetMixSwitch;
+    strName = parameters->getName(nIndex);
+    nLabelWidth = 50;
+    SliderWetMixSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderWetMixSwitch->setSliderColour(Colours::blue.brighter(0.4f));
+
+    SliderWetMixSwitch->addListener(this);
+    addAndMakeVisible(SliderWetMixSwitch);
+
+
 #ifdef DEBUG
     LabelDebug = new Label("Debug Notification", "DEBUG");
     LabelDebug->setColour(Label::textColourId, Colours::red);
@@ -199,6 +209,9 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selOutputGainSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
+    nIndex = SqueezerPluginParameters::selWetMixSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
 }
 
 
@@ -227,10 +240,10 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    ButtonBypass->setBounds(20, 95, 50, 20);
+    ButtonBypass->setBounds(360, 90, 50, 20);
 
-    ButtonDesignModern->setBounds(80, 95, 50, 20);
-    ButtonDesignVintage->setBounds(80, 120, 50, 20);
+    ButtonDesignModern->setBounds(20, 90, 50, 20);
+    ButtonDesignVintage->setBounds(20, 115, 50, 20);
 
     SliderThresholdSwitch->setBounds(10, 15, 70, 60);
     SliderRatioSwitch->setBounds(70, 15, 70, 60);
@@ -242,6 +255,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     SliderInputGainSwitch->setBounds(350, 15, 70, 60);
     SliderOutputGainSwitch->setBounds(410, 15, 70, 60);
+    SliderWetMixSwitch->setBounds(410, 85, 70, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -333,6 +347,9 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
     case SqueezerPluginParameters::selOutputGainSwitch:
         SliderOutputGainSwitch->setValue(fValue, false);
         break;
+    case SqueezerPluginParameters::selWetMixSwitch:
+        SliderWetMixSwitch->setValue(fValue, false);
+        break;
     }
 }
 
@@ -340,7 +357,7 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
 //==============================================================================
 void SqueezerAudioProcessorEditor::paint(Graphics& g)
 {
-    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.8f), 0, 0, Colours::darkgrey.darker(1.4f), 0, (float) getHeight(), false));
+    g.setColour(Colours::darkgrey.darker(2.5f));
     g.fillAll();
 }
 
@@ -404,6 +421,10 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == SliderOutputGainSwitch)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selOutputGainSwitch, fValue);
+    }
+    else if (slider == SliderWetMixSwitch)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selWetMixSwitch, fValue);
     }
 }
 
