@@ -108,8 +108,10 @@ ifeq ($(config),release64)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/slider_stepped.o \
+	$(OBJDIR)/meter_bar_gain_reduction.o \
 	$(OBJDIR)/gain_reducer.o \
 	$(OBJDIR)/wrapped_parameter_stepped.o \
 	$(OBJDIR)/main.o \
@@ -193,10 +195,16 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
+$(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_stepped.o: ../../../Source/slider_stepped.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/gain_reducer.o: ../../../Source/gain_reducer.cpp

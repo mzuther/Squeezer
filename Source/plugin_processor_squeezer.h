@@ -72,6 +72,8 @@ public:
     bool hasChanged(int nIndex);
     void updateParameters();
 
+    float getGainReduction(int nChannel);
+
     //==========================================================================
     const String getName() const;
 

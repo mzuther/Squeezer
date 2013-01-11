@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{0057CA63-9E24-B49B-7608-09F18CB31DDF}</ProjectGuid>
+		<ProjectGuid>{8BE95FAB-47BF-E57E-7AB0-358B20B6A647}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -112,7 +112,9 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\gain_reducer.h" />
+		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
@@ -125,9 +127,13 @@
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_stepped.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\gain_reducer.cpp">
 		</ClCompile>

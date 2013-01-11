@@ -207,6 +207,12 @@ void SqueezerAudioProcessor::updateParameters()
 }
 
 
+float SqueezerAudioProcessor::getGainReduction(int nChannel)
+{
+    return pCompressor->getGainReduction(nChannel);
+}
+
+
 const String SqueezerAudioProcessor::getInputChannelName(int channelIndex) const
 {
     return "Input " + String(channelIndex + 1);
@@ -405,6 +411,9 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
     }
 
     pCompressor->processBlock(buffer);
+
+    // "UM" --> update meters
+    sendActionMessage("UM");
 }
 
 

@@ -39,6 +39,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
+    nChannels = 2;
+
     ButtonBypass = new TextButton("Bypass");
     ButtonBypass->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonBypass->setColour(TextButton::buttonOnColourId, Colours::red);
@@ -153,6 +155,19 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonAbout);
 
 
+    pGainReductionMeters = new MeterBarGainReduction*[nChannels];
+    int x = 490;
+    int width = 12;
+
+    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    {
+        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x, 12, width, 13, 5);
+        addAndMakeVisible(pGainReductionMeters[nChannel]);
+
+        x += width - 1;
+    }
+
+
     // This is where our plug-in editor's size is set.
     resizeEditor();
 
@@ -192,6 +207,15 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
     pProcessor->removeActionListener(this);
     pProcessor->removeActionListenerParameters(this);
 
+    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    {
+        delete pGainReductionMeters[nChannel];
+        pGainReductionMeters[nChannel] = NULL;
+    }
+
+    delete[] pGainReductionMeters;
+    pGainReductionMeters = NULL;
+
     deleteAllChildren();
 }
 
@@ -199,7 +223,7 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 160;
-    nRightColumnStart = 500;
+    nRightColumnStart = 530;
 
     setSize(nRightColumnStart + 70, nHeight);
 
@@ -244,12 +268,11 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String& message)
     // "UM" --> update meters
     else if (!message.compare("UM"))
     {
-        // MeterBallistics* pMeterBallistics = pProcessor->getLevels();
-
-        // if (pMeterBallistics)
-        // {
-        //     squeezer->setLevels(pMeterBallistics);
-        // }
+        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        {
+            float fGainReduction = pProcessor->getGainReduction(nChannel);
+            pGainReductionMeters[nChannel]->setGainReduction(fGainReduction);
+        }
     }
     else
     {

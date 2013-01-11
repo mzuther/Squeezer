@@ -84,7 +84,6 @@ private:
 
     float* pInputSamples;
     float* pOutputSamples;
-    float* pGainReductions;
 
     int nChannels;
     float fCrestFactor;

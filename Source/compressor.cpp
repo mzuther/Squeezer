@@ -49,7 +49,6 @@ Compressor::Compressor(int channels, int sample_rate)
 
     pInputSamples = new float[nChannels];
     pOutputSamples = new float[nChannels];
-    pGainReductions = new float[nChannels];
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
@@ -57,7 +56,6 @@ Compressor::Compressor(int channels, int sample_rate)
 
         pInputSamples[nChannel] = 0.0f;
         pOutputSamples[nChannel] = 0.0f;
-        pGainReductions[nChannel] = 0.0f;
     }
 }
 
@@ -78,9 +76,6 @@ Compressor::~Compressor()
 
     delete[] pOutputSamples;
     pOutputSamples = NULL;
-
-    delete[] pGainReductions;
-    pGainReductions = NULL;
 }
 
 
@@ -346,7 +341,7 @@ float Compressor::getGainReduction(int nChannel)
 {
     jassert((nChannel >= 0) && (nChannel < nChannels));
 
-    return pGainReductions[nChannel];
+    return pGainReducer[nChannel]->getGainReduction(false);
 }
 
 
@@ -411,8 +406,8 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             //
             //  "modern" (feed-forward) design:  current gain reduction
             //  "vintage" (feed-back) design:  "old" gain reduction
-            pGainReductions[nChannel] = pGainReducer[nChannel]->getGainReduction(true);
-            pOutputSamples[nChannel] = pInputSamples[nChannel] * GainReducer::decibel2level(pGainReductions[nChannel]);
+            float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
+            pOutputSamples[nChannel] = pInputSamples[nChannel] / GainReducer::decibel2level(fGainReduction);
 
             // apply output gain
             pOutputSamples[nChannel] *= fOutputGain;
@@ -451,18 +446,6 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 // feed current output sample back to gain reduction unit
                 pGainReducer[nChannel]->processSample(fOutputLevel);
             }
-        }
-
-        if (nSample % 2000 == 0)
-        {
-            String strTemp;
-
-            for (int i = -3 * pGainReducer[0]->getGainReduction(false); i > 0; i--)
-            {
-                strTemp += "**";
-            }
-
-            DBG(strTemp);
         }
     }
 }

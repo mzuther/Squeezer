@@ -279,7 +279,7 @@ float GainReducer::calculateFinalGainReduction(float fInputLevel)
 {
     if (fInputLevel > fThreshold)
     {
-        return (fInputLevel - fThreshold) * (fRatio - 1.0f);
+        return (fInputLevel - fThreshold) * (1.0f - fRatio);
     }
     else
     {
@@ -316,12 +316,14 @@ void GainReducer::applyLogarithmicEnvelope(float fGainReductionFinal)
     {
         return;
     }
-    // apply rise time if peak level is above old level
-    else if (fGainReductionFinal < fGainReduction)
+    // apply rise time if proposed gain reduction is above old gain
+    // reduction
+    else if (fGainReductionFinal > fGainReduction)
     {
         fTimeCoefficient = fAttackCoefficient;
     }
-    // otherwise, apply fall time if peak level is below old level
+    // otherwise, apply fall time if proposed gain reduction is below
+    // old gain reduction
     else
     {
         fTimeCoefficient = fReleaseCoefficient;
