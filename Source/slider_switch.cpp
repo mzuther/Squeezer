@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "slider_stepped.h"
+#include "slider_switch.h"
 
 
-SliderStepped::SliderStepped(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index) : Slider(componentName)
+SliderSwitch::SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index) : Slider(componentName)
 {
     pPluginParameters = parameters;
     nParameterIndex = parameter_index;
@@ -44,24 +44,24 @@ SliderStepped::SliderStepped(const String& componentName, int nWidth, SqueezerPl
 }
 
 
-SliderStepped::~SliderStepped()
+SliderSwitch::~SliderSwitch()
 {
 }
 
 
-void SliderStepped::setSliderColour(const Colour& colour)
+void SliderSwitch::setSliderColour(const Colour& colour)
 {
     setColour(Slider::rotarySliderFillColourId, colour);
 }
 
 
-double SliderStepped::getValueFromText(const String& strText)
+double SliderSwitch::getValueFromText(const String& strText)
 {
     return pPluginParameters->getFloatFromText(nParameterIndex, strText);
 }
 
 
-String SliderStepped::getTextFromValue(double fValue)
+String SliderSwitch::getTextFromValue(double fValue)
 {
     return pPluginParameters->getTextFromFloat(nParameterIndex, fValue);
 }

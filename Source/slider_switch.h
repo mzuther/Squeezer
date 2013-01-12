@@ -23,29 +23,29 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_STEPPED_H__
-#define __SLIDER_STEPPED_H__
+#ifndef __SLIDER_SWITCH_H__
+#define __SLIDER_SWITCH_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "plugin_parameters_squeezer.h"
-#include "wrapped_parameter_stepped.h"
+#include "wrapped_parameter_switch.h"
 
 
 //==============================================================================
 /**
 */
-class SliderStepped : public Slider
+class SliderSwitch : public Slider
 {
 public:
-    SliderStepped(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index);
-    ~SliderStepped();
+    SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index);
+    ~SliderSwitch();
 
     void setSliderColour(const Colour& colour);
 
     double getValueFromText(const String& strText);
     String getTextFromValue(double fValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderStepped);
+    JUCE_LEAK_DETECTOR(SliderSwitch);
 
 
     SqueezerPluginParameters* pPluginParameters;
@@ -53,7 +53,7 @@ private:
 };
 
 
-#endif  // __SLIDER_STEPPED_H__
+#endif  // __SLIDER_SWITCH_H__
 
 
 // Local Variables:

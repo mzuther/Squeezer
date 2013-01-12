@@ -70,7 +70,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     int nIndex = SqueezerPluginParameters::selThresholdSwitch;
     String strName = parameters->getName(nIndex);
     int nLabelWidth = 50;
-    SliderThresholdSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderThresholdSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderThresholdSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderThresholdSwitch->addListener(this);
@@ -80,7 +80,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selRatioSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderRatioSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderRatioSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderRatioSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderRatioSwitch->addListener(this);
@@ -90,7 +90,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selAttackRateSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderAttackRateSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderAttackRateSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderAttackRateSwitch->setSliderColour(Colours::yellow);
 
     SliderAttackRateSwitch->addListener(this);
@@ -100,7 +100,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderReleaseRateSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderReleaseRateSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderReleaseRateSwitch->setSliderColour(Colours::yellow);
 
     SliderReleaseRateSwitch->addListener(this);
@@ -110,7 +110,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderStereoLinkSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderStereoLinkSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderStereoLinkSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderStereoLinkSwitch->addListener(this);
@@ -120,7 +120,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selInputGainSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderInputGainSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderInputGainSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderInputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderInputGainSwitch->addListener(this);
@@ -130,7 +130,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selOutputGainSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderOutputGainSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderOutputGainSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderOutputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderOutputGainSwitch->addListener(this);
@@ -140,7 +140,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selWetMixSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderWetMixSwitch = new SliderStepped(strName, nLabelWidth, parameters, nIndex);
+    SliderWetMixSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
     SliderWetMixSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderWetMixSwitch->addListener(this);

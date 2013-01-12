@@ -110,12 +110,12 @@ endif
 OBJECTS := \
 	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/plugin_parameters.o \
-	$(OBJDIR)/slider_stepped.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
+	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/gain_reducer.o \
-	$(OBJDIR)/wrapped_parameter_stepped.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/plugin_editor_squeezer.o \
+	$(OBJDIR)/wrapped_parameter_switch.o \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
@@ -201,22 +201,22 @@ $(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
 $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_stepped.o: ../../../Source/slider_stepped.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/gain_reducer.o: ../../../Source/gain_reducer.cpp
+$(OBJDIR)/slider_switch.o: ../../../Source/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_stepped.o: ../../../Source/wrapped_parameter_stepped.cpp
+$(OBJDIR)/gain_reducer.o: ../../../Source/gain_reducer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor_squeezer.o: ../../../Source/plugin_editor_squeezer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/wrapped_parameter_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp

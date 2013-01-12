@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_STEPPED_H__
-#define __WRAPPED_PARAMETER_STEPPED_H__
+#ifndef __WRAPPED_PARAMETER_SWITCH_H__
+#define __WRAPPED_PARAMETER_SWITCH_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "wrapped_parameter.h"
@@ -33,11 +33,11 @@
 //==============================================================================
 /**
 */
-class WrappedParameterStepped : virtual public WrappedParameter
+class WrappedParameterSwitch : virtual public WrappedParameter
 {
 public:
-    WrappedParameterStepped();
-    ~WrappedParameterStepped();
+    WrappedParameterSwitch();
+    ~WrappedParameterSwitch();
 
     String getName();
     void setName(const String& strParameterName);
@@ -81,7 +81,7 @@ public:
     void loadFromXml(XmlElement* xml);
     void storeAsXml(XmlElement* xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterStepped);
+    JUCE_LEAK_DETECTOR(WrappedParameterSwitch);
 
     String strName;
     String strAttribute;
@@ -97,7 +97,7 @@ private:
 };
 
 
-#endif  // __WRAPPED_PARAMETER_STEPPED_H__
+#endif  // __WRAPPED_PARAMETER_SWITCH_H__
 
 
 // Local Variables:

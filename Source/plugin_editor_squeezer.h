@@ -29,7 +29,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "meter_bar_gain_reduction.h"
 #include "plugin_processor_squeezer.h"
-#include "slider_stepped.h"
+#include "slider_switch.h"
 #include "window_about.h"
 
 
@@ -75,17 +75,17 @@ private:
     TextButton* ButtonSensorPeak;
     TextButton* ButtonSensorRms;
 
-    SliderStepped* SliderThresholdSwitch;
-    SliderStepped* SliderRatioSwitch;
+    SliderSwitch* SliderThresholdSwitch;
+    SliderSwitch* SliderRatioSwitch;
 
-    SliderStepped* SliderAttackRateSwitch;
-    SliderStepped* SliderReleaseRateSwitch;
+    SliderSwitch* SliderAttackRateSwitch;
+    SliderSwitch* SliderReleaseRateSwitch;
 
-    SliderStepped* SliderStereoLinkSwitch;
+    SliderSwitch* SliderStereoLinkSwitch;
 
-    SliderStepped* SliderInputGainSwitch;
-    SliderStepped* SliderOutputGainSwitch;
-    SliderStepped* SliderWetMixSwitch;
+    SliderSwitch* SliderInputGainSwitch;
+    SliderSwitch* SliderOutputGainSwitch;
+    SliderSwitch* SliderWetMixSwitch;
 
     TextButton* ButtonBypass;
     TextButton* ButtonAbout;

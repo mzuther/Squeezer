@@ -35,7 +35,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     strSettingsID = "SQUEEZER_SETTINGS";
 
-    WrappedParameterStepped* ParameterBypassSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterBypassSwitch = new WrappedParameterSwitch;
     ParameterBypassSwitch->setName("Bypass Switch");
 
     ParameterBypassSwitch->addValue(0.0f, "In");
@@ -47,7 +47,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selBypassSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterDesignSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterDesignSwitch = new WrappedParameterSwitch;
     ParameterDesignSwitch->setName("Design Switch");
 
     ParameterDesignSwitch->addValue(selDesignModern, "Modern");
@@ -59,7 +59,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selDesignSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterSensorSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterSensorSwitch = new WrappedParameterSwitch;
     ParameterSensorSwitch->setName("Sensor Switch");
 
     ParameterSensorSwitch->addValue(selSensorPeak, "Peak");
@@ -71,7 +71,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selSensorSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterThresholdSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterThresholdSwitch = new WrappedParameterSwitch;
     ParameterThresholdSwitch->setName("Threshold Switch");
 
     ParameterThresholdSwitch->addValue(-48.0f, "-48 dB");
@@ -115,7 +115,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selThresholdSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterRatioSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterRatioSwitch = new WrappedParameterSwitch;
     ParameterRatioSwitch->setName("Ratio Switch");
 
     ParameterRatioSwitch->addValue(1.2f,   "1.2:1");
@@ -132,7 +132,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selRatioSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterAttackRateSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterAttackRateSwitch = new WrappedParameterSwitch;
     ParameterAttackRateSwitch->setName("Attack Rate Switch");
 
     ParameterAttackRateSwitch->addValue(2.0f,     "2 ms");
@@ -148,7 +148,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selAttackRateSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterReleaseRateSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterReleaseRateSwitch = new WrappedParameterSwitch;
     ParameterReleaseRateSwitch->setName("Release Rate Switch");
 
     ParameterReleaseRateSwitch->addValue(50.0f,    "50 ms");
@@ -164,7 +164,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selReleaseRateSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterStereoLinkSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterStereoLinkSwitch = new WrappedParameterSwitch;
     ParameterStereoLinkSwitch->setName("Stereo Link Switch");
 
     ParameterStereoLinkSwitch->addValue(0.0f,     "0 %");
@@ -179,7 +179,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selStereoLinkSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterInputGainSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterInputGainSwitch = new WrappedParameterSwitch;
     ParameterInputGainSwitch->setName("Input Gain Switch");
 
     ParameterInputGainSwitch->addValue(-12.0f, "-12 dB");
@@ -214,7 +214,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selInputGainSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterOutputGainSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterOutputGainSwitch = new WrappedParameterSwitch;
     ParameterOutputGainSwitch->setName("Output Gain Switch");
 
     ParameterOutputGainSwitch->addValue(-12.0f, "-12 dB");
@@ -249,7 +249,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selOutputGainSwitch + 1);
 
 
-    WrappedParameterStepped* ParameterWetMixSwitch = new WrappedParameterStepped;
+    WrappedParameterSwitch* ParameterWetMixSwitch = new WrappedParameterSwitch;
     ParameterWetMixSwitch->setName("Wet Mix Switch");
 
     ParameterWetMixSwitch->addValue(100.0f, "100 %");

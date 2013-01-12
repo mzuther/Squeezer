@@ -29,7 +29,7 @@
 class PluginParameters;
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "wrapped_parameter_stepped.h"
+#include "wrapped_parameter_switch.h"
 
 
 //============================================================================
