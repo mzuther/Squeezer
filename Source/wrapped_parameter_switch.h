@@ -46,9 +46,10 @@ public:
     float getInterval();
 
     float getDefaultFloat();
+    float getDefaultRealFloat();
     bool getDefaultBoolean();
     int getDefaultInteger();
-    void setDefaultString(const String& strDefault, bool updateValue);
+    void setDefaultRealFloat(float fRealValue, bool updateValue);
 
     float getFloat();
     void setFloat(float fValue);
@@ -85,8 +86,8 @@ private:
 
     String strName;
     String strAttribute;
-    String strDefaultValue;
 
+    float fDefaultRealValue;
     int nCurrentIndex;
     float fValueInternal;
     bool bChangedValue;

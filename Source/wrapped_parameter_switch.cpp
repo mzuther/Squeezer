@@ -30,7 +30,7 @@ WrappedParameterSwitch::WrappedParameterSwitch()
 {
     strName = "";
     strAttribute = "";
-    strDefaultValue = "";
+    fDefaultRealValue = 0.0f;
 
     nCurrentIndex = 0;
     fValueInternal = 0.0f;
@@ -74,7 +74,7 @@ float WrappedParameterSwitch::getInterval()
 
 float WrappedParameterSwitch::getDefaultFloat()
 {
-    int nIndex = strValues.indexOf(strDefaultValue);
+    int nIndex = fRealValues.indexOf(fDefaultRealValue);
 
     if (nIndex < 0)
     {
@@ -84,6 +84,12 @@ float WrappedParameterSwitch::getDefaultFloat()
     {
         return nIndex * fInterval;
     }
+}
+
+
+float WrappedParameterSwitch::getDefaultRealFloat()
+{
+    return fDefaultRealValue;
 }
 
 
@@ -99,13 +105,13 @@ int WrappedParameterSwitch::getDefaultInteger()
 }
 
 
-void WrappedParameterSwitch::setDefaultString(const String& strDefault, bool updateValue)
+void WrappedParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
-    strDefaultValue = strDefault;
+    fDefaultRealValue = fRealValue;
 
     if (updateValue)
     {
-        setText(strDefaultValue);
+        setRealFloat(fDefaultRealValue);
     }
 }
 

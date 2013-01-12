@@ -41,7 +41,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterBypassSwitch->addValue(0.0f, "In");
     ParameterBypassSwitch->addValue(1.0f, "Out");
 
-    ParameterBypassSwitch->setDefaultString("In", true);
+    ParameterBypassSwitch->setDefaultRealFloat(0.0f, true);
     add(ParameterBypassSwitch);
 
     jassert(arrParameters.size() == selBypassSwitch + 1);
@@ -50,10 +50,10 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterDesignSwitch = new WrappedParameterSwitch;
     ParameterDesignSwitch->setName("Design Switch");
 
-    ParameterDesignSwitch->addValue(selDesignModern, "Modern");
+    ParameterDesignSwitch->addValue(selDesignModern,  "Modern");
     ParameterDesignSwitch->addValue(selDesignVintage, "Vintage");
 
-    ParameterDesignSwitch->setDefaultString("Modern", true);
+    ParameterDesignSwitch->setDefaultRealFloat(selDesignModern, true);
     add(ParameterDesignSwitch);
 
     jassert(arrParameters.size() == selDesignSwitch + 1);
@@ -63,9 +63,9 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterSensorSwitch->setName("Sensor Switch");
 
     ParameterSensorSwitch->addValue(selSensorPeak, "Peak");
-    ParameterSensorSwitch->addValue(selSensorRms, "RMS");
+    ParameterSensorSwitch->addValue(selSensorRms,  "RMS");
 
-    ParameterSensorSwitch->setDefaultString("Peak", true);
+    ParameterSensorSwitch->setDefaultRealFloat(selSensorPeak, true);
     add(ParameterSensorSwitch);
 
     jassert(arrParameters.size() == selSensorSwitch + 1);
@@ -109,7 +109,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterThresholdSwitch->addValue(+16.0f, "+16 dB");
     ParameterThresholdSwitch->addValue(+18.0f, "+18 dB");
 
-    ParameterThresholdSwitch->setDefaultString("-12 dB", true);
+    ParameterThresholdSwitch->setDefaultRealFloat(-12.0f, true);
     add(ParameterThresholdSwitch);
 
     jassert(arrParameters.size() == selThresholdSwitch + 1);
@@ -126,7 +126,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterRatioSwitch->addValue(6.0f,     "6:1");
     ParameterRatioSwitch->addValue(10.0f,   "10:1");
 
-    ParameterRatioSwitch->setDefaultString("2:1", true);
+    ParameterRatioSwitch->setDefaultRealFloat(2.0f, true);
     add(ParameterRatioSwitch);
 
     jassert(arrParameters.size() == selRatioSwitch + 1);
@@ -142,7 +142,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterAttackRateSwitch->addValue(50.0f,   "50 ms");
     ParameterAttackRateSwitch->addValue(100.0f, "100 ms");
 
-    ParameterAttackRateSwitch->setDefaultString("10 ms", true);
+    ParameterAttackRateSwitch->setDefaultRealFloat(10.0f, true);
     add(ParameterAttackRateSwitch);
 
     jassert(arrParameters.size() == selAttackRateSwitch + 1);
@@ -158,7 +158,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterReleaseRateSwitch->addValue(1000.0f,   "1 s");
     ParameterReleaseRateSwitch->addValue(2000.0f,   "2 s");
 
-    ParameterReleaseRateSwitch->setDefaultString("100 ms", true);
+    ParameterReleaseRateSwitch->setDefaultRealFloat(100.0f, true);
     add(ParameterReleaseRateSwitch);
 
     jassert(arrParameters.size() == selReleaseRateSwitch + 1);
@@ -173,7 +173,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterStereoLinkSwitch->addValue(90.0f,   "90 %");
     ParameterStereoLinkSwitch->addValue(100.0f, "100 %");
 
-    ParameterStereoLinkSwitch->setDefaultString("100 %", true);
+    ParameterStereoLinkSwitch->setDefaultRealFloat(100.0f, true);
     add(ParameterStereoLinkSwitch);
 
     jassert(arrParameters.size() == selStereoLinkSwitch + 1);
@@ -208,7 +208,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterInputGainSwitch->addValue(+11.0f, "+11 dB");
     ParameterInputGainSwitch->addValue(+12.0f, "+12 dB");
 
-    ParameterInputGainSwitch->setDefaultString("0 dB", true);
+    ParameterInputGainSwitch->setDefaultRealFloat(0.0f, true);
     add(ParameterInputGainSwitch);
 
     jassert(arrParameters.size() == selInputGainSwitch + 1);
@@ -243,7 +243,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterOutputGainSwitch->addValue(+11.0f, "+11 dB");
     ParameterOutputGainSwitch->addValue(+12.0f, "+12 dB");
 
-    ParameterOutputGainSwitch->setDefaultString("0 dB", true);
+    ParameterOutputGainSwitch->setDefaultRealFloat(0.0f, true);
     add(ParameterOutputGainSwitch);
 
     jassert(arrParameters.size() == selOutputGainSwitch + 1);
@@ -273,7 +273,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterWetMixSwitch->addValue(10.0f,   "10 %");
     ParameterWetMixSwitch->addValue(5.0f,     "5 %");
 
-    ParameterWetMixSwitch->setDefaultString("100 %", true);
+    ParameterWetMixSwitch->setDefaultRealFloat(100.0f, true);
     add(ParameterWetMixSwitch);
 
     jassert(arrParameters.size() == selWetMixSwitch + 1);

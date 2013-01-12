@@ -52,9 +52,10 @@ public:
     float getInterval(int nIndex);
 
     float getDefaultFloat(int nIndex);
+    float getDefaultRealFloat(int nIndex);
     bool getDefaultBoolean(int nIndex);
     int getDefaultInteger(int nIndex);
-    void setDefaultString(int nIndex, const String& strDefault, bool updateValue);
+    void setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue);
 
     float getFloat(int nIndex);
     void setFloat(int nIndex, float fValue);
