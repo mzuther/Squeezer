@@ -260,13 +260,26 @@ void WrappedParameterStepped::setChangeFlag()
 
 void WrappedParameterStepped::loadFromXml(XmlElement* xml)
 {
-    setRealFloat(xml->getDoubleAttribute(strAttribute, getRealFloat()));
+    XmlElement* xml_element = xml->getChildByName(strAttribute);
+    
+    if (xml_element)
+    {
+        float fValue = xml_element->getDoubleAttribute("value", getRealFloat());
+        setRealFloat(fValue);
+    }
 }
 
 
 void WrappedParameterStepped::storeAsXml(XmlElement* xml)
 {
-    xml->setAttribute(strAttribute, getRealFloat());
+    XmlElement* xml_element = new XmlElement(strAttribute);
+
+    if (xml_element)
+    {
+        float fValue = getRealFloat();
+        xml_element->setAttribute("value", fValue);
+        xml->addChildElement(xml_element);
+    }
 }
 
 
