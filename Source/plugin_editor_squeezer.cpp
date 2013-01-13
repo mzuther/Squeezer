@@ -392,7 +392,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 
 void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
 {
-    float fValue = slider->getValue();
+    float fValue = (float) slider->getValue();
 
     if (slider == SliderThresholdSwitch)
     {

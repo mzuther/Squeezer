@@ -61,9 +61,9 @@ double SliderSwitch::getValueFromText(const String& strText)
 }
 
 
-String SliderSwitch::getTextFromValue(double fValue)
+String SliderSwitch::getTextFromValue(double dValue)
 {
-    return pPluginParameters->getTextFromFloat(nParameterIndex, fValue);
+    return pPluginParameters->getTextFromFloat(nParameterIndex, (float) dValue);
 }
 
 

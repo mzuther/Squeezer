@@ -70,7 +70,7 @@ private:
     JUCE_LEAK_DETECTOR(GainReducer);
 
     float fTimePassed;
-    int nCrestFactorAutoGain;
+    float fCrestFactorAutoGain;
     float fGainReduction;
     float fGainCompensation;
 

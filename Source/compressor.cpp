@@ -37,13 +37,14 @@ Compressor::Compressor(int channels, int sample_rate)
 
     pGainReducer = NULL;
 
+    nWetMix = 100;
     setBypass(false);
     bDesignModern = true;
 
     setStereoLink(100);
 
-    setInputGain(1.0f);
-    setOutputGain(1.0f);
+    setInputGain(0.0f);
+    setOutputGain(0.0f);
     setWetMix(100);
 
     pGainReducer = new GainReducer*[nChannels];
@@ -99,6 +100,7 @@ void Compressor::setBypass(bool bBypassCompressorNew)
  */
 {
     bBypassCompressor = bBypassCompressorNew;
+    bBypassCompressorCombined = (bBypassCompressor || (nWetMix == 0));
 }
 
 
@@ -290,44 +292,46 @@ void Compressor::setStereoLink(int nStereoLinkNew)
 float Compressor::getInputGain()
 /*  Get current input gain.
 
-    return value (float): returns the current input gain
+    return value (float): returns the current input gain in decibels
  */
 {
-    return fInputGain;
+    return fInputGainDecibel;
 }
 
 
 void Compressor::setInputGain(float fInputGainNew)
 /*  Set new input gain.
 
-    nInputGainNew (float): new input gain
+    nInputGainNew (float): new input gain in decibels
 
     return value: none
  */
 {
-    fInputGain = fInputGainNew;
+    fInputGainDecibel = fInputGainNew;
+    fInputGain = GainReducer::decibel2level(fInputGainDecibel);
 }
 
 
 float Compressor::getOutputGain()
 /*  Get current output gain.
 
-    return value (float): returns the current output gain
+    return value (float): returns the current output gain in decibels
  */
 {
-    return fOutputGain;
+    return fOutputGainDecibel;
 }
 
 
 void Compressor::setOutputGain(float fOutputGainNew)
 /*  Set new output gain.
 
-    nOutputGainNew (float): new output gain
+    nOutputGainNew (float): new output gain in decibels
 
     return value: none
  */
 {
-    fOutputGain = fOutputGainNew;
+    fOutputGainDecibel = fOutputGainNew;
+    fOutputGain = GainReducer::decibel2level(fOutputGainDecibel);
 }
 
 
@@ -354,6 +358,8 @@ void Compressor::setWetMix(int nWetMixNew)
 
     fWetMix = nWetMix / 100.0f;
     fDryMix = 1.0f - fWetMix;
+
+    bBypassCompressorCombined = (bBypassCompressor || (nWetMix == 0));
 }
 
 
@@ -368,7 +374,7 @@ float Compressor::getGainReduction(int nChannel)
 {
     jassert((nChannel >= 0) && (nChannel < nChannels));
 
-    if (bBypassCompressor)
+    if (bBypassCompressorCombined)
     {
         return 0.0f;
     }
@@ -386,7 +392,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
     // loop over input buffer samples
     for (int nSample = 0; nSample < nNumSamples; nSample++)
     {
-        if (bBypassCompressor)
+        if (bBypassCompressorCombined)
         {
             continue;
         }

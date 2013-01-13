@@ -43,7 +43,7 @@ public:
     void setSliderColour(const Colour& colour);
 
     double getValueFromText(const String& strText);
-    String getTextFromValue(double fValue);
+    String getTextFromValue(double dValue);
 private:
     JUCE_LEAK_DETECTOR(SliderSwitch);
 

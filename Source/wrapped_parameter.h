@@ -79,6 +79,11 @@ public:
     virtual void loadFromXml(XmlElement* xml) = 0;
     virtual void storeAsXml(XmlElement* xml) = 0;
 
+    inline int round_mz(float x)
+    {
+        x += (x >= 0.0f) ? 0.5f : -0.5f;
+        return (int) x;
+    }
 protected:
     WrappedParameter() {}
 };

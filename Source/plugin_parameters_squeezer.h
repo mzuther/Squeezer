@@ -47,7 +47,6 @@ public:
     {
         selBypassSwitch = 0,
         selDesignSwitch,
-        selSensorSwitch,
         selThresholdSwitch,
         selRatioSwitch,
         selAttackRateSwitch,

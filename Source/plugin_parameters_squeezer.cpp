@@ -38,8 +38,8 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterBypassSwitch = new WrappedParameterSwitch;
     ParameterBypassSwitch->setName("Bypass Switch");
 
-    ParameterBypassSwitch->addValue(0.0f, "In");
-    ParameterBypassSwitch->addValue(1.0f, "Out");
+    ParameterBypassSwitch->addValue(0.0f, "Off");
+    ParameterBypassSwitch->addValue(1.0f, "On");
 
     ParameterBypassSwitch->setDefaultRealFloat(0.0f, true);
     add(ParameterBypassSwitch);
@@ -57,18 +57,6 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterDesignSwitch);
 
     jassert(arrParameters.size() == selDesignSwitch + 1);
-
-
-    WrappedParameterSwitch* ParameterSensorSwitch = new WrappedParameterSwitch;
-    ParameterSensorSwitch->setName("Sensor Switch");
-
-    ParameterSensorSwitch->addValue(selSensorPeak, "Peak");
-    ParameterSensorSwitch->addValue(selSensorRms,  "RMS");
-
-    ParameterSensorSwitch->setDefaultRealFloat(selSensorPeak, true);
-    add(ParameterSensorSwitch);
-
-    jassert(arrParameters.size() == selSensorSwitch + 1);
 
 
     WrappedParameterSwitch* ParameterThresholdSwitch = new WrappedParameterSwitch;
@@ -141,6 +129,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterAttackRateSwitch->addValue(20.0f,   "20 ms");
     ParameterAttackRateSwitch->addValue(50.0f,   "50 ms");
     ParameterAttackRateSwitch->addValue(100.0f, "100 ms");
+    ParameterAttackRateSwitch->addValue(200.0f, "200 ms");
 
     ParameterAttackRateSwitch->setDefaultRealFloat(10.0f, true);
     add(ParameterAttackRateSwitch);
@@ -152,13 +141,23 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterReleaseRateSwitch->setName("Release Rate Switch");
 
     ParameterReleaseRateSwitch->addValue(50.0f,    "50 ms");
+    ParameterReleaseRateSwitch->addValue(75.0f,    "75 ms");
     ParameterReleaseRateSwitch->addValue(100.0f,  "100 ms");
+    ParameterReleaseRateSwitch->addValue(125.0f,  "125 ms");
+    ParameterReleaseRateSwitch->addValue(150.0f,  "150 ms");
+    ParameterReleaseRateSwitch->addValue(175.0f,  "175 ms");
     ParameterReleaseRateSwitch->addValue(200.0f,  "200 ms");
+    ParameterReleaseRateSwitch->addValue(250.0f,  "250 ms");
+    ParameterReleaseRateSwitch->addValue(375.0f,  "375 ms");
     ParameterReleaseRateSwitch->addValue(500.0f,  "500 ms");
-    ParameterReleaseRateSwitch->addValue(1000.0f,   "1 s");
-    ParameterReleaseRateSwitch->addValue(2000.0f,   "2 s");
+    ParameterReleaseRateSwitch->addValue(750.0f,  "750 ms");
+    ParameterReleaseRateSwitch->addValue(1000.0f, "1.0 s");
+    ParameterReleaseRateSwitch->addValue(1500.0f, "1.5 s");
+    ParameterReleaseRateSwitch->addValue(2000.0f, "2.0 s");
+    ParameterReleaseRateSwitch->addValue(4000.0f, "4.0 s");
+    ParameterReleaseRateSwitch->addValue(8000.0f, "8.0 s");
 
-    ParameterReleaseRateSwitch->setDefaultRealFloat(100.0f, true);
+    ParameterReleaseRateSwitch->setDefaultRealFloat(150.0f, true);
     add(ParameterReleaseRateSwitch);
 
     jassert(arrParameters.size() == selReleaseRateSwitch + 1);
@@ -252,26 +251,17 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterWetMixSwitch = new WrappedParameterSwitch;
     ParameterWetMixSwitch->setName("Wet Mix Switch");
 
-    ParameterWetMixSwitch->addValue(100.0f, "100 %");
-    ParameterWetMixSwitch->addValue(95.0f,   "95 %");
-    ParameterWetMixSwitch->addValue(90.0f,   "90 %");
-    ParameterWetMixSwitch->addValue(85.0f,   "85 %");
-    ParameterWetMixSwitch->addValue(80.0f,   "80 %");
-    ParameterWetMixSwitch->addValue(75.0f,   "75 %");
-    ParameterWetMixSwitch->addValue(70.0f,   "70 %");
-    ParameterWetMixSwitch->addValue(65.0f,   "65 %");
-    ParameterWetMixSwitch->addValue(60.0f,   "60 %");
-    ParameterWetMixSwitch->addValue(55.0f,   "55 %");
-    ParameterWetMixSwitch->addValue(50.0f,   "50 %");
-    ParameterWetMixSwitch->addValue(45.0f,   "45 %");
-    ParameterWetMixSwitch->addValue(40.0f,   "40 %");
-    ParameterWetMixSwitch->addValue(35.0f,   "35 %");
-    ParameterWetMixSwitch->addValue(30.0f,   "30 %");
-    ParameterWetMixSwitch->addValue(25.0f,   "25 %");
-    ParameterWetMixSwitch->addValue(20.0f,   "20 %");
-    ParameterWetMixSwitch->addValue(15.0f,   "15 %");
-    ParameterWetMixSwitch->addValue(10.0f,   "10 %");
+    ParameterWetMixSwitch->addValue(0.0f,     "0 %");
     ParameterWetMixSwitch->addValue(5.0f,     "5 %");
+    ParameterWetMixSwitch->addValue(10.0f,   "10 %");
+    ParameterWetMixSwitch->addValue(15.0f,   "15 %");
+    ParameterWetMixSwitch->addValue(20.0f,   "20 %");
+    ParameterWetMixSwitch->addValue(25.0f,   "25 %");
+    ParameterWetMixSwitch->addValue(30.0f,   "30 %");
+    ParameterWetMixSwitch->addValue(40.0f,   "40 %");
+    ParameterWetMixSwitch->addValue(50.0f,   "50 %");
+    ParameterWetMixSwitch->addValue(75.0f,   "75 %");
+    ParameterWetMixSwitch->addValue(100.0f, "100 %");
 
     ParameterWetMixSwitch->setDefaultRealFloat(100.0f, true);
     add(ParameterWetMixSwitch);

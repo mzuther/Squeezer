@@ -59,12 +59,11 @@ public:
 
     //==========================================================================
     int getNumParameters();
-    float getParameter(int nIndex);
-    void setParameter(int nIndex, float newValue);
-
     const String getParameterName(int nIndex);
     const String getParameterText(int nIndex);
 
+    float getParameter(int nIndex);
+    void setParameter(int nIndex, float fNewValue);
     void changeParameter(int nIndex, float fNewValue);
 
     void clearChangeFlag(int nIndex);

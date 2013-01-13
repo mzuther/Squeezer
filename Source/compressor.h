@@ -92,6 +92,7 @@ private:
     float fCrestFactor;
 
     bool bBypassCompressor;
+    bool bBypassCompressorCombined;
     bool bDesignModern;
 
     int nStereoLink;
@@ -99,7 +100,10 @@ private:
     float fStereoLinkOther;
 
     float fInputGain;
+    float fInputGainDecibel;
+
     float fOutputGain;
+    float fOutputGainDecibel;
 
     int nWetMix;
     float fWetMix;

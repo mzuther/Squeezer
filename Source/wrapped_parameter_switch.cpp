@@ -101,7 +101,7 @@ bool WrappedParameterSwitch::getDefaultBoolean()
 
 int WrappedParameterSwitch::getDefaultInteger()
 {
-    return roundf(getDefaultFloat());
+    return round_mz(getDefaultFloat());
 }
 
 
@@ -127,7 +127,7 @@ void WrappedParameterSwitch::setFloat(float fValue)
     int nCurrentIndexOld = nCurrentIndex;
 
     fValueInternal = fValue;
-    nCurrentIndex = roundf(fValueInternal / fInterval);
+    nCurrentIndex = round_mz(fValueInternal / fInterval);
 
     if (nCurrentIndex != nCurrentIndexOld)
     {
@@ -174,25 +174,25 @@ void WrappedParameterSwitch::setBoolean(bool bValue)
 
 int WrappedParameterSwitch::getInteger()
 {
-    return roundf(getFloat());
+    return round_mz(getFloat());
 }
 
 
 void WrappedParameterSwitch::setInteger(int nValue)
 {
-    setFloat(nValue);
+    setFloat((float) nValue);
 }
 
 
 int WrappedParameterSwitch::getRealInteger()
 {
-    return roundf(getRealFloat());
+    return round_mz(getRealFloat());
 }
 
 
 void WrappedParameterSwitch::setRealInteger(int nValue)
 {
-    setRealFloat(nValue);
+    setRealFloat((float) nValue);
 }
 
 
@@ -229,20 +229,20 @@ float WrappedParameterSwitch::getFloatFromText(const String& strText)
 
 String WrappedParameterSwitch::getTextFromFloat(float fValue)
 {
-    int nIndex = roundf(fValue / fInterval);
+    int nIndex = round_mz(fValue / fInterval);
     return strValues[nIndex];
 }
 
 
 int WrappedParameterSwitch::getIntegerFromText(const String& strText)
 {
-    return roundf(getFloatFromText(strText));
+    return round_mz(getFloatFromText(strText));
 }
 
 
 String WrappedParameterSwitch::getTextFromInteger(int nValue)
 {
-    return getTextFromFloat(nValue);
+    return getTextFromFloat((float) nValue);
 }
 
 
@@ -270,7 +270,7 @@ void WrappedParameterSwitch::loadFromXml(XmlElement* xml)
 
     if (xml_element)
     {
-        float fValue = xml_element->getDoubleAttribute("value", getRealFloat());
+        float fValue = (float) xml_element->getDoubleAttribute("value", getRealFloat());
         setRealFloat(fValue);
     }
 }

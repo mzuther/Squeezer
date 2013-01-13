@@ -80,30 +80,6 @@ int SqueezerAudioProcessor::getNumParameters()
 }
 
 
-float SqueezerAudioProcessor::getParameter(int nIndex)
-{
-    // This method will be called by the host, probably on the audio
-    // thread, so it's absolutely time-critical. Don't use critical
-    // sections or anything GUI-related, or anything at all that may
-    // block in any way!
-
-    return pPluginParameters->getFloat(nIndex);
-}
-
-
-void SqueezerAudioProcessor::setParameter(int nIndex, float newValue)
-{
-    // This method will be called by the host, probably on the audio
-    // thread, so it's absolutely time-critical. Don't use critical
-    // sections or anything GUI-related, or anything at all that may
-    // block in any way!
-
-    // Please use this method for non-automatable values only!
-
-    pPluginParameters->setFloat(nIndex, newValue);
-}
-
-
 const String SqueezerAudioProcessor::getParameterName(int nIndex)
 {
     return pPluginParameters->getName(nIndex);
@@ -116,8 +92,26 @@ const String SqueezerAudioProcessor::getParameterText(int nIndex)
 }
 
 
-void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
+float SqueezerAudioProcessor::getParameter(int nIndex)
 {
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    return pPluginParameters->getFloat(nIndex);
+}
+
+
+void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    // Please use this method for non-automatable values only!
+
     pPluginParameters->setFloat(nIndex, fNewValue);
 
     if (pCompressor)
@@ -138,13 +132,6 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
             break;
         }
 
-        case SqueezerPluginParameters::selSensorSwitch:
-        {
-            int nSensor = pPluginParameters->getRealInteger(nIndex);
-            pCompressor->setSensor(nSensor);
-            break;
-        }
-
         case SqueezerPluginParameters::selThresholdSwitch:
         {
             float fThreshold = pPluginParameters->getRealFloat(nIndex);
@@ -161,15 +148,15 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
 
         case SqueezerPluginParameters::selAttackRateSwitch:
         {
-            float fAttackRate = pPluginParameters->getRealFloat(nIndex);
-            pCompressor->setAttackRate(fAttackRate);
+            int nAttackRate = pPluginParameters->getRealInteger(nIndex);
+            pCompressor->setAttackRate(nAttackRate);
             break;
         }
 
         case SqueezerPluginParameters::selReleaseRateSwitch:
         {
-            float fReleaseRate = pPluginParameters->getRealFloat(nIndex);
-            pCompressor->setReleaseRate(fReleaseRate);
+            int nReleaseRate = pPluginParameters->getRealInteger(nIndex);
+            pCompressor->setReleaseRate(nReleaseRate);
             break;
         }
 
@@ -183,14 +170,14 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
         case SqueezerPluginParameters::selInputGainSwitch:
         {
             float fInputGain = pPluginParameters->getRealFloat(nIndex);
-            pCompressor->setInputGain(GainReducer::decibel2level(fInputGain));
+            pCompressor->setInputGain(fInputGain);
             break;
         }
 
         case SqueezerPluginParameters::selOutputGainSwitch:
         {
             float fOutputGain = pPluginParameters->getRealFloat(nIndex);
-            pCompressor->setOutputGain(GainReducer::decibel2level(fOutputGain));
+            pCompressor->setOutputGain(fOutputGain);
             break;
         }
 
@@ -202,6 +189,12 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
         }
         }
     }
+}
+
+
+void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
+{
+    setParameter(nIndex, fNewValue);
 
     beginParameterChangeGesture(nIndex);
     setParameterNotifyingHost(nIndex, fNewValue);
@@ -351,13 +344,12 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     bool bBypassCompressor = pPluginParameters->getBoolean(SqueezerPluginParameters::selBypassSwitch);
 
     int nDesign = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDesignSwitch);
-    int nSensor = pPluginParameters->getRealInteger(SqueezerPluginParameters::selSensorSwitch);
 
     float fThreshold = pPluginParameters->getRealFloat(SqueezerPluginParameters::selThresholdSwitch);
     float fRatio = pPluginParameters->getRealFloat(SqueezerPluginParameters::selRatioSwitch);
 
-    float fAttackRate = pPluginParameters->getRealFloat(SqueezerPluginParameters::selAttackRateSwitch);
-    float fReleaseRate = pPluginParameters->getRealFloat(SqueezerPluginParameters::selReleaseRateSwitch);
+    int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRateSwitch);
+    int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRateSwitch);
 
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLinkSwitch);
 
@@ -368,15 +360,13 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
 
     pCompressor->setBypass(bBypassCompressor);
-
     pCompressor->setDesign(nDesign);
-    pCompressor->setSensor(nSensor);
 
     pCompressor->setThreshold(fThreshold);
     pCompressor->setRatio(fRatio);
 
-    pCompressor->setAttackRate(fAttackRate);
-    pCompressor->setReleaseRate(fReleaseRate);
+    pCompressor->setAttackRate(nAttackRate);
+    pCompressor->setReleaseRate(nReleaseRate);
 
     pCompressor->setStereoLink(nStereoLink);
 

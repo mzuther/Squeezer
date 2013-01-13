@@ -43,10 +43,10 @@ GainReducer::GainReducer(int nSampleRate)
     setThreshold(-12.0f);
     setRatio(2.0f);
 
-    setAttackRate(10.0f);
-    setReleaseRate(100.0f);
+    setAttackRate(10);
+    setReleaseRate(100);
 
-    nCrestFactorAutoGain = 0.0f;
+    fCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;
 
     // reset (i.e. initialise) all relevant variables
@@ -151,7 +151,7 @@ void GainReducer::setThreshold(float fThresholdNew)
  */
 {
     fThreshold = fThresholdNew;
-    fGainCompensation = calculateFinalGainReduction(nCrestFactorAutoGain);
+    fGainCompensation = calculateFinalGainReduction(fCrestFactorAutoGain);
 }
 
 
@@ -174,7 +174,7 @@ void GainReducer::setRatio(float fRatioNew)
  */
 {
     fRatio = 1.0f / fRatioNew;
-    fGainCompensation = calculateFinalGainReduction(nCrestFactorAutoGain);
+    fGainCompensation = calculateFinalGainReduction(fCrestFactorAutoGain);
 }
 
 
