@@ -40,6 +40,8 @@ public:
     virtual String getName() = 0;
     virtual void setName(const String& strParameterName) = 0;
 
+    virtual float getInterval() = 0;
+
     virtual float getDefaultFloat() = 0;
     virtual float getDefaultRealFloat() = 0;
     virtual bool getDefaultRealBoolean() = 0;
@@ -65,15 +67,13 @@ public:
     virtual void clearChangeFlag() = 0;
     virtual void setChangeFlag() = 0;
 
-    virtual float getInterval() = 0;
-
     virtual float getFloatFromText(const String& strText) = 0;
     virtual String getTextFromFloat(float fValue) = 0;
 
     virtual void loadFromXml(XmlElement* xml) = 0;
     virtual void storeAsXml(XmlElement* xml) = 0;
 
-    inline int round_mz(float x)
+    inline static int round_mz(float x)
     {
         x += (x >= 0.0f) ? 0.5f : -0.5f;
         return (int) x;

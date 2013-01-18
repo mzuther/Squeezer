@@ -114,10 +114,11 @@ OBJECTS := \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/gain_reducer.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/plugin_editor_squeezer.o \
 	$(OBJDIR)/wrapped_parameter_switch.o \
-	$(OBJDIR)/wrapped_parameter_controller.o \
 	$(OBJDIR)/standalone_application.o \
+	$(OBJDIR)/wrapped_parameter_continuous.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
 	$(OBJDIR)/compressor.o \
@@ -214,16 +215,19 @@ $(OBJDIR)/gain_reducer.o: ../../../Source/gain_reducer.cpp
 $(OBJDIR)/main.o: ../../../Source/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_continuous.o: ../../../Source/slider_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor_squeezer.o: ../../../Source/plugin_editor_squeezer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/wrapped_parameter_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_controller.o: ../../../Source/wrapped_parameter_controller.cpp
+$(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
+$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/wrapped_parameter_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp

@@ -23,36 +23,36 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_SWITCH_H__
-#define __SLIDER_SWITCH_H__
+#ifndef __SLIDER_CONTINUOUS_H__
+#define __SLIDER_CONTINUOUS_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "plugin_parameters_squeezer.h"
-#include "wrapped_parameter_switch.h"
+#include "wrapped_parameter_continuous.h"
 
 
 //==============================================================================
 /**
 */
-class SliderSwitch : public Slider
+class SliderContinuous : public Slider
 {
 public:
-    SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index);
-    ~SliderSwitch();
+    SliderContinuous(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index);
+    ~SliderContinuous();
 
     void setSliderColour(const Colour& colour);
 
     double getValueFromText(const String& strText);
     String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderSwitch);
+    JUCE_LEAK_DETECTOR(SliderContinuous);
 
     SqueezerPluginParameters* pPluginParameters;
     int nParameterIndex;
 };
 
 
-#endif  // __SLIDER_SWITCH_H__
+#endif  // __SLIDER_CONTINUOUS_H__
 
 
 // Local Variables:

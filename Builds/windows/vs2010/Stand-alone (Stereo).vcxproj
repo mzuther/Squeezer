@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{C7FD877C-358E-9E3E-6F89-50FCB4F5D98C}</ProjectGuid>
+		<ProjectGuid>{90B0EA08-E07F-3626-4447-0530C5796C04}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -110,14 +110,15 @@
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemGroup>
+		<ClInclude Include="..\..\..\Source\wrapped_parameter_continuous.h" />
 		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\gain_reducer.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
-		<ClInclude Include="..\..\..\Source\wrapped_parameter_controller.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
@@ -140,13 +141,15 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\slider_continuous.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\wrapped_parameter_controller.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\wrapped_parameter_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_about.cpp">
 		</ClCompile>

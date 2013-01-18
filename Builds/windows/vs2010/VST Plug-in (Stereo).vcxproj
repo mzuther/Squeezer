@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{41224B05-9205-C35D-EFCB-19746323F407}</ProjectGuid>
+		<ProjectGuid>{13353288-758F-66B4-0F13-4867E457C079}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -114,14 +114,15 @@
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemGroup>
+		<ClInclude Include="..\..\..\Source\wrapped_parameter_continuous.h" />
 		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\gain_reducer.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
-		<ClInclude Include="..\..\..\Source\wrapped_parameter_controller.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
@@ -143,11 +144,13 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\slider_continuous.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\wrapped_parameter_controller.cpp">
+		<ClCompile Include="..\..\..\Source\wrapped_parameter_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_about.cpp">
 		</ClCompile>
