@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{E5CB50D5-5511-53FF-95CA-E61566B8F9DB}</ProjectGuid>
+		<ProjectGuid>{C7FD877C-358E-9E3E-6F89-50FCB4F5D98C}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -117,6 +117,7 @@
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\wrapped_parameter_controller.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
@@ -142,6 +143,8 @@
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\wrapped_parameter_controller.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
 		</ClCompile>

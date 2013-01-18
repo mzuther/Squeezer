@@ -116,6 +116,7 @@ OBJECTS := \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/plugin_editor_squeezer.o \
 	$(OBJDIR)/wrapped_parameter_switch.o \
+	$(OBJDIR)/wrapped_parameter_controller.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
 	$(OBJDIR)/compressor.o \
@@ -217,6 +218,9 @@ $(OBJDIR)/plugin_editor_squeezer.o: ../../../Source/plugin_editor_squeezer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/wrapped_parameter_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_controller.o: ../../../Source/wrapped_parameter_controller.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp

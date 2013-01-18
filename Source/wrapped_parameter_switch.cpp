@@ -30,11 +30,11 @@ WrappedParameterSwitch::WrappedParameterSwitch()
 {
     strName = "";
     strAttribute = "";
-    fDefaultRealValue = 0.0f;
 
-    nCurrentIndex = 0;
-    fValueInternal = 0.0f;
-    fInterval = 0.0f;
+    nCurrentIndex = -1;
+    fDefaultRealValue = -1.0f;
+    fValueInternal = fDefaultRealValue;
+    fInterval = -1.0f;
 
     setChangeFlag();
 }
@@ -60,9 +60,14 @@ void WrappedParameterSwitch::setName(const String& strParameterName)
 
 void WrappedParameterSwitch::addValue(const float fRealValue, const String& strText)
 {
-    strValues.add(strText);
     fRealValues.add(fRealValue);
+    strValues.add(strText);
     fInterval = 1.0f / (strValues.size() - 1.0f);
+
+    if (fRealValues.size() == 1)
+    {
+        setDefaultRealFloat(fRealValue, true);
+    }
 }
 
 
@@ -78,7 +83,8 @@ float WrappedParameterSwitch::getDefaultFloat()
 
     if (nIndex < 0)
     {
-        return 0.0f;
+        DBG("[Squeezer] default value for \"" + strName + "\" not found.");
+        return -1.0f;
     }
     else
     {
@@ -93,25 +99,37 @@ float WrappedParameterSwitch::getDefaultRealFloat()
 }
 
 
-bool WrappedParameterSwitch::getDefaultBoolean()
+bool WrappedParameterSwitch::getDefaultRealBoolean()
 {
-    return getDefaultFloat() != 0.0f;
+    return getDefaultRealFloat() != 0.0f;
 }
 
 
-int WrappedParameterSwitch::getDefaultInteger()
+int WrappedParameterSwitch::getDefaultRealInteger()
 {
-    return round_mz(getDefaultFloat());
+    return round_mz(getDefaultRealFloat());
 }
 
 
-void WrappedParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
+bool WrappedParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
-    fDefaultRealValue = fRealValue;
+    int nIndex = fRealValues.indexOf(fRealValue);
 
-    if (updateValue)
+    if (nIndex < 0)
     {
-        setRealFloat(fDefaultRealValue);
+        DBG("[Squeezer] new default value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
+        return false;
+    }
+    else
+    {
+        fDefaultRealValue = fRealValue;
+
+        if (updateValue)
+        {
+            setRealFloat(fDefaultRealValue);
+        }
+
+        return true;
     }
 }
 
@@ -122,16 +140,26 @@ float WrappedParameterSwitch::getFloat()
 }
 
 
-void WrappedParameterSwitch::setFloat(float fValue)
+bool WrappedParameterSwitch::setFloat(float fValue)
 {
-    int nCurrentIndexOld = nCurrentIndex;
-
-    fValueInternal = fValue;
-    nCurrentIndex = round_mz(fValueInternal / fInterval);
-
-    if (nCurrentIndex != nCurrentIndexOld)
+    if ((fValue < 0.0f) || (fValue > 1.0f))
     {
-        setChangeFlag();
+        DBG("[Squeezer] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
+        return false;
+    }
+    else
+    {
+        int nCurrentIndexOld = nCurrentIndex;
+
+        fValueInternal = fValue;
+        nCurrentIndex = round_mz(fValueInternal / fInterval);
+
+        if (nCurrentIndex != nCurrentIndexOld)
+        {
+            setChangeFlag();
+        }
+
+        return true;
     }
 }
 
@@ -142,20 +170,27 @@ float WrappedParameterSwitch::getRealFloat()
 }
 
 
-void WrappedParameterSwitch::setRealFloat(float fValue)
+bool WrappedParameterSwitch::setRealFloat(float fRealValue)
 {
     int nCurrentIndexOld = nCurrentIndex;
-    int nIndex = fRealValues.indexOf(fValue);
+    int nIndex = fRealValues.indexOf(fRealValue);
 
-    if (nIndex > -1)
+    if (nIndex < 0)
+    {
+        DBG("[Squeezer] value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
+        return false;
+    }
+    else
     {
         nCurrentIndex = nIndex;
         fValueInternal = nCurrentIndex * fInterval;
-    }
 
-    if (nCurrentIndex != nCurrentIndexOld)
-    {
-        setChangeFlag();
+        if (nCurrentIndex != nCurrentIndexOld)
+        {
+            setChangeFlag();
+        }
+
+        return true;
     }
 }
 
@@ -166,21 +201,9 @@ bool WrappedParameterSwitch::getBoolean()
 }
 
 
-void WrappedParameterSwitch::setBoolean(bool bValue)
+bool WrappedParameterSwitch::setBoolean(bool bValue)
 {
-    setRealFloat(bValue ? 1.0f : 0.0f);
-}
-
-
-int WrappedParameterSwitch::getInteger()
-{
-    return round_mz(getFloat());
-}
-
-
-void WrappedParameterSwitch::setInteger(int nValue)
-{
-    setFloat((float) nValue);
+    return setRealFloat(bValue ? 1.0f : 0.0f);
 }
 
 
@@ -190,9 +213,9 @@ int WrappedParameterSwitch::getRealInteger()
 }
 
 
-void WrappedParameterSwitch::setRealInteger(int nValue)
+bool WrappedParameterSwitch::setRealInteger(int nRealValue)
 {
-    setRealFloat((float) nValue);
+    return setRealFloat((float) nRealValue);
 }
 
 
@@ -202,20 +225,27 @@ String WrappedParameterSwitch::getText()
 }
 
 
-void WrappedParameterSwitch::setText(const String& strText)
+bool WrappedParameterSwitch::setText(const String& strText)
 {
     int nCurrentIndexOld = nCurrentIndex;
     int nIndex = strValues.indexOf(strText);
 
-    if (nIndex > -1)
+    if (nIndex < 0)
+    {
+        DBG("[Squeezer] text value \"" + strText + "\" not found in \"" + strName + "\".");
+        return false;
+    }
+    else
     {
         nCurrentIndex = nIndex;
         fValueInternal = nCurrentIndex * fInterval;
-    }
 
-    if (nCurrentIndex != nCurrentIndexOld)
-    {
-        setChangeFlag();
+        if (nCurrentIndex != nCurrentIndexOld)
+        {
+            setChangeFlag();
+        }
+
+        return true;
     }
 }
 
@@ -223,26 +253,31 @@ void WrappedParameterSwitch::setText(const String& strText)
 float WrappedParameterSwitch::getFloatFromText(const String& strText)
 {
     int nIndex = strValues.indexOf(strText);
-    return nIndex * fInterval;
+
+    if (nIndex < 0)
+    {
+        DBG("[Squeezer] text value \"" + strText + "\" not found in \"" + strName + "\".");
+        return -1.0f;
+    }
+    else
+    {
+        return nIndex * fInterval;
+    }
 }
 
 
 String WrappedParameterSwitch::getTextFromFloat(float fValue)
 {
-    int nIndex = round_mz(fValue / fInterval);
-    return strValues[nIndex];
-}
-
-
-int WrappedParameterSwitch::getIntegerFromText(const String& strText)
-{
-    return round_mz(getFloatFromText(strText));
-}
-
-
-String WrappedParameterSwitch::getTextFromInteger(int nValue)
-{
-    return getTextFromFloat((float) nValue);
+    if ((fValue < 0.0f) || (fValue > 1.0f))
+    {
+        DBG("[Squeezer] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
+        return "not found";
+    }
+    else
+    {
+        int nIndex = round_mz(fValue / fInterval);
+        return strValues[nIndex];
+    }
 }
 
 
@@ -270,8 +305,8 @@ void WrappedParameterSwitch::loadFromXml(XmlElement* xml)
 
     if (xml_element)
     {
-        float fValue = (float) xml_element->getDoubleAttribute("value", getRealFloat());
-        setRealFloat(fValue);
+        float fRealValue = (float) xml_element->getDoubleAttribute("value", getDefaultRealFloat());
+        setRealFloat(fRealValue);
     }
 }
 
@@ -282,8 +317,8 @@ void WrappedParameterSwitch::storeAsXml(XmlElement* xml)
 
     if (xml_element)
     {
-        float fValue = getRealFloat();
-        xml_element->setAttribute("value", fValue);
+        float fRealValue = getRealFloat();
+        xml_element->setAttribute("value", fRealValue);
         xml->addChildElement(xml_element);
     }
 }

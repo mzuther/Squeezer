@@ -121,24 +121,24 @@ float PluginParameters::getDefaultRealFloat(int nIndex)
 }
 
 
-bool PluginParameters::getDefaultBoolean(int nIndex)
+bool PluginParameters::getDefaultRealBoolean(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getDefaultBoolean();
+    return arrParameters[nIndex]->getDefaultRealBoolean();
 }
 
 
-int PluginParameters::getDefaultInteger(int nIndex)
+int PluginParameters::getDefaultRealInteger(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getDefaultInteger();
+    return arrParameters[nIndex]->getDefaultRealInteger();
 }
 
 
-void PluginParameters::setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue)
+bool PluginParameters::setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setDefaultRealFloat(fRealValue, updateValue);
+    return arrParameters[nIndex]->setDefaultRealFloat(fRealValue, updateValue);
 }
 
 
@@ -149,10 +149,10 @@ float PluginParameters::getFloat(int nIndex)
 }
 
 
-void PluginParameters::setFloat(int nIndex, float fValue)
+bool PluginParameters::setFloat(int nIndex, float fValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setFloat(fValue);
+    bool bReturn = arrParameters[nIndex]->setFloat(fValue);
 
     if (arrParameters[nIndex]->hasChanged())
     {
@@ -160,6 +160,8 @@ void PluginParameters::setFloat(int nIndex, float fValue)
         // parameter's ID
         sendActionMessage("PC#" + String(nIndex));
     }
+
+    return bReturn;
 }
 
 
@@ -170,10 +172,10 @@ float PluginParameters::getRealFloat(int nIndex)
 }
 
 
-void PluginParameters::setRealFloat(int nIndex, float fValue)
+bool PluginParameters::setRealFloat(int nIndex, float fRealValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setRealFloat(fValue);
+    return arrParameters[nIndex]->setRealFloat(fRealValue);
 }
 
 
@@ -184,31 +186,10 @@ bool PluginParameters::getBoolean(int nIndex)
 }
 
 
-void PluginParameters::setBoolean(int nIndex, bool bValue)
+bool PluginParameters::setBoolean(int nIndex, bool bValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setBoolean(bValue);
-}
-
-
-int PluginParameters::getInteger(int nIndex)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getInteger();
-}
-
-
-void PluginParameters::setInteger(int nIndex, int nValue)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setInteger(nValue);
-
-    if (arrParameters[nIndex]->hasChanged())
-    {
-        // "PC" --> parameter changed, followed by a hash and the
-        // parameter's ID
-        sendActionMessage("PC#" + String(nIndex));
-    }
+    return arrParameters[nIndex]->setBoolean(bValue);
 }
 
 
@@ -219,10 +200,10 @@ int PluginParameters::getRealInteger(int nIndex)
 }
 
 
-void PluginParameters::setRealInteger(int nIndex, int nValue)
+bool PluginParameters::setRealInteger(int nIndex, int nRealValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setRealInteger(nValue);
+    return arrParameters[nIndex]->setRealInteger(nRealValue);
 }
 
 
@@ -233,10 +214,10 @@ String PluginParameters::getText(int nIndex)
 }
 
 
-void PluginParameters::setText(int nIndex, const String& strText)
+bool PluginParameters::setText(int nIndex, const String& strText)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setText(strText);
+    return arrParameters[nIndex]->setText(strText);
 }
 
 
@@ -251,20 +232,6 @@ String PluginParameters::getTextFromFloat(int nIndex, float fValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getTextFromFloat(fValue);
-}
-
-
-int PluginParameters::getIntegerFromText(int nIndex, const String& strText)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getIntegerFromText(strText);
-}
-
-
-String PluginParameters::getTextFromInteger(int nIndex, int nValue)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getTextFromInteger(nValue);
 }
 
 

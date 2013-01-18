@@ -42,27 +42,24 @@ public:
 
     virtual float getDefaultFloat() = 0;
     virtual float getDefaultRealFloat() = 0;
-    virtual bool getDefaultBoolean() = 0;
-    virtual int getDefaultInteger() = 0;
-    virtual void setDefaultRealFloat(float fRealValue, bool updateValue) = 0;
+    virtual bool getDefaultRealBoolean() = 0;
+    virtual int getDefaultRealInteger() = 0;
+    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) = 0;
 
     virtual float getFloat() = 0;
-    virtual void setFloat(float fValue) = 0;
+    virtual bool setFloat(float fValue) = 0;
 
     virtual float getRealFloat() = 0;
-    virtual void setRealFloat(float fValue) = 0;
+    virtual bool setRealFloat(float fRealValue) = 0;
 
     virtual bool getBoolean() = 0;
-    virtual void setBoolean(bool bValue) = 0;
-
-    virtual int getInteger() = 0;
-    virtual void setInteger(int nValue) = 0;
+    virtual bool setBoolean(bool bValue) = 0;
 
     virtual int getRealInteger() = 0;
-    virtual void setRealInteger(int nValue) = 0;
+    virtual bool setRealInteger(int nRealValue) = 0;
 
     virtual String getText() = 0;
-    virtual void setText(const String& strText) = 0;
+    virtual bool setText(const String& strText) = 0;
 
     virtual bool hasChanged() = 0;
     virtual void clearChangeFlag() = 0;
@@ -72,9 +69,6 @@ public:
 
     virtual float getFloatFromText(const String& strText) = 0;
     virtual String getTextFromFloat(float fValue) = 0;
-
-    virtual int getIntegerFromText(const String& strText) = 0;
-    virtual String getTextFromInteger(int nValue) = 0;
 
     virtual void loadFromXml(XmlElement* xml) = 0;
     virtual void storeAsXml(XmlElement* xml) = 0;

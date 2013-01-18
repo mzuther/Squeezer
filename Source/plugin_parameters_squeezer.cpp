@@ -166,7 +166,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterStereoLinkSwitch = new WrappedParameterSwitch;
     ParameterStereoLinkSwitch->setName("Stereo Link Switch");
 
-    ParameterStereoLinkSwitch->addValue(0.0f,     "0 %");
+    ParameterStereoLinkSwitch->addValue(0.0f,     "Off");
     ParameterStereoLinkSwitch->addValue(50.0f,   "50 %");
     ParameterStereoLinkSwitch->addValue(75.0f,   "75 %");
     ParameterStereoLinkSwitch->addValue(90.0f,   "90 %");
@@ -251,17 +251,17 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterWetMixSwitch = new WrappedParameterSwitch;
     ParameterWetMixSwitch->setName("Wet Mix Switch");
 
-    ParameterWetMixSwitch->addValue(0.0f,     "0 %");
-    ParameterWetMixSwitch->addValue(5.0f,     "5 %");
-    ParameterWetMixSwitch->addValue(10.0f,   "10 %");
-    ParameterWetMixSwitch->addValue(15.0f,   "15 %");
-    ParameterWetMixSwitch->addValue(20.0f,   "20 %");
-    ParameterWetMixSwitch->addValue(25.0f,   "25 %");
-    ParameterWetMixSwitch->addValue(30.0f,   "30 %");
-    ParameterWetMixSwitch->addValue(40.0f,   "40 %");
-    ParameterWetMixSwitch->addValue(50.0f,   "50 %");
-    ParameterWetMixSwitch->addValue(75.0f,   "75 %");
-    ParameterWetMixSwitch->addValue(100.0f, "100 %");
+    ParameterWetMixSwitch->addValue(0.0f,   "Bypass");
+    ParameterWetMixSwitch->addValue(5.0f,      "5 %");
+    ParameterWetMixSwitch->addValue(10.0f,    "10 %");
+    ParameterWetMixSwitch->addValue(15.0f,    "15 %");
+    ParameterWetMixSwitch->addValue(20.0f,    "20 %");
+    ParameterWetMixSwitch->addValue(25.0f,    "25 %");
+    ParameterWetMixSwitch->addValue(30.0f,    "30 %");
+    ParameterWetMixSwitch->addValue(40.0f,    "40 %");
+    ParameterWetMixSwitch->addValue(50.0f,    "50 %");
+    ParameterWetMixSwitch->addValue(75.0f,    "75 %");
+    ParameterWetMixSwitch->addValue(100.0f,  "100 %");
 
     ParameterWetMixSwitch->setDefaultRealFloat(100.0f, true);
     add(ParameterWetMixSwitch);

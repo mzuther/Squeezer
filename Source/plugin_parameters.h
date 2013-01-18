@@ -29,6 +29,7 @@
 class PluginParameters;
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "wrapped_parameter_controller.h"
 #include "wrapped_parameter_switch.h"
 
 
@@ -53,27 +54,24 @@ public:
 
     float getDefaultFloat(int nIndex);
     float getDefaultRealFloat(int nIndex);
-    bool getDefaultBoolean(int nIndex);
-    int getDefaultInteger(int nIndex);
-    void setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue);
+    bool getDefaultRealBoolean(int nIndex);
+    int getDefaultRealInteger(int nIndex);
+    bool setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue);
 
     float getFloat(int nIndex);
-    void setFloat(int nIndex, float fValue);
+    bool setFloat(int nIndex, float fValue);
 
     bool getBoolean(int nIndex);
-    void setBoolean(int nIndex, bool bValue);
+    bool setBoolean(int nIndex, bool bValue);
 
     float getRealFloat(int nIndex);
-    void setRealFloat(int nIndex, float fValue);
-
-    int getInteger(int nIndex);
-    void setInteger(int nIndex, int nValue);
+    bool setRealFloat(int nIndex, float fRealValue);
 
     int getRealInteger(int nIndex);
-    void setRealInteger(int nIndex, int nValue);
+    bool setRealInteger(int nIndex, int nRealValue);
 
     String getText(int nIndex);
-    void setText(int nIndex, const String& strText);
+    bool setText(int nIndex, const String& strText);
 
     bool hasChanged(int nIndex);
     void clearChangeFlag(int nIndex);
@@ -81,9 +79,6 @@ public:
 
     float getFloatFromText(int nIndex, const String& strText);
     String getTextFromFloat(int nIndex, float fValue);
-
-    int getIntegerFromText(int nIndex, const String& strText);
-    String getTextFromInteger(int nIndex, int nValue);
 
     void loadFromXml(XmlElement* xml);
     XmlElement storeAsXml();

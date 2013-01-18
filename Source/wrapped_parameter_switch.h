@@ -47,33 +47,27 @@ public:
 
     float getDefaultFloat();
     float getDefaultRealFloat();
-    bool getDefaultBoolean();
-    int getDefaultInteger();
-    void setDefaultRealFloat(float fRealValue, bool updateValue);
+    bool getDefaultRealBoolean();
+    int getDefaultRealInteger();
+    bool setDefaultRealFloat(float fRealValue, bool updateValue);
 
     float getFloat();
-    void setFloat(float fValue);
+    bool setFloat(float fValue);
 
     float getRealFloat();
-    void setRealFloat(float fValue);
+    bool setRealFloat(float fRealValue);
 
     bool getBoolean();
-    void setBoolean(bool bValue);
-
-    int getInteger();
-    void setInteger(int nValue);
+    bool setBoolean(bool bValue);
 
     int getRealInteger();
-    void setRealInteger(int nValue);
+    bool setRealInteger(int nRealValue);
 
     String getText();
-    void setText(const String& strText);
+    bool setText(const String& strText);
 
     float getFloatFromText(const String& strText);
     String getTextFromFloat(float fValue);
-
-    int getIntegerFromText(const String& strText);
-    String getTextFromInteger(int nValue);
 
     bool hasChanged();
     void clearChangeFlag();
