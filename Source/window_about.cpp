@@ -2,7 +2,7 @@
 
    Squeezer
    ========
-   Flexible general-purpose compressor with a touch of lemon
+   Flexible general-purpose audio compressor with a touch of lemon.
 
    Copyright (c) 2013 Martin Zuther (http://www.mzuther.de/)
 
@@ -74,7 +74,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display plug-in description
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        String(JucePlugin_Desc) + ".\n\n"
+        String(JucePlugin_Desc) + "\n\n"
     );
 
     // display copyright notice
@@ -122,7 +122,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"I want to thank all contributors "
         L"and beta testers, the open source "
         L"community - and the users of "
-        L"Squeezer for using free software!\n\n"
+        L"\"Squeezer\" for using free software!\n\n"
     );
 
     // display used libraries
