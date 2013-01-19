@@ -43,8 +43,10 @@ GainReducer::GainReducer(int nSampleRate)
     setRatio(2.0f);
 
     setAttackRate(10);
+    setLogarithmicAttack(SqueezerPluginParameters::selAttackTypeLogarithmic);
+
     setReleaseRate(100);
-    setLogarithmic(SqueezerPluginParameters::selEnvelopeTypeLogarithmic);
+    setLogarithmicRelease(SqueezerPluginParameters::selReleaseTypeLogarithmic);
 
     fCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;
@@ -107,33 +109,6 @@ void GainReducer::setDesign(int nDesignNew)
  */
 {
     nDesign = nDesignNew;
-}
-
-
-bool GainReducer::getLogarithmic()
-/*  Get current compressor envelope type.
-
-    return value (boolean): returns whether envelope reacts in a
-    logarithmic (as opposed to linear) way
- */
-{
-    return bLogarithmicEnvelope;
-}
-
-
-void GainReducer::setLogarithmic(bool bLogarithmicNew)
-/*  Set new compressor envelope type.
-
-    bLogarithmicNew (boolean): determines whether envelope reacts in a
-    logarithmic (as opposed to linear) way
-
-    return value: none
- */
-{
-    bLogarithmicEnvelope = bLogarithmicNew;
-
-    setAttackRate(nAttackRate);
-    setReleaseRate(nReleaseRate);
 }
 
 
@@ -212,7 +187,7 @@ void GainReducer::setAttackRate(int nAttackRateNew)
     {
         float fAttackRateSeconds = nAttackRate / 1000.0f;
 
-        if (bLogarithmicEnvelope)
+        if (bLogarithmicAttack)
         {
             // logarithmic envelope reaches 95% of the final reading
             // in the given attack time
@@ -220,7 +195,7 @@ void GainReducer::setAttackRate(int nAttackRateNew)
         }
         else
         {
-            // rise time: rises 10 dB per interval defined in release
+            // rise time: rises 10 dB per interval defined in attack
             // rate (linear)
             fAttackCoefficient = 10.0f * fTimePassed / fAttackRateSeconds;
         }
@@ -257,7 +232,7 @@ void GainReducer::setReleaseRate(int nReleaseRateNew)
     {
         float fReleaseRateSeconds = nReleaseRate / 1000.0f;
 
-        if (bLogarithmicEnvelope)
+        if (bLogarithmicRelease)
         {
             // logarithmic envelope reaches 95% of the final reading
             // in the given release time
@@ -270,6 +245,56 @@ void GainReducer::setReleaseRate(int nReleaseRateNew)
             fReleaseCoefficient = 10.0f * fTimePassed / fReleaseRateSeconds;
         }
     }
+}
+
+
+bool GainReducer::getLogarithmicAttack()
+/*  Get current compressor envelope attack type.
+
+    return value (boolean): returns whether envelope attack reacts in
+    a logarithmic (as opposed to linear) way
+ */
+{
+    return bLogarithmicAttack;
+}
+
+
+void GainReducer::setLogarithmicAttack(bool bLogarithmicAttackNew)
+/*  Set new compressor envelope attack type.
+
+    bLogarithmicAttackNew (boolean): determines whether envelope
+    attack reacts in a logarithmic (as opposed to linear) way
+
+    return value: none
+ */
+{
+    bLogarithmicAttack = bLogarithmicAttackNew;
+    setAttackRate(nAttackRate);
+}
+
+
+bool GainReducer::getLogarithmicRelease()
+/*  Get current compressor envelope release type.
+
+    return value (boolean): returns whether envelope release reacts in
+    a logarithmic (as opposed to linear) way
+ */
+{
+    return bLogarithmicRelease;
+}
+
+
+void GainReducer::setLogarithmicRelease(bool bLogarithmicReleaseNew)
+/*  Set new compressor envelope release type.
+
+    bLogarithmicReleaseNew (boolean): determines whether envelope
+    release reacts in a logarithmic (as opposed to linear) way
+
+    return value: none
+ */
+{
+    bLogarithmicRelease = bLogarithmicReleaseNew;
+    setReleaseRate(nReleaseRate);
 }
 
 
@@ -323,31 +348,11 @@ void GainReducer::processSample(float fInputLevel)
 {
     float fGainReductionFinal = calculateFinalGainReduction(fInputLevel);
 
-    if (bLogarithmicEnvelope)
-    {
-        applyLogarithmicEnvelope(fGainReductionFinal);
-    }
-    else
-    {
-        applyLinearEnvelope(fGainReductionFinal);
-    }
-}
-
-
-void GainReducer::applyLinearEnvelope(float fGainReductionFinal)
-/*  Calculate linear envelope follower.
-
-    fGainReductionFinal (float): calculated final gain reduction in
-    decibels
-
-    return value: none
-*/
-{
     if (fGainReductionFinal == fGainReduction)
     {
         return;
     }
-    // apply rise time if proposed gain reduction is above old gain
+    // apply attack rate if proposed gain reduction is above old gain
     // reduction
     else if (fGainReductionFinal > fGainReduction)
     {
@@ -355,39 +360,37 @@ void GainReducer::applyLinearEnvelope(float fGainReductionFinal)
         {
             fGainReduction = fGainReductionFinal;
         }
+        else if (bLogarithmicAttack)
+        {
+            applyLogarithmicAttack(fGainReductionFinal);
+        }
         else
         {
-            fGainReduction += fAttackCoefficient;
-
-            if (fGainReduction > fGainReductionFinal)
-            {
-                fGainReduction = fGainReductionFinal;
-            }
+            applyLinearAttack(fGainReductionFinal);
         }
     }
-    // otherwise, apply fall time if proposed gain reduction is below
-    // old gain reduction
+    // otherwise, apply release rate if proposed gain reduction is
+    // below old gain reduction
     else
     {
         if (fReleaseCoefficient == 0.0f)
         {
             fGainReduction = fGainReductionFinal;
         }
+        else if (bLogarithmicRelease)
+        {
+            applyLogarithmicRelease(fGainReductionFinal);
+        }
         else
         {
-            fGainReduction -= fReleaseCoefficient;
-
-            if (fGainReduction < fGainReductionFinal)
-            {
-                fGainReduction = fGainReductionFinal;
-            }
+            applyLinearRelease(fGainReductionFinal);
         }
     }
 }
 
 
-void GainReducer::applyLogarithmicEnvelope(float fGainReductionFinal)
-/*  Calculate logarithmic envelope follower.
+void GainReducer::applyLinearAttack(float fGainReductionFinal)
+/*  Calculate linear envelope follower (attack part).
 
     fGainReductionFinal (float): calculated final gain reduction in
     decibels
@@ -395,38 +398,64 @@ void GainReducer::applyLogarithmicEnvelope(float fGainReductionFinal)
     return value: none
 */
 {
-    float fTimeCoefficient;
+    fGainReduction += fAttackCoefficient;
 
-    if (fGainReductionFinal == fGainReduction)
-    {
-        return;
-    }
-    // apply rise time if proposed gain reduction is above old gain
-    // reduction
-    else if (fGainReductionFinal > fGainReduction)
-    {
-        fTimeCoefficient = fAttackCoefficient;
-    }
-    // otherwise, apply fall time if proposed gain reduction is below
-    // old gain reduction
-    else
-    {
-        fTimeCoefficient = fReleaseCoefficient;
-    }
-
-    if (fTimeCoefficient == 0.0f)
+    if (fGainReduction > fGainReductionFinal)
     {
         fGainReduction = fGainReductionFinal;
     }
-    else
+}
+
+
+void GainReducer::applyLinearRelease(float fGainReductionFinal)
+/*  Calculate linear envelope follower (release part).
+
+    fGainReductionFinal (float): calculated final gain reduction in
+    decibels
+
+    return value: none
+*/
+{
+    fGainReduction -= fReleaseCoefficient;
+
+    if (fGainReduction < fGainReductionFinal)
     {
-        // Thanks to Bram from Smartelectronix for the code snippet!
-        // (http://www.musicdsp.org/showone.php?id=136)
-        //
-        // rise and fall: 95% of final reading in "fMeterInertia"
-        // seconds
-        fGainReduction = fTimeCoefficient * (fGainReduction - fGainReductionFinal) + fGainReductionFinal;
+        fGainReduction = fGainReductionFinal;
     }
+}
+
+
+void GainReducer::applyLogarithmicAttack(float fGainReductionFinal)
+/*  Calculate logarithmic envelope follower (attack part).
+
+    fGainReductionFinal (float): calculated final gain reduction in
+    decibels
+
+    return value: none
+*/
+{
+    // Thanks to Bram from Smartelectronix for the code snippet!
+    // (http://www.musicdsp.org/showone.php?id=136)
+    //
+    // rise and fall: 95% of final reading in "fMeterInertia" seconds
+    fGainReduction = fAttackCoefficient * (fGainReduction - fGainReductionFinal) + fGainReductionFinal;
+}
+
+
+void GainReducer::applyLogarithmicRelease(float fGainReductionFinal)
+/*  Calculate logarithmic envelope follower (release part).
+
+    fGainReductionFinal (float): calculated final gain reduction in
+    decibels
+
+    return value: none
+*/
+{
+    // Thanks to Bram from Smartelectronix for the code snippet!
+    // (http://www.musicdsp.org/showone.php?id=136)
+    //
+    // rise and fall: 95% of final reading in "fMeterInertia" seconds
+    fGainReduction = fReleaseCoefficient * (fGainReduction - fGainReductionFinal) + fGainReductionFinal;
 }
 
 

@@ -120,18 +120,6 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selRatioSwitch + 1);
 
 
-    WrappedParameterSwitch* ParameterEnvelopeTypeSwitch = new WrappedParameterSwitch;
-    ParameterEnvelopeTypeSwitch->setName("Envelope Type Switch");
-
-    ParameterEnvelopeTypeSwitch->addValue(selEnvelopeTypeLinear,      "Linear");
-    ParameterEnvelopeTypeSwitch->addValue(selEnvelopeTypeLogarithmic, "Logarithmic");
-
-    ParameterEnvelopeTypeSwitch->setDefaultRealFloat(selEnvelopeTypeLogarithmic, true);
-    add(ParameterEnvelopeTypeSwitch);
-
-    jassert(arrParameters.size() == selEnvelopeTypeSwitch + 1);
-
-
     WrappedParameterSwitch* ParameterAttackRateSwitch = new WrappedParameterSwitch;
     ParameterAttackRateSwitch->setName("Attack Rate Switch");
 
@@ -147,6 +135,18 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterAttackRateSwitch);
 
     jassert(arrParameters.size() == selAttackRateSwitch + 1);
+
+
+    WrappedParameterSwitch* ParameterAttackTypeSwitch = new WrappedParameterSwitch;
+    ParameterAttackTypeSwitch->setName("Attack Type Switch");
+
+    ParameterAttackTypeSwitch->addValue(selAttackTypeLinear,      "Linear");
+    ParameterAttackTypeSwitch->addValue(selAttackTypeLogarithmic, "Logarithmic");
+
+    ParameterAttackTypeSwitch->setDefaultRealFloat(selAttackTypeLogarithmic, true);
+    add(ParameterAttackTypeSwitch);
+
+    jassert(arrParameters.size() == selAttackTypeSwitch + 1);
 
 
     WrappedParameterSwitch* ParameterReleaseRateSwitch = new WrappedParameterSwitch;
@@ -183,6 +183,18 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterReleaseRateContinuous);
 
     jassert(arrParameters.size() == selReleaseRateContinuous + 1);
+
+
+    WrappedParameterSwitch* ParameterReleaseTypeSwitch = new WrappedParameterSwitch;
+    ParameterReleaseTypeSwitch->setName("Release Type Switch");
+
+    ParameterReleaseTypeSwitch->addValue(selReleaseTypeLinear,      "Linear");
+    ParameterReleaseTypeSwitch->addValue(selReleaseTypeLogarithmic, "Logarithmic");
+
+    ParameterReleaseTypeSwitch->setDefaultRealFloat(selReleaseTypeLogarithmic, true);
+    add(ParameterReleaseTypeSwitch);
+
+    jassert(arrParameters.size() == selReleaseTypeSwitch + 1);
 
 
     WrappedParameterSwitch* ParameterStereoLinkSwitch = new WrappedParameterSwitch;

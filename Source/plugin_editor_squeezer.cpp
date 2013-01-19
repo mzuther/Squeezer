@@ -87,24 +87,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderRatioSwitch);
 
 
-    ButtonEnvelopeTypeLinear = new TextButton("Linear");
-    ButtonEnvelopeTypeLinear->setRadioGroupId(2);
-    ButtonEnvelopeTypeLinear->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonEnvelopeTypeLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
-
-    ButtonEnvelopeTypeLinear->addListener(this);
-    addAndMakeVisible(ButtonEnvelopeTypeLinear);
-
-
-    ButtonEnvelopeTypeLogarithmic = new TextButton("Log");
-    ButtonEnvelopeTypeLogarithmic->setRadioGroupId(2);
-    ButtonEnvelopeTypeLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonEnvelopeTypeLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonEnvelopeTypeLogarithmic->addListener(this);
-    addAndMakeVisible(ButtonEnvelopeTypeLogarithmic);
-
-
     nIndex = SqueezerPluginParameters::selAttackRateSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
@@ -133,6 +115,42 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     SliderReleaseRateContinuous->addListener(this);
     addAndMakeVisible(SliderReleaseRateContinuous);
+
+
+    ButtonAttackTypeLinear = new TextButton("Linear");
+    ButtonAttackTypeLinear->setRadioGroupId(2);
+    ButtonAttackTypeLinear->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonAttackTypeLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
+
+    ButtonAttackTypeLinear->addListener(this);
+    addAndMakeVisible(ButtonAttackTypeLinear);
+
+
+    ButtonAttackTypeLogarithmic = new TextButton("Log");
+    ButtonAttackTypeLogarithmic->setRadioGroupId(2);
+    ButtonAttackTypeLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonAttackTypeLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonAttackTypeLogarithmic->addListener(this);
+    addAndMakeVisible(ButtonAttackTypeLogarithmic);
+
+
+    ButtonReleaseTypeLinear = new TextButton("Linear");
+    ButtonReleaseTypeLinear->setRadioGroupId(3);
+    ButtonReleaseTypeLinear->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonReleaseTypeLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
+
+    ButtonReleaseTypeLinear->addListener(this);
+    addAndMakeVisible(ButtonReleaseTypeLinear);
+
+
+    ButtonReleaseTypeLogarithmic = new TextButton("Log");
+    ButtonReleaseTypeLogarithmic->setRadioGroupId(3);
+    ButtonReleaseTypeLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonReleaseTypeLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonReleaseTypeLogarithmic->addListener(this);
+    addAndMakeVisible(ButtonReleaseTypeLogarithmic);
 
 
     nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
@@ -223,7 +241,10 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selRatioSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selEnvelopeTypeSwitch;
+    nIndex = SqueezerPluginParameters::selAttackTypeSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
+    nIndex = SqueezerPluginParameters::selReleaseTypeSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
     nIndex = SqueezerPluginParameters::selAttackRateSwitch;
@@ -282,12 +303,14 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderThresholdSwitch->setBounds(10, 15, 70, 60);
     SliderRatioSwitch->setBounds(70, 15, 70, 60);
 
-    ButtonEnvelopeTypeLinear->setBounds(80, 90, 50, 20);
-    ButtonEnvelopeTypeLogarithmic->setBounds(80, 115, 50, 20);
-
     SliderAttackRateSwitch->setBounds(150, 15, 70, 60);
     SliderReleaseRateSwitch->setBounds(210, 15, 70, 60);
-    SliderReleaseRateContinuous->setBounds(210, 85, 70, 60);
+    SliderReleaseRateContinuous->setBounds(280, 85, 70, 60);
+
+    ButtonAttackTypeLinear->setBounds(160, 90, 50, 20);
+    ButtonAttackTypeLogarithmic->setBounds(160, 115, 50, 20);
+    ButtonReleaseTypeLinear->setBounds(220, 90, 50, 20);
+    ButtonReleaseTypeLogarithmic->setBounds(220, 115, 50, 20);
 
     SliderStereoLinkSwitch->setBounds(290, 15, 70, 60);
 
@@ -370,18 +393,6 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
     case SqueezerPluginParameters::selRatioSwitch:
         SliderRatioSwitch->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selEnvelopeTypeSwitch:
-
-        if (fValue == SqueezerPluginParameters::selEnvelopeTypeLinear)
-        {
-            ButtonEnvelopeTypeLinear->setToggleState(true, false);
-        }
-        else
-        {
-            ButtonEnvelopeTypeLogarithmic->setToggleState(true, false);
-        }
-
-        break;
     case SqueezerPluginParameters::selAttackRateSwitch:
         SliderAttackRateSwitch->setValue(fValue, false);
         break;
@@ -390,6 +401,30 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
         break;
     case SqueezerPluginParameters::selReleaseRateContinuous:
         SliderReleaseRateContinuous->setValue(fValue, false);
+        break;
+    case SqueezerPluginParameters::selAttackTypeSwitch:
+
+        if (fValue == SqueezerPluginParameters::selAttackTypeLinear)
+        {
+            ButtonAttackTypeLinear->setToggleState(true, false);
+        }
+        else
+        {
+            ButtonAttackTypeLogarithmic->setToggleState(true, false);
+        }
+
+        break;
+    case SqueezerPluginParameters::selReleaseTypeSwitch:
+
+        if (fValue == SqueezerPluginParameters::selReleaseTypeLinear)
+        {
+            ButtonReleaseTypeLinear->setToggleState(true, false);
+        }
+        else
+        {
+            ButtonReleaseTypeLogarithmic->setToggleState(true, false);
+        }
+
         break;
     case SqueezerPluginParameters::selStereoLinkSwitch:
         SliderStereoLinkSwitch->setValue(fValue, false);
@@ -429,13 +464,21 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDesignSwitch, SqueezerPluginParameters::selDesignVintage);
     }
-    else if (button == ButtonEnvelopeTypeLinear)
+    else if (button == ButtonAttackTypeLinear)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selEnvelopeTypeSwitch, SqueezerPluginParameters::selEnvelopeTypeLinear);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackTypeSwitch, SqueezerPluginParameters::selAttackTypeLinear);
     }
-    else if (button == ButtonEnvelopeTypeLogarithmic)
+    else if (button == ButtonAttackTypeLogarithmic)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selEnvelopeTypeSwitch, SqueezerPluginParameters::selEnvelopeTypeLogarithmic);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackTypeSwitch, SqueezerPluginParameters::selAttackTypeLogarithmic);
+    }
+    else if (button == ButtonReleaseTypeLinear)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseTypeSwitch, SqueezerPluginParameters::selReleaseTypeLinear);
+    }
+    else if (button == ButtonReleaseTypeLogarithmic)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseTypeSwitch, SqueezerPluginParameters::selReleaseTypeLogarithmic);
     }
     else if (button == ButtonAbout)
     {

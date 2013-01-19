@@ -76,13 +76,16 @@ private:
     SliderSwitch* SliderThresholdSwitch;
     SliderSwitch* SliderRatioSwitch;
 
-    TextButton* ButtonEnvelopeTypeLinear;
-    TextButton* ButtonEnvelopeTypeLogarithmic;
-
     SliderSwitch* SliderAttackRateSwitch;
     SliderSwitch* SliderReleaseRateSwitch;
 
     SliderContinuous* SliderReleaseRateContinuous;
+
+    TextButton* ButtonAttackTypeLinear;
+    TextButton* ButtonAttackTypeLogarithmic;
+
+    TextButton* ButtonReleaseTypeLinear;
+    TextButton* ButtonReleaseTypeLogarithmic;
 
     SliderSwitch* SliderStereoLinkSwitch;
 

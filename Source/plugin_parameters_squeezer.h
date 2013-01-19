@@ -47,12 +47,16 @@ public:
     {
         selBypassSwitch = 0,
         selDesignSwitch,
+
         selThresholdSwitch,
         selRatioSwitch,
-        selEnvelopeTypeSwitch,
+
         selAttackRateSwitch,
+        selAttackTypeSwitch,
         selReleaseRateSwitch,
         selReleaseRateContinuous,
+        selReleaseTypeSwitch,
+
         selStereoLinkSwitch,
         selInputGainSwitch,
         selOutputGainSwitch,
@@ -65,8 +69,11 @@ public:
         selDesignModern = 0,
         selDesignVintage,
 
-        selEnvelopeTypeLinear = 0,
-        selEnvelopeTypeLogarithmic,
+        selAttackTypeLinear = 0,
+        selAttackTypeLogarithmic,
+
+        selReleaseTypeLinear = 0,
+        selReleaseTypeLogarithmic,
     };
 
 private:

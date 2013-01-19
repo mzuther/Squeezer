@@ -45,9 +45,6 @@ public:
     int getDesign();
     void setDesign(int nDesignNew);
 
-    bool getLogarithmic();
-    void setLogarithmic(bool bLogarithmicNew);
-
     float getThreshold();
     void setThreshold(float fThresholdNew);
 
@@ -59,6 +56,12 @@ public:
 
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
+
+    bool getLogarithmicAttack();
+    void setLogarithmicAttack(bool bLogarithmicAttackNew);
+
+    bool getLogarithmicRelease();
+    void setLogarithmicRelease(bool bLogarithmicReleaseNew);
 
     float getGainReduction(bool useGainCompensation);
 
@@ -75,7 +78,8 @@ private:
     float fGainCompensation;
 
     int nDesign;
-    bool bLogarithmicEnvelope;
+    bool bLogarithmicAttack;
+    bool bLogarithmicRelease;
 
     float fThreshold;
     float fRatio;
@@ -87,8 +91,10 @@ private:
     float fReleaseCoefficient;
 
     float calculateFinalGainReduction(float fInputLevel);
-    void applyLinearEnvelope(float fGainReductionFinal);
-    void applyLogarithmicEnvelope(float fGainReductionFinal);
+    void applyLinearAttack(float fGainReductionFinal);
+    void applyLinearRelease(float fGainReductionFinal);
+    void applyLogarithmicAttack(float fGainReductionFinal);
+    void applyLogarithmicRelease(float fGainReductionFinal);
 
     static float fMeterMinimumDecibel;
 };

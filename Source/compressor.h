@@ -48,9 +48,6 @@ public:
     int getDesign();
     void setDesign(int nDesignNew);
 
-    bool getLogarithmic();
-    void setLogarithmic(bool bLogarithmicNew);
-
     float getThreshold();
     void setThreshold(float fThresholdNew);
 
@@ -62,6 +59,12 @@ public:
 
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
+
+    bool getLogarithmicAttack();
+    void setLogarithmicAttack(bool bLogarithmicAttackNew);
+
+    bool getLogarithmicRelease();
+    void setLogarithmicRelease(bool bLogarithmicReleaseNew);
 
     int getStereoLink();
     void setStereoLink(int nStereoLinkNew);
