@@ -58,7 +58,7 @@ void WrappedParameterSwitch::setName(const String& strParameterName)
 }
 
 
-void WrappedParameterSwitch::addValue(const float fRealValue, const String& strText)
+void WrappedParameterSwitch::addConstant(const float fRealValue, const String& strText)
 {
     fRealValues.add(fRealValue);
     strValues.add(strText);

@@ -23,21 +23,23 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_SWITCH_H__
-#define __WRAPPED_PARAMETER_SWITCH_H__
+#ifndef __WRAPPED_PARAMETER_COMBINED_H__
+#define __WRAPPED_PARAMETER_COMBINED_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "wrapped_parameter.h"
+#include "wrapped_parameter_continuous.h"
+#include "wrapped_parameter_switch.h"
 
 
 //==============================================================================
 /**
 */
-class WrappedParameterSwitch : virtual public WrappedParameter
+class WrappedParameterCombined : virtual public WrappedParameter
 {
 public:
-    WrappedParameterSwitch();
-    ~WrappedParameterSwitch();
+    WrappedParameterCombined();
+    ~WrappedParameterCombined();
 
     String getName();
     void setName(const String& strParameterName);
@@ -76,23 +78,18 @@ public:
     void loadFromXml(XmlElement* xml);
     void storeAsXml(XmlElement* xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterSwitch);
+    JUCE_LEAK_DETECTOR(WrappedParameterCombined);
 
     String strName;
     String strAttribute;
 
-    float fDefaultRealValue;
-    int nCurrentIndex;
-    float fValueInternal;
     bool bChangedValue;
-    float fInterval;
 
-    Array<float> fRealValues;
-    StringArray strValues;
+    WrappedParameterSwitch* pSwitch;
 };
 
 
-#endif  // __WRAPPED_PARAMETER_SWITCH_H__
+#endif  // __WRAPPED_PARAMETER_COMBINED_H__
 
 
 // Local Variables:

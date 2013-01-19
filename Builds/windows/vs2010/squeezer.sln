@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Stereo)", "Stand-alone (Stereo).vcxproj", "{90B0EA08-E07F-3626-4447-0530C5796C04}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stand-alone (Stereo)", "Stand-alone (Stereo).vcxproj", "{98E43D3C-3E41-0EA8-4088-D753CC0EA91E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcxproj", "{13353288-758F-66B4-0F13-4867E457C079}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VST Plug-in (Stereo)", "VST Plug-in (Stereo).vcxproj", "{B2626F7D-3155-82FF-D40D-45435C349903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90B0EA08-E07F-3626-4447-0530C5796C04}.Debug|Win32.ActiveCfg = Debug|Win32
-		{90B0EA08-E07F-3626-4447-0530C5796C04}.Debug|Win32.Build.0 = Debug|Win32
-		{90B0EA08-E07F-3626-4447-0530C5796C04}.Release|Win32.ActiveCfg = Release|Win32
-		{90B0EA08-E07F-3626-4447-0530C5796C04}.Release|Win32.Build.0 = Release|Win32
-		{13353288-758F-66B4-0F13-4867E457C079}.Debug|Win32.ActiveCfg = Debug|Win32
-		{13353288-758F-66B4-0F13-4867E457C079}.Debug|Win32.Build.0 = Debug|Win32
-		{13353288-758F-66B4-0F13-4867E457C079}.Release|Win32.ActiveCfg = Release|Win32
-		{13353288-758F-66B4-0F13-4867E457C079}.Release|Win32.Build.0 = Release|Win32
+		{98E43D3C-3E41-0EA8-4088-D753CC0EA91E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{98E43D3C-3E41-0EA8-4088-D753CC0EA91E}.Debug|Win32.Build.0 = Debug|Win32
+		{98E43D3C-3E41-0EA8-4088-D753CC0EA91E}.Release|Win32.ActiveCfg = Release|Win32
+		{98E43D3C-3E41-0EA8-4088-D753CC0EA91E}.Release|Win32.Build.0 = Release|Win32
+		{B2626F7D-3155-82FF-D40D-45435C349903}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B2626F7D-3155-82FF-D40D-45435C349903}.Debug|Win32.Build.0 = Debug|Win32
+		{B2626F7D-3155-82FF-D40D-45435C349903}.Release|Win32.ActiveCfg = Release|Win32
+		{B2626F7D-3155-82FF-D40D-45435C349903}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

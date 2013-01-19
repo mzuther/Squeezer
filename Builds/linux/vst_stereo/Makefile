@@ -122,6 +122,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
 	$(OBJDIR)/compressor.o \
 	$(OBJDIR)/plugin_processor_squeezer.o \
+	$(OBJDIR)/wrapped_parameter_combined.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
@@ -237,6 +238,9 @@ $(OBJDIR)/compressor.o: ../../../Source/compressor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor_squeezer.o: ../../../Source/plugin_processor_squeezer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/wrapped_parameter_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/resources/resources.cpp

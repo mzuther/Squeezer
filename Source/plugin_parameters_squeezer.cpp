@@ -38,8 +38,8 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterBypassSwitch = new WrappedParameterSwitch;
     ParameterBypassSwitch->setName("Bypass Switch");
 
-    ParameterBypassSwitch->addValue(0.0f, "Off");
-    ParameterBypassSwitch->addValue(1.0f, "On");
+    ParameterBypassSwitch->addConstant(0.0f, "Off");
+    ParameterBypassSwitch->addConstant(1.0f, "On");
 
     ParameterBypassSwitch->setDefaultRealFloat(0.0f, true);
     add(ParameterBypassSwitch);
@@ -50,8 +50,8 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterDesignSwitch = new WrappedParameterSwitch;
     ParameterDesignSwitch->setName("Design Switch");
 
-    ParameterDesignSwitch->addValue(selDesignModern,  "Modern");
-    ParameterDesignSwitch->addValue(selDesignVintage, "Vintage");
+    ParameterDesignSwitch->addConstant(selDesignModern,  "Modern");
+    ParameterDesignSwitch->addConstant(selDesignVintage, "Vintage");
 
     ParameterDesignSwitch->setDefaultRealFloat(selDesignModern, true);
     add(ParameterDesignSwitch);
@@ -62,40 +62,40 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterThresholdSwitch = new WrappedParameterSwitch;
     ParameterThresholdSwitch->setName("Threshold Switch");
 
-    ParameterThresholdSwitch->addValue(-48.0f, "-48 dB");
-    ParameterThresholdSwitch->addValue(-46.0f, "-46 dB");
-    ParameterThresholdSwitch->addValue(-44.0f, "-44 dB");
-    ParameterThresholdSwitch->addValue(-42.0f, "-42 dB");
-    ParameterThresholdSwitch->addValue(-40.0f, "-40 dB");
-    ParameterThresholdSwitch->addValue(-38.0f, "-38 dB");
-    ParameterThresholdSwitch->addValue(-36.0f, "-36 dB");
-    ParameterThresholdSwitch->addValue(-34.0f, "-34 dB");
-    ParameterThresholdSwitch->addValue(-32.0f, "-32 dB");
-    ParameterThresholdSwitch->addValue(-30.0f, "-30 dB");
-    ParameterThresholdSwitch->addValue(-28.0f, "-28 dB");
-    ParameterThresholdSwitch->addValue(-26.0f, "-26 dB");
-    ParameterThresholdSwitch->addValue(-24.0f, "-24 dB");
-    ParameterThresholdSwitch->addValue(-22.0f, "-22 dB");
-    ParameterThresholdSwitch->addValue(-20.0f, "-20 dB");
-    ParameterThresholdSwitch->addValue(-18.0f, "-18 dB");
-    ParameterThresholdSwitch->addValue(-16.0f, "-16 dB");
-    ParameterThresholdSwitch->addValue(-14.0f, "-14 dB");
-    ParameterThresholdSwitch->addValue(-12.0f, "-12 dB");
-    ParameterThresholdSwitch->addValue(-10.0f, "-10 dB");
-    ParameterThresholdSwitch->addValue(-8.0f,   "-8 dB");
-    ParameterThresholdSwitch->addValue(-6.0f,   "-6 dB");
-    ParameterThresholdSwitch->addValue(-4.0f,   "-4 dB");
-    ParameterThresholdSwitch->addValue(-2.0f,   "-2 dB");
-    ParameterThresholdSwitch->addValue(0.0f,     "0 dB");
-    ParameterThresholdSwitch->addValue(+2.0f,   "+2 dB");
-    ParameterThresholdSwitch->addValue(+4.0f,   "+4 dB");
-    ParameterThresholdSwitch->addValue(+6.0f,   "+6 dB");
-    ParameterThresholdSwitch->addValue(+8.0f,   "+8 dB");
-    ParameterThresholdSwitch->addValue(+10.0f, "+10 dB");
-    ParameterThresholdSwitch->addValue(+12.0f, "+12 dB");
-    ParameterThresholdSwitch->addValue(+14.0f, "+14 dB");
-    ParameterThresholdSwitch->addValue(+16.0f, "+16 dB");
-    ParameterThresholdSwitch->addValue(+18.0f, "+18 dB");
+    ParameterThresholdSwitch->addConstant(-48.0f, "-48 dB");
+    ParameterThresholdSwitch->addConstant(-46.0f, "-46 dB");
+    ParameterThresholdSwitch->addConstant(-44.0f, "-44 dB");
+    ParameterThresholdSwitch->addConstant(-42.0f, "-42 dB");
+    ParameterThresholdSwitch->addConstant(-40.0f, "-40 dB");
+    ParameterThresholdSwitch->addConstant(-38.0f, "-38 dB");
+    ParameterThresholdSwitch->addConstant(-36.0f, "-36 dB");
+    ParameterThresholdSwitch->addConstant(-34.0f, "-34 dB");
+    ParameterThresholdSwitch->addConstant(-32.0f, "-32 dB");
+    ParameterThresholdSwitch->addConstant(-30.0f, "-30 dB");
+    ParameterThresholdSwitch->addConstant(-28.0f, "-28 dB");
+    ParameterThresholdSwitch->addConstant(-26.0f, "-26 dB");
+    ParameterThresholdSwitch->addConstant(-24.0f, "-24 dB");
+    ParameterThresholdSwitch->addConstant(-22.0f, "-22 dB");
+    ParameterThresholdSwitch->addConstant(-20.0f, "-20 dB");
+    ParameterThresholdSwitch->addConstant(-18.0f, "-18 dB");
+    ParameterThresholdSwitch->addConstant(-16.0f, "-16 dB");
+    ParameterThresholdSwitch->addConstant(-14.0f, "-14 dB");
+    ParameterThresholdSwitch->addConstant(-12.0f, "-12 dB");
+    ParameterThresholdSwitch->addConstant(-10.0f, "-10 dB");
+    ParameterThresholdSwitch->addConstant(-8.0f,   "-8 dB");
+    ParameterThresholdSwitch->addConstant(-6.0f,   "-6 dB");
+    ParameterThresholdSwitch->addConstant(-4.0f,   "-4 dB");
+    ParameterThresholdSwitch->addConstant(-2.0f,   "-2 dB");
+    ParameterThresholdSwitch->addConstant(0.0f,     "0 dB");
+    ParameterThresholdSwitch->addConstant(+2.0f,   "+2 dB");
+    ParameterThresholdSwitch->addConstant(+4.0f,   "+4 dB");
+    ParameterThresholdSwitch->addConstant(+6.0f,   "+6 dB");
+    ParameterThresholdSwitch->addConstant(+8.0f,   "+8 dB");
+    ParameterThresholdSwitch->addConstant(+10.0f, "+10 dB");
+    ParameterThresholdSwitch->addConstant(+12.0f, "+12 dB");
+    ParameterThresholdSwitch->addConstant(+14.0f, "+14 dB");
+    ParameterThresholdSwitch->addConstant(+16.0f, "+16 dB");
+    ParameterThresholdSwitch->addConstant(+18.0f, "+18 dB");
 
     ParameterThresholdSwitch->setDefaultRealFloat(-12.0f, true);
     add(ParameterThresholdSwitch);
@@ -106,13 +106,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterRatioSwitch = new WrappedParameterSwitch;
     ParameterRatioSwitch->setName("Ratio Switch");
 
-    ParameterRatioSwitch->addValue(1.2f,   "1.2:1");
-    ParameterRatioSwitch->addValue(1.5f,   "1.5:1");
-    ParameterRatioSwitch->addValue(2.0f,     "2:1");
-    ParameterRatioSwitch->addValue(3.0f,     "3:1");
-    ParameterRatioSwitch->addValue(4.0f,     "4:1");
-    ParameterRatioSwitch->addValue(6.0f,     "6:1");
-    ParameterRatioSwitch->addValue(10.0f,   "10:1");
+    ParameterRatioSwitch->addConstant(1.2f,   "1.2:1");
+    ParameterRatioSwitch->addConstant(1.5f,   "1.5:1");
+    ParameterRatioSwitch->addConstant(2.0f,     "2:1");
+    ParameterRatioSwitch->addConstant(3.0f,     "3:1");
+    ParameterRatioSwitch->addConstant(4.0f,     "4:1");
+    ParameterRatioSwitch->addConstant(6.0f,     "6:1");
+    ParameterRatioSwitch->addConstant(10.0f,   "10:1");
 
     ParameterRatioSwitch->setDefaultRealFloat(2.0f, true);
     add(ParameterRatioSwitch);
@@ -123,13 +123,14 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterAttackRateSwitch = new WrappedParameterSwitch;
     ParameterAttackRateSwitch->setName("Attack Rate Switch");
 
-    ParameterAttackRateSwitch->addValue(2.0f,     "2 ms");
-    ParameterAttackRateSwitch->addValue(5.0f,     "5 ms");
-    ParameterAttackRateSwitch->addValue(10.0f,   "10 ms");
-    ParameterAttackRateSwitch->addValue(20.0f,   "20 ms");
-    ParameterAttackRateSwitch->addValue(50.0f,   "50 ms");
-    ParameterAttackRateSwitch->addValue(100.0f, "100 ms");
-    ParameterAttackRateSwitch->addValue(200.0f, "200 ms");
+    ParameterAttackRateSwitch->addConstant(2.0f,     "2 ms");
+    ParameterAttackRateSwitch->addConstant(5.0f,     "5 ms");
+    ParameterAttackRateSwitch->addConstant(10.0f,   "10 ms");
+    ParameterAttackRateSwitch->addConstant(20.0f,   "20 ms");
+    ParameterAttackRateSwitch->addConstant(50.0f,   "50 ms");
+    ParameterAttackRateSwitch->addConstant(100.0f, "100 ms");
+    ParameterAttackRateSwitch->addConstant(200.0f, "200 ms");
+    ParameterAttackRateSwitch->addConstant(500.0f, "500 ms");
 
     ParameterAttackRateSwitch->setDefaultRealFloat(10.0f, true);
     add(ParameterAttackRateSwitch);
@@ -140,8 +141,8 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterAttackTypeSwitch = new WrappedParameterSwitch;
     ParameterAttackTypeSwitch->setName("Attack Type Switch");
 
-    ParameterAttackTypeSwitch->addValue(selAttackTypeLinear,      "Linear");
-    ParameterAttackTypeSwitch->addValue(selAttackTypeLogarithmic, "Logarithmic");
+    ParameterAttackTypeSwitch->addConstant(selAttackTypeLinear,      "Linear");
+    ParameterAttackTypeSwitch->addConstant(selAttackTypeLogarithmic, "Logarithmic");
 
     ParameterAttackTypeSwitch->setDefaultRealFloat(selAttackTypeLogarithmic, true);
     add(ParameterAttackTypeSwitch);
@@ -149,25 +150,25 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selAttackTypeSwitch + 1);
 
 
-    WrappedParameterSwitch* ParameterReleaseRateSwitch = new WrappedParameterSwitch;
+    WrappedParameterCombined* ParameterReleaseRateSwitch = new WrappedParameterCombined;
     ParameterReleaseRateSwitch->setName("Release Rate Switch");
 
-    ParameterReleaseRateSwitch->addValue(50.0f,    "50 ms");
-    ParameterReleaseRateSwitch->addValue(75.0f,    "75 ms");
-    ParameterReleaseRateSwitch->addValue(100.0f,  "100 ms");
-    ParameterReleaseRateSwitch->addValue(125.0f,  "125 ms");
-    ParameterReleaseRateSwitch->addValue(150.0f,  "150 ms");
-    ParameterReleaseRateSwitch->addValue(175.0f,  "175 ms");
-    ParameterReleaseRateSwitch->addValue(200.0f,  "200 ms");
-    ParameterReleaseRateSwitch->addValue(250.0f,  "250 ms");
-    ParameterReleaseRateSwitch->addValue(375.0f,  "375 ms");
-    ParameterReleaseRateSwitch->addValue(500.0f,  "500 ms");
-    ParameterReleaseRateSwitch->addValue(750.0f,  "750 ms");
-    ParameterReleaseRateSwitch->addValue(1000.0f, "1.0 s");
-    ParameterReleaseRateSwitch->addValue(1500.0f, "1.5 s");
-    ParameterReleaseRateSwitch->addValue(2000.0f, "2.0 s");
-    ParameterReleaseRateSwitch->addValue(4000.0f, "4.0 s");
-    ParameterReleaseRateSwitch->addValue(8000.0f, "8.0 s");
+    ParameterReleaseRateSwitch->addConstant(50.0f,    "50 ms");
+    ParameterReleaseRateSwitch->addConstant(75.0f,    "75 ms");
+    ParameterReleaseRateSwitch->addConstant(100.0f,  "100 ms");
+    ParameterReleaseRateSwitch->addConstant(125.0f,  "125 ms");
+    ParameterReleaseRateSwitch->addConstant(150.0f,  "150 ms");
+    ParameterReleaseRateSwitch->addConstant(175.0f,  "175 ms");
+    ParameterReleaseRateSwitch->addConstant(200.0f,  "200 ms");
+    ParameterReleaseRateSwitch->addConstant(250.0f,  "250 ms");
+    ParameterReleaseRateSwitch->addConstant(375.0f,  "375 ms");
+    ParameterReleaseRateSwitch->addConstant(500.0f,  "500 ms");
+    ParameterReleaseRateSwitch->addConstant(750.0f,  "750 ms");
+    ParameterReleaseRateSwitch->addConstant(1000.0f, "1.0 s");
+    ParameterReleaseRateSwitch->addConstant(1500.0f, "1.5 s");
+    ParameterReleaseRateSwitch->addConstant(2000.0f, "2.0 s");
+    ParameterReleaseRateSwitch->addConstant(4000.0f, "4.0 s");
+    ParameterReleaseRateSwitch->addConstant(8000.0f, "8.0 s");
 
     ParameterReleaseRateSwitch->setDefaultRealFloat(150.0f, true);
     add(ParameterReleaseRateSwitch);
@@ -188,8 +189,8 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterReleaseTypeSwitch = new WrappedParameterSwitch;
     ParameterReleaseTypeSwitch->setName("Release Type Switch");
 
-    ParameterReleaseTypeSwitch->addValue(selReleaseTypeLinear,      "Linear");
-    ParameterReleaseTypeSwitch->addValue(selReleaseTypeLogarithmic, "Logarithmic");
+    ParameterReleaseTypeSwitch->addConstant(selReleaseTypeLinear,      "Linear");
+    ParameterReleaseTypeSwitch->addConstant(selReleaseTypeLogarithmic, "Logarithmic");
 
     ParameterReleaseTypeSwitch->setDefaultRealFloat(selReleaseTypeLogarithmic, true);
     add(ParameterReleaseTypeSwitch);
@@ -200,11 +201,11 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterStereoLinkSwitch = new WrappedParameterSwitch;
     ParameterStereoLinkSwitch->setName("Stereo Link Switch");
 
-    ParameterStereoLinkSwitch->addValue(0.0f,     "Off");
-    ParameterStereoLinkSwitch->addValue(50.0f,   "50 %");
-    ParameterStereoLinkSwitch->addValue(75.0f,   "75 %");
-    ParameterStereoLinkSwitch->addValue(90.0f,   "90 %");
-    ParameterStereoLinkSwitch->addValue(100.0f, "100 %");
+    ParameterStereoLinkSwitch->addConstant(0.0f,     "Off");
+    ParameterStereoLinkSwitch->addConstant(50.0f,   "50 %");
+    ParameterStereoLinkSwitch->addConstant(75.0f,   "75 %");
+    ParameterStereoLinkSwitch->addConstant(90.0f,   "90 %");
+    ParameterStereoLinkSwitch->addConstant(100.0f, "100 %");
 
     ParameterStereoLinkSwitch->setDefaultRealFloat(100.0f, true);
     add(ParameterStereoLinkSwitch);
@@ -215,31 +216,31 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterInputGainSwitch = new WrappedParameterSwitch;
     ParameterInputGainSwitch->setName("Input Gain Switch");
 
-    ParameterInputGainSwitch->addValue(-12.0f, "-12 dB");
-    ParameterInputGainSwitch->addValue(-11.0f, "-11 dB");
-    ParameterInputGainSwitch->addValue(-10.0f, "-10 dB");
-    ParameterInputGainSwitch->addValue(-9.0f,   "-9 dB");
-    ParameterInputGainSwitch->addValue(-8.0f,   "-8 dB");
-    ParameterInputGainSwitch->addValue(-7.0f,   "-7 dB");
-    ParameterInputGainSwitch->addValue(-6.0f,   "-6 dB");
-    ParameterInputGainSwitch->addValue(-5.0f,   "-5 dB");
-    ParameterInputGainSwitch->addValue(-4.0f,   "-4 dB");
-    ParameterInputGainSwitch->addValue(-3.0f,   "-3 dB");
-    ParameterInputGainSwitch->addValue(-2.0f,   "-2 dB");
-    ParameterInputGainSwitch->addValue(-1.0f,   "-1 dB");
-    ParameterInputGainSwitch->addValue(0.0f,     "0 dB");
-    ParameterInputGainSwitch->addValue(+1.0f,   "+1 dB");
-    ParameterInputGainSwitch->addValue(+2.0f,   "+2 dB");
-    ParameterInputGainSwitch->addValue(+3.0f,   "+3 dB");
-    ParameterInputGainSwitch->addValue(+4.0f,   "+4 dB");
-    ParameterInputGainSwitch->addValue(+5.0f,   "+5 dB");
-    ParameterInputGainSwitch->addValue(+6.0f,   "+6 dB");
-    ParameterInputGainSwitch->addValue(+7.0f,   "+7 dB");
-    ParameterInputGainSwitch->addValue(+8.0f,   "+8 dB");
-    ParameterInputGainSwitch->addValue(+9.0f,   "+9 dB");
-    ParameterInputGainSwitch->addValue(+10.0f, "+10 dB");
-    ParameterInputGainSwitch->addValue(+11.0f, "+11 dB");
-    ParameterInputGainSwitch->addValue(+12.0f, "+12 dB");
+    ParameterInputGainSwitch->addConstant(-12.0f, "-12 dB");
+    ParameterInputGainSwitch->addConstant(-11.0f, "-11 dB");
+    ParameterInputGainSwitch->addConstant(-10.0f, "-10 dB");
+    ParameterInputGainSwitch->addConstant(-9.0f,   "-9 dB");
+    ParameterInputGainSwitch->addConstant(-8.0f,   "-8 dB");
+    ParameterInputGainSwitch->addConstant(-7.0f,   "-7 dB");
+    ParameterInputGainSwitch->addConstant(-6.0f,   "-6 dB");
+    ParameterInputGainSwitch->addConstant(-5.0f,   "-5 dB");
+    ParameterInputGainSwitch->addConstant(-4.0f,   "-4 dB");
+    ParameterInputGainSwitch->addConstant(-3.0f,   "-3 dB");
+    ParameterInputGainSwitch->addConstant(-2.0f,   "-2 dB");
+    ParameterInputGainSwitch->addConstant(-1.0f,   "-1 dB");
+    ParameterInputGainSwitch->addConstant(0.0f,     "0 dB");
+    ParameterInputGainSwitch->addConstant(+1.0f,   "+1 dB");
+    ParameterInputGainSwitch->addConstant(+2.0f,   "+2 dB");
+    ParameterInputGainSwitch->addConstant(+3.0f,   "+3 dB");
+    ParameterInputGainSwitch->addConstant(+4.0f,   "+4 dB");
+    ParameterInputGainSwitch->addConstant(+5.0f,   "+5 dB");
+    ParameterInputGainSwitch->addConstant(+6.0f,   "+6 dB");
+    ParameterInputGainSwitch->addConstant(+7.0f,   "+7 dB");
+    ParameterInputGainSwitch->addConstant(+8.0f,   "+8 dB");
+    ParameterInputGainSwitch->addConstant(+9.0f,   "+9 dB");
+    ParameterInputGainSwitch->addConstant(+10.0f, "+10 dB");
+    ParameterInputGainSwitch->addConstant(+11.0f, "+11 dB");
+    ParameterInputGainSwitch->addConstant(+12.0f, "+12 dB");
 
     ParameterInputGainSwitch->setDefaultRealFloat(0.0f, true);
     add(ParameterInputGainSwitch);
@@ -250,31 +251,31 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterOutputGainSwitch = new WrappedParameterSwitch;
     ParameterOutputGainSwitch->setName("Output Gain Switch");
 
-    ParameterOutputGainSwitch->addValue(-12.0f, "-12 dB");
-    ParameterOutputGainSwitch->addValue(-11.0f, "-11 dB");
-    ParameterOutputGainSwitch->addValue(-10.0f, "-10 dB");
-    ParameterOutputGainSwitch->addValue(-9.0f,   "-9 dB");
-    ParameterOutputGainSwitch->addValue(-8.0f,   "-8 dB");
-    ParameterOutputGainSwitch->addValue(-7.0f,   "-7 dB");
-    ParameterOutputGainSwitch->addValue(-6.0f,   "-6 dB");
-    ParameterOutputGainSwitch->addValue(-5.0f,   "-5 dB");
-    ParameterOutputGainSwitch->addValue(-4.0f,   "-4 dB");
-    ParameterOutputGainSwitch->addValue(-3.0f,   "-3 dB");
-    ParameterOutputGainSwitch->addValue(-2.0f,   "-2 dB");
-    ParameterOutputGainSwitch->addValue(-1.0f,   "-1 dB");
-    ParameterOutputGainSwitch->addValue(0.0f,     "0 dB");
-    ParameterOutputGainSwitch->addValue(+1.0f,   "+1 dB");
-    ParameterOutputGainSwitch->addValue(+2.0f,   "+2 dB");
-    ParameterOutputGainSwitch->addValue(+3.0f,   "+3 dB");
-    ParameterOutputGainSwitch->addValue(+4.0f,   "+4 dB");
-    ParameterOutputGainSwitch->addValue(+5.0f,   "+5 dB");
-    ParameterOutputGainSwitch->addValue(+6.0f,   "+6 dB");
-    ParameterOutputGainSwitch->addValue(+7.0f,   "+7 dB");
-    ParameterOutputGainSwitch->addValue(+8.0f,   "+8 dB");
-    ParameterOutputGainSwitch->addValue(+9.0f,   "+9 dB");
-    ParameterOutputGainSwitch->addValue(+10.0f, "+10 dB");
-    ParameterOutputGainSwitch->addValue(+11.0f, "+11 dB");
-    ParameterOutputGainSwitch->addValue(+12.0f, "+12 dB");
+    ParameterOutputGainSwitch->addConstant(-12.0f, "-12 dB");
+    ParameterOutputGainSwitch->addConstant(-11.0f, "-11 dB");
+    ParameterOutputGainSwitch->addConstant(-10.0f, "-10 dB");
+    ParameterOutputGainSwitch->addConstant(-9.0f,   "-9 dB");
+    ParameterOutputGainSwitch->addConstant(-8.0f,   "-8 dB");
+    ParameterOutputGainSwitch->addConstant(-7.0f,   "-7 dB");
+    ParameterOutputGainSwitch->addConstant(-6.0f,   "-6 dB");
+    ParameterOutputGainSwitch->addConstant(-5.0f,   "-5 dB");
+    ParameterOutputGainSwitch->addConstant(-4.0f,   "-4 dB");
+    ParameterOutputGainSwitch->addConstant(-3.0f,   "-3 dB");
+    ParameterOutputGainSwitch->addConstant(-2.0f,   "-2 dB");
+    ParameterOutputGainSwitch->addConstant(-1.0f,   "-1 dB");
+    ParameterOutputGainSwitch->addConstant(0.0f,     "0 dB");
+    ParameterOutputGainSwitch->addConstant(+1.0f,   "+1 dB");
+    ParameterOutputGainSwitch->addConstant(+2.0f,   "+2 dB");
+    ParameterOutputGainSwitch->addConstant(+3.0f,   "+3 dB");
+    ParameterOutputGainSwitch->addConstant(+4.0f,   "+4 dB");
+    ParameterOutputGainSwitch->addConstant(+5.0f,   "+5 dB");
+    ParameterOutputGainSwitch->addConstant(+6.0f,   "+6 dB");
+    ParameterOutputGainSwitch->addConstant(+7.0f,   "+7 dB");
+    ParameterOutputGainSwitch->addConstant(+8.0f,   "+8 dB");
+    ParameterOutputGainSwitch->addConstant(+9.0f,   "+9 dB");
+    ParameterOutputGainSwitch->addConstant(+10.0f, "+10 dB");
+    ParameterOutputGainSwitch->addConstant(+11.0f, "+11 dB");
+    ParameterOutputGainSwitch->addConstant(+12.0f, "+12 dB");
 
     ParameterOutputGainSwitch->setDefaultRealFloat(0.0f, true);
     add(ParameterOutputGainSwitch);
@@ -285,17 +286,17 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     WrappedParameterSwitch* ParameterWetMixSwitch = new WrappedParameterSwitch;
     ParameterWetMixSwitch->setName("Wet Mix Switch");
 
-    ParameterWetMixSwitch->addValue(0.0f,   "Bypass");
-    ParameterWetMixSwitch->addValue(5.0f,      "5 %");
-    ParameterWetMixSwitch->addValue(10.0f,    "10 %");
-    ParameterWetMixSwitch->addValue(15.0f,    "15 %");
-    ParameterWetMixSwitch->addValue(20.0f,    "20 %");
-    ParameterWetMixSwitch->addValue(25.0f,    "25 %");
-    ParameterWetMixSwitch->addValue(30.0f,    "30 %");
-    ParameterWetMixSwitch->addValue(40.0f,    "40 %");
-    ParameterWetMixSwitch->addValue(50.0f,    "50 %");
-    ParameterWetMixSwitch->addValue(75.0f,    "75 %");
-    ParameterWetMixSwitch->addValue(100.0f,  "100 %");
+    ParameterWetMixSwitch->addConstant(0.0f,   "Bypass");
+    ParameterWetMixSwitch->addConstant(5.0f,      "5 %");
+    ParameterWetMixSwitch->addConstant(10.0f,    "10 %");
+    ParameterWetMixSwitch->addConstant(15.0f,    "15 %");
+    ParameterWetMixSwitch->addConstant(20.0f,    "20 %");
+    ParameterWetMixSwitch->addConstant(25.0f,    "25 %");
+    ParameterWetMixSwitch->addConstant(30.0f,    "30 %");
+    ParameterWetMixSwitch->addConstant(40.0f,    "40 %");
+    ParameterWetMixSwitch->addConstant(50.0f,    "50 %");
+    ParameterWetMixSwitch->addConstant(75.0f,    "75 %");
+    ParameterWetMixSwitch->addConstant(100.0f,  "100 %");
 
     ParameterWetMixSwitch->setDefaultRealFloat(100.0f, true);
     add(ParameterWetMixSwitch);
