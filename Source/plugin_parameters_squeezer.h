@@ -49,8 +49,10 @@ public:
         selDesignSwitch,
         selThresholdSwitch,
         selRatioSwitch,
+        selEnvelopeTypeSwitch,
         selAttackRateSwitch,
         selReleaseRateSwitch,
+        selReleaseRateContinuous,
         selStereoLinkSwitch,
         selInputGainSwitch,
         selOutputGainSwitch,
@@ -63,8 +65,8 @@ public:
         selDesignModern = 0,
         selDesignVintage,
 
-        selSensorPeak = 0,
-        selSensorRms,
+        selEnvelopeTypeLinear = 0,
+        selEnvelopeTypeLogarithmic,
     };
 
 private:

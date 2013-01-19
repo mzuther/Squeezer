@@ -120,6 +120,18 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selRatioSwitch + 1);
 
 
+    WrappedParameterSwitch* ParameterEnvelopeTypeSwitch = new WrappedParameterSwitch;
+    ParameterEnvelopeTypeSwitch->setName("Envelope Type Switch");
+
+    ParameterEnvelopeTypeSwitch->addValue(selEnvelopeTypeLinear,      "Linear");
+    ParameterEnvelopeTypeSwitch->addValue(selEnvelopeTypeLogarithmic, "Logarithmic");
+
+    ParameterEnvelopeTypeSwitch->setDefaultRealFloat(selEnvelopeTypeLogarithmic, true);
+    add(ParameterEnvelopeTypeSwitch);
+
+    jassert(arrParameters.size() == selEnvelopeTypeSwitch + 1);
+
+
     WrappedParameterSwitch* ParameterAttackRateSwitch = new WrappedParameterSwitch;
     ParameterAttackRateSwitch->setName("Attack Rate Switch");
 
@@ -161,6 +173,16 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterReleaseRateSwitch);
 
     jassert(arrParameters.size() == selReleaseRateSwitch + 1);
+
+
+    float fLogFactor = 2.0f;
+    WrappedParameterContinuous* ParameterReleaseRateContinuous = new WrappedParameterContinuous(0.0f, 8000.0f, fLogFactor);
+    ParameterReleaseRateContinuous->setName("Release Rate Continuous");
+
+    ParameterReleaseRateContinuous->setDefaultRealFloat(150.0f, true);
+    add(ParameterReleaseRateContinuous);
+
+    jassert(arrParameters.size() == selReleaseRateContinuous + 1);
 
 
     WrappedParameterSwitch* ParameterStereoLinkSwitch = new WrappedParameterSwitch;

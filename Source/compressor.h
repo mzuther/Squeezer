@@ -48,8 +48,8 @@ public:
     int getDesign();
     void setDesign(int nDesignNew);
 
-    int getSensor();
-    void setSensor(int nSensorNew);
+    bool getLogarithmic();
+    void setLogarithmic(bool bLogarithmicNew);
 
     float getThreshold();
     void setThreshold(float fThresholdNew);

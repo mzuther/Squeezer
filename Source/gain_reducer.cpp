@@ -38,13 +38,13 @@ GainReducer::GainReducer(int nSampleRate)
     setSampleRate(nSampleRate);
 
     setDesign(SqueezerPluginParameters::selDesignModern);
-    setSensor(SqueezerPluginParameters::selSensorPeak);
 
     setThreshold(-12.0f);
     setRatio(2.0f);
 
     setAttackRate(10);
     setReleaseRate(100);
+    setLogarithmic(SqueezerPluginParameters::selEnvelopeTypeLogarithmic);
 
     fCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;
@@ -110,25 +110,30 @@ void GainReducer::setDesign(int nDesignNew)
 }
 
 
-int GainReducer::getSensor()
-/*  Get current compressor sensor.
+bool GainReducer::getLogarithmic()
+/*  Get current compressor envelope type.
 
-    return value (integer): returns the current compressor sensor
+    return value (boolean): returns whether envelope reacts in a
+    logarithmic (as opposed to linear) way
  */
 {
-    return nSensor;
+    return bLogarithmicEnvelope;
 }
 
 
-void GainReducer::setSensor(int nSensorNew)
-/*  Set new compressor sensor.
+void GainReducer::setLogarithmic(bool bLogarithmicNew)
+/*  Set new compressor envelope type.
 
-    nSensorNew (integer): new compressor sensor
+    bLogarithmicNew (boolean): determines whether envelope reacts in a
+    logarithmic (as opposed to linear) way
 
     return value: none
  */
 {
-    nSensor = nSensorNew;
+    bLogarithmicEnvelope = bLogarithmicNew;
+
+    setAttackRate(nAttackRate);
+    setReleaseRate(nReleaseRate);
 }
 
 
@@ -205,10 +210,20 @@ void GainReducer::setAttackRate(int nAttackRateNew)
     }
     else
     {
-        // logarithmic envelope reaches 95% of the final reading in
-        // the given attack time
         float fAttackRateSeconds = nAttackRate / 1000.0f;
-        fAttackCoefficient = powf(0.05f, fTimePassed / fAttackRateSeconds);
+
+        if (bLogarithmicEnvelope)
+        {
+            // logarithmic envelope reaches 95% of the final reading
+            // in the given attack time
+            fAttackCoefficient = powf(0.05f, fTimePassed / fAttackRateSeconds);
+        }
+        else
+        {
+            // rise time: rises 10 dB per interval defined in release
+            // rate (linear)
+            fAttackCoefficient = 10.0f * fTimePassed / fAttackRateSeconds;
+        }
     }
 }
 
@@ -240,10 +255,20 @@ void GainReducer::setReleaseRate(int nReleaseRateNew)
     }
     else
     {
-        // logarithmic envelope reaches 95% of the final reading in
-        // the given release time
         float fReleaseRateSeconds = nReleaseRate / 1000.0f;
-        fReleaseCoefficient = powf(0.01f, fTimePassed / fReleaseRateSeconds);
+
+        if (bLogarithmicEnvelope)
+        {
+            // logarithmic envelope reaches 95% of the final reading
+            // in the given release time
+            fReleaseCoefficient = powf(0.05f, fTimePassed / fReleaseRateSeconds);
+        }
+        else
+        {
+            // fall time: falls 10 dB per interval defined in release
+            // rate (linear)
+            fReleaseCoefficient = 10.0f * fTimePassed / fReleaseRateSeconds;
+        }
     }
 }
 
@@ -297,7 +322,67 @@ void GainReducer::processSample(float fInputLevel)
 */
 {
     float fGainReductionFinal = calculateFinalGainReduction(fInputLevel);
-    applyLogarithmicEnvelope(fGainReductionFinal);
+
+    if (bLogarithmicEnvelope)
+    {
+        applyLogarithmicEnvelope(fGainReductionFinal);
+    }
+    else
+    {
+        applyLinearEnvelope(fGainReductionFinal);
+    }
+}
+
+
+void GainReducer::applyLinearEnvelope(float fGainReductionFinal)
+/*  Calculate linear envelope follower.
+
+    fGainReductionFinal (float): calculated final gain reduction in
+    decibels
+
+    return value: none
+*/
+{
+    if (fGainReductionFinal == fGainReduction)
+    {
+        return;
+    }
+    // apply rise time if proposed gain reduction is above old gain
+    // reduction
+    else if (fGainReductionFinal > fGainReduction)
+    {
+        if (fAttackCoefficient == 0.0f)
+        {
+            fGainReduction = fGainReductionFinal;
+        }
+        else
+        {
+            fGainReduction += fAttackCoefficient;
+
+            if (fGainReduction > fGainReductionFinal)
+            {
+                fGainReduction = fGainReductionFinal;
+            }
+        }
+    }
+    // otherwise, apply fall time if proposed gain reduction is below
+    // old gain reduction
+    else
+    {
+        if (fReleaseCoefficient == 0.0f)
+        {
+            fGainReduction = fGainReductionFinal;
+        }
+        else
+        {
+            fGainReduction -= fReleaseCoefficient;
+
+            if (fGainReduction < fGainReductionFinal)
+            {
+                fGainReduction = fGainReductionFinal;
+            }
+        }
+    }
 }
 
 

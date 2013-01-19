@@ -146,6 +146,13 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
             break;
         }
 
+        case SqueezerPluginParameters::selEnvelopeTypeSwitch:
+        {
+            bool bLogarithmic = pPluginParameters->getBoolean(nIndex);
+            pCompressor->setLogarithmic(bLogarithmic);
+            break;
+        }
+
         case SqueezerPluginParameters::selAttackRateSwitch:
         {
             int nAttackRate = pPluginParameters->getRealInteger(nIndex);
@@ -157,6 +164,13 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
         {
             int nReleaseRate = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setReleaseRate(nReleaseRate);
+            break;
+        }
+
+        case SqueezerPluginParameters::selReleaseRateContinuous:
+        {
+            int nReleaseRate = pPluginParameters->getRealInteger(nIndex);
+            pCompressor->setReleaseRate(nReleaseRate);  // TODO
             break;
         }
 
@@ -348,6 +362,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fThreshold = pPluginParameters->getRealFloat(SqueezerPluginParameters::selThresholdSwitch);
     float fRatio = pPluginParameters->getRealFloat(SqueezerPluginParameters::selRatioSwitch);
 
+    bool bLogarithmic = pPluginParameters->getBoolean(SqueezerPluginParameters::selEnvelopeTypeSwitch);
     int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRateSwitch);
     int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRateSwitch);
 
@@ -365,6 +380,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setThreshold(fThreshold);
     pCompressor->setRatio(fRatio);
 
+    pCompressor->setLogarithmic(bLogarithmic);
     pCompressor->setAttackRate(nAttackRate);
     pCompressor->setReleaseRate(nReleaseRate);
 

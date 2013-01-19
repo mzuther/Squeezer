@@ -45,8 +45,8 @@ public:
     int getDesign();
     void setDesign(int nDesignNew);
 
-    int getSensor();
-    void setSensor(int nSensorNew);
+    bool getLogarithmic();
+    void setLogarithmic(bool bLogarithmicNew);
 
     float getThreshold();
     void setThreshold(float fThresholdNew);
@@ -75,7 +75,7 @@ private:
     float fGainCompensation;
 
     int nDesign;
-    int nSensor;
+    bool bLogarithmicEnvelope;
 
     float fThreshold;
     float fRatio;
@@ -87,6 +87,7 @@ private:
     float fReleaseCoefficient;
 
     float calculateFinalGainReduction(float fInputLevel);
+    void applyLinearEnvelope(float fGainReductionFinal);
     void applyLogarithmicEnvelope(float fGainReductionFinal);
 
     static float fMeterMinimumDecibel;

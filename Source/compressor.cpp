@@ -131,27 +131,29 @@ void Compressor::setDesign(int nDesignNew)
 }
 
 
-int Compressor::getSensor()
-/*  Get current compressor sensor.
+bool Compressor::getLogarithmic()
+/*  Get current compressor envelope type.
 
-    return value (integer): returns the current compressor sensor
+    return value (boolean): returns whether envelope reacts in a
+    logarithmic (as opposed to linear) way
  */
 {
-    return pGainReducer[0]->getSensor();
+    return pGainReducer[0]->getLogarithmic();
 }
 
 
-void Compressor::setSensor(int nSensorNew)
-/*  Set new compressor sensor.
+void Compressor::setLogarithmic(bool bLogarithmicNew)
+/*  Set new compressor envelope type.
 
-    nSensorNew (integer): new compressor sensor
+    bLogarithmicNew (boolean): determines whether envelope reacts in a
+    logarithmic (as opposed to linear) way
 
     return value: none
  */
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setSensor(nSensorNew);
+        pGainReducer[nChannel]->setLogarithmic(bLogarithmicNew);
     }
 }
 

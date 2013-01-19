@@ -87,6 +87,24 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderRatioSwitch);
 
 
+    ButtonEnvelopeTypeLinear = new TextButton("Linear");
+    ButtonEnvelopeTypeLinear->setRadioGroupId(2);
+    ButtonEnvelopeTypeLinear->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonEnvelopeTypeLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
+
+    ButtonEnvelopeTypeLinear->addListener(this);
+    addAndMakeVisible(ButtonEnvelopeTypeLinear);
+
+
+    ButtonEnvelopeTypeLogarithmic = new TextButton("Log");
+    ButtonEnvelopeTypeLogarithmic->setRadioGroupId(2);
+    ButtonEnvelopeTypeLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonEnvelopeTypeLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonEnvelopeTypeLogarithmic->addListener(this);
+    addAndMakeVisible(ButtonEnvelopeTypeLogarithmic);
+
+
     nIndex = SqueezerPluginParameters::selAttackRateSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
@@ -105,6 +123,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     SliderReleaseRateSwitch->addListener(this);
     addAndMakeVisible(SliderReleaseRateSwitch);
+
+
+    nIndex = SqueezerPluginParameters::selReleaseRateContinuous;
+    strName = parameters->getName(nIndex);
+    nLabelWidth = 50;
+    SliderReleaseRateContinuous = new SliderContinuous(strName, nLabelWidth, parameters, nIndex);
+    SliderReleaseRateContinuous->setSliderColour(Colours::yellow);
+
+    SliderReleaseRateContinuous->addListener(this);
+    addAndMakeVisible(SliderReleaseRateContinuous);
 
 
     nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
@@ -195,10 +223,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selRatioSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
+    nIndex = SqueezerPluginParameters::selEnvelopeTypeSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
     nIndex = SqueezerPluginParameters::selAttackRateSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
     nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
+    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+
+    nIndex = SqueezerPluginParameters::selReleaseRateContinuous;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
     nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
@@ -248,8 +282,12 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderThresholdSwitch->setBounds(10, 15, 70, 60);
     SliderRatioSwitch->setBounds(70, 15, 70, 60);
 
+    ButtonEnvelopeTypeLinear->setBounds(80, 90, 50, 20);
+    ButtonEnvelopeTypeLogarithmic->setBounds(80, 115, 50, 20);
+
     SliderAttackRateSwitch->setBounds(150, 15, 70, 60);
     SliderReleaseRateSwitch->setBounds(210, 15, 70, 60);
+    SliderReleaseRateContinuous->setBounds(210, 85, 70, 60);
 
     SliderStereoLinkSwitch->setBounds(290, 15, 70, 60);
 
@@ -332,11 +370,26 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
     case SqueezerPluginParameters::selRatioSwitch:
         SliderRatioSwitch->setValue(fValue, false);
         break;
+    case SqueezerPluginParameters::selEnvelopeTypeSwitch:
+
+        if (fValue == SqueezerPluginParameters::selEnvelopeTypeLinear)
+        {
+            ButtonEnvelopeTypeLinear->setToggleState(true, false);
+        }
+        else
+        {
+            ButtonEnvelopeTypeLogarithmic->setToggleState(true, false);
+        }
+
+        break;
     case SqueezerPluginParameters::selAttackRateSwitch:
         SliderAttackRateSwitch->setValue(fValue, false);
         break;
     case SqueezerPluginParameters::selReleaseRateSwitch:
         SliderReleaseRateSwitch->setValue(fValue, false);
+        break;
+    case SqueezerPluginParameters::selReleaseRateContinuous:
+        SliderReleaseRateContinuous->setValue(fValue, false);
         break;
     case SqueezerPluginParameters::selStereoLinkSwitch:
         SliderStereoLinkSwitch->setValue(fValue, false);
@@ -376,6 +429,14 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDesignSwitch, SqueezerPluginParameters::selDesignVintage);
     }
+    else if (button == ButtonEnvelopeTypeLinear)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selEnvelopeTypeSwitch, SqueezerPluginParameters::selEnvelopeTypeLinear);
+    }
+    else if (button == ButtonEnvelopeTypeLogarithmic)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selEnvelopeTypeSwitch, SqueezerPluginParameters::selEnvelopeTypeLogarithmic);
+    }
     else if (button == ButtonAbout)
     {
         WindowAbout* windowAbout = new WindowAbout(getWidth(), getHeight());
@@ -409,6 +470,10 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == SliderReleaseRateSwitch)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
+    }
+    else if (slider == SliderReleaseRateContinuous)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateContinuous, fValue);
     }
     else if (slider == SliderStereoLinkSwitch)
     {

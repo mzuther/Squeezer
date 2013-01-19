@@ -29,6 +29,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "meter_bar_gain_reduction.h"
 #include "plugin_processor_squeezer.h"
+#include "slider_continuous.h"
 #include "slider_switch.h"
 #include "window_about.h"
 
@@ -72,14 +73,16 @@ private:
     TextButton* ButtonDesignModern;
     TextButton* ButtonDesignVintage;
 
-    TextButton* ButtonSensorPeak;
-    TextButton* ButtonSensorRms;
-
     SliderSwitch* SliderThresholdSwitch;
     SliderSwitch* SliderRatioSwitch;
 
+    TextButton* ButtonEnvelopeTypeLinear;
+    TextButton* ButtonEnvelopeTypeLogarithmic;
+
     SliderSwitch* SliderAttackRateSwitch;
     SliderSwitch* SliderReleaseRateSwitch;
+
+    SliderContinuous* SliderReleaseRateContinuous;
 
     SliderSwitch* SliderStereoLinkSwitch;
 
