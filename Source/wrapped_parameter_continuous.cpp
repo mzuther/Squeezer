@@ -26,18 +26,31 @@
 #include "wrapped_parameter_continuous.h"
 
 
-WrappedParameterContinuous::WrappedParameterContinuous(float fRealMinimumNew, float fRealMaximumNew)
+WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float real_maximum, float log_factor)
 {
     strName = "";
     strAttribute = "";
 
-    fRealMinimum = fRealMinimumNew;
-    fRealMaximum = fRealMaximumNew;
+    fRealMinimum = real_minimum;
+    fRealMaximum = real_maximum;
 
     fRealRange = fRealMaximum - fRealMinimum;
     fInterval = 1.0f / fRealRange;
 
-    setRealFloat(fRealMinimumNew);
+    if (log_factor > 0.0f)
+    {
+        bLogarithmic = true;
+        fLogFactor = log_factor;
+        fLogPowerFactor = pow10f(fLogFactor) - 1.0f;
+    }
+    else
+    {
+        bLogarithmic = false;
+        fLogFactor = -1.0f;
+        fLogPowerFactor = -1.0f;
+    }
+
+    setRealFloat(fRealMinimum);
     setChangeFlag();
 }
 
@@ -66,9 +79,33 @@ float WrappedParameterContinuous::getInterval()
 }
 
 
+float WrappedParameterContinuous::toRealFloat(float fValue)
+{
+    if (bLogarithmic)
+    {
+        fValue = (pow10f(fValue * fLogFactor) - 1.0f) / fLogPowerFactor;
+    }
+
+    return (fValue * fRealRange) + fRealMinimum;
+}
+
+
+float WrappedParameterContinuous::toInternalFloat(float fRealValue)
+{
+    fRealValue = (fRealValue - fRealMinimum) / fRealRange;
+
+    if (bLogarithmic)
+    {
+        fRealValue = log10f(fRealValue * fLogPowerFactor + 1.0f) / fLogFactor;
+    }
+
+    return fRealValue;
+}
+
+
 float WrappedParameterContinuous::getDefaultFloat()
 {
-    return (fDefaultRealValue - fRealMinimum) / fRealRange;
+    return toInternalFloat(fDefaultRealValue);
 }
 
 
@@ -161,13 +198,13 @@ bool WrappedParameterContinuous::setFloat(float fValue)
 
 float WrappedParameterContinuous::getRealFloat()
 {
-    return fValueInternal * fRealRange + fRealMinimum;
+    return toRealFloat(fValueInternal);
 }
 
 
 bool WrappedParameterContinuous::setRealFloat(float fRealValue)
 {
-    float fValue = (fRealValue - fRealMinimum) / fRealRange;
+    float fValue = toInternalFloat(fRealValue);
     return setFloat(fValue);
 }
 
@@ -210,13 +247,15 @@ bool WrappedParameterContinuous::setText(const String& strText)
 
 float WrappedParameterContinuous::getFloatFromText(const String& strText)
 {
-    return (strText.getFloatValue() - fRealMinimum) / fRealRange;
+    float fRealValue = strText.getFloatValue();
+    return toInternalFloat(fRealValue);
 }
 
 
 String WrappedParameterContinuous::getTextFromFloat(float fValue)
 {
-    return String(round_mz(fValue * fRealRange + fRealMinimum));
+    float fRealValue = toRealFloat(fValue);
+    return String(round_mz(fRealValue));
 }
 
 

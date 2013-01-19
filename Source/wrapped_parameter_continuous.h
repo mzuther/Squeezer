@@ -36,7 +36,7 @@
 class WrappedParameterContinuous : virtual public WrappedParameter
 {
 public:
-    WrappedParameterContinuous(float fMinimumNew, float fMaximumNew);
+    WrappedParameterContinuous(float real_minimum, float real_maximum, float log_factor);
     ~WrappedParameterContinuous();
 
     String getName();
@@ -77,17 +77,24 @@ public:
 private:
     JUCE_LEAK_DETECTOR(WrappedParameterContinuous);
 
+    float toRealFloat(float fValue);
+    float toInternalFloat(float fRealValue);
+
     String strName;
     String strAttribute;
 
     float fDefaultRealValue;
     float fValueInternal;
     bool bChangedValue;
+    bool bLogarithmic;
 
     float fInterval;
     float fRealMinimum;
     float fRealMaximum;
     float fRealRange;
+
+    float fLogFactor;
+    float fLogPowerFactor;
 };
 
 
