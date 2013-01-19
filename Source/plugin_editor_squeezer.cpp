@@ -100,11 +100,11 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
     strName = parameters->getName(nIndex);
     nLabelWidth = 50;
-    SliderReleaseRateSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
-    SliderReleaseRateSwitch->setSliderColour(Colours::yellow);
+    SliderReleaseRateCombined = new SliderCombined(strName, nLabelWidth, parameters, nIndex);
+    SliderReleaseRateCombined->setSliderColour(Colours::yellow);
 
-    SliderReleaseRateSwitch->addListener(this);
-    addAndMakeVisible(SliderReleaseRateSwitch);
+    SliderReleaseRateCombined->addListener(this);
+    addAndMakeVisible(SliderReleaseRateCombined);
 
 
     nIndex = SqueezerPluginParameters::selReleaseRateContinuous;
@@ -304,7 +304,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderRatioSwitch->setBounds(70, 15, 70, 60);
 
     SliderAttackRateSwitch->setBounds(150, 15, 70, 60);
-    SliderReleaseRateSwitch->setBounds(210, 15, 70, 60);
+    SliderReleaseRateCombined->setBounds(210, 15, 70, 60);
     SliderReleaseRateContinuous->setBounds(280, 85, 70, 60);
 
     ButtonAttackTypeLinear->setBounds(160, 90, 50, 20);
@@ -397,7 +397,7 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
         SliderAttackRateSwitch->setValue(fValue, false);
         break;
     case SqueezerPluginParameters::selReleaseRateSwitch:
-        SliderReleaseRateSwitch->setValue(fValue, false);
+        SliderReleaseRateCombined->setValue(fValue, false);
         break;
     case SqueezerPluginParameters::selReleaseRateContinuous:
         SliderReleaseRateContinuous->setValue(fValue, false);
@@ -510,7 +510,7 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateSwitch, fValue);
     }
-    else if (slider == SliderReleaseRateSwitch)
+    else if (slider == SliderReleaseRateCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
     }

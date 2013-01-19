@@ -26,13 +26,15 @@
 #include "wrapped_parameter_combined.h"
 
 
-WrappedParameterCombined::WrappedParameterCombined()
+WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float real_maximum, float log_factor)
 {
     strName = "";
     strAttribute = "";
 
     pSwitch = new WrappedParameterSwitch();
+    pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, log_factor);
 
+    bUseConstants = true;
     setChangeFlag();
 }
 
@@ -41,6 +43,9 @@ WrappedParameterCombined::~WrappedParameterCombined()
 {
     delete pSwitch;
     pSwitch = NULL;
+
+    delete pContinuous;
+    pContinuous = NULL;
 }
 
 
@@ -65,109 +70,235 @@ void WrappedParameterCombined::addConstant(const float fRealValue, const String&
 
 float WrappedParameterCombined::getInterval()
 {
-    return pSwitch->getInterval();
+    if (bUseConstants)
+    {
+        return pSwitch->getInterval();
+    }
+    else
+    {
+        return pContinuous->getInterval();
+    }
 }
 
 
 float WrappedParameterCombined::getDefaultFloat()
 {
-    return pSwitch->getDefaultFloat();
+    if (bUseConstants)
+    {
+        return pSwitch->getDefaultFloat();
+    }
+    else
+    {
+        return pContinuous->getDefaultFloat();
+    }
 }
 
 
 float WrappedParameterCombined::getDefaultRealFloat()
 {
-    return pSwitch->getDefaultRealFloat();
+    if (bUseConstants)
+    {
+        return pSwitch->getDefaultRealFloat();
+    }
+    else
+    {
+        return pContinuous->getDefaultRealFloat();
+    }
 }
 
 
 bool WrappedParameterCombined::getDefaultRealBoolean()
 {
-    return pSwitch->getDefaultRealBoolean();
+    if (bUseConstants)
+    {
+        return pSwitch->getDefaultRealBoolean();
+    }
+    else
+    {
+        return pContinuous->getDefaultRealBoolean();
+    }
 }
 
 
 int WrappedParameterCombined::getDefaultRealInteger()
 {
-    return pSwitch->getDefaultRealInteger();
+    if (bUseConstants)
+    {
+        return pSwitch->getDefaultRealInteger();
+    }
+    else
+    {
+        return pContinuous->getDefaultRealInteger();
+    }
 }
 
 
 bool WrappedParameterCombined::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
-    return pSwitch->setDefaultRealFloat(fRealValue, updateValue);
+    if (bUseConstants)
+    {
+        return pSwitch->setDefaultRealFloat(fRealValue, updateValue);
+    }
+    else
+    {
+        return pContinuous->setDefaultRealFloat(fRealValue, updateValue);
+    }
 }
 
 
 float WrappedParameterCombined::getFloat()
 {
-    return pSwitch->getFloat();
+    if (bUseConstants)
+    {
+        return pSwitch->getFloat();
+    }
+    else
+    {
+        return pContinuous->getFloat();
+    }
 }
 
 
 bool WrappedParameterCombined::setFloat(float fValue)
 {
-    return pSwitch->setFloat(fValue);
+    if (bUseConstants)
+    {
+        return pSwitch->setFloat(fValue);
+    }
+    else
+    {
+        return pContinuous->setFloat(fValue);
+    }
 }
 
 
 float WrappedParameterCombined::getRealFloat()
 {
-    return pSwitch->getRealFloat();
+    if (bUseConstants)
+    {
+        return pSwitch->getRealFloat();
+    }
+    else
+    {
+        return pContinuous->getRealFloat();
+    }
 }
 
 
 bool WrappedParameterCombined::setRealFloat(float fRealValue)
 {
-    return pSwitch->setRealFloat(fRealValue);
+    if (bUseConstants)
+    {
+        return pSwitch->setRealFloat(fRealValue);
+    }
+    else
+    {
+        return pContinuous->setRealFloat(fRealValue);
+    }
 }
 
 
 bool WrappedParameterCombined::getBoolean()
 {
-    return pSwitch->getBoolean();
+    if (bUseConstants)
+    {
+        return pSwitch->getBoolean();
+    }
+    else
+    {
+        return pContinuous->getBoolean();
+    }
 }
 
 
 bool WrappedParameterCombined::setBoolean(bool bValue)
 {
-    return pSwitch->setBoolean(bValue);
+    if (bUseConstants)
+    {
+        return pSwitch->setBoolean(bValue);
+    }
+    else
+    {
+        return pContinuous->setBoolean(bValue);
+    }
 }
 
 
 int WrappedParameterCombined::getRealInteger()
 {
-    return pSwitch->getRealInteger();
+    if (bUseConstants)
+    {
+        return pSwitch->getRealInteger();
+    }
+    else
+    {
+        return pContinuous->getRealInteger();
+    }
 }
 
 
 bool WrappedParameterCombined::setRealInteger(int nRealValue)
 {
-    return pSwitch->setRealInteger(nRealValue);
+    if (bUseConstants)
+    {
+        return pSwitch->setRealInteger(nRealValue);
+    }
+    else
+    {
+        return pContinuous->setRealInteger(nRealValue);
+    }
 }
 
 
 String WrappedParameterCombined::getText()
 {
-    return pSwitch->getText();
+    if (bUseConstants)
+    {
+        return pSwitch->getText();
+    }
+    else
+    {
+        return pContinuous->getText();
+    }
 }
 
 
 bool WrappedParameterCombined::setText(const String& strText)
 {
-    return pSwitch->setText(strText);
+    if (bUseConstants)
+    {
+        return pSwitch->setText(strText);
+    }
+    else
+    {
+        return pContinuous->setText(strText);
+    }
 }
 
 
 float WrappedParameterCombined::getFloatFromText(const String& strText)
 {
-    return pSwitch->getFloatFromText(strText);
+    if (bUseConstants)
+    {
+        return pSwitch->getFloatFromText(strText);
+    }
+    else
+    {
+        return pContinuous->getFloatFromText(strText);
+    }
 }
 
 
 String WrappedParameterCombined::getTextFromFloat(float fValue)
 {
-    return pSwitch->getTextFromFloat(fValue);
+    if (bUseConstants)
+    {
+        return pSwitch->getTextFromFloat(fValue);
+    }
+    else
+    {
+        return pContinuous->getTextFromFloat(fValue);
+    }
 }
 
 

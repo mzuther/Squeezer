@@ -38,7 +38,7 @@
 class WrappedParameterCombined : virtual public WrappedParameter
 {
 public:
-    WrappedParameterCombined();
+    WrappedParameterCombined(float real_minimum, float real_maximum, float log_factor);
     ~WrappedParameterCombined();
 
     String getName();
@@ -84,8 +84,10 @@ private:
     String strAttribute;
 
     bool bChangedValue;
+    bool bUseConstants;
 
     WrappedParameterSwitch* pSwitch;
+    WrappedParameterContinuous* pContinuous;
 };
 
 

@@ -111,6 +111,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
+	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/gain_reducer.o \
 	$(OBJDIR)/main.o \
@@ -205,6 +206,9 @@ $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_combined.o: ../../../Source/slider_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_switch.o: ../../../Source/slider_switch.cpp
