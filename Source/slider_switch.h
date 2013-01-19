@@ -37,7 +37,7 @@
 class SliderSwitch : public Slider
 {
 public:
-    SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index);
+    SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex);
     ~SliderSwitch();
 
     void setSliderColour(const Colour& colour);
@@ -47,8 +47,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SliderSwitch);
 
-    SqueezerPluginParameters* pPluginParameters;
-    int nParameterIndex;
+    WrappedParameterSwitch* pSwitch;
 };
 
 

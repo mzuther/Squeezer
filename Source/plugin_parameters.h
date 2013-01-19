@@ -41,6 +41,7 @@ public:
     PluginParameters();
     ~PluginParameters();
 
+    WrappedParameter* getWrappedParameter(int nIndex);
     String toString();
 
     void add(WrappedParameter* parameter);

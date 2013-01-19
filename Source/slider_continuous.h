@@ -37,7 +37,7 @@
 class SliderContinuous : public Slider
 {
 public:
-    SliderContinuous(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index);
+    SliderContinuous(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex);
     ~SliderContinuous();
 
     void setSliderColour(const Colour& colour);
@@ -47,8 +47,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SliderContinuous);
 
-    SqueezerPluginParameters* pPluginParameters;
-    int nParameterIndex;
+    WrappedParameterContinuous* pContinuous;
 };
 
 

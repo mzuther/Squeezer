@@ -37,7 +37,7 @@
 class SliderCombined : public Slider
 {
 public:
-    SliderCombined(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index);
+    SliderCombined(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex);
     ~SliderCombined();
 
     void setSliderColour(const Colour& colour);
@@ -47,8 +47,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SliderCombined);
 
-    SqueezerPluginParameters* pPluginParameters;
-    int nParameterIndex;
+    WrappedParameterCombined* pCombined;
 };
 
 

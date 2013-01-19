@@ -52,6 +52,13 @@ PluginParameters::~PluginParameters()
 }
 
 
+WrappedParameter* PluginParameters::getWrappedParameter(int nIndex)
+{
+    jassert((nIndex >= 0) && (nIndex < nNumParameters));
+    return arrParameters[nIndex];
+}
+
+
 String PluginParameters::toString()
 {
     String strParameters;

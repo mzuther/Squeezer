@@ -26,12 +26,12 @@
 #include "slider_switch.h"
 
 
-SliderSwitch::SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index) : Slider(componentName)
+SliderSwitch::SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pPluginParameters = parameters;
-    nParameterIndex = parameter_index;
+    pSwitch = dynamic_cast<WrappedParameterSwitch*>(pParameters->getWrappedParameter(nParameterIndex));
+    jassert(pSwitch != NULL);
 
-    setRange(0.0f, 1.0f, pPluginParameters->getInterval(nParameterIndex));
+    setRange(0.0f, 1.0f, pSwitch->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
     setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 
@@ -40,7 +40,7 @@ SliderSwitch::SliderSwitch(const String& componentName, int nWidth, SqueezerPlug
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
     setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
 
-    setDoubleClickReturnValue(true, pPluginParameters->getDefaultFloat(nParameterIndex));
+    setDoubleClickReturnValue(true, pSwitch->getDefaultFloat());
 }
 
 
@@ -57,13 +57,13 @@ void SliderSwitch::setSliderColour(const Colour& colour)
 
 double SliderSwitch::getValueFromText(const String& strText)
 {
-    return pPluginParameters->getFloatFromText(nParameterIndex, strText);
+    return pSwitch->getFloatFromText(strText);
 }
 
 
 String SliderSwitch::getTextFromValue(double dValue)
 {
-    return pPluginParameters->getTextFromFloat(nParameterIndex, (float) dValue);
+    return pSwitch->getTextFromFloat((float) dValue);
 }
 
 

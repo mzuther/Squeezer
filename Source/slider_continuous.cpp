@@ -26,12 +26,12 @@
 #include "slider_continuous.h"
 
 
-SliderContinuous::SliderContinuous(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index) : Slider(componentName)
+SliderContinuous::SliderContinuous(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pPluginParameters = parameters;
-    nParameterIndex = parameter_index;
+    pContinuous = dynamic_cast<WrappedParameterContinuous*>(pParameters->getWrappedParameter(nParameterIndex));
+    jassert(pContinuous != NULL);
 
-    setRange(0.0f, 1.0f, pPluginParameters->getInterval(nParameterIndex));
+    setRange(0.0f, 1.0f, pContinuous->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
     setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 
@@ -40,7 +40,7 @@ SliderContinuous::SliderContinuous(const String& componentName, int nWidth, Sque
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
     setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
 
-    setDoubleClickReturnValue(true, pPluginParameters->getDefaultFloat(nParameterIndex));
+    setDoubleClickReturnValue(true, pContinuous->getDefaultFloat());
 }
 
 
@@ -57,13 +57,13 @@ void SliderContinuous::setSliderColour(const Colour& colour)
 
 double SliderContinuous::getValueFromText(const String& strText)
 {
-    return pPluginParameters->getFloatFromText(nParameterIndex, strText);
+    return pContinuous->getFloatFromText(strText);
 }
 
 
 String SliderContinuous::getTextFromValue(double dValue)
 {
-    return pPluginParameters->getTextFromFloat(nParameterIndex, (float) dValue);
+    return pContinuous->getTextFromFloat((float) dValue);
 }
 
 

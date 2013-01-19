@@ -26,12 +26,12 @@
 #include "slider_combined.h"
 
 
-SliderCombined::SliderCombined(const String& componentName, int nWidth, SqueezerPluginParameters* parameters, int parameter_index) : Slider(componentName)
+SliderCombined::SliderCombined(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pPluginParameters = parameters;
-    nParameterIndex = parameter_index;
+    pCombined = dynamic_cast<WrappedParameterCombined*>(pParameters->getWrappedParameter(nParameterIndex));
+    jassert(pCombined != NULL);
 
-    setRange(0.0f, 1.0f, pPluginParameters->getInterval(nParameterIndex));
+    setRange(0.0f, 1.0f, pCombined->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
     setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 
@@ -40,7 +40,7 @@ SliderCombined::SliderCombined(const String& componentName, int nWidth, Squeezer
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
     setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
 
-    setDoubleClickReturnValue(true, pPluginParameters->getDefaultFloat(nParameterIndex));
+    setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
 }
 
 
@@ -57,13 +57,13 @@ void SliderCombined::setSliderColour(const Colour& colour)
 
 double SliderCombined::getValueFromText(const String& strText)
 {
-    return pPluginParameters->getFloatFromText(nParameterIndex, strText);
+    return pCombined->getFloatFromText(strText);
 }
 
 
 String SliderCombined::getTextFromValue(double dValue)
 {
-    return pPluginParameters->getTextFromFloat(nParameterIndex, (float) dValue);
+    return pCombined->getTextFromFloat((float) dValue);
 }
 
 
