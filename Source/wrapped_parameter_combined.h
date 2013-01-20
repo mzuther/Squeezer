@@ -38,7 +38,7 @@
 class WrappedParameterCombined : virtual public WrappedParameter
 {
 public:
-    WrappedParameterCombined(float real_minimum, float real_maximum, float log_factor);
+    WrappedParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
     ~WrappedParameterCombined();
 
     String getName();
@@ -71,6 +71,7 @@ public:
 
     String getText();
     bool setText(const String& strText);
+    void setSuffix(const String& suffix);
 
     float getFloatFromText(const String& strText);
     String getTextFromFloat(float fValue);

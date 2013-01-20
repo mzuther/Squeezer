@@ -36,7 +36,7 @@
 class WrappedParameterContinuous : virtual public WrappedParameter
 {
 public:
-    WrappedParameterContinuous(float real_minimum, float real_maximum, float log_factor);
+    WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
     ~WrappedParameterContinuous();
 
     String getName();
@@ -65,6 +65,7 @@ public:
 
     String getText();
     bool setText(const String& strText);
+    void setSuffix(const String& suffix);
 
     float getFloatFromText(const String& strText);
     String getTextFromFloat(float fValue);
@@ -83,6 +84,7 @@ private:
 
     String strName;
     String strAttribute;
+    String strSuffix;
 
     float fDefaultRealValue;
     float fValueInternal;
@@ -90,6 +92,9 @@ private:
     bool bLogarithmic;
 
     float fInterval;
+    float fResolution;
+    int nDecimalPlaces;
+
     float fRealMinimum;
     float fRealMaximum;
     float fRealRange;

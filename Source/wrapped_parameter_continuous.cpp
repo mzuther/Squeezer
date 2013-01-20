@@ -26,16 +26,19 @@
 #include "wrapped_parameter_continuous.h"
 
 
-WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float real_maximum, float log_factor)
+WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places)
 {
     strName = "";
     strAttribute = "";
+    strSuffix = "";
 
     fRealMinimum = real_minimum;
     fRealMaximum = real_maximum;
 
     fRealRange = fRealMaximum - fRealMinimum;
-    fInterval = 1.0f / fRealRange;
+    fResolution = resolution;
+    fInterval = fResolution / fRealRange;
+    nDecimalPlaces = decimal_places;
 
     if (log_factor > 0.0f)
     {
@@ -264,9 +267,17 @@ bool WrappedParameterContinuous::setText(const String& strText)
 }
 
 
+void WrappedParameterContinuous::setSuffix(const String& suffix)
+{
+    strSuffix = suffix;
+}
+
+
 float WrappedParameterContinuous::getFloatFromText(const String& strText)
 {
-    float fRealValue = strText.getFloatValue();
+    String strWithoutSuffix = strText.upToLastOccurrenceOf(strSuffix, false, false);
+    float fRealValue = strWithoutSuffix.getFloatValue();
+
     return toInternalFloat(fRealValue);
 }
 
@@ -274,7 +285,15 @@ float WrappedParameterContinuous::getFloatFromText(const String& strText)
 String WrappedParameterContinuous::getTextFromFloat(float fValue)
 {
     float fRealValue = toRealFloat(fValue);
-    return String(round_mz(fRealValue));
+
+    if (nDecimalPlaces > 0)
+    {
+        return String(fRealValue, nDecimalPlaces) + strSuffix;
+    }
+    else
+    {
+        return String(round_mz(fRealValue)) + strSuffix;
+    }
 }
 
 

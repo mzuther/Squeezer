@@ -26,13 +26,13 @@
 #include "wrapped_parameter_combined.h"
 
 
-WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float real_maximum, float log_factor)
+WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places)
 {
     strName = "";
     strAttribute = "";
 
     pSwitch = new WrappedParameterSwitch();
-    pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, log_factor);
+    pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places);
 
     bUseConstants = true;
     setChangeFlag();
@@ -316,6 +316,12 @@ bool WrappedParameterCombined::setText(const String& strText)
     {
         return pContinuous->setText(strText);
     }
+}
+
+
+void WrappedParameterCombined::setSuffix(const String& suffix)
+{
+    pContinuous->setSuffix(suffix);
 }
 
 
