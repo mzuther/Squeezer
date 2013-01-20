@@ -26,14 +26,13 @@
 #include "slider_combined.h"
 
 
-SliderCombined::SliderCombined(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
+SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
     pCombined = dynamic_cast<WrappedParameterCombined*>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pCombined != NULL);
 
     setRange(0.0f, 1.0f, pCombined->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
-    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 
     setColour(Slider::rotarySliderFillColourId, Colours::white);
     setColour(Slider::textBoxTextColourId, Colours::white);
@@ -49,9 +48,69 @@ SliderCombined::~SliderCombined()
 }
 
 
+void SliderCombined::resized()
+{
+    Slider::resized();
+
+    int nWidth = getBounds().getWidth();
+    int nSwitchWidth = 8;
+    int nSwitchX = nWidth - nSwitchWidth - 1;
+    rectSwitchPosition.setBounds(nSwitchX, 1, nSwitchWidth, nSwitchWidth);
+
+    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
+}
+
+
+void SliderCombined::paintOverChildren(Graphics& g)
+{
+    Slider::paintOverChildren(g);
+
+    if (pCombined->getMode())
+    {
+        g.setColour(Colours::red.darker(0.5f));
+    }
+    else
+    {
+        g.setColour(Colours::red.darker(5.0f));
+    }
+
+    g.fillEllipse(rectSwitchPosition.getX(), rectSwitchPosition.getY(), rectSwitchPosition.getWidth(), rectSwitchPosition.getHeight());
+
+    g.setColour(Colours::black);
+    g.drawEllipse(rectSwitchPosition.getX(), rectSwitchPosition.getY(), rectSwitchPosition.getWidth(), rectSwitchPosition.getHeight(), 1.0f);
+}
+
+
 void SliderCombined::setSliderColour(const Colour& colour)
 {
     setColour(Slider::rotarySliderFillColourId, colour);
+}
+
+
+void SliderCombined::mouseDown(const MouseEvent& e)
+{
+    if (rectSwitchPosition.contains(e.getMouseDownPosition()))
+    {
+        if (isEnabled())
+        {
+            toggleMode();
+        }
+    }
+    else
+    {
+        Slider::mouseDown(e);
+    }
+}
+
+
+void SliderCombined::toggleMode()
+{
+    pCombined->toggleMode();
+
+    setRange(0.0f, 1.0f, pCombined->getInterval());
+    setValue(pCombined->getFloat());
+
+    repaint();
 }
 
 

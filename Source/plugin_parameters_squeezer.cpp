@@ -120,22 +120,26 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selRatioSwitch + 1);
 
 
-    WrappedParameterSwitch* ParameterAttackRateSwitch = new WrappedParameterSwitch();
-    ParameterAttackRateSwitch->setName("Attack Rate Switch");
+    float fLogFactor = 2.0f;
+    float fMinimum = 0.0f;
+    float fMaximum = 500.0f;
 
-    ParameterAttackRateSwitch->addConstant(2.0f,     "2 ms");
-    ParameterAttackRateSwitch->addConstant(5.0f,     "5 ms");
-    ParameterAttackRateSwitch->addConstant(10.0f,   "10 ms");
-    ParameterAttackRateSwitch->addConstant(20.0f,   "20 ms");
-    ParameterAttackRateSwitch->addConstant(50.0f,   "50 ms");
-    ParameterAttackRateSwitch->addConstant(100.0f, "100 ms");
-    ParameterAttackRateSwitch->addConstant(200.0f, "200 ms");
-    ParameterAttackRateSwitch->addConstant(500.0f, "500 ms");
+    WrappedParameterCombined* ParameterAttackRateCombined = new WrappedParameterCombined(fMinimum, fMaximum, fLogFactor);
+    ParameterAttackRateCombined->setName("Attack Rate Combined");
 
-    ParameterAttackRateSwitch->setDefaultRealFloat(10.0f, true);
-    add(ParameterAttackRateSwitch);
+    ParameterAttackRateCombined->addConstant(2.0f,     "2 ms");
+    ParameterAttackRateCombined->addConstant(5.0f,     "5 ms");
+    ParameterAttackRateCombined->addConstant(10.0f,   "10 ms");
+    ParameterAttackRateCombined->addConstant(20.0f,   "20 ms");
+    ParameterAttackRateCombined->addConstant(50.0f,   "50 ms");
+    ParameterAttackRateCombined->addConstant(100.0f, "100 ms");
+    ParameterAttackRateCombined->addConstant(200.0f, "200 ms");
+    ParameterAttackRateCombined->addConstant(500.0f, "500 ms");
 
-    jassert(arrParameters.size() == selAttackRateSwitch + 1);
+    ParameterAttackRateCombined->setDefaultRealFloat(10.0f, true);
+    add(ParameterAttackRateCombined);
+
+    jassert(arrParameters.size() == selAttackRateCombined + 1);
 
 
     WrappedParameterSwitch* ParameterAttackModeSwitch = new WrappedParameterSwitch();
@@ -150,41 +154,34 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selAttackModeSwitch + 1);
 
 
-    float fLogFactor = 2.0f;
-    WrappedParameterCombined* ParameterReleaseRateSwitch = new WrappedParameterCombined(0.0f, 8000.0f, fLogFactor);
-    ParameterReleaseRateSwitch->setName("Release Rate Switch");
-
-    ParameterReleaseRateSwitch->addConstant(50.0f,    "50 ms");
-    ParameterReleaseRateSwitch->addConstant(75.0f,    "75 ms");
-    ParameterReleaseRateSwitch->addConstant(100.0f,  "100 ms");
-    ParameterReleaseRateSwitch->addConstant(125.0f,  "125 ms");
-    ParameterReleaseRateSwitch->addConstant(150.0f,  "150 ms");
-    ParameterReleaseRateSwitch->addConstant(175.0f,  "175 ms");
-    ParameterReleaseRateSwitch->addConstant(200.0f,  "200 ms");
-    ParameterReleaseRateSwitch->addConstant(250.0f,  "250 ms");
-    ParameterReleaseRateSwitch->addConstant(375.0f,  "375 ms");
-    ParameterReleaseRateSwitch->addConstant(500.0f,  "500 ms");
-    ParameterReleaseRateSwitch->addConstant(750.0f,  "750 ms");
-    ParameterReleaseRateSwitch->addConstant(1000.0f, "1.0 s");
-    ParameterReleaseRateSwitch->addConstant(1500.0f, "1.5 s");
-    ParameterReleaseRateSwitch->addConstant(2000.0f, "2.0 s");
-    ParameterReleaseRateSwitch->addConstant(4000.0f, "4.0 s");
-    ParameterReleaseRateSwitch->addConstant(8000.0f, "8.0 s");
-
-    ParameterReleaseRateSwitch->setDefaultRealFloat(150.0f, true);
-    add(ParameterReleaseRateSwitch);
-
-    jassert(arrParameters.size() == selReleaseRateSwitch + 1);
-
-
     fLogFactor = 2.0f;
-    WrappedParameterContinuous* ParameterReleaseRateContinuous = new WrappedParameterContinuous(0.0f, 8000.0f, fLogFactor);
-    ParameterReleaseRateContinuous->setName("Release Rate Continuous");
+    fMinimum = 0.0f;
+    fMaximum = 8000.0f;
 
-    ParameterReleaseRateContinuous->setDefaultRealFloat(150.0f, true);
-    add(ParameterReleaseRateContinuous);
+    WrappedParameterCombined* ParameterReleaseRateCombined = new WrappedParameterCombined(fMinimum, fMaximum, fLogFactor);
+    ParameterReleaseRateCombined->setName("Release Rate Switch");
 
-    jassert(arrParameters.size() == selReleaseRateContinuous + 1);
+    ParameterReleaseRateCombined->addConstant(50.0f,    "50 ms");
+    ParameterReleaseRateCombined->addConstant(75.0f,    "75 ms");
+    ParameterReleaseRateCombined->addConstant(100.0f,  "100 ms");
+    ParameterReleaseRateCombined->addConstant(125.0f,  "125 ms");
+    ParameterReleaseRateCombined->addConstant(150.0f,  "150 ms");
+    ParameterReleaseRateCombined->addConstant(175.0f,  "175 ms");
+    ParameterReleaseRateCombined->addConstant(200.0f,  "200 ms");
+    ParameterReleaseRateCombined->addConstant(250.0f,  "250 ms");
+    ParameterReleaseRateCombined->addConstant(375.0f,  "375 ms");
+    ParameterReleaseRateCombined->addConstant(500.0f,  "500 ms");
+    ParameterReleaseRateCombined->addConstant(750.0f,  "750 ms");
+    ParameterReleaseRateCombined->addConstant(1000.0f, "1.0 s");
+    ParameterReleaseRateCombined->addConstant(1500.0f, "1.5 s");
+    ParameterReleaseRateCombined->addConstant(2000.0f, "2.0 s");
+    ParameterReleaseRateCombined->addConstant(4000.0f, "4.0 s");
+    ParameterReleaseRateCombined->addConstant(8000.0f, "8.0 s");
+
+    ParameterReleaseRateCombined->setDefaultRealFloat(150.0f, true);
+    add(ParameterReleaseRateCombined);
+
+    jassert(arrParameters.size() == selReleaseRateCombined + 1);
 
 
     WrappedParameterSwitch* ParameterReleaseModeSwitch = new WrappedParameterSwitch();

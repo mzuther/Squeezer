@@ -31,7 +31,6 @@ class SqueezerPluginParameters;
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "plugin_parameters.h"
 #include "wrapped_parameter_combined.h"
-#include "wrapped_parameter_continuous.h"
 #include "wrapped_parameter_switch.h"
 
 
@@ -54,10 +53,9 @@ public:
         selThresholdSwitch,
         selRatioSwitch,
 
-        selAttackRateSwitch,
+        selAttackRateCombined,
         selAttackModeSwitch,
-        selReleaseRateSwitch,
-        selReleaseRateContinuous,
+        selReleaseRateCombined,
         selReleaseModeSwitch,
 
         selStereoLinkSwitch,

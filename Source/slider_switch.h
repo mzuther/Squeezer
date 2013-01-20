@@ -37,9 +37,10 @@
 class SliderSwitch : public Slider
 {
 public:
-    SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex);
+    SliderSwitch(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex);
     ~SliderSwitch();
 
+    void resized();
     void setSliderColour(const Colour& colour);
 
     double getValueFromText(const String& strText);

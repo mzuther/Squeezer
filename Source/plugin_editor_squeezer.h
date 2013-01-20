@@ -30,7 +30,6 @@
 #include "meter_bar_gain_reduction.h"
 #include "plugin_processor_squeezer.h"
 #include "slider_combined.h"
-#include "slider_continuous.h"
 #include "slider_switch.h"
 #include "window_about.h"
 
@@ -77,10 +76,8 @@ private:
     SliderSwitch* SliderThresholdSwitch;
     SliderSwitch* SliderRatioSwitch;
 
-    SliderSwitch* SliderAttackRateSwitch;
+    SliderCombined* SliderAttackRateCombined;
     SliderCombined* SliderReleaseRateCombined;
-
-    SliderContinuous* SliderReleaseRateContinuous;
 
     TextButton* ButtonAttackModeLinear;
     TextButton* ButtonAttackModeLogarithmic;

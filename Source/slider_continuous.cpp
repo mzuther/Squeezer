@@ -26,14 +26,13 @@
 #include "slider_continuous.h"
 
 
-SliderContinuous::SliderContinuous(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
+SliderContinuous::SliderContinuous(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
     pContinuous = dynamic_cast<WrappedParameterContinuous*>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pContinuous != NULL);
 
     setRange(0.0f, 1.0f, pContinuous->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
-    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 
     setColour(Slider::rotarySliderFillColourId, Colours::white);
     setColour(Slider::textBoxTextColourId, Colours::white);
@@ -46,6 +45,15 @@ SliderContinuous::SliderContinuous(const String& componentName, int nWidth, Sque
 
 SliderContinuous::~SliderContinuous()
 {
+}
+
+
+void SliderContinuous::resized()
+{
+    Slider::resized();
+
+    int nWidth = getBounds().getWidth();
+    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 }
 
 

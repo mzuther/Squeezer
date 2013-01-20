@@ -37,9 +37,10 @@
 class SliderContinuous : public Slider
 {
 public:
-    SliderContinuous(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex);
+    SliderContinuous(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex);
     ~SliderContinuous();
 
+    void resized();
     void setSliderColour(const Colour& colour);
 
     double getValueFromText(const String& strText);

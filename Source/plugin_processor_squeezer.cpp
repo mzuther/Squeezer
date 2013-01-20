@@ -146,14 +146,14 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
             break;
         }
 
-        case SqueezerPluginParameters::selAttackRateSwitch:
+        case SqueezerPluginParameters::selAttackRateCombined:
         {
             int nAttackRate = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setAttackRate(nAttackRate);
             break;
         }
 
-        case SqueezerPluginParameters::selReleaseRateSwitch:
+        case SqueezerPluginParameters::selReleaseRateCombined:
         {
             int nReleaseRate = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setReleaseRate(nReleaseRate);
@@ -171,13 +171,6 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
         {
             bool bLogarithmicRelease = pPluginParameters->getBoolean(nIndex);
             pCompressor->setLogarithmicRelease(bLogarithmicRelease);
-            break;
-        }
-
-        case SqueezerPluginParameters::selReleaseRateContinuous:
-        {
-            int nReleaseRate = pPluginParameters->getRealInteger(nIndex);
-            pCompressor->setReleaseRate(nReleaseRate);  // TODO
             break;
         }
 
@@ -369,8 +362,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fThreshold = pPluginParameters->getRealFloat(SqueezerPluginParameters::selThresholdSwitch);
     float fRatio = pPluginParameters->getRealFloat(SqueezerPluginParameters::selRatioSwitch);
 
-    int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRateSwitch);
-    int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRateSwitch);
+    int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRateCombined);
+    int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRateCombined);
 
     bool bLogarithmicAttack = pPluginParameters->getBoolean(SqueezerPluginParameters::selAttackModeSwitch);
     bool bLogarithmicRelease = pPluginParameters->getBoolean(SqueezerPluginParameters::selReleaseModeSwitch);

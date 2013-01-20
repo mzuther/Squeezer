@@ -76,27 +76,31 @@ bool WrappedParameterCombined::getMode()
 
 bool WrappedParameterCombined::setMode(bool use_constants)
 {
-    bool bUseConstantsOld = bUseConstants;
-    bUseConstants = use_constants;
-
-    if (bUseConstants != bUseConstantsOld)
+    if (bUseConstants != use_constants)
     {
-        setChangeFlag();
-
-        if (bUseConstants)
-        {
-            float fRealValue = pContinuous->getRealFloat();
-            return pSwitch->setNearestRealFloat(fRealValue);
-        }
-        else
-        {
-            float fRealValue = pSwitch->getRealFloat();
-            return pContinuous->setNearestRealFloat(fRealValue);
-        }
+        return toggleMode();
     }
     else
     {
         return true;
+    }
+}
+
+
+bool WrappedParameterCombined::toggleMode()
+{
+    bUseConstants = !bUseConstants;
+    setChangeFlag();
+
+    if (bUseConstants)
+    {
+        float fRealValue = pContinuous->getRealFloat();
+        return pSwitch->setNearestRealFloat(fRealValue);
+    }
+    else
+    {
+        float fRealValue = pSwitch->getRealFloat();
+        return pContinuous->setNearestRealFloat(fRealValue);
     }
 }
 
@@ -358,20 +362,21 @@ void WrappedParameterCombined::setChangeFlag()
 }
 
 
-// TODO
 void WrappedParameterCombined::loadFromXml(XmlElement* xml)
 {
     XmlElement* xml_element = xml->getChildByName(strAttribute);
 
     if (xml_element)
     {
+        bool useConstants = xml_element->getBoolAttribute("use_constants", true);
         float fRealValue = (float) xml_element->getDoubleAttribute("value", getDefaultRealFloat());
+
+        setMode(useConstants);
         setRealFloat(fRealValue);
     }
 }
 
 
-// TODO
 void WrappedParameterCombined::storeAsXml(XmlElement* xml)
 {
     XmlElement* xml_element = new XmlElement(strAttribute);
@@ -379,6 +384,8 @@ void WrappedParameterCombined::storeAsXml(XmlElement* xml)
     if (xml_element)
     {
         float fRealValue = getRealFloat();
+
+        xml_element->setAttribute("use_constants", bUseConstants);
         xml_element->setAttribute("value", fRealValue);
         xml->addChildElement(xml_element);
     }

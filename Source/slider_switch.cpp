@@ -26,14 +26,13 @@
 #include "slider_switch.h"
 
 
-SliderSwitch::SliderSwitch(const String& componentName, int nWidth, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitch::SliderSwitch(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
     pSwitch = dynamic_cast<WrappedParameterSwitch*>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pSwitch != NULL);
 
     setRange(0.0f, 1.0f, pSwitch->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
-    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 
     setColour(Slider::rotarySliderFillColourId, Colours::white);
     setColour(Slider::textBoxTextColourId, Colours::white);
@@ -46,6 +45,15 @@ SliderSwitch::SliderSwitch(const String& componentName, int nWidth, SqueezerPlug
 
 SliderSwitch::~SliderSwitch()
 {
+}
+
+
+void SliderSwitch::resized()
+{
+    Slider::resized();
+
+    int nWidth = getBounds().getWidth();
+    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 }
 
 

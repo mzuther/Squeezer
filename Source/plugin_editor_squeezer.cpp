@@ -69,8 +69,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     int nIndex = SqueezerPluginParameters::selThresholdSwitch;
     String strName = parameters->getName(nIndex);
-    int nLabelWidth = 50;
-    SliderThresholdSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
+    SliderThresholdSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderThresholdSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderThresholdSwitch->addListener(this);
@@ -79,42 +78,29 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selRatioSwitch;
     strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderRatioSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
+    SliderRatioSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderRatioSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderRatioSwitch->addListener(this);
     addAndMakeVisible(SliderRatioSwitch);
 
 
-    nIndex = SqueezerPluginParameters::selAttackRateSwitch;
+    nIndex = SqueezerPluginParameters::selAttackRateCombined;
     strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderAttackRateSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
-    SliderAttackRateSwitch->setSliderColour(Colours::yellow);
+    SliderAttackRateCombined = new SliderCombined(strName, parameters, nIndex);
+    SliderAttackRateCombined->setSliderColour(Colours::yellow);
 
-    SliderAttackRateSwitch->addListener(this);
-    addAndMakeVisible(SliderAttackRateSwitch);
+    SliderAttackRateCombined->addListener(this);
+    addAndMakeVisible(SliderAttackRateCombined);
 
 
-    nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
+    nIndex = SqueezerPluginParameters::selReleaseRateCombined;
     strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderReleaseRateCombined = new SliderCombined(strName, nLabelWidth, parameters, nIndex);
+    SliderReleaseRateCombined = new SliderCombined(strName, parameters, nIndex);
     SliderReleaseRateCombined->setSliderColour(Colours::yellow);
 
     SliderReleaseRateCombined->addListener(this);
     addAndMakeVisible(SliderReleaseRateCombined);
-
-
-    nIndex = SqueezerPluginParameters::selReleaseRateContinuous;
-    strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderReleaseRateContinuous = new SliderContinuous(strName, nLabelWidth, parameters, nIndex);
-    SliderReleaseRateContinuous->setSliderColour(Colours::yellow);
-
-    SliderReleaseRateContinuous->addListener(this);
-    addAndMakeVisible(SliderReleaseRateContinuous);
 
 
     ButtonAttackModeLinear = new TextButton("Linear");
@@ -155,8 +141,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
     strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderStereoLinkSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
+    SliderStereoLinkSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderStereoLinkSwitch->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderStereoLinkSwitch->addListener(this);
@@ -165,8 +150,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selInputGainSwitch;
     strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderInputGainSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
+    SliderInputGainSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderInputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderInputGainSwitch->addListener(this);
@@ -175,8 +159,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selOutputGainSwitch;
     strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderOutputGainSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
+    SliderOutputGainSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderOutputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderOutputGainSwitch->addListener(this);
@@ -185,8 +168,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selWetMixSwitch;
     strName = parameters->getName(nIndex);
-    nLabelWidth = 50;
-    SliderWetMixSwitch = new SliderSwitch(strName, nLabelWidth, parameters, nIndex);
+    SliderWetMixSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderWetMixSwitch->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderWetMixSwitch->addListener(this);
@@ -247,13 +229,10 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selReleaseModeSwitch;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selAttackRateSwitch;
+    nIndex = SqueezerPluginParameters::selAttackRateCombined;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selReleaseRateSwitch;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selReleaseRateContinuous;
+    nIndex = SqueezerPluginParameters::selReleaseRateCombined;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
     nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
@@ -295,28 +274,27 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    ButtonBypass->setBounds(360, 90, 50, 20);
+    ButtonBypass->setBounds(360, 90, 52, 20);
 
-    ButtonDesignModern->setBounds(20, 90, 50, 20);
-    ButtonDesignVintage->setBounds(20, 115, 50, 20);
+    ButtonDesignModern->setBounds(20, 90, 52, 20);
+    ButtonDesignVintage->setBounds(20, 115, 52, 20);
 
-    SliderThresholdSwitch->setBounds(10, 15, 70, 60);
-    SliderRatioSwitch->setBounds(70, 15, 70, 60);
+    SliderThresholdSwitch->setBounds(20, 15, 52, 60);
+    SliderRatioSwitch->setBounds(80, 15, 52, 60);
 
-    SliderAttackRateSwitch->setBounds(150, 15, 70, 60);
-    SliderReleaseRateCombined->setBounds(210, 15, 70, 60);
-    SliderReleaseRateContinuous->setBounds(280, 85, 70, 60);
+    SliderAttackRateCombined->setBounds(160, 15, 52, 60);
+    SliderReleaseRateCombined->setBounds(220, 15, 52, 60);
 
-    ButtonAttackModeLinear->setBounds(160, 90, 50, 20);
-    ButtonAttackModeLogarithmic->setBounds(160, 115, 50, 20);
-    ButtonReleaseModeLinear->setBounds(220, 90, 50, 20);
-    ButtonReleaseModeLogarithmic->setBounds(220, 115, 50, 20);
+    ButtonAttackModeLinear->setBounds(160, 90, 52, 20);
+    ButtonAttackModeLogarithmic->setBounds(160, 115, 52, 20);
+    ButtonReleaseModeLinear->setBounds(220, 90, 52, 20);
+    ButtonReleaseModeLogarithmic->setBounds(220, 115, 52, 20);
 
-    SliderStereoLinkSwitch->setBounds(290, 15, 70, 60);
+    SliderStereoLinkSwitch->setBounds(300, 15, 52, 60);
 
-    SliderInputGainSwitch->setBounds(350, 15, 70, 60);
-    SliderOutputGainSwitch->setBounds(410, 15, 70, 60);
-    SliderWetMixSwitch->setBounds(410, 85, 70, 60);
+    SliderInputGainSwitch->setBounds(360, 15, 52, 60);
+    SliderOutputGainSwitch->setBounds(420, 15, 52, 60);
+    SliderWetMixSwitch->setBounds(420, 85, 52, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -393,14 +371,11 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
     case SqueezerPluginParameters::selRatioSwitch:
         SliderRatioSwitch->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selAttackRateSwitch:
-        SliderAttackRateSwitch->setValue(fValue, false);
+    case SqueezerPluginParameters::selAttackRateCombined:
+        SliderAttackRateCombined->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selReleaseRateSwitch:
+    case SqueezerPluginParameters::selReleaseRateCombined:
         SliderReleaseRateCombined->setValue(fValue, false);
-        break;
-    case SqueezerPluginParameters::selReleaseRateContinuous:
-        SliderReleaseRateContinuous->setValue(fValue, false);
         break;
     case SqueezerPluginParameters::selAttackModeSwitch:
 
@@ -506,17 +481,13 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selRatioSwitch, fValue);
     }
-    else if (slider == SliderAttackRateSwitch)
+    else if (slider == SliderAttackRateCombined)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateSwitch, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateCombined, fValue);
     }
     else if (slider == SliderReleaseRateCombined)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
-    }
-    else if (slider == SliderReleaseRateContinuous)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateContinuous, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateCombined, fValue);
     }
     else if (slider == SliderStereoLinkSwitch)
     {
