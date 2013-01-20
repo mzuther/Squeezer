@@ -160,14 +160,14 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
             break;
         }
 
-        case SqueezerPluginParameters::selAttackTypeSwitch:
+        case SqueezerPluginParameters::selAttackModeSwitch:
         {
             bool bLogarithmicAttack = pPluginParameters->getBoolean(nIndex);
             pCompressor->setLogarithmicAttack(bLogarithmicAttack);
             break;
         }
 
-        case SqueezerPluginParameters::selReleaseTypeSwitch:
+        case SqueezerPluginParameters::selReleaseModeSwitch:
         {
             bool bLogarithmicRelease = pPluginParameters->getBoolean(nIndex);
             pCompressor->setLogarithmicRelease(bLogarithmicRelease);
@@ -372,8 +372,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRateSwitch);
     int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRateSwitch);
 
-    bool bLogarithmicAttack = pPluginParameters->getBoolean(SqueezerPluginParameters::selAttackTypeSwitch);
-    bool bLogarithmicRelease = pPluginParameters->getBoolean(SqueezerPluginParameters::selReleaseTypeSwitch);
+    bool bLogarithmicAttack = pPluginParameters->getBoolean(SqueezerPluginParameters::selAttackModeSwitch);
+    bool bLogarithmicRelease = pPluginParameters->getBoolean(SqueezerPluginParameters::selReleaseModeSwitch);
 
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLinkSwitch);
 

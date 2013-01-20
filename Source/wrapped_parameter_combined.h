@@ -44,6 +44,9 @@ public:
     String getName();
     void setName(const String& strParameterName);
 
+    bool getMode();
+    bool setMode(bool use_constants);
+
     void addConstant(const float fRealValue, const String& strText);
     float getInterval();
 
@@ -83,7 +86,6 @@ private:
     String strName;
     String strAttribute;
 
-    bool bChangedValue;
     bool bUseConstants;
 
     WrappedParameterSwitch* pSwitch;

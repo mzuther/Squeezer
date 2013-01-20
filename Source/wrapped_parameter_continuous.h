@@ -55,6 +55,7 @@ public:
 
     float getRealFloat();
     bool setRealFloat(float fRealValue);
+    bool setNearestRealFloat(float fRealValue);
 
     bool getBoolean();
     bool setBoolean(bool bValue);

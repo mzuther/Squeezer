@@ -195,6 +195,26 @@ bool WrappedParameterSwitch::setRealFloat(float fRealValue)
 }
 
 
+bool WrappedParameterSwitch::setNearestRealFloat(float fRealValue)
+{
+    int nIndexSelected = 0;
+    float fDifference = fabs(fRealValue - fRealValues[nIndexSelected]);
+
+    for (int nIndex = 1; nIndex < fRealValues.size(); nIndex++)
+    {
+        float fDifferenceNew = fabs(fRealValue - fRealValues[nIndex]);
+
+        if (fDifferenceNew < fDifference)
+        {
+            nIndexSelected = nIndex;
+            fDifference = fDifferenceNew;
+        }
+    }
+
+    return setRealFloat(fRealValues[nIndexSelected]);
+}
+
+
 bool WrappedParameterSwitch::getBoolean()
 {
     return getRealFloat() != 0.0f;

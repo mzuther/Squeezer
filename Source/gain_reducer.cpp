@@ -43,10 +43,10 @@ GainReducer::GainReducer(int nSampleRate)
     setRatio(2.0f);
 
     setAttackRate(10);
-    setLogarithmicAttack(SqueezerPluginParameters::selAttackTypeLogarithmic);
+    setLogarithmicAttack(SqueezerPluginParameters::selAttackModeLogarithmic);
 
     setReleaseRate(100);
-    setLogarithmicRelease(SqueezerPluginParameters::selReleaseTypeLogarithmic);
+    setLogarithmicRelease(SqueezerPluginParameters::selReleaseModeLogarithmic);
 
     fCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;

@@ -82,11 +82,11 @@ private:
 
     SliderContinuous* SliderReleaseRateContinuous;
 
-    TextButton* ButtonAttackTypeLinear;
-    TextButton* ButtonAttackTypeLogarithmic;
+    TextButton* ButtonAttackModeLinear;
+    TextButton* ButtonAttackModeLogarithmic;
 
-    TextButton* ButtonReleaseTypeLinear;
-    TextButton* ButtonReleaseTypeLogarithmic;
+    TextButton* ButtonReleaseModeLinear;
+    TextButton* ButtonReleaseModeLogarithmic;
 
     SliderSwitch* SliderStereoLinkSwitch;
 

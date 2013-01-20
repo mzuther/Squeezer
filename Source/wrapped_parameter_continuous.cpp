@@ -41,7 +41,7 @@ WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float
     {
         bLogarithmic = true;
         fLogFactor = log_factor;
-        fLogPowerFactor = pow10f(fLogFactor) - 1.0f;
+        fLogPowerFactor = powf(10.0f, fLogFactor) - 1.0f;
     }
     else
     {
@@ -83,7 +83,7 @@ float WrappedParameterContinuous::toRealFloat(float fValue)
 {
     if (bLogarithmic)
     {
-        fValue = (pow10f(fValue * fLogFactor) - 1.0f) / fLogPowerFactor;
+        fValue = (powf(10.0f, fValue * fLogFactor) - 1.0f) / fLogPowerFactor;
     }
 
     return (fValue * fRealRange) + fRealMinimum;
@@ -206,6 +206,25 @@ bool WrappedParameterContinuous::setRealFloat(float fRealValue)
 {
     float fValue = toInternalFloat(fRealValue);
     return setFloat(fValue);
+}
+
+
+bool WrappedParameterContinuous::setNearestRealFloat(float fRealValue)
+{
+    if (fRealValue < fRealMinimum)
+    {
+        setRealFloat(fRealMinimum);
+        return false;
+    }
+    else if (fRealValue > fRealMaximum)
+    {
+        setRealFloat(fRealMaximum);
+        return false;
+    }
+    else
+    {
+        return setRealFloat(fRealValue);
+    }
 }
 
 

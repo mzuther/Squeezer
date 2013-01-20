@@ -55,10 +55,10 @@ public:
         selRatioSwitch,
 
         selAttackRateSwitch,
-        selAttackTypeSwitch,
+        selAttackModeSwitch,
         selReleaseRateSwitch,
         selReleaseRateContinuous,
-        selReleaseTypeSwitch,
+        selReleaseModeSwitch,
 
         selStereoLinkSwitch,
         selInputGainSwitch,
@@ -72,11 +72,11 @@ public:
         selDesignModern = 0,
         selDesignVintage,
 
-        selAttackTypeLinear = 0,
-        selAttackTypeLogarithmic,
+        selAttackModeLinear = 0,
+        selAttackModeLogarithmic,
 
-        selReleaseTypeLinear = 0,
-        selReleaseTypeLogarithmic,
+        selReleaseModeLinear = 0,
+        selReleaseModeLogarithmic,
     };
 
 private:

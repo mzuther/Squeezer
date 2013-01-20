@@ -68,6 +68,39 @@ void WrappedParameterCombined::addConstant(const float fRealValue, const String&
 }
 
 
+bool WrappedParameterCombined::getMode()
+{
+    return bUseConstants;
+}
+
+
+bool WrappedParameterCombined::setMode(bool use_constants)
+{
+    bool bUseConstantsOld = bUseConstants;
+    bUseConstants = use_constants;
+
+    if (bUseConstants != bUseConstantsOld)
+    {
+        setChangeFlag();
+
+        if (bUseConstants)
+        {
+            float fRealValue = pContinuous->getRealFloat();
+            return pSwitch->setNearestRealFloat(fRealValue);
+        }
+        else
+        {
+            float fRealValue = pSwitch->getRealFloat();
+            return pContinuous->setNearestRealFloat(fRealValue);
+        }
+    }
+    else
+    {
+        return true;
+    }
+}
+
+
 float WrappedParameterCombined::getInterval()
 {
     if (bUseConstants)
@@ -304,22 +337,28 @@ String WrappedParameterCombined::getTextFromFloat(float fValue)
 
 bool WrappedParameterCombined::hasChanged()
 {
-    return bChangedValue;
+    bool bChangedSwitch = pSwitch->hasChanged();
+    bool bChangedContinuous = pContinuous->hasChanged();
+
+    return (bChangedSwitch || bChangedContinuous);
 }
 
 
 void WrappedParameterCombined::clearChangeFlag()
 {
-    bChangedValue = false;
+    pSwitch->clearChangeFlag();
+    pContinuous->clearChangeFlag();
 }
 
 
 void WrappedParameterCombined::setChangeFlag()
 {
-    bChangedValue = true;
+    pSwitch->setChangeFlag();
+    pContinuous->setChangeFlag();
 }
 
 
+// TODO
 void WrappedParameterCombined::loadFromXml(XmlElement* xml)
 {
     XmlElement* xml_element = xml->getChildByName(strAttribute);
@@ -332,6 +371,7 @@ void WrappedParameterCombined::loadFromXml(XmlElement* xml)
 }
 
 
+// TODO
 void WrappedParameterCombined::storeAsXml(XmlElement* xml)
 {
     XmlElement* xml_element = new XmlElement(strAttribute);
