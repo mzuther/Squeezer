@@ -35,271 +35,271 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     strSettingsID = "SQUEEZER_SETTINGS";
 
-    WrappedParameterSwitch* ParameterBypassSwitch = new WrappedParameterSwitch();
-    ParameterBypassSwitch->setName("Bypass Switch");
+    WrappedParameterSwitch* ParameterBypass = new WrappedParameterSwitch();
+    ParameterBypass->setName("Bypass");
 
-    ParameterBypassSwitch->addConstant(0.0f, "Off");
-    ParameterBypassSwitch->addConstant(1.0f, "On");
+    ParameterBypass->addConstant(0.0f, "Off");
+    ParameterBypass->addConstant(1.0f, "On");
 
-    ParameterBypassSwitch->setDefaultRealFloat(0.0f, true);
-    add(ParameterBypassSwitch);
+    ParameterBypass->setDefaultRealFloat(0.0f, true);
+    add(ParameterBypass);
 
-    jassert(arrParameters.size() == selBypassSwitch + 1);
-
-
-    WrappedParameterSwitch* ParameterDesignSwitch = new WrappedParameterSwitch();
-    ParameterDesignSwitch->setName("Design Switch");
-
-    ParameterDesignSwitch->addConstant(selDesignModern,  "Modern");
-    ParameterDesignSwitch->addConstant(selDesignVintage, "Vintage");
-
-    ParameterDesignSwitch->setDefaultRealFloat(selDesignModern, true);
-    add(ParameterDesignSwitch);
-
-    jassert(arrParameters.size() == selDesignSwitch + 1);
+    jassert(arrParameters.size() == selBypass + 1);
 
 
-    WrappedParameterSwitch* ParameterThresholdSwitch = new WrappedParameterSwitch();
-    ParameterThresholdSwitch->setName("Threshold Switch");
+    WrappedParameterSwitch* ParameterDesign = new WrappedParameterSwitch();
+    ParameterDesign->setName("Design");
 
-    ParameterThresholdSwitch->addConstant(-48.0f, "-48 dB");
-    ParameterThresholdSwitch->addConstant(-46.0f, "-46 dB");
-    ParameterThresholdSwitch->addConstant(-44.0f, "-44 dB");
-    ParameterThresholdSwitch->addConstant(-42.0f, "-42 dB");
-    ParameterThresholdSwitch->addConstant(-40.0f, "-40 dB");
-    ParameterThresholdSwitch->addConstant(-38.0f, "-38 dB");
-    ParameterThresholdSwitch->addConstant(-36.0f, "-36 dB");
-    ParameterThresholdSwitch->addConstant(-34.0f, "-34 dB");
-    ParameterThresholdSwitch->addConstant(-32.0f, "-32 dB");
-    ParameterThresholdSwitch->addConstant(-30.0f, "-30 dB");
-    ParameterThresholdSwitch->addConstant(-28.0f, "-28 dB");
-    ParameterThresholdSwitch->addConstant(-26.0f, "-26 dB");
-    ParameterThresholdSwitch->addConstant(-24.0f, "-24 dB");
-    ParameterThresholdSwitch->addConstant(-22.0f, "-22 dB");
-    ParameterThresholdSwitch->addConstant(-20.0f, "-20 dB");
-    ParameterThresholdSwitch->addConstant(-18.0f, "-18 dB");
-    ParameterThresholdSwitch->addConstant(-16.0f, "-16 dB");
-    ParameterThresholdSwitch->addConstant(-14.0f, "-14 dB");
-    ParameterThresholdSwitch->addConstant(-12.0f, "-12 dB");
-    ParameterThresholdSwitch->addConstant(-10.0f, "-10 dB");
-    ParameterThresholdSwitch->addConstant(-8.0f,   "-8 dB");
-    ParameterThresholdSwitch->addConstant(-6.0f,   "-6 dB");
-    ParameterThresholdSwitch->addConstant(-4.0f,   "-4 dB");
-    ParameterThresholdSwitch->addConstant(-2.0f,   "-2 dB");
-    ParameterThresholdSwitch->addConstant(0.0f,     "0 dB");
-    ParameterThresholdSwitch->addConstant(+2.0f,   "+2 dB");
-    ParameterThresholdSwitch->addConstant(+4.0f,   "+4 dB");
-    ParameterThresholdSwitch->addConstant(+6.0f,   "+6 dB");
-    ParameterThresholdSwitch->addConstant(+8.0f,   "+8 dB");
-    ParameterThresholdSwitch->addConstant(+10.0f, "+10 dB");
-    ParameterThresholdSwitch->addConstant(+12.0f, "+12 dB");
-    ParameterThresholdSwitch->addConstant(+14.0f, "+14 dB");
-    ParameterThresholdSwitch->addConstant(+16.0f, "+16 dB");
-    ParameterThresholdSwitch->addConstant(+18.0f, "+18 dB");
+    ParameterDesign->addConstant(selDesignModern,  "Modern");
+    ParameterDesign->addConstant(selDesignVintage, "Vintage");
 
-    ParameterThresholdSwitch->setDefaultRealFloat(-12.0f, true);
-    add(ParameterThresholdSwitch);
+    ParameterDesign->setDefaultRealFloat(selDesignModern, true);
+    add(ParameterDesign);
 
-    jassert(arrParameters.size() == selThresholdSwitch + 1);
+    jassert(arrParameters.size() == selDesign + 1);
 
 
-    WrappedParameterSwitch* ParameterRatioSwitch = new WrappedParameterSwitch();
-    ParameterRatioSwitch->setName("Ratio Switch");
+    WrappedParameterSwitch* ParameterThreshold = new WrappedParameterSwitch();
+    ParameterThreshold->setName("Threshold");
 
-    ParameterRatioSwitch->addConstant(1.2f,   "1.2:1");
-    ParameterRatioSwitch->addConstant(1.5f,   "1.5:1");
-    ParameterRatioSwitch->addConstant(2.0f,     "2:1");
-    ParameterRatioSwitch->addConstant(3.0f,     "3:1");
-    ParameterRatioSwitch->addConstant(4.0f,     "4:1");
-    ParameterRatioSwitch->addConstant(6.0f,     "6:1");
-    ParameterRatioSwitch->addConstant(10.0f,   "10:1");
+    ParameterThreshold->addConstant(-48.0f, "-48 dB");
+    ParameterThreshold->addConstant(-46.0f, "-46 dB");
+    ParameterThreshold->addConstant(-44.0f, "-44 dB");
+    ParameterThreshold->addConstant(-42.0f, "-42 dB");
+    ParameterThreshold->addConstant(-40.0f, "-40 dB");
+    ParameterThreshold->addConstant(-38.0f, "-38 dB");
+    ParameterThreshold->addConstant(-36.0f, "-36 dB");
+    ParameterThreshold->addConstant(-34.0f, "-34 dB");
+    ParameterThreshold->addConstant(-32.0f, "-32 dB");
+    ParameterThreshold->addConstant(-30.0f, "-30 dB");
+    ParameterThreshold->addConstant(-28.0f, "-28 dB");
+    ParameterThreshold->addConstant(-26.0f, "-26 dB");
+    ParameterThreshold->addConstant(-24.0f, "-24 dB");
+    ParameterThreshold->addConstant(-22.0f, "-22 dB");
+    ParameterThreshold->addConstant(-20.0f, "-20 dB");
+    ParameterThreshold->addConstant(-18.0f, "-18 dB");
+    ParameterThreshold->addConstant(-16.0f, "-16 dB");
+    ParameterThreshold->addConstant(-14.0f, "-14 dB");
+    ParameterThreshold->addConstant(-12.0f, "-12 dB");
+    ParameterThreshold->addConstant(-10.0f, "-10 dB");
+    ParameterThreshold->addConstant(-8.0f,   "-8 dB");
+    ParameterThreshold->addConstant(-6.0f,   "-6 dB");
+    ParameterThreshold->addConstant(-4.0f,   "-4 dB");
+    ParameterThreshold->addConstant(-2.0f,   "-2 dB");
+    ParameterThreshold->addConstant(0.0f,     "0 dB");
+    ParameterThreshold->addConstant(+2.0f,   "+2 dB");
+    ParameterThreshold->addConstant(+4.0f,   "+4 dB");
+    ParameterThreshold->addConstant(+6.0f,   "+6 dB");
+    ParameterThreshold->addConstant(+8.0f,   "+8 dB");
+    ParameterThreshold->addConstant(+10.0f, "+10 dB");
+    ParameterThreshold->addConstant(+12.0f, "+12 dB");
+    ParameterThreshold->addConstant(+14.0f, "+14 dB");
+    ParameterThreshold->addConstant(+16.0f, "+16 dB");
+    ParameterThreshold->addConstant(+18.0f, "+18 dB");
 
-    ParameterRatioSwitch->setDefaultRealFloat(2.0f, true);
-    add(ParameterRatioSwitch);
+    ParameterThreshold->setDefaultRealFloat(-12.0f, true);
+    add(ParameterThreshold);
 
-    jassert(arrParameters.size() == selRatioSwitch + 1);
+    jassert(arrParameters.size() == selThreshold + 1);
+
+
+    WrappedParameterSwitch* ParameterRatio = new WrappedParameterSwitch();
+    ParameterRatio->setName("Ratio");
+
+    ParameterRatio->addConstant(1.2f,   "1.2:1");
+    ParameterRatio->addConstant(1.5f,   "1.5:1");
+    ParameterRatio->addConstant(2.0f,     "2:1");
+    ParameterRatio->addConstant(3.0f,     "3:1");
+    ParameterRatio->addConstant(4.0f,     "4:1");
+    ParameterRatio->addConstant(6.0f,     "6:1");
+    ParameterRatio->addConstant(10.0f,   "10:1");
+
+    ParameterRatio->setDefaultRealFloat(2.0f, true);
+    add(ParameterRatio);
+
+    jassert(arrParameters.size() == selRatio + 1);
 
 
     float fLogFactor = 2.0f;
     float fMinimum = 0.0f;
     float fMaximum = 500.0f;
 
-    WrappedParameterCombined* ParameterAttackRateCombined = new WrappedParameterCombined(fMinimum, fMaximum, fLogFactor);
-    ParameterAttackRateCombined->setName("Attack Rate Combined");
+    WrappedParameterCombined* ParameterAttackRate = new WrappedParameterCombined(fMinimum, fMaximum, fLogFactor);
+    ParameterAttackRate->setName("Attack Rate");
 
-    ParameterAttackRateCombined->addConstant(2.0f,     "2 ms");
-    ParameterAttackRateCombined->addConstant(5.0f,     "5 ms");
-    ParameterAttackRateCombined->addConstant(10.0f,   "10 ms");
-    ParameterAttackRateCombined->addConstant(20.0f,   "20 ms");
-    ParameterAttackRateCombined->addConstant(50.0f,   "50 ms");
-    ParameterAttackRateCombined->addConstant(100.0f, "100 ms");
-    ParameterAttackRateCombined->addConstant(200.0f, "200 ms");
-    ParameterAttackRateCombined->addConstant(500.0f, "500 ms");
+    ParameterAttackRate->addConstant(2.0f,     "2 ms");
+    ParameterAttackRate->addConstant(5.0f,     "5 ms");
+    ParameterAttackRate->addConstant(10.0f,   "10 ms");
+    ParameterAttackRate->addConstant(20.0f,   "20 ms");
+    ParameterAttackRate->addConstant(50.0f,   "50 ms");
+    ParameterAttackRate->addConstant(100.0f, "100 ms");
+    ParameterAttackRate->addConstant(200.0f, "200 ms");
+    ParameterAttackRate->addConstant(500.0f, "500 ms");
 
-    ParameterAttackRateCombined->setDefaultRealFloat(10.0f, true);
-    add(ParameterAttackRateCombined);
+    ParameterAttackRate->setDefaultRealFloat(10.0f, true);
+    add(ParameterAttackRate);
 
-    jassert(arrParameters.size() == selAttackRateCombined + 1);
+    jassert(arrParameters.size() == selAttackRate + 1);
 
 
-    WrappedParameterSwitch* ParameterAttackModeSwitch = new WrappedParameterSwitch();
-    ParameterAttackModeSwitch->setName("Attack Mode Switch");
+    WrappedParameterSwitch* ParameterAttackMode = new WrappedParameterSwitch();
+    ParameterAttackMode->setName("Attack Mode");
 
-    ParameterAttackModeSwitch->addConstant(selAttackModeLinear,      "Linear");
-    ParameterAttackModeSwitch->addConstant(selAttackModeLogarithmic, "Logarithmic");
+    ParameterAttackMode->addConstant(selAttackModeLinear,      "Linear");
+    ParameterAttackMode->addConstant(selAttackModeLogarithmic, "Logarithmic");
 
-    ParameterAttackModeSwitch->setDefaultRealFloat(selAttackModeLogarithmic, true);
-    add(ParameterAttackModeSwitch);
+    ParameterAttackMode->setDefaultRealFloat(selAttackModeLogarithmic, true);
+    add(ParameterAttackMode);
 
-    jassert(arrParameters.size() == selAttackModeSwitch + 1);
+    jassert(arrParameters.size() == selAttackMode + 1);
 
 
     fLogFactor = 2.0f;
     fMinimum = 0.0f;
     fMaximum = 8000.0f;
 
-    WrappedParameterCombined* ParameterReleaseRateCombined = new WrappedParameterCombined(fMinimum, fMaximum, fLogFactor);
-    ParameterReleaseRateCombined->setName("Release Rate Switch");
+    WrappedParameterCombined* ParameterReleaseRate = new WrappedParameterCombined(fMinimum, fMaximum, fLogFactor);
+    ParameterReleaseRate->setName("Release Rate");
 
-    ParameterReleaseRateCombined->addConstant(50.0f,    "50 ms");
-    ParameterReleaseRateCombined->addConstant(75.0f,    "75 ms");
-    ParameterReleaseRateCombined->addConstant(100.0f,  "100 ms");
-    ParameterReleaseRateCombined->addConstant(125.0f,  "125 ms");
-    ParameterReleaseRateCombined->addConstant(150.0f,  "150 ms");
-    ParameterReleaseRateCombined->addConstant(175.0f,  "175 ms");
-    ParameterReleaseRateCombined->addConstant(200.0f,  "200 ms");
-    ParameterReleaseRateCombined->addConstant(250.0f,  "250 ms");
-    ParameterReleaseRateCombined->addConstant(375.0f,  "375 ms");
-    ParameterReleaseRateCombined->addConstant(500.0f,  "500 ms");
-    ParameterReleaseRateCombined->addConstant(750.0f,  "750 ms");
-    ParameterReleaseRateCombined->addConstant(1000.0f, "1.0 s");
-    ParameterReleaseRateCombined->addConstant(1500.0f, "1.5 s");
-    ParameterReleaseRateCombined->addConstant(2000.0f, "2.0 s");
-    ParameterReleaseRateCombined->addConstant(4000.0f, "4.0 s");
-    ParameterReleaseRateCombined->addConstant(8000.0f, "8.0 s");
+    ParameterReleaseRate->addConstant(50.0f,    "50 ms");
+    ParameterReleaseRate->addConstant(75.0f,    "75 ms");
+    ParameterReleaseRate->addConstant(100.0f,  "100 ms");
+    ParameterReleaseRate->addConstant(125.0f,  "125 ms");
+    ParameterReleaseRate->addConstant(150.0f,  "150 ms");
+    ParameterReleaseRate->addConstant(175.0f,  "175 ms");
+    ParameterReleaseRate->addConstant(200.0f,  "200 ms");
+    ParameterReleaseRate->addConstant(250.0f,  "250 ms");
+    ParameterReleaseRate->addConstant(375.0f,  "375 ms");
+    ParameterReleaseRate->addConstant(500.0f,  "500 ms");
+    ParameterReleaseRate->addConstant(750.0f,  "750 ms");
+    ParameterReleaseRate->addConstant(1000.0f, "1.0 s");
+    ParameterReleaseRate->addConstant(1500.0f, "1.5 s");
+    ParameterReleaseRate->addConstant(2000.0f, "2.0 s");
+    ParameterReleaseRate->addConstant(4000.0f, "4.0 s");
+    ParameterReleaseRate->addConstant(8000.0f, "8.0 s");
 
-    ParameterReleaseRateCombined->setDefaultRealFloat(150.0f, true);
-    add(ParameterReleaseRateCombined);
+    ParameterReleaseRate->setDefaultRealFloat(150.0f, true);
+    add(ParameterReleaseRate);
 
-    jassert(arrParameters.size() == selReleaseRateCombined + 1);
-
-
-    WrappedParameterSwitch* ParameterReleaseModeSwitch = new WrappedParameterSwitch();
-    ParameterReleaseModeSwitch->setName("Release Mode Switch");
-
-    ParameterReleaseModeSwitch->addConstant(selReleaseModeLinear,      "Linear");
-    ParameterReleaseModeSwitch->addConstant(selReleaseModeLogarithmic, "Logarithmic");
-
-    ParameterReleaseModeSwitch->setDefaultRealFloat(selReleaseModeLogarithmic, true);
-    add(ParameterReleaseModeSwitch);
-
-    jassert(arrParameters.size() == selReleaseModeSwitch + 1);
+    jassert(arrParameters.size() == selReleaseRate + 1);
 
 
-    WrappedParameterSwitch* ParameterStereoLinkSwitch = new WrappedParameterSwitch();
-    ParameterStereoLinkSwitch->setName("Stereo Link Switch");
+    WrappedParameterSwitch* ParameterReleaseMode = new WrappedParameterSwitch();
+    ParameterReleaseMode->setName("Release Mode");
 
-    ParameterStereoLinkSwitch->addConstant(0.0f,     "Off");
-    ParameterStereoLinkSwitch->addConstant(50.0f,   "50 %");
-    ParameterStereoLinkSwitch->addConstant(75.0f,   "75 %");
-    ParameterStereoLinkSwitch->addConstant(90.0f,   "90 %");
-    ParameterStereoLinkSwitch->addConstant(100.0f, "100 %");
+    ParameterReleaseMode->addConstant(selReleaseModeLinear,      "Linear");
+    ParameterReleaseMode->addConstant(selReleaseModeLogarithmic, "Logarithmic");
 
-    ParameterStereoLinkSwitch->setDefaultRealFloat(100.0f, true);
-    add(ParameterStereoLinkSwitch);
+    ParameterReleaseMode->setDefaultRealFloat(selReleaseModeLogarithmic, true);
+    add(ParameterReleaseMode);
 
-    jassert(arrParameters.size() == selStereoLinkSwitch + 1);
+    jassert(arrParameters.size() == selReleaseMode + 1);
 
 
-    WrappedParameterSwitch* ParameterInputGainSwitch = new WrappedParameterSwitch();
-    ParameterInputGainSwitch->setName("Input Gain Switch");
+    WrappedParameterSwitch* ParameterStereoLink = new WrappedParameterSwitch();
+    ParameterStereoLink->setName("Stereo Link");
 
-    ParameterInputGainSwitch->addConstant(-12.0f, "-12 dB");
-    ParameterInputGainSwitch->addConstant(-11.0f, "-11 dB");
-    ParameterInputGainSwitch->addConstant(-10.0f, "-10 dB");
-    ParameterInputGainSwitch->addConstant(-9.0f,   "-9 dB");
-    ParameterInputGainSwitch->addConstant(-8.0f,   "-8 dB");
-    ParameterInputGainSwitch->addConstant(-7.0f,   "-7 dB");
-    ParameterInputGainSwitch->addConstant(-6.0f,   "-6 dB");
-    ParameterInputGainSwitch->addConstant(-5.0f,   "-5 dB");
-    ParameterInputGainSwitch->addConstant(-4.0f,   "-4 dB");
-    ParameterInputGainSwitch->addConstant(-3.0f,   "-3 dB");
-    ParameterInputGainSwitch->addConstant(-2.0f,   "-2 dB");
-    ParameterInputGainSwitch->addConstant(-1.0f,   "-1 dB");
-    ParameterInputGainSwitch->addConstant(0.0f,     "0 dB");
-    ParameterInputGainSwitch->addConstant(+1.0f,   "+1 dB");
-    ParameterInputGainSwitch->addConstant(+2.0f,   "+2 dB");
-    ParameterInputGainSwitch->addConstant(+3.0f,   "+3 dB");
-    ParameterInputGainSwitch->addConstant(+4.0f,   "+4 dB");
-    ParameterInputGainSwitch->addConstant(+5.0f,   "+5 dB");
-    ParameterInputGainSwitch->addConstant(+6.0f,   "+6 dB");
-    ParameterInputGainSwitch->addConstant(+7.0f,   "+7 dB");
-    ParameterInputGainSwitch->addConstant(+8.0f,   "+8 dB");
-    ParameterInputGainSwitch->addConstant(+9.0f,   "+9 dB");
-    ParameterInputGainSwitch->addConstant(+10.0f, "+10 dB");
-    ParameterInputGainSwitch->addConstant(+11.0f, "+11 dB");
-    ParameterInputGainSwitch->addConstant(+12.0f, "+12 dB");
+    ParameterStereoLink->addConstant(0.0f,     "Off");
+    ParameterStereoLink->addConstant(50.0f,   "50 %");
+    ParameterStereoLink->addConstant(75.0f,   "75 %");
+    ParameterStereoLink->addConstant(90.0f,   "90 %");
+    ParameterStereoLink->addConstant(100.0f, "100 %");
 
-    ParameterInputGainSwitch->setDefaultRealFloat(0.0f, true);
-    add(ParameterInputGainSwitch);
+    ParameterStereoLink->setDefaultRealFloat(100.0f, true);
+    add(ParameterStereoLink);
 
-    jassert(arrParameters.size() == selInputGainSwitch + 1);
+    jassert(arrParameters.size() == selStereoLink + 1);
 
 
-    WrappedParameterSwitch* ParameterOutputGainSwitch = new WrappedParameterSwitch();
-    ParameterOutputGainSwitch->setName("Output Gain Switch");
+    WrappedParameterSwitch* ParameterInputGain = new WrappedParameterSwitch();
+    ParameterInputGain->setName("Input Gain");
 
-    ParameterOutputGainSwitch->addConstant(-12.0f, "-12 dB");
-    ParameterOutputGainSwitch->addConstant(-11.0f, "-11 dB");
-    ParameterOutputGainSwitch->addConstant(-10.0f, "-10 dB");
-    ParameterOutputGainSwitch->addConstant(-9.0f,   "-9 dB");
-    ParameterOutputGainSwitch->addConstant(-8.0f,   "-8 dB");
-    ParameterOutputGainSwitch->addConstant(-7.0f,   "-7 dB");
-    ParameterOutputGainSwitch->addConstant(-6.0f,   "-6 dB");
-    ParameterOutputGainSwitch->addConstant(-5.0f,   "-5 dB");
-    ParameterOutputGainSwitch->addConstant(-4.0f,   "-4 dB");
-    ParameterOutputGainSwitch->addConstant(-3.0f,   "-3 dB");
-    ParameterOutputGainSwitch->addConstant(-2.0f,   "-2 dB");
-    ParameterOutputGainSwitch->addConstant(-1.0f,   "-1 dB");
-    ParameterOutputGainSwitch->addConstant(0.0f,     "0 dB");
-    ParameterOutputGainSwitch->addConstant(+1.0f,   "+1 dB");
-    ParameterOutputGainSwitch->addConstant(+2.0f,   "+2 dB");
-    ParameterOutputGainSwitch->addConstant(+3.0f,   "+3 dB");
-    ParameterOutputGainSwitch->addConstant(+4.0f,   "+4 dB");
-    ParameterOutputGainSwitch->addConstant(+5.0f,   "+5 dB");
-    ParameterOutputGainSwitch->addConstant(+6.0f,   "+6 dB");
-    ParameterOutputGainSwitch->addConstant(+7.0f,   "+7 dB");
-    ParameterOutputGainSwitch->addConstant(+8.0f,   "+8 dB");
-    ParameterOutputGainSwitch->addConstant(+9.0f,   "+9 dB");
-    ParameterOutputGainSwitch->addConstant(+10.0f, "+10 dB");
-    ParameterOutputGainSwitch->addConstant(+11.0f, "+11 dB");
-    ParameterOutputGainSwitch->addConstant(+12.0f, "+12 dB");
+    ParameterInputGain->addConstant(-12.0f, "-12 dB");
+    ParameterInputGain->addConstant(-11.0f, "-11 dB");
+    ParameterInputGain->addConstant(-10.0f, "-10 dB");
+    ParameterInputGain->addConstant(-9.0f,   "-9 dB");
+    ParameterInputGain->addConstant(-8.0f,   "-8 dB");
+    ParameterInputGain->addConstant(-7.0f,   "-7 dB");
+    ParameterInputGain->addConstant(-6.0f,   "-6 dB");
+    ParameterInputGain->addConstant(-5.0f,   "-5 dB");
+    ParameterInputGain->addConstant(-4.0f,   "-4 dB");
+    ParameterInputGain->addConstant(-3.0f,   "-3 dB");
+    ParameterInputGain->addConstant(-2.0f,   "-2 dB");
+    ParameterInputGain->addConstant(-1.0f,   "-1 dB");
+    ParameterInputGain->addConstant(0.0f,     "0 dB");
+    ParameterInputGain->addConstant(+1.0f,   "+1 dB");
+    ParameterInputGain->addConstant(+2.0f,   "+2 dB");
+    ParameterInputGain->addConstant(+3.0f,   "+3 dB");
+    ParameterInputGain->addConstant(+4.0f,   "+4 dB");
+    ParameterInputGain->addConstant(+5.0f,   "+5 dB");
+    ParameterInputGain->addConstant(+6.0f,   "+6 dB");
+    ParameterInputGain->addConstant(+7.0f,   "+7 dB");
+    ParameterInputGain->addConstant(+8.0f,   "+8 dB");
+    ParameterInputGain->addConstant(+9.0f,   "+9 dB");
+    ParameterInputGain->addConstant(+10.0f, "+10 dB");
+    ParameterInputGain->addConstant(+11.0f, "+11 dB");
+    ParameterInputGain->addConstant(+12.0f, "+12 dB");
 
-    ParameterOutputGainSwitch->setDefaultRealFloat(0.0f, true);
-    add(ParameterOutputGainSwitch);
+    ParameterInputGain->setDefaultRealFloat(0.0f, true);
+    add(ParameterInputGain);
 
-    jassert(arrParameters.size() == selOutputGainSwitch + 1);
+    jassert(arrParameters.size() == selInputGain + 1);
 
 
-    WrappedParameterSwitch* ParameterWetMixSwitch = new WrappedParameterSwitch();
-    ParameterWetMixSwitch->setName("Wet Mix Switch");
+    WrappedParameterSwitch* ParameterOutputGain = new WrappedParameterSwitch();
+    ParameterOutputGain->setName("Output Gain");
 
-    ParameterWetMixSwitch->addConstant(0.0f,   "Bypass");
-    ParameterWetMixSwitch->addConstant(5.0f,      "5 %");
-    ParameterWetMixSwitch->addConstant(10.0f,    "10 %");
-    ParameterWetMixSwitch->addConstant(15.0f,    "15 %");
-    ParameterWetMixSwitch->addConstant(20.0f,    "20 %");
-    ParameterWetMixSwitch->addConstant(25.0f,    "25 %");
-    ParameterWetMixSwitch->addConstant(30.0f,    "30 %");
-    ParameterWetMixSwitch->addConstant(40.0f,    "40 %");
-    ParameterWetMixSwitch->addConstant(50.0f,    "50 %");
-    ParameterWetMixSwitch->addConstant(75.0f,    "75 %");
-    ParameterWetMixSwitch->addConstant(100.0f,  "100 %");
+    ParameterOutputGain->addConstant(-12.0f, "-12 dB");
+    ParameterOutputGain->addConstant(-11.0f, "-11 dB");
+    ParameterOutputGain->addConstant(-10.0f, "-10 dB");
+    ParameterOutputGain->addConstant(-9.0f,   "-9 dB");
+    ParameterOutputGain->addConstant(-8.0f,   "-8 dB");
+    ParameterOutputGain->addConstant(-7.0f,   "-7 dB");
+    ParameterOutputGain->addConstant(-6.0f,   "-6 dB");
+    ParameterOutputGain->addConstant(-5.0f,   "-5 dB");
+    ParameterOutputGain->addConstant(-4.0f,   "-4 dB");
+    ParameterOutputGain->addConstant(-3.0f,   "-3 dB");
+    ParameterOutputGain->addConstant(-2.0f,   "-2 dB");
+    ParameterOutputGain->addConstant(-1.0f,   "-1 dB");
+    ParameterOutputGain->addConstant(0.0f,     "0 dB");
+    ParameterOutputGain->addConstant(+1.0f,   "+1 dB");
+    ParameterOutputGain->addConstant(+2.0f,   "+2 dB");
+    ParameterOutputGain->addConstant(+3.0f,   "+3 dB");
+    ParameterOutputGain->addConstant(+4.0f,   "+4 dB");
+    ParameterOutputGain->addConstant(+5.0f,   "+5 dB");
+    ParameterOutputGain->addConstant(+6.0f,   "+6 dB");
+    ParameterOutputGain->addConstant(+7.0f,   "+7 dB");
+    ParameterOutputGain->addConstant(+8.0f,   "+8 dB");
+    ParameterOutputGain->addConstant(+9.0f,   "+9 dB");
+    ParameterOutputGain->addConstant(+10.0f, "+10 dB");
+    ParameterOutputGain->addConstant(+11.0f, "+11 dB");
+    ParameterOutputGain->addConstant(+12.0f, "+12 dB");
 
-    ParameterWetMixSwitch->setDefaultRealFloat(100.0f, true);
-    add(ParameterWetMixSwitch);
+    ParameterOutputGain->setDefaultRealFloat(0.0f, true);
+    add(ParameterOutputGain);
 
-    jassert(arrParameters.size() == selWetMixSwitch + 1);
+    jassert(arrParameters.size() == selOutputGain + 1);
+
+
+    WrappedParameterSwitch* ParameterWetMix = new WrappedParameterSwitch();
+    ParameterWetMix->setName("Wet Mix");
+
+    ParameterWetMix->addConstant(0.0f,   "Bypass");
+    ParameterWetMix->addConstant(5.0f,      "5 %");
+    ParameterWetMix->addConstant(10.0f,    "10 %");
+    ParameterWetMix->addConstant(15.0f,    "15 %");
+    ParameterWetMix->addConstant(20.0f,    "20 %");
+    ParameterWetMix->addConstant(25.0f,    "25 %");
+    ParameterWetMix->addConstant(30.0f,    "30 %");
+    ParameterWetMix->addConstant(40.0f,    "40 %");
+    ParameterWetMix->addConstant(50.0f,    "50 %");
+    ParameterWetMix->addConstant(75.0f,    "75 %");
+    ParameterWetMix->addConstant(100.0f,  "100 %");
+
+    ParameterWetMix->setDefaultRealFloat(100.0f, true);
+    add(ParameterWetMix);
+
+    jassert(arrParameters.size() == selWetMix + 1);
 }
 
 

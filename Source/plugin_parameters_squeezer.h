@@ -47,21 +47,21 @@ public:
 
     enum Parameters  // public namespace!
     {
-        selBypassSwitch = 0,
-        selDesignSwitch,
+        selBypass = 0,
+        selDesign,
 
-        selThresholdSwitch,
-        selRatioSwitch,
+        selThreshold,
+        selRatio,
 
-        selAttackRateCombined,
-        selAttackModeSwitch,
-        selReleaseRateCombined,
-        selReleaseModeSwitch,
+        selAttackRate,
+        selAttackMode,
+        selReleaseRate,
+        selReleaseMode,
 
-        selStereoLinkSwitch,
-        selInputGainSwitch,
-        selOutputGainSwitch,
-        selWetMixSwitch,
+        selStereoLink,
+        selInputGain,
+        selOutputGain,
+        selWetMix,
 
         nNumParametersRevealed,
 

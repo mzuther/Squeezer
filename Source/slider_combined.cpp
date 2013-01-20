@@ -31,14 +31,13 @@ SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParame
     pCombined = dynamic_cast<WrappedParameterCombined*>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pCombined != NULL);
 
-    setRange(0.0f, 1.0f, pCombined->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
-
     setColour(Slider::rotarySliderFillColourId, Colours::white);
     setColour(Slider::textBoxTextColourId, Colours::white);
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
     setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
 
+    setRange(0.0f, 1.0f, pCombined->getInterval());
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
 }
 
@@ -67,11 +66,11 @@ void SliderCombined::paintOverChildren(Graphics& g)
 
     if (pCombined->getMode())
     {
-        g.setColour(Colours::red.darker(0.5f));
+        g.setColour(Colours::red.darker(5.0f));
     }
     else
     {
-        g.setColour(Colours::red.darker(5.0f));
+        g.setColour(Colours::red.darker(0.5f));
     }
 
     g.fillEllipse(rectSwitchPosition.getX(), rectSwitchPosition.getY(), rectSwitchPosition.getWidth(), rectSwitchPosition.getHeight());
@@ -108,6 +107,7 @@ void SliderCombined::toggleMode()
     pCombined->toggleMode();
 
     setRange(0.0f, 1.0f, pCombined->getInterval());
+    setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
     setValue(pCombined->getFloat());
 
     repaint();

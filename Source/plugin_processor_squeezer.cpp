@@ -118,84 +118,84 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
     {
         switch (nIndex)
         {
-        case SqueezerPluginParameters::selBypassSwitch:
+        case SqueezerPluginParameters::selBypass:
         {
             bool bBypassCompressor = pPluginParameters->getBoolean(nIndex);
             pCompressor->setBypass(bBypassCompressor);
             break;
         }
 
-        case SqueezerPluginParameters::selDesignSwitch:
+        case SqueezerPluginParameters::selDesign:
         {
             int nDesign = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setDesign(nDesign);
             break;
         }
 
-        case SqueezerPluginParameters::selThresholdSwitch:
+        case SqueezerPluginParameters::selThreshold:
         {
             float fThreshold = pPluginParameters->getRealFloat(nIndex);
             pCompressor->setThreshold(fThreshold);
             break;
         }
 
-        case SqueezerPluginParameters::selRatioSwitch:
+        case SqueezerPluginParameters::selRatio:
         {
             float fRatio = pPluginParameters->getRealFloat(nIndex);
             pCompressor->setRatio(fRatio);
             break;
         }
 
-        case SqueezerPluginParameters::selAttackRateCombined:
+        case SqueezerPluginParameters::selAttackRate:
         {
             int nAttackRate = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setAttackRate(nAttackRate);
             break;
         }
 
-        case SqueezerPluginParameters::selReleaseRateCombined:
+        case SqueezerPluginParameters::selReleaseRate:
         {
             int nReleaseRate = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setReleaseRate(nReleaseRate);
             break;
         }
 
-        case SqueezerPluginParameters::selAttackModeSwitch:
+        case SqueezerPluginParameters::selAttackMode:
         {
             bool bLogarithmicAttack = pPluginParameters->getBoolean(nIndex);
             pCompressor->setLogarithmicAttack(bLogarithmicAttack);
             break;
         }
 
-        case SqueezerPluginParameters::selReleaseModeSwitch:
+        case SqueezerPluginParameters::selReleaseMode:
         {
             bool bLogarithmicRelease = pPluginParameters->getBoolean(nIndex);
             pCompressor->setLogarithmicRelease(bLogarithmicRelease);
             break;
         }
 
-        case SqueezerPluginParameters::selStereoLinkSwitch:
+        case SqueezerPluginParameters::selStereoLink:
         {
             int nStereoLink = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setStereoLink(nStereoLink);
             break;
         }
 
-        case SqueezerPluginParameters::selInputGainSwitch:
+        case SqueezerPluginParameters::selInputGain:
         {
             float fInputGain = pPluginParameters->getRealFloat(nIndex);
             pCompressor->setInputGain(fInputGain);
             break;
         }
 
-        case SqueezerPluginParameters::selOutputGainSwitch:
+        case SqueezerPluginParameters::selOutputGain:
         {
             float fOutputGain = pPluginParameters->getRealFloat(nIndex);
             pCompressor->setOutputGain(fOutputGain);
             break;
         }
 
-        case SqueezerPluginParameters::selWetMixSwitch:
+        case SqueezerPluginParameters::selWetMix:
         {
             int nWetMix = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setWetMix(nWetMix);
@@ -355,24 +355,24 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     nNumInputChannels = getNumInputChannels();
     DBG("[Squeezer] number of input channels: " + String(nNumInputChannels));
 
-    bool bBypassCompressor = pPluginParameters->getBoolean(SqueezerPluginParameters::selBypassSwitch);
+    bool bBypassCompressor = pPluginParameters->getBoolean(SqueezerPluginParameters::selBypass);
 
-    int nDesign = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDesignSwitch);
+    int nDesign = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDesign);
 
-    float fThreshold = pPluginParameters->getRealFloat(SqueezerPluginParameters::selThresholdSwitch);
-    float fRatio = pPluginParameters->getRealFloat(SqueezerPluginParameters::selRatioSwitch);
+    float fThreshold = pPluginParameters->getRealFloat(SqueezerPluginParameters::selThreshold);
+    float fRatio = pPluginParameters->getRealFloat(SqueezerPluginParameters::selRatio);
 
-    int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRateCombined);
-    int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRateCombined);
+    int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRate);
+    int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRate);
 
-    bool bLogarithmicAttack = pPluginParameters->getBoolean(SqueezerPluginParameters::selAttackModeSwitch);
-    bool bLogarithmicRelease = pPluginParameters->getBoolean(SqueezerPluginParameters::selReleaseModeSwitch);
+    bool bLogarithmicAttack = pPluginParameters->getBoolean(SqueezerPluginParameters::selAttackMode);
+    bool bLogarithmicRelease = pPluginParameters->getBoolean(SqueezerPluginParameters::selReleaseMode);
 
-    int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLinkSwitch);
+    int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLink);
 
-    float fInputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selInputGainSwitch);
-    float fOutputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selOutputGainSwitch);
-    int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMixSwitch);
+    float fInputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selInputGain);
+    float fOutputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selOutputGain);
+    int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
 

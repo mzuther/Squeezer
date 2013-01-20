@@ -67,7 +67,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonDesignVintage);
 
 
-    int nIndex = SqueezerPluginParameters::selThresholdSwitch;
+    int nIndex = SqueezerPluginParameters::selThreshold;
     String strName = parameters->getName(nIndex);
     SliderThresholdSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderThresholdSwitch->setSliderColour(Colours::purple.brighter(0.2f));
@@ -76,7 +76,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderThresholdSwitch);
 
 
-    nIndex = SqueezerPluginParameters::selRatioSwitch;
+    nIndex = SqueezerPluginParameters::selRatio;
     strName = parameters->getName(nIndex);
     SliderRatioSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderRatioSwitch->setSliderColour(Colours::purple.brighter(0.2f));
@@ -85,7 +85,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderRatioSwitch);
 
 
-    nIndex = SqueezerPluginParameters::selAttackRateCombined;
+    nIndex = SqueezerPluginParameters::selAttackRate;
     strName = parameters->getName(nIndex);
     SliderAttackRateCombined = new SliderCombined(strName, parameters, nIndex);
     SliderAttackRateCombined->setSliderColour(Colours::yellow);
@@ -94,7 +94,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderAttackRateCombined);
 
 
-    nIndex = SqueezerPluginParameters::selReleaseRateCombined;
+    nIndex = SqueezerPluginParameters::selReleaseRate;
     strName = parameters->getName(nIndex);
     SliderReleaseRateCombined = new SliderCombined(strName, parameters, nIndex);
     SliderReleaseRateCombined->setSliderColour(Colours::yellow);
@@ -139,7 +139,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonReleaseModeLogarithmic);
 
 
-    nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
+    nIndex = SqueezerPluginParameters::selStereoLink;
     strName = parameters->getName(nIndex);
     SliderStereoLinkSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderStereoLinkSwitch->setSliderColour(Colours::purple.brighter(0.2f));
@@ -148,7 +148,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderStereoLinkSwitch);
 
 
-    nIndex = SqueezerPluginParameters::selInputGainSwitch;
+    nIndex = SqueezerPluginParameters::selInputGain;
     strName = parameters->getName(nIndex);
     SliderInputGainSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderInputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
@@ -157,7 +157,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderInputGainSwitch);
 
 
-    nIndex = SqueezerPluginParameters::selOutputGainSwitch;
+    nIndex = SqueezerPluginParameters::selOutputGain;
     strName = parameters->getName(nIndex);
     SliderOutputGainSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderOutputGainSwitch->setSliderColour(Colours::blue.brighter(0.4f));
@@ -166,7 +166,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderOutputGainSwitch);
 
 
-    nIndex = SqueezerPluginParameters::selWetMixSwitch;
+    nIndex = SqueezerPluginParameters::selWetMix;
     strName = parameters->getName(nIndex);
     SliderWetMixSwitch = new SliderSwitch(strName, parameters, nIndex);
     SliderWetMixSwitch->setSliderColour(Colours::blue.brighter(0.4f));
@@ -211,40 +211,40 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     pProcessor->addActionListenerParameters(this);
 
-    nIndex = SqueezerPluginParameters::selBypassSwitch;
+    nIndex = SqueezerPluginParameters::selBypass;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selDesignSwitch;
+    nIndex = SqueezerPluginParameters::selDesign;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selThresholdSwitch;
+    nIndex = SqueezerPluginParameters::selThreshold;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selRatioSwitch;
+    nIndex = SqueezerPluginParameters::selRatio;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selAttackModeSwitch;
+    nIndex = SqueezerPluginParameters::selAttackMode;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selReleaseModeSwitch;
+    nIndex = SqueezerPluginParameters::selReleaseMode;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selAttackRateCombined;
+    nIndex = SqueezerPluginParameters::selAttackRate;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selReleaseRateCombined;
+    nIndex = SqueezerPluginParameters::selReleaseRate;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selStereoLinkSwitch;
+    nIndex = SqueezerPluginParameters::selStereoLink;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selInputGainSwitch;
+    nIndex = SqueezerPluginParameters::selInputGain;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selOutputGainSwitch;
+    nIndex = SqueezerPluginParameters::selOutputGain;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selWetMixSwitch;
+    nIndex = SqueezerPluginParameters::selWetMix;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 }
 
@@ -350,10 +350,10 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
 {
     switch (nIndex)
     {
-    case SqueezerPluginParameters::selBypassSwitch:
+    case SqueezerPluginParameters::selBypass:
         ButtonBypass->setToggleState(fValue != 0.0f, false);
         break;
-    case SqueezerPluginParameters::selDesignSwitch:
+    case SqueezerPluginParameters::selDesign:
 
         if (fValue == SqueezerPluginParameters::selDesignModern)
         {
@@ -365,19 +365,19 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
         }
 
         break;
-    case SqueezerPluginParameters::selThresholdSwitch:
+    case SqueezerPluginParameters::selThreshold:
         SliderThresholdSwitch->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selRatioSwitch:
+    case SqueezerPluginParameters::selRatio:
         SliderRatioSwitch->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selAttackRateCombined:
+    case SqueezerPluginParameters::selAttackRate:
         SliderAttackRateCombined->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selReleaseRateCombined:
+    case SqueezerPluginParameters::selReleaseRate:
         SliderReleaseRateCombined->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selAttackModeSwitch:
+    case SqueezerPluginParameters::selAttackMode:
 
         if (fValue == SqueezerPluginParameters::selAttackModeLinear)
         {
@@ -389,7 +389,7 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
         }
 
         break;
-    case SqueezerPluginParameters::selReleaseModeSwitch:
+    case SqueezerPluginParameters::selReleaseMode:
 
         if (fValue == SqueezerPluginParameters::selReleaseModeLinear)
         {
@@ -401,16 +401,16 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
         }
 
         break;
-    case SqueezerPluginParameters::selStereoLinkSwitch:
+    case SqueezerPluginParameters::selStereoLink:
         SliderStereoLinkSwitch->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selInputGainSwitch:
+    case SqueezerPluginParameters::selInputGain:
         SliderInputGainSwitch->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selOutputGainSwitch:
+    case SqueezerPluginParameters::selOutputGain:
         SliderOutputGainSwitch->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selWetMixSwitch:
+    case SqueezerPluginParameters::selWetMix:
         SliderWetMixSwitch->setValue(fValue, false);
         break;
     }
@@ -429,31 +429,31 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 {
     if (button == ButtonBypass)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selBypassSwitch, !button->getToggleState());
+        pProcessor->changeParameter(SqueezerPluginParameters::selBypass, !button->getToggleState());
     }
     else if (button == ButtonDesignModern)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDesignSwitch, SqueezerPluginParameters::selDesignModern);
+        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, SqueezerPluginParameters::selDesignModern);
     }
     else if (button == ButtonDesignVintage)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDesignSwitch, SqueezerPluginParameters::selDesignVintage);
+        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, SqueezerPluginParameters::selDesignVintage);
     }
     else if (button == ButtonAttackModeLinear)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAttackModeSwitch, SqueezerPluginParameters::selAttackModeLinear);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackMode, SqueezerPluginParameters::selAttackModeLinear);
     }
     else if (button == ButtonAttackModeLogarithmic)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAttackModeSwitch, SqueezerPluginParameters::selAttackModeLogarithmic);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackMode, SqueezerPluginParameters::selAttackModeLogarithmic);
     }
     else if (button == ButtonReleaseModeLinear)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseModeSwitch, SqueezerPluginParameters::selReleaseModeLinear);
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseMode, SqueezerPluginParameters::selReleaseModeLinear);
     }
     else if (button == ButtonReleaseModeLogarithmic)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseModeSwitch, SqueezerPluginParameters::selReleaseModeLogarithmic);
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseMode, SqueezerPluginParameters::selReleaseModeLogarithmic);
     }
     else if (button == ButtonAbout)
     {
@@ -475,35 +475,35 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
 
     if (slider == SliderThresholdSwitch)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selThresholdSwitch, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selThreshold, fValue);
     }
     else if (slider == SliderRatioSwitch)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selRatioSwitch, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selRatio, fValue);
     }
     else if (slider == SliderAttackRateCombined)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateCombined, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackRate, fValue);
     }
     else if (slider == SliderReleaseRateCombined)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateCombined, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRate, fValue);
     }
     else if (slider == SliderStereoLinkSwitch)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selStereoLinkSwitch, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selStereoLink, fValue);
     }
     else if (slider == SliderInputGainSwitch)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selInputGainSwitch, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selInputGain, fValue);
     }
     else if (slider == SliderOutputGainSwitch)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selOutputGainSwitch, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selOutputGain, fValue);
     }
     else if (slider == SliderWetMixSwitch)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selWetMixSwitch, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selWetMix, fValue);
     }
 }
 

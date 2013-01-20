@@ -174,11 +174,17 @@ bool WrappedParameterCombined::setDefaultRealFloat(float fRealValue, bool update
 {
     if (bUseConstants)
     {
-        return pSwitch->setDefaultRealFloat(fRealValue, updateValue);
+        bool bSwitchFound = pSwitch->setDefaultRealFloat(fRealValue, updateValue);
+        bool bContinuousFound = pContinuous->setDefaultRealFloat(fRealValue, false);
+
+        return (bSwitchFound && bContinuousFound);
     }
     else
     {
-        return pContinuous->setDefaultRealFloat(fRealValue, updateValue);
+        bool bContinuousFound = pContinuous->setDefaultRealFloat(fRealValue, updateValue);
+        bool bSwitchFound = pSwitch->setDefaultRealFloat(fRealValue, true);
+
+        return (bContinuousFound && bSwitchFound);
     }
 }
 
