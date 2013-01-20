@@ -73,10 +73,10 @@ void SliderCombined::paintOverChildren(Graphics& g)
         g.setColour(Colours::red.darker(0.5f));
     }
 
-    g.fillEllipse(rectSwitchPosition.getX(), rectSwitchPosition.getY(), rectSwitchPosition.getWidth(), rectSwitchPosition.getHeight());
+    g.fillEllipse((float) rectSwitchPosition.getX(), (float) rectSwitchPosition.getY(), (float) rectSwitchPosition.getWidth(), (float) rectSwitchPosition.getHeight());
 
     g.setColour(Colours::black);
-    g.drawEllipse(rectSwitchPosition.getX(), rectSwitchPosition.getY(), rectSwitchPosition.getWidth(), rectSwitchPosition.getHeight(), 1.0f);
+    g.drawEllipse((float) rectSwitchPosition.getX(), (float) rectSwitchPosition.getY(), (float) rectSwitchPosition.getWidth(), (float) rectSwitchPosition.getHeight(), 1.0f);
 }
 
 

@@ -63,7 +63,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     float fMaximum = +18.0f;
     float fResolution = 0.5f;
     float fLogFactor = 0.0f;
-    float nDecimalPlaces = 1;
+    int nDecimalPlaces = 1;
 
     WrappedParameterCombined* ParameterThreshold = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterThreshold->setName("Threshold");

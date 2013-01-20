@@ -151,8 +151,8 @@ bool WrappedParameterSwitch::setFloat(float fValue)
     {
         int nCurrentIndexOld = nCurrentIndex;
 
-        fValueInternal = fValue;
-        nCurrentIndex = round_mz(fValueInternal / fInterval);
+        nCurrentIndex = round_mz(fValue / fInterval);
+        fValueInternal = nCurrentIndex * fInterval;
 
         if (nCurrentIndex != nCurrentIndexOld)
         {
