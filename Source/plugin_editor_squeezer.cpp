@@ -103,40 +103,40 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderReleaseRateCombined);
 
 
-    ButtonAttackModeLinear = new TextButton("Linear");
-    ButtonAttackModeLinear->setRadioGroupId(2);
-    ButtonAttackModeLinear->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonAttackModeLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
+    ButtonAttackCurveLinear = new TextButton("Linear");
+    ButtonAttackCurveLinear->setRadioGroupId(2);
+    ButtonAttackCurveLinear->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonAttackCurveLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
 
-    ButtonAttackModeLinear->addListener(this);
-    addAndMakeVisible(ButtonAttackModeLinear);
-
-
-    ButtonAttackModeLogarithmic = new TextButton("Log");
-    ButtonAttackModeLogarithmic->setRadioGroupId(2);
-    ButtonAttackModeLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonAttackModeLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonAttackModeLogarithmic->addListener(this);
-    addAndMakeVisible(ButtonAttackModeLogarithmic);
+    ButtonAttackCurveLinear->addListener(this);
+    addAndMakeVisible(ButtonAttackCurveLinear);
 
 
-    ButtonReleaseModeLinear = new TextButton("Linear");
-    ButtonReleaseModeLinear->setRadioGroupId(3);
-    ButtonReleaseModeLinear->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonReleaseModeLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
+    ButtonAttackCurveLogarithmic = new TextButton("Log");
+    ButtonAttackCurveLogarithmic->setRadioGroupId(2);
+    ButtonAttackCurveLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonAttackCurveLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonReleaseModeLinear->addListener(this);
-    addAndMakeVisible(ButtonReleaseModeLinear);
+    ButtonAttackCurveLogarithmic->addListener(this);
+    addAndMakeVisible(ButtonAttackCurveLogarithmic);
 
 
-    ButtonReleaseModeLogarithmic = new TextButton("Log");
-    ButtonReleaseModeLogarithmic->setRadioGroupId(3);
-    ButtonReleaseModeLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonReleaseModeLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonReleaseCurveLinear = new TextButton("Linear");
+    ButtonReleaseCurveLinear->setRadioGroupId(3);
+    ButtonReleaseCurveLinear->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonReleaseCurveLinear->setColour(TextButton::buttonOnColourId, Colours::orange);
 
-    ButtonReleaseModeLogarithmic->addListener(this);
-    addAndMakeVisible(ButtonReleaseModeLogarithmic);
+    ButtonReleaseCurveLinear->addListener(this);
+    addAndMakeVisible(ButtonReleaseCurveLinear);
+
+
+    ButtonReleaseCurveLogarithmic = new TextButton("Log");
+    ButtonReleaseCurveLogarithmic->setRadioGroupId(3);
+    ButtonReleaseCurveLogarithmic->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonReleaseCurveLogarithmic->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonReleaseCurveLogarithmic->addListener(this);
+    addAndMakeVisible(ButtonReleaseCurveLogarithmic);
 
 
     nIndex = SqueezerPluginParameters::selStereoLink;
@@ -223,10 +223,10 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     nIndex = SqueezerPluginParameters::selRatio;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selAttackMode;
+    nIndex = SqueezerPluginParameters::selAttackCurve;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
-    nIndex = SqueezerPluginParameters::selReleaseMode;
+    nIndex = SqueezerPluginParameters::selReleaseCurve;
     changeParameter(nIndex, pProcessor->getParameter(nIndex));
 
     nIndex = SqueezerPluginParameters::selAttackRate;
@@ -285,10 +285,10 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderAttackRateCombined->setBounds(160, 15, 52, 60);
     SliderReleaseRateCombined->setBounds(220, 15, 52, 60);
 
-    ButtonAttackModeLinear->setBounds(160, 115, 52, 20);
-    ButtonAttackModeLogarithmic->setBounds(160, 90, 52, 20);
-    ButtonReleaseModeLinear->setBounds(220, 115, 52, 20);
-    ButtonReleaseModeLogarithmic->setBounds(220, 90, 52, 20);
+    ButtonAttackCurveLinear->setBounds(160, 115, 52, 20);
+    ButtonAttackCurveLogarithmic->setBounds(160, 90, 52, 20);
+    ButtonReleaseCurveLinear->setBounds(220, 115, 52, 20);
+    ButtonReleaseCurveLogarithmic->setBounds(220, 90, 52, 20);
 
     SliderStereoLinkCombined->setBounds(300, 15, 52, 60);
 
@@ -377,27 +377,27 @@ void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
     case SqueezerPluginParameters::selReleaseRate:
         SliderReleaseRateCombined->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selAttackMode:
+    case SqueezerPluginParameters::selAttackCurve:
 
-        if (fValue == SqueezerPluginParameters::selAttackModeLinear)
+        if (fValue == SqueezerPluginParameters::selAttackCurveLinear)
         {
-            ButtonAttackModeLinear->setToggleState(true, false);
+            ButtonAttackCurveLinear->setToggleState(true, false);
         }
         else
         {
-            ButtonAttackModeLogarithmic->setToggleState(true, false);
+            ButtonAttackCurveLogarithmic->setToggleState(true, false);
         }
 
         break;
-    case SqueezerPluginParameters::selReleaseMode:
+    case SqueezerPluginParameters::selReleaseCurve:
 
-        if (fValue == SqueezerPluginParameters::selReleaseModeLinear)
+        if (fValue == SqueezerPluginParameters::selReleaseCurveLinear)
         {
-            ButtonReleaseModeLinear->setToggleState(true, false);
+            ButtonReleaseCurveLinear->setToggleState(true, false);
         }
         else
         {
-            ButtonReleaseModeLogarithmic->setToggleState(true, false);
+            ButtonReleaseCurveLogarithmic->setToggleState(true, false);
         }
 
         break;
@@ -439,21 +439,21 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDesign, SqueezerPluginParameters::selDesignVintage);
     }
-    else if (button == ButtonAttackModeLinear)
+    else if (button == ButtonAttackCurveLinear)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAttackMode, SqueezerPluginParameters::selAttackModeLinear);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackCurve, SqueezerPluginParameters::selAttackCurveLinear);
     }
-    else if (button == ButtonAttackModeLogarithmic)
+    else if (button == ButtonAttackCurveLogarithmic)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAttackMode, SqueezerPluginParameters::selAttackModeLogarithmic);
+        pProcessor->changeParameter(SqueezerPluginParameters::selAttackCurve, SqueezerPluginParameters::selAttackCurveLogarithmic);
     }
-    else if (button == ButtonReleaseModeLinear)
+    else if (button == ButtonReleaseCurveLinear)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseMode, SqueezerPluginParameters::selReleaseModeLinear);
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseCurve, SqueezerPluginParameters::selReleaseCurveLinear);
     }
-    else if (button == ButtonReleaseModeLogarithmic)
+    else if (button == ButtonReleaseCurveLogarithmic)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseMode, SqueezerPluginParameters::selReleaseModeLogarithmic);
+        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseCurve, SqueezerPluginParameters::selReleaseCurveLogarithmic);
     }
     else if (button == ButtonAbout)
     {

@@ -109,6 +109,7 @@ endif
 
 OBJECTS := \
 	$(OBJDIR)/meter_segment.o \
+	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
 	$(OBJDIR)/slider_combined.o \
@@ -200,6 +201,9 @@ $(GCH): $(PCH)
 endif
 
 $(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/wrapped_parameter_toggle_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp

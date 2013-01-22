@@ -159,16 +159,16 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selAttackRate + 1);
 
 
-    WrappedParameterSwitch* ParameterAttackMode = new WrappedParameterSwitch();
-    ParameterAttackMode->setName("Attack Mode");
+    WrappedParameterSwitch* ParameterAttackCurve = new WrappedParameterSwitch();
+    ParameterAttackCurve->setName("Attack Curve");
 
-    ParameterAttackMode->addConstant(selAttackModeLinear,      "Linear");
-    ParameterAttackMode->addConstant(selAttackModeLogarithmic, "Logarithmic");
+    ParameterAttackCurve->addConstant(selAttackCurveLinear,      "Linear");
+    ParameterAttackCurve->addConstant(selAttackCurveLogarithmic, "Logarithmic");
 
-    ParameterAttackMode->setDefaultRealFloat(selAttackModeLogarithmic, true);
-    add(ParameterAttackMode);
+    ParameterAttackCurve->setDefaultRealFloat(selAttackCurveLogarithmic, true);
+    add(ParameterAttackCurve);
 
-    jassert(arrParameters.size() == selAttackMode + 1);
+    jassert(arrParameters.size() == selAttackCurve + 1);
 
 
     fMinimum = 0.0f;
@@ -204,16 +204,16 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     jassert(arrParameters.size() == selReleaseRate + 1);
 
 
-    WrappedParameterSwitch* ParameterReleaseMode = new WrappedParameterSwitch();
-    ParameterReleaseMode->setName("Release Mode");
+    WrappedParameterSwitch* ParameterReleaseCurve = new WrappedParameterSwitch();
+    ParameterReleaseCurve->setName("Release Curve");
 
-    ParameterReleaseMode->addConstant(selReleaseModeLinear,      "Linear");
-    ParameterReleaseMode->addConstant(selReleaseModeLogarithmic, "Logarithmic");
+    ParameterReleaseCurve->addConstant(selReleaseCurveLinear,      "Linear");
+    ParameterReleaseCurve->addConstant(selReleaseCurveLogarithmic, "Logarithmic");
 
-    ParameterReleaseMode->setDefaultRealFloat(selReleaseModeLogarithmic, true);
-    add(ParameterReleaseMode);
+    ParameterReleaseCurve->setDefaultRealFloat(selReleaseCurveLogarithmic, true);
+    add(ParameterReleaseCurve);
 
-    jassert(arrParameters.size() == selReleaseMode + 1);
+    jassert(arrParameters.size() == selReleaseCurve + 1);
 
 
     fMinimum = 0.0f;

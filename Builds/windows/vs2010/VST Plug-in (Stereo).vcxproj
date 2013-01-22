@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{49BDE3A9-0E2C-6DA1-D84F-39DD7B24FE53}</ProjectGuid>
+		<ProjectGuid>{0FC09C87-4C79-2C13-EF0B-216BA44876D5}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -121,6 +121,7 @@
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
+		<ClInclude Include="..\..\..\Source\wrapped_parameter_toggle_switch.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\slider_combined.h" />
@@ -135,6 +136,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\wrapped_parameter_toggle_switch.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>

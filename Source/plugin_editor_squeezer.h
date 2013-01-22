@@ -78,11 +78,11 @@ private:
     SliderCombined* SliderAttackRateCombined;
     SliderCombined* SliderReleaseRateCombined;
 
-    TextButton* ButtonAttackModeLinear;
-    TextButton* ButtonAttackModeLogarithmic;
+    TextButton* ButtonAttackCurveLinear;
+    TextButton* ButtonAttackCurveLogarithmic;
 
-    TextButton* ButtonReleaseModeLinear;
-    TextButton* ButtonReleaseModeLogarithmic;
+    TextButton* ButtonReleaseCurveLinear;
+    TextButton* ButtonReleaseCurveLogarithmic;
 
     SliderCombined* SliderStereoLinkCombined;
 

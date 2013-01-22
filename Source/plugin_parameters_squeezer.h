@@ -54,9 +54,9 @@ public:
         selRatio,
 
         selAttackRate,
-        selAttackMode,
+        selAttackCurve,
         selReleaseRate,
-        selReleaseMode,
+        selReleaseCurve,
 
         selStereoLink,
         selInputGain,
@@ -70,11 +70,11 @@ public:
         selDesignModern = 0,
         selDesignVintage,
 
-        selAttackModeLinear = 0,
-        selAttackModeLogarithmic,
+        selAttackCurveLinear = 0,
+        selAttackCurveLogarithmic,
 
-        selReleaseModeLinear = 0,
-        selReleaseModeLogarithmic,
+        selReleaseCurveLinear = 0,
+        selReleaseCurveLogarithmic,
     };
 
 private:
