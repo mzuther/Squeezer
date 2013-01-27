@@ -33,9 +33,13 @@ WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float rea
 
     pSwitch = new WrappedParameterSwitch();
     pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places);
+    pModeSwitch = new WrappedParameterToggleSwitch("Discrete", "Continuous");
 
     bUseConstants = true;
+    pModeSwitch->setBoolean(bUseConstants);
+
     setChangeFlag();
+    setChangeFlagMode();
 }
 
 
@@ -46,6 +50,9 @@ WrappedParameterCombined::~WrappedParameterCombined()
 
     delete pContinuous;
     pContinuous = NULL;
+
+    delete pModeSwitch;
+    pModeSwitch = NULL;
 }
 
 
@@ -89,8 +96,11 @@ bool WrappedParameterCombined::setMode(bool use_constants)
 
 bool WrappedParameterCombined::toggleMode()
 {
-    bUseConstants = !bUseConstants;
+    pModeSwitch->toggleState();
+    bUseConstants = pModeSwitch->getBoolean();
+
     setChangeFlag();
+    setChangeFlagMode();
 
     if (bUseConstants)
     {
@@ -371,6 +381,24 @@ void WrappedParameterCombined::setChangeFlag()
 {
     pSwitch->setChangeFlag();
     pContinuous->setChangeFlag();
+}
+
+
+bool WrappedParameterCombined::hasChangedMode()
+{
+    return bChangedMode;
+}
+
+
+void WrappedParameterCombined::clearChangeFlagMode()
+{
+    bChangedMode = false;
+}
+
+
+void WrappedParameterCombined::setChangeFlagMode()
+{
+    bChangedMode = true;
 }
 
 

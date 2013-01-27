@@ -30,6 +30,7 @@
 #include "wrapped_parameter.h"
 #include "wrapped_parameter_continuous.h"
 #include "wrapped_parameter_switch.h"
+#include "wrapped_parameter_toggle_switch.h"
 
 
 //==============================================================================
@@ -80,6 +81,10 @@ public:
     void clearChangeFlag();
     void setChangeFlag();
 
+    bool hasChangedMode();
+    void clearChangeFlagMode();
+    void setChangeFlagMode();
+
     void loadFromXml(XmlElement* xml);
     void storeAsXml(XmlElement* xml);
 private:
@@ -89,7 +94,9 @@ private:
     String strAttribute;
 
     bool bUseConstants;
+    bool bChangedMode;
 
+    WrappedParameterToggleSwitch* pModeSwitch;
     WrappedParameterSwitch* pSwitch;
     WrappedParameterContinuous* pContinuous;
 };
