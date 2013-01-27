@@ -26,10 +26,13 @@
 #include "wrapped_parameter_toggle_switch.h"
 
 
-WrappedParameterToggleSwitch::WrappedParameterToggleSwitch()
+WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String& state_on, const String& state_off)
 {
     strName = "";
     strAttribute = "";
+
+    strStateOn = state_on;
+    strStateOff = state_off;
 
     bDefaultState = false;
     bState = bDefaultState;
@@ -161,25 +164,25 @@ bool WrappedParameterToggleSwitch::setRealInteger(int nRealValue)
 
 String WrappedParameterToggleSwitch::getText()
 {
-    return bState ? "on" : "off";
+    return bState ? strStateOn : strStateOff;
 }
 
 
 bool WrappedParameterToggleSwitch::setText(const String& strText)
 {
-    return setBoolean(strText.compare("on") == 0);
+    return setBoolean(strText.compare(strStateOn) == 0);
 }
 
 
 float WrappedParameterToggleSwitch::getFloatFromText(const String& strText)
 {
-    return (strText.compare("on") == 0) ? 1.0f : 0.0f;
+    return (strText.compare(strStateOn) == 0) ? 1.0f : 0.0f;
 }
 
 
 String WrappedParameterToggleSwitch::getTextFromFloat(float fValue)
 {
-    return (fValue == 0.0f) ? "off" : "on";
+    return (fValue == 0.0f) ? strStateOff : strStateOn;
 }
 
 

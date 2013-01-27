@@ -36,7 +36,7 @@
 class WrappedParameterToggleSwitch : virtual public WrappedParameter
 {
 public:
-    WrappedParameterToggleSwitch();
+    WrappedParameterToggleSwitch(const String& state_on, const String& state_off);
     ~WrappedParameterToggleSwitch();
 
     String getName();
@@ -80,6 +80,8 @@ private:
 
     String strName;
     String strAttribute;
+    String strStateOn;
+    String strStateOff;
 
     bool bState;
     bool bDefaultState;
