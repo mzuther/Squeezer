@@ -33,7 +33,7 @@ class PluginParameters;
 
 
 //============================================================================
-class PluginParameters  : public ActionBroadcaster
+class PluginParameters
 {
 public:
     //==========================================================================

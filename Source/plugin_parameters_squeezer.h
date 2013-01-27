@@ -32,6 +32,7 @@ class SqueezerPluginParameters;
 #include "plugin_parameters.h"
 #include "wrapped_parameter_combined.h"
 #include "wrapped_parameter_switch.h"
+#include "wrapped_parameter_toggle_switch.h"
 
 
 //============================================================================

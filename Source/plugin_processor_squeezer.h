@@ -44,9 +44,6 @@ public:
     SqueezerAudioProcessor();
     ~SqueezerAudioProcessor();
 
-    void addActionListenerParameters(ActionListener* listener) throw();
-    void removeActionListenerParameters(ActionListener* listener) throw();
-
     //==========================================================================
     void prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources();
@@ -63,8 +60,8 @@ public:
     const String getParameterText(int nIndex);
 
     float getParameter(int nIndex);
-    void setParameter(int nIndex, float fNewValue);
-    void changeParameter(int nIndex, float fNewValue);
+    void changeParameter(int nIndex, float fValue);
+    void setParameter(int nIndex, float fValue);
 
     void clearChangeFlag(int nIndex);
     void setChangeFlag(int nIndex);

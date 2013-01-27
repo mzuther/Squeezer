@@ -47,8 +47,6 @@ PluginParameters::~PluginParameters()
     }
 
     arrParameters.clear();
-
-    removeAllActionListeners();
 }
 
 
@@ -159,16 +157,7 @@ float PluginParameters::getFloat(int nIndex)
 bool PluginParameters::setFloat(int nIndex, float fValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    bool bReturn = arrParameters[nIndex]->setFloat(fValue);
-
-    if (arrParameters[nIndex]->hasChanged())
-    {
-        // "PC" --> parameter changed, followed by a hash and the
-        // parameter's ID
-        sendActionMessage("PC#" + String(nIndex));
-    }
-
-    return bReturn;
+    return arrParameters[nIndex]->setFloat(fValue);
 }
 
 

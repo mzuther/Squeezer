@@ -27,7 +27,18 @@
 #include "plugin_editor_squeezer.h"
 
 
-//==============================================================================
+/*==============================================================================
+
+Flow of parameter processing:
+
+  Editor:      buttonClicked(button) / sliderValueChanged(slider)
+  Processor:   changeParameter(nIndex, fValue)
+  Processor:   setParameter(nIndex, fValue)
+  Parameters:  setFloat(nIndex, fValue)
+  Editor:      actionListenerCallback(strMessage)
+  Editor:      updateParameter(nIndex)
+
+==============================================================================*/
 
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
@@ -51,18 +62,6 @@ SqueezerAudioProcessor::~SqueezerAudioProcessor()
 
     delete pPluginParameters;
     pPluginParameters = NULL;
-}
-
-
-void SqueezerAudioProcessor::addActionListenerParameters(ActionListener* listener) throw()
-{
-    pPluginParameters->addActionListener(listener);
-}
-
-
-void SqueezerAudioProcessor::removeActionListenerParameters(ActionListener* listener) throw()
-{
-    pPluginParameters->removeActionListener(listener);
 }
 
 
@@ -103,17 +102,36 @@ float SqueezerAudioProcessor::getParameter(int nIndex)
 }
 
 
-void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
+void SqueezerAudioProcessor::changeParameter(int nIndex, float fValue)
+{
+    // notify host of parameter change (this will automatically call
+    // "setParameter"!)
+    beginParameterChangeGesture(nIndex);
+    setParameterNotifyingHost(nIndex, fValue);
+    endParameterChangeGesture(nIndex);
+}
+
+
+void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    // Please use this method for non-automatable values only!
+    // Please only use this method directly for non-automatable
+    // values!
+    pPluginParameters->setFloat(nIndex, fValue);
 
-    pPluginParameters->setFloat(nIndex, fNewValue);
+    // notify plug-in editor of parameter change
+    if (pPluginParameters->hasChanged(nIndex))
+    {
+        // "PC" --> parameter changed, followed by a hash and the
+        // parameter's ID
+        sendActionMessage("PC#" + String(nIndex));
+    }
 
+    // update signal processing unit
     if (pCompressor)
     {
         switch (nIndex)
@@ -206,16 +224,6 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fNewValue)
 }
 
 
-void SqueezerAudioProcessor::changeParameter(int nIndex, float fNewValue)
-{
-    setParameter(nIndex, fNewValue);
-
-    beginParameterChangeGesture(nIndex);
-    setParameterNotifyingHost(nIndex, fNewValue);
-    endParameterChangeGesture(nIndex);
-}
-
-
 void SqueezerAudioProcessor::clearChangeFlag(int nIndex)
 {
     pPluginParameters->clearChangeFlag(nIndex);
@@ -242,8 +250,8 @@ void SqueezerAudioProcessor::updateParameters()
     {
         if (pPluginParameters->hasChanged(nIndex))
         {
-            float fNewValue = pPluginParameters->getFloat(nIndex);
-            changeParameter(nIndex, fNewValue);
+            float fValue = pPluginParameters->getFloat(nIndex);
+            changeParameter(nIndex, fValue);
         }
     }
 }

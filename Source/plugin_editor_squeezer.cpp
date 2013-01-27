@@ -209,50 +209,27 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     // This is where our plug-in editor's size is set.
     resizeEditor();
 
-    pProcessor->addActionListenerParameters(this);
+    updateParameter(SqueezerPluginParameters::selBypass);
+    updateParameter(SqueezerPluginParameters::selDesign);
 
-    nIndex = SqueezerPluginParameters::selBypass;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+    updateParameter(SqueezerPluginParameters::selThreshold);
+    updateParameter(SqueezerPluginParameters::selRatio);
 
-    nIndex = SqueezerPluginParameters::selDesign;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+    updateParameter(SqueezerPluginParameters::selAttackRate);
+    updateParameter(SqueezerPluginParameters::selReleaseRate);
+    updateParameter(SqueezerPluginParameters::selAttackCurve);
+    updateParameter(SqueezerPluginParameters::selReleaseCurve);
 
-    nIndex = SqueezerPluginParameters::selThreshold;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selRatio;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selAttackCurve;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selReleaseCurve;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selAttackRate;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selReleaseRate;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selStereoLink;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selInputGain;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selOutputGain;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
-
-    nIndex = SqueezerPluginParameters::selWetMix;
-    changeParameter(nIndex, pProcessor->getParameter(nIndex));
+    updateParameter(SqueezerPluginParameters::selStereoLink);
+    updateParameter(SqueezerPluginParameters::selInputGain);
+    updateParameter(SqueezerPluginParameters::selOutputGain);
+    updateParameter(SqueezerPluginParameters::selWetMix);
 }
 
 
 SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 {
     pProcessor->removeActionListener(this);
-    pProcessor->removeActionListenerParameters(this);
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
@@ -305,21 +282,24 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 }
 
 
-void SqueezerAudioProcessorEditor::actionListenerCallback(const String& message)
+void SqueezerAudioProcessorEditor::actionListenerCallback(const String& strMessage)
 {
     // "PC" --> parameter changed, followed by a hash and the
     // parameter's ID
-    if (message.startsWith("PC#"))
+    if (strMessage.startsWith("PC#"))
     {
-        String strIndex = message.substring(3);
+        String strIndex = strMessage.substring(3);
         int nIndex = strIndex.getIntValue();
         jassert(nIndex >= 0);
         jassert(nIndex < pProcessor->getNumParameters());
 
-        changeParameter(nIndex);
+        if (pProcessor->hasChanged(nIndex))
+        {
+            updateParameter(nIndex);
+        }
     }
     // "UM" --> update meters
-    else if (!message.compare("UM"))
+    else if (!strMessage.compare("UM"))
     {
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
@@ -329,25 +309,16 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String& message)
     }
     else
     {
-        DBG("[Squeezer] Received unknown action message \"" + message + "\".");
+        DBG("[Squeezer] Received unknown action message \"" + strMessage + "\".");
     }
 }
 
 
-void SqueezerAudioProcessorEditor::changeParameter(int nIndex)
+void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 {
-    if (pProcessor->hasChanged(nIndex))
-    {
-        float fValue = pProcessor->getParameter(nIndex);
+    float fValue = pProcessor->getParameter(nIndex);
+    pProcessor->clearChangeFlag(nIndex);
 
-        changeParameter(nIndex, fValue);
-        pProcessor->clearChangeFlag(nIndex);
-    }
-}
-
-
-void SqueezerAudioProcessorEditor::changeParameter(int nIndex, float fValue)
-{
     switch (nIndex)
     {
     case SqueezerPluginParameters::selBypass:

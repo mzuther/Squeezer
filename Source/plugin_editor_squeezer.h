@@ -45,9 +45,8 @@ public:
     void buttonClicked(Button* button);
     void sliderValueChanged(Slider* slider);
 
-    void actionListenerCallback(const String& message);
-    void changeParameter(int nIndex);
-    void changeParameter(int nIndex, float fValue);
+    void actionListenerCallback(const String& strMessage);
+    void updateParameter(int nIndex);
 
     //==============================================================================
     // This is just a standard Juce paint method...
