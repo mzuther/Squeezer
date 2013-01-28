@@ -148,15 +148,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderStereoLinkCombined);
 
 
-    nIndex = SqueezerPluginParameters::selInputGain;
-    strName = parameters->getName(nIndex);
-    SliderInputGainCombined = new SliderCombined(strName, parameters, nIndex);
-    SliderInputGainCombined->setSliderColour(Colours::blue.brighter(0.4f));
-
-    SliderInputGainCombined->addListener(this);
-    addAndMakeVisible(SliderInputGainCombined);
-
-
     nIndex = SqueezerPluginParameters::selOutputGain;
     strName = parameters->getName(nIndex);
     SliderOutputGainCombined = new SliderCombined(strName, parameters, nIndex);
@@ -221,7 +212,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selReleaseCurve);
 
     updateParameter(SqueezerPluginParameters::selStereoLink);
-    updateParameter(SqueezerPluginParameters::selInputGain);
     updateParameter(SqueezerPluginParameters::selOutputGain);
     updateParameter(SqueezerPluginParameters::selWetMix);
 }
@@ -251,10 +241,9 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    ButtonBypass->setBounds(360, 90, 52, 20);
-
-    ButtonDesignModern->setBounds(20, 115, 52, 20);
-    ButtonDesignVintage->setBounds(20, 90, 52, 20);
+    ButtonBypass->setBounds(20, 90, 52, 20);
+    ButtonDesignModern->setBounds(80, 115, 52, 20);
+    ButtonDesignVintage->setBounds(80, 90, 52, 20);
 
     SliderThresholdCombined->setBounds(20, 15, 52, 60);
     SliderRatioCombined->setBounds(80, 15, 52, 60);
@@ -269,9 +258,8 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     SliderStereoLinkCombined->setBounds(300, 15, 52, 60);
 
-    SliderInputGainCombined->setBounds(360, 15, 52, 60);
-    SliderOutputGainCombined->setBounds(420, 15, 52, 60);
-    SliderWetMixCombined->setBounds(420, 85, 52, 60);
+    SliderOutputGainCombined->setBounds(360, 15, 52, 60);
+    SliderWetMixCombined->setBounds(420, 15, 52, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -375,9 +363,6 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selStereoLink:
         SliderStereoLinkCombined->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selInputGain:
-        SliderInputGainCombined->setValue(fValue, false);
-        break;
     case SqueezerPluginParameters::selOutputGain:
         SliderOutputGainCombined->setValue(fValue, false);
         break;
@@ -463,10 +448,6 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == SliderStereoLinkCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selStereoLink, fValue);
-    }
-    else if (slider == SliderInputGainCombined)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selInputGain, fValue);
     }
     else if (slider == SliderOutputGainCombined)
     {

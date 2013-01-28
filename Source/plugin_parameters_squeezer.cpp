@@ -42,9 +42,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterBypass->addConstant(1.0f, "On");
 
     ParameterBypass->setDefaultRealFloat(0.0f, true);
-    add(ParameterBypass);
-
-    jassert(arrParameters.size() == selBypass + 1);
+    add(ParameterBypass, selBypass);
 
 
     WrappedParameterSwitch* ParameterDesign = new WrappedParameterSwitch();
@@ -54,9 +52,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterDesign->addConstant(selDesignVintage, "Vintage");
 
     ParameterDesign->setDefaultRealFloat(selDesignModern, true);
-    add(ParameterDesign);
-
-    jassert(arrParameters.size() == selDesign + 1);
+    add(ParameterDesign, selDesign);
 
 
     float fMinimum = -48.0f;
@@ -105,9 +101,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterThreshold->setSuffix(" dB");
     ParameterThreshold->setDefaultRealFloat(-12.0f, true);
-    add(ParameterThreshold);
-
-    jassert(arrParameters.size() == selThreshold + 1);
+    add(ParameterThreshold, selThreshold);
 
 
     fMinimum = 1.1f;
@@ -129,9 +123,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterRatio->setSuffix(":1");
     ParameterRatio->setDefaultRealFloat(2.0f, true);
-    add(ParameterRatio);
-
-    jassert(arrParameters.size() == selRatio + 1);
+    add(ParameterRatio, selRatio);
 
 
     fMinimum = 0.0f;
@@ -154,9 +146,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterAttackRate->setSuffix(" ms");
     ParameterAttackRate->setDefaultRealFloat(10.0f, true);
-    add(ParameterAttackRate);
-
-    jassert(arrParameters.size() == selAttackRate + 1);
+    add(ParameterAttackRate, selAttackRate);
 
 
     WrappedParameterSwitch* ParameterAttackCurve = new WrappedParameterSwitch();
@@ -166,9 +156,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterAttackCurve->addConstant(selAttackCurveLogarithmic, "Logarithmic");
 
     ParameterAttackCurve->setDefaultRealFloat(selAttackCurveLogarithmic, true);
-    add(ParameterAttackCurve);
-
-    jassert(arrParameters.size() == selAttackCurve + 1);
+    add(ParameterAttackCurve, selAttackCurve);
 
 
     fMinimum = 0.0f;
@@ -199,9 +187,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterReleaseRate->setSuffix(" ms");
     ParameterReleaseRate->setDefaultRealFloat(150.0f, true);
-    add(ParameterReleaseRate);
-
-    jassert(arrParameters.size() == selReleaseRate + 1);
+    add(ParameterReleaseRate, selReleaseRate);
 
 
     WrappedParameterSwitch* ParameterReleaseCurve = new WrappedParameterSwitch();
@@ -211,9 +197,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterReleaseCurve->addConstant(selReleaseCurveLogarithmic, "Logarithmic");
 
     ParameterReleaseCurve->setDefaultRealFloat(selReleaseCurveLogarithmic, true);
-    add(ParameterReleaseCurve);
-
-    jassert(arrParameters.size() == selReleaseCurve + 1);
+    add(ParameterReleaseCurve, selReleaseCurve);
 
 
     fMinimum = 0.0f;
@@ -233,51 +217,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterStereoLink->setSuffix(" %");
     ParameterStereoLink->setDefaultRealFloat(100.0f, true);
-    add(ParameterStereoLink);
-
-    jassert(arrParameters.size() == selStereoLink + 1);
-
-
-    fMinimum = -24.0f;
-    fMaximum = +24.0f;
-    fResolution = 0.5f;
-    fLogFactor = 0.0f;
-    nDecimalPlaces = 1;
-
-    WrappedParameterCombined* ParameterInputGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
-    ParameterInputGain->setName("Input Gain");
-
-    ParameterInputGain->addConstant(-12.0f, "-12 dB");
-    ParameterInputGain->addConstant(-11.0f, "-11 dB");
-    ParameterInputGain->addConstant(-10.0f, "-10 dB");
-    ParameterInputGain->addConstant(-9.0f,   "-9 dB");
-    ParameterInputGain->addConstant(-8.0f,   "-8 dB");
-    ParameterInputGain->addConstant(-7.0f,   "-7 dB");
-    ParameterInputGain->addConstant(-6.0f,   "-6 dB");
-    ParameterInputGain->addConstant(-5.0f,   "-5 dB");
-    ParameterInputGain->addConstant(-4.0f,   "-4 dB");
-    ParameterInputGain->addConstant(-3.0f,   "-3 dB");
-    ParameterInputGain->addConstant(-2.0f,   "-2 dB");
-    ParameterInputGain->addConstant(-1.0f,   "-1 dB");
-    ParameterInputGain->addConstant(0.0f,     "0 dB");
-    ParameterInputGain->addConstant(+1.0f,   "+1 dB");
-    ParameterInputGain->addConstant(+2.0f,   "+2 dB");
-    ParameterInputGain->addConstant(+3.0f,   "+3 dB");
-    ParameterInputGain->addConstant(+4.0f,   "+4 dB");
-    ParameterInputGain->addConstant(+5.0f,   "+5 dB");
-    ParameterInputGain->addConstant(+6.0f,   "+6 dB");
-    ParameterInputGain->addConstant(+7.0f,   "+7 dB");
-    ParameterInputGain->addConstant(+8.0f,   "+8 dB");
-    ParameterInputGain->addConstant(+9.0f,   "+9 dB");
-    ParameterInputGain->addConstant(+10.0f, "+10 dB");
-    ParameterInputGain->addConstant(+11.0f, "+11 dB");
-    ParameterInputGain->addConstant(+12.0f, "+12 dB");
-
-    ParameterInputGain->setSuffix(" dB");
-    ParameterInputGain->setDefaultRealFloat(0.0f, true);
-    add(ParameterInputGain);
-
-    jassert(arrParameters.size() == selInputGain + 1);
+    add(ParameterStereoLink, selStereoLink);
 
 
     fMinimum = -24.0f;
@@ -317,9 +257,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterOutputGain->setSuffix(" dB");
     ParameterOutputGain->setDefaultRealFloat(0.0f, true);
-    add(ParameterOutputGain);
-
-    jassert(arrParameters.size() == selOutputGain + 1);
+    add(ParameterOutputGain, selOutputGain);
 
 
     fMinimum = 0.0f;
@@ -345,9 +283,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterWetMix->setSuffix(" %");
     ParameterWetMix->setDefaultRealFloat(100.0f, true);
-    add(ParameterWetMix);
-
-    jassert(arrParameters.size() == selWetMix + 1);
+    add(ParameterWetMix, selWetMix);
 }
 
 

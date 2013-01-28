@@ -43,7 +43,6 @@ Compressor::Compressor(int channels, int sample_rate)
 
     setStereoLink(100);
 
-    setInputGain(0.0f);
     setOutputGain(0.0f);
     setWetMix(100);
 
@@ -318,29 +317,6 @@ void Compressor::setStereoLink(int nStereoLinkNew)
 }
 
 
-float Compressor::getInputGain()
-/*  Get current input gain.
-
-    return value (float): returns the current input gain in decibels
- */
-{
-    return fInputGainDecibel;
-}
-
-
-void Compressor::setInputGain(float fInputGainNew)
-/*  Set new input gain.
-
-    nInputGainNew (float): new input gain in decibels
-
-    return value: none
- */
-{
-    fInputGainDecibel = fInputGainNew;
-    fInputGain = GainReducer::decibel2level(fInputGainDecibel);
-}
-
-
 float Compressor::getOutputGain()
 /*  Get current output gain.
 
@@ -432,12 +408,6 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         {
             // get current input sample
             pInputSamples[nChannel] = *buffer.getSampleData(nChannel, nSample);
-
-            // apply input gain
-            if (fInputGain != 1.0f)
-            {
-                pInputSamples[nChannel] *= fInputGain;
-            }
         }
 
         // compress channels

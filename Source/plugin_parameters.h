@@ -44,7 +44,7 @@ public:
     WrappedParameter* getWrappedParameter(int nIndex);
     String toString();
 
-    void add(WrappedParameter* parameter);
+    void add(WrappedParameter* parameter, int nIndex);
     int getNumParameters(bool bIncludeHiddenParameters);
 
     String getName(int nIndex);

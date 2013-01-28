@@ -60,7 +60,6 @@ public:
         selReleaseCurve,
 
         selStereoLink,
-        selInputGain,
         selOutputGain,
         selWetMix,
 

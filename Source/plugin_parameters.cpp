@@ -84,10 +84,12 @@ int PluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 }
 
 
-void PluginParameters::add(WrappedParameter* parameter)
+void PluginParameters::add(WrappedParameter* parameter, int nIndex)
 {
     arrParameters.add(parameter);
     nNumParameters = arrParameters.size();
+
+    jassert(nNumParameters == nIndex + 1);
 }
 
 

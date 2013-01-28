@@ -69,9 +69,6 @@ public:
     int getStereoLink();
     void setStereoLink(int nStereoLinkNew);
 
-    float getInputGain();
-    void setInputGain(float fInputGainNew);
-
     float getOutputGain();
     void setOutputGain(float fOutputGainNew);
 
@@ -101,9 +98,6 @@ private:
     int nStereoLink;
     float fStereoLinkOriginal;
     float fStereoLinkOther;
-
-    float fInputGain;
-    float fInputGainDecibel;
 
     float fOutputGain;
     float fOutputGainDecibel;

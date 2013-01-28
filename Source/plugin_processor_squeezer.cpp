@@ -199,13 +199,6 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
             break;
         }
 
-        case SqueezerPluginParameters::selInputGain:
-        {
-            float fInputGain = pPluginParameters->getRealFloat(nIndex);
-            pCompressor->setInputGain(fInputGain);
-            break;
-        }
-
         case SqueezerPluginParameters::selOutputGain:
         {
             float fOutputGain = pPluginParameters->getRealFloat(nIndex);
@@ -378,7 +371,6 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLink);
 
-    float fInputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selInputGain);
     float fOutputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selOutputGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
@@ -398,7 +390,6 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setStereoLink(nStereoLink);
 
-    pCompressor->setInputGain(fInputGain);
     pCompressor->setOutputGain(fOutputGain);
     pCompressor->setWetMix(nWetMix);
 }
