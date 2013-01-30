@@ -41,12 +41,8 @@ PluginParameters::PluginParameters()
 
 PluginParameters::~PluginParameters()
 {
-    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
-    {
-        delete arrParameters[nIndex];
-    }
-
     arrParameters.clear();
+    arrMayModify.clear();
 }
 
 
@@ -84,12 +80,22 @@ int PluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 }
 
 
-void PluginParameters::add(WrappedParameter* parameter, int nIndex)
+void PluginParameters::add(WrappedParameter* parameter, int nIndex, bool mayModify)
 {
     arrParameters.add(parameter);
+    arrMayModify.add(mayModify);
     nNumParameters = arrParameters.size();
 
     jassert(nNumParameters == nIndex + 1);
+}
+
+
+void PluginParameters::addCombined(WrappedParameterCombined* parameter, int nIndex, int nIndexSwitch, bool mayModify)
+{
+    jassert(nIndex == (nIndexSwitch + 1));
+
+    add(parameter->getModeSwitch(), nIndexSwitch, false);
+    add(parameter, nIndex, mayModify);
 }
 
 
@@ -102,6 +108,7 @@ String PluginParameters::getName(int nIndex)
 
 void PluginParameters::setName(int nIndex, const String& strParameterName)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     arrParameters[nIndex]->setName(strParameterName);
 }
@@ -144,6 +151,7 @@ int PluginParameters::getDefaultRealInteger(int nIndex)
 
 bool PluginParameters::setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->setDefaultRealFloat(fRealValue, updateValue);
 }
@@ -158,6 +166,7 @@ float PluginParameters::getFloat(int nIndex)
 
 bool PluginParameters::setFloat(int nIndex, float fValue)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->setFloat(fValue);
 }
@@ -172,6 +181,7 @@ float PluginParameters::getRealFloat(int nIndex)
 
 bool PluginParameters::setRealFloat(int nIndex, float fRealValue)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->setRealFloat(fRealValue);
 }
@@ -186,6 +196,7 @@ bool PluginParameters::getBoolean(int nIndex)
 
 bool PluginParameters::setBoolean(int nIndex, bool bValue)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->setBoolean(bValue);
 }
@@ -200,6 +211,7 @@ int PluginParameters::getRealInteger(int nIndex)
 
 bool PluginParameters::setRealInteger(int nIndex, int nRealValue)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->setRealInteger(nRealValue);
 }
@@ -214,6 +226,7 @@ String PluginParameters::getText(int nIndex)
 
 bool PluginParameters::setText(int nIndex, const String& strText)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->setText(strText);
 }
@@ -249,6 +262,7 @@ void PluginParameters::clearChangeFlag(int nIndex)
 
 void PluginParameters::setChangeFlag(int nIndex)
 {
+    jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->setChangeFlag();
 }
@@ -260,7 +274,10 @@ void PluginParameters::loadFromXml(XmlElement* xml)
     {
         for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
         {
-            arrParameters[nIndex]->loadFromXml(xml);
+            if (arrMayModify[nIndex])
+            {
+                arrParameters[nIndex]->loadFromXml(xml);
+            }
         }
     }
 }
@@ -272,7 +289,10 @@ XmlElement PluginParameters::storeAsXml()
 
     for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
     {
-        arrParameters[nIndex]->storeAsXml(&xml);
+        if (arrMayModify[nIndex])
+        {
+            arrParameters[nIndex]->storeAsXml(&xml);
+        }
     }
 
     return xml;

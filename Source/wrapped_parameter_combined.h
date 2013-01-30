@@ -48,6 +48,7 @@ public:
     bool getMode();
     bool setMode(bool use_constants);
     bool toggleMode();
+    WrappedParameterToggleSwitch* getModeSwitch();
 
     void addConstant(const float fRealValue, const String& strText);
     float getInterval();

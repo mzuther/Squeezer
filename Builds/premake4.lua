@@ -71,7 +71,7 @@ solution "squeezer"
 	configuration { "Debug*" }
 		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
 		flags { "Symbols", "ExtraWarnings" }
-		buildoptions { "-fno-inline" }
+		buildoptions { "-fno-inline", "-ggdb" }
 
 	configuration { "Release*" }
 		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }

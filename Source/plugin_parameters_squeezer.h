@@ -51,16 +51,23 @@ public:
         selBypass = 0,
         selDesign,
 
+        selThresholdSwitch,
         selThreshold,
+        selRatioSwitch,
         selRatio,
 
+        selAttackRateSwitch,
         selAttackRate,
         selAttackCurve,
+        selReleaseRateSwitch,
         selReleaseRate,
         selReleaseCurve,
 
+        selStereoLinkSwitch,
         selStereoLink,
+        selOutputGainSwitch,
         selOutputGain,
+        selWetMixSwitch,
         selWetMix,
 
         nNumParametersRevealed,
@@ -79,6 +86,21 @@ public:
 
 private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
+
+    WrappedParameterSwitch* ParameterBypass;
+    WrappedParameterSwitch* ParameterDesign;
+
+    WrappedParameterCombined* ParameterThreshold;
+    WrappedParameterCombined* ParameterRatio;
+
+    WrappedParameterCombined* ParameterAttackRate;
+    WrappedParameterSwitch* ParameterAttackCurve;
+    WrappedParameterCombined* ParameterReleaseRate;
+    WrappedParameterSwitch* ParameterReleaseCurve;
+
+    WrappedParameterCombined* ParameterStereoLink;
+    WrappedParameterCombined* ParameterOutputGain;
+    WrappedParameterCombined* ParameterWetMix;
 };
 
 #endif  // __PLUGIN_PARAMETERS_SQUEEZER_H__

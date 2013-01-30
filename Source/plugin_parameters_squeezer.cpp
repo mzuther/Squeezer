@@ -35,7 +35,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     strSettingsID = "SQUEEZER_SETTINGS";
 
-    WrappedParameterSwitch* ParameterBypass = new WrappedParameterSwitch();
+    ParameterBypass = new WrappedParameterSwitch();
     ParameterBypass->setName("Bypass");
 
     ParameterBypass->addConstant(0.0f, "Off");
@@ -45,7 +45,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterBypass, selBypass);
 
 
-    WrappedParameterSwitch* ParameterDesign = new WrappedParameterSwitch();
+    ParameterDesign = new WrappedParameterSwitch();
     ParameterDesign->setName("Design");
 
     ParameterDesign->addConstant(selDesignModern,  "Modern");
@@ -61,7 +61,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     float fLogFactor = 0.0f;
     int nDecimalPlaces = 1;
 
-    WrappedParameterCombined* ParameterThreshold = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterThreshold = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterThreshold->setName("Threshold");
 
     ParameterThreshold->addConstant(-48.0f, "-48 dB");
@@ -101,7 +101,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterThreshold->setSuffix(" dB");
     ParameterThreshold->setDefaultRealFloat(-12.0f, true);
-    add(ParameterThreshold, selThreshold);
+    addCombined(ParameterThreshold, selThreshold, selThresholdSwitch);
 
 
     fMinimum = 1.1f;
@@ -110,7 +110,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 1.0f;
     nDecimalPlaces = 1;
 
-    WrappedParameterCombined* ParameterRatio = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterRatio = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterRatio->setName("Ratio");
 
     ParameterRatio->addConstant(1.2f,   "1.2:1");
@@ -123,7 +123,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterRatio->setSuffix(":1");
     ParameterRatio->setDefaultRealFloat(2.0f, true);
-    add(ParameterRatio, selRatio);
+    addCombined(ParameterRatio, selRatio, selRatioSwitch);
 
 
     fMinimum = 0.0f;
@@ -132,7 +132,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 2.0f;
     nDecimalPlaces = 0;
 
-    WrappedParameterCombined* ParameterAttackRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterAttackRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterAttackRate->setName("Attack Rate");
 
     ParameterAttackRate->addConstant(2.0f,     "2 ms");
@@ -146,10 +146,10 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterAttackRate->setSuffix(" ms");
     ParameterAttackRate->setDefaultRealFloat(10.0f, true);
-    add(ParameterAttackRate, selAttackRate);
+    addCombined(ParameterAttackRate, selAttackRate, selAttackRateSwitch);
 
 
-    WrappedParameterSwitch* ParameterAttackCurve = new WrappedParameterSwitch();
+    ParameterAttackCurve = new WrappedParameterSwitch();
     ParameterAttackCurve->setName("Attack Curve");
 
     ParameterAttackCurve->addConstant(selAttackCurveLinear,      "Linear");
@@ -165,7 +165,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 3.0f;
     nDecimalPlaces = 0;
 
-    WrappedParameterCombined* ParameterReleaseRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterReleaseRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterReleaseRate->setName("Release Rate");
 
     ParameterReleaseRate->addConstant(50.0f,    "50 ms");
@@ -187,10 +187,10 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterReleaseRate->setSuffix(" ms");
     ParameterReleaseRate->setDefaultRealFloat(150.0f, true);
-    add(ParameterReleaseRate, selReleaseRate);
+    addCombined(ParameterReleaseRate, selReleaseRate, selReleaseRateSwitch);
 
 
-    WrappedParameterSwitch* ParameterReleaseCurve = new WrappedParameterSwitch();
+    ParameterReleaseCurve = new WrappedParameterSwitch();
     ParameterReleaseCurve->setName("Release Curve");
 
     ParameterReleaseCurve->addConstant(selReleaseCurveLinear,      "Linear");
@@ -206,7 +206,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 0.0f;
     nDecimalPlaces = 0;
 
-    WrappedParameterCombined* ParameterStereoLink = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterStereoLink = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterStereoLink->setName("Stereo Link");
 
     ParameterStereoLink->addConstant(0.0f,     "Off");
@@ -217,7 +217,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterStereoLink->setSuffix(" %");
     ParameterStereoLink->setDefaultRealFloat(100.0f, true);
-    add(ParameterStereoLink, selStereoLink);
+    addCombined(ParameterStereoLink, selStereoLink, selStereoLinkSwitch);
 
 
     fMinimum = -24.0f;
@@ -226,7 +226,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 0.0f;
     nDecimalPlaces = 1;
 
-    WrappedParameterCombined* ParameterOutputGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterOutputGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterOutputGain->setName("Output Gain");
 
     ParameterOutputGain->addConstant(-12.0f, "-12 dB");
@@ -257,7 +257,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterOutputGain->setSuffix(" dB");
     ParameterOutputGain->setDefaultRealFloat(0.0f, true);
-    add(ParameterOutputGain, selOutputGain);
+    addCombined(ParameterOutputGain, selOutputGain, selOutputGainSwitch);
 
 
     fMinimum = 0.0f;
@@ -266,7 +266,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 1.0f;
     nDecimalPlaces = 0;
 
-    WrappedParameterCombined* ParameterWetMix = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterWetMix = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterWetMix->setName("Wet Mix");
 
     ParameterWetMix->addConstant(0.0f,   "Bypass");
@@ -283,12 +283,44 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterWetMix->setSuffix(" %");
     ParameterWetMix->setDefaultRealFloat(100.0f, true);
-    add(ParameterWetMix, selWetMix);
+    addCombined(ParameterWetMix, selWetMix, selWetMixSwitch);
 }
 
 
 SqueezerPluginParameters::~SqueezerPluginParameters()
 {
+    delete ParameterBypass;
+    ParameterBypass = NULL;
+
+    delete ParameterDesign;
+    ParameterDesign = NULL;
+
+    delete ParameterThreshold;
+    ParameterThreshold = NULL;
+
+    delete ParameterRatio;
+    ParameterRatio = NULL;
+
+    delete ParameterAttackRate;
+    ParameterAttackRate = NULL;
+
+    delete ParameterAttackCurve;
+    ParameterAttackCurve = NULL;
+
+    delete ParameterReleaseRate;
+    ParameterReleaseRate = NULL;
+
+    delete ParameterReleaseCurve;
+    ParameterReleaseCurve = NULL;
+
+    delete ParameterStereoLink;
+    ParameterStereoLink = NULL;
+
+    delete ParameterOutputGain;
+    ParameterOutputGain = NULL;
+
+    delete ParameterWetMix;
+    ParameterWetMix = NULL;
 }
 
 

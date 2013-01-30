@@ -66,6 +66,8 @@ void WrappedParameterCombined::setName(const String& strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
+
+    pModeSwitch->setName(strName + " Mode");
 }
 
 
@@ -112,6 +114,12 @@ bool WrappedParameterCombined::toggleMode()
         float fRealValue = pSwitch->getRealFloat();
         return pContinuous->setNearestRealFloat(fRealValue);
     }
+}
+
+
+WrappedParameterToggleSwitch* WrappedParameterCombined::getModeSwitch()
+{
+    return pModeSwitch;
 }
 
 
@@ -425,7 +433,7 @@ void WrappedParameterCombined::storeAsXml(XmlElement* xml)
     {
         float fRealValue = getRealFloat();
 
-        xml_element->setAttribute("use_constants", bUseConstants);
+        xml_element->setAttribute("use_constants", bUseConstants ? "true" : "false");
         xml_element->setAttribute("value", fRealValue);
         xml->addChildElement(xml_element);
     }

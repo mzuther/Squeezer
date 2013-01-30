@@ -30,6 +30,7 @@ class PluginParameters;
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "wrapped_parameter.h"
+#include "wrapped_parameter_combined.h"
 
 
 //============================================================================
@@ -44,7 +45,8 @@ public:
     WrappedParameter* getWrappedParameter(int nIndex);
     String toString();
 
-    void add(WrappedParameter* parameter, int nIndex);
+    void add(WrappedParameter* parameter, int nIndex, bool mayModify = true);
+    void addCombined(WrappedParameterCombined* parameter, int nIndex, int nIndexSwitch, bool mayModify = true);
     int getNumParameters(bool bIncludeHiddenParameters);
 
     String getName(int nIndex);
@@ -92,6 +94,7 @@ public:
 protected:
     int nNumParameters;
     Array<WrappedParameter*> arrParameters;
+    Array<bool> arrMayModify;
 
     String strSettingsID;
 
