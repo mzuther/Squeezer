@@ -1,0 +1,16 @@
+Git HEAD
+========
+
+* feed-forward and feed-back design
+    
+* logarithmic and linear attack and release rates
+
+* parameters can be switched between discrete (constant) and
+  continuous (manual) values
+
+* variable stereo linking
+
+* parallel compression
+
+* GNU/Linux:  VST plug-in, stand-alone
+  Windows:    VST plug-in, stand-alone

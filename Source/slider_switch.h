@@ -40,6 +40,7 @@ public:
     SliderSwitch(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex);
     ~SliderSwitch();
 
+    void visibilityChanged();
     void resized();
     void setSliderColour(const Colour& colour);
 
@@ -48,6 +49,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SliderSwitch);
 
+    Colour colourRotary;
     WrappedParameterSwitch* pSwitch;
 };
 

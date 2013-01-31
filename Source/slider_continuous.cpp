@@ -33,11 +33,7 @@ SliderContinuous::SliderContinuous(const String& componentName, SqueezerPluginPa
 
     setRange(0.0f, 1.0f, pContinuous->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);
-
-    setColour(Slider::rotarySliderFillColourId, Colours::white);
-    setColour(Slider::textBoxTextColourId, Colours::white);
-    setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
-    setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
+    colourRotary = Colours::white;
 
     setDoubleClickReturnValue(true, pContinuous->getDefaultFloat());
 }
@@ -45,6 +41,17 @@ SliderContinuous::SliderContinuous(const String& componentName, SqueezerPluginPa
 
 SliderContinuous::~SliderContinuous()
 {
+}
+
+
+void SliderContinuous::visibilityChanged()
+{
+    Slider::visibilityChanged();
+
+    setColour(Slider::rotarySliderFillColourId, colourRotary);
+    setColour(Slider::textBoxTextColourId, Colours::white);
+    setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
+    setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
 }
 
 
@@ -59,7 +66,8 @@ void SliderContinuous::resized()
 
 void SliderContinuous::setSliderColour(const Colour& colour)
 {
-    setColour(Slider::rotarySliderFillColourId, colour);
+    colourRotary = colour;
+    setColour(Slider::rotarySliderFillColourId, colourRotary);
 }
 
 

@@ -40,6 +40,7 @@ public:
     SliderContinuous(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex);
     ~SliderContinuous();
 
+    void visibilityChanged();
     void resized();
     void setSliderColour(const Colour& colour);
 
@@ -48,6 +49,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SliderContinuous);
 
+    Colour colourRotary;
     WrappedParameterContinuous* pContinuous;
 };
 

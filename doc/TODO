@@ -1,0 +1,17 @@
+o [mzuther] implement input and output meters
+
+o [mzuther] implement compressor knee
+
+o [mzuther] implement side-chain filters
+
+o [mzuther] use "juce_UseDebuggingNewOperator"
+
+o [mzuther] document code
+
+* implement parameter smoothing ("anti-zipper")
+
+* implement external side-chain
+
+* text export of settings
+
+* over-sampling (?)
