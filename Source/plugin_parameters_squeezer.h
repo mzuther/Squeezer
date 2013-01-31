@@ -55,6 +55,8 @@ public:
         selThreshold,
         selRatioSwitch,
         selRatio,
+        selKneeWidthSwitch,
+        selKneeWidth,
 
         selAttackRateSwitch,
         selAttackRate,
@@ -92,6 +94,7 @@ private:
 
     WrappedParameterCombined* ParameterThreshold;
     WrappedParameterCombined* ParameterRatio;
+    WrappedParameterCombined* ParameterKneeWidth;
 
     WrappedParameterCombined* ParameterAttackRate;
     WrappedParameterSwitch* ParameterAttackCurve;

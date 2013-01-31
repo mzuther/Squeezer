@@ -88,6 +88,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderRatioCombined->addButtonListener(this);
     addAndMakeVisible(SliderRatioCombined);
 
+    nIndex = SqueezerPluginParameters::selKneeWidth;
+    nIndexSwitch = SqueezerPluginParameters::selKneeWidthSwitch;
+    strName = parameters->getName(nIndex);
+    SliderKneeWidthCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderKneeWidthCombined->setSliderColour(Colours::purple.brighter(0.2f));
+
+    SliderKneeWidthCombined->addListener(this);
+    SliderKneeWidthCombined->addButtonListener(this);
+    addAndMakeVisible(SliderKneeWidthCombined);
+
 
     nIndex = SqueezerPluginParameters::selAttackRate;
     nIndexSwitch = SqueezerPluginParameters::selAttackRateSwitch;
@@ -199,7 +209,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
 
     pGainReductionMeters = new MeterBarGainReduction*[nChannels];
-    int x = 490;
+    int x = 550;
     int width = 12;
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
@@ -221,6 +231,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selThreshold);
     updateParameter(SqueezerPluginParameters::selRatioSwitch);
     updateParameter(SqueezerPluginParameters::selRatio);
+    updateParameter(SqueezerPluginParameters::selKneeWidthSwitch);
+    updateParameter(SqueezerPluginParameters::selKneeWidth);
 
     updateParameter(SqueezerPluginParameters::selAttackRateSwitch);
     updateParameter(SqueezerPluginParameters::selAttackRate);
@@ -258,7 +270,7 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 160;
-    nRightColumnStart = 530;
+    nRightColumnStart = 590;
 
     setSize(nRightColumnStart + 70, nHeight);
 
@@ -268,19 +280,20 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     SliderThresholdCombined->setBounds(20, 15, 52, 60);
     SliderRatioCombined->setBounds(80, 15, 52, 60);
+    SliderKneeWidthCombined->setBounds(140, 15, 52, 60);
 
-    SliderAttackRateCombined->setBounds(160, 15, 52, 60);
-    SliderReleaseRateCombined->setBounds(220, 15, 52, 60);
+    SliderAttackRateCombined->setBounds(220, 15, 52, 60);
+    SliderReleaseRateCombined->setBounds(280, 15, 52, 60);
 
-    ButtonAttackCurveLinear->setBounds(160, 115, 52, 20);
-    ButtonAttackCurveLogarithmic->setBounds(160, 90, 52, 20);
-    ButtonReleaseCurveLinear->setBounds(220, 115, 52, 20);
-    ButtonReleaseCurveLogarithmic->setBounds(220, 90, 52, 20);
+    ButtonAttackCurveLinear->setBounds(220, 115, 52, 20);
+    ButtonAttackCurveLogarithmic->setBounds(220, 90, 52, 20);
+    ButtonReleaseCurveLinear->setBounds(280, 115, 52, 20);
+    ButtonReleaseCurveLogarithmic->setBounds(280, 90, 52, 20);
 
-    SliderStereoLinkCombined->setBounds(300, 15, 52, 60);
+    SliderStereoLinkCombined->setBounds(360, 15, 52, 60);
 
-    SliderOutputGainCombined->setBounds(360, 15, 52, 60);
-    SliderWetMixCombined->setBounds(420, 15, 52, 60);
+    SliderOutputGainCombined->setBounds(420, 15, 52, 60);
+    SliderWetMixCombined->setBounds(480, 15, 52, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
 
@@ -356,6 +369,12 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         break;
     case SqueezerPluginParameters::selRatio:
         SliderRatioCombined->setValue(fValue, false);
+        break;
+    case SqueezerPluginParameters::selKneeWidthSwitch:
+        SliderKneeWidthCombined->updateMode();
+        break;
+    case SqueezerPluginParameters::selKneeWidth:
+        SliderKneeWidthCombined->setValue(fValue, false);
         break;
     case SqueezerPluginParameters::selAttackRateSwitch:
         SliderAttackRateCombined->updateMode();
@@ -480,6 +499,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selRatioSwitch, fValue);
         }
+        else if (slider == SliderKneeWidthCombined)
+        {
+            pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidthSwitch, fValue);
+        }
         else if (slider == SliderAttackRateCombined)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateSwitch, fValue);
@@ -519,6 +542,10 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == SliderRatioCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selRatio, fValue);
+    }
+    else if (slider == SliderKneeWidthCombined)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, fValue);
     }
     else if (slider == SliderAttackRateCombined)
     {

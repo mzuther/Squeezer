@@ -73,6 +73,7 @@ private:
 
     SliderCombined* SliderThresholdCombined;
     SliderCombined* SliderRatioCombined;
+    SliderCombined* SliderKneeWidthCombined;
 
     SliderCombined* SliderAttackRateCombined;
     SliderCombined* SliderReleaseRateCombined;

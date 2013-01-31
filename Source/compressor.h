@@ -54,6 +54,9 @@ public:
     float getRatio();
     void setRatio(float fRatioNew);
 
+    float getKneeWidth();
+    void setKneeWidth(float fKneeWidthNew);
+
     int getAttackRate();
     void setAttackRate(int nAttackRateNew);
 

@@ -180,6 +180,32 @@ void Compressor::setRatio(float fRatioNew)
 }
 
 
+float Compressor::getKneeWidth()
+/*  Get current knee width.
+
+    return value (float): returns the current knee width in decibels
+ */
+{
+    return pGainReducer[0]->getKneeWidth();
+}
+
+
+void Compressor::setKneeWidth(float fKneeWidthNew)
+/*  Set new knee width.
+
+    nKneeWidthNew (float): new knee width in decibels
+
+    return value: none
+ */
+{
+    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    {
+        pGainReducer[nChannel]->setKneeWidth(fKneeWidthNew);
+    }
+
+}
+
+
 int Compressor::getAttackRate()
 /*  Get current attack rate.
 

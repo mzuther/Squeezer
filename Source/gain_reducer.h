@@ -51,6 +51,9 @@ public:
     float getRatio();
     void setRatio(float fRatioNew);
 
+    float getKneeWidth();
+    void setKneeWidth(float fKneeWidthNew);
+
     int getAttackRate();
     void setAttackRate(int nAttackRateNew);
 
@@ -82,7 +85,10 @@ private:
     bool bLogarithmicRelease;
 
     float fThreshold;
-    float fRatio;
+    float fRatioInternal;
+    float fKneeWidth;
+    float fKneeWidthHalf;
+    float fKneeWidthDouble;
 
     int nAttackRate;
     float fAttackCoefficient;

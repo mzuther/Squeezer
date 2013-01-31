@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.10.0"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.20.0"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
               buildAU="1" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
               pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="sqzr"
@@ -26,69 +26,73 @@
         <FILE id="hqup8b" name="resources.cpp" compile="1" resource="0" file="Source/resources/resources.cpp"/>
         <FILE id="H5FiGf" name="resources.h" compile="0" resource="0" file="Source/resources/resources.h"/>
       </GROUP>
-      <FILE id="bKb8Y1" name="compressor.cpp" compile="1" resource="0" file="Source/compressor.cpp"/>
-      <FILE id="g0C2Wo" name="compressor.h" compile="0" resource="0" file="Source/compressor.h"/>
-      <FILE id="uIl8Ya" name="gain_reducer.cpp" compile="1" resource="0"
+      <FILE id="lpud1i" name="compressor.cpp" compile="1" resource="0" file="Source/compressor.cpp"/>
+      <FILE id="MZAY4T" name="compressor.h" compile="0" resource="0" file="Source/compressor.h"/>
+      <FILE id="Fob2C0" name="gain_reducer.cpp" compile="1" resource="0"
             file="Source/gain_reducer.cpp"/>
-      <FILE id="w4ks5v" name="gain_reducer.h" compile="0" resource="0" file="Source/gain_reducer.h"/>
-      <FILE id="bCPEx8" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
-      <FILE id="eRiVCb" name="meter_bar_gain_reduction.cpp" compile="1" resource="0"
+      <FILE id="mtPFWU" name="gain_reducer.h" compile="0" resource="0" file="Source/gain_reducer.h"/>
+      <FILE id="uYFyyA" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
+      <FILE id="btMJw0" name="meter_bar_gain_reduction.cpp" compile="1" resource="0"
             file="Source/meter_bar_gain_reduction.cpp"/>
-      <FILE id="C4wCGZ" name="meter_bar_gain_reduction.h" compile="0" resource="0"
+      <FILE id="O8NKAL" name="meter_bar_gain_reduction.h" compile="0" resource="0"
             file="Source/meter_bar_gain_reduction.h"/>
-      <FILE id="HKf1Xb" name="meter_segment.cpp" compile="1" resource="0"
+      <FILE id="RAoBgK" name="meter_segment.cpp" compile="1" resource="0"
             file="Source/meter_segment.cpp"/>
-      <FILE id="dEWxSP" name="meter_segment.h" compile="0" resource="0" file="Source/meter_segment.h"/>
-      <FILE id="FlP8vb" name="plugin_editor_squeezer.cpp" compile="1" resource="0"
+      <FILE id="j82Z2Y" name="meter_segment.h" compile="0" resource="0" file="Source/meter_segment.h"/>
+      <FILE id="M8wfjs" name="plugin_editor_squeezer.cpp" compile="1" resource="0"
             file="Source/plugin_editor_squeezer.cpp"/>
-      <FILE id="BUM29U" name="plugin_editor_squeezer.h" compile="0" resource="0"
+      <FILE id="EiEiez" name="plugin_editor_squeezer.h" compile="0" resource="0"
             file="Source/plugin_editor_squeezer.h"/>
-      <FILE id="f2Ici2" name="plugin_parameters.cpp" compile="1" resource="0"
+      <FILE id="S5bpEP" name="plugin_parameters.cpp" compile="1" resource="0"
             file="Source/plugin_parameters.cpp"/>
-      <FILE id="JGYKKo" name="plugin_parameters.h" compile="0" resource="0"
+      <FILE id="QVItkt" name="plugin_parameters.h" compile="0" resource="0"
             file="Source/plugin_parameters.h"/>
-      <FILE id="zU6H0d" name="plugin_parameters_squeezer.cpp" compile="1"
+      <FILE id="Pdiayq" name="plugin_parameters_squeezer.cpp" compile="1"
             resource="0" file="Source/plugin_parameters_squeezer.cpp"/>
-      <FILE id="xchrnk" name="plugin_parameters_squeezer.h" compile="0" resource="0"
+      <FILE id="PX1RwM" name="plugin_parameters_squeezer.h" compile="0" resource="0"
             file="Source/plugin_parameters_squeezer.h"/>
-      <FILE id="MKnhHv" name="plugin_processor_squeezer.cpp" compile="1"
+      <FILE id="TrqqeY" name="plugin_processor_squeezer.cpp" compile="1"
             resource="0" file="Source/plugin_processor_squeezer.cpp"/>
-      <FILE id="rn6ois" name="plugin_processor_squeezer.h" compile="0" resource="0"
+      <FILE id="ERc7g0" name="plugin_processor_squeezer.h" compile="0" resource="0"
             file="Source/plugin_processor_squeezer.h"/>
-      <FILE id="EvKWvY" name="prohibiting_bounds_constrainer.h" compile="0"
+      <FILE id="qUugUB" name="prohibiting_bounds_constrainer.h" compile="0"
             resource="0" file="Source/prohibiting_bounds_constrainer.h"/>
-      <FILE id="udwH1d" name="slider_combined.cpp" compile="1" resource="0"
+      <FILE id="y9dhwS" name="slider_combined.cpp" compile="1" resource="0"
             file="Source/slider_combined.cpp"/>
-      <FILE id="e2MJr2" name="slider_combined.h" compile="0" resource="0"
+      <FILE id="Md6gBW" name="slider_combined.h" compile="0" resource="0"
             file="Source/slider_combined.h"/>
-      <FILE id="FSrDIf" name="slider_continuous.cpp" compile="1" resource="0"
+      <FILE id="l3PLlN" name="slider_continuous.cpp" compile="1" resource="0"
             file="Source/slider_continuous.cpp"/>
-      <FILE id="GmoF6a" name="slider_continuous.h" compile="0" resource="0"
+      <FILE id="s4Zwg0" name="slider_continuous.h" compile="0" resource="0"
             file="Source/slider_continuous.h"/>
-      <FILE id="pCuH4A" name="slider_switch.cpp" compile="1" resource="0"
+      <FILE id="GuXNfr" name="slider_switch.cpp" compile="1" resource="0"
             file="Source/slider_switch.cpp"/>
-      <FILE id="FpBw5c" name="slider_switch.h" compile="0" resource="0" file="Source/slider_switch.h"/>
-      <FILE id="Kuq8jj" name="standalone_application.cpp" compile="1" resource="0"
+      <FILE id="kg18LW" name="slider_switch.h" compile="0" resource="0" file="Source/slider_switch.h"/>
+      <FILE id="yl1vGU" name="standalone_application.cpp" compile="1" resource="0"
             file="Source/standalone_application.cpp"/>
-      <FILE id="WhyLNz" name="standalone_application.h" compile="0" resource="0"
+      <FILE id="QhDSgB" name="standalone_application.h" compile="0" resource="0"
             file="Source/standalone_application.h"/>
-      <FILE id="qm0ZZK" name="window_about.cpp" compile="1" resource="0"
+      <FILE id="tPpfbQ" name="window_about.cpp" compile="1" resource="0"
             file="Source/window_about.cpp"/>
-      <FILE id="A6a0HS" name="window_about.h" compile="0" resource="0" file="Source/window_about.h"/>
-      <FILE id="PpupWT" name="wrapped_parameter.h" compile="0" resource="0"
+      <FILE id="h6FxwI" name="window_about.h" compile="0" resource="0" file="Source/window_about.h"/>
+      <FILE id="HnVScQ" name="wrapped_parameter.h" compile="0" resource="0"
             file="Source/wrapped_parameter.h"/>
-      <FILE id="jgJZhr" name="wrapped_parameter_combined.cpp" compile="1"
+      <FILE id="XKaqCu" name="wrapped_parameter_combined.cpp" compile="1"
             resource="0" file="Source/wrapped_parameter_combined.cpp"/>
-      <FILE id="SGLuB1" name="wrapped_parameter_combined.h" compile="0" resource="0"
+      <FILE id="XtN4Fu" name="wrapped_parameter_combined.h" compile="0" resource="0"
             file="Source/wrapped_parameter_combined.h"/>
-      <FILE id="V6BLEi" name="wrapped_parameter_continuous.cpp" compile="1"
+      <FILE id="v1Ep9j" name="wrapped_parameter_continuous.cpp" compile="1"
             resource="0" file="Source/wrapped_parameter_continuous.cpp"/>
-      <FILE id="Z73J4B" name="wrapped_parameter_continuous.h" compile="0"
+      <FILE id="JdsIOv" name="wrapped_parameter_continuous.h" compile="0"
             resource="0" file="Source/wrapped_parameter_continuous.h"/>
-      <FILE id="Ok8UNq" name="wrapped_parameter_switch.cpp" compile="1" resource="0"
+      <FILE id="TM1ASx" name="wrapped_parameter_switch.cpp" compile="1" resource="0"
             file="Source/wrapped_parameter_switch.cpp"/>
-      <FILE id="uCv77e" name="wrapped_parameter_switch.h" compile="0" resource="0"
+      <FILE id="vSKtz5" name="wrapped_parameter_switch.h" compile="0" resource="0"
             file="Source/wrapped_parameter_switch.h"/>
+      <FILE id="RXR9BC" name="wrapped_parameter_toggle_switch.cpp" compile="1"
+            resource="0" file="Source/wrapped_parameter_toggle_switch.cpp"/>
+      <FILE id="dcbHWq" name="wrapped_parameter_toggle_switch.h" compile="0"
+            resource="0" file="Source/wrapped_parameter_toggle_switch.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

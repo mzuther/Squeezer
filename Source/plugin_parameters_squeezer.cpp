@@ -127,6 +127,24 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
 
     fMinimum = 0.0f;
+    fMaximum = 48.0f;
+    fResolution = 6.0f;
+    fLogFactor = 0.0f;
+    nDecimalPlaces = 0;
+
+    ParameterKneeWidth = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterKneeWidth->setName("Knee Width");
+
+    ParameterKneeWidth->addConstant(0.0f,  "Hard");
+    ParameterKneeWidth->addConstant(12.0f, "Medium");
+    ParameterKneeWidth->addConstant(48.0f, "Soft");
+
+    ParameterKneeWidth->setSuffix(" dB");
+    ParameterKneeWidth->setDefaultRealFloat(0.0f, true);
+    addCombined(ParameterKneeWidth, selKneeWidth, selKneeWidthSwitch);
+
+
+    fMinimum = 0.0f;
     fMaximum = 500.0f;
     fResolution = 1.0f;
     fLogFactor = 2.0f;
@@ -300,6 +318,9 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
 
     delete ParameterRatio;
     ParameterRatio = NULL;
+
+    delete ParameterKneeWidth;
+    ParameterKneeWidth = NULL;
 
     delete ParameterAttackRate;
     ParameterAttackRate = NULL;

@@ -41,6 +41,7 @@ GainReducer::GainReducer(int nSampleRate)
 
     setThreshold(-12.0f);
     setRatio(2.0f);
+    setKneeWidth(0.0f);
 
     setAttackRate(10);
     setLogarithmicAttack(SqueezerPluginParameters::selAttackCurveLogarithmic);
@@ -141,7 +142,7 @@ float GainReducer::getRatio()
     return value (float): returns the current compression ratio
  */
 {
-    return 1.0f / fRatio;
+    return 1.0f / (1.0f - fRatioInternal);
 }
 
 
@@ -153,8 +154,32 @@ void GainReducer::setRatio(float fRatioNew)
     return value: none
  */
 {
-    fRatio = 1.0f / fRatioNew;
+    fRatioInternal = 1.0f - (1.0f / fRatioNew);
     fGainCompensation = calculateFinalGainReduction(fCrestFactorAutoGain);
+}
+
+
+float GainReducer::getKneeWidth()
+/*  Get current knee width.
+
+    return value (float): returns the current knee width in decibels
+ */
+{
+    return fKneeWidth;
+}
+
+
+void GainReducer::setKneeWidth(float fKneeWidthNew)
+/*  Set new knee width.
+
+    nKneeWidthNew (float): new knee width in decibels
+
+    return value: none
+ */
+{
+    fKneeWidth = fKneeWidthNew;
+    fKneeWidthHalf = fKneeWidth / 2.0f;
+    fKneeWidthDouble = fKneeWidth * 2.0f;
 }
 
 
@@ -327,13 +352,39 @@ float GainReducer::calculateFinalGainReduction(float fInputLevel)
     return value: calculated final gain reduction in decibels
  */
 {
-    if (fInputLevel > fThreshold)
+    float fAboveThreshold = fInputLevel - fThreshold;
+
+    if (fKneeWidth == 0.0f)
     {
-        return (fInputLevel - fThreshold) * (1.0f - fRatio);
+        if (fInputLevel <= fThreshold)
+        {
+            return 0.0f;
+        }
+        else
+        {
+            return fAboveThreshold * fRatioInternal;
+        }
     }
     else
     {
-        return 0.0f;
+        // algorithm adapted from Giannoulis et al., "Digital Dynamic
+        // Range Compressor Design - A Tutorial and Analysis", JAES,
+        // 60(6):399-408, 2012
+        if (fAboveThreshold < -fKneeWidthHalf)
+        {
+            return 0.0f;
+        }
+        else if (fAboveThreshold > fKneeWidthHalf)
+        {
+            return fAboveThreshold * fRatioInternal;
+        }
+        else
+        {
+            float fFactor = fAboveThreshold + fKneeWidthHalf;
+            float fFactorSquared = fFactor * fFactor;
+
+            return fFactorSquared / fKneeWidthDouble * fRatioInternal;
+        }
     }
 }
 

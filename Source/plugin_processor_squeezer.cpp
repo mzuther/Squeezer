@@ -173,6 +173,18 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
+    case SqueezerPluginParameters::selKneeWidth:
+
+        pPluginParameters->setFloat(nIndex, fValue);
+
+        if (pCompressor)
+        {
+            float fKneeWidth = pPluginParameters->getRealFloat(nIndex);
+            pCompressor->setKneeWidth(fKneeWidth);
+        }
+
+        break;
+
     case SqueezerPluginParameters::selAttackRate:
 
         pPluginParameters->setFloat(nIndex, fValue);
@@ -267,11 +279,15 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
             {
             case SqueezerPluginParameters::selThresholdSwitch:
             case SqueezerPluginParameters::selRatioSwitch:
+            case SqueezerPluginParameters::selKneeWidthSwitch:
+
             case SqueezerPluginParameters::selAttackRateSwitch:
             case SqueezerPluginParameters::selReleaseRateSwitch:
             case SqueezerPluginParameters::selStereoLinkSwitch:
+
             case SqueezerPluginParameters::selOutputGainSwitch:
             case SqueezerPluginParameters::selWetMixSwitch:
+
                 pCombined->setMode(fValue != 0.0f);
                 break;
 
@@ -450,6 +466,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     float fThreshold = pPluginParameters->getRealFloat(SqueezerPluginParameters::selThreshold);
     float fRatio = pPluginParameters->getRealFloat(SqueezerPluginParameters::selRatio);
+    float fKneeWidth = pPluginParameters->getRealFloat(SqueezerPluginParameters::selKneeWidth);
 
     int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRate);
     int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRate);
@@ -469,6 +486,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setThreshold(fThreshold);
     pCompressor->setRatio(fRatio);
+    pCompressor->setKneeWidth(fKneeWidth);
 
     pCompressor->setAttackRate(nAttackRate);
     pCompressor->setReleaseRate(nReleaseRate);
