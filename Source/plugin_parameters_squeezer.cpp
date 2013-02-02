@@ -48,10 +48,10 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterDesign = new WrappedParameterSwitch();
     ParameterDesign->setName("Design");
 
-    ParameterDesign->addConstant(selDesignModern,  "Modern");
-    ParameterDesign->addConstant(selDesignVintage, "Vintage");
+    ParameterDesign->addConstant(Compressor::DesignModern,  "Modern");
+    ParameterDesign->addConstant(Compressor::DesignVintage, "Vintage");
 
-    ParameterDesign->setDefaultRealFloat(selDesignModern, true);
+    ParameterDesign->setDefaultRealFloat(Compressor::DesignModern, true);
     add(ParameterDesign, selDesign);
 
 
@@ -167,16 +167,6 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterAttackRate, selAttackRate, selAttackRateSwitch);
 
 
-    ParameterAttackCurve = new WrappedParameterSwitch();
-    ParameterAttackCurve->setName("Attack Curve");
-
-    ParameterAttackCurve->addConstant(selAttackCurveLinear,      "Linear");
-    ParameterAttackCurve->addConstant(selAttackCurveLogarithmic, "Logarithmic");
-
-    ParameterAttackCurve->setDefaultRealFloat(selAttackCurveLogarithmic, true);
-    add(ParameterAttackCurve, selAttackCurve);
-
-
     fMinimum = 0.0f;
     fMaximum = 8000.0f;
     fResolution = 1.0f;
@@ -208,14 +198,14 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterReleaseRate, selReleaseRate, selReleaseRateSwitch);
 
 
-    ParameterReleaseCurve = new WrappedParameterSwitch();
-    ParameterReleaseCurve->setName("Release Curve");
+    ParameterDetector = new WrappedParameterSwitch();
+    ParameterDetector->setName("Detector");
 
-    ParameterReleaseCurve->addConstant(selReleaseCurveLinear,      "Linear");
-    ParameterReleaseCurve->addConstant(selReleaseCurveLogarithmic, "Logarithmic");
+    ParameterDetector->addConstant(Compressor::DetectorLinear,          "Linear");
+    ParameterDetector->addConstant(Compressor::DetectorSmoothBranching, "Logarithmic");
 
-    ParameterReleaseCurve->setDefaultRealFloat(selReleaseCurveLogarithmic, true);
-    add(ParameterReleaseCurve, selReleaseCurve);
+    ParameterDetector->setDefaultRealFloat(Compressor::DetectorSmoothBranching, true);
+    add(ParameterDetector, selDetector);
 
 
     fMinimum = 0.0f;
@@ -325,14 +315,11 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterAttackRate;
     ParameterAttackRate = NULL;
 
-    delete ParameterAttackCurve;
-    ParameterAttackCurve = NULL;
-
     delete ParameterReleaseRate;
     ParameterReleaseRate = NULL;
 
-    delete ParameterReleaseCurve;
-    ParameterReleaseCurve = NULL;
+    delete ParameterDetector;
+    ParameterDetector = NULL;
 
     delete ParameterStereoLink;
     ParameterStereoLink = NULL;

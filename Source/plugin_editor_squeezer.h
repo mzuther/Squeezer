@@ -27,6 +27,7 @@
 #define __PLUGINEDITOR_SQUEEZER_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "compressor.h"
 #include "meter_bar_gain_reduction.h"
 #include "plugin_processor_squeezer.h"
 #include "slider_combined.h"
@@ -78,11 +79,8 @@ private:
     SliderCombined* SliderAttackRateCombined;
     SliderCombined* SliderReleaseRateCombined;
 
-    TextButton* ButtonAttackCurveLinear;
-    TextButton* ButtonAttackCurveLogarithmic;
-
-    TextButton* ButtonReleaseCurveLinear;
-    TextButton* ButtonReleaseCurveLogarithmic;
+    TextButton* ButtonDetectorLinear;
+    TextButton* ButtonDetectorSmoothBranching;
 
     SliderCombined* SliderStereoLinkCombined;
 

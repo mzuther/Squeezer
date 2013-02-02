@@ -37,17 +37,14 @@ GainReducer::GainReducer(int nSampleRate)
 {
     setSampleRate(nSampleRate);
 
-    setDesign(SqueezerPluginParameters::selDesignModern);
-
     setThreshold(-12.0f);
     setRatio(2.0f);
     setKneeWidth(0.0f);
 
+    bLogarithmic = true;
     setAttackRate(10);
-    setLogarithmicAttack(SqueezerPluginParameters::selAttackCurveLogarithmic);
-
     setReleaseRate(100);
-    setLogarithmicRelease(SqueezerPluginParameters::selReleaseCurveLogarithmic);
+    setDetector(Compressor::DetectorSmoothBranching);
 
     fCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;
@@ -85,31 +82,7 @@ void GainReducer::setSampleRate(int nSampleRate)
     return value: none
  */
 {
-    // calculate time that passes for every sample (in fractional
-    // seconds)
-    fTimePassed = 1.0f / nSampleRate;
-}
-
-
-int GainReducer::getDesign()
-/*  Get current compressor design.
-
-    return value (integer): returns the current compressor design
- */
-{
-    return nDesign;
-}
-
-
-void GainReducer::setDesign(int nDesignNew)
-/*  Set new compressor design.
-
-    nDesignNew (integer): new compressor design
-
-    return value: none
- */
-{
-    nDesign = nDesignNew;
+    fSampleRate = (float) nSampleRate;
 }
 
 
@@ -212,17 +185,17 @@ void GainReducer::setAttackRate(int nAttackRateNew)
     {
         float fAttackRateSeconds = nAttackRate / 1000.0f;
 
-        if (bLogarithmicAttack)
+        if (bLogarithmic)
         {
             // logarithmic envelope reaches 95% of the final reading
             // in the given attack time
-            fAttackCoefficient = powf(0.05f, fTimePassed / fAttackRateSeconds);
+            fAttackCoefficient = expf(logf(0.05f) / (fAttackRateSeconds * fSampleRate));
         }
         else
         {
             // rise time: rises 10 dB per interval defined in attack
             // rate (linear)
-            fAttackCoefficient = 10.0f * fTimePassed / fAttackRateSeconds;
+            fAttackCoefficient = 10.0f / (fAttackRateSeconds * fSampleRate);
         }
     }
 }
@@ -257,68 +230,44 @@ void GainReducer::setReleaseRate(int nReleaseRateNew)
     {
         float fReleaseRateSeconds = nReleaseRate / 1000.0f;
 
-        if (bLogarithmicRelease)
+        if (bLogarithmic)
         {
             // logarithmic envelope reaches 95% of the final reading
             // in the given release time
-            fReleaseCoefficient = powf(0.05f, fTimePassed / fReleaseRateSeconds);
+            fReleaseCoefficient = expf(logf(0.05f) / (fReleaseRateSeconds * fSampleRate));
         }
         else
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
-            fReleaseCoefficient = 10.0f * fTimePassed / fReleaseRateSeconds;
+            fReleaseCoefficient = 10.0f / (fReleaseRateSeconds * fSampleRate);
         }
     }
 }
 
 
-bool GainReducer::getLogarithmicAttack()
-/*  Get current compressor envelope attack type.
+int GainReducer::getDetector()
+/*  Get current compressor detector type.
 
-    return value (boolean): returns whether envelope attack reacts in
-    a logarithmic (as opposed to linear) way
+    return value (integer): returns compressor detector type
  */
 {
-    return bLogarithmicAttack;
+    return nDetector;
 }
 
 
-void GainReducer::setLogarithmicAttack(bool bLogarithmicAttackNew)
-/*  Set new compressor envelope attack type.
+void GainReducer::setDetector(int nDetectorNew)
+/*  Set new compressor detector type.
 
-    bLogarithmicAttackNew (boolean): determines whether envelope
-    attack reacts in a logarithmic (as opposed to linear) way
+    nDetectorNew (integer): new compressor detector type
 
     return value: none
  */
 {
-    bLogarithmicAttack = bLogarithmicAttackNew;
+    nDetector = nDetectorNew;
+    bLogarithmic = (nDetector == Compressor::DetectorSmoothBranching);
+
     setAttackRate(nAttackRate);
-}
-
-
-bool GainReducer::getLogarithmicRelease()
-/*  Get current compressor envelope release type.
-
-    return value (boolean): returns whether envelope release reacts in
-    a logarithmic (as opposed to linear) way
- */
-{
-    return bLogarithmicRelease;
-}
-
-
-void GainReducer::setLogarithmicRelease(bool bLogarithmicReleaseNew)
-/*  Set new compressor envelope release type.
-
-    bLogarithmicReleaseNew (boolean): determines whether envelope
-    release reacts in a logarithmic (as opposed to linear) way
-
-    return value: none
- */
-{
-    bLogarithmicRelease = bLogarithmicReleaseNew;
     setReleaseRate(nReleaseRate);
 }
 
@@ -397,27 +346,51 @@ void GainReducer::processSample(float fInputLevel)
     return value: current gain reduction in decibels
 */
 {
-    float fGainReductionFinal = calculateFinalGainReduction(fInputLevel);
+    // feed input level to gain computer
+    float fGainReductionNew = calculateFinalGainReduction(fInputLevel);
 
-    if (fGainReductionFinal == fGainReduction)
+    // feed output from gain computer to level detector
+    if (bLogarithmic)
+    {
+        applySmoothBranchingPeakDetector(fGainReductionNew);
+    }
+    else
+    {
+        applyLinearPeakDetector(fGainReductionNew);
+    }
+}
+
+
+void GainReducer::applyLinearPeakDetector(float fGainReductionNew)
+/*  Calculate linear peak detector.
+
+    fGainReductionNew (float): calculated new gain reduction in
+    decibels
+
+    return value: none
+*/
+{
+    // no change in gain reduction
+    if (fGainReductionNew == fGainReduction)
     {
         return;
     }
     // apply attack rate if proposed gain reduction is above old gain
     // reduction
-    else if (fGainReductionFinal > fGainReduction)
+    else if (fGainReductionNew > fGainReduction)
     {
         if (fAttackCoefficient == 0.0f)
         {
-            fGainReduction = fGainReductionFinal;
-        }
-        else if (bLogarithmicAttack)
-        {
-            applyLogarithmicAttack(fGainReductionFinal);
+            fGainReduction = fGainReductionNew;
         }
         else
         {
-            applyLinearAttack(fGainReductionFinal);
+            fGainReduction += fAttackCoefficient;
+
+            if (fGainReduction > fGainReductionNew)
+            {
+                fGainReduction = fGainReductionNew;
+            }
         }
     }
     // otherwise, apply release rate if proposed gain reduction is
@@ -426,87 +399,65 @@ void GainReducer::processSample(float fInputLevel)
     {
         if (fReleaseCoefficient == 0.0f)
         {
-            fGainReduction = fGainReductionFinal;
-        }
-        else if (bLogarithmicRelease)
-        {
-            applyLogarithmicRelease(fGainReductionFinal);
+            fGainReduction = fGainReductionNew;
         }
         else
         {
-            applyLinearRelease(fGainReductionFinal);
+            fGainReduction -= fReleaseCoefficient;
+
+            if (fGainReduction < fGainReductionNew)
+            {
+                fGainReduction = fGainReductionNew;
+            }
         }
     }
 }
 
 
-void GainReducer::applyLinearAttack(float fGainReductionFinal)
-/*  Calculate linear envelope follower (attack part).
+void GainReducer::applySmoothBranchingPeakDetector(float fGainReductionNew)
+/*  Calculate smooth branching peak detector.
 
-    fGainReductionFinal (float): calculated final gain reduction in
-    decibels
+    fGainReductionNew (float): calculated gain reduction in decibels
 
     return value: none
 */
 {
-    fGainReduction += fAttackCoefficient;
-
-    if (fGainReduction > fGainReductionFinal)
+    // apply attack rate if proposed gain reduction is above old gain
+    // reduction
+    if (fGainReductionNew > fGainReduction)
     {
-        fGainReduction = fGainReductionFinal;
+        if (fAttackCoefficient == 0.0f)
+        {
+            fGainReduction = fGainReductionNew;
+        }
+        else
+        {
+            // algorithm adapted from Giannoulis et al., "Digital
+            // Dynamic Range Compressor Design - A Tutorial and
+            // Analysis", JAES, 60(6):399-408, 2012
+
+            float fGainReductionOld = fGainReduction;
+            fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionNew;
+        }
     }
-}
-
-
-void GainReducer::applyLinearRelease(float fGainReductionFinal)
-/*  Calculate linear envelope follower (release part).
-
-    fGainReductionFinal (float): calculated final gain reduction in
-    decibels
-
-    return value: none
-*/
-{
-    fGainReduction -= fReleaseCoefficient;
-
-    if (fGainReduction < fGainReductionFinal)
+    // otherwise, apply release rate if proposed gain reduction is
+    // below old gain reduction
+    else
     {
-        fGainReduction = fGainReductionFinal;
+        if (fReleaseCoefficient == 0.0f)
+        {
+            fGainReduction = fGainReductionNew;
+        }
+        else
+        {
+            // algorithm adapted from Giannoulis et al., "Digital
+            // Dynamic Range Compressor Design - A Tutorial and
+            // Analysis", JAES, 60(6):399-408, 2012
+
+            float fGainReductionOld = fGainReduction;
+            fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
+        }
     }
-}
-
-
-void GainReducer::applyLogarithmicAttack(float fGainReductionFinal)
-/*  Calculate logarithmic envelope follower (attack part).
-
-    fGainReductionFinal (float): calculated final gain reduction in
-    decibels
-
-    return value: none
-*/
-{
-    // Thanks to Bram from Smartelectronix for the code snippet!
-    // (http://www.musicdsp.org/showone.php?id=136)
-    //
-    // rise and fall: 95% of final reading in "fMeterInertia" seconds
-    fGainReduction = fAttackCoefficient * (fGainReduction - fGainReductionFinal) + fGainReductionFinal;
-}
-
-
-void GainReducer::applyLogarithmicRelease(float fGainReductionFinal)
-/*  Calculate logarithmic envelope follower (release part).
-
-    fGainReductionFinal (float): calculated final gain reduction in
-    decibels
-
-    return value: none
-*/
-{
-    // Thanks to Bram from Smartelectronix for the code snippet!
-    // (http://www.musicdsp.org/showone.php?id=136)
-    //
-    // rise and fall: 95% of final reading in "fMeterInertia" seconds
-    fGainReduction = fReleaseCoefficient * (fGainReduction - fGainReductionFinal) + fGainReductionFinal;
 }
 
 

@@ -27,6 +27,7 @@
 #define __GAIN_REDUCER_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "compressor.h"
 #include "plugin_processor_squeezer.h"
 
 
@@ -41,9 +42,6 @@ public:
 
     void setSampleRate(int nSampleRate);
     void reset();
-
-    int getDesign();
-    void setDesign(int nDesignNew);
 
     float getThreshold();
     void setThreshold(float fThresholdNew);
@@ -60,11 +58,8 @@ public:
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
 
-    bool getLogarithmicAttack();
-    void setLogarithmicAttack(bool bLogarithmicAttackNew);
-
-    bool getLogarithmicRelease();
-    void setLogarithmicRelease(bool bLogarithmicReleaseNew);
+    int getDetector();
+    void setDetector(int nDetectorNew);
 
     float getGainReduction(bool useGainCompensation);
 
@@ -75,14 +70,13 @@ public:
 private:
     JUCE_LEAK_DETECTOR(GainReducer);
 
-    float fTimePassed;
+    float fSampleRate;
     float fCrestFactorAutoGain;
     float fGainReduction;
     float fGainCompensation;
 
-    int nDesign;
-    bool bLogarithmicAttack;
-    bool bLogarithmicRelease;
+    int nDetector;
+    bool bLogarithmic;
 
     float fThreshold;
     float fRatioInternal;
@@ -97,10 +91,8 @@ private:
     float fReleaseCoefficient;
 
     float calculateFinalGainReduction(float fInputLevel);
-    void applyLinearAttack(float fGainReductionFinal);
-    void applyLinearRelease(float fGainReductionFinal);
-    void applyLogarithmicAttack(float fGainReductionFinal);
-    void applyLogarithmicRelease(float fGainReductionFinal);
+    void applyLinearPeakDetector(float fGainReductionNew);
+    void applySmoothBranchingPeakDetector(float fGainReductionNew);
 
     static float fMeterMinimumDecibel;
 };

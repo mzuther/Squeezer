@@ -39,7 +39,7 @@ Compressor::Compressor(int channels, int sample_rate)
 
     nWetMix = 100;
     setBypass(false);
-    bDesignModern = true;
+    setDesign(DesignModern);
 
     setStereoLink(100);
 
@@ -109,7 +109,7 @@ int Compressor::getDesign()
     return value (integer): returns the current compressor design
  */
 {
-    return pGainReducer[0]->getDesign();
+    return nDesign;
 }
 
 
@@ -121,12 +121,8 @@ void Compressor::setDesign(int nDesignNew)
     return value: none
  */
 {
-    bDesignModern = (nDesignNew == SqueezerPluginParameters::selDesignModern);
-
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
-    {
-        pGainReducer[nChannel]->setDesign(nDesignNew);
-    }
+    nDesign = nDesignNew;
+    bDesignModern = (nDesign == DesignModern);
 }
 
 
@@ -258,56 +254,27 @@ void Compressor::setReleaseRate(int nReleaseRateNew)
 }
 
 
-bool Compressor::getLogarithmicAttack()
-/*  Get current compressor envelope attack type.
+int Compressor::getDetector()
+/*  Get current compressor detector type.
 
-    return value (boolean): returns whether envelope attack reacts in
-    a logarithmic (as opposed to linear) way
+    return value (integer): returns compressor detector type
  */
 {
-    return pGainReducer[0]->getLogarithmicAttack();
+    return pGainReducer[0]->getDetector();
 }
 
 
-void Compressor::setLogarithmicAttack(bool bLogarithmicAttackNew)
-/*  Set new compressor envelope attack type.
+void Compressor::setDetector(int nDetectorNew)
+/*  Set new compressor detector type.
 
-    bLogarithmicAttackNew (boolean): determines whether envelope
-    attack reacts in a logarithmic (as opposed to linear) way
+    nDetectorNew (integer): new compressor detector type
 
     return value: none
  */
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setLogarithmicAttack(bLogarithmicAttackNew);
-    }
-}
-
-
-bool Compressor::getLogarithmicRelease()
-/*  Get current compressor envelope release type.
-
-    return value (boolean): returns whether envelope release reacts in
-    a logarithmic (as opposed to linear) way
- */
-{
-    return pGainReducer[0]->getLogarithmicRelease();
-}
-
-
-void Compressor::setLogarithmicRelease(bool bLogarithmicReleaseNew)
-/*  Set new compressor envelope release type.
-
-    bLogarithmicReleaseNew (boolean): determines whether envelope
-    release reacts in a logarithmic (as opposed to linear) way
-
-    return value: none
- */
-{
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
-    {
-        pGainReducer[nChannel]->setLogarithmicRelease(bLogarithmicReleaseNew);
+        pGainReducer[nChannel]->setDetector(nDetectorNew);
     }
 }
 

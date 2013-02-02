@@ -209,26 +209,14 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
-    case SqueezerPluginParameters::selAttackCurve:
+    case SqueezerPluginParameters::selDetector:
 
         pPluginParameters->setFloat(nIndex, fValue);
 
         if (pCompressor)
         {
-            bool bLogarithmicAttack = pPluginParameters->getBoolean(nIndex);
-            pCompressor->setLogarithmicAttack(bLogarithmicAttack);
-        }
-
-        break;
-
-    case SqueezerPluginParameters::selReleaseCurve:
-
-        pPluginParameters->setFloat(nIndex, fValue);
-
-        if (pCompressor)
-        {
-            bool bLogarithmicRelease = pPluginParameters->getBoolean(nIndex);
-            pCompressor->setLogarithmicRelease(bLogarithmicRelease);
+            int nDetector = pPluginParameters->getRealInteger(nIndex);
+            pCompressor->setDetector(nDetector);
         }
 
         break;
@@ -470,12 +458,9 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRate);
     int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRate);
-
-    bool bLogarithmicAttack = pPluginParameters->getBoolean(SqueezerPluginParameters::selAttackCurve);
-    bool bLogarithmicRelease = pPluginParameters->getBoolean(SqueezerPluginParameters::selReleaseCurve);
+    int nDetector = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDetector);
 
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLink);
-
     float fOutputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selOutputGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
@@ -490,12 +475,9 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setAttackRate(nAttackRate);
     pCompressor->setReleaseRate(nReleaseRate);
-
-    pCompressor->setLogarithmicAttack(bLogarithmicAttack);
-    pCompressor->setLogarithmicRelease(bLogarithmicRelease);
+    pCompressor->setDetector(nDetector);
 
     pCompressor->setStereoLink(nStereoLink);
-
     pCompressor->setOutputGain(fOutputGain);
     pCompressor->setWetMix(nWetMix);
 }

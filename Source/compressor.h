@@ -39,6 +39,15 @@ class Compressor
 public:
     //==========================================================================
 
+    enum Parameters  // public namespace!
+    {
+        DesignModern = 0,
+        DesignVintage,
+
+        DetectorLinear = 0,
+        DetectorSmoothBranching,
+    };
+
     Compressor(int channels, int sample_rate);
     ~Compressor();
 
@@ -63,11 +72,8 @@ public:
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
 
-    bool getLogarithmicAttack();
-    void setLogarithmicAttack(bool bLogarithmicAttackNew);
-
-    bool getLogarithmicRelease();
-    void setLogarithmicRelease(bool bLogarithmicReleaseNew);
+    int getDetector();
+    void setDetector(int nDetectorNew);
 
     int getStereoLink();
     void setStereoLink(int nStereoLinkNew);
@@ -93,6 +99,7 @@ private:
 
     int nChannels;
     float fCrestFactor;
+    int nDesign;
 
     bool bBypassCompressor;
     bool bBypassCompressorCombined;

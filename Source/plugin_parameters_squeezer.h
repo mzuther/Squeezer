@@ -29,6 +29,7 @@
 class SqueezerPluginParameters;
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "compressor.h"
 #include "plugin_parameters.h"
 #include "wrapped_parameter_combined.h"
 #include "wrapped_parameter_switch.h"
@@ -60,10 +61,9 @@ public:
 
         selAttackRateSwitch,
         selAttackRate,
-        selAttackCurve,
         selReleaseRateSwitch,
         selReleaseRate,
-        selReleaseCurve,
+        selDetector,
 
         selStereoLinkSwitch,
         selStereoLink,
@@ -75,15 +75,6 @@ public:
         nNumParametersRevealed,
 
         nNumParametersComplete = nNumParametersRevealed,
-
-        selDesignModern = 0,
-        selDesignVintage,
-
-        selAttackCurveLinear = 0,
-        selAttackCurveLogarithmic,
-
-        selReleaseCurveLinear = 0,
-        selReleaseCurveLogarithmic,
     };
 
 private:
@@ -97,9 +88,8 @@ private:
     WrappedParameterCombined* ParameterKneeWidth;
 
     WrappedParameterCombined* ParameterAttackRate;
-    WrappedParameterSwitch* ParameterAttackCurve;
     WrappedParameterCombined* ParameterReleaseRate;
-    WrappedParameterSwitch* ParameterReleaseCurve;
+    WrappedParameterSwitch* ParameterDetector;
 
     WrappedParameterCombined* ParameterStereoLink;
     WrappedParameterCombined* ParameterOutputGain;
