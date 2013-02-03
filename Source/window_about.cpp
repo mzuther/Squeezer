@@ -96,8 +96,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        L"Martin Zuther\n"
-        L"bram@smartelectronix\n\n"
+        L"Martin Zuther\n\n"
     );
 
     // // display the beta testers

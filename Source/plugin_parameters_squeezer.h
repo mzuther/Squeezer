@@ -51,6 +51,7 @@ public:
     {
         selBypass = 0,
         selDesign,
+        selDetector,
 
         selThresholdSwitch,
         selThreshold,
@@ -63,7 +64,6 @@ public:
         selAttackRate,
         selReleaseRateSwitch,
         selReleaseRate,
-        selDetector,
 
         selStereoLinkSwitch,
         selStereoLink,
@@ -82,6 +82,7 @@ private:
 
     WrappedParameterSwitch* ParameterBypass;
     WrappedParameterSwitch* ParameterDesign;
+    WrappedParameterSwitch* ParameterDetector;
 
     WrappedParameterCombined* ParameterThreshold;
     WrappedParameterCombined* ParameterRatio;
@@ -89,7 +90,6 @@ private:
 
     WrappedParameterCombined* ParameterAttackRate;
     WrappedParameterCombined* ParameterReleaseRate;
-    WrappedParameterSwitch* ParameterDetector;
 
     WrappedParameterCombined* ParameterStereoLink;
     WrappedParameterCombined* ParameterMakeupGain;

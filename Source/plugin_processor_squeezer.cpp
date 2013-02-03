@@ -149,6 +149,18 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
+    case SqueezerPluginParameters::selDetector:
+
+        pPluginParameters->setFloat(nIndex, fValue);
+
+        if (pCompressor)
+        {
+            int nDetector = pPluginParameters->getRealInteger(nIndex);
+            pCompressor->setDetector(nDetector);
+        }
+
+        break;
+
     case SqueezerPluginParameters::selThreshold:
 
         pPluginParameters->setFloat(nIndex, fValue);
@@ -205,18 +217,6 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
         {
             int nReleaseRate = pPluginParameters->getRealInteger(nIndex);
             pCompressor->setReleaseRate(nReleaseRate);
-        }
-
-        break;
-
-    case SqueezerPluginParameters::selDetector:
-
-        pPluginParameters->setFloat(nIndex, fValue);
-
-        if (pCompressor)
-        {
-            int nDetector = pPluginParameters->getRealInteger(nIndex);
-            pCompressor->setDetector(nDetector);
         }
 
         break;
@@ -449,8 +449,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     DBG("[Squeezer] number of input channels: " + String(nNumInputChannels));
 
     bool bBypassCompressor = pPluginParameters->getBoolean(SqueezerPluginParameters::selBypass);
-
     int nDesign = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDesign);
+    int nDetector = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDetector);
 
     float fThreshold = pPluginParameters->getRealFloat(SqueezerPluginParameters::selThreshold);
     float fRatio = pPluginParameters->getRealFloat(SqueezerPluginParameters::selRatio);
@@ -458,7 +458,6 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRate);
     int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRate);
-    int nDetector = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDetector);
 
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLink);
     float fMakeupGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selMakeupGain);
@@ -468,6 +467,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setBypass(bBypassCompressor);
     pCompressor->setDesign(nDesign);
+    pCompressor->setDetector(nDetector);
 
     pCompressor->setThreshold(fThreshold);
     pCompressor->setRatio(fRatio);
@@ -475,7 +475,6 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setAttackRate(nAttackRate);
     pCompressor->setReleaseRate(nReleaseRate);
-    pCompressor->setDetector(nDetector);
 
     pCompressor->setStereoLink(nStereoLink);
     pCompressor->setMakeupGain(fMakeupGain);

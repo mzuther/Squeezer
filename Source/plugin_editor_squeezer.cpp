@@ -67,6 +67,33 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonDesignVintage);
 
 
+    ButtonDetectorLinear = new TextButton("Linear");
+    ButtonDetectorLinear->setRadioGroupId(2);
+    ButtonDetectorLinear->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDetectorLinear->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonDetectorLinear->addListener(this);
+    addAndMakeVisible(ButtonDetectorLinear);
+
+
+    ButtonDetectorSmoothBranching = new TextButton("Log");
+    ButtonDetectorSmoothBranching->setRadioGroupId(2);
+    ButtonDetectorSmoothBranching->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05));
+
+    ButtonDetectorSmoothBranching->addListener(this);
+    addAndMakeVisible(ButtonDetectorSmoothBranching);
+
+
+    ButtonDetectorSmoothDecoupled = new TextButton("S-Curve");
+    ButtonDetectorSmoothDecoupled->setRadioGroupId(2);
+    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.10f));
+
+    ButtonDetectorSmoothDecoupled->addListener(this);
+    addAndMakeVisible(ButtonDetectorSmoothDecoupled);
+
+
     int nIndex = SqueezerPluginParameters::selThreshold;
     int nIndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
     String strName = parameters->getName(nIndex);
@@ -119,33 +146,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderReleaseRateCombined->addListener(this);
     SliderReleaseRateCombined->addButtonListener(this);
     addAndMakeVisible(SliderReleaseRateCombined);
-
-
-    ButtonDetectorLinear = new TextButton("Linear");
-    ButtonDetectorLinear->setRadioGroupId(2);
-    ButtonDetectorLinear->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorLinear->setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonDetectorLinear->addListener(this);
-    addAndMakeVisible(ButtonDetectorLinear);
-
-
-    ButtonDetectorSmoothBranching = new TextButton("Log");
-    ButtonDetectorSmoothBranching->setRadioGroupId(2);
-    ButtonDetectorSmoothBranching->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05));
-
-    ButtonDetectorSmoothBranching->addListener(this);
-    addAndMakeVisible(ButtonDetectorSmoothBranching);
-
-
-    ButtonDetectorSmoothDecoupled = new TextButton("S-Curve");
-    ButtonDetectorSmoothDecoupled->setRadioGroupId(2);
-    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.10f));
-
-    ButtonDetectorSmoothDecoupled->addListener(this);
-    addAndMakeVisible(ButtonDetectorSmoothDecoupled);
 
 
     nIndex = SqueezerPluginParameters::selStereoLink;
@@ -217,6 +217,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     updateParameter(SqueezerPluginParameters::selBypass);
     updateParameter(SqueezerPluginParameters::selDesign);
+    updateParameter(SqueezerPluginParameters::selDetector);
 
     updateParameter(SqueezerPluginParameters::selThresholdSwitch);
     updateParameter(SqueezerPluginParameters::selThreshold);
@@ -229,7 +230,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selAttackRate);
     updateParameter(SqueezerPluginParameters::selReleaseRateSwitch);
     updateParameter(SqueezerPluginParameters::selReleaseRate);
-    updateParameter(SqueezerPluginParameters::selDetector);
 
     updateParameter(SqueezerPluginParameters::selStereoLinkSwitch);
     updateParameter(SqueezerPluginParameters::selStereoLink);
@@ -347,6 +347,22 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         }
 
         break;
+    case SqueezerPluginParameters::selDetector:
+
+        if (fValue == (Compressor::DetectorLinear / float(Compressor::NumberOfDetectors - 1)))
+        {
+            ButtonDetectorLinear->setToggleState(true, false);
+        }
+        else if (fValue == (Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1)))
+        {
+            ButtonDetectorSmoothBranching->setToggleState(true, false);
+        }
+        else
+        {
+            ButtonDetectorSmoothDecoupled->setToggleState(true, false);
+        }
+
+        break;
     case SqueezerPluginParameters::selThresholdSwitch:
         SliderThresholdCombined->updateMode();
         break;
@@ -376,22 +392,6 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         break;
     case SqueezerPluginParameters::selReleaseRate:
         SliderReleaseRateCombined->setValue(fValue, false);
-        break;
-    case SqueezerPluginParameters::selDetector:
-
-        if (fValue == (Compressor::DetectorLinear / float(Compressor::NumberOfDetectors - 1)))
-        {
-            ButtonDetectorLinear->setToggleState(true, false);
-        }
-        else if (fValue == (Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1)))
-        {
-            ButtonDetectorSmoothBranching->setToggleState(true, false);
-        }
-        else
-        {
-            ButtonDetectorSmoothDecoupled->setToggleState(true, false);
-        }
-
         break;
     case SqueezerPluginParameters::selStereoLinkSwitch:
         SliderStereoLinkCombined->updateMode();

@@ -72,16 +72,16 @@ private:
     TextButton* ButtonDesignModern;
     TextButton* ButtonDesignVintage;
 
+    TextButton* ButtonDetectorLinear;
+    TextButton* ButtonDetectorSmoothBranching;
+    TextButton* ButtonDetectorSmoothDecoupled;
+
     SliderCombined* SliderThresholdCombined;
     SliderCombined* SliderRatioCombined;
     SliderCombined* SliderKneeWidthCombined;
 
     SliderCombined* SliderAttackRateCombined;
     SliderCombined* SliderReleaseRateCombined;
-
-    TextButton* ButtonDetectorLinear;
-    TextButton* ButtonDetectorSmoothBranching;
-    TextButton* ButtonDetectorSmoothDecoupled;
 
     SliderCombined* SliderStereoLinkCombined;
 

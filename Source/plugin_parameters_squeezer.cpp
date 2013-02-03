@@ -55,6 +55,17 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterDesign, selDesign);
 
 
+    ParameterDetector = new WrappedParameterSwitch();
+    ParameterDetector->setName("Detector");
+
+    ParameterDetector->addConstant(Compressor::DetectorLinear,          "Linear");
+    ParameterDetector->addConstant(Compressor::DetectorSmoothBranching, "Logarithmic");
+    ParameterDetector->addConstant(Compressor::DetectorSmoothDecoupled, "S-Curve");
+
+    ParameterDetector->setDefaultRealFloat(Compressor::DetectorSmoothBranching, true);
+    add(ParameterDetector, selDetector);
+
+
     float fMinimum = -48.0f;
     float fMaximum = +18.0f;
     float fResolution = 0.5f;
@@ -196,17 +207,6 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterReleaseRate->setSuffix(" ms");
     ParameterReleaseRate->setDefaultRealFloat(150.0f, true);
     addCombined(ParameterReleaseRate, selReleaseRate, selReleaseRateSwitch);
-
-
-    ParameterDetector = new WrappedParameterSwitch();
-    ParameterDetector->setName("Detector");
-
-    ParameterDetector->addConstant(Compressor::DetectorLinear,          "Linear");
-    ParameterDetector->addConstant(Compressor::DetectorSmoothBranching, "Logarithmic");
-    ParameterDetector->addConstant(Compressor::DetectorSmoothDecoupled, "S-Curve");
-
-    ParameterDetector->setDefaultRealFloat(Compressor::DetectorSmoothBranching, true);
-    add(ParameterDetector, selDetector);
 
 
     fMinimum = 0.0f;
