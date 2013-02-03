@@ -69,8 +69,8 @@ private:
 
     MeterBarGainReduction** pGainReductionMeters;
 
-    TextButton* ButtonDesignModern;
-    TextButton* ButtonDesignVintage;
+    TextButton* ButtonDesignFeedForward;
+    TextButton* ButtonDesignFeedBack;
 
     TextButton* ButtonDetectorLinear;
     TextButton* ButtonDetectorSmoothBranching;

@@ -49,22 +49,22 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonBypass);
 
 
-    ButtonDesignModern = new TextButton("Modern");
-    ButtonDesignModern->setRadioGroupId(1);
-    ButtonDesignModern->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDesignModern->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonDesignFeedForward = new TextButton("F.Forw");
+    ButtonDesignFeedForward->setRadioGroupId(1);
+    ButtonDesignFeedForward->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDesignFeedForward->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonDesignModern->addListener(this);
-    addAndMakeVisible(ButtonDesignModern);
+    ButtonDesignFeedForward->addListener(this);
+    addAndMakeVisible(ButtonDesignFeedForward);
 
 
-    ButtonDesignVintage = new TextButton("Vintage");
-    ButtonDesignVintage->setRadioGroupId(1);
-    ButtonDesignVintage->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDesignVintage->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05));
+    ButtonDesignFeedBack = new TextButton("F.Back");
+    ButtonDesignFeedBack->setRadioGroupId(1);
+    ButtonDesignFeedBack->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDesignFeedBack->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05));
 
-    ButtonDesignVintage->addListener(this);
-    addAndMakeVisible(ButtonDesignVintage);
+    ButtonDesignFeedBack->addListener(this);
+    addAndMakeVisible(ButtonDesignFeedBack);
 
 
     ButtonDetectorLinear = new TextButton("Linear");
@@ -274,8 +274,8 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     setSize(nRightColumnStart + 70, nHeight);
 
     ButtonBypass->setBounds(480, 90, 52, 20);
-    ButtonDesignModern->setBounds(20, 90, 52, 20);
-    ButtonDesignVintage->setBounds(80, 90, 52, 20);
+    ButtonDesignFeedForward->setBounds(20, 90, 52, 20);
+    ButtonDesignFeedBack->setBounds(80, 90, 52, 20);
 
     ButtonDetectorLinear->setBounds(20, 115, 52, 20);
     ButtonDetectorSmoothBranching->setBounds(80, 115, 52, 20);
@@ -346,13 +346,13 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         break;
     case SqueezerPluginParameters::selDesign:
 
-        if (fValue == Compressor::DesignModern)
+        if (fValue == Compressor::DesignFeedForward)
         {
-            ButtonDesignModern->setToggleState(true, false);
+            ButtonDesignFeedForward->setToggleState(true, false);
         }
         else
         {
-            ButtonDesignVintage->setToggleState(true, false);
+            ButtonDesignFeedBack->setToggleState(true, false);
         }
 
         break;
@@ -444,13 +444,13 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selBypass, !button->getToggleState());
     }
-    else if (button == ButtonDesignModern)
+    else if (button == ButtonDesignFeedForward)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, Compressor::DesignModern);
+        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, Compressor::DesignFeedForward);
     }
-    else if (button == ButtonDesignVintage)
+    else if (button == ButtonDesignFeedBack)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, Compressor::DesignVintage);
+        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, Compressor::DesignFeedBack);
     }
     else if (button == ButtonDetectorLinear)
     {

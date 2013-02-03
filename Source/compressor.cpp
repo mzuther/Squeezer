@@ -39,7 +39,7 @@ Compressor::Compressor(int channels, int sample_rate)
 
     nWetMix = 100;
     setBypass(false);
-    setDesign(DesignModern);
+    setDesign(Compressor::DesignFeedForward);
 
     setStereoLink(100);
 
@@ -123,7 +123,7 @@ void Compressor::setDesign(int nDesignNew)
  */
 {
     nDesign = nDesignNew;
-    bDesignModern = (nDesign == DesignModern);
+    bDesignFeedForward = (nDesign == Compressor::DesignFeedForward);
 }
 
 
@@ -429,8 +429,8 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         // compress channels
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
-            // "modern" (feed-forward) design
-            if (bDesignModern)
+            // feed-forward design
+            if (bDesignFeedForward)
             {
                 float fInputLevel;
 
@@ -459,8 +459,8 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
             // apply gain reduction to current input sample
             //
-            //  "modern" (feed-forward) design:  current gain reduction
-            //  "vintage" (feed-back) design:  "old" gain reduction
+            //  feed-forward design:  current gain reduction
+            //  feed-back design:     "old" gain reduction
             float fGainReduction = pSideChain[nChannel]->getGainReduction(bAutoMakeupGain);
             pOutputSamples[nChannel] = pInputSamples[nChannel] / SideChain::decibel2level(fGainReduction);
 
@@ -478,8 +478,8 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             buffer.copyFrom(nChannel, nSample, &pOutputSamples[nChannel], 1);
         }
 
-        // post-processing for "vintage" (feed-back) design
-        if (!bDesignModern)
+        // post-processing for feed-back design
+        if (!bDesignFeedForward)
         {
             float fOutputLevel;
 

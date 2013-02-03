@@ -89,7 +89,7 @@ private:
     int nReleaseRate;
     float fReleaseCoefficient;
 
-    float calculateFinalGainReduction(float fInputLevel);
+    float queryGainComputer(float fInputLevel);
     void applyDetectorLinear(float fGainReductionNew);
     void applyDetectorSmoothBranching(float fGainReductionNew);
     void applyDetectorSmoothDecoupled(float fGainReductionNew);

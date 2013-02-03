@@ -131,7 +131,7 @@ void SideChain::setThreshold(float fThresholdNew)
  */
 {
     fThreshold = fThresholdNew;
-    fGainCompensation = calculateFinalGainReduction(fCrestFactorAutoGain);
+    fGainCompensation = queryGainComputer(fCrestFactorAutoGain);
 }
 
 
@@ -154,7 +154,7 @@ void SideChain::setRatio(float fRatioNew)
  */
 {
     fRatioInternal = 1.0f - (1.0f / fRatioNew);
-    fGainCompensation = calculateFinalGainReduction(fCrestFactorAutoGain);
+    fGainCompensation = queryGainComputer(fCrestFactorAutoGain);
 }
 
 
@@ -293,12 +293,12 @@ float SideChain::getGainReduction(bool bAutoMakeupGain)
 }
 
 
-float SideChain::calculateFinalGainReduction(float fInputLevel)
-/*  Calculate final gain reduction from input level.
+float SideChain::queryGainComputer(float fInputLevel)
+/*  Calculate gain reduction and envelopes from input level.
 
     fInputLevel (float): current input level in decibels
 
-    return value: calculated final gain reduction in decibels
+    return value: calculated gain reduction in decibels
  */
 {
     float fAboveThreshold = fInputLevel - fThreshold;
@@ -347,7 +347,7 @@ void SideChain::processSample(float fInputLevel)
 */
 {
     // feed input level to gain computer
-    float fGainReductionNew = calculateFinalGainReduction(fInputLevel);
+    float fGainReductionNew = queryGainComputer(fInputLevel);
 
     // feed output from gain computer to level detector
     switch (nDetector)

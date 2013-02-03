@@ -44,10 +44,10 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterDesign = new WrappedParameterSwitch();
     ParameterDesign->setName("Design");
 
-    ParameterDesign->addConstant(Compressor::DesignModern,  "Modern");
-    ParameterDesign->addConstant(Compressor::DesignVintage, "Vintage");
+    ParameterDesign->addConstant(Compressor::DesignFeedForward, "Feed-Forward");
+    ParameterDesign->addConstant(Compressor::DesignFeedBack,    "Feed-Back");
 
-    ParameterDesign->setDefaultRealFloat(Compressor::DesignModern, true);
+    ParameterDesign->setDefaultRealFloat(Compressor::DesignFeedForward, true);
     add(ParameterDesign, selDesign);
 
 

@@ -41,8 +41,8 @@ public:
 
     enum Parameters  // public namespace!
     {
-        DesignModern = 0,
-        DesignVintage,
+        DesignFeedForward = 0,
+        DesignFeedBack,
         NumberOfDesigns,
 
         DetectorLinear = 0,
@@ -109,7 +109,7 @@ private:
 
     bool bBypassCompressor;
     bool bBypassCompressorCombined;
-    bool bDesignModern;
+    bool bDesignFeedForward;
 
     int nStereoLink;
     float fStereoLinkOriginal;
