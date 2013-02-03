@@ -235,38 +235,38 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 0.0f;
     nDecimalPlaces = 1;
 
-    ParameterOutputGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
-    ParameterOutputGain->setName("Output Gain");
+    ParameterMakeupGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterMakeupGain->setName("Make-up Gain");
 
-    ParameterOutputGain->addConstant(-12.0f, "-12 dB");
-    ParameterOutputGain->addConstant(-11.0f, "-11 dB");
-    ParameterOutputGain->addConstant(-10.0f, "-10 dB");
-    ParameterOutputGain->addConstant(-9.0f,   "-9 dB");
-    ParameterOutputGain->addConstant(-8.0f,   "-8 dB");
-    ParameterOutputGain->addConstant(-7.0f,   "-7 dB");
-    ParameterOutputGain->addConstant(-6.0f,   "-6 dB");
-    ParameterOutputGain->addConstant(-5.0f,   "-5 dB");
-    ParameterOutputGain->addConstant(-4.0f,   "-4 dB");
-    ParameterOutputGain->addConstant(-3.0f,   "-3 dB");
-    ParameterOutputGain->addConstant(-2.0f,   "-2 dB");
-    ParameterOutputGain->addConstant(-1.0f,   "-1 dB");
-    ParameterOutputGain->addConstant(0.0f,     "0 dB");
-    ParameterOutputGain->addConstant(+1.0f,   "+1 dB");
-    ParameterOutputGain->addConstant(+2.0f,   "+2 dB");
-    ParameterOutputGain->addConstant(+3.0f,   "+3 dB");
-    ParameterOutputGain->addConstant(+4.0f,   "+4 dB");
-    ParameterOutputGain->addConstant(+5.0f,   "+5 dB");
-    ParameterOutputGain->addConstant(+6.0f,   "+6 dB");
-    ParameterOutputGain->addConstant(+7.0f,   "+7 dB");
-    ParameterOutputGain->addConstant(+8.0f,   "+8 dB");
-    ParameterOutputGain->addConstant(+9.0f,   "+9 dB");
-    ParameterOutputGain->addConstant(+10.0f, "+10 dB");
-    ParameterOutputGain->addConstant(+11.0f, "+11 dB");
-    ParameterOutputGain->addConstant(+12.0f, "+12 dB");
+    ParameterMakeupGain->addConstant(-12.0f, "-12 dB");
+    ParameterMakeupGain->addConstant(-11.0f, "-11 dB");
+    ParameterMakeupGain->addConstant(-10.0f, "-10 dB");
+    ParameterMakeupGain->addConstant(-9.0f,   "-9 dB");
+    ParameterMakeupGain->addConstant(-8.0f,   "-8 dB");
+    ParameterMakeupGain->addConstant(-7.0f,   "-7 dB");
+    ParameterMakeupGain->addConstant(-6.0f,   "-6 dB");
+    ParameterMakeupGain->addConstant(-5.0f,   "-5 dB");
+    ParameterMakeupGain->addConstant(-4.0f,   "-4 dB");
+    ParameterMakeupGain->addConstant(-3.0f,   "-3 dB");
+    ParameterMakeupGain->addConstant(-2.0f,   "-2 dB");
+    ParameterMakeupGain->addConstant(-1.0f,   "-1 dB");
+    ParameterMakeupGain->addConstant(0.0f,     "0 dB");
+    ParameterMakeupGain->addConstant(+1.0f,   "+1 dB");
+    ParameterMakeupGain->addConstant(+2.0f,   "+2 dB");
+    ParameterMakeupGain->addConstant(+3.0f,   "+3 dB");
+    ParameterMakeupGain->addConstant(+4.0f,   "+4 dB");
+    ParameterMakeupGain->addConstant(+5.0f,   "+5 dB");
+    ParameterMakeupGain->addConstant(+6.0f,   "+6 dB");
+    ParameterMakeupGain->addConstant(+7.0f,   "+7 dB");
+    ParameterMakeupGain->addConstant(+8.0f,   "+8 dB");
+    ParameterMakeupGain->addConstant(+9.0f,   "+9 dB");
+    ParameterMakeupGain->addConstant(+10.0f, "+10 dB");
+    ParameterMakeupGain->addConstant(+11.0f, "+11 dB");
+    ParameterMakeupGain->addConstant(+12.0f, "+12 dB");
 
-    ParameterOutputGain->setSuffix(" dB");
-    ParameterOutputGain->setDefaultRealFloat(0.0f, true);
-    addCombined(ParameterOutputGain, selOutputGain, selOutputGainSwitch);
+    ParameterMakeupGain->setSuffix(" dB");
+    ParameterMakeupGain->setDefaultRealFloat(0.0f, true);
+    addCombined(ParameterMakeupGain, selMakeupGain, selMakeupGainSwitch);
 
 
     fMinimum = 0.0f;
@@ -325,8 +325,8 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterStereoLink;
     ParameterStereoLink = NULL;
 
-    delete ParameterOutputGain;
-    ParameterOutputGain = NULL;
+    delete ParameterMakeupGain;
+    ParameterMakeupGain = NULL;
 
     delete ParameterWetMix;
     ParameterWetMix = NULL;

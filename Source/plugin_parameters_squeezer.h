@@ -67,8 +67,8 @@ public:
 
         selStereoLinkSwitch,
         selStereoLink,
-        selOutputGainSwitch,
-        selOutputGain,
+        selMakeupGainSwitch,
+        selMakeupGain,
         selWetMixSwitch,
         selWetMix,
 
@@ -92,7 +92,7 @@ private:
     WrappedParameterSwitch* ParameterDetector;
 
     WrappedParameterCombined* ParameterStereoLink;
-    WrappedParameterCombined* ParameterOutputGain;
+    WrappedParameterCombined* ParameterMakeupGain;
     WrappedParameterCombined* ParameterWetMix;
 };
 

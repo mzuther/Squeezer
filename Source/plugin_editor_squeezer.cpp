@@ -159,15 +159,15 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderStereoLinkCombined);
 
 
-    nIndex = SqueezerPluginParameters::selOutputGain;
-    nIndexSwitch = SqueezerPluginParameters::selOutputGainSwitch;
+    nIndex = SqueezerPluginParameters::selMakeupGain;
+    nIndexSwitch = SqueezerPluginParameters::selMakeupGainSwitch;
     strName = parameters->getName(nIndex);
-    SliderOutputGainCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
-    SliderOutputGainCombined->setSliderColour(Colours::blue.brighter(0.4f));
+    SliderMakeupGainCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderMakeupGainCombined->setSliderColour(Colours::blue.brighter(0.4f));
 
-    SliderOutputGainCombined->addListener(this);
-    SliderOutputGainCombined->addButtonListener(this);
-    addAndMakeVisible(SliderOutputGainCombined);
+    SliderMakeupGainCombined->addListener(this);
+    SliderMakeupGainCombined->addButtonListener(this);
+    addAndMakeVisible(SliderMakeupGainCombined);
 
 
     nIndex = SqueezerPluginParameters::selWetMix;
@@ -233,8 +233,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     updateParameter(SqueezerPluginParameters::selStereoLinkSwitch);
     updateParameter(SqueezerPluginParameters::selStereoLink);
-    updateParameter(SqueezerPluginParameters::selOutputGainSwitch);
-    updateParameter(SqueezerPluginParameters::selOutputGain);
+    updateParameter(SqueezerPluginParameters::selMakeupGainSwitch);
+    updateParameter(SqueezerPluginParameters::selMakeupGain);
     updateParameter(SqueezerPluginParameters::selWetMixSwitch);
     updateParameter(SqueezerPluginParameters::selWetMix);
 }
@@ -281,7 +281,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderReleaseRateCombined->setBounds(280, 15, 52, 60);
 
     SliderStereoLinkCombined->setBounds(360, 15, 52, 60);
-    SliderOutputGainCombined->setBounds(420, 15, 52, 60);
+    SliderMakeupGainCombined->setBounds(420, 15, 52, 60);
     SliderWetMixCombined->setBounds(480, 15, 52, 60);
 
     ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
@@ -399,11 +399,11 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selStereoLink:
         SliderStereoLinkCombined->setValue(fValue, false);
         break;
-    case SqueezerPluginParameters::selOutputGainSwitch:
-        SliderOutputGainCombined->updateMode();
+    case SqueezerPluginParameters::selMakeupGainSwitch:
+        SliderMakeupGainCombined->updateMode();
         break;
-    case SqueezerPluginParameters::selOutputGain:
-        SliderOutputGainCombined->setValue(fValue, false);
+    case SqueezerPluginParameters::selMakeupGain:
+        SliderMakeupGainCombined->setValue(fValue, false);
         break;
     case SqueezerPluginParameters::selWetMixSwitch:
         SliderWetMixCombined->updateMode();
@@ -492,9 +492,9 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selStereoLinkSwitch, fValue);
         }
-        else if (slider == SliderOutputGainCombined)
+        else if (slider == SliderMakeupGainCombined)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selOutputGainSwitch, fValue);
+            pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGainSwitch, fValue);
         }
         else if (slider == SliderWetMixCombined)
         {
@@ -536,9 +536,9 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selStereoLink, fValue);
     }
-    else if (slider == SliderOutputGainCombined)
+    else if (slider == SliderMakeupGainCombined)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selOutputGain, fValue);
+        pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGain, fValue);
     }
     else if (slider == SliderWetMixCombined)
     {

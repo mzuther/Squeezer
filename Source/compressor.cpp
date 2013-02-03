@@ -43,7 +43,7 @@ Compressor::Compressor(int channels, int sample_rate)
 
     setStereoLink(100);
 
-    setOutputGain(0.0f);
+    setMakeupGain(0.0f);
     setWetMix(100);
 
     pSideChain = new SideChain*[nChannels];
@@ -310,26 +310,26 @@ void Compressor::setStereoLink(int nStereoLinkNew)
 }
 
 
-float Compressor::getOutputGain()
-/*  Get current output gain.
+float Compressor::getMakeupGain()
+/*  Get current make-up gain.
 
-    return value (float): returns the current output gain in decibels
+    return value (float): returns the current make-up gain in decibels
  */
 {
-    return fOutputGainDecibel;
+    return fMakeupGainDecibel;
 }
 
 
-void Compressor::setOutputGain(float fOutputGainNew)
-/*  Set new output gain.
+void Compressor::setMakeupGain(float fMakeupGainNew)
+/*  Set new make-up gain.
 
-    nOutputGainNew (float): new output gain in decibels
+    nMakeupGainNew (float): new make-up gain in decibels
 
     return value: none
  */
 {
-    fOutputGainDecibel = fOutputGainNew;
-    fOutputGain = SideChain::decibel2level(fOutputGainDecibel);
+    fMakeupGainDecibel = fMakeupGainNew;
+    fMakeupGain = SideChain::decibel2level(fMakeupGainDecibel);
 }
 
 
@@ -441,8 +441,8 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             float fGainReduction = pSideChain[nChannel]->getGainReduction(true);
             pOutputSamples[nChannel] = pInputSamples[nChannel] / SideChain::decibel2level(fGainReduction);
 
-            // apply output gain
-            pOutputSamples[nChannel] *= fOutputGain;
+            // apply make-up gain
+            pOutputSamples[nChannel] *= fMakeupGain;
 
             // dry shall be mixed in (test to save some processing time)
             if (nWetMix < 100)

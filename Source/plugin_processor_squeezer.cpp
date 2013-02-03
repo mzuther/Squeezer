@@ -233,14 +233,14 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
-    case SqueezerPluginParameters::selOutputGain:
+    case SqueezerPluginParameters::selMakeupGain:
 
         pPluginParameters->setFloat(nIndex, fValue);
 
         if (pCompressor)
         {
-            float fOutputGain = pPluginParameters->getRealFloat(nIndex);
-            pCompressor->setOutputGain(fOutputGain);
+            float fMakeupGain = pPluginParameters->getRealFloat(nIndex);
+            pCompressor->setMakeupGain(fMakeupGain);
         }
 
         break;
@@ -273,7 +273,7 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
             case SqueezerPluginParameters::selReleaseRateSwitch:
             case SqueezerPluginParameters::selStereoLinkSwitch:
 
-            case SqueezerPluginParameters::selOutputGainSwitch:
+            case SqueezerPluginParameters::selMakeupGainSwitch:
             case SqueezerPluginParameters::selWetMixSwitch:
 
                 pCombined->setMode(fValue != 0.0f);
@@ -461,7 +461,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     int nDetector = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDetector);
 
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLink);
-    float fOutputGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selOutputGain);
+    float fMakeupGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selMakeupGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
@@ -478,7 +478,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setDetector(nDetector);
 
     pCompressor->setStereoLink(nStereoLink);
-    pCompressor->setOutputGain(fOutputGain);
+    pCompressor->setMakeupGain(fMakeupGain);
     pCompressor->setWetMix(nWetMix);
 }
 

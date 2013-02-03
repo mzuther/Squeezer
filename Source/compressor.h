@@ -81,8 +81,8 @@ public:
     int getStereoLink();
     void setStereoLink(int nStereoLinkNew);
 
-    float getOutputGain();
-    void setOutputGain(float fOutputGainNew);
+    float getMakeupGain();
+    void setMakeupGain(float fMakeupGainNew);
 
     int getWetMix();
     void setWetMix(int nWetMixNew);
@@ -112,8 +112,8 @@ private:
     float fStereoLinkOriginal;
     float fStereoLinkOther;
 
-    float fOutputGain;
-    float fOutputGainDecibel;
+    float fMakeupGain;
+    float fMakeupGainDecibel;
 
     int nWetMix;
     float fWetMix;
