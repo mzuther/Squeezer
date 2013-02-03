@@ -44,7 +44,7 @@ public:
 
     virtual float getDefaultFloat() = 0;
     virtual float getDefaultRealFloat() = 0;
-    virtual bool getDefaultRealBoolean() = 0;
+    virtual bool getDefaultBoolean() = 0;
     virtual int getDefaultRealInteger() = 0;
     virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) = 0;
 

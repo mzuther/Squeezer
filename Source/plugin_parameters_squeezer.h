@@ -78,7 +78,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
 
-    WrappedParameterSwitch* ParameterBypass;
+    WrappedParameterToggleSwitch* ParameterBypass;
     WrappedParameterSwitch* ParameterDesign;
     WrappedParameterSwitch* ParameterDetector;
 
@@ -90,7 +90,7 @@ private:
     WrappedParameterCombined* ParameterReleaseRate;
 
     WrappedParameterCombined* ParameterStereoLink;
-    WrappedParameterSwitch* ParameterAutoMakeupGain;
+    WrappedParameterToggleSwitch* ParameterAutoMakeupGain;
     WrappedParameterCombined* ParameterMakeupGain;
     WrappedParameterCombined* ParameterWetMix;
 };

@@ -99,7 +99,7 @@ float WrappedParameterSwitch::getDefaultRealFloat()
 }
 
 
-bool WrappedParameterSwitch::getDefaultRealBoolean()
+bool WrappedParameterSwitch::getDefaultBoolean()
 {
     return getDefaultRealFloat() != 0.0f;
 }

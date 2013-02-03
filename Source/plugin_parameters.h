@@ -58,7 +58,7 @@ public:
 
     float getDefaultFloat(int nIndex);
     float getDefaultRealFloat(int nIndex);
-    bool getDefaultRealBoolean(int nIndex);
+    bool getDefaultBoolean(int nIndex);
     int getDefaultRealInteger(int nIndex);
     bool setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue);
 

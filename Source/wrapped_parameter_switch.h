@@ -47,7 +47,7 @@ public:
 
     float getDefaultFloat();
     float getDefaultRealFloat();
-    bool getDefaultRealBoolean();
+    bool getDefaultBoolean();
     int getDefaultRealInteger();
     bool setDefaultRealFloat(float fRealValue, bool updateValue);
 

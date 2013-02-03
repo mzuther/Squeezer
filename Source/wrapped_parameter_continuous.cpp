@@ -118,7 +118,7 @@ float WrappedParameterContinuous::getDefaultRealFloat()
 }
 
 
-bool WrappedParameterContinuous::getDefaultRealBoolean()
+bool WrappedParameterContinuous::getDefaultBoolean()
 {
     return getDefaultRealFloat() != 0.0f;
 }

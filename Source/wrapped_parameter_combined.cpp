@@ -162,15 +162,15 @@ float WrappedParameterCombined::getDefaultRealFloat()
 }
 
 
-bool WrappedParameterCombined::getDefaultRealBoolean()
+bool WrappedParameterCombined::getDefaultBoolean()
 {
     if (bUseConstants)
     {
-        return pSwitch->getDefaultRealBoolean();
+        return pSwitch->getDefaultBoolean();
     }
     else
     {
-        return pContinuous->getDefaultRealBoolean();
+        return pContinuous->getDefaultBoolean();
     }
 }
 

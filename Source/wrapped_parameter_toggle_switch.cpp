@@ -84,7 +84,7 @@ float WrappedParameterToggleSwitch::getDefaultRealFloat()
 }
 
 
-bool WrappedParameterToggleSwitch::getDefaultRealBoolean()
+bool WrappedParameterToggleSwitch::getDefaultBoolean()
 {
     return bDefaultState;
 }
@@ -96,9 +96,9 @@ int WrappedParameterToggleSwitch::getDefaultRealInteger()
 }
 
 
-bool WrappedParameterToggleSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
+bool WrappedParameterToggleSwitch::setDefaultBoolean(bool bValue, bool updateValue)
 {
-    bool bDefaultState = (fRealValue != 0.0f);
+    bool bDefaultState = bValue;
 
     if (updateValue)
     {
@@ -106,6 +106,12 @@ bool WrappedParameterToggleSwitch::setDefaultRealFloat(float fRealValue, bool up
     }
 
     return true;
+}
+
+
+bool WrappedParameterToggleSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
+{
+    return setDefaultBoolean((fRealValue != 0.0f), updateValue);
 }
 
 
@@ -210,7 +216,7 @@ void WrappedParameterToggleSwitch::loadFromXml(XmlElement* xml)
 
     if (xml_element)
     {
-        bool bStateNew = xml_element->getBoolAttribute("value", getDefaultRealBoolean());
+        bool bStateNew = xml_element->getBoolAttribute("value", getDefaultBoolean());
         setBoolean(bStateNew);
     }
 }

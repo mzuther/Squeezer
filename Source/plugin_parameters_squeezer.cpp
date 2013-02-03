@@ -35,13 +35,9 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     strSettingsID = "SQUEEZER_SETTINGS";
 
-    ParameterBypass = new WrappedParameterSwitch();
+    ParameterBypass = new WrappedParameterToggleSwitch("Off", "On");
     ParameterBypass->setName("Bypass");
-
-    ParameterBypass->addConstant(0.0f, "Off");
-    ParameterBypass->addConstant(1.0f, "On");
-
-    ParameterBypass->setDefaultRealFloat(0.0f, true);
+    ParameterBypass->setDefaultBoolean(false, true);
     add(ParameterBypass, selBypass);
 
 
@@ -229,13 +225,9 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterStereoLink, selStereoLink, selStereoLinkSwitch);
 
 
-    ParameterAutoMakeupGain = new WrappedParameterSwitch();
+    ParameterAutoMakeupGain = new WrappedParameterToggleSwitch("Off", "On");
     ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
-
-    ParameterAutoMakeupGain->addConstant(0.0f, "Off");
-    ParameterAutoMakeupGain->addConstant(1.0f, "On");
-
-    ParameterAutoMakeupGain->setDefaultRealFloat(0.0f, true);
+    ParameterAutoMakeupGain->setDefaultBoolean(false, true);
     add(ParameterAutoMakeupGain, selAutoMakeupGain);
 
 

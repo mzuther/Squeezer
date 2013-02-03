@@ -135,10 +135,10 @@ float PluginParameters::getDefaultRealFloat(int nIndex)
 }
 
 
-bool PluginParameters::getDefaultRealBoolean(int nIndex)
+bool PluginParameters::getDefaultBoolean(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getDefaultRealBoolean();
+    return arrParameters[nIndex]->getDefaultBoolean();
 }
 
 
