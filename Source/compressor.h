@@ -27,10 +27,10 @@
 #define __COMPRESSOR_H__
 
 class Compressor;
-class GainReducer;
+class SideChain;
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "gain_reducer.h"
+#include "side_chain.h"
 
 
 //============================================================================
@@ -95,7 +95,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
-    GainReducer** pGainReducer;
+    SideChain** pSideChain;
 
     float* pInputSamples;
     float* pOutputSamples;

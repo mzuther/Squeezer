@@ -114,9 +114,9 @@ OBJECTS := \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
-	$(OBJDIR)/gain_reducer.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/slider_continuous.o \
+	$(OBJDIR)/side_chain.o \
 	$(OBJDIR)/plugin_editor_squeezer.o \
 	$(OBJDIR)/wrapped_parameter_switch.o \
 	$(OBJDIR)/standalone_application.o \
@@ -218,13 +218,13 @@ $(OBJDIR)/slider_combined.o: ../../../Source/slider_combined.cpp
 $(OBJDIR)/slider_switch.o: ../../../Source/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/gain_reducer.o: ../../../Source/gain_reducer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_continuous.o: ../../../Source/slider_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_editor_squeezer.o: ../../../Source/plugin_editor_squeezer.cpp

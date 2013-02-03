@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GAIN_REDUCER_H__
-#define __GAIN_REDUCER_H__
+#ifndef __SIDE_CHAIN_H__
+#define __SIDE_CHAIN_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "compressor.h"
@@ -34,14 +34,17 @@
 //==============================================================================
 /**
 */
-class GainReducer
+class SideChain
 {
 public:
-    GainReducer(int nSampleRate);
-    ~GainReducer();
+    SideChain(int nSampleRate);
+    ~SideChain();
 
     void setSampleRate(int nSampleRate);
     void reset();
+
+    int getDetector();
+    void setDetector(int nDetectorNew);
 
     float getThreshold();
     void setThreshold(float fThresholdNew);
@@ -58,9 +61,6 @@ public:
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
 
-    int getDetector();
-    void setDetector(int nDetectorNew);
-
     float getGainReduction(bool useGainCompensation);
 
     void processSample(float fSampleValue);
@@ -68,7 +68,7 @@ public:
     static float level2decibel(float fLevel);
     static float decibel2level(float fDecibels);
 private:
-    JUCE_LEAK_DETECTOR(GainReducer);
+    JUCE_LEAK_DETECTOR(SideChain);
 
     float fSampleRate;
     float fCrestFactorAutoGain;
@@ -98,7 +98,7 @@ private:
 };
 
 
-#endif  // __GAIN_REDUCER_H__
+#endif  // __SIDE_CHAIN_H__
 
 
 // Local Variables:

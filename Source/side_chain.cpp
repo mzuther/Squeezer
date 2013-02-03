@@ -23,13 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "gain_reducer.h"
+#include "side_chain.h"
 
 
-float GainReducer::fMeterMinimumDecibel;
+float SideChain::fMeterMinimumDecibel;
 
 
-GainReducer::GainReducer(int nSampleRate)
+SideChain::SideChain(int nSampleRate)
 /*  Constructor.
 
     return value: none
@@ -54,7 +54,7 @@ GainReducer::GainReducer(int nSampleRate)
 }
 
 
-GainReducer::~GainReducer()
+SideChain::~SideChain()
 /*  Destructor.
 
     return value: none
@@ -63,7 +63,7 @@ GainReducer::~GainReducer()
 }
 
 
-void GainReducer::reset()
+void SideChain::reset()
 /*  Reset all relevant variables.
 
     return value: none
@@ -74,7 +74,7 @@ void GainReducer::reset()
 }
 
 
-void GainReducer::setSampleRate(int nSampleRate)
+void SideChain::setSampleRate(int nSampleRate)
 /*  Set new sample rate.
 
     nSampleRate (int): new sample rate in Hertz
@@ -86,7 +86,33 @@ void GainReducer::setSampleRate(int nSampleRate)
 }
 
 
-float GainReducer::getThreshold()
+int SideChain::getDetector()
+/*  Get current compressor detector type.
+
+    return value (integer): returns compressor detector type
+ */
+{
+    return nDetector;
+}
+
+
+void SideChain::setDetector(int nDetectorNew)
+/*  Set new compressor detector type.
+
+    nDetectorNew (integer): new compressor detector type
+
+    return value: none
+ */
+{
+    nDetector = nDetectorNew;
+    fGainReductionIntermediate = 0.0f;
+
+    setAttackRate(nAttackRate);
+    setReleaseRate(nReleaseRate);
+}
+
+
+float SideChain::getThreshold()
 /*  Get current threshold.
 
     return value (float): returns the current threshold in decibels
@@ -96,7 +122,7 @@ float GainReducer::getThreshold()
 }
 
 
-void GainReducer::setThreshold(float fThresholdNew)
+void SideChain::setThreshold(float fThresholdNew)
 /*  Set new threshold.
 
     fThresholdNew (float): new threshold in decibels
@@ -109,7 +135,7 @@ void GainReducer::setThreshold(float fThresholdNew)
 }
 
 
-float GainReducer::getRatio()
+float SideChain::getRatio()
 /*  Get current compression ratio.
 
     return value (float): returns the current compression ratio
@@ -119,7 +145,7 @@ float GainReducer::getRatio()
 }
 
 
-void GainReducer::setRatio(float fRatioNew)
+void SideChain::setRatio(float fRatioNew)
 /*  Set new compression ratio.
 
     nRatioNew (float): new compression ratio
@@ -132,7 +158,7 @@ void GainReducer::setRatio(float fRatioNew)
 }
 
 
-float GainReducer::getKneeWidth()
+float SideChain::getKneeWidth()
 /*  Get current knee width.
 
     return value (float): returns the current knee width in decibels
@@ -142,7 +168,7 @@ float GainReducer::getKneeWidth()
 }
 
 
-void GainReducer::setKneeWidth(float fKneeWidthNew)
+void SideChain::setKneeWidth(float fKneeWidthNew)
 /*  Set new knee width.
 
     nKneeWidthNew (float): new knee width in decibels
@@ -156,7 +182,7 @@ void GainReducer::setKneeWidth(float fKneeWidthNew)
 }
 
 
-int GainReducer::getAttackRate()
+int SideChain::getAttackRate()
 /*  Get current attack rate.
 
     return value (integer): returns the current attack rate in
@@ -167,7 +193,7 @@ int GainReducer::getAttackRate()
 }
 
 
-void GainReducer::setAttackRate(int nAttackRateNew)
+void SideChain::setAttackRate(int nAttackRateNew)
 /*  Set new attack rate.
 
     nAttackRateNew (integer): new attack rate in milliseconds
@@ -201,7 +227,7 @@ void GainReducer::setAttackRate(int nAttackRateNew)
 }
 
 
-int GainReducer::getReleaseRate()
+int SideChain::getReleaseRate()
 /*  Get current release rate.
 
     return value (integer): returns the current release rate in
@@ -212,7 +238,7 @@ int GainReducer::getReleaseRate()
 }
 
 
-void GainReducer::setReleaseRate(int nReleaseRateNew)
+void SideChain::setReleaseRate(int nReleaseRateNew)
 /*  Set new release rate.
 
     nReleaseRateNew (integer): new release rate in milliseconds
@@ -246,33 +272,7 @@ void GainReducer::setReleaseRate(int nReleaseRateNew)
 }
 
 
-int GainReducer::getDetector()
-/*  Get current compressor detector type.
-
-    return value (integer): returns compressor detector type
- */
-{
-    return nDetector;
-}
-
-
-void GainReducer::setDetector(int nDetectorNew)
-/*  Set new compressor detector type.
-
-    nDetectorNew (integer): new compressor detector type
-
-    return value: none
- */
-{
-    nDetector = nDetectorNew;
-    fGainReductionIntermediate = 0.0f;
-
-    setAttackRate(nAttackRate);
-    setReleaseRate(nReleaseRate);
-}
-
-
-float GainReducer::getGainReduction(bool useGainCompensation)
+float SideChain::getGainReduction(bool useGainCompensation)
 /*  Get current gain reduction.
 
     useGainCompensation (boolean): determines whether the gain
@@ -293,7 +293,7 @@ float GainReducer::getGainReduction(bool useGainCompensation)
 }
 
 
-float GainReducer::calculateFinalGainReduction(float fInputLevel)
+float SideChain::calculateFinalGainReduction(float fInputLevel)
 /*  Calculate final gain reduction from input level.
 
     fInputLevel (float): current input level in decibels
@@ -338,7 +338,7 @@ float GainReducer::calculateFinalGainReduction(float fInputLevel)
 }
 
 
-void GainReducer::processSample(float fInputLevel)
+void SideChain::processSample(float fInputLevel)
 /*  Process a single audio sample value.
 
     fInputLevel (float): current audio sample value in decibels
@@ -365,13 +365,13 @@ void GainReducer::processSample(float fInputLevel)
         break;
 
     default:
-        DBG("[Squeezer] gain_reducer::processSample --> invalid detector");
+        DBG("[Squeezer] sidechain::processSample --> invalid detector");
         break;
     }
 }
 
 
-void GainReducer::applyDetectorLinear(float fGainReductionNew)
+void SideChain::applyDetectorLinear(float fGainReductionNew)
 /*  Calculate linear detector.
 
     fGainReductionNew (float): calculated new gain reduction in
@@ -424,7 +424,7 @@ void GainReducer::applyDetectorLinear(float fGainReductionNew)
 }
 
 
-void GainReducer::applyDetectorSmoothBranching(float fGainReductionNew)
+void SideChain::applyDetectorSmoothBranching(float fGainReductionNew)
 /*  Calculate smooth branching detector.
 
     fGainReductionNew (float): calculated gain reduction in decibels
@@ -471,7 +471,7 @@ void GainReducer::applyDetectorSmoothBranching(float fGainReductionNew)
 }
 
 
-void GainReducer::applyDetectorSmoothDecoupled(float fGainReductionNew)
+void SideChain::applyDetectorSmoothDecoupled(float fGainReductionNew)
 /*  Calculate smooth decoupled detector.
 
     fGainReductionNew (float): calculated gain reduction in decibels
@@ -513,7 +513,7 @@ void GainReducer::applyDetectorSmoothDecoupled(float fGainReductionNew)
 }
 
 
-float GainReducer::level2decibel(float fLevel)
+float SideChain::level2decibel(float fLevel)
 /*  Convert level from linear scale to decibels (dB).
 
     fLevel (float): audio level
@@ -548,7 +548,7 @@ float GainReducer::level2decibel(float fLevel)
 }
 
 
-float GainReducer::decibel2level(float fDecibels)
+float SideChain::decibel2level(float fDecibels)
 /*  Convert level from decibels (dB) to linear scale.
 
     fLevel (float): audio level in decibels (dB)

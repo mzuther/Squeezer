@@ -6,10 +6,10 @@ o [mzuther] use "juce_UseDebuggingNewOperator"
 
 o [mzuther] document code
 
+* mid/side processing
+
 * implement parameter smoothing ("anti-zipper")
 
 * implement external side-chain
 
 * text export of settings
-
-* over-sampling (?)

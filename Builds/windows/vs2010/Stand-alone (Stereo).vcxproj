@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{21C630CF-2A68-5A41-607E-FADCFADA179F}</ProjectGuid>
+		<ProjectGuid>{C5141C1C-F893-6BAC-2A74-7D3EF5EAAF7E}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -112,7 +112,6 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_continuous.h" />
 		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
-		<ClInclude Include="..\..\..\Source\gain_reducer.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\slider_continuous.h" />
@@ -128,6 +127,7 @@
 		<ClInclude Include="..\..\..\Source\compressor.h" />
 		<ClInclude Include="..\..\..\Source\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\side_chain.h" />
 		<ClInclude Include="..\..\..\Source\standalone_application.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
@@ -144,11 +144,11 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\gain_reducer.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_continuous.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\side_chain.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>

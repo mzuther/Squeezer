@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{0FC09C87-4C79-2C13-EF0B-216BA44876D5}</ProjectGuid>
+		<ProjectGuid>{636D6C17-898E-F9E7-FD07-81A8B8577CC0}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -116,7 +116,6 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_continuous.h" />
 		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
-		<ClInclude Include="..\..\..\Source\gain_reducer.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\slider_continuous.h" />
@@ -132,6 +131,7 @@
 		<ClInclude Include="..\..\..\Source\compressor.h" />
 		<ClInclude Include="..\..\..\Source\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\side_chain.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
@@ -147,11 +147,11 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\gain_reducer.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_continuous.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\side_chain.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>

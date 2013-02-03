@@ -35,7 +35,7 @@ Compressor::Compressor(int channels, int sample_rate)
     nChannels = channels;
     fCrestFactor = 20.0f;
 
-    pGainReducer = NULL;
+    pSideChain = NULL;
 
     nWetMix = 100;
     setBypass(false);
@@ -46,14 +46,14 @@ Compressor::Compressor(int channels, int sample_rate)
     setOutputGain(0.0f);
     setWetMix(100);
 
-    pGainReducer = new GainReducer*[nChannels];
+    pSideChain = new SideChain*[nChannels];
 
     pInputSamples = new float[nChannels];
     pOutputSamples = new float[nChannels];
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel] = new GainReducer(sample_rate);
+        pSideChain[nChannel] = new SideChain(sample_rate);
 
         pInputSamples[nChannel] = 0.0f;
         pOutputSamples[nChannel] = 0.0f;
@@ -65,12 +65,12 @@ Compressor::~Compressor()
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        delete pGainReducer[nChannel];
-        pGainReducer[nChannel] = NULL;
+        delete pSideChain[nChannel];
+        pSideChain[nChannel] = NULL;
     }
 
-    delete[] pGainReducer;
-    pGainReducer = NULL;
+    delete[] pSideChain;
+    pSideChain = NULL;
 
     delete[] pInputSamples;
     pInputSamples = NULL;
@@ -132,7 +132,7 @@ float Compressor::getThreshold()
     return value (float): returns the current threshold in decibels
  */
 {
-    return pGainReducer[0]->getThreshold();
+    return pSideChain[0]->getThreshold();
 }
 
 
@@ -146,7 +146,7 @@ void Compressor::setThreshold(float fThresholdNew)
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setThreshold(fThresholdNew);
+        pSideChain[nChannel]->setThreshold(fThresholdNew);
     }
 }
 
@@ -157,7 +157,7 @@ float Compressor::getRatio()
     return value (float): returns the current compression ratio
  */
 {
-    return pGainReducer[0]->getRatio();
+    return pSideChain[0]->getRatio();
 }
 
 
@@ -171,7 +171,7 @@ void Compressor::setRatio(float fRatioNew)
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setRatio(fRatioNew);
+        pSideChain[nChannel]->setRatio(fRatioNew);
     }
 }
 
@@ -182,7 +182,7 @@ float Compressor::getKneeWidth()
     return value (float): returns the current knee width in decibels
  */
 {
-    return pGainReducer[0]->getKneeWidth();
+    return pSideChain[0]->getKneeWidth();
 }
 
 
@@ -196,7 +196,7 @@ void Compressor::setKneeWidth(float fKneeWidthNew)
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setKneeWidth(fKneeWidthNew);
+        pSideChain[nChannel]->setKneeWidth(fKneeWidthNew);
     }
 
 }
@@ -209,7 +209,7 @@ int Compressor::getAttackRate()
     milliseconds
  */
 {
-    return pGainReducer[0]->getAttackRate();
+    return pSideChain[0]->getAttackRate();
 }
 
 
@@ -223,7 +223,7 @@ void Compressor::setAttackRate(int nAttackRateNew)
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setAttackRate(nAttackRateNew);
+        pSideChain[nChannel]->setAttackRate(nAttackRateNew);
     }
 }
 
@@ -235,7 +235,7 @@ int Compressor::getReleaseRate()
     milliseconds
  */
 {
-    return pGainReducer[0]->getReleaseRate();
+    return pSideChain[0]->getReleaseRate();
 }
 
 
@@ -249,7 +249,7 @@ void Compressor::setReleaseRate(int nReleaseRateNew)
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setReleaseRate(nReleaseRateNew);
+        pSideChain[nChannel]->setReleaseRate(nReleaseRateNew);
     }
 }
 
@@ -260,7 +260,7 @@ int Compressor::getDetector()
     return value (integer): returns compressor detector type
  */
 {
-    return pGainReducer[0]->getDetector();
+    return pSideChain[0]->getDetector();
 }
 
 
@@ -274,7 +274,7 @@ void Compressor::setDetector(int nDetectorNew)
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReducer[nChannel]->setDetector(nDetectorNew);
+        pSideChain[nChannel]->setDetector(nDetectorNew);
     }
 }
 
@@ -329,7 +329,7 @@ void Compressor::setOutputGain(float fOutputGainNew)
  */
 {
     fOutputGainDecibel = fOutputGainNew;
-    fOutputGain = GainReducer::decibel2level(fOutputGainDecibel);
+    fOutputGain = SideChain::decibel2level(fOutputGainDecibel);
 }
 
 
@@ -378,7 +378,7 @@ float Compressor::getGainReduction(int nChannel)
     }
     else
     {
-        return pGainReducer[nChannel]->getGainReduction(false);
+        return pSideChain[nChannel]->getGainReduction(false);
     }
 }
 
@@ -414,7 +414,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 // stereo linking is off (save some processing time)
                 if (fStereoLinkOriginal == 0.0f)
                 {
-                    fInputLevel = GainReducer::level2decibel(fabs(pInputSamples[nChannel]));
+                    fInputLevel = SideChain::level2decibel(fabs(pInputSamples[nChannel]));
                 }
                 // stereo linking is on
                 else
@@ -424,22 +424,22 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
                     // mix stereo input samples according to stereo
                     // link percentage
-                    fInputLevel = GainReducer::level2decibel(fabs(pInputSamples[nChannel]) * fStereoLinkOriginal + fabs(pInputSamples[nChannelOther]) * fStereoLinkOther);
+                    fInputLevel = SideChain::level2decibel(fabs(pInputSamples[nChannel]) * fStereoLinkOriginal + fabs(pInputSamples[nChannelOther]) * fStereoLinkOther);
                 }
 
                 // apply crest factor
                 fInputLevel += fCrestFactor;
 
                 // send current input sample to gain reduction unit
-                pGainReducer[nChannel]->processSample(fInputLevel);
+                pSideChain[nChannel]->processSample(fInputLevel);
             }
 
             // apply gain reduction to current input sample
             //
             //  "modern" (feed-forward) design:  current gain reduction
             //  "vintage" (feed-back) design:  "old" gain reduction
-            float fGainReduction = pGainReducer[nChannel]->getGainReduction(true);
-            pOutputSamples[nChannel] = pInputSamples[nChannel] / GainReducer::decibel2level(fGainReduction);
+            float fGainReduction = pSideChain[nChannel]->getGainReduction(true);
+            pOutputSamples[nChannel] = pInputSamples[nChannel] / SideChain::decibel2level(fGainReduction);
 
             // apply output gain
             pOutputSamples[nChannel] *= fOutputGain;
@@ -466,7 +466,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 // stereo linking is off (save some processing time)
                 if (fStereoLinkOriginal == 0.0f)
                 {
-                    fOutputLevel = GainReducer::level2decibel(fabs(pOutputSamples[nChannel]));
+                    fOutputLevel = SideChain::level2decibel(fabs(pOutputSamples[nChannel]));
                 }
                 // stereo linking is on
                 else
@@ -476,14 +476,14 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
                     // mix stereo output samples according to stereo
                     // link percentage
-                    fOutputLevel = GainReducer::level2decibel(fabs(pOutputSamples[nChannel]) * fStereoLinkOriginal + fabs(pOutputSamples[nChannelOther]) * fStereoLinkOther);
+                    fOutputLevel = SideChain::level2decibel(fabs(pOutputSamples[nChannel]) * fStereoLinkOriginal + fabs(pOutputSamples[nChannelOther]) * fStereoLinkOther);
                 }
 
                 // apply crest factor
                 fOutputLevel += fCrestFactor;
 
                 // feed current output sample back to gain reduction unit
-                pGainReducer[nChannel]->processSample(fOutputLevel);
+                pSideChain[nChannel]->processSample(fOutputLevel);
             }
         }
     }
