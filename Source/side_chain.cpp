@@ -41,6 +41,7 @@ SideChain::SideChain(int nSampleRate)
     setRatio(2.0f);
     setKneeWidth(0.0f);
 
+    setLevelDetection(false);
     nDetector = Compressor::DetectorSmoothBranching;
     setAttackRate(10);
     setReleaseRate(100);
@@ -83,6 +84,36 @@ void SideChain::setSampleRate(int nSampleRate)
  */
 {
     fSampleRate = (float) nSampleRate;
+}
+
+
+bool SideChain::getLevelDetection()
+/*  Get current level detection type.
+
+    return value (boolean): returns whether peak levels (false) or RMS
+    levels (true) are detected
+ */
+{
+    return bLevelDetectionRms;
+}
+
+
+void SideChain::setLevelDetection(bool bLevelDetectionRmsNew)
+/*  Set new level detection type.
+
+    bLevelDetectionRmsNew (boolean): states whether peak levels
+    (false) or RMS levels (true) should be detected
+
+    return value: none
+ */
+{
+    bLevelDetectionRms = bLevelDetectionRmsNew;
+    fRmsOutputLevelSquared = -1.0f;
+
+    // logarithmic envelope reaches 95% of the final reading
+    // in the given attack time
+    float fRmsDetectorRateSeconds = 0.001f;
+    fRmsDetectorCoefficient = expf(logf(0.05f) / (fRmsDetectorRateSeconds * fSampleRate));
 }
 
 
@@ -346,6 +377,11 @@ void SideChain::processSample(float fInputLevel)
     return value: current gain reduction in decibels
 */
 {
+    if (bLevelDetectionRms)
+    {
+        fGainReduction = applyLevelDetectionRms(fGainReduction);
+    }
+
     // feed input level to gain computer
     float fGainReductionNew = queryGainComputer(fInputLevel);
 
@@ -368,6 +404,24 @@ void SideChain::processSample(float fInputLevel)
         DBG("[Squeezer] sidechain::processSample --> invalid detector");
         break;
     }
+}
+
+
+float SideChain::applyLevelDetectionRms(float fRmsInputLevel)
+{
+    float fRmsInputLevelSquared = fRmsInputLevel * fRmsInputLevel;
+
+    if (fRmsOutputLevelSquared < 0.0f)
+    {
+        fRmsOutputLevelSquared = fRmsInputLevelSquared;
+    }
+
+    float fRmsOutputLevelSquaredOld = fRmsOutputLevelSquared;
+
+    fRmsOutputLevelSquared = (fRmsDetectorCoefficient * fRmsOutputLevelSquaredOld) + (1.0f - fRmsDetectorCoefficient) * fRmsInputLevelSquared;
+
+    float fRmsOutputLevel = sqrtf(fRmsOutputLevelSquared);
+    return fRmsOutputLevel;
 }
 
 

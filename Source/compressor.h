@@ -57,6 +57,9 @@ public:
     bool getBypass();
     void setBypass(bool bBypassCompressorNew);
 
+    bool getLevelDetection();
+    void setLevelDetection(bool bLevelDetectionRmsNew);
+
     int getDesign();
     void setDesign(int nDesignNew);
 

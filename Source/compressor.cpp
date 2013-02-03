@@ -104,6 +104,33 @@ void Compressor::setBypass(bool bBypassCompressorNew)
 }
 
 
+bool Compressor::getLevelDetection()
+/*  Get current level detection type.
+
+    return value (boolean): returns whether peak levels (false) or RMS
+    levels (true) are detected
+ */
+{
+    return pSideChain[0]->getLevelDetection();
+}
+
+
+void Compressor::setLevelDetection(bool bLevelDetectionRmsNew)
+/*  Set new level detection type.
+
+    bLevelDetectionRmsNew (boolean): states whether peak levels
+    (false) or RMS levels (true) should be detected
+
+    return value: none
+ */
+{
+    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    {
+        pSideChain[nChannel]->setLevelDetection(bLevelDetectionRmsNew);
+    }
+}
+
+
 int Compressor::getDesign()
 /*  Get current compressor design.
 

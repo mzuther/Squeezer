@@ -47,6 +47,7 @@ public:
     enum Parameters  // public namespace!
     {
         selBypass = 0,
+        selLevelDetection,
         selDesign,
         selDetector,
 
@@ -79,6 +80,7 @@ private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
 
     WrappedParameterToggleSwitch* ParameterBypass;
+    WrappedParameterToggleSwitch* ParameterLevelDetection;
     WrappedParameterSwitch* ParameterDesign;
     WrappedParameterSwitch* ParameterDetector;
 

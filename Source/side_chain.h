@@ -43,6 +43,9 @@ public:
     void setSampleRate(int nSampleRate);
     void reset();
 
+    bool getLevelDetection();
+    void setLevelDetection(bool bLevelDetectionRmsNew);
+
     int getDetector();
     void setDetector(int nDetectorNew);
 
@@ -76,6 +79,10 @@ private:
     float fGainReductionIntermediate;
     float fGainCompensation;
 
+    float fRmsDetectorCoefficient;
+    float fRmsOutputLevelSquared;
+
+    bool bLevelDetectionRms;
     int nDetector;
     float fThreshold;
     float fRatioInternal;
@@ -90,6 +97,7 @@ private:
     float fReleaseCoefficient;
 
     float queryGainComputer(float fInputLevel);
+    float applyLevelDetectionRms(float fRmsInputLevel);
     void applyDetectorLinear(float fGainReductionNew);
     void applyDetectorSmoothBranching(float fGainReductionNew);
     void applyDetectorSmoothDecoupled(float fGainReductionNew);

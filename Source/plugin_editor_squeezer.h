@@ -69,6 +69,9 @@ private:
 
     MeterBarGainReduction** pGainReductionMeters;
 
+    TextButton* ButtonLevelDetectionPeak;
+    TextButton* ButtonLevelDetectionRms;
+
     TextButton* ButtonDesignFeedForward;
     TextButton* ButtonDesignFeedBack;
 

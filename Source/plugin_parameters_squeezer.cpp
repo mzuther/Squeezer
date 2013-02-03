@@ -41,6 +41,12 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterBypass, selBypass);
 
 
+    ParameterLevelDetection = new WrappedParameterToggleSwitch("Peak", "RMS");
+    ParameterLevelDetection->setName("Level Detection");
+    ParameterLevelDetection->setDefaultBoolean(false, true);
+    add(ParameterLevelDetection, selLevelDetection);
+
+
     ParameterDesign = new WrappedParameterSwitch();
     ParameterDesign->setName("Design");
 
@@ -303,8 +309,14 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterBypass;
     ParameterBypass = NULL;
 
+    delete ParameterLevelDetection;
+    ParameterLevelDetection = NULL;
+
     delete ParameterDesign;
     ParameterDesign = NULL;
+
+    delete ParameterDetector;
+    ParameterDetector = NULL;
 
     delete ParameterThreshold;
     ParameterThreshold = NULL;
@@ -320,9 +332,6 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
 
     delete ParameterReleaseRate;
     ParameterReleaseRate = NULL;
-
-    delete ParameterDetector;
-    ParameterDetector = NULL;
 
     delete ParameterStereoLink;
     ParameterStereoLink = NULL;
