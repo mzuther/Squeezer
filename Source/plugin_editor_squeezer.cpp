@@ -61,7 +61,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonLevelDetectionRms = new TextButton("RMS");
     ButtonLevelDetectionRms->setRadioGroupId(1);
     ButtonLevelDetectionRms->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonLevelDetectionRms->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05));
+    ButtonLevelDetectionRms->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
 
     ButtonLevelDetectionRms->addListener(this);
     addAndMakeVisible(ButtonLevelDetectionRms);
@@ -79,7 +79,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonDesignFeedBack = new TextButton("F.Back");
     ButtonDesignFeedBack->setRadioGroupId(2);
     ButtonDesignFeedBack->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDesignFeedBack->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05));
+    ButtonDesignFeedBack->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
 
     ButtonDesignFeedBack->addListener(this);
     addAndMakeVisible(ButtonDesignFeedBack);
@@ -97,7 +97,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonDetectorSmoothBranching = new TextButton("Log");
     ButtonDetectorSmoothBranching->setRadioGroupId(3);
     ButtonDetectorSmoothBranching->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05));
+    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
 
     ButtonDetectorSmoothBranching->addListener(this);
     addAndMakeVisible(ButtonDetectorSmoothBranching);

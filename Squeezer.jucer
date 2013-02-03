@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.20.0"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.30.0"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
               buildAU="1" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
               pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="sqzr"
@@ -28,9 +28,6 @@
       </GROUP>
       <FILE id="lpud1i" name="compressor.cpp" compile="1" resource="0" file="Source/compressor.cpp"/>
       <FILE id="MZAY4T" name="compressor.h" compile="0" resource="0" file="Source/compressor.h"/>
-      <FILE id="Fob2C0" name="gain_reducer.cpp" compile="1" resource="0"
-            file="Source/gain_reducer.cpp"/>
-      <FILE id="mtPFWU" name="gain_reducer.h" compile="0" resource="0" file="Source/gain_reducer.h"/>
       <FILE id="uYFyyA" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
       <FILE id="btMJw0" name="meter_bar_gain_reduction.cpp" compile="1" resource="0"
             file="Source/meter_bar_gain_reduction.cpp"/>
@@ -55,6 +52,8 @@
             resource="0" file="Source/plugin_processor_squeezer.cpp"/>
       <FILE id="ERc7g0" name="plugin_processor_squeezer.h" compile="0" resource="0"
             file="Source/plugin_processor_squeezer.h"/>
+      <FILE id="bnDlIT" name="side_chain.cpp" compile="1" resource="0" file="Source/side_chain.cpp"/>
+      <FILE id="MvkYq4" name="side_chain.h" compile="0" resource="0" file="Source/side_chain.h"/>
       <FILE id="qUugUB" name="prohibiting_bounds_constrainer.h" compile="0"
             resource="0" file="Source/prohibiting_bounds_constrainer.h"/>
       <FILE id="y9dhwS" name="slider_combined.cpp" compile="1" resource="0"
