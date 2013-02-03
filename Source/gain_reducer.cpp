@@ -41,10 +41,10 @@ GainReducer::GainReducer(int nSampleRate)
     setRatio(2.0f);
     setKneeWidth(0.0f);
 
-    bLogarithmic = true;
+    nDetector = Compressor::DetectorSmoothBranching;
     setAttackRate(10);
     setReleaseRate(100);
-    setDetector(Compressor::DetectorSmoothBranching);
+    setDetector(nDetector);
 
     fCrestFactorAutoGain = 0.0f;
     fMeterMinimumDecibel = -70.01f;
@@ -185,17 +185,17 @@ void GainReducer::setAttackRate(int nAttackRateNew)
     {
         float fAttackRateSeconds = nAttackRate / 1000.0f;
 
-        if (bLogarithmic)
-        {
-            // logarithmic envelope reaches 95% of the final reading
-            // in the given attack time
-            fAttackCoefficient = expf(logf(0.05f) / (fAttackRateSeconds * fSampleRate));
-        }
-        else
+        if (nDetector == Compressor::DetectorLinear)
         {
             // rise time: rises 10 dB per interval defined in attack
             // rate (linear)
             fAttackCoefficient = 10.0f / (fAttackRateSeconds * fSampleRate);
+        }
+        else
+        {
+            // logarithmic envelope reaches 95% of the final reading
+            // in the given attack time
+            fAttackCoefficient = expf(logf(0.05f) / (fAttackRateSeconds * fSampleRate));
         }
     }
 }
@@ -230,17 +230,17 @@ void GainReducer::setReleaseRate(int nReleaseRateNew)
     {
         float fReleaseRateSeconds = nReleaseRate / 1000.0f;
 
-        if (bLogarithmic)
-        {
-            // logarithmic envelope reaches 95% of the final reading
-            // in the given release time
-            fReleaseCoefficient = expf(logf(0.05f) / (fReleaseRateSeconds * fSampleRate));
-        }
-        else
+        if (nDetector == Compressor::DetectorLinear)
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
             fReleaseCoefficient = 10.0f / (fReleaseRateSeconds * fSampleRate);
+        }
+        else
+        {
+            // logarithmic envelope reaches 95% of the final reading
+            // in the given release time
+            fReleaseCoefficient = expf(logf(0.05f) / (fReleaseRateSeconds * fSampleRate));
         }
     }
 }
@@ -265,7 +265,7 @@ void GainReducer::setDetector(int nDetectorNew)
  */
 {
     nDetector = nDetectorNew;
-    bLogarithmic = (nDetector == Compressor::DetectorSmoothBranching);
+    fGainReductionIntermediate = 0.0f;
 
     setAttackRate(nAttackRate);
     setReleaseRate(nReleaseRate);
@@ -350,19 +350,29 @@ void GainReducer::processSample(float fInputLevel)
     float fGainReductionNew = calculateFinalGainReduction(fInputLevel);
 
     // feed output from gain computer to level detector
-    if (bLogarithmic)
+    switch (nDetector)
     {
-        applySmoothBranchingPeakDetector(fGainReductionNew);
-    }
-    else
-    {
-        applyLinearPeakDetector(fGainReductionNew);
+    case Compressor::DetectorLinear:
+        applyDetectorLinear(fGainReductionNew);
+        break;
+
+    case Compressor::DetectorSmoothBranching:
+        applyDetectorSmoothBranching(fGainReductionNew);
+        break;
+
+    case Compressor::DetectorSmoothDecoupled:
+        applyDetectorSmoothDecoupled(fGainReductionNew);
+        break;
+
+    default:
+        DBG("[Squeezer] gain_reducer::processSample --> invalid detector");
+        break;
     }
 }
 
 
-void GainReducer::applyLinearPeakDetector(float fGainReductionNew)
-/*  Calculate linear peak detector.
+void GainReducer::applyDetectorLinear(float fGainReductionNew)
+/*  Calculate linear detector.
 
     fGainReductionNew (float): calculated new gain reduction in
     decibels
@@ -414,8 +424,8 @@ void GainReducer::applyLinearPeakDetector(float fGainReductionNew)
 }
 
 
-void GainReducer::applySmoothBranchingPeakDetector(float fGainReductionNew)
-/*  Calculate smooth branching peak detector.
+void GainReducer::applyDetectorSmoothBranching(float fGainReductionNew)
+/*  Calculate smooth branching detector.
 
     fGainReductionNew (float): calculated gain reduction in decibels
 
@@ -457,6 +467,48 @@ void GainReducer::applySmoothBranchingPeakDetector(float fGainReductionNew)
             float fGainReductionOld = fGainReduction;
             fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
         }
+    }
+}
+
+
+void GainReducer::applyDetectorSmoothDecoupled(float fGainReductionNew)
+/*  Calculate smooth decoupled detector.
+
+    fGainReductionNew (float): calculated gain reduction in decibels
+
+    return value: none
+*/
+{
+    // algorithm adapted from Giannoulis et al., "Digital Dynamic
+    // Range Compressor Design - A Tutorial and Analysis", JAES,
+    // 60(6):399-408, 2012
+    //
+    // apply release envelope
+    if (fReleaseCoefficient == 0.0f)
+    {
+        fGainReductionIntermediate = fGainReductionNew;
+    }
+    else
+    {
+        float fGainReductionIntermediateOld = fGainReductionIntermediate;
+        fGainReductionIntermediate = (fReleaseCoefficient * fGainReductionIntermediateOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
+
+        // maximally fast peak detection
+        if (fGainReductionNew > fGainReductionIntermediate)
+        {
+            fGainReductionIntermediate = fGainReductionNew;
+        }
+    }
+
+    // apply attack envelope
+    if (fAttackCoefficient == 0.0f)
+    {
+        fGainReduction = fGainReductionIntermediate;
+    }
+    else
+    {
+        float fGainReductionOld = fGainReduction;
+        fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionIntermediate;
     }
 }
 

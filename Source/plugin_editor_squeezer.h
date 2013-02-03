@@ -81,6 +81,7 @@ private:
 
     TextButton* ButtonDetectorLinear;
     TextButton* ButtonDetectorSmoothBranching;
+    TextButton* ButtonDetectorSmoothDecoupled;
 
     SliderCombined* SliderStereoLinkCombined;
 

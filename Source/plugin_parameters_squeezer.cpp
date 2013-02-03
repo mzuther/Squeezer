@@ -203,6 +203,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterDetector->addConstant(Compressor::DetectorLinear,          "Linear");
     ParameterDetector->addConstant(Compressor::DetectorSmoothBranching, "Logarithmic");
+    ParameterDetector->addConstant(Compressor::DetectorSmoothDecoupled, "S-Curve");
 
     ParameterDetector->setDefaultRealFloat(Compressor::DetectorSmoothBranching, true);
     add(ParameterDetector, selDetector);

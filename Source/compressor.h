@@ -43,9 +43,12 @@ public:
     {
         DesignModern = 0,
         DesignVintage,
+        NumberOfDesigns,
 
         DetectorLinear = 0,
         DetectorSmoothBranching,
+        DetectorSmoothDecoupled,
+        NumberOfDetectors,
     };
 
     Compressor(int channels, int sample_rate);

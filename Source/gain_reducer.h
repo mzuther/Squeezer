@@ -73,11 +73,10 @@ private:
     float fSampleRate;
     float fCrestFactorAutoGain;
     float fGainReduction;
+    float fGainReductionIntermediate;
     float fGainCompensation;
 
     int nDetector;
-    bool bLogarithmic;
-
     float fThreshold;
     float fRatioInternal;
     float fKneeWidth;
@@ -91,8 +90,9 @@ private:
     float fReleaseCoefficient;
 
     float calculateFinalGainReduction(float fInputLevel);
-    void applyLinearPeakDetector(float fGainReductionNew);
-    void applySmoothBranchingPeakDetector(float fGainReductionNew);
+    void applyDetectorLinear(float fGainReductionNew);
+    void applyDetectorSmoothBranching(float fGainReductionNew);
+    void applyDetectorSmoothDecoupled(float fGainReductionNew);
 
     static float fMeterMinimumDecibel;
 };
