@@ -229,6 +229,16 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterStereoLink, selStereoLink, selStereoLinkSwitch);
 
 
+    ParameterAutoMakeupGain = new WrappedParameterSwitch();
+    ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
+
+    ParameterAutoMakeupGain->addConstant(0.0f, "Off");
+    ParameterAutoMakeupGain->addConstant(1.0f, "On");
+
+    ParameterAutoMakeupGain->setDefaultRealFloat(0.0f, true);
+    add(ParameterAutoMakeupGain, selAutoMakeupGain);
+
+
     fMinimum = -24.0f;
     fMaximum = +24.0f;
     fResolution = 0.5f;
@@ -236,7 +246,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     nDecimalPlaces = 1;
 
     ParameterMakeupGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
-    ParameterMakeupGain->setName("Make-up Gain");
+    ParameterMakeupGain->setName("Make-Up Gain");
 
     ParameterMakeupGain->addConstant(-12.0f, "-12 dB");
     ParameterMakeupGain->addConstant(-11.0f, "-11 dB");
@@ -327,6 +337,9 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
 
     delete ParameterMakeupGain;
     ParameterMakeupGain = NULL;
+
+    delete ParameterAutoMakeupGain;
+    ParameterAutoMakeupGain = NULL;
 
     delete ParameterWetMix;
     ParameterWetMix = NULL;

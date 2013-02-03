@@ -272,17 +272,17 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
 }
 
 
-float SideChain::getGainReduction(bool useGainCompensation)
+float SideChain::getGainReduction(bool bAutoMakeupGain)
 /*  Get current gain reduction.
 
-    useGainCompensation (boolean): determines whether the gain
-    reduction should be level compensated or not
+    bAutoMakeupGain (boolean): determines whether the gain reduction
+    should be level compensated or not
 
     return value (float): returns the current gain reduction in
     decibel
  */
 {
-    if (useGainCompensation)
+    if (bAutoMakeupGain)
     {
         return fGainReduction - fGainCompensation;
     }

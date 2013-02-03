@@ -61,7 +61,7 @@ public:
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
 
-    float getGainReduction(bool useGainCompensation);
+    float getGainReduction(bool bAutoMakeupGain);
 
     void processSample(float fSampleValue);
 

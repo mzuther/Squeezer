@@ -86,6 +86,7 @@ private:
     SliderCombined* SliderStereoLinkCombined;
 
     SliderCombined* SliderInputGainCombined;
+    TextButton* ButtonAutoMakeupGain;
     SliderCombined* SliderMakeupGainCombined;
     SliderCombined* SliderWetMixCombined;
 

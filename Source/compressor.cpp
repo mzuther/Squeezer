@@ -43,6 +43,7 @@ Compressor::Compressor(int channels, int sample_rate)
 
     setStereoLink(100);
 
+    setAutoMakeupGain(false);
     setMakeupGain(0.0f);
     setWetMix(100);
 
@@ -310,6 +311,28 @@ void Compressor::setStereoLink(int nStereoLinkNew)
 }
 
 
+bool Compressor::getAutoMakeupGain()
+/*  Get current auto make-up gain state.
+
+    return value (boolean): returns current auto make-up gain state
+ */
+{
+    return bAutoMakeupGain;
+}
+
+
+void Compressor::setAutoMakeupGain(bool bAutoMakeupGainNew)
+/*  Set new auto make-up gain state.
+
+    bAutoMakeupGainNew (boolean): new auto make-up gain state
+
+    return value: none
+ */
+{
+    bAutoMakeupGain = bAutoMakeupGainNew;
+}
+
+
 float Compressor::getMakeupGain()
 /*  Get current make-up gain.
 
@@ -438,7 +461,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             //
             //  "modern" (feed-forward) design:  current gain reduction
             //  "vintage" (feed-back) design:  "old" gain reduction
-            float fGainReduction = pSideChain[nChannel]->getGainReduction(true);
+            float fGainReduction = pSideChain[nChannel]->getGainReduction(bAutoMakeupGain);
             pOutputSamples[nChannel] = pInputSamples[nChannel] / SideChain::decibel2level(fGainReduction);
 
             // apply make-up gain

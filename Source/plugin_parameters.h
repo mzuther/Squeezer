@@ -31,6 +31,8 @@ class PluginParameters;
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "wrapped_parameter.h"
 #include "wrapped_parameter_combined.h"
+#include "wrapped_parameter_switch.h"
+#include "wrapped_parameter_toggle_switch.h"
 
 
 //============================================================================

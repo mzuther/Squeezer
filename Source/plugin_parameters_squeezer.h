@@ -31,9 +31,6 @@ class SqueezerPluginParameters;
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "compressor.h"
 #include "plugin_parameters.h"
-#include "wrapped_parameter_combined.h"
-#include "wrapped_parameter_switch.h"
-#include "wrapped_parameter_toggle_switch.h"
 
 
 //============================================================================
@@ -67,6 +64,7 @@ public:
 
         selStereoLinkSwitch,
         selStereoLink,
+        selAutoMakeupGain,
         selMakeupGainSwitch,
         selMakeupGain,
         selWetMixSwitch,
@@ -92,6 +90,7 @@ private:
     WrappedParameterCombined* ParameterReleaseRate;
 
     WrappedParameterCombined* ParameterStereoLink;
+    WrappedParameterSwitch* ParameterAutoMakeupGain;
     WrappedParameterCombined* ParameterMakeupGain;
     WrappedParameterCombined* ParameterWetMix;
 };

@@ -233,6 +233,18 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
+    case SqueezerPluginParameters::selAutoMakeupGain:
+
+        pPluginParameters->setFloat(nIndex, fValue);
+
+        if (pCompressor)
+        {
+            bool bAutoMakeupGain = pPluginParameters->getBoolean(nIndex);
+            pCompressor->setAutoMakeupGain(bAutoMakeupGain);
+        }
+
+        break;
+
     case SqueezerPluginParameters::selMakeupGain:
 
         pPluginParameters->setFloat(nIndex, fValue);
@@ -460,6 +472,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRate);
 
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLink);
+    bool bAutoMakeupGain = pPluginParameters->getBoolean(SqueezerPluginParameters::selAutoMakeupGain);
     float fMakeupGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selMakeupGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
@@ -477,6 +490,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setReleaseRate(nReleaseRate);
 
     pCompressor->setStereoLink(nStereoLink);
+    pCompressor->setAutoMakeupGain(bAutoMakeupGain);
     pCompressor->setMakeupGain(fMakeupGain);
     pCompressor->setWetMix(nWetMix);
 }

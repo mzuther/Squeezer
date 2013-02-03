@@ -159,6 +159,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderStereoLinkCombined);
 
 
+    ButtonAutoMakeupGain = new TextButton("Auto");
+    ButtonAutoMakeupGain->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonAutoMakeupGain->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonAutoMakeupGain->addListener(this);
+    addAndMakeVisible(ButtonAutoMakeupGain);
+
+
     nIndex = SqueezerPluginParameters::selMakeupGain;
     nIndexSwitch = SqueezerPluginParameters::selMakeupGainSwitch;
     strName = parameters->getName(nIndex);
@@ -233,6 +241,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     updateParameter(SqueezerPluginParameters::selStereoLinkSwitch);
     updateParameter(SqueezerPluginParameters::selStereoLink);
+    updateParameter(SqueezerPluginParameters::selAutoMakeupGain);
     updateParameter(SqueezerPluginParameters::selMakeupGainSwitch);
     updateParameter(SqueezerPluginParameters::selMakeupGain);
     updateParameter(SqueezerPluginParameters::selWetMixSwitch);
@@ -264,8 +273,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     setSize(nRightColumnStart + 70, nHeight);
 
-    ButtonBypass->setBounds(420, 90, 52, 20);
-
+    ButtonBypass->setBounds(480, 90, 52, 20);
     ButtonDesignModern->setBounds(20, 90, 52, 20);
     ButtonDesignVintage->setBounds(80, 90, 52, 20);
 
@@ -281,6 +289,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderReleaseRateCombined->setBounds(280, 15, 52, 60);
 
     SliderStereoLinkCombined->setBounds(360, 15, 52, 60);
+    ButtonAutoMakeupGain->setBounds(420, 90, 52, 20);
     SliderMakeupGainCombined->setBounds(420, 15, 52, 60);
     SliderWetMixCombined->setBounds(480, 15, 52, 60);
 
@@ -399,6 +408,9 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selStereoLink:
         SliderStereoLinkCombined->setValue(fValue, false);
         break;
+    case SqueezerPluginParameters::selAutoMakeupGain:
+        ButtonAutoMakeupGain->setToggleState(fValue != 0.0f, false);
+        break;
     case SqueezerPluginParameters::selMakeupGainSwitch:
         SliderMakeupGainCombined->updateMode();
         break;
@@ -451,6 +463,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonDetectorSmoothDecoupled)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1));
+    }
+    else if (button == ButtonAutoMakeupGain)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selAutoMakeupGain, !button->getToggleState());
     }
     else if (button == ButtonAbout)
     {

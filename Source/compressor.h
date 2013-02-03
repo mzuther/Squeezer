@@ -81,6 +81,9 @@ public:
     int getStereoLink();
     void setStereoLink(int nStereoLinkNew);
 
+    bool getAutoMakeupGain();
+    void setAutoMakeupGain(bool bAutoMakeupGainNew);
+
     float getMakeupGain();
     void setMakeupGain(float fMakeupGainNew);
 
@@ -112,6 +115,7 @@ private:
     float fStereoLinkOriginal;
     float fStereoLinkOther;
 
+    bool bAutoMakeupGain;
     float fMakeupGain;
     float fMakeupGainDecibel;
 
