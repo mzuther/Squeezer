@@ -104,29 +104,28 @@ void Compressor::setBypass(bool bBypassCompressorNew)
 }
 
 
-bool Compressor::getLevelDetection()
+int Compressor::getLevelDetection()
 /*  Get current level detection type.
 
-    return value (boolean): returns whether peak levels (false) or RMS
-    levels (true) are detected
+    return value (integer): returns current current level detection
+    type
  */
 {
     return pSideChain[0]->getLevelDetection();
 }
 
 
-void Compressor::setLevelDetection(bool bLevelDetectionRmsNew)
+void Compressor::setLevelDetection(int nLevelDetectionTypeNew)
 /*  Set new level detection type.
 
-    bLevelDetectionRmsNew (boolean): states whether peak levels
-    (false) or RMS levels (true) should be detected
+    nLevelDetectionTypeNew (integer): new level detection type
 
     return value: none
  */
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pSideChain[nChannel]->setLevelDetection(bLevelDetectionRmsNew);
+        pSideChain[nChannel]->setLevelDetection(nLevelDetectionTypeNew);
     }
 }
 
@@ -292,17 +291,17 @@ int Compressor::getDetector()
 }
 
 
-void Compressor::setDetector(int nDetectorNew)
+void Compressor::setDetector(int nDetectorTypeNew)
 /*  Set new compressor detector type.
 
-    nDetectorNew (integer): new compressor detector type
+    nDetectorTypeNew (integer): new compressor detector type
 
     return value: none
  */
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pSideChain[nChannel]->setDetector(nDetectorNew);
+        pSideChain[nChannel]->setDetector(nDetectorTypeNew);
     }
 }
 

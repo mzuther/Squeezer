@@ -41,9 +41,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterBypass, selBypass);
 
 
-    ParameterLevelDetection = new WrappedParameterToggleSwitch("Peak", "RMS");
+    ParameterLevelDetection = new WrappedParameterSwitch();
     ParameterLevelDetection->setName("Level Detection");
-    ParameterLevelDetection->setDefaultBoolean(false, true);
+
+    ParameterLevelDetection->addConstant(Compressor::LevelDetectionPeak, "Peak");
+    ParameterLevelDetection->addConstant(Compressor::LevelDetectionRMS,  "RMS");
+
+    ParameterLevelDetection->setDefaultRealFloat(Compressor::LevelDetectionRMS, true);
     add(ParameterLevelDetection, selLevelDetection);
 
 

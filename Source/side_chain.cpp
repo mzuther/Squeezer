@@ -41,14 +41,11 @@ SideChain::SideChain(int nSampleRate)
     setRatio(2.0f);
     setKneeWidth(0.0f);
 
-    setLevelDetection(false);
-    nDetector = Compressor::DetectorSmoothBranching;
+    setLevelDetection(Compressor::LevelDetectionRMS);
+    nDetectorType = Compressor::DetectorSmoothBranching;
     setAttackRate(10);
     setReleaseRate(100);
-    setDetector(nDetector);
-
-    fCrestFactorAutoGain = 0.0f;
-    fMeterMinimumDecibel = -70.01f;
+    setDetector(nDetectorType);
 
     // reset (i.e. initialise) all relevant variables
     reset();
@@ -72,6 +69,10 @@ void SideChain::reset()
 {
     fGainReduction = 0.0f;
     fGainCompensation = 0.0f;
+    fDetectorOutputLevelSquared = 0.0f;
+
+    fCrestFactorAutoGain = 0.0f;
+    fMeterMinimumDecibel = -70.01f;
 }
 
 
@@ -87,33 +88,41 @@ void SideChain::setSampleRate(int nSampleRate)
 }
 
 
-bool SideChain::getLevelDetection()
+int SideChain::getLevelDetection()
 /*  Get current level detection type.
 
-    return value (boolean): returns whether peak levels (false) or RMS
-    levels (true) are detected
+    return value (integer): returns current current level detection
+    type
  */
 {
-    return bLevelDetectionRms;
+    return nLevelDetectionType;
 }
 
 
-void SideChain::setLevelDetection(bool bLevelDetectionRmsNew)
+void SideChain::setLevelDetection(int nLevelDetectionTypeNew)
 /*  Set new level detection type.
 
-    bLevelDetectionRmsNew (boolean): states whether peak levels
-    (false) or RMS levels (true) should be detected
+    nLevelDetectionTypeNew (integer): new level detection type
 
     return value: none
  */
 {
-    bLevelDetectionRms = bLevelDetectionRmsNew;
-    fRmsOutputLevelSquared = -1.0f;
+    nLevelDetectionType = nLevelDetectionTypeNew;
 
     // logarithmic envelope reaches 95% of the final reading
     // in the given attack time
-    float fRmsDetectorRateSeconds = 0.001f;
-    fRmsDetectorCoefficient = expf(logf(0.05f) / (fRmsDetectorRateSeconds * fSampleRate));
+    float fDetectorRateMilliSeconds;
+
+    if (nLevelDetectionType == Compressor::LevelDetectionRMS)
+    {
+        fDetectorRateMilliSeconds = 50.0f;
+    }
+    else
+    {
+        fDetectorRateMilliSeconds = 0.5f;
+    }
+
+    fDetectorCoefficient = expf(logf(0.05f) / (fDetectorRateMilliSeconds / 1000.0f * fSampleRate));
 }
 
 
@@ -123,19 +132,19 @@ int SideChain::getDetector()
     return value (integer): returns compressor detector type
  */
 {
-    return nDetector;
+    return nDetectorType;
 }
 
 
-void SideChain::setDetector(int nDetectorNew)
+void SideChain::setDetector(int nDetectorTypeNew)
 /*  Set new compressor detector type.
 
-    nDetectorNew (integer): new compressor detector type
+    nDetectorTypeNew (integer): new compressor detector type
 
     return value: none
  */
 {
-    nDetector = nDetectorNew;
+    nDetectorType = nDetectorTypeNew;
     fGainReductionIntermediate = 0.0f;
 
     setAttackRate(nAttackRate);
@@ -242,7 +251,7 @@ void SideChain::setAttackRate(int nAttackRateNew)
     {
         float fAttackRateSeconds = nAttackRate / 1000.0f;
 
-        if (nDetector == Compressor::DetectorLinear)
+        if (nDetectorType == Compressor::DetectorLinear)
         {
             // rise time: rises 10 dB per interval defined in attack
             // rate (linear)
@@ -287,7 +296,7 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
     {
         float fReleaseRateSeconds = nReleaseRate / 1000.0f;
 
-        if (nDetector == Compressor::DetectorLinear)
+        if (nDetectorType == Compressor::DetectorLinear)
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
@@ -377,16 +386,14 @@ void SideChain::processSample(float fInputLevel)
     return value: current gain reduction in decibels
 */
 {
-    if (bLevelDetectionRms)
-    {
-        fGainReduction = applyLevelDetectionRms(fGainReduction);
-    }
-
     // feed input level to gain computer
     float fGainReductionNew = queryGainComputer(fInputLevel);
 
+    // filter calculated gain reduction through level detection filter
+    fGainReductionNew = applyLevelDetectionFilter(fGainReductionNew);
+
     // feed output from gain computer to level detector
-    switch (nDetector)
+    switch (nDetectorType)
     {
     case Compressor::DetectorLinear:
         applyDetectorLinear(fGainReductionNew);
@@ -407,21 +414,15 @@ void SideChain::processSample(float fInputLevel)
 }
 
 
-float SideChain::applyLevelDetectionRms(float fRmsInputLevel)
+float SideChain::applyLevelDetectionFilter(float fDetectorInputLevel)
 {
-    float fRmsInputLevelSquared = fRmsInputLevel * fRmsInputLevel;
+    float fDetectorInputLevelSquared = fDetectorInputLevel * fDetectorInputLevel;
+    float fDetectorOutputLevelSquaredOld = fDetectorOutputLevelSquared;
 
-    if (fRmsOutputLevelSquared < 0.0f)
-    {
-        fRmsOutputLevelSquared = fRmsInputLevelSquared;
-    }
+    fDetectorOutputLevelSquared = (fDetectorCoefficient * fDetectorOutputLevelSquaredOld) + (1.0f - fDetectorCoefficient) * fDetectorInputLevelSquared;
 
-    float fRmsOutputLevelSquaredOld = fRmsOutputLevelSquared;
-
-    fRmsOutputLevelSquared = (fRmsDetectorCoefficient * fRmsOutputLevelSquaredOld) + (1.0f - fRmsDetectorCoefficient) * fRmsInputLevelSquared;
-
-    float fRmsOutputLevel = sqrtf(fRmsOutputLevelSquared);
-    return fRmsOutputLevel;
+    float fDetectorOutputLevel = sqrtf(fDetectorOutputLevelSquared);
+    return fDetectorOutputLevel;
 }
 
 
