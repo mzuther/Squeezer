@@ -96,7 +96,8 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        L"Martin Zuther\n\n"
+        L"Martin Zuther\n"
+        L"bram@smartelectronix\n\n"
     );
 
     // // display the beta testers
@@ -214,7 +215,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // create and position an "about" button that appears as if it
     // were pressed down and which closes the window when clicked
     ButtonAbout = new TextButton("About");
-    ButtonAbout->setBounds(nWidth - 73, nHeight - 34, 60, 20);
+    ButtonAbout->setBounds(nWidth - 63, nHeight - 43, 52, 20);
     ButtonAbout->setColour(TextButton::buttonColourId, Colours::yellow);
     ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::grey);
 

@@ -70,6 +70,12 @@ public:
 
     float getGainReduction(int nChannel);
 
+    float getPeakMeterInputLevel(int nChannel);
+    float getPeakMeterOutputLevel(int nChannel);
+
+    float getAverageMeterInputLevel(int nChannel);
+    float getAverageMeterOutputLevel(int nChannel);
+
     //==========================================================================
     const String getName() const;
 

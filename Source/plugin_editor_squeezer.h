@@ -29,6 +29,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "compressor.h"
 #include "meter_bar_gain_reduction.h"
+#include "meter_bar_level.h"
 #include "plugin_processor_squeezer.h"
 #include "slider_combined.h"
 #include "window_about.h"
@@ -60,13 +61,15 @@ private:
     void resizeEditor();
 
     int nChannels;
-    int nRightColumnStart;
     int nHeight;
+    int nWidth;
 
     int nInputChannels;
 
     SqueezerAudioProcessor* pProcessor;
 
+    MeterBarLevel** pInputLevelMeters;
+    MeterBarLevel** pOutputLevelMeters;
     MeterBarGainReduction** pGainReductionMeters;
 
     TextButton* ButtonLevelDetectionPeak;

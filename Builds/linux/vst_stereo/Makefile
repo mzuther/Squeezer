@@ -115,6 +115,7 @@ OBJECTS := \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/main.o \
+	$(OBJDIR)/meter_bar_level.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/side_chain.o \
 	$(OBJDIR)/plugin_editor_squeezer.o \
@@ -219,6 +220,9 @@ $(OBJDIR)/slider_switch.o: ../../../Source/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/meter_bar_level.o: ../../../Source/meter_bar_level.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_continuous.o: ../../../Source/slider_continuous.cpp

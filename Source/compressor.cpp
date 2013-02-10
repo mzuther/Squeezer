@@ -35,6 +35,33 @@ Compressor::Compressor(int channels, int sample_rate)
     nChannels = channels;
     fCrestFactor = 20.0f;
 
+    // sample buffer holds 50 ms worth of samples
+    nMeterBufferSize = sample_rate / 20;
+
+    pMeterInputBuffer = new AudioSampleBuffer(nChannels, nMeterBufferSize);
+    pMeterOutputBuffer = new AudioSampleBuffer(nChannels, nMeterBufferSize);
+    nMeterBufferPosition = 0;
+
+    // allocate variables for meter levels (all audio input channels)
+    fPeakMeterInputLevels = new float[nChannels];
+    fPeakMeterOutputLevels = new float[nChannels];
+
+    fAverageMeterInputLevels = new float[nChannels];
+    fAverageMeterOutputLevels = new float[nChannels];
+
+    float fMeterMinimumDecibel = -(70.01f + fCrestFactor);
+
+    // loop through all audio channels
+    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    {
+        // set meter levels to meter minimum
+        fPeakMeterInputLevels[nChannel] = fMeterMinimumDecibel;
+        fPeakMeterOutputLevels[nChannel] = fMeterMinimumDecibel;
+
+        fAverageMeterInputLevels[nChannel] = fMeterMinimumDecibel;
+        fAverageMeterOutputLevels[nChannel] = fMeterMinimumDecibel;
+    }
+
     pSideChain = NULL;
 
     nWetMix = 100;
@@ -69,6 +96,24 @@ Compressor::~Compressor()
         delete pSideChain[nChannel];
         pSideChain[nChannel] = NULL;
     }
+
+    delete pMeterInputBuffer;
+    pMeterInputBuffer = NULL;
+
+    delete pMeterOutputBuffer;
+    pMeterOutputBuffer = NULL;
+
+    delete[] fPeakMeterInputLevels;
+    fPeakMeterInputLevels = NULL;
+
+    delete[] fPeakMeterOutputLevels;
+    fPeakMeterOutputLevels = NULL;
+
+    delete[] fAverageMeterInputLevels;
+    fAverageMeterInputLevels = NULL;
+
+    delete[] fAverageMeterOutputLevels;
+    fAverageMeterOutputLevels = NULL;
 
     delete[] pSideChain;
     pSideChain = NULL;
@@ -432,6 +477,68 @@ float Compressor::getGainReduction(int nChannel)
 }
 
 
+float Compressor::getPeakMeterInputLevel(int nChannel)
+/*  Get current input peak level.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns current input peak level in decibel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nChannels);
+
+    return fPeakMeterInputLevels[nChannel] + fCrestFactor;
+}
+
+
+float Compressor::getPeakMeterOutputLevel(int nChannel)
+/*  Get current output peak level.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns current output peak level in decibel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nChannels);
+
+    return fPeakMeterOutputLevels[nChannel] + fCrestFactor;
+}
+
+
+float Compressor::getAverageMeterInputLevel(int nChannel)
+/*  Get current input average level.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns current input average level in
+    decibel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nChannels);
+
+    return fAverageMeterInputLevels[nChannel] + fCrestFactor;
+}
+
+
+float Compressor::getAverageMeterOutputLevel(int nChannel)
+/*  Get current output average level.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns current output average level in
+    decibel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nChannels);
+
+    return fAverageMeterOutputLevels[nChannel] + fCrestFactor;
+}
+
+
 void Compressor::processBlock(AudioSampleBuffer& buffer)
 {
     int nNumSamples = buffer.getNumSamples();
@@ -450,6 +557,9 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         {
             // get current input sample
             pInputSamples[nChannel] = *buffer.getSampleData(nChannel, nSample);
+
+            // store input sample for metering
+            pMeterInputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
         }
 
         // compress channels
@@ -502,6 +612,9 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
             // save current output sample
             buffer.copyFrom(nChannel, nSample, &pOutputSamples[nChannel], 1);
+
+            // store output sample for metering
+            pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
         }
 
         // post-processing for feed-back design
@@ -535,6 +648,136 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 pSideChain[nChannel]->processSample(fOutputLevel);
             }
         }
+
+        // update metering buffer position
+        nMeterBufferPosition++;
+
+        if (nMeterBufferPosition >= nMeterBufferSize)
+        {
+            nMeterBufferPosition = 0;
+            // update meters
+
+            // loop over channels
+            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            {
+                // determine peak levels
+                float fInputPeak = pMeterInputBuffer->getMagnitude(nChannel, 0, nMeterBufferSize);
+                float fOutputPeak = pMeterOutputBuffer->getMagnitude(nChannel, 0, nMeterBufferSize);
+
+                // convert peak meter levels from linear scale to
+                // decibels
+                fInputPeak = SideChain::level2decibel(fInputPeak);
+                fOutputPeak = SideChain::level2decibel(fOutputPeak);
+
+                // apply peak meter ballistics
+                PeakMeterBallistics(fInputPeak, fPeakMeterInputLevels[nChannel]);
+                PeakMeterBallistics(fOutputPeak, fPeakMeterOutputLevels[nChannel]);
+
+                // determine average levels
+                float fInputRms = pMeterInputBuffer->getRMSLevel(nChannel, 0, nMeterBufferSize);
+                float fOutputRms = pMeterOutputBuffer->getRMSLevel(nChannel, 0, nMeterBufferSize);
+
+                // convert average meter levels from linear scale to
+                // decibels
+                fInputRms = SideChain::level2decibel(fInputRms);
+                fOutputRms = SideChain::level2decibel(fOutputRms);
+
+                // apply average meter ballistics
+                AverageMeterBallistics(fInputRms, fAverageMeterInputLevels[nChannel]);
+                AverageMeterBallistics(fOutputRms, fAverageMeterOutputLevels[nChannel]);
+            }
+        }
+    }
+}
+
+
+void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld)
+/*  Calculate ballistics for peak meter levels.
+
+    fPeakLevelCurrent (float): current peak meter level in decibel
+
+    fPeakLevelOld (float): old peak meter reading in decibel (will be
+    overwritten!)
+
+    return value: none
+*/
+{
+    // apply rise time if peak level is above old level
+    if (fPeakLevelCurrent >= fPeakLevelOld)
+    {
+        // immediate rise time, so return current peak level as new
+        // peak meter reading
+        fPeakLevelOld = fPeakLevelCurrent;
+    }
+    // otherwise, apply fall time
+    else
+    {
+        // time that has passed since last update (50 ms)
+        float fTimePassed = 0.050f;
+
+        // fall time: 26 dB in 3 seconds (linear)
+        float fReleaseCoef = 26.0f * fTimePassed / 3.0f;
+
+        // apply fall time and return new peak meter reading
+        fPeakLevelOld -= fReleaseCoef;
+
+        // make sure that meter doesn't fall below current level
+        if (fPeakLevelCurrent > fPeakLevelOld)
+        {
+            fPeakLevelOld = fPeakLevelCurrent;
+        }
+    }
+}
+
+
+void Compressor::AverageMeterBallistics(float fAverageLevelCurrent, float& fAverageLevelOld)
+/*  Calculate ballistics for average meter levels and update readout.
+
+    fAverageLevelCurrent (float): current average meter level in
+    decibel
+
+    fAverageLevelOld (float): old average meter reading in decibel
+    (will be overwritten!)
+
+    return value: none
+*/
+{
+    // time that has passed since last update (50 ms)
+    float fTimePassed = 0.050f;
+
+    // the meter reaches 99% of the final reading in 300 ms
+    // (logarithmic)
+    LogMeterBallistics(0.300f, fTimePassed, fAverageLevelCurrent, fAverageLevelOld);
+}
+
+
+void Compressor::LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout)
+/*  Calculate logarithmic meter ballistics.
+
+    fMeterInertia (float): time needed to reach 99% of the final
+    readout (in fractional seconds)
+
+    fTimePassed (float): time that has passed since last update (in
+    fractional seconds)
+
+    fLevel (float): new meter level
+
+    fReadout (reference to float): old meter readout; this variable
+    will be updated by this function
+
+    return value: none
+*/
+{
+    // we only have to calculate meter ballistics if meter level and
+    // meter readout are not equal
+    if (fLevel != fReadout)
+    {
+        // Thanks to Bram from Smartelectronix for the code snippet!
+        // (http://www.musicdsp.org/showone.php?id=136)
+        //
+        // rise and fall: 99% of final reading in "fMeterInertia" seconds
+        float fAttackReleaseCoef = powf(0.01f, fTimePassed / fMeterInertia);
+        fReadout = fAttackReleaseCoef * (fReadout - fLevel) + fLevel;
     }
 }
 

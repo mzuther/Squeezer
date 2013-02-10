@@ -99,18 +99,38 @@ public:
 
     float getGainReduction(int nChannel);
 
+    float getPeakMeterInputLevel(int nChannel);
+    float getPeakMeterOutputLevel(int nChannel);
+
+    float getAverageMeterInputLevel(int nChannel);
+    float getAverageMeterOutputLevel(int nChannel);
+
     void processBlock(AudioSampleBuffer& buffer);
 
     juce_UseDebuggingNewOperator
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
+    void PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld);
+    void AverageMeterBallistics(float fAverageLevelCurrent, float& fAverageLevelOld);
+    void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);
+
     SideChain** pSideChain;
+    AudioSampleBuffer* pMeterInputBuffer;
+    AudioSampleBuffer* pMeterOutputBuffer;
 
     float* pInputSamples;
     float* pOutputSamples;
 
+    float *fPeakMeterInputLevels;
+    float *fPeakMeterOutputLevels;
+
+    float* fAverageMeterInputLevels;
+    float* fAverageMeterOutputLevels;
+
     int nChannels;
+    int nMeterBufferSize;
+    int nMeterBufferPosition;
     float fCrestFactor;
     int nDesign;
 

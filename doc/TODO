@@ -1,10 +1,8 @@
-o [mzuther] implement input and output meters
-
-o [mzuther] implement side-chain filters
-
 o [mzuther] use "juce_UseDebuggingNewOperator"
 
 o [mzuther] document code
+
+* implement side-chain filters
 
 * mid/side processing
 

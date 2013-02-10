@@ -33,6 +33,10 @@
             file="Source/meter_bar_gain_reduction.cpp"/>
       <FILE id="O8NKAL" name="meter_bar_gain_reduction.h" compile="0" resource="0"
             file="Source/meter_bar_gain_reduction.h"/>
+      <FILE id="P9Loed" name="meter_bar_level.cpp" compile="1" resource="0"
+            file="Source/meter_bar_level.cpp"/>
+      <FILE id="kzxfOR" name="meter_bar_level.h" compile="0" resource="0"
+            file="Source/meter_bar_level.h"/>
       <FILE id="RAoBgK" name="meter_segment.cpp" compile="1" resource="0"
             file="Source/meter_segment.cpp"/>
       <FILE id="j82Z2Y" name="meter_segment.h" compile="0" resource="0" file="Source/meter_segment.h"/>

@@ -225,13 +225,22 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonAbout);
 
 
+    pInputLevelMeters = new MeterBarLevel*[nChannels];
+    pOutputLevelMeters = new MeterBarLevel*[nChannels];
     pGainReductionMeters = new MeterBarGainReduction*[nChannels];
+
     int x = 550;
     int width = 12;
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x, 12, width, 13, 5);
+        pInputLevelMeters[nChannel] = new MeterBarLevel("Input Level Meter #" + String(nChannel), x, 12, width, 24, 5);
+        addAndMakeVisible(pInputLevelMeters[nChannel]);
+
+        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 60, 12, width, 24, 5);
+        addAndMakeVisible(pOutputLevelMeters[nChannel]);
+
+        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + 30, 12, width, 24, 5);
         addAndMakeVisible(pGainReductionMeters[nChannel]);
 
         x += width - 1;
@@ -274,9 +283,21 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
+        delete pInputLevelMeters[nChannel];
+        pInputLevelMeters[nChannel] = NULL;
+
+        delete pOutputLevelMeters[nChannel];
+        pOutputLevelMeters[nChannel] = NULL;
+
         delete pGainReductionMeters[nChannel];
         pGainReductionMeters[nChannel] = NULL;
     }
+
+    delete[] pInputLevelMeters;
+    pInputLevelMeters = NULL;
+
+    delete[] pOutputLevelMeters;
+    pOutputLevelMeters = NULL;
 
     delete[] pGainReductionMeters;
     pGainReductionMeters = NULL;
@@ -288,9 +309,9 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 180;
-    nRightColumnStart = 590;
+    nWidth = 660;
 
-    setSize(nRightColumnStart + 70, nHeight);
+    setSize(nWidth, nHeight);
 
     ButtonBypass->setBounds(480, 90, 52, 20);
     ButtonLevelDetectionPeak->setBounds(20, 90, 52, 20);
@@ -314,11 +335,11 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderMakeupGainCombined->setBounds(420, 15, 52, 60);
     SliderWetMixCombined->setBounds(480, 15, 52, 60);
 
-    ButtonAbout->setBounds(nRightColumnStart, nHeight - 31, 60, 20);
+    ButtonAbout->setBounds(480, 140, 52, 20);
 
     if (LabelDebug)
     {
-        LabelDebug->setBounds(nRightColumnStart, nHeight - 82, 60, 16);
+        LabelDebug->setBounds(480, 117, 52, 16);
     }
 }
 
@@ -344,6 +365,12 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String& strMessa
     {
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
+            float fPeakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
+            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel);
+
+            float fPeakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
+            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel);
+
             float fGainReduction = pProcessor->getGainReduction(nChannel);
             pGainReductionMeters[nChannel]->setGainReduction(fGainReduction);
         }
@@ -511,7 +538,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonAbout)
     {
-        WindowAbout* windowAbout = new WindowAbout(getWidth(), getHeight());
+        WindowAbout* windowAbout = new WindowAbout(getWidth() - 120, getHeight());
         addAndMakeVisible(windowAbout);
 
         windowAbout->runModalLoop();

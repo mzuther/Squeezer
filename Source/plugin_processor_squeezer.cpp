@@ -372,6 +372,58 @@ float SqueezerAudioProcessor::getGainReduction(int nChannel)
 }
 
 
+float SqueezerAudioProcessor::getPeakMeterInputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getPeakMeterInputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
+float SqueezerAudioProcessor::getPeakMeterOutputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getPeakMeterOutputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
+float SqueezerAudioProcessor::getAverageMeterInputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getAverageMeterInputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
+float SqueezerAudioProcessor::getAverageMeterOutputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getAverageMeterOutputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
 const String SqueezerAudioProcessor::getInputChannelName(int channelIndex) const
 {
     return "Input " + String(channelIndex + 1);
