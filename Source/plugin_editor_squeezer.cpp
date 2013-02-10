@@ -366,10 +366,12 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String& strMessa
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
             float fPeakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
-            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel);
+            float fAverageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
+            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel, fAverageInputLevel);
 
             float fPeakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
-            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel);
+            float fAverageOutputLevel = pProcessor->getAverageMeterOutputLevel(nChannel);
+            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel, fAverageOutputLevel);
 
             float fGainReduction = pProcessor->getGainReduction(nChannel);
             pGainReductionMeters[nChannel]->setGainReduction(fGainReduction);

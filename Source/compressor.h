@@ -123,8 +123,8 @@ private:
     float* pInputSamples;
     float* pOutputSamples;
 
-    float *fPeakMeterInputLevels;
-    float *fPeakMeterOutputLevels;
+    float* fPeakMeterInputLevels;
+    float* fPeakMeterOutputLevels;
 
     float* fAverageMeterInputLevels;
     float* fAverageMeterOutputLevels;

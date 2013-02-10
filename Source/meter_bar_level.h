@@ -39,7 +39,7 @@ public:
     MeterBarLevel(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
     ~MeterBarLevel();
 
-    void setLevel(float fPeakLevelNew);
+    void setLevel(float fPeakLevelNew, float fAverageLevelNew);
     void paint(Graphics& g);
     void resized();
     void visibilityChanged();
@@ -47,6 +47,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(MeterBarLevel);
 
+    float fAverageLevel;
     float fPeakLevel;
 
     int nPosX;

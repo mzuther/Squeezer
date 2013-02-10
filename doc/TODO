@@ -4,8 +4,6 @@ o [mzuther] document code
 
 * implement side-chain filters
 
-* mid/side processing
-
 * implement parameter smoothing ("anti-zipper")
 
 * implement external side-chain

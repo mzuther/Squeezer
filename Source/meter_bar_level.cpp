@@ -48,7 +48,6 @@ MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, 
     int nThreshold = 200;
     float fRange = 2.0f;
     int nColor = -1;
-    bool bDiscreteLevels = false;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
@@ -66,7 +65,7 @@ MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, 
         }
 
 
-        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, bDiscreteLevels, false, nColor);
+        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, true, nColor);
         addAndMakeVisible(MeterArray[n]);
 
         nThreshold -= 20;
@@ -116,15 +115,16 @@ void MeterBarLevel::resized()
 }
 
 
-void MeterBarLevel::setLevel(float fPeakLevelNew)
+void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew)
 {
-    if (fPeakLevelNew != fPeakLevel)
+    if ((fPeakLevelNew != fPeakLevel) || (fAverageLevelNew != fAverageLevel))
     {
         fPeakLevel = fPeakLevelNew;
+        fAverageLevel = fAverageLevelNew;
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            MeterArray[n]->setLevels(fPeakLevel, 0.0f);
+            MeterArray[n]->setLevels(fPeakLevel, fAverageLevel, -9999.9f, -9999.9f);
         }
     }
 }

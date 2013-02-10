@@ -35,16 +35,19 @@
 class MeterSegment : public Component
 {
 public:
-    MeterSegment(const String& componentName, float fThreshold, float fRange, bool bDiscreteLevels, bool bDisplayPeaks, int nColor);
+    MeterSegment(const String& componentName, float fThreshold, float fRange, bool bDisplayPeakMeter, int nColor);
     ~MeterSegment();
 
-    void setLevels(float fLevel, float fLevelPeak);
+    void setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak);
     void paint(Graphics& g);
     void resized();
     void visibilityChanged();
 
 private:
     JUCE_LEAK_DETECTOR(MeterSegment);
+    static const int PEAK_MARKER_NONE = 0;
+    static const int PEAK_MARKER_PEAK = 1;
+    static const int PEAK_MARKER_AVERAGE = 2;
 
     float fHue;
     float fBrightness;
@@ -53,9 +56,8 @@ private:
     float fUpperThreshold;
     float fThresholdRange;
 
-    bool bPeakMarker;
-    bool discreteLevels;
-    bool displayPeaks;
+    int nPeakMarker;
+    bool displayPeakMeter;
 };
 
 

@@ -48,11 +48,10 @@ MeterBarGainReduction::MeterBarGainReduction(const String& componentName, int po
     int nThreshold = 0;
     float fRange = 1.0f;
     int nColor = 1;
-    bool bDiscreteLevels = false;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
-        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, bDiscreteLevels, false, nColor);
+        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, false, nColor);
         addAndMakeVisible(MeterArray[n]);
 
         nThreshold += 10;
@@ -110,7 +109,7 @@ void MeterBarGainReduction::setGainReduction(float gainReduction)
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            MeterArray[n]->setLevels(fGainReduction, 0.0f);
+            MeterArray[n]->setLevels(-9999.9f, fGainReduction, -9999.9f, -9999.9f);
         }
     }
 }
