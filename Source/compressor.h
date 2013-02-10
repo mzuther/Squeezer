@@ -111,6 +111,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
+    void updateMeterBallistics();
     void PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld);
     void AverageMeterBallistics(float fAverageLevelCurrent, float& fAverageLevelOld);
     void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);

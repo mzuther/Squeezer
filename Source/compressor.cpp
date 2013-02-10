@@ -548,6 +548,15 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
     {
         if (bBypassCompressorCombined)
         {
+            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            {
+                // store input sample for metering
+                pMeterInputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
+                pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
+
+                updateMeterBallistics();
+            }
+
             continue;
         }
 
@@ -649,43 +658,47 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             }
         }
 
-        // update metering buffer position
-        nMeterBufferPosition++;
+        updateMeterBallistics();
+    }
+}
 
-        if (nMeterBufferPosition >= nMeterBufferSize)
+
+void Compressor::updateMeterBallistics()
+{
+    // update metering buffer position
+    nMeterBufferPosition++;
+
+    if (nMeterBufferPosition >= nMeterBufferSize)
+    {
+        nMeterBufferPosition = 0;
+
+        // loop over channels
+        for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
-            nMeterBufferPosition = 0;
-            // update meters
+            // determine peak levels
+            float fInputPeak = pMeterInputBuffer->getMagnitude(nChannel, 0, nMeterBufferSize);
+            float fOutputPeak = pMeterOutputBuffer->getMagnitude(nChannel, 0, nMeterBufferSize);
 
-            // loop over channels
-            for (int nChannel = 0; nChannel < nChannels; nChannel++)
-            {
-                // determine peak levels
-                float fInputPeak = pMeterInputBuffer->getMagnitude(nChannel, 0, nMeterBufferSize);
-                float fOutputPeak = pMeterOutputBuffer->getMagnitude(nChannel, 0, nMeterBufferSize);
+            // convert peak meter levels from linear scale to decibels
+            fInputPeak = SideChain::level2decibel(fInputPeak);
+            fOutputPeak = SideChain::level2decibel(fOutputPeak);
 
-                // convert peak meter levels from linear scale to
-                // decibels
-                fInputPeak = SideChain::level2decibel(fInputPeak);
-                fOutputPeak = SideChain::level2decibel(fOutputPeak);
+            // apply peak meter ballistics
+            PeakMeterBallistics(fInputPeak, fPeakMeterInputLevels[nChannel]);
+            PeakMeterBallistics(fOutputPeak, fPeakMeterOutputLevels[nChannel]);
 
-                // apply peak meter ballistics
-                PeakMeterBallistics(fInputPeak, fPeakMeterInputLevels[nChannel]);
-                PeakMeterBallistics(fOutputPeak, fPeakMeterOutputLevels[nChannel]);
+            // determine average levels
+            float fInputRms = pMeterInputBuffer->getRMSLevel(nChannel, 0, nMeterBufferSize);
+            float fOutputRms = pMeterOutputBuffer->getRMSLevel(nChannel, 0, nMeterBufferSize);
 
-                // determine average levels
-                float fInputRms = pMeterInputBuffer->getRMSLevel(nChannel, 0, nMeterBufferSize);
-                float fOutputRms = pMeterOutputBuffer->getRMSLevel(nChannel, 0, nMeterBufferSize);
+            // convert average meter levels from linear scale to
+            // decibels
+            fInputRms = SideChain::level2decibel(fInputRms);
+            fOutputRms = SideChain::level2decibel(fOutputRms);
 
-                // convert average meter levels from linear scale to
-                // decibels
-                fInputRms = SideChain::level2decibel(fInputRms);
-                fOutputRms = SideChain::level2decibel(fOutputRms);
-
-                // apply average meter ballistics
-                AverageMeterBallistics(fInputRms, fAverageMeterInputLevels[nChannel]);
-                AverageMeterBallistics(fOutputRms, fAverageMeterOutputLevels[nChannel]);
-            }
+            // apply average meter ballistics
+            AverageMeterBallistics(fInputRms, fAverageMeterInputLevels[nChannel]);
+            AverageMeterBallistics(fOutputRms, fAverageMeterOutputLevels[nChannel]);
         }
     }
 }
