@@ -91,6 +91,12 @@ const String SqueezerAudioProcessor::getParameterText(int nIndex)
 }
 
 
+String SqueezerAudioProcessor::getParameters()
+{
+    return pPluginParameters->toString();
+}
+
+
 float SqueezerAudioProcessor::getParameter(int nIndex)
 {
     // This method will be called by the host, probably on the audio

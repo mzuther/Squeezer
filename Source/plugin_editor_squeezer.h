@@ -33,6 +33,7 @@
 #include "plugin_processor_squeezer.h"
 #include "slider_combined.h"
 #include "window_about.h"
+#include "window_settings.h"
 
 
 //==============================================================================
@@ -98,6 +99,7 @@ private:
 
     TextButton* ButtonBypass;
     TextButton* ButtonResetMeters;
+    TextButton* ButtonSettings;
     TextButton* ButtonAbout;
 
     Label* LabelDebug;

@@ -35,7 +35,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     strSettingsID = "SQUEEZER_SETTINGS";
 
-    ParameterBypass = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterBypass = new WrappedParameterToggleSwitch("Bypassed", "Active");
     ParameterBypass->setName("Bypass");
     ParameterBypass->setDefaultBoolean(false, true);
     add(ParameterBypass, selBypass);
@@ -238,7 +238,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterStereoLink, selStereoLink, selStereoLinkSwitch);
 
 
-    ParameterAutoMakeupGain = new WrappedParameterToggleSwitch("Off", "On");
+    ParameterAutoMakeupGain = new WrappedParameterToggleSwitch("Auto", "Manual");
     ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
     ParameterAutoMakeupGain->setDefaultBoolean(false, true);
     add(ParameterAutoMakeupGain, selAutoMakeupGain);
@@ -363,6 +363,60 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
 
     delete ParameterWetMix;
     ParameterWetMix = NULL;
+}
+
+
+String SqueezerPluginParameters::toString()
+{
+    String strParameters;
+
+    strParameters = String(ProjectInfo::projectName) + " " + String(JucePlugin_VersionString);
+
+    int nStringLength = strParameters.length();
+    strParameters += "\n";
+
+    for (int nPosition = 0; nPosition < nStringLength; nPosition++)
+    {
+        strParameters += "=";
+    }
+
+    strParameters += "\nDetector: ";
+    strParameters += arrParameters[selLevelDetection]->getText();
+
+    strParameters += ", Design: ";
+    strParameters += arrParameters[selDesign]->getText();
+
+    strParameters += "\nThreshold: ";
+    strParameters += arrParameters[selThreshold]->getText();
+
+    strParameters += ", Ratio: ";
+    strParameters += arrParameters[selRatio]->getText();
+
+    strParameters += ", Knee: ";
+    strParameters += arrParameters[selKneeWidth]->getText();
+
+    strParameters += "\nAttack: ";
+    strParameters += arrParameters[selAttackRate]->getText();
+
+    strParameters += ", Release: ";
+    strParameters += arrParameters[selReleaseRate]->getText();
+
+    strParameters += " (";
+    strParameters += arrParameters[selDetector]->getText();
+
+    strParameters += ")\nMake-Up: ";
+    strParameters += arrParameters[selMakeupGain]->getText();
+
+    strParameters += " (";
+    strParameters += arrParameters[selAutoMakeupGain]->getText();
+
+    strParameters += "), Wet: ";
+    strParameters += arrParameters[selWetMix]->getText();
+
+    strParameters += ", Link: ";
+    strParameters += arrParameters[selStereoLink]->getText();
+
+    return strParameters + "\n";
 }
 
 

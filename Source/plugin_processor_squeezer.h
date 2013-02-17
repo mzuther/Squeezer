@@ -59,6 +59,7 @@ public:
     const String getParameterName(int nIndex);
     const String getParameterText(int nIndex);
 
+    String getParameters();
     float getParameter(int nIndex);
     void changeParameter(int nIndex, float fValue);
     void setParameter(int nIndex, float fValue);

@@ -225,6 +225,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonResetMeters);
 
 
+    ButtonSettings = new TextButton("Settings");
+    ButtonSettings->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonSettings->setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonSettings->addListener(this);
+    addAndMakeVisible(ButtonSettings);
+
+
     ButtonAbout = new TextButton("About");
     ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
@@ -344,6 +352,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderWetMixCombined->setBounds(480, 15, 52, 60);
 
     ButtonResetMeters->setBounds(565, 140, 52, 20);
+    ButtonSettings->setBounds(420, 140, 52, 20);
     ButtonAbout->setBounds(480, 140, 52, 20);
 
     if (LabelDebug)
@@ -553,6 +562,19 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonResetMeters)
     {
         pProcessor->resetMeters();
+    }
+    else if (button == ButtonSettings)
+    {
+        String strPluginSettings = pProcessor->getParameters();
+
+        WindowSettings* windowSettings = new WindowSettings(getWidth() - 184, getHeight(), strPluginSettings);
+        addAndMakeVisible(windowSettings);
+
+        windowSettings->runModalLoop();
+
+        removeChildComponent(windowSettings);
+        delete windowSettings;
+        windowSettings = NULL;
     }
     else if (button == ButtonAbout)
     {

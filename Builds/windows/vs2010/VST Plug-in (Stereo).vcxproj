@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{4F272717-F460-948D-D72E-DCF0A1D97F46}</ProjectGuid>
+		<ProjectGuid>{D0BF173E-6A30-26F5-69F8-8723DD756175}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -132,6 +132,7 @@
 		<ClInclude Include="..\..\..\Source\compressor.h" />
 		<ClInclude Include="..\..\..\Source\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\window_settings.h" />
 		<ClInclude Include="..\..\..\Source\side_chain.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
@@ -155,6 +156,8 @@
 		<ClCompile Include="..\..\..\Source\slider_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\side_chain.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\window_settings.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>

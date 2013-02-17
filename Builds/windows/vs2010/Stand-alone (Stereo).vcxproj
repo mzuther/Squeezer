@@ -11,7 +11,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{F721F0C9-94B2-138C-A063-9B037C6404AA}</ProjectGuid>
+		<ProjectGuid>{D1915947-D70D-FC35-2D3D-A970F4FD8FCF}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 	</PropertyGroup>
@@ -128,6 +128,7 @@
 		<ClInclude Include="..\..\..\Source\compressor.h" />
 		<ClInclude Include="..\..\..\Source\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\window_settings.h" />
 		<ClInclude Include="..\..\..\Source\side_chain.h" />
 		<ClInclude Include="..\..\..\Source\standalone_application.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
@@ -152,6 +153,8 @@
 		<ClCompile Include="..\..\..\Source\slider_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\side_chain.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\window_settings.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>

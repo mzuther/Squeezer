@@ -68,7 +68,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display plug-in name and version number
     TextEditorAbout->setFont(fontHeadline);
     TextEditorAbout->insertTextAtCaret(
-        String("squeezer ") + JucePlugin_VersionString + "\n"
+        String(ProjectInfo::projectName) + " " + JucePlugin_VersionString + "\n"
     );
 
     // display plug-in description
