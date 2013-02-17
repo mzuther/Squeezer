@@ -72,11 +72,11 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterDetector, selDetector);
 
 
-    float fMinimum = -48.0f;
+    float fMinimum = -60.0f;
     float fMaximum = +18.0f;
-    float fResolution = 0.5f;
+    float fResolution = 1.0f;
     float fLogFactor = 0.0f;
-    int nDecimalPlaces = 1;
+    int nDecimalPlaces = 0;
 
     ParameterThreshold = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterThreshold->setName("Threshold");
@@ -130,9 +130,11 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterRatio = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterRatio->setName("Ratio");
 
+    ParameterRatio->addConstant(1.1f,   "1.1:1");
     ParameterRatio->addConstant(1.2f,   "1.2:1");
     ParameterRatio->addConstant(1.5f,   "1.5:1");
     ParameterRatio->addConstant(2.0f,     "2:1");
+    ParameterRatio->addConstant(2.5f,   "2.5:1");
     ParameterRatio->addConstant(3.0f,     "3:1");
     ParameterRatio->addConstant(4.0f,     "4:1");
     ParameterRatio->addConstant(6.0f,     "6:1");
@@ -170,6 +172,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterAttackRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterAttackRate->setName("Attack Rate");
 
+    ParameterAttackRate->addConstant(1.0f,     "1 ms");
     ParameterAttackRate->addConstant(2.0f,     "2 ms");
     ParameterAttackRate->addConstant(5.0f,     "5 ms");
     ParameterAttackRate->addConstant(10.0f,   "10 ms");
@@ -180,7 +183,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterAttackRate->addConstant(500.0f, "500 ms");
 
     ParameterAttackRate->setSuffix(" ms");
-    ParameterAttackRate->setDefaultRealFloat(10.0f, true);
+    ParameterAttackRate->setDefaultRealFloat(20.0f, true);
     addCombined(ParameterAttackRate, selAttackRate, selAttackRateSwitch);
 
 
@@ -241,8 +244,8 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterAutoMakeupGain, selAutoMakeupGain);
 
 
-    fMinimum = -24.0f;
-    fMaximum = +24.0f;
+    fMinimum = -36.0f;
+    fMaximum = +36.0f;
     fResolution = 0.5f;
     fLogFactor = 0.0f;
     nDecimalPlaces = 1;
@@ -250,6 +253,12 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterMakeupGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterMakeupGain->setName("Make-Up Gain");
 
+    ParameterMakeupGain->addConstant(-18.0f, "-18 dB");
+    ParameterMakeupGain->addConstant(-17.0f, "-17 dB");
+    ParameterMakeupGain->addConstant(-16.0f, "-16 dB");
+    ParameterMakeupGain->addConstant(-15.0f, "-15 dB");
+    ParameterMakeupGain->addConstant(-14.0f, "-14 dB");
+    ParameterMakeupGain->addConstant(-13.0f, "-13 dB");
     ParameterMakeupGain->addConstant(-12.0f, "-12 dB");
     ParameterMakeupGain->addConstant(-11.0f, "-11 dB");
     ParameterMakeupGain->addConstant(-10.0f, "-10 dB");
@@ -275,6 +284,12 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterMakeupGain->addConstant(+10.0f, "+10 dB");
     ParameterMakeupGain->addConstant(+11.0f, "+11 dB");
     ParameterMakeupGain->addConstant(+12.0f, "+12 dB");
+    ParameterMakeupGain->addConstant(+13.0f, "+13 dB");
+    ParameterMakeupGain->addConstant(+14.0f, "+14 dB");
+    ParameterMakeupGain->addConstant(+15.0f, "+15 dB");
+    ParameterMakeupGain->addConstant(+16.0f, "+16 dB");
+    ParameterMakeupGain->addConstant(+17.0f, "+17 dB");
+    ParameterMakeupGain->addConstant(+18.0f, "+18 dB");
 
     ParameterMakeupGain->setSuffix(" dB");
     ParameterMakeupGain->setDefaultRealFloat(0.0f, true);

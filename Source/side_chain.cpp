@@ -108,9 +108,6 @@ void SideChain::setLevelDetection(int nLevelDetectionTypeNew)
  */
 {
     nLevelDetectionType = nLevelDetectionTypeNew;
-
-    // logarithmic envelope reaches 95% of the final reading
-    // in the given attack time
     float fDetectorRateMilliSeconds;
 
     if (nLevelDetectionType == Compressor::LevelDetectionRMS)
@@ -122,7 +119,9 @@ void SideChain::setLevelDetection(int nLevelDetectionTypeNew)
         fDetectorRateMilliSeconds = 0.5f;
     }
 
-    fDetectorCoefficient = expf(logf(0.05f) / (fDetectorRateMilliSeconds / 1000.0f * fSampleRate));
+    // logarithmic envelope reaches 90% of the final reading
+    // in the given attack time
+    fDetectorCoefficient = expf(logf(0.10f) / (fDetectorRateMilliSeconds / 1000.0f * fSampleRate));
 }
 
 
@@ -259,9 +258,9 @@ void SideChain::setAttackRate(int nAttackRateNew)
         }
         else
         {
-            // logarithmic envelope reaches 95% of the final reading
+            // logarithmic envelope reaches 90% of the final reading
             // in the given attack time
-            fAttackCoefficient = expf(logf(0.05f) / (fAttackRateSeconds * fSampleRate));
+            fAttackCoefficient = expf(logf(0.10f) / (fAttackRateSeconds * fSampleRate));
         }
     }
 }
@@ -304,9 +303,9 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
         }
         else
         {
-            // logarithmic envelope reaches 95% of the final reading
+            // logarithmic envelope reaches 90% of the final reading
             // in the given release time
-            fReleaseCoefficient = expf(logf(0.05f) / (fReleaseRateSeconds * fSampleRate));
+            fReleaseCoefficient = expf(logf(0.10f) / (fReleaseRateSeconds * fSampleRate));
         }
     }
 }
