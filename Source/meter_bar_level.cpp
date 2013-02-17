@@ -47,8 +47,8 @@ MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, 
 
     MeterArray = new MeterSegment*[nNumberOfBars];
 
-    int nThreshold = 200;
     float fRange = 2.0f;
+    int nThreshold = 200 - int(10.0f * fRange);
     int nColor = -1;
 
     for (int n = 0; n < nNumberOfBars; n++)
@@ -65,7 +65,6 @@ MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, 
         {
             nColor = 2;
         }
-
 
         MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, true, nColor);
         addAndMakeVisible(MeterArray[n]);

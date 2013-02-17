@@ -786,12 +786,20 @@ void Compressor::updateMeterBallistics()
             fOutputPeak = SideChain::level2decibel(fOutputPeak);
 
             // update peak meter peak values
-            if (fInputPeak > pPeakMeterPeakInputLevels[nChannel])
+            if (fInputPeak > 0.0f)
+            {
+                pPeakMeterPeakInputLevels[nChannel] = 0.0f;
+            }
+            else if (fInputPeak > pPeakMeterPeakInputLevels[nChannel])
             {
                 pPeakMeterPeakInputLevels[nChannel] = fInputPeak;
             }
 
-            if (fOutputPeak > pPeakMeterPeakOutputLevels[nChannel])
+            if (fOutputPeak > 0.0f)
+            {
+                pPeakMeterPeakOutputLevels[nChannel] = 0.0f;
+            }
+            else if (fOutputPeak > pPeakMeterPeakOutputLevels[nChannel])
             {
                 pPeakMeterPeakOutputLevels[nChannel] = fOutputPeak;
             }
@@ -835,8 +843,14 @@ void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelO
     return value: none
 */
 {
+    // limit peak level
+    if (fPeakLevelCurrent >= 0.0f)
+    {
+        // immediate rise time, but limit current peak to top mark
+        fPeakLevelOld = 0.0f;
+    }
     // apply rise time if peak level is above old level
-    if (fPeakLevelCurrent >= fPeakLevelOld)
+    else if (fPeakLevelCurrent >= fPeakLevelOld)
     {
         // immediate rise time, so return current peak level as new
         // peak meter reading

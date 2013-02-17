@@ -78,6 +78,10 @@
       <FILE id="tPpfbQ" name="window_about.cpp" compile="1" resource="0"
             file="Source/window_about.cpp"/>
       <FILE id="h6FxwI" name="window_about.h" compile="0" resource="0" file="Source/window_about.h"/>
+      <FILE id="iQkpQQ" name="window_settings.cpp" compile="1" resource="0"
+            file="Source/window_settings.cpp"/>
+      <FILE id="yKnyVI" name="window_settings.h" compile="0" resource="0"
+            file="Source/window_settings.h"/>
       <FILE id="HnVScQ" name="wrapped_parameter.h" compile="0" resource="0"
             file="Source/wrapped_parameter.h"/>
       <FILE id="XKaqCu" name="wrapped_parameter_combined.cpp" compile="1"
