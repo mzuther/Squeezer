@@ -41,7 +41,9 @@ MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, 
     nWidth = width;
     nHeight = nNumberOfBars * nSegmentHeight + 1;
 
+    fAverageLevel = 0.0f;
     fPeakLevel = 0.0f;
+    fPeakLevelPeak = 0.0f;
 
     MeterArray = new MeterSegment*[nNumberOfBars];
 
@@ -115,16 +117,17 @@ void MeterBarLevel::resized()
 }
 
 
-void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew)
+void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float fPeakLevelPeakNew)
 {
-    if ((fPeakLevelNew != fPeakLevel) || (fAverageLevelNew != fAverageLevel))
+    if ((fPeakLevelNew != fPeakLevel) || (fAverageLevelNew != fAverageLevel) || (fPeakLevelPeakNew != fPeakLevelPeak))
     {
         fPeakLevel = fPeakLevelNew;
         fAverageLevel = fAverageLevelNew;
+        fPeakLevelPeak = fPeakLevelPeakNew;
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            MeterArray[n]->setLevels(fPeakLevel, fAverageLevel, -9999.9f, -9999.9f);
+            MeterArray[n]->setLevels(fPeakLevel, fAverageLevel, fPeakLevelPeak, -9999.9f);
         }
     }
 }

@@ -217,6 +217,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 #endif
 
 
+    ButtonResetMeters = new TextButton("Reset");
+    ButtonResetMeters->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonResetMeters->setColour(TextButton::buttonOnColourId, Colours::red);
+
+    ButtonResetMeters->addListener(this);
+    addAndMakeVisible(ButtonResetMeters);
+
+
     ButtonAbout = new TextButton("About");
     ButtonAbout->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::yellow);
@@ -243,7 +251,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + 30, 12, width, 24, 5);
         addAndMakeVisible(pGainReductionMeters[nChannel]);
 
-        x += width - 1;
+        x += width;
     }
 
 
@@ -335,6 +343,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderMakeupGainCombined->setBounds(420, 15, 52, 60);
     SliderWetMixCombined->setBounds(480, 15, 52, 60);
 
+    ButtonResetMeters->setBounds(565, 140, 52, 20);
     ButtonAbout->setBounds(480, 140, 52, 20);
 
     if (LabelDebug)
@@ -367,14 +376,17 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String& strMessa
         {
             float fPeakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
             float fAverageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
-            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel, fAverageInputLevel);
+            float fPeakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(nChannel);
+            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel, fAverageInputLevel, fPeakInputPeakLevel);
 
             float fPeakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
             float fAverageOutputLevel = pProcessor->getAverageMeterOutputLevel(nChannel);
-            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel, fAverageOutputLevel);
+            float fPeakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(nChannel);
+            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel, fAverageOutputLevel, fPeakOutputPeakLevel);
 
             float fGainReduction = pProcessor->getGainReduction(nChannel);
-            pGainReductionMeters[nChannel]->setGainReduction(fGainReduction);
+            float fGainReductionPeak = pProcessor->getGainReductionPeak(nChannel);
+            pGainReductionMeters[nChannel]->setGainReduction(fGainReduction, fGainReductionPeak);
         }
     }
     else
@@ -537,6 +549,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonAutoMakeupGain)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selAutoMakeupGain, !button->getToggleState());
+    }
+    else if (button == ButtonResetMeters)
+    {
+        pProcessor->resetMeters();
     }
     else if (button == ButtonAbout)
     {

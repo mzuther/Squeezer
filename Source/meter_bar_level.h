@@ -39,7 +39,7 @@ public:
     MeterBarLevel(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
     ~MeterBarLevel();
 
-    void setLevel(float fPeakLevelNew, float fAverageLevelNew);
+    void setLevel(float fPeakLevelNew, float fAverageLevelNew, float fPeakLevelPeakNew);
     void paint(Graphics& g);
     void resized();
     void visibilityChanged();
@@ -49,6 +49,7 @@ private:
 
     float fAverageLevel;
     float fPeakLevel;
+    float fPeakLevelPeak;
 
     int nPosX;
     int nPosY;

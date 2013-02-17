@@ -359,11 +359,36 @@ void SqueezerAudioProcessor::updateParameters()
 }
 
 
+void SqueezerAudioProcessor::resetMeters()
+{
+    if (pCompressor)
+    {
+        pCompressor->resetMeters();
+    }
+
+    // "UM" --> update meters
+    sendActionMessage("UM");
+}
+
+
 float SqueezerAudioProcessor::getGainReduction(int nChannel)
 {
     if (pCompressor)
     {
         return pCompressor->getGainReduction(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
+float SqueezerAudioProcessor::getGainReductionPeak(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getGainReductionPeak(nChannel);
     }
     else
     {
@@ -390,6 +415,32 @@ float SqueezerAudioProcessor::getPeakMeterOutputLevel(int nChannel)
     if (pCompressor)
     {
         return pCompressor->getPeakMeterOutputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
+float SqueezerAudioProcessor::getPeakMeterPeakInputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getPeakMeterPeakInputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
+float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getPeakMeterPeakOutputLevel(nChannel);
     }
     else
     {

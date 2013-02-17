@@ -58,6 +58,8 @@ public:
     Compressor(int channels, int sample_rate);
     ~Compressor();
 
+    void resetMeters();
+
     bool getBypass();
     void setBypass(bool bBypassCompressorNew);
 
@@ -98,9 +100,13 @@ public:
     void setWetMix(int nWetMixNew);
 
     float getGainReduction(int nChannel);
+    float getGainReductionPeak(int nChannel);
 
     float getPeakMeterInputLevel(int nChannel);
     float getPeakMeterOutputLevel(int nChannel);
+
+    float getPeakMeterPeakInputLevel(int nChannel);
+    float getPeakMeterPeakOutputLevel(int nChannel);
 
     float getAverageMeterInputLevel(int nChannel);
     float getAverageMeterOutputLevel(int nChannel);
@@ -114,6 +120,7 @@ private:
     void updateMeterBallistics();
     void PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld);
     void AverageMeterBallistics(float fAverageLevelCurrent, float& fAverageLevelOld);
+    void GainReductionMeterPeakBallistics(float fGainReductionPeakCurrent, float& fGainReductionPeakOld, float& fGainReductionHoldTime);
     void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);
 
     SideChain** pSideChain;
@@ -123,17 +130,27 @@ private:
     float* pInputSamples;
     float* pOutputSamples;
 
-    float* fPeakMeterInputLevels;
-    float* fPeakMeterOutputLevels;
+    float* pPeakMeterInputLevels;
+    float* pPeakMeterOutputLevels;
 
-    float* fAverageMeterInputLevels;
-    float* fAverageMeterOutputLevels;
+    float* pPeakMeterPeakInputLevels;
+    float* pPeakMeterPeakOutputLevels;
+
+    float* pAverageMeterInputLevels;
+    float* pAverageMeterOutputLevels;
+
+    float* pGainReduction;
+    float* pGainReductionPeak;
+    float* pGainReductionHoldTime;
 
     int nChannels;
     int nMeterBufferSize;
     int nMeterBufferPosition;
     float fCrestFactor;
     int nDesign;
+
+    float fTimePassed;
+    float fReleaseCoefLinear;
 
     bool bBypassCompressor;
     bool bBypassCompressorCombined;

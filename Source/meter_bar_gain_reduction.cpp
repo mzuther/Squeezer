@@ -42,16 +42,17 @@ MeterBarGainReduction::MeterBarGainReduction(const String& componentName, int po
     nHeight = nNumberOfBars * nSegmentHeight + 1;
 
     fGainReduction = 0.0f;
+    fGainReductionPeak = 0.0f;
 
     MeterArray = new MeterSegment*[nNumberOfBars];
 
     int nThreshold = 0;
     float fRange = 1.0f;
-    int nColor = 1;
+    int nColor = 4;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
-        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, false, nColor);
+        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, true, nColor);
         addAndMakeVisible(MeterArray[n]);
 
         nThreshold += 10;
@@ -101,15 +102,16 @@ void MeterBarGainReduction::resized()
 }
 
 
-void MeterBarGainReduction::setGainReduction(float gainReduction)
+void MeterBarGainReduction::setGainReduction(float gainReduction, float gainReductionPeak)
 {
-    if (gainReduction != fGainReduction)
+    if ((gainReduction != fGainReduction) || (gainReductionPeak != fGainReductionPeak))
     {
         fGainReduction = gainReduction;
+        fGainReductionPeak = gainReductionPeak;
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            MeterArray[n]->setLevels(-9999.9f, fGainReduction, -9999.9f, -9999.9f);
+            MeterArray[n]->setLevels(-9999.9f, fGainReduction, -9999.9f, fGainReductionPeak);
         }
     }
 }

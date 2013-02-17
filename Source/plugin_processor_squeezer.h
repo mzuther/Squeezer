@@ -68,10 +68,16 @@ public:
     bool hasChanged(int nIndex);
     void updateParameters();
 
+    void resetMeters();
+
     float getGainReduction(int nChannel);
+    float getGainReductionPeak(int nChannel);
 
     float getPeakMeterInputLevel(int nChannel);
     float getPeakMeterOutputLevel(int nChannel);
+
+    float getPeakMeterPeakInputLevel(int nChannel);
+    float getPeakMeterPeakOutputLevel(int nChannel);
 
     float getAverageMeterInputLevel(int nChannel);
     float getAverageMeterOutputLevel(int nChannel);

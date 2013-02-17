@@ -97,6 +97,7 @@ private:
     SliderCombined* SliderWetMixCombined;
 
     TextButton* ButtonBypass;
+    TextButton* ButtonResetMeters;
     TextButton* ButtonAbout;
 
     Label* LabelDebug;

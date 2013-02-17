@@ -65,12 +65,12 @@ MeterSegment::MeterSegment(const String& componentName, float fThreshold, float 
     else if (nColor == 2)
     {
         // meter segment is green
-        fHue = 0.30f;
+        fHue = 0.34f;
     }
     else
     {
         // meter segment is blue
-        fHue = 0.58f;
+        fHue = 0.61f;
     }
 
     // make sure that segment is drawn after initialisation
@@ -101,7 +101,7 @@ void MeterSegment::paint(Graphics& g)
     // segment (width: 1 pixel)
     if (nPeakMarker != PEAK_MARKER_NONE)
     {
-        g.setColour(Colours::white);
+        g.setColour(Colour(fHue, 1.0f, 1.0f, 0.7f));
         g.drawRect(0, 0, width, height);
     }
 }
