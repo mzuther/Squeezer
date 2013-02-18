@@ -71,6 +71,24 @@ void SliderContinuous::setSliderColour(const Colour& colour)
 }
 
 
+float SliderContinuous::getRealFloat()
+{
+    return pContinuous->getRealFloat();
+}
+
+
+bool SliderContinuous::getBoolean()
+{
+    return pContinuous->getBoolean();
+}
+
+
+int SliderContinuous::getRealInteger()
+{
+    return pContinuous->getRealInteger();
+}
+
+
 double SliderContinuous::getValueFromText(const String& strText)
 {
     return pContinuous->getFloatFromText(strText);

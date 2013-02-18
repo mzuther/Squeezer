@@ -70,6 +70,23 @@ void SliderSwitch::setSliderColour(const Colour& colour)
     setColour(Slider::rotarySliderFillColourId, colourRotary);
 }
 
+float SliderSwitch::getRealFloat()
+{
+    return pSwitch->getRealFloat();
+}
+
+
+bool SliderSwitch::getBoolean()
+{
+    return pSwitch->getBoolean();
+}
+
+
+int SliderSwitch::getRealInteger()
+{
+    return pSwitch->getRealInteger();
+}
+
 
 double SliderSwitch::getValueFromText(const String& strText)
 {

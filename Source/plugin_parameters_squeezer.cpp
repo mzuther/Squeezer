@@ -121,24 +121,29 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterThreshold, selThreshold, selThresholdSwitch);
 
 
-    fMinimum = 1.1f;
+    fMinimum = 0.1f;
     fMaximum = 10.0f;
-    fResolution = 0.1f;
+    fResolution = 0.05f;
     fLogFactor = 1.0f;
-    nDecimalPlaces = 1;
+    nDecimalPlaces = 2;
 
     ParameterRatio = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterRatio->setName("Ratio");
 
-    ParameterRatio->addConstant(1.1f,   "1.1:1");
-    ParameterRatio->addConstant(1.2f,   "1.2:1");
-    ParameterRatio->addConstant(1.5f,   "1.5:1");
-    ParameterRatio->addConstant(2.0f,     "2:1");
-    ParameterRatio->addConstant(2.5f,   "2.5:1");
-    ParameterRatio->addConstant(3.0f,     "3:1");
-    ParameterRatio->addConstant(4.0f,     "4:1");
-    ParameterRatio->addConstant(6.0f,     "6:1");
-    ParameterRatio->addConstant(10.0f,   "10:1");
+    ParameterRatio->addConstant(0.50f, "0.50:1");
+    ParameterRatio->addConstant(0.67f, "0.67:1");
+    ParameterRatio->addConstant(0.83f, "0.83:1");
+    ParameterRatio->addConstant(0.91f, "0.91:1");
+    ParameterRatio->addConstant(1.00f, "Bypass");
+    ParameterRatio->addConstant(1.10f,  "1.1:1");
+    ParameterRatio->addConstant(1.20f,  "1.2:1");
+    ParameterRatio->addConstant(1.50f,  "1.5:1");
+    ParameterRatio->addConstant(2.00f,    "2:1");
+    ParameterRatio->addConstant(2.50f,  "2.5:1");
+    ParameterRatio->addConstant(3.00f,    "3:1");
+    ParameterRatio->addConstant(4.00f,    "4:1");
+    ParameterRatio->addConstant(6.00f,    "6:1");
+    ParameterRatio->addConstant(10.00f,  "10:1");
 
     ParameterRatio->setSuffix(":1");
     ParameterRatio->setDefaultRealFloat(2.0f, true);
@@ -240,7 +245,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterAutoMakeupGain = new WrappedParameterToggleSwitch("Auto", "Manual");
     ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
-    ParameterAutoMakeupGain->setDefaultBoolean(false, true);
+    ParameterAutoMakeupGain->setDefaultBoolean(true, true);
     add(ParameterAutoMakeupGain, selAutoMakeupGain);
 
 

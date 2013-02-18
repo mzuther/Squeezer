@@ -34,6 +34,7 @@ Compressor::Compressor(int channels, int sample_rate)
 
     nChannels = channels;
     fCrestFactor = 20.0f;
+    bUpwardExpansion = false;
 
     // sample buffer holds 50 ms worth of samples
     nMeterBufferSize = sample_rate / 20;
@@ -277,7 +278,16 @@ float Compressor::getRatio()
     return value (float): returns the current compression ratio
  */
 {
-    return pSideChain[0]->getRatio();
+    float fRatioNew = pSideChain[0]->getRatio();
+
+    if (bUpwardExpansion)
+    {
+        return 1.0f / fRatioNew;
+    }
+    else
+    {
+        return fRatioNew;
+    }
 }
 
 
@@ -289,6 +299,16 @@ void Compressor::setRatio(float fRatioNew)
     return value: none
  */
 {
+    if (fRatioNew < 1.0f)
+    {
+        bUpwardExpansion = true;
+        fRatioNew = 1.0f / fRatioNew;
+    }
+    else
+    {
+        bUpwardExpansion = false;
+    }
+
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
         pSideChain[nChannel]->setRatio(fRatioNew);
@@ -709,6 +729,13 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             //  feed-forward design:  current gain reduction
             //  feed-back design:     "old" gain reduction
             float fGainReduction = pSideChain[nChannel]->getGainReduction(bAutoMakeupGain);
+
+            // invert gain reduction for upward expansion
+            if (bUpwardExpansion)
+            {
+                fGainReduction = -fGainReduction;
+            }
+
             pOutputSamples[nChannel] = pInputSamples[nChannel] / SideChain::decibel2level(fGainReduction);
 
             // apply make-up gain

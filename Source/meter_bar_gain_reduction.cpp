@@ -46,33 +46,59 @@ MeterBarGainReduction::MeterBarGainReduction(const String& componentName, int po
 
     MeterArray = new MeterSegment*[nNumberOfBars];
 
-    int nThreshold = 0;
-    float fRange = 1.0f;
-    int nColor = 4;
-
-    for (int n = 0; n < nNumberOfBars; n++)
-    {
-        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, true, nColor);
-        addAndMakeVisible(MeterArray[n]);
-
-        nThreshold += 10;
-    }
+    bUpwardExpansion = false;
+    initialiseMeter();
 }
 
 
 MeterBarGainReduction::~MeterBarGainReduction()
 {
-    for (int n = 0; n < nNumberOfBars; n++)
-    {
-        removeChildComponent(MeterArray[n]);
-        delete MeterArray[n];
-        MeterArray[n] = NULL;
-    }
+    deleteMeter();
 
     delete [] MeterArray;
     MeterArray = NULL;
 
     deleteAllChildren();
+}
+
+
+void MeterBarGainReduction::initialiseMeter()
+{
+    float fRange = 1.0f;
+    int nColor = 4;
+    int nThreshold;
+    int nThresholdDiff;
+
+    if (bUpwardExpansion)
+    {
+        nThreshold = (nNumberOfBars - 1) * 10;
+        nThresholdDiff = -10;
+    }
+    else
+    {
+        nThreshold = 0;
+        nThresholdDiff = 10;
+    }
+
+    for (int n = 0; n < nNumberOfBars; n++)
+    {
+        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + getName() + ")", nThreshold * 0.1f, fRange, true, nColor);
+        addAndMakeVisible(MeterArray[n]);
+
+        nThreshold += nThresholdDiff;
+    }
+}
+
+
+void MeterBarGainReduction::deleteMeter()
+{
+    for (int n = 0; n < nNumberOfBars; n++)
+    {
+        removeChildComponent(MeterArray[n]);
+
+        delete MeterArray[n];
+        MeterArray[n] = NULL;
+    }
 }
 
 
@@ -99,6 +125,19 @@ void MeterBarGainReduction::paint(Graphics& g)
 
 void MeterBarGainReduction::resized()
 {
+}
+
+
+void MeterBarGainReduction::setUpwardExpansion(bool upward_expansion)
+{
+    if (bUpwardExpansion != upward_expansion)
+    {
+        bUpwardExpansion = upward_expansion;
+
+        deleteMeter();
+        initialiseMeter();
+        visibilityChanged();
+    }
 }
 
 

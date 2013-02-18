@@ -142,6 +142,24 @@ void SliderCombined::removeListener(Button::Listener* listener)
 }
 
 
+float SliderCombined::getRealFloat()
+{
+    return pCombined->getRealFloat();
+}
+
+
+bool SliderCombined::getBoolean()
+{
+    return pCombined->getBoolean();
+}
+
+
+int SliderCombined::getRealInteger()
+{
+    return pCombined->getRealInteger();
+}
+
+
 double SliderCombined::getValueFromText(const String& strText)
 {
     return pCombined->getFloatFromText(strText);

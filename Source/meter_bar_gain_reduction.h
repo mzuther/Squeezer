@@ -39,7 +39,9 @@ public:
     MeterBarGainReduction(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
     ~MeterBarGainReduction();
 
+    void setUpwardExpansion(bool upward_expansion);
     void setGainReduction(float gainReduction, float gainReductionPeak);
+
     void paint(Graphics& g);
     void resized();
     void visibilityChanged();
@@ -47,8 +49,12 @@ public:
 private:
     JUCE_LEAK_DETECTOR(MeterBarGainReduction);
 
+    void initialiseMeter();
+    void deleteMeter();
+
     float fGainReduction;
     float fGainReductionPeak;
+    bool bUpwardExpansion;
 
     int nPosX;
     int nPosY;

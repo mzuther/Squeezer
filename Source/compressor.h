@@ -155,6 +155,7 @@ private:
     bool bBypassCompressor;
     bool bBypassCompressorCombined;
     bool bDesignFeedForward;
+    bool bUpwardExpansion;
 
     int nStereoLink;
     float fStereoLinkOriginal;

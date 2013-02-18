@@ -466,6 +466,17 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         break;
     case SqueezerPluginParameters::selRatio:
         SliderRatioCombined->setValue(fValue, false);
+
+        {
+            float fRealValue = SliderRatioCombined->getRealFloat();
+            bool bUpwardExpansion = (fRealValue < 1.0f);
+
+            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            {
+                pGainReductionMeters[nChannel]->setUpwardExpansion(bUpwardExpansion);
+            }
+        }
+
         break;
     case SqueezerPluginParameters::selKneeWidthSwitch:
         SliderKneeWidthCombined->updateMode();

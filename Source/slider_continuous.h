@@ -44,6 +44,10 @@ public:
     void resized();
     void setSliderColour(const Colour& colour);
 
+    float getRealFloat();
+    bool getBoolean();
+    int getRealInteger();
+
     double getValueFromText(const String& strText);
     String getTextFromValue(double dValue);
 private:
