@@ -52,6 +52,7 @@ public:
         DetectorLinear = 0,
         DetectorSmoothBranching,
         DetectorSmoothDecoupled,
+        DetectorOptical,
         NumberOfDetectors,
     };
 

@@ -47,6 +47,17 @@ SideChain::SideChain(int nSampleRate)
     setReleaseRate(100);
     setDetector(nDetectorType);
 
+    // optical detector: rate correction for 0 dB gain reduction
+    float y1 = 0.5f;
+
+    // optical detector: gain reduction (in decibels) where rate
+    // correction is exactly 1.0
+    float x2 = 4.0f;
+
+    // optical detector: initialise calculation factors
+    fOpticalDivisorA = 1.0f / y1;
+    fOpticalDivisorB = (1.0f + x2 - fOpticalDivisorA) / x2;
+
     // reset (i.e. initialise) all relevant variables
     reset();
 }
@@ -299,13 +310,18 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
-            fReleaseCoefficient = 10.0f / (fReleaseRateSeconds * fSampleRate);
+            fReleaseCoefficientPrepared = fReleaseRateSeconds * fSampleRate;
+            fReleaseCoefficient = 10.0f / fReleaseCoefficientPrepared;
         }
         else
         {
+            // prepare calculation of logarithmic envelope (used by
+            // optical detector)
+            fReleaseCoefficientPrepared = logf(0.10f) / (fReleaseRateSeconds * fSampleRate);
+
             // logarithmic envelope reaches 90% of the final reading
             // in the given release time
-            fReleaseCoefficient = expf(logf(0.10f) / (fReleaseRateSeconds * fSampleRate));
+            fReleaseCoefficient = expf(fReleaseCoefficientPrepared);
         }
     }
 }
@@ -404,6 +420,10 @@ void SideChain::processSample(float fInputLevel)
 
     case Compressor::DetectorSmoothDecoupled:
         applyDetectorSmoothDecoupled(fGainReductionNew);
+        break;
+
+    case Compressor::DetectorOptical:
+        applyDetectorOptical(fGainReductionNew);
         break;
 
     default:
@@ -597,6 +617,56 @@ float SideChain::level2decibel(float fLevel)
         else
         {
             return fDecibels;
+        }
+    }
+}
+
+
+void SideChain::applyDetectorOptical(float fGainReductionNew)
+/*  Calculate optical detector.
+
+    fGainReductionNew (float): calculated gain reduction in decibels
+
+    return value: none
+*/
+{
+    // apply attack rate if proposed gain reduction is above old gain
+    // reduction
+    if (fGainReductionNew > fGainReduction)
+    {
+        if (fAttackCoefficient == 0.0f)
+        {
+            fGainReduction = fGainReductionNew;
+        }
+        else
+        {
+            // algorithm adapted from Giannoulis et al., "Digital
+            // Dynamic Range Compressor Design - A Tutorial and
+            // Analysis", JAES, 60(6):399-408, 2012
+
+            float fGainReductionOld = fGainReduction;
+            fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionNew;
+        }
+    }
+    // otherwise, apply release rate if proposed gain reduction is
+    // below old gain reduction
+    else
+    {
+        if (fReleaseCoefficient == 0.0f)
+        {
+            fGainReduction = fGainReductionNew;
+        }
+        else
+        {
+            float fOpticalCoefficientFactor = (fOpticalDivisorA + fOpticalDivisorB * fGainReductionNew) / (1.0f + fGainReductionNew);
+            fReleaseCoefficient = expf(fReleaseCoefficientPrepared * fOpticalCoefficientFactor);
+
+            // algorithm adapted from Giannoulis et al., "Digital
+            // Dynamic Range Compressor Design - A Tutorial and
+            // Analysis", JAES, 60(6):399-408, 2012
+
+            float fGainReductionOld = fGainReduction;
+            fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
         }
     }
 }

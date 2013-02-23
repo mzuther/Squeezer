@@ -39,8 +39,8 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "Squeezer";
-    const char* const  versionString  = "1.40.0";
-    const int          versionNumber  = 0x12800;
+    const char* const  versionString  = "1.41.0";
+    const int          versionNumber  = 0x12900;
 }
 
 #endif   // __APPHEADERFILE_PY2F1I__

@@ -82,6 +82,7 @@ private:
     TextButton* ButtonDetectorLinear;
     TextButton* ButtonDetectorSmoothBranching;
     TextButton* ButtonDetectorSmoothDecoupled;
+    TextButton* ButtonDetectorOptical;
 
     SliderCombined* SliderThresholdCombined;
     SliderCombined* SliderRatioCombined;

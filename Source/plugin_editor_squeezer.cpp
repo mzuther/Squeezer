@@ -112,6 +112,15 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonDetectorSmoothDecoupled);
 
 
+    ButtonDetectorOptical = new TextButton("Opto");
+    ButtonDetectorOptical->setRadioGroupId(3);
+    ButtonDetectorOptical->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDetectorOptical->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.15f));
+
+    ButtonDetectorOptical->addListener(this);
+    addAndMakeVisible(ButtonDetectorOptical);
+
+
     int nIndex = SqueezerPluginParameters::selThreshold;
     int nIndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
     String strName = parameters->getName(nIndex);
@@ -338,6 +347,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     ButtonDetectorLinear->setBounds(20, 140, 52, 20);
     ButtonDetectorSmoothBranching->setBounds(80, 140, 52, 20);
     ButtonDetectorSmoothDecoupled->setBounds(140, 140, 52, 20);
+    ButtonDetectorOptical->setBounds(200, 140, 52, 20);
 
     SliderThresholdCombined->setBounds(20, 15, 52, 60);
     SliderRatioCombined->setBounds(80, 15, 52, 60);
@@ -449,9 +459,13 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         {
             ButtonDetectorSmoothBranching->setToggleState(true, false);
         }
-        else
+        else if (fValue == (Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1)))
         {
             ButtonDetectorSmoothDecoupled->setToggleState(true, false);
+        }
+        else
+        {
+            ButtonDetectorOptical->setToggleState(true, false);
         }
 
         break;
@@ -565,6 +579,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonDetectorSmoothDecoupled)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1));
+    }
+    else if (button == ButtonDetectorOptical)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorOptical / float(Compressor::NumberOfDetectors - 1));
     }
     else if (button == ButtonAutoMakeupGain)
     {
