@@ -50,8 +50,8 @@ public:
         NumberOfDesigns,
 
         DetectorLinear = 0,
-        DetectorSmoothBranching,
         DetectorSmoothDecoupled,
+        DetectorSmoothBranching,
         DetectorOptical,
         NumberOfDetectors,
     };

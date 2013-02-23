@@ -65,8 +65,8 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterDetector->setName("Detector");
 
     ParameterDetector->addConstant(Compressor::DetectorLinear,          "Linear");
-    ParameterDetector->addConstant(Compressor::DetectorSmoothBranching, "Logarithmic");
     ParameterDetector->addConstant(Compressor::DetectorSmoothDecoupled, "S-Curve");
+    ParameterDetector->addConstant(Compressor::DetectorSmoothBranching, "Logarithmic");
     ParameterDetector->addConstant(Compressor::DetectorOptical,         "Optical");
 
     ParameterDetector->setDefaultRealFloat(Compressor::DetectorSmoothBranching, true);

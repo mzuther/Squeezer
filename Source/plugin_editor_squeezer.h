@@ -80,8 +80,8 @@ private:
     TextButton* ButtonDesignFeedBack;
 
     TextButton* ButtonDetectorLinear;
-    TextButton* ButtonDetectorSmoothBranching;
     TextButton* ButtonDetectorSmoothDecoupled;
+    TextButton* ButtonDetectorSmoothBranching;
     TextButton* ButtonDetectorOptical;
 
     SliderCombined* SliderThresholdCombined;

@@ -94,22 +94,22 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonDetectorLinear);
 
 
-    ButtonDetectorSmoothBranching = new TextButton("Log");
-    ButtonDetectorSmoothBranching->setRadioGroupId(3);
-    ButtonDetectorSmoothBranching->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
-
-    ButtonDetectorSmoothBranching->addListener(this);
-    addAndMakeVisible(ButtonDetectorSmoothBranching);
-
-
     ButtonDetectorSmoothDecoupled = new TextButton("S-Curve");
     ButtonDetectorSmoothDecoupled->setRadioGroupId(3);
     ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.10f));
+    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
 
     ButtonDetectorSmoothDecoupled->addListener(this);
     addAndMakeVisible(ButtonDetectorSmoothDecoupled);
+
+
+    ButtonDetectorSmoothBranching = new TextButton("Log");
+    ButtonDetectorSmoothBranching->setRadioGroupId(3);
+    ButtonDetectorSmoothBranching->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.10f));
+
+    ButtonDetectorSmoothBranching->addListener(this);
+    addAndMakeVisible(ButtonDetectorSmoothBranching);
 
 
     ButtonDetectorOptical = new TextButton("Opto");
@@ -345,8 +345,8 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     ButtonDesignFeedBack->setBounds(80, 115, 52, 20);
 
     ButtonDetectorLinear->setBounds(20, 140, 52, 20);
-    ButtonDetectorSmoothBranching->setBounds(80, 140, 52, 20);
-    ButtonDetectorSmoothDecoupled->setBounds(140, 140, 52, 20);
+    ButtonDetectorSmoothDecoupled->setBounds(80, 140, 52, 20);
+    ButtonDetectorSmoothBranching->setBounds(140, 140, 52, 20);
     ButtonDetectorOptical->setBounds(200, 140, 52, 20);
 
     SliderThresholdCombined->setBounds(20, 15, 52, 60);
@@ -455,13 +455,13 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         {
             ButtonDetectorLinear->setToggleState(true, false);
         }
-        else if (fValue == (Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1)))
-        {
-            ButtonDetectorSmoothBranching->setToggleState(true, false);
-        }
         else if (fValue == (Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1)))
         {
             ButtonDetectorSmoothDecoupled->setToggleState(true, false);
+        }
+        else if (fValue == (Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1)))
+        {
+            ButtonDetectorSmoothBranching->setToggleState(true, false);
         }
         else
         {
@@ -572,13 +572,13 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorLinear / float(Compressor::NumberOfDetectors - 1));
     }
-    else if (button == ButtonDetectorSmoothBranching)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1));
-    }
     else if (button == ButtonDetectorSmoothDecoupled)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1));
+    }
+    else if (button == ButtonDetectorSmoothBranching)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1));
     }
     else if (button == ButtonDetectorOptical)
     {

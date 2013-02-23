@@ -103,8 +103,8 @@ private:
     float queryGainComputer(float fInputLevel);
     float applyLevelDetectionFilter(float fDetectorInputLevel);
     void applyDetectorLinear(float fGainReductionNew);
-    void applyDetectorSmoothBranching(float fGainReductionNew);
     void applyDetectorSmoothDecoupled(float fGainReductionNew);
+    void applyDetectorSmoothBranching(float fGainReductionNew);
     void applyDetectorOptical(float fGainReductionNew);
 
     static float fMeterMinimumDecibel;

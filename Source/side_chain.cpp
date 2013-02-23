@@ -405,12 +405,12 @@ void SideChain::processSample(float fInputLevel)
         applyDetectorLinear(fGainReductionNew);
         break;
 
-    case Compressor::DetectorSmoothBranching:
-        applyDetectorSmoothBranching(fGainReductionNew);
-        break;
-
     case Compressor::DetectorSmoothDecoupled:
         applyDetectorSmoothDecoupled(fGainReductionNew);
+        break;
+
+    case Compressor::DetectorSmoothBranching:
+        applyDetectorSmoothBranching(fGainReductionNew);
         break;
 
     case Compressor::DetectorOptical:
@@ -484,53 +484,6 @@ void SideChain::applyDetectorLinear(float fGainReductionNew)
 }
 
 
-void SideChain::applyDetectorSmoothBranching(float fGainReductionNew)
-/*  Calculate smooth branching detector.
-
-    fGainReductionNew (float): calculated gain reduction in decibels
-
-    return value: none
-*/
-{
-    // apply attack rate if proposed gain reduction is above old gain
-    // reduction
-    if (fGainReductionNew > fGainReduction)
-    {
-        if (fAttackCoefficient == 0.0f)
-        {
-            fGainReduction = fGainReductionNew;
-        }
-        else
-        {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
-
-            float fGainReductionOld = fGainReduction;
-            fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionNew;
-        }
-    }
-    // otherwise, apply release rate if proposed gain reduction is
-    // below old gain reduction
-    else
-    {
-        if (fReleaseCoefficient == 0.0f)
-        {
-            fGainReduction = fGainReductionNew;
-        }
-        else
-        {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
-
-            float fGainReductionOld = fGainReduction;
-            fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
-        }
-    }
-}
-
-
 void SideChain::applyDetectorSmoothDecoupled(float fGainReductionNew)
 /*  Calculate smooth decoupled detector.
 
@@ -573,36 +526,48 @@ void SideChain::applyDetectorSmoothDecoupled(float fGainReductionNew)
 }
 
 
-float SideChain::level2decibel(float fLevel)
-/*  Convert level from linear scale to decibels (dB).
+void SideChain::applyDetectorSmoothBranching(float fGainReductionNew)
+/*  Calculate smooth branching detector.
 
-    fLevel (float): audio level
+    fGainReductionNew (float): calculated gain reduction in decibels
 
-    return value (float): returns given level in decibels (dB) when
-    above "fMeterMinimumDecibel", otherwise "fMeterMinimumDecibel"
+    return value: none
 */
 {
-    // log(0) is not defined, so return "fMeterMinimumDecibel"
-    if (fLevel == 0.0f)
+    // apply attack rate if proposed gain reduction is above old gain
+    // reduction
+    if (fGainReductionNew > fGainReduction)
     {
-        return fMeterMinimumDecibel;
-    }
-    else
-    {
-        // calculate decibels from audio level (a factor of 20.0 is
-        // needed to calculate *level* ratios, whereas 10.0 is needed
-        // for *power* ratios!)
-        float fDecibels = 20.0f * log10f(fLevel);
-
-        // to make meter ballistics look nice for low levels, do not
-        // return levels below "fMeterMinimumDecibel"
-        if (fDecibels < fMeterMinimumDecibel)
+        if (fAttackCoefficient == 0.0f)
         {
-            return fMeterMinimumDecibel;
+            fGainReduction = fGainReductionNew;
         }
         else
         {
-            return fDecibels;
+            // algorithm adapted from Giannoulis et al., "Digital
+            // Dynamic Range Compressor Design - A Tutorial and
+            // Analysis", JAES, 60(6):399-408, 2012
+
+            float fGainReductionOld = fGainReduction;
+            fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionNew;
+        }
+    }
+    // otherwise, apply release rate if proposed gain reduction is
+    // below old gain reduction
+    else
+    {
+        if (fReleaseCoefficient == 0.0f)
+        {
+            fGainReduction = fGainReductionNew;
+        }
+        else
+        {
+            // algorithm adapted from Giannoulis et al., "Digital
+            // Dynamic Range Compressor Design - A Tutorial and
+            // Analysis", JAES, 60(6):399-408, 2012
+
+            float fGainReductionOld = fGainReduction;
+            fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
         }
     }
 }
@@ -653,6 +618,41 @@ void SideChain::applyDetectorOptical(float fGainReductionNew)
 
             float fGainReductionOld = fGainReduction;
             fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
+        }
+    }
+}
+
+
+float SideChain::level2decibel(float fLevel)
+/*  Convert level from linear scale to decibels (dB).
+
+    fLevel (float): audio level
+
+    return value (float): returns given level in decibels (dB) when
+    above "fMeterMinimumDecibel", otherwise "fMeterMinimumDecibel"
+*/
+{
+    // log(0) is not defined, so return "fMeterMinimumDecibel"
+    if (fLevel == 0.0f)
+    {
+        return fMeterMinimumDecibel;
+    }
+    else
+    {
+        // calculate decibels from audio level (a factor of 20.0 is
+        // needed to calculate *level* ratios, whereas 10.0 is needed
+        // for *power* ratios!)
+        float fDecibels = 20.0f * log10f(fLevel);
+
+        // to make meter ballistics look nice for low levels, do not
+        // return levels below "fMeterMinimumDecibel"
+        if (fDecibels < fMeterMinimumDecibel)
+        {
+            return fMeterMinimumDecibel;
+        }
+        else
+        {
+            return fDecibels;
         }
     }
 }
