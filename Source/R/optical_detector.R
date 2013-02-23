@@ -76,7 +76,7 @@ for (n in (2:samples))
 lines(output, type="l", col="red")
 
 
-## values <- c(1:100 - 1) / 2
+## values <- c(1:50 - 1) / 2
 ## corr <- 100.0 * (a + b * values) / (1 + values)
 ## plot(values, corr, type="l", xlab="Level [dB]", ylab="Release rate correction [%]")
 

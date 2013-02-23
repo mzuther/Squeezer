@@ -73,6 +73,8 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SideChain);
 
+    static const int nNumberOfFactors = 60;
+
     float fSampleRate;
     float fCrestFactorAutoGain;
     float fGainReduction;
@@ -94,8 +96,8 @@ private:
     float fAttackCoefficient;
 
     int nReleaseRate;
-    float fReleaseCoefficientPrepared;
     float fReleaseCoefficient;
+    float* fReleaseCoefficientsOptical;
 
     float fOpticalDivisorA;
     float fOpticalDivisorB;

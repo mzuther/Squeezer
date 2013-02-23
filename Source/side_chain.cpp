@@ -37,16 +37,6 @@ SideChain::SideChain(int nSampleRate)
 {
     setSampleRate(nSampleRate);
 
-    setThreshold(-12.0f);
-    setRatio(2.0f);
-    setKneeWidth(0.0f);
-
-    setLevelDetectionRate(10.0f);
-    nDetectorType = Compressor::DetectorSmoothBranching;
-    setAttackRate(10);
-    setReleaseRate(100);
-    setDetector(nDetectorType);
-
     // optical detector: rate correction for 0 dB gain reduction
     float y1 = 0.33f;
 
@@ -57,6 +47,24 @@ SideChain::SideChain(int nSampleRate)
     // optical detector: initialise calculation factors
     fOpticalDivisorA = 1.0f / y1;
     fOpticalDivisorB = (1.0f + x2 - fOpticalDivisorA) / x2;
+
+    // optical detector: initialise release coefficients
+    fReleaseCoefficientsOptical = new float[nNumberOfFactors];
+
+    for (int nIndex = 0; nIndex < nNumberOfFactors; nIndex++)
+    {
+        fReleaseCoefficientsOptical[nIndex] = -1.0f;
+    }
+
+    setThreshold(-12.0f);
+    setRatio(2.0f);
+    setKneeWidth(0.0f);
+
+    setLevelDetectionRate(10.0f);
+    nDetectorType = Compressor::DetectorSmoothBranching;
+    setAttackRate(10);
+    setReleaseRate(100);
+    setDetector(nDetectorType);
 
     // reset (i.e. initialise) all relevant variables
     reset();
@@ -69,6 +77,8 @@ SideChain::~SideChain()
     return value: none
 */
 {
+    delete [] fReleaseCoefficientsOptical;
+    fReleaseCoefficientsOptical = NULL;
 }
 
 
@@ -291,18 +301,29 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
-            fReleaseCoefficientPrepared = fReleaseRateSeconds * fSampleRate;
-            fReleaseCoefficient = 10.0f / fReleaseCoefficientPrepared;
+            fReleaseCoefficient = 10.0f / (fReleaseRateSeconds * fSampleRate);
+        }
+        else if (nDetectorType == Compressor::DetectorOptical)
+        {
+            // prepare calculation of logarithmic envelope
+            float fReleaseCoefficientPrepared = logf(0.10f) / (fReleaseRateSeconds * fSampleRate);
+
+            for (int nIndex = 0; nIndex < nNumberOfFactors; nIndex++)
+            {
+                float fGainReductionOld = float(nIndex);
+                float fOpticalCoefficientFactor = (1.0f + fGainReductionOld) / (fOpticalDivisorA + fOpticalDivisorB * fGainReductionOld);
+
+                fReleaseCoefficientsOptical[nIndex] = expf(fReleaseCoefficientPrepared * fOpticalCoefficientFactor);
+            }
+
+            // not used by optical detector
+            fReleaseCoefficient = -1.0f;
         }
         else
         {
-            // prepare calculation of logarithmic envelope (used by
-            // optical detector)
-            fReleaseCoefficientPrepared = logf(0.10f) / (fReleaseRateSeconds * fSampleRate);
-
             // logarithmic envelope reaches 90% of the final reading
             // in the given release time
-            fReleaseCoefficient = expf(fReleaseCoefficientPrepared);
+            fReleaseCoefficient = expf(logf(0.10f) / (fReleaseRateSeconds * fSampleRate));
         }
     }
 }
@@ -601,13 +622,30 @@ void SideChain::applyDetectorOptical(float fGainReductionNew)
         {
             float fGainReductionOld = fGainReduction;
 
-            float fOpticalCoefficientFactor = (1.0f + fGainReductionOld) / (fOpticalDivisorA + fOpticalDivisorB * fGainReductionOld);
-            fReleaseCoefficient = expf(fReleaseCoefficientPrepared * fOpticalCoefficientFactor);
+            // get release coefficient by linear interpolation
+            float x = fGainReductionOld;
+            int x0 = int(x);
+            int x1 = x0 + 1;
+
+            if (x0 < 0)
+            {
+                fReleaseCoefficient = fReleaseCoefficientsOptical[0];
+            }
+            else if (x1 >= nNumberOfFactors)
+            {
+                fReleaseCoefficient = fReleaseCoefficientsOptical[nNumberOfFactors - 1];
+            }
+            else
+            {
+                float y0 = fReleaseCoefficientsOptical[x0];
+                float y1 = fReleaseCoefficientsOptical[x1];
+
+                fReleaseCoefficient = y0 + (y1 - y0) * (x - float(x0)) / (float(x1) - float(x0));
+            }
 
             // algorithm adapted from Giannoulis et al., "Digital
             // Dynamic Range Compressor Design - A Tutorial and
             // Analysis", JAES, 60(6):399-408, 2012
-
             fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
         }
     }
