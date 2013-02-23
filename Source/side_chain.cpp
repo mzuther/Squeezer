@@ -261,18 +261,9 @@ void SideChain::setAttackRate(int nAttackRateNew)
     {
         float fAttackRateSeconds = nAttackRate / 1000.0f;
 
-        if (nDetectorType == Compressor::DetectorLinear)
-        {
-            // rise time: rises 10 dB per interval defined in attack
-            // rate (linear)
-            fAttackCoefficient = 10.0f / (fAttackRateSeconds * fSampleRate);
-        }
-        else
-        {
-            // logarithmic envelope reaches 90% of the final reading
-            // in the given attack time
-            fAttackCoefficient = expf(logf(0.10f) / (fAttackRateSeconds * fSampleRate));
-        }
+        // logarithmic envelope reaches 90% of the final reading in
+        // the given attack time
+        fAttackCoefficient = expf(logf(0.10f) / (fAttackRateSeconds * fSampleRate));
     }
 }
 
@@ -446,7 +437,7 @@ float SideChain::applyLevelDetectionFilter(float fDetectorInputLevel)
 
 
 void SideChain::applyDetectorLinear(float fGainReductionNew)
-/*  Calculate linear detector.
+/*  Calculate detector with logarithmic attack and linear release.
 
     fGainReductionNew (float): calculated new gain reduction in
     decibels
@@ -454,14 +445,9 @@ void SideChain::applyDetectorLinear(float fGainReductionNew)
     return value: none
 */
 {
-    // no change in gain reduction
-    if (fGainReductionNew == fGainReduction)
-    {
-        return;
-    }
     // apply attack rate if proposed gain reduction is above old gain
     // reduction
-    else if (fGainReductionNew > fGainReduction)
+    if (fGainReductionNew >= fGainReduction)
     {
         if (fAttackCoefficient == 0.0f)
         {
@@ -469,12 +455,12 @@ void SideChain::applyDetectorLinear(float fGainReductionNew)
         }
         else
         {
-            fGainReduction += fAttackCoefficient;
+            // algorithm adapted from Giannoulis et al., "Digital
+            // Dynamic Range Compressor Design - A Tutorial and
+            // Analysis", JAES, 60(6):399-408, 2012
 
-            if (fGainReduction > fGainReductionNew)
-            {
-                fGainReduction = fGainReductionNew;
-            }
+            float fGainReductionOld = fGainReduction;
+            fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionNew;
         }
     }
     // otherwise, apply release rate if proposed gain reduction is
