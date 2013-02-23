@@ -73,8 +73,9 @@ private:
     MeterBarLevel** pOutputLevelMeters;
     MeterBarGainReduction** pGainReductionMeters;
 
-    TextButton* ButtonLevelDetectionPeak;
-    TextButton* ButtonLevelDetectionRms;
+    TextButton* ButtonLevelDetectionFast;
+    TextButton* ButtonLevelDetectionMedium;
+    TextButton* ButtonLevelDetectionSlow;
 
     TextButton* ButtonDesignFeedForward;
     TextButton* ButtonDesignFeedBack;

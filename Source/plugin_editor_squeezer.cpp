@@ -49,22 +49,31 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonBypass);
 
 
-    ButtonLevelDetectionPeak = new TextButton("Peak");
-    ButtonLevelDetectionPeak->setRadioGroupId(1);
-    ButtonLevelDetectionPeak->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonLevelDetectionPeak->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonLevelDetectionFast = new TextButton("Fast");
+    ButtonLevelDetectionFast->setRadioGroupId(1);
+    ButtonLevelDetectionFast->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonLevelDetectionFast->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonLevelDetectionPeak->addListener(this);
-    addAndMakeVisible(ButtonLevelDetectionPeak);
+    ButtonLevelDetectionFast->addListener(this);
+    addAndMakeVisible(ButtonLevelDetectionFast);
 
 
-    ButtonLevelDetectionRms = new TextButton("RMS");
-    ButtonLevelDetectionRms->setRadioGroupId(1);
-    ButtonLevelDetectionRms->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonLevelDetectionRms->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
+    ButtonLevelDetectionMedium = new TextButton("Medium");
+    ButtonLevelDetectionMedium->setRadioGroupId(1);
+    ButtonLevelDetectionMedium->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonLevelDetectionMedium->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
 
-    ButtonLevelDetectionRms->addListener(this);
-    addAndMakeVisible(ButtonLevelDetectionRms);
+    ButtonLevelDetectionMedium->addListener(this);
+    addAndMakeVisible(ButtonLevelDetectionMedium);
+
+
+    ButtonLevelDetectionSlow = new TextButton("Slow");
+    ButtonLevelDetectionSlow->setRadioGroupId(1);
+    ButtonLevelDetectionSlow->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonLevelDetectionSlow->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.16f));
+
+    ButtonLevelDetectionSlow->addListener(this);
+    addAndMakeVisible(ButtonLevelDetectionSlow);
 
 
     ButtonDesignFeedForward = new TextButton("F.Forw");
@@ -79,7 +88,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonDesignFeedBack = new TextButton("F.Back");
     ButtonDesignFeedBack->setRadioGroupId(2);
     ButtonDesignFeedBack->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDesignFeedBack->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
+    ButtonDesignFeedBack->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
 
     ButtonDesignFeedBack->addListener(this);
     addAndMakeVisible(ButtonDesignFeedBack);
@@ -88,7 +97,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonDetectorLinear = new TextButton("Linear");
     ButtonDetectorLinear->setRadioGroupId(3);
     ButtonDetectorLinear->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorLinear->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonDetectorLinear->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
 
     ButtonDetectorLinear->addListener(this);
     addAndMakeVisible(ButtonDetectorLinear);
@@ -97,7 +106,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonDetectorSmoothDecoupled = new TextButton("S-Curve");
     ButtonDetectorSmoothDecoupled->setRadioGroupId(3);
     ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.05f));
+    ButtonDetectorSmoothDecoupled->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
     ButtonDetectorSmoothDecoupled->addListener(this);
     addAndMakeVisible(ButtonDetectorSmoothDecoupled);
@@ -106,7 +115,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonDetectorSmoothBranching = new TextButton("Log");
     ButtonDetectorSmoothBranching->setRadioGroupId(3);
     ButtonDetectorSmoothBranching->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.10f));
+    ButtonDetectorSmoothBranching->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
 
     ButtonDetectorSmoothBranching->addListener(this);
     addAndMakeVisible(ButtonDetectorSmoothBranching);
@@ -115,7 +124,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonDetectorOptical = new TextButton("Opto");
     ButtonDetectorOptical->setRadioGroupId(3);
     ButtonDetectorOptical->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorOptical->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.15f));
+    ButtonDetectorOptical->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.16f));
 
     ButtonDetectorOptical->addListener(this);
     addAndMakeVisible(ButtonDetectorOptical);
@@ -276,7 +285,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     resizeEditor();
 
     updateParameter(SqueezerPluginParameters::selBypass);
-    updateParameter(SqueezerPluginParameters::selLevelDetection);
+    updateParameter(SqueezerPluginParameters::selLevelDetectionRate);
     updateParameter(SqueezerPluginParameters::selDesign);
     updateParameter(SqueezerPluginParameters::selDetector);
 
@@ -339,8 +348,11 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     setSize(nWidth, nHeight);
 
     ButtonBypass->setBounds(480, 90, 52, 20);
-    ButtonLevelDetectionPeak->setBounds(20, 90, 52, 20);
-    ButtonLevelDetectionRms->setBounds(80, 90, 52, 20);
+
+    ButtonLevelDetectionFast->setBounds(20, 90, 52, 20);
+    ButtonLevelDetectionMedium->setBounds(80, 90, 52, 20);
+    ButtonLevelDetectionSlow->setBounds(140, 90, 52, 20);
+
     ButtonDesignFeedForward->setBounds(20, 115, 52, 20);
     ButtonDesignFeedBack->setBounds(80, 115, 52, 20);
 
@@ -425,15 +437,19 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selBypass:
         ButtonBypass->setToggleState(fValue != 0.0f, false);
         break;
-    case SqueezerPluginParameters::selLevelDetection:
+    case SqueezerPluginParameters::selLevelDetectionRate:
 
-        if (fValue == 0.0f)
+        if (fValue == (Compressor::LevelDetectionRateFast / float(Compressor::NumberOfLevelDetectionRates - 1)))
         {
-            ButtonLevelDetectionPeak->setToggleState(true, false);
+            ButtonLevelDetectionFast->setToggleState(true, false);
+        }
+        else if (fValue == (Compressor::LevelDetectionRateMedium / float(Compressor::NumberOfLevelDetectionRates - 1)))
+        {
+            ButtonLevelDetectionMedium->setToggleState(true, false);
         }
         else
         {
-            ButtonLevelDetectionRms->setToggleState(true, false);
+            ButtonLevelDetectionSlow->setToggleState(true, false);
         }
 
         break;
@@ -552,13 +568,17 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selBypass, !button->getToggleState());
     }
-    else if (button == ButtonLevelDetectionPeak)
+    else if (button == ButtonLevelDetectionFast)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selLevelDetection, 0.0f);
+        pProcessor->changeParameter(SqueezerPluginParameters::selLevelDetectionRate, Compressor::LevelDetectionRateFast / float(Compressor::NumberOfLevelDetectionRates - 1));
     }
-    else if (button == ButtonLevelDetectionRms)
+    else if (button == ButtonLevelDetectionMedium)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selLevelDetection, 1.0f);
+        pProcessor->changeParameter(SqueezerPluginParameters::selLevelDetectionRate, Compressor::LevelDetectionRateMedium / float(Compressor::NumberOfLevelDetectionRates - 1));
+    }
+    else if (button == ButtonLevelDetectionSlow)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selLevelDetectionRate, Compressor::LevelDetectionRateSlow / float(Compressor::NumberOfLevelDetectionRates - 1));
     }
     else if (button == ButtonDesignFeedForward)
     {

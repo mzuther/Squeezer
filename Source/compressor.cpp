@@ -198,28 +198,27 @@ void Compressor::setBypass(bool bBypassCompressorNew)
 }
 
 
-int Compressor::getLevelDetection()
-/*  Get current level detection type.
+float Compressor::getLevelDetectionRate()
+/*  Get current level detection rate.
 
-    return value (integer): returns current current level detection
-    type
- */
+    return value (float): returns current current level detection rate
+*/
 {
-    return pSideChain[0]->getLevelDetection();
+    return pSideChain[0]->getLevelDetectionRate();
 }
 
 
-void Compressor::setLevelDetection(int nLevelDetectionTypeNew)
-/*  Set new level detection type.
+void Compressor::setLevelDetectionRate(float fDetectorRateMilliSecondsNew)
+/*  Set new level detection rate.
 
-    nLevelDetectionTypeNew (integer): new level detection type
+    fDetectorRateMilliSecondsNew (float): new level detection rate
 
     return value: none
  */
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pSideChain[nChannel]->setLevelDetection(nLevelDetectionTypeNew);
+        pSideChain[nChannel]->setLevelDetectionRate(fDetectorRateMilliSecondsNew);
     }
 }
 

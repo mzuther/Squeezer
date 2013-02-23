@@ -41,14 +41,15 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterBypass, selBypass);
 
 
-    ParameterLevelDetection = new WrappedParameterSwitch();
-    ParameterLevelDetection->setName("Level Detection");
+    ParameterLevelDetectionRate = new WrappedParameterSwitch();
+    ParameterLevelDetectionRate->setName("Level Detection Rate");
 
-    ParameterLevelDetection->addConstant(Compressor::LevelDetectionPeak, "Peak");
-    ParameterLevelDetection->addConstant(Compressor::LevelDetectionRMS,  "RMS");
+    ParameterLevelDetectionRate->addConstant(1.0f,  "Fast");
+    ParameterLevelDetectionRate->addConstant(10.0f, "Medium");
+    ParameterLevelDetectionRate->addConstant(50.0f, "Slow");
 
-    ParameterLevelDetection->setDefaultRealFloat(Compressor::LevelDetectionRMS, true);
-    add(ParameterLevelDetection, selLevelDetection);
+    ParameterLevelDetectionRate->setDefaultRealFloat(10.0f, true);
+    add(ParameterLevelDetectionRate, selLevelDetectionRate);
 
 
     ParameterDesign = new WrappedParameterSwitch();
@@ -334,8 +335,8 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterBypass;
     ParameterBypass = NULL;
 
-    delete ParameterLevelDetection;
-    ParameterLevelDetection = NULL;
+    delete ParameterLevelDetectionRate;
+    ParameterLevelDetectionRate = NULL;
 
     delete ParameterDesign;
     ParameterDesign = NULL;
@@ -386,8 +387,8 @@ String SqueezerPluginParameters::toString()
         strParameters += "=";
     }
 
-    strParameters += "\nDetector: ";
-    strParameters += arrParameters[selLevelDetection]->getText();
+    strParameters += "\nDetection Rate: ";
+    strParameters += arrParameters[selLevelDetectionRate]->getText();
 
     strParameters += ", Design: ";
     strParameters += arrParameters[selDesign]->getText();

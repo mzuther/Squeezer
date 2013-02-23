@@ -41,7 +41,7 @@ SideChain::SideChain(int nSampleRate)
     setRatio(2.0f);
     setKneeWidth(0.0f);
 
-    setLevelDetection(Compressor::LevelDetectionRMS);
+    setLevelDetectionRate(10.0f);
     nDetectorType = Compressor::DetectorSmoothBranching;
     setAttackRate(10);
     setReleaseRate(100);
@@ -99,40 +99,30 @@ void SideChain::setSampleRate(int nSampleRate)
 }
 
 
-int SideChain::getLevelDetection()
-/*  Get current level detection type.
+float SideChain::getLevelDetectionRate()
+/*  Get current level detection rate.
 
-    return value (integer): returns current current level detection
-    type
- */
+    return value (float): returns current current level detection rate
+*/
 {
-    return nLevelDetectionType;
+    return fDetectorRateMilliSeconds;
 }
 
 
-void SideChain::setLevelDetection(int nLevelDetectionTypeNew)
-/*  Set new level detection type.
+void SideChain::setLevelDetectionRate(float fDetectorRateMilliSecondsNew)
+/*  Set new level detection rate.
 
-    nLevelDetectionTypeNew (integer): new level detection type
+    fDetectorRateMilliSecondsNew (float): new level detection rate
 
     return value: none
  */
 {
-    nLevelDetectionType = nLevelDetectionTypeNew;
-    float fDetectorRateMilliSeconds;
-
-    if (nLevelDetectionType == Compressor::LevelDetectionRMS)
-    {
-        fDetectorRateMilliSeconds = 50.0f;
-    }
-    else
-    {
-        fDetectorRateMilliSeconds = 0.5f;
-    }
+    fDetectorRateMilliSeconds = fDetectorRateMilliSecondsNew;
+    float fDetectorRateSeconds = fDetectorRateMilliSeconds / 1000.0f;
 
     // logarithmic envelope reaches 90% of the final reading
     // in the given attack time
-    fDetectorCoefficient = expf(logf(0.10f) / (fDetectorRateMilliSeconds / 1000.0f * fSampleRate));
+    fDetectorCoefficient = expf(logf(0.10f) / (fDetectorRateSeconds * fSampleRate));
 }
 
 

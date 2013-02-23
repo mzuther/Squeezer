@@ -43,8 +43,8 @@ public:
     void setSampleRate(int nSampleRate);
     void reset();
 
-    int getLevelDetection();
-    void setLevelDetection(int nLevelDetectionTypeNew);
+    float getLevelDetectionRate();
+    void setLevelDetectionRate(float fDetectorRateMilliSecondsNew);
 
     int getDetector();
     void setDetector(int nDetectorTypeNew);
@@ -82,7 +82,7 @@ private:
     float fDetectorCoefficient;
     float fDetectorOutputLevelSquared;
 
-    int nLevelDetectionType;
+    float fDetectorRateMilliSeconds;
     int nDetectorType;
     float fThreshold;
     float fRatioInternal;
