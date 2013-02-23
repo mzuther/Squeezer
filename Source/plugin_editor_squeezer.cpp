@@ -417,6 +417,12 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String& strMessa
 
             float fGainReduction = pProcessor->getGainReduction(nChannel);
             float fGainReductionPeak = pProcessor->getGainReductionPeak(nChannel);
+
+            // make sure gain reduction meter doesn't show anything
+            // while there is no gain reduction
+            fGainReduction -= 0.01f;
+            fGainReductionPeak -= 0.01f;
+
             pGainReductionMeters[nChannel]->setGainReduction(fGainReduction, fGainReductionPeak);
         }
     }

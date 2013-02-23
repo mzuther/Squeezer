@@ -834,10 +834,6 @@ void Compressor::updateMeterBallistics()
             PeakMeterBallistics(fInputPeak, pPeakMeterInputLevels[nChannel]);
             PeakMeterBallistics(fOutputPeak, pPeakMeterOutputLevels[nChannel]);
 
-            // make sure gain reduction meter doesn't show anything
-            // while there is no gain reduction
-            pGainReduction[nChannel] -= 0.01f;
-
             // apply peak gain reduction ballistics
             GainReductionMeterPeakBallistics(pGainReduction[nChannel], pGainReductionPeak[nChannel], pGainReductionHoldTime[nChannel]);
 

@@ -48,11 +48,11 @@ SideChain::SideChain(int nSampleRate)
     setDetector(nDetectorType);
 
     // optical detector: rate correction for 0 dB gain reduction
-    float y1 = 0.5f;
+    float y1 = 0.33f;
 
     // optical detector: gain reduction (in decibels) where rate
     // correction is exactly 1.0
-    float x2 = 4.0f;
+    float x2 = 3.0f;
 
     // optical detector: initialise calculation factors
     fOpticalDivisorA = 1.0f / y1;
@@ -599,14 +599,15 @@ void SideChain::applyDetectorOptical(float fGainReductionNew)
         }
         else
         {
-            float fOpticalCoefficientFactor = (fOpticalDivisorA + fOpticalDivisorB * fGainReductionNew) / (1.0f + fGainReductionNew);
+            float fGainReductionOld = fGainReduction;
+
+            float fOpticalCoefficientFactor = (1.0f + fGainReductionOld) / (fOpticalDivisorA + fOpticalDivisorB * fGainReductionOld);
             fReleaseCoefficient = expf(fReleaseCoefficientPrepared * fOpticalCoefficientFactor);
 
             // algorithm adapted from Giannoulis et al., "Digital
             // Dynamic Range Compressor Design - A Tutorial and
             // Analysis", JAES, 60(6):399-408, 2012
 
-            float fGainReductionOld = fGainReduction;
             fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
         }
     }
