@@ -65,7 +65,7 @@ MeterBarGainReduction::~MeterBarGainReduction()
 void MeterBarGainReduction::initialiseMeter()
 {
     float fRange = 1.0f;
-    int nColor = 4;
+    int nColor = 3;
     int nThreshold;
     int nThresholdDiff;
 

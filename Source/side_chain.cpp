@@ -68,6 +68,13 @@ SideChain::SideChain(int nSampleRate)
 
     // reset (i.e. initialise) all relevant variables
     reset();
+
+#if DEBUG_RELEASE_RATE
+    fTimePassed = 1.0f / float(nSampleRate);
+
+    fDebugFinalValue90 = -1.0f;
+    fDebugTimeInReleasePhase = 0.0f;
+#endif
 }
 
 
@@ -433,6 +440,50 @@ void SideChain::processSample(float fInputLevel)
         DBG("[Squeezer] sidechain::processSample --> invalid detector");
         break;
     }
+
+#if DEBUG_RELEASE_RATE
+
+    // reset things during attack phase
+    if (fGainReductionNew > fGainReduction)
+    {
+        fDebugFinalValue90 = -1.0f;
+        fDebugTimeInReleasePhase = 0.0f;
+    }
+    // we're in release phase
+    else
+    {
+        // release phase has just started
+        if (fDebugFinalValue90 < 0.0f)
+        {
+            // only measure "real" data
+            if (fGainReduction >= 1.0f)
+            {
+                // determine time when the envelope reaches 90% of the
+                // final reading
+                fDebugFinalValue90 = fGainReduction * 0.1f;
+
+                // reset time measurement
+                fDebugTimeInReleasePhase = 0.0f;
+            }
+        }
+        // test for 90% of the final reading
+        else if (fGainReduction <= fDebugFinalValue90)
+        {
+            // display measured time
+            DBG(String(fDebugTimeInReleasePhase * 1000.0f, 1) + " ms");
+
+            // reset things
+            fDebugFinalValue90 = -1.0f;
+            fDebugTimeInReleasePhase = 0.0f;
+        }
+        // update time since start of release phase
+        else
+        {
+            fDebugTimeInReleasePhase += fTimePassed;
+        }
+    }
+
+#endif
 }
 
 

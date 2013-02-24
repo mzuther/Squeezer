@@ -26,6 +26,9 @@
 #ifndef __SIDE_CHAIN_H__
 #define __SIDE_CHAIN_H__
 
+#define DEBUG_RELEASE_RATE 0
+
+
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "compressor.h"
 #include "plugin_processor_squeezer.h"
@@ -74,6 +77,13 @@ private:
     JUCE_LEAK_DETECTOR(SideChain);
 
     static const int nNumberOfFactors = 60;
+
+#if DEBUG_RELEASE_RATE
+    float fTimePassed;
+
+    float fDebugFinalValue90;
+    float fDebugTimeInReleasePhase;
+#endif
 
     float fSampleRate;
     float fCrestFactorAutoGain;
