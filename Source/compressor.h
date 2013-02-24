@@ -121,7 +121,7 @@ private:
     JUCE_LEAK_DETECTOR(Compressor);
 
     void updateMeterBallistics();
-    void PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld);
+    void PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld, float& fPeakMarkOld, float& fPeakHoldTime);
     void AverageMeterBallistics(float fAverageLevelCurrent, float& fAverageLevelOld);
     void GainReductionMeterPeakBallistics(float fGainReductionPeakCurrent, float& fGainReductionPeakOld, float& fGainReductionHoldTime);
     void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);
@@ -144,6 +144,9 @@ private:
 
     float* pGainReduction;
     float* pGainReductionPeak;
+
+    float* pPeakMeterPeakInputHoldTime;
+    float* pPeakMeterPeakOutputHoldTime;
     float* pGainReductionHoldTime;
 
     int nChannels;

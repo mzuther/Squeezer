@@ -363,8 +363,8 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     ButtonDetectorRmsMedium->setBounds(140, 90, 52, 20);
     ButtonDetectorRmsSlow->setBounds(200, 90, 52, 20);
 
-    ButtonDesignFeedForward->setBounds(20, 115, 52, 20);
-    ButtonDesignFeedBack->setBounds(80, 115, 52, 20);
+    ButtonDesignFeedForward->setBounds(80, 115, 52, 20);
+    ButtonDesignFeedBack->setBounds(140, 115, 52, 20);
 
     ButtonDetectorLinear->setBounds(20, 140, 52, 20);
     ButtonDetectorSmoothDecoupled->setBounds(80, 140, 52, 20);

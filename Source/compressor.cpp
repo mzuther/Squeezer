@@ -69,6 +69,10 @@ Compressor::Compressor(int channels, int sample_rate)
     // channels)
     pGainReduction = new float[nChannels];
     pGainReductionPeak = new float[nChannels];
+
+    // allocate variables for meter hold feature
+    pPeakMeterPeakInputHoldTime = new float[nChannels];
+    pPeakMeterPeakOutputHoldTime = new float[nChannels];
     pGainReductionHoldTime = new float[nChannels];
 
     // reset meters
@@ -136,6 +140,12 @@ Compressor::~Compressor()
     delete[] pGainReductionPeak;
     pGainReductionPeak = NULL;
 
+    delete[] pPeakMeterPeakInputHoldTime;
+    pPeakMeterPeakInputHoldTime = NULL;
+
+    delete[] pPeakMeterPeakOutputHoldTime;
+    pPeakMeterPeakOutputHoldTime = NULL;
+
     delete[] pGainReductionHoldTime;
     pGainReductionHoldTime = NULL;
 
@@ -170,6 +180,8 @@ void Compressor::resetMeters()
         pGainReduction[nChannel] = fMeterMinimumDecibel;
         pGainReductionPeak[nChannel] = fMeterMinimumDecibel;
 
+        pPeakMeterPeakInputHoldTime[nChannel] = 0.0f;
+        pPeakMeterPeakOutputHoldTime[nChannel] = 0.0f;
         pGainReductionHoldTime[nChannel] = 0.0f;
     }
 }
@@ -812,28 +824,9 @@ void Compressor::updateMeterBallistics()
             fInputPeak = SideChain::level2decibel(fInputPeak);
             fOutputPeak = SideChain::level2decibel(fOutputPeak);
 
-            // update peak meter peak values
-            if (fInputPeak > 0.0f)
-            {
-                pPeakMeterPeakInputLevels[nChannel] = 0.0f;
-            }
-            else if (fInputPeak > pPeakMeterPeakInputLevels[nChannel])
-            {
-                pPeakMeterPeakInputLevels[nChannel] = fInputPeak;
-            }
-
-            if (fOutputPeak > 0.0f)
-            {
-                pPeakMeterPeakOutputLevels[nChannel] = 0.0f;
-            }
-            else if (fOutputPeak > pPeakMeterPeakOutputLevels[nChannel])
-            {
-                pPeakMeterPeakOutputLevels[nChannel] = fOutputPeak;
-            }
-
             // apply peak meter ballistics
-            PeakMeterBallistics(fInputPeak, pPeakMeterInputLevels[nChannel]);
-            PeakMeterBallistics(fOutputPeak, pPeakMeterOutputLevels[nChannel]);
+            PeakMeterBallistics(fInputPeak, pPeakMeterInputLevels[nChannel], pPeakMeterPeakInputLevels[nChannel], pPeakMeterPeakInputHoldTime[nChannel]);
+            PeakMeterBallistics(fOutputPeak, pPeakMeterOutputLevels[nChannel], pPeakMeterPeakOutputLevels[nChannel], pPeakMeterPeakOutputHoldTime[nChannel]);
 
             // apply peak gain reduction ballistics
             GainReductionMeterPeakBallistics(pGainReduction[nChannel], pGainReductionPeak[nChannel], pGainReductionHoldTime[nChannel]);
@@ -855,12 +848,18 @@ void Compressor::updateMeterBallistics()
 }
 
 
-void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld)
+void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld, float& fPeakMarkOld, float& fPeakHoldTime)
 /*  Calculate ballistics for peak meter levels.
 
     fPeakLevelCurrent (float): current peak meter level in decibel
 
     fPeakLevelOld (float): old peak meter reading in decibel (will be
+    overwritten!)
+
+    fPeakMarkOld (float): old peak mark in decibel (will be
+    overwritten!)
+
+    fPeakHoldTime (float): time since last meter update (will be
     overwritten!)
 
     return value: none
@@ -890,6 +889,49 @@ void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelO
         if (fPeakLevelCurrent > fPeakLevelOld)
         {
             fPeakLevelOld = fPeakLevelCurrent;
+        }
+    }
+
+    // peak marker: limit peak level
+    if (fPeakLevelCurrent >= 0.0f)
+    {
+        // immediate rise time, but limit current peak to top mark
+        fPeakMarkOld = 0.0f;
+
+        // reset hold time
+        fPeakHoldTime = 0.0f;
+    }
+    // peak marker: apply rise time if peak level is above old level
+    else if (fPeakLevelCurrent >= fPeakMarkOld)
+    {
+        // immediate rise time, so return current peak level as new
+        // peak meter reading
+        fPeakMarkOld = fPeakLevelCurrent;
+
+        // reset hold time
+        fPeakHoldTime = 0.0f;
+    }
+    // peak marker: otherwise, apply fall time
+    else
+    {
+        // hold peaks for 10 seconds
+        if (fPeakHoldTime < 10.0f)
+        {
+            // update hold time
+            fPeakHoldTime += fTimePassed;
+        }
+        // hold time exceeded
+        else
+        {
+            // apply fall time and return new peak reading (linear
+            // fall time: 26 dB in 3 seconds)
+            fPeakMarkOld -= fReleaseCoefLinear;
+
+            // make sure that meter doesn't fall below current level
+            if (fPeakLevelCurrent > fPeakMarkOld)
+            {
+                fPeakMarkOld = fPeakLevelCurrent;
+            }
         }
     }
 }
@@ -940,8 +982,8 @@ void Compressor::GainReductionMeterPeakBallistics(float fGainReductionPeakCurren
     // otherwise, apply fall time
     else
     {
-        // hold gain reduction meter for 3 seconds
-        if (fGainReductionHoldTime < 3.0f)
+        // hold gain reduction meter for 10 seconds
+        if (fGainReductionHoldTime < 10.0f)
         {
             // update hold time
             fGainReductionHoldTime += fTimePassed;
