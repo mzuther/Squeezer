@@ -44,10 +44,10 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterDetectorRmsFilter = new WrappedParameterSwitch();
     ParameterDetectorRmsFilter->setName("RMS Filter");
 
-    ParameterDetectorRmsFilter->addConstant(1.0f,  "Peak");
-    ParameterDetectorRmsFilter->addConstant(8.0f,  "Fast");
-    ParameterDetectorRmsFilter->addConstant(20.0f, "Medium");
-    ParameterDetectorRmsFilter->addConstant(50.0f, "Slow");
+    ParameterDetectorRmsFilter->addConstant(1.0f,  "Peak (1ms)");
+    ParameterDetectorRmsFilter->addConstant(8.0f,  "Fast (8 ms)");
+    ParameterDetectorRmsFilter->addConstant(20.0f, "Medium (20 ms)");
+    ParameterDetectorRmsFilter->addConstant(50.0f, "Slow (50 ms)");
 
     ParameterDetectorRmsFilter->setDefaultRealFloat(8.0f, true);
     add(ParameterDetectorRmsFilter, selDetectorRmsFilter);
@@ -390,10 +390,8 @@ String SqueezerPluginParameters::toString()
 
     strParameters += "\nRMS Filter: ";
     strParameters += arrParameters[selDetectorRmsFilter]->getText();
-    strParameters += " (";
-    strParameters += arrParameters[selDetectorRmsFilter]->getRealInteger();
 
-    strParameters += " ms), Design: ";
+    strParameters += ", Design: ";
     strParameters += arrParameters[selDesign]->getText();
 
     strParameters += "\nThreshold: ";
