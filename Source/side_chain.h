@@ -43,8 +43,8 @@ public:
     void setSampleRate(int nSampleRate);
     void reset();
 
-    float getLevelDetectionRate();
-    void setLevelDetectionRate(float fDetectorRateMilliSecondsNew);
+    float getDetectorRmsFilter();
+    void setDetectorRmsFilter(float fDetectorRateMilliSecondsNew);
 
     int getDetector();
     void setDetector(int nDetectorTypeNew);

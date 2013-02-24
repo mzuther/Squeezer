@@ -198,27 +198,28 @@ void Compressor::setBypass(bool bBypassCompressorNew)
 }
 
 
-float Compressor::getLevelDetectionRate()
-/*  Get current level detection rate.
+float Compressor::getDetectorRmsFilter()
+/*  Get current detector RMS filter rate.
 
-    return value (float): returns current current level detection rate
+    return value (float): returns current current detector RMS filter
+    rate
 */
 {
-    return pSideChain[0]->getLevelDetectionRate();
+    return pSideChain[0]->getDetectorRmsFilter();
 }
 
 
-void Compressor::setLevelDetectionRate(float fDetectorRateMilliSecondsNew)
-/*  Set new level detection rate.
+void Compressor::setDetectorRmsFilter(float fDetectorRateMilliSecondsNew)
+/*  Set new detector RMS filter rate.
 
-    fDetectorRateMilliSecondsNew (float): new level detection rate
+    fDetectorRateMilliSecondsNew (float): new detector RMS filter rate
 
     return value: none
- */
+*/
 {
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pSideChain[nChannel]->setLevelDetectionRate(fDetectorRateMilliSecondsNew);
+        pSideChain[nChannel]->setDetectorRmsFilter(fDetectorRateMilliSecondsNew);
     }
 }
 

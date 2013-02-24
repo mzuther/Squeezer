@@ -143,14 +143,14 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
-    case SqueezerPluginParameters::selLevelDetectionRate:
+    case SqueezerPluginParameters::selDetectorRmsFilter:
 
         pPluginParameters->setFloat(nIndex, fValue);
 
         if (pCompressor)
         {
             float fDetectorRateMilliSeconds = pPluginParameters->getRealFloat(nIndex);
-            pCompressor->setLevelDetectionRate(fDetectorRateMilliSeconds);
+            pCompressor->setDetectorRmsFilter(fDetectorRateMilliSeconds);
         }
 
         break;
@@ -582,7 +582,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     DBG("[Squeezer] number of input channels: " + String(nNumInputChannels));
 
     bool bBypassCompressor = pPluginParameters->getBoolean(SqueezerPluginParameters::selBypass);
-    float fDetectorRateMilliSeconds = pPluginParameters->getRealFloat(SqueezerPluginParameters::selLevelDetectionRate);
+    float fDetectorRateMilliSeconds = pPluginParameters->getRealFloat(SqueezerPluginParameters::selDetectorRmsFilter);
     int nDesign = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDesign);
     int nDetector = pPluginParameters->getRealInteger(SqueezerPluginParameters::selDetector);
 
@@ -601,7 +601,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
 
     pCompressor->setBypass(bBypassCompressor);
-    pCompressor->setLevelDetectionRate(fDetectorRateMilliSeconds);
+    pCompressor->setDetectorRmsFilter(fDetectorRateMilliSeconds);
     pCompressor->setDesign(nDesign);
     pCompressor->setDetector(nDetector);
 

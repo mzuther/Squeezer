@@ -60,7 +60,7 @@ SideChain::SideChain(int nSampleRate)
     setRatio(2.0f);
     setKneeWidth(0.0f);
 
-    setLevelDetectionRate(10.0f);
+    setDetectorRmsFilter(7.5f);
     nDetectorType = Compressor::DetectorSmoothBranching;
     setAttackRate(10);
     setReleaseRate(100);
@@ -109,23 +109,24 @@ void SideChain::setSampleRate(int nSampleRate)
 }
 
 
-float SideChain::getLevelDetectionRate()
-/*  Get current level detection rate.
+float SideChain::getDetectorRmsFilter()
+/*  Get current detector RMS filter rate.
 
-    return value (float): returns current current level detection rate
+    return value (float): returns current current detector RMS filter
+    rate
 */
 {
     return fDetectorRateMilliSeconds;
 }
 
 
-void SideChain::setLevelDetectionRate(float fDetectorRateMilliSecondsNew)
-/*  Set new level detection rate.
+void SideChain::setDetectorRmsFilter(float fDetectorRateMilliSecondsNew)
+/*  Set new detector RMS filter rate.
 
-    fDetectorRateMilliSecondsNew (float): new level detection rate
+    fDetectorRateMilliSecondsNew (float): new detector RMS filter rate
 
     return value: none
- */
+*/
 {
     fDetectorRateMilliSeconds = fDetectorRateMilliSecondsNew;
     float fDetectorRateSeconds = fDetectorRateMilliSeconds / 1000.0f;

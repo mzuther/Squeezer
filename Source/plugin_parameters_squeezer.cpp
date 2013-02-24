@@ -41,15 +41,16 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterBypass, selBypass);
 
 
-    ParameterLevelDetectionRate = new WrappedParameterSwitch();
-    ParameterLevelDetectionRate->setName("Level Detection Rate");
+    ParameterDetectorRmsFilter = new WrappedParameterSwitch();
+    ParameterDetectorRmsFilter->setName("RMS Filter");
 
-    ParameterLevelDetectionRate->addConstant(1.0f,  "Fast");
-    ParameterLevelDetectionRate->addConstant(10.0f, "Medium");
-    ParameterLevelDetectionRate->addConstant(50.0f, "Slow");
+    ParameterDetectorRmsFilter->addConstant(1.0f,  "Peak");
+    ParameterDetectorRmsFilter->addConstant(7.5f,  "Fast");
+    ParameterDetectorRmsFilter->addConstant(20.0f, "Medium");
+    ParameterDetectorRmsFilter->addConstant(50.0f, "Slow");
 
-    ParameterLevelDetectionRate->setDefaultRealFloat(10.0f, true);
-    add(ParameterLevelDetectionRate, selLevelDetectionRate);
+    ParameterDetectorRmsFilter->setDefaultRealFloat(7.5f, true);
+    add(ParameterDetectorRmsFilter, selDetectorRmsFilter);
 
 
     ParameterDesign = new WrappedParameterSwitch();
@@ -335,8 +336,8 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterBypass;
     ParameterBypass = NULL;
 
-    delete ParameterLevelDetectionRate;
-    ParameterLevelDetectionRate = NULL;
+    delete ParameterDetectorRmsFilter;
+    ParameterDetectorRmsFilter = NULL;
 
     delete ParameterDesign;
     ParameterDesign = NULL;
@@ -387,8 +388,8 @@ String SqueezerPluginParameters::toString()
         strParameters += "=";
     }
 
-    strParameters += "\nDetection Rate: ";
-    strParameters += arrParameters[selLevelDetectionRate]->getText();
+    strParameters += "\nRMS Filter: ";
+    strParameters += arrParameters[selDetectorRmsFilter]->getText();
 
     strParameters += ", Design: ";
     strParameters += arrParameters[selDesign]->getText();

@@ -41,10 +41,11 @@ public:
 
     enum Parameters  // public namespace!
     {
-        LevelDetectionRateFast = 0,
-        LevelDetectionRateMedium,
-        LevelDetectionRateSlow,
-        NumberOfLevelDetectionRates,
+        DetectorRmsFilterPeak = 0,
+        DetectorRmsFilterFast,
+        DetectorRmsFilterMedium,
+        DetectorRmsFilterSlow,
+        NumberOfDetectorRmsFilters,
 
         DesignFeedForward = 0,
         DesignFeedBack,
@@ -65,8 +66,8 @@ public:
     bool getBypass();
     void setBypass(bool bBypassCompressorNew);
 
-    float getLevelDetectionRate();
-    void setLevelDetectionRate(float fDetectorRateMilliSecondsNew);
+    float getDetectorRmsFilter();
+    void setDetectorRmsFilter(float fDetectorRateMilliSecondsNew);
 
     int getDesign();
     void setDesign(int nDesignNew);
