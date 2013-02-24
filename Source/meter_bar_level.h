@@ -36,10 +36,10 @@
 class MeterBarLevel : public Component
 {
 public:
-    MeterBarLevel(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
+    MeterBarLevel(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height, float crest_factor);
     ~MeterBarLevel();
 
-    void setLevel(float fPeakLevelNew, float fAverageLevelNew, float fPeakLevelPeakNew);
+    void setLevel(float fPeakLevelNew, float fAverageLevelNew, float fPeakLevelPeakNew, float fMaximumLevelNew);
     void paint(Graphics& g);
     void resized();
     void visibilityChanged();
@@ -47,9 +47,12 @@ public:
 private:
     JUCE_LEAK_DETECTOR(MeterBarLevel);
 
+    float fCrestFactor;
+
     float fAverageLevel;
     float fPeakLevel;
     float fPeakLevelPeak;
+    float fMaximumLevel;
 
     int nPosX;
     int nPosY;

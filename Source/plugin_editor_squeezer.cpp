@@ -274,16 +274,17 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     int x = 550;
     int width = 12;
+    int nNumberOfBars = 24;
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pInputLevelMeters[nChannel] = new MeterBarLevel("Input Level Meter #" + String(nChannel), x, 12, width, 24, 5);
+        pInputLevelMeters[nChannel] = new MeterBarLevel("Input Level Meter #" + String(nChannel), x, 12, width, nNumberOfBars - 2, 5, 20.0f);
         addAndMakeVisible(pInputLevelMeters[nChannel]);
 
-        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 60, 12, width, 24, 5);
+        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 60, 12, width, nNumberOfBars - 2, 5, 20.0f);
         addAndMakeVisible(pOutputLevelMeters[nChannel]);
 
-        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + 30, 12, width, 24, 5);
+        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + 30, 12, width, nNumberOfBars, 5);
         addAndMakeVisible(pGainReductionMeters[nChannel]);
 
         x += width;
@@ -418,12 +419,16 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String& strMessa
             float fPeakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
             float fAverageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
             float fPeakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(nChannel);
-            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel, fAverageInputLevel, fPeakInputPeakLevel);
+            float fMaximumInputLevel = pProcessor->getMaximumInputLevel(nChannel);
+
+            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel, fAverageInputLevel, fPeakInputPeakLevel, fMaximumInputLevel);
 
             float fPeakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
             float fAverageOutputLevel = pProcessor->getAverageMeterOutputLevel(nChannel);
             float fPeakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(nChannel);
-            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel, fAverageOutputLevel, fPeakOutputPeakLevel);
+            float fMaximumOutputLevel = pProcessor->getMaximumOutputLevel(nChannel);
+
+            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel, fAverageOutputLevel, fPeakOutputPeakLevel, fMaximumOutputLevel);
 
             float fGainReduction = pProcessor->getGainReduction(nChannel);
             float fGainReductionPeak = pProcessor->getGainReductionPeak(nChannel);

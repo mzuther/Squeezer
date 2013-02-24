@@ -60,6 +60,11 @@ Compressor::Compressor(int channels, int sample_rate)
     pPeakMeterPeakInputLevels = new float[nChannels];
     pPeakMeterPeakOutputLevels = new float[nChannels];
 
+    // allocate variables for maximum meter levels (all audio input
+    // channels)
+    pMaximumInputLevels = new float[nChannels];
+    pMaximumOutputLevels = new float[nChannels];
+
     // allocate variables for average meter levels (all audio input
     // channels)
     pAverageMeterInputLevels = new float[nChannels];
@@ -131,6 +136,12 @@ Compressor::~Compressor()
     delete[] pPeakMeterPeakOutputLevels;
     pPeakMeterPeakOutputLevels = NULL;
 
+    delete[] pMaximumInputLevels;
+    pMaximumInputLevels = NULL;
+
+    delete[] pMaximumOutputLevels;
+    pMaximumOutputLevels = NULL;
+
     delete[] pAverageMeterInputLevels;
     pAverageMeterInputLevels = NULL;
 
@@ -173,6 +184,9 @@ void Compressor::resetMeters()
 
         pPeakMeterPeakInputLevels[nChannel] = fMeterMinimumDecibel;
         pPeakMeterPeakOutputLevels[nChannel] = fMeterMinimumDecibel;
+
+        pMaximumInputLevels[nChannel] = fMeterMinimumDecibel;
+        pMaximumOutputLevels[nChannel] = fMeterMinimumDecibel;
 
         pAverageMeterInputLevels[nChannel] = fMeterMinimumDecibel;
         pAverageMeterOutputLevels[nChannel] = fMeterMinimumDecibel;
@@ -635,6 +649,38 @@ float Compressor::getPeakMeterPeakOutputLevel(int nChannel)
 }
 
 
+float Compressor::getMaximumInputLevel(int nChannel)
+/*  Get current input maximum level.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns current input maximum level in
+    decibel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nChannels);
+
+    return pMaximumInputLevels[nChannel] + fCrestFactor;
+}
+
+
+float Compressor::getMaximumOutputLevel(int nChannel)
+/*  Get current output maximum level.
+
+    nChannel (integer): selected audio channel
+
+    return value (float): returns current output maximum level in
+    decibel
+*/
+{
+    jassert(nChannel >= 0);
+    jassert(nChannel < nChannels);
+
+    return pMaximumOutputLevels[nChannel] + fCrestFactor;
+}
+
+
 float Compressor::getAverageMeterInputLevel(int nChannel)
 /*  Get current input average level.
 
@@ -823,6 +869,17 @@ void Compressor::updateMeterBallistics()
             // convert peak meter levels from linear scale to decibels
             fInputPeak = SideChain::level2decibel(fInputPeak);
             fOutputPeak = SideChain::level2decibel(fOutputPeak);
+
+            // update maximum meter levels
+            if (fInputPeak > pMaximumInputLevels[nChannel])
+            {
+                pMaximumInputLevels[nChannel] = fInputPeak;
+            }
+
+            if (fOutputPeak > pMaximumOutputLevels[nChannel])
+            {
+                pMaximumOutputLevels[nChannel] = fOutputPeak;
+            }
 
             // apply peak meter ballistics
             PeakMeterBallistics(fInputPeak, pPeakMeterInputLevels[nChannel], pPeakMeterPeakInputLevels[nChannel], pPeakMeterPeakInputHoldTime[nChannel]);

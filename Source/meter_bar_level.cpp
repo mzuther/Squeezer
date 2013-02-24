@@ -25,7 +25,7 @@
 
 #include "meter_bar_level.h"
 
-MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height)
+MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height, float crest_factor)
 {
     setName(componentName);
 
@@ -33,27 +33,35 @@ MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, 
     // performance on redrawing)
     setOpaque(true);
 
-    nNumberOfBars = number_of_bars;
+    // add overload marker
+    nNumberOfBars = number_of_bars + 1;
     nSegmentHeight = segment_height;
+    fCrestFactor = crest_factor;
 
     nPosX = pos_x;
     nPosY = pos_y;
     nWidth = width;
-    nHeight = nNumberOfBars * nSegmentHeight + 1;
+    nHeight = (nNumberOfBars + 1) * nSegmentHeight + 1;
 
-    fAverageLevel = 0.0f;
-    fPeakLevel = 0.0f;
-    fPeakLevelPeak = 0.0f;
+    fAverageLevel = -70.01f;
+    fPeakLevel = -70.01f;
+    fPeakLevelPeak = -70.01f;
+    fMaximumLevel = -70.01f;
 
     MeterArray = new MeterSegment*[nNumberOfBars];
 
     float fRange = 2.0f;
-    int nThreshold = 200 - int(10.0f * fRange);
+    int nThreshold = 10 * int(fCrestFactor - fRange);
     int nColor = -1;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
-        if (nThreshold >= 160)
+        if (n == 0)
+        {
+            nColor = 0;
+            nThreshold += 20;
+        }
+        else if (nThreshold >= 160)
         {
             nColor = 0;
         }
@@ -79,6 +87,7 @@ MeterBarLevel::~MeterBarLevel()
     for (int n = 0; n < nNumberOfBars; n++)
     {
         removeChildComponent(MeterArray[n]);
+
         delete MeterArray[n];
         MeterArray[n] = NULL;
     }
@@ -99,8 +108,16 @@ void MeterBarLevel::visibilityChanged()
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
-        MeterArray[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
-        y += nSegmentHeight;
+        if (n == 0)
+        {
+            MeterArray[n]->setBounds(x, y, nWidth, 2 * nSegmentHeight - 1);
+            y += 2 * nSegmentHeight;
+        }
+        else
+        {
+            MeterArray[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
+            y += nSegmentHeight;
+        }
     }
 }
 
@@ -116,7 +133,7 @@ void MeterBarLevel::resized()
 }
 
 
-void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float fPeakLevelPeakNew)
+void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float fPeakLevelPeakNew, float fMaximumLevelNew)
 {
     if ((fPeakLevelNew != fPeakLevel) || (fAverageLevelNew != fAverageLevel) || (fPeakLevelPeakNew != fPeakLevelPeak))
     {
@@ -124,9 +141,23 @@ void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float 
         fAverageLevel = fAverageLevelNew;
         fPeakLevelPeak = fPeakLevelPeakNew;
 
-        for (int n = 0; n < nNumberOfBars; n++)
+        for (int n = 1; n < nNumberOfBars; n++)
         {
             MeterArray[n]->setLevels(fPeakLevel, fAverageLevel, fPeakLevelPeak, -9999.9f);
+        }
+    }
+
+    if (fMaximumLevelNew != fMaximumLevel)
+    {
+        fMaximumLevel = fMaximumLevelNew;
+
+        if (fMaximumLevel >= fCrestFactor - 1.0f)
+        {
+            MeterArray[0]->setLevels(fCrestFactor + 0.01f, -9999.9f, fCrestFactor + 0.01f, -9999.9f);
+        }
+        else
+        {
+            MeterArray[0]->setLevels(-9999.9f, -9999.9f, -9999.9f, -9999.9f);
         }
     }
 }

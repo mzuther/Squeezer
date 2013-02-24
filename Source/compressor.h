@@ -111,6 +111,9 @@ public:
     float getPeakMeterPeakInputLevel(int nChannel);
     float getPeakMeterPeakOutputLevel(int nChannel);
 
+    float getMaximumInputLevel(int nChannel);
+    float getMaximumOutputLevel(int nChannel);
+
     float getAverageMeterInputLevel(int nChannel);
     float getAverageMeterOutputLevel(int nChannel);
 
@@ -138,6 +141,9 @@ private:
 
     float* pPeakMeterPeakInputLevels;
     float* pPeakMeterPeakOutputLevels;
+
+    float* pMaximumInputLevels;
+    float* pMaximumOutputLevels;
 
     float* pAverageMeterInputLevels;
     float* pAverageMeterOutputLevels;

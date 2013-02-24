@@ -1,16 +1,101 @@
 Git HEAD
 ========
 
-* feed-forward and feed-back design
-    
-* logarithmic and linear attack and release rates
+
+
+v1.42 (2013-02-24)
+==================
+
+* overload meter
+
+* fine-tuned optical detector
+
+* changed design of "linear" detector
+
+* changed RMS detection constants
+
+
+v1.41 (2013-02-23)
+==================
+
+* optical detector
+
+
+v1.40 (2013-02-18)
+==================
+
+* upward expansion
+
+* changed envelope time constants (90% instead of 95%)
+
+* window showing the plugin's parameters
+
+* maximum peak label on meters
+
+
+v1.31 (2013-02-10)
+==================
+
+* combined peak/average meter
+
+* update level meters during bypass
+
+
+v1.30 (2013-02-10)
+==================
+
+* added "smooth decoupled" and "smooth branching" peak detectors
+
+* handle peak detection by RMS filter
+
+* auto make-up gain switch
+
+* level meters (peak and RMS)
+
+* restructured code
+
+* check type in parameter wrapper initialisation
+
+
+v1.20 (2013-02-01)
+==================
+
+* soft knee compression
 
 * parameters can be switched between discrete (constant) and
   continuous (manual) values
 
-* variable stereo linking
+* removed input gain
 
-* parallel compression
+* fixed parameter automation bug
+
+
+v1.10 (2013-01-19)
+==================
+
+* logarithmic and linear attack and release rates
+
+* enhanced parameter handling (including logarithmic scaling)
+
+* fixed setting parameters by controller message
+
+
+v1.00 (2013-01-11)
+==================
+
+* input and output gain
+
+* feed-forward and feed-back design
+
+* wet/dry switch for parallel compression
+
+* flexible stereo linking
+
+* bypass button
+
+* gain reduction meter
+
+* crest factor: 20 dB
 
 * GNU/Linux:  VST plug-in, stand-alone
   Windows:    VST plug-in, stand-alone

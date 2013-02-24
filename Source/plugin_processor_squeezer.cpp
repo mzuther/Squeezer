@@ -455,6 +455,32 @@ float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(int nChannel)
 }
 
 
+float SqueezerAudioProcessor::getMaximumInputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getMaximumInputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
+float SqueezerAudioProcessor::getMaximumOutputLevel(int nChannel)
+{
+    if (pCompressor)
+    {
+        return pCompressor->getMaximumOutputLevel(nChannel);
+    }
+    else
+    {
+        return -1.0f;
+    }
+}
+
+
 float SqueezerAudioProcessor::getAverageMeterInputLevel(int nChannel)
 {
     if (pCompressor)
