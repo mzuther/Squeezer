@@ -44,12 +44,12 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterDetectorRmsFilter = new WrappedParameterSwitch();
     ParameterDetectorRmsFilter->setName("RMS Filter");
 
-    ParameterDetectorRmsFilter->addConstant(1.0f,  "Peak (1ms)");
-    ParameterDetectorRmsFilter->addConstant(8.0f,  "Fast (8 ms)");
-    ParameterDetectorRmsFilter->addConstant(20.0f, "Medium (20 ms)");
+    ParameterDetectorRmsFilter->addConstant(0.1f,  "Peak (100 us)");
+    ParameterDetectorRmsFilter->addConstant(2.0f,  "Fast (2 ms)");
+    ParameterDetectorRmsFilter->addConstant(10.0f, "Medium (10 ms)");
     ParameterDetectorRmsFilter->addConstant(50.0f, "Slow (50 ms)");
 
-    ParameterDetectorRmsFilter->setDefaultRealFloat(8.0f, true);
+    ParameterDetectorRmsFilter->setDefaultRealFloat(10.0f, true);
     add(ParameterDetectorRmsFilter, selDetectorRmsFilter);
 
 

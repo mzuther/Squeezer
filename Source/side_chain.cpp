@@ -60,7 +60,7 @@ SideChain::SideChain(int nSampleRate)
     setRatio(2.0f);
     setKneeWidth(0.0f);
 
-    setDetectorRmsFilter(8.0f);
+    setDetectorRmsFilter(10.0f);
     nDetectorType = Compressor::DetectorSmoothBranching;
     setAttackRate(10);
     setReleaseRate(100);
