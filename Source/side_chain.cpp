@@ -26,9 +26,6 @@
 #include "side_chain.h"
 
 
-float SideChain::fMeterMinimumDecibel;
-
-
 SideChain::SideChain(int nSampleRate)
 /*  Constructor.
 
@@ -100,7 +97,6 @@ void SideChain::reset()
     fDetectorOutputLevelSquared = 0.0f;
 
     fCrestFactorAutoGain = 0.0f;
-    fMeterMinimumDecibel = -70.01f;
 }
 
 
