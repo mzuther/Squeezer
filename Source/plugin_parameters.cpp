@@ -286,6 +286,7 @@ void PluginParameters::loadFromXml(XmlElement* xml)
 XmlElement PluginParameters::storeAsXml()
 {
     XmlElement xml(strSettingsID);
+    xml.setAttribute("version", JucePlugin_VersionString);
 
     for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
     {

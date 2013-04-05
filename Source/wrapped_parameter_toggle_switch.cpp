@@ -216,7 +216,26 @@ void WrappedParameterToggleSwitch::loadFromXml(XmlElement* xml)
 
     if (xml_element)
     {
-        bool bStateNew = xml_element->getBoolAttribute("value", getDefaultBoolean());
+        bool bStateNew;
+
+        if (xml_element->hasAttribute("value"))
+        {
+            bStateNew = xml_element->getBoolAttribute("value", getDefaultBoolean());
+        }
+        else
+        {
+            String strStateInteger = xml_element->getAllSubText().trim();
+
+            if (strStateInteger.isEmpty())
+            {
+                bStateNew = getDefaultBoolean();
+            }
+            else
+            {
+                bStateNew = (strStateInteger.getIntValue() != 0);
+            }
+        }
+
         setBoolean(bStateNew);
     }
 }

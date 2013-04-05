@@ -417,7 +417,25 @@ void WrappedParameterCombined::loadFromXml(XmlElement* xml)
     if (xml_element)
     {
         bool useConstants = xml_element->getBoolAttribute("use_constants", true);
-        float fRealValue = (float) xml_element->getDoubleAttribute("value", getDefaultRealFloat());
+        float fRealValue;
+
+        if (xml_element->hasAttribute("value"))
+        {
+            fRealValue = (float) xml_element->getDoubleAttribute("value", getDefaultRealFloat());
+        }
+        else
+        {
+            String strRealValue = xml_element->getAllSubText().trim();
+
+            if (strRealValue.isEmpty())
+            {
+                fRealValue = getDefaultRealFloat();
+            }
+            else
+            {
+                fRealValue = strRealValue.getFloatValue();
+            }
+        }
 
         setMode(useConstants);
         setRealFloat(fRealValue);
