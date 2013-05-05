@@ -551,6 +551,18 @@ bool SqueezerAudioProcessor::producesMidi() const
 }
 
 
+bool SqueezerAudioProcessor::silenceInProducesSilenceOut() const
+{
+    return true;
+}
+
+
+double SqueezerAudioProcessor::getTailLengthSeconds() const
+{
+    return 0.0;
+}
+
+
 int SqueezerAudioProcessor::getNumChannels()
 {
     return nNumInputChannels;
@@ -745,8 +757,14 @@ void SqueezerAudioProcessor::setStateInformation(const void* data, int sizeInByt
 
 //==============================================================================
 
-// This creates new instances of the plug-in..
+// This creates new instances of the plug-in.
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+{
+    return new SqueezerAudioProcessor();
+}
+
+
+AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType)
 {
     return new SqueezerAudioProcessor();
 }

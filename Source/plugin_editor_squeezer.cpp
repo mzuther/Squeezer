@@ -514,13 +514,13 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderThresholdCombined->updateMode();
         break;
     case SqueezerPluginParameters::selThreshold:
-        SliderThresholdCombined->setValue(fValue, false);
+        SliderThresholdCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selRatioSwitch:
         SliderRatioCombined->updateMode();
         break;
     case SqueezerPluginParameters::selRatio:
-        SliderRatioCombined->setValue(fValue, false);
+        SliderRatioCombined->setValue(fValue, dontSendNotification);
 
         {
             float fRealValue = SliderRatioCombined->getRealFloat();
@@ -537,25 +537,25 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderKneeWidthCombined->updateMode();
         break;
     case SqueezerPluginParameters::selKneeWidth:
-        SliderKneeWidthCombined->setValue(fValue, false);
+        SliderKneeWidthCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selAttackRateSwitch:
         SliderAttackRateCombined->updateMode();
         break;
     case SqueezerPluginParameters::selAttackRate:
-        SliderAttackRateCombined->setValue(fValue, false);
+        SliderAttackRateCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selReleaseRateSwitch:
         SliderReleaseRateCombined->updateMode();
         break;
     case SqueezerPluginParameters::selReleaseRate:
-        SliderReleaseRateCombined->setValue(fValue, false);
+        SliderReleaseRateCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selStereoLinkSwitch:
         SliderStereoLinkCombined->updateMode();
         break;
     case SqueezerPluginParameters::selStereoLink:
-        SliderStereoLinkCombined->setValue(fValue, false);
+        SliderStereoLinkCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selAutoMakeupGain:
         ButtonAutoMakeupGain->setToggleState(fValue != 0.0f, false);
@@ -564,13 +564,13 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderMakeupGainCombined->updateMode();
         break;
     case SqueezerPluginParameters::selMakeupGain:
-        SliderMakeupGainCombined->setValue(fValue, false);
+        SliderMakeupGainCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selWetMixSwitch:
         SliderWetMixCombined->updateMode();
         break;
     case SqueezerPluginParameters::selWetMix:
-        SliderWetMixCombined->setValue(fValue, false);
+        SliderWetMixCombined->setValue(fValue, dontSendNotification);
         break;
     default:
         DBG("[Squeezer] editor::updateParameter --> invalid index");

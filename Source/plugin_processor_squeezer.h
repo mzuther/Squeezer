@@ -98,6 +98,9 @@ public:
     bool acceptsMidi() const;
     bool producesMidi() const;
 
+    bool silenceInProducesSilenceOut() const;
+    double getTailLengthSeconds() const;
+
     //==========================================================================
     int getNumPrograms();
     int getNumChannels();
@@ -124,6 +127,10 @@ private:
     int nNumInputChannels;
     bool bSampleRateIsValid;
 };
+
+AudioProcessor* JUCE_CALLTYPE createPluginFilter();
+AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType);
+
 
 #endif  // __SQUEEZER_PLUGINPROCESSOR_H__
 

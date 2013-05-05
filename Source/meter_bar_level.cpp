@@ -151,7 +151,7 @@ void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float 
     {
         fMaximumLevel = fMaximumLevelNew;
 
-        if (fMaximumLevel >= fCrestFactor - 1.0f)
+        if (fMaximumLevel >= fCrestFactor)
         {
             MeterArray[0]->setLevels(fCrestFactor + 0.01f, -9999.9f, fCrestFactor + 0.01f, -9999.9f);
         }

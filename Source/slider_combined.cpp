@@ -60,7 +60,8 @@ SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParame
     pToggleButton->setClickingTogglesState(true);
     pToggleButton->setToggleState(pModeSwitch->getBoolean(), false);
     pToggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, NULL, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, NULL);
-    pToggleButton->setBackgroundColours(Colours::transparentBlack, Colours::transparentBlack);
+    pToggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
+    pToggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
 
     addAndMakeVisible(pToggleButton);
 }
@@ -117,14 +118,29 @@ void SliderCombined::updateMode()
     setRange(0.0f, 1.0f, pCombined->getInterval());
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
 
-    // do not call callbak automatically, ...
-    setValue(pCombined->getFloat(), false);
+    float fNewValue = pCombined->getFloat();
+    float fCurrentValue = (float) getValue();
 
-    // ..., call it manually to make sure that the associated
-    // parameter gets updated even when the slider doesn't change its
-    // position on mode change
-    triggerAsyncUpdate();
-    valueChanged();
+    // make sure that the associated parameter gets updated even when
+    // the slider doesn't change its position on mode change
+    if (fNewValue == fCurrentValue)
+    {
+        float fMinimum = (float) getMinimum();
+        float fMaximum = (float) getMaximum();
+
+        // temporally set to nonsense value WITHOUT notification
+        if (fNewValue == fMinimum)
+        {
+            setValue(fMaximum, dontSendNotification);
+        }
+        else
+        {
+            setValue(fMinimum, dontSendNotification);
+        }
+    }
+
+    // set to new value WITH notification
+    setValue(fNewValue, sendNotificationAsync);
 
     repaint();
 }
