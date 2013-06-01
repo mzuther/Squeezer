@@ -113,45 +113,103 @@
         lv2:index 6 ;
         lv2:symbol "bypass" ;
         lv2:name "Bypass" ;
-        lv2:default 0.000000 ;
+        lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 7 ;
         lv2:symbol "rms_filter" ;
         lv2:name "RMS Filter" ;
-        lv2:default 0.666667 ;
-        lv2:minimum 0.0 ;
-        lv2:maximum 1.0 ;
+        lv2:default 0.67 ;
+        lv2:minimum 0.00 ;
+        lv2:maximum 1.00 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.00 ;
+            rdfs:label "Peak (100 us)" ;
+        ] ,
+        [
+            rdf:value 0.33 ;
+            rdfs:label "Fast (2 ms)" ;
+        ] ,
+        [
+            rdf:value 0.67 ;
+            rdfs:label "Medium (10 ms)" ;
+        ] ,
+        [
+            rdf:value 1.00 ;
+            rdfs:label "Slow (50 ms)" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 8 ;
         lv2:symbol "design" ;
         lv2:name "Design" ;
-        lv2:default 0.000000 ;
+        lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Feed-Forward" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Feed-Back" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 9 ;
         lv2:symbol "detector" ;
         lv2:name "Detector" ;
-        lv2:default 0.666667 ;
-        lv2:minimum 0.0 ;
-        lv2:maximum 1.0 ;
+        lv2:default 0.67 ;
+        lv2:minimum 0.00 ;
+        lv2:maximum 1.00 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.00 ;
+            rdfs:label "Linear" ;
+        ] ,
+        [
+            rdf:value 0.33 ;
+            rdfs:label "S-Curve" ;
+        ] ,
+        [
+            rdf:value 0.67 ;
+            rdfs:label "Logarithmic" ;
+        ] ,
+        [
+            rdf:value 1.00 ;
+            rdfs:label "Optical" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 10 ;
         lv2:symbol "threshold_mode" ;
         lv2:name "Threshold Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
@@ -167,9 +225,19 @@
         lv2:index 12 ;
         lv2:symbol "ratio_mode" ;
         lv2:name "Ratio Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
@@ -185,16 +253,26 @@
         lv2:index 14 ;
         lv2:symbol "knee_width_mode" ;
         lv2:name "Knee Width Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 15 ;
         lv2:symbol "knee_width" ;
         lv2:name "Knee Width" ;
-        lv2:default 0.000000 ;
+        lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
@@ -203,9 +281,19 @@
         lv2:index 16 ;
         lv2:symbol "attack_rate_mode" ;
         lv2:name "Attack Rate Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
@@ -221,9 +309,19 @@
         lv2:index 18 ;
         lv2:symbol "release_rate_mode" ;
         lv2:name "Release Rate Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
@@ -239,16 +337,26 @@
         lv2:index 20 ;
         lv2:symbol "stereo_link_mode" ;
         lv2:name "Stereo Link Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 21 ;
         lv2:symbol "stereo_link" ;
         lv2:name "Stereo Link" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
@@ -257,18 +365,30 @@
         lv2:index 22 ;
         lv2:symbol "auto_make_up_gain" ;
         lv2:name "Auto Make-Up Gain" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 23 ;
         lv2:symbol "make_up_gain_mode" ;
         lv2:name "Make-Up Gain Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
@@ -284,16 +404,26 @@
         lv2:index 25 ;
         lv2:symbol "wet_mix_mode" ;
         lv2:name "Wet Mix Mode" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 26 ;
         lv2:symbol "wet_mix" ;
         lv2:name "Wet Mix" ;
-        lv2:default 1.000000 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] .
