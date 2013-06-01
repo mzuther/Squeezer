@@ -44,31 +44,34 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifdef SQUEEZER_MULTI
 #ifdef DEBUG
-#define JucePlugin_Name                 "Squeezer (Multi, Debug)"
+  #define JucePlugin_Name                 "Squeezer (Stereo, Debug)"
 #else
-#define JucePlugin_Name                 "Squeezer (Multi)"
-#endif
-#else
-#ifdef DEBUG
-#define JucePlugin_Name                 "Squeezer (Stereo, Debug)"
-#else
-#define JucePlugin_Name                 "Squeezer (Stereo)"
-#endif
+  #define JucePlugin_Name                 "Squeezer (Stereo)"
 #endif
 
-#ifdef SQUEEZER_MULTI
-#define JucePlugin_MaxNumInputChannels  8
-#define JucePlugin_MaxNumOutputChannels 8
-#define JucePlugin_PreferredChannelConfigurations   {4, 4}, {6, 6}, {8, 8}
-#else
 #define JucePlugin_MaxNumInputChannels  2
 #define JucePlugin_MaxNumOutputChannels 2
 #define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
-#endif
 
 #define JUCE_USE_FLAC  1
+
+#ifdef DEBUG
+  #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo/debug"
+#else
+  #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo"
+#endif
+
+#define JucePlugin_LV2Category "AnalyserPlugin"
+
+#ifndef JucePlugin_Build_LV2
+  #ifdef SQUEEZER_LV2_PLUGIN
+    #define JucePlugin_Build_LV2  1
+  #else
+    #define JucePlugin_Build_LV2  0
+  #endif
+#endif
+
 // [END_USER_CODE_SECTION]
 
 //==============================================================================
@@ -136,6 +139,10 @@
 
 #ifndef    JUCE_USE_MP3AUDIOFORMAT
  //#define JUCE_USE_MP3AUDIOFORMAT
+#endif
+
+#ifndef    JUCE_USE_LAME_AUDIO_FORMAT
+ //#define JUCE_USE_LAME_AUDIO_FORMAT
 #endif
 
 #ifndef    JUCE_USE_WINDOWS_MEDIA_FORMAT
@@ -236,10 +243,13 @@
  #define JucePlugin_Build_VST              1
 #endif
 #ifndef  JucePlugin_Build_AU
- #define JucePlugin_Build_AU               1
+ #define JucePlugin_Build_AU               0
 #endif
 #ifndef  JucePlugin_Build_RTAS
  #define JucePlugin_Build_RTAS             0
+#endif
+#ifndef  JucePlugin_Build_AAX
+ #define JucePlugin_Build_AAX              0
 #endif
 #ifndef  JucePlugin_Name
  #define JucePlugin_Name                   "Squeezer"
@@ -277,17 +287,17 @@
 #ifndef  JucePlugin_SilenceInProducesSilenceOut
  #define JucePlugin_SilenceInProducesSilenceOut  1
 #endif
-#ifndef  JucePlugin_TailLengthSeconds
- #define JucePlugin_TailLengthSeconds      0
-#endif
 #ifndef  JucePlugin_EditorRequiresKeyboardFocus
  #define JucePlugin_EditorRequiresKeyboardFocus  0
 #endif
+#ifndef  JucePlugin_Version
+ #define JucePlugin_Version                1.43.0
+#endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x12a00
+ #define JucePlugin_VersionCode            0x12b00
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "1.42.0"
+ #define JucePlugin_VersionString          "1.43.0"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
@@ -313,9 +323,6 @@
 #ifndef  JucePlugin_CFBundleIdentifier
  #define JucePlugin_CFBundleIdentifier     de.mzuther.Squeezer
 #endif
-#ifndef  JucePlugin_AUCocoaViewClassName
- #define JucePlugin_AUCocoaViewClassName   SqueezerAU_V1
-#endif
 #ifndef  JucePlugin_RTASCategory
  #define JucePlugin_RTASCategory           ePlugInCategory_None
 #endif
@@ -324,6 +331,30 @@
 #endif
 #ifndef  JucePlugin_RTASProductId
  #define JucePlugin_RTASProductId          JucePlugin_PluginCode
+#endif
+#ifndef  JucePlugin_RTASDisableBypass
+ #define JucePlugin_RTASDisableBypass      0
+#endif
+#ifndef  JucePlugin_RTASDisableMultiMono
+ #define JucePlugin_RTASDisableMultiMono   0
+#endif
+#ifndef  JucePlugin_AAXIdentifier
+ #define JucePlugin_AAXIdentifier          de.mzuther.Squeezer
+#endif
+#ifndef  JucePlugin_AAXManufacturerCode
+ #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
+#endif
+#ifndef  JucePlugin_AAXProductId
+ #define JucePlugin_AAXProductId           JucePlugin_PluginCode
+#endif
+#ifndef  JucePlugin_AAXPluginId
+ #define JucePlugin_AAXPluginId            JucePlugin_PluginCode
+#endif
+#ifndef  JucePlugin_AAXCategory
+ #define JucePlugin_AAXCategory            AAX_ePlugInCategory_Dynamics
+#endif
+#ifndef  JucePlugin_AAXDisableBypass
+ #define JucePlugin_AAXDisableBypass       0
 #endif
 
 #endif  // __JUCE_APPCONFIG_PY2F1I__

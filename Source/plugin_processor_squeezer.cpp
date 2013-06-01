@@ -350,9 +350,9 @@ bool SqueezerAudioProcessor::hasChanged(int nIndex)
 }
 
 
-void SqueezerAudioProcessor::updateParameters()
+void SqueezerAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
 {
-    int nNumParameters = pPluginParameters->getNumParameters(true);
+    int nNumParameters = pPluginParameters->getNumParameters(bIncludeHiddenParameters);
 
     for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
     {
@@ -617,6 +617,13 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     }
 
     nNumInputChannels = getNumInputChannels();
+
+    if (nNumInputChannels < 1)
+    {
+        nNumInputChannels = JucePlugin_MaxNumInputChannels;
+        DBG("[K-Meter] no input channels detected, correcting this");
+    }
+
     DBG("[Squeezer] number of input channels: " + String(nNumInputChannels));
 
     bool bBypassCompressor = pPluginParameters->getBoolean(SqueezerPluginParameters::selBypass);
@@ -705,7 +712,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
 
     if (nNumInputChannels < 1)
     {
-        DBG("[Squeezer] nNumInputChannels < 1");
+        Logger::outputDebugString("[Squeezer] nNumInputChannels < 1");
         return;
     }
 
@@ -752,19 +759,13 @@ void SqueezerAudioProcessor::setStateInformation(const void* data, int sizeInByt
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     pPluginParameters->loadFromXml(xml);
 
-    updateParameters();
+    updateParameters(true);
 }
 
 //==============================================================================
 
 // This creates new instances of the plug-in.
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
-{
-    return new SqueezerAudioProcessor();
-}
-
-
-AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType)
 {
     return new SqueezerAudioProcessor();
 }

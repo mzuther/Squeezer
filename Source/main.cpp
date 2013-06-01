@@ -33,7 +33,7 @@ START_JUCE_APPLICATION(StandaloneApplication)
 #endif
 
 // build VST plugin
-#ifdef SQUEEZER_VST_PLUGIN
+#if defined (SQUEEZER_VST_PLUGIN) || defined (SQUEEZER_LV2_PLUGIN)
 
 // do nothing till you hear from me...
 

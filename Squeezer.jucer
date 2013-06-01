@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.42.0"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.43.0"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
-              buildAU="1" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
+              buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
               pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="sqzr"
               pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="0" pluginWantsMidiIn="0"
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
               pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="3.0.0" companyName="mzuther">
+              jucerVersion="3.1.0" companyName="mzuther" aaxIdentifier="de.mzuther.Squeezer"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics">
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" objCExtraSuffix="V6MScW" juceFolder="libraries/juce/modules"
                vstFolder="~/SDKs/vstsdk2.4">

@@ -67,7 +67,7 @@ public:
     void clearChangeFlag(int nIndex);
     void setChangeFlag(int nIndex);
     bool hasChanged(int nIndex);
-    void updateParameters();
+    void updateParameters(bool bIncludeHiddenParameters);
 
     void resetMeters();
 
@@ -129,8 +129,6 @@ private:
 };
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter();
-AudioProcessor* JUCE_CALLTYPE createPluginFilterOfType(AudioProcessor::WrapperType);
-
 
 #endif  // __SQUEEZER_PLUGINPROCESSOR_H__
 

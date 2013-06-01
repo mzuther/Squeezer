@@ -6,7 +6,7 @@ ifndef config
 endif
 export config
 
-PROJECTS := linux_standalone_stereo linux_vst_stereo
+PROJECTS := linux_standalone_stereo linux_lv2_stereo linux_vst_stereo
 
 .PHONY: all clean help $(PROJECTS)
 
@@ -16,12 +16,17 @@ linux_standalone_stereo:
 	@echo "==== Building linux_standalone_stereo ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/standalone_stereo -f Makefile
 
+linux_lv2_stereo: 
+	@echo "==== Building linux_lv2_stereo ($(config)) ===="
+	@${MAKE} --no-print-directory -C linux/lv2_stereo -f Makefile
+
 linux_vst_stereo: 
 	@echo "==== Building linux_vst_stereo ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/vst_stereo -f Makefile
 
 clean:
 	@${MAKE} --no-print-directory -C linux/standalone_stereo -f Makefile clean
+	@${MAKE} --no-print-directory -C linux/lv2_stereo -f Makefile clean
 	@${MAKE} --no-print-directory -C linux/vst_stereo -f Makefile clean
 
 help:
@@ -37,6 +42,7 @@ help:
 	@echo "   all (default)"
 	@echo "   clean"
 	@echo "   linux_standalone_stereo"
+	@echo "   linux_lv2_stereo"
 	@echo "   linux_vst_stereo"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"

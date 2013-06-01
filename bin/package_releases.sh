@@ -105,7 +105,6 @@ echo "  === GNU/Linux Standalone v$SQUEEZER_VERSION (32 bit) ==="
 echo
 
 move_new_executable "squeezer_stereo"
-move_new_executable "squeezer_multi"
 
 delete_old_archive "$SQUEEZER_RELEASE_DIR/linux32/squeezer-standalone.tar.bz2"
 
@@ -114,7 +113,6 @@ SQUEEZER_ARCHIVE_DIR="squeezer-standalone_$SQUEEZER_VERSION"
 create_new_archive "$SQUEEZER_ARCHIVE_DIR"
 
 fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_multi" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
 
@@ -126,8 +124,7 @@ compress_new_archive "$SQUEEZER_RELEASE_DIR/linux32/$SQUEEZER_ARCHIVE_DIR.tar.bz
 echo "  === GNU/Linux VST v$SQUEEZER_VERSION (32 bit) ==="
 echo
 
-move_new_executable "squeezer_stereo.so"
-move_new_executable "squeezer_multi.so"
+move_new_executable "squeezer_stereo_vst.so"
 
 delete_old_archive "$SQUEEZER_RELEASE_DIR/linux32/squeezer-vst.tar.bz2"
 
@@ -135,8 +132,7 @@ SQUEEZER_ARCHIVE_DIR="squeezer-vst_$SQUEEZER_VERSION"
 
 create_new_archive "$SQUEEZER_ARCHIVE_DIR"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo.so" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_multi.so" "$SQUEEZER_ARCHIVE_DIR"
+fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo_vst.so" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
 
@@ -149,7 +145,6 @@ echo "  === GNU/Linux Standalone v$SQUEEZER_VERSION (64 bit) ==="
 echo
 
 move_new_executable "squeezer_stereo_x64"
-move_new_executable "squeezer_multi_x64"
 
 delete_old_archive "$SQUEEZER_RELEASE_DIR/linux64/squeezer-standalone.tar.bz2"
 
@@ -158,7 +153,6 @@ SQUEEZER_ARCHIVE_DIR="squeezer-standalone_$SQUEEZER_VERSION"
 create_new_archive "$SQUEEZER_ARCHIVE_DIR"
 
 fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo_x64" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_multi_x64" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
 
@@ -170,8 +164,7 @@ compress_new_archive "$SQUEEZER_RELEASE_DIR/linux64/$SQUEEZER_ARCHIVE_DIR.tar.bz
 echo "  === GNU/Linux VST v$SQUEEZER_VERSION (64 bit) ==="
 echo
 
-move_new_executable "squeezer_stereo_x64.so"
-move_new_executable "squeezer_multi_x64.so"
+move_new_executable "squeezer_stereo_vst_x64.so"
 
 delete_old_archive "$SQUEEZER_RELEASE_DIR/linux64/squeezer-vst.tar.bz2"
 
@@ -179,8 +172,7 @@ SQUEEZER_ARCHIVE_DIR="squeezer-vst_$SQUEEZER_VERSION"
 
 create_new_archive "$SQUEEZER_ARCHIVE_DIR"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo_x64.so" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_multi_x64.so" "$SQUEEZER_ARCHIVE_DIR"
+fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo_vst_x64.so" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
 
@@ -193,7 +185,6 @@ echo "  === Windows Standalone v$SQUEEZER_VERSION (32 bit) ==="
 echo
 
 move_new_executable "Squeezer (Stereo).exe"
-move_new_executable "Squeezer (Multi).exe"
 
 delete_old_archive "$SQUEEZER_RELEASE_DIR/w32/squeezer-standalone.zip"
 
@@ -202,7 +193,6 @@ SQUEEZER_ARCHIVE_DIR="squeezer-standalone_$SQUEEZER_VERSION"
 create_new_archive "$SQUEEZER_ARCHIVE_DIR"
 
 fill_archive "$SQUEEZER_EXECUTABLE_DIR/Squeezer (Stereo).exe" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/Squeezer (Multi).exe" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
 
@@ -215,7 +205,6 @@ echo "  === Windows VST v$SQUEEZER_VERSION (32 bit) ==="
 echo
 
 move_new_executable "Squeezer (Stereo).dll"
-move_new_executable "Squeezer (Multi).dll"
 
 delete_old_archive "$SQUEEZER_RELEASE_DIR/w32/squeezer-vst.zip"
 
@@ -224,7 +213,6 @@ SQUEEZER_ARCHIVE_DIR="squeezer-vst_$SQUEEZER_VERSION"
 create_new_archive "$SQUEEZER_ARCHIVE_DIR"
 
 fill_archive "$SQUEEZER_EXECUTABLE_DIR/Squeezer (Stereo).dll" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/Squeezer (Multi).dll" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
 fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
 

@@ -709,6 +709,8 @@ float SideChain::level2decibel(float fLevel)
     above "fMeterMinimumDecibel", otherwise "fMeterMinimumDecibel"
 */
 {
+    float fMeterMinimumDecibel = -70.01f;
+
     // log(0) is not defined, so return "fMeterMinimumDecibel"
     if (fLevel == 0.0f)
     {

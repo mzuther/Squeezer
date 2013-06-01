@@ -77,7 +77,6 @@ private:
     JUCE_LEAK_DETECTOR(SideChain);
 
     static const int nNumberOfFactors = 60;
-    static const float fMeterMinimumDecibel = -70.01f;
 
 #if DEBUG_RELEASE_RATE
     float fTimePassed;

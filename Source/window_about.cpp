@@ -97,7 +97,8 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
         L"Martin Zuther\n"
-        L"bram@smartelectronix\n\n"
+        L"bram@smartelectronix\n"
+        L"Filipe Lopes\n\n"
     );
 
     // // display the beta testers
@@ -141,6 +142,9 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
         L"JACK\n"
 #endif
         L"JUCE\n"
+#if (KMETER_LV2_PLUGIN != 0)
+        L"LV2\n"
+#endif
 #ifdef LINUX
         L"POSIX Threads\n"
         L"Xlib\n"

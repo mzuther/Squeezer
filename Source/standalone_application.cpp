@@ -36,11 +36,7 @@ StandaloneApplication::~StandaloneApplication()
 void StandaloneApplication::initialise(const String& commandLineParameters)
 {
     PropertiesFile::Options options;
-#ifdef SQUEEZER_MULTI
-    options.applicationName     = "squeezer_multi";
-#else
     options.applicationName     = "squeezer_stereo";
-#endif
     options.folderName          = ".config";
     options.filenameSuffix      = "ini";
     options.osxLibrarySubFolder = "Application Support";
