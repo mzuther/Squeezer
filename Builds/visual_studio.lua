@@ -28,7 +28,7 @@ if not _ACTION then
 elseif _ACTION == "gmake" then
 	print ("=== Generating project files (GNU g++, " .. os.get():upper() .. ") ===")
 elseif string.startswith(_ACTION, "vs") then
-	print "=== Generating project files (Visual C++, WINDOWS) ==="
+	print "=== Generating project files (Visual C++, Windows) ==="
 elseif string.startswith(_ACTION, "xcode") then
 	print "=== Generating project files (Xcode, Mac OS X) ==="
 else
@@ -39,7 +39,7 @@ solution "squeezer"
 	location ("windows/" .. _ACTION .. "/")
 	language "C++"
 
-	platforms { "x32" }
+	platforms { "x32", "x64" }
 
 	configurations { "Debug", "Release" }
 
@@ -91,8 +91,45 @@ solution "squeezer"
 	configuration { "Debug", "x32" }
 		targetsuffix ", Debug)"
 
+	configuration { "Debug", "x64" }
+		targetsuffix " x64, Debug)"
+
 	configuration { "Release", "x32" }
 		targetsuffix ")"
+
+	configuration { "Release", "x64" }
+		targetsuffix " x64)"
+
+	configuration {"windows" }
+		defines {
+			"_WINDOWS=1",
+			"_USE_MATH_DEFINES=1",
+		}
+
+		links {
+			"kernel32",
+			"user32",
+			"gdi32",
+			"winspool",
+			"comdlg32",
+			"advapi32",
+			"shell32",
+			"ole32",
+			"oleaut32",
+			"uuid",
+			"odbc32",
+			"odbccp32"
+		 }
+
+	configuration {"windows", "x32" }
+		defines {
+			"WIN32=1",
+		}
+
+	configuration {"windows", "x64" }
+		defines {
+			"WIN64=1",
+		}
 
 --------------------------------------------------------------------------------
 
@@ -104,7 +141,6 @@ solution "squeezer"
 		defines {
 			"SQUEEZER_STAND_ALONE=1",
 			"SQUEEZER_STEREO=1",
-			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=0"
 		}
 
@@ -114,30 +150,12 @@ solution "squeezer"
 
 		configuration {"windows"}
 			defines {
-				"_WINDOWS=1",
-				"_USE_MATH_DEFINES=1",
-				"WIN32=1",
 				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=1",
 				"JUCE_DIRECTSOUND=1"
 			}
-
-			links {
-				"kernel32",
-				"user32",
-				"gdi32",
-				"winspool",
-				"comdlg32",
-				"advapi32",
-				"shell32",
-				"ole32",
-				"oleaut32",
-				"uuid",
-				"odbc32",
-				"odbccp32"
-			 }
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_debug")
@@ -155,7 +173,6 @@ solution "squeezer"
 		defines {
 			"SQUEEZER_VST_PLUGIN=1",
 			"SQUEEZER_STEREO=1",
-			"JUCETICE_USE_AMALGAMA=1",
 			"JUCE_USE_VSTSDK_2_4=1"
 		}
 
@@ -164,6 +181,7 @@ solution "squeezer"
 		}
 
 		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
 			  "../libraries/juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp"
 		}
 
@@ -174,30 +192,12 @@ solution "squeezer"
 
 		configuration {"windows"}
 			defines {
-				"_WINDOWS=1",
-				"_USE_MATH_DEFINES=1",
-				"WIN32=1",
 				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=0",
 				"JUCE_DIRECTSOUND=0"
 			}
-
-			links {
-				"kernel32",
-				"user32",
-				"gdi32",
-				"winspool",
-				"comdlg32",
-				"advapi32",
-				"shell32",
-				"ole32",
-				"oleaut32",
-				"uuid",
-				"odbc32",
-				"odbccp32"
-			 }
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")

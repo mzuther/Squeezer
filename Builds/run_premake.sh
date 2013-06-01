@@ -25,10 +25,14 @@
 #
 # ----------------------------------------------------------------------------
 
+visual_toolkit="Windows7.1SDK"
+
+
 cd $(dirname $0)
 
 echo
 premake4 --file=visual_studio.lua --os=windows vs2010
+python3 visual_studio_fix.py "$visual_toolkit"
 
 echo
 premake4 --cc=gcc --os=linux gmake
