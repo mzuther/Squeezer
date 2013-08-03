@@ -100,11 +100,11 @@ private:
     SliderCombined* SliderMakeupGainCombined;
     SliderCombined* SliderWetMixCombined;
 
-    SliderCombined* SliderHighPassFilterCutoffCombined;
-    TextButton* ButtonBypass;
-
-    TextButton* ButtonSidechainEnableFilter;
+    TextButton* ButtonSidechainFilterEnable;
+    SliderCombined* SliderSidechainFilterCutoffCombined;
     TextButton* ButtonSidechainListen;
+
+    TextButton* ButtonBypass;
     TextButton* ButtonResetMeters;
     TextButton* ButtonSettings;
     TextButton* ButtonAbout;

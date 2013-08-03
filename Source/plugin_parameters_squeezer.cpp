@@ -330,33 +330,40 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterWetMix, selWetMix, selWetMixSwitch);
 
 
-    ParameterSidechainEnableFilter = new WrappedParameterToggleSwitch("Bypassed", "Active");
-    ParameterSidechainEnableFilter->setName("Side-Chain: Enable Filter");
-    ParameterSidechainEnableFilter->setDefaultBoolean(false, true);
-    add(ParameterSidechainEnableFilter, selSidechainEnableFilter);
+    ParameterSidechainFilterEnable = new WrappedParameterToggleSwitch("Bypassed", "Active");
+    ParameterSidechainFilterEnable->setName("Side-Chain: Filter Enable");
+    ParameterSidechainFilterEnable->setDefaultBoolean(false, true);
+    add(ParameterSidechainFilterEnable, selSidechainFilterEnable);
 
 
-    fMinimum = 20.0f;
-    fMaximum = 4000.0f;
+    fMinimum = 60.0f;
+    fMaximum = 12000.0f;
     fResolution = 10.0f;
-    fLogFactor = 2.0f;
+    fLogFactor = 1.0f;
     nDecimalPlaces = 0;
 
-    ParameterHighPassFilterCutoff = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
-    ParameterHighPassFilterCutoff->setName("Side-Chain: Filter Cutoff Frequency");
+    ParameterSidechainFilterCutoff = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterSidechainFilterCutoff->setName("Side-Chain: Filter Cutoff Frequency");
 
-    ParameterHighPassFilterCutoff->addConstant(50.0f,     "50 Hz");
-    ParameterHighPassFilterCutoff->addConstant(100.0f,   "100 Hz");
-    ParameterHighPassFilterCutoff->addConstant(250.0f,   "250 Hz");
-    ParameterHighPassFilterCutoff->addConstant(500.0f,   "500 Hz");
-    ParameterHighPassFilterCutoff->addConstant(1000.0f, "1.0 kHz");
-    ParameterHighPassFilterCutoff->addConstant(1500.0f, "1.5 kHz");
-    ParameterHighPassFilterCutoff->addConstant(2500.0f, "2.5 kHz");
-    ParameterHighPassFilterCutoff->addConstant(4000.0f, "4.0 kHz");
+    // high-pass filter
+    ParameterSidechainFilterCutoff->addConstant(100.0f,    "100 Hz");
+    ParameterSidechainFilterCutoff->addConstant(250.0f,    "250 Hz");
+    ParameterSidechainFilterCutoff->addConstant(500.0f,    "500 Hz");
+    ParameterSidechainFilterCutoff->addConstant(1000.0f,  "1.0 kHz");
+    ParameterSidechainFilterCutoff->addConstant(1500.0f,  "1.5 kHz");
+    ParameterSidechainFilterCutoff->addConstant(2500.0f,  "2.5 kHz");
 
-    ParameterHighPassFilterCutoff->setSuffix(" Hz");
-    ParameterHighPassFilterCutoff->setDefaultRealFloat(100.0f, true);
-    addCombined(ParameterHighPassFilterCutoff, selHighPassFilterCutoff, selHighPassFilterCutoffSwitch);
+    // low-pass filter
+    ParameterSidechainFilterCutoff->addConstant(3000.0f,  "3.0 kHz");
+    ParameterSidechainFilterCutoff->addConstant(4000.0f,  "4.0 kHz");
+    ParameterSidechainFilterCutoff->addConstant(5000.0f,  "5.0 kHz");
+    ParameterSidechainFilterCutoff->addConstant(6500.0f,  "6.5 kHz");
+    ParameterSidechainFilterCutoff->addConstant(9000.0f,  "9.0 kHz");
+    ParameterSidechainFilterCutoff->addConstant(12000.0f,  "12 kHz");
+
+    ParameterSidechainFilterCutoff->setSuffix(" Hz");
+    ParameterSidechainFilterCutoff->setDefaultRealFloat(100.0f, true);
+    addCombined(ParameterSidechainFilterCutoff, selSidechainFilterCutoff, selSidechainFilterCutoffSwitch);
 
 
     ParameterSidechainListen = new WrappedParameterToggleSwitch("Side-Chain", "Output");
@@ -407,11 +414,11 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterWetMix;
     ParameterWetMix = NULL;
 
-    delete ParameterSidechainEnableFilter;
-    ParameterSidechainEnableFilter = NULL;
+    delete ParameterSidechainFilterEnable;
+    ParameterSidechainFilterEnable = NULL;
 
-    delete ParameterHighPassFilterCutoff;
-    ParameterHighPassFilterCutoff = NULL;
+    delete ParameterSidechainFilterCutoff;
+    ParameterSidechainFilterCutoff = NULL;
 
     delete ParameterSidechainListen;
     ParameterSidechainListen = NULL;
@@ -449,9 +456,9 @@ String SqueezerPluginParameters::toString()
 
     strParameters += ", HPF: ";
 
-    if (arrParameters[selSidechainEnableFilter]->getBoolean())
+    if (arrParameters[selSidechainFilterEnable]->getBoolean())
     {
-        strParameters += arrParameters[selHighPassFilterCutoff]->getText();
+        strParameters += arrParameters[selSidechainFilterCutoff]->getText();
     }
     else
     {

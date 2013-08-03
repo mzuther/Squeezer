@@ -104,11 +104,11 @@ public:
     int getWetMix();
     void setWetMix(int nWetMixNew);
 
-    bool getSidechainEnableFilter();
-    void setSidechainEnableFilter(bool bSidechainEnableFilterNew);
+    bool getSidechainFilterEnable();
+    void setSidechainFilterEnable(bool bSidechainFilterEnableNew);
 
-    int getHighPassFilterCutoff();
-    void setHighPassFilterCutoff(int nHighPassFilterCutoff);
+    int getSidechainFilterCutoff();
+    void setSidechainFilterCutoff(int nSidechainFilterCutoff);
 
     bool getSidechainListen();
     void setSidechainListen(bool bSidechainListenNew);
@@ -196,8 +196,8 @@ private:
     float fWetMix;
     float fDryMix;
 
-    bool bSidechainEnableFilter;
-    int nHighPassFilterCutoff;
+    bool bSidechainFilterEnable;
+    int nSidechainFilterCutoff;
     double dGainNormalise;
     bool bSidechainListen;
 };

@@ -111,8 +111,8 @@ Compressor::Compressor(int channels, int sample_rate)
         pSidechainSamples[nChannel] = 0.0f;
         pOutputSamples[nChannel] = 0.0f;
 
-        // initialise side-chain filter (0.5% ripple, 4 poles)
-        pHighPassFilter[nChannel] = new FilterChebyshev(0.001f, true, 0.5f, 4);
+        // initialise side-chain filter (HPF, 0.5% ripple, 6 poles)
+        pHighPassFilter[nChannel] = new FilterChebyshev(0.001f, true, 0.5f, 6);
 
         // normalise filtered output (the values below were found by
         // sending several hundred samples of 1.0 through a high-pass
@@ -125,12 +125,12 @@ Compressor::Compressor(int channels, int sample_rate)
         //  8 poles:  22.0697314
         // 10 poles:  79.4259655
         // 12 poles:  295.703923
-        dGainNormalise = 2.22993454f;
+        dGainNormalise = 6.53854690;
     }
 
     // disable side-chain filter
-    setSidechainEnableFilter(false);
-    setHighPassFilterCutoff(100);
+    setSidechainFilterEnable(false);
+    setSidechainFilterCutoff(100);
     setSidechainListen(false);
 }
 
@@ -583,57 +583,58 @@ void Compressor::setWetMix(int nWetMixNew)
 }
 
 
-bool Compressor::getSidechainEnableFilter()
+bool Compressor::getSidechainFilterEnable()
 /*  Get current side-chain filter state.
 
     return value (boolean): returns current side-chain filter state
  */
 {
-    return bSidechainEnableFilter;
+    return bSidechainFilterEnable;
 }
 
 
-void Compressor::setSidechainEnableFilter(bool bSidechainEnableFilterNew)
+void Compressor::setSidechainFilterEnable(bool bSidechainFilterEnableNew)
 /*  Set new side-chain filter state.
 
-    bSidechainEnableFilterNew (boolean): new side-chain filter state
+    bSidechainFilterEnableNew (boolean): new side-chain filter state
 
     return value: none
  */
 {
-    bSidechainEnableFilter = bSidechainEnableFilterNew;
+    bSidechainFilterEnable = bSidechainFilterEnableNew;
 }
 
 
-int Compressor::getHighPassFilterCutoff()
-/*  Get current high pass filter cutoff frequency.
+int Compressor::getSidechainFilterCutoff()
+/*  Get current side-chain filter cutoff frequency.
 
-    return value (integer): high pass filter cutoff frequency (in
+    return value (integer): side-chain filter cutoff frequency (in
     Hertz)
  */
 {
-    return nHighPassFilterCutoff;
+    return nSidechainFilterCutoff;
 }
 
 
-void Compressor::setHighPassFilterCutoff(int nHighPassFilterCutoffNew)
-/*  Set new high pass filter cutoff frequency.
+void Compressor::setSidechainFilterCutoff(int nSidechainFilterCutoffNew)
+/*  Set new side-chain filter cutoff frequency.
 
-    nHighPassFilterCutoff (integer): new high pass filter cutoff
+    nSidechainFilterCutoff (integer): new side-chain filter cutoff
     frequency (in Hertz)
 
     return value: none
  */
 {
-    nHighPassFilterCutoff = nHighPassFilterCutoffNew;
+    nSidechainFilterCutoff = nSidechainFilterCutoffNew;
 
-    if (bSidechainEnableFilter)
+    if (bSidechainFilterEnable)
     {
-        float fRelativeCutoffFrequency = float(nHighPassFilterCutoff) / float(nSampleRate);
+        float fRelativeCutoffFrequency = float(nSidechainFilterCutoff) / float(nSampleRate);
+        bool bIsHighpass = (nSidechainFilterCutoff < 2900) ? true : false;
 
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
-            pHighPassFilter[nChannel]->changeParameters(fRelativeCutoffFrequency, true);
+            pHighPassFilter[nChannel]->changeParameters(fRelativeCutoffFrequency, bIsHighpass);
         }
     }
 }
@@ -883,7 +884,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 }
 
                 // send side-chain sample through high-pass filter
-                if (bSidechainEnableFilter)
+                if (bSidechainFilterEnable)
                 {
                     pSidechainSamples[nChannel] = pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) / dGainNormalise;
                 }
@@ -945,7 +946,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 }
 
                 // send side-chain sample through high-pass filter
-                if (bSidechainEnableFilter)
+                if (bSidechainFilterEnable)
                 {
                     pSidechainSamples[nChannel] = pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) / dGainNormalise;
                 }

@@ -73,9 +73,9 @@ public:
         selWetMixSwitch,
         selWetMix,
 
-        selSidechainEnableFilter,
-        selHighPassFilterCutoffSwitch,
-        selHighPassFilterCutoff,
+        selSidechainFilterEnable,
+        selSidechainFilterCutoffSwitch,
+        selSidechainFilterCutoff,
         selSidechainListen,
 
         nNumParametersRevealed,
@@ -103,8 +103,8 @@ private:
     WrappedParameterCombined* ParameterMakeupGain;
     WrappedParameterCombined* ParameterWetMix;
 
-    WrappedParameterToggleSwitch* ParameterSidechainEnableFilter;
-    WrappedParameterCombined* ParameterHighPassFilterCutoff;
+    WrappedParameterToggleSwitch* ParameterSidechainFilterEnable;
+    WrappedParameterCombined* ParameterSidechainFilterCutoff;
     WrappedParameterToggleSwitch* ParameterSidechainListen;
 };
 
