@@ -331,7 +331,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
 
     ParameterSidechainFilterEnable = new WrappedParameterToggleSwitch("Bypassed", "Active");
-    ParameterSidechainFilterEnable->setName("Side-Chain: Filter Enable");
+    ParameterSidechainFilterEnable->setName("SC Filter Enable");
     ParameterSidechainFilterEnable->setDefaultBoolean(false, true);
     add(ParameterSidechainFilterEnable, selSidechainFilterEnable);
 
@@ -343,7 +343,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     nDecimalPlaces = 0;
 
     ParameterSidechainFilterCutoff = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
-    ParameterSidechainFilterCutoff->setName("Side-Chain: Filter Cutoff Frequency");
+    ParameterSidechainFilterCutoff->setName("SC Filter Cutoff Frequency");
 
     // high-pass filter
     ParameterSidechainFilterCutoff->addConstant(100.0f,    "100 Hz");
@@ -366,8 +366,41 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterSidechainFilterCutoff, selSidechainFilterCutoff, selSidechainFilterCutoffSwitch);
 
 
-    ParameterSidechainListen = new WrappedParameterToggleSwitch("Side-Chain", "Output");
-    ParameterSidechainListen->setName("Side-Chain: Listen");
+    ParameterSidechainFilterGain = new WrappedParameterSwitch();
+    ParameterSidechainFilterGain->setName("SC Filter Cutoff Gain");
+
+    ParameterSidechainFilterGain->addConstant(-12.0f, "-12 dB");
+    ParameterSidechainFilterGain->addConstant(-11.0f, "-11 dB");
+    ParameterSidechainFilterGain->addConstant(-10.0f, "-10 dB");
+    ParameterSidechainFilterGain->addConstant(-9.0f,   "-9 dB");
+    ParameterSidechainFilterGain->addConstant(-8.0f,   "-8 dB");
+    ParameterSidechainFilterGain->addConstant(-7.0f,   "-7 dB");
+    ParameterSidechainFilterGain->addConstant(-6.0f,   "-6 dB");
+    ParameterSidechainFilterGain->addConstant(-5.0f,   "-5 dB");
+    ParameterSidechainFilterGain->addConstant(-4.0f,   "-4 dB");
+    ParameterSidechainFilterGain->addConstant(-3.0f,   "-3 dB");
+    ParameterSidechainFilterGain->addConstant(-2.0f,   "-2 dB");
+    ParameterSidechainFilterGain->addConstant(-1.0f,   "-1 dB");
+    ParameterSidechainFilterGain->addConstant(0.0f,     "0 dB");
+    ParameterSidechainFilterGain->addConstant(+1.0f,   "+1 dB");
+    ParameterSidechainFilterGain->addConstant(+2.0f,   "+2 dB");
+    ParameterSidechainFilterGain->addConstant(+3.0f,   "+3 dB");
+    ParameterSidechainFilterGain->addConstant(+4.0f,   "+4 dB");
+    ParameterSidechainFilterGain->addConstant(+5.0f,   "+5 dB");
+    ParameterSidechainFilterGain->addConstant(+6.0f,   "+6 dB");
+    ParameterSidechainFilterGain->addConstant(+7.0f,   "+7 dB");
+    ParameterSidechainFilterGain->addConstant(+8.0f,   "+8 dB");
+    ParameterSidechainFilterGain->addConstant(+9.0f,   "+9 dB");
+    ParameterSidechainFilterGain->addConstant(+10.0f, "+10 dB");
+    ParameterSidechainFilterGain->addConstant(+11.0f, "+11 dB");
+    ParameterSidechainFilterGain->addConstant(+12.0f, "+12 dB");
+
+    ParameterSidechainFilterGain->setDefaultRealFloat(0.0f, true);
+    add(ParameterSidechainFilterGain, selSidechainFilterGain);
+
+
+    ParameterSidechainListen = new WrappedParameterToggleSwitch("Side-Chain", "Compressor");
+    ParameterSidechainListen->setName("Listen");
     ParameterSidechainListen->setDefaultBoolean(false, true);
     add(ParameterSidechainListen, selSidechainListen);
 }
@@ -420,6 +453,9 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterSidechainFilterCutoff;
     ParameterSidechainFilterCutoff = NULL;
 
+    delete ParameterSidechainFilterGain;
+    ParameterSidechainFilterGain = NULL;
+
     delete ParameterSidechainListen;
     ParameterSidechainListen = NULL;
 }
@@ -454,17 +490,6 @@ String SqueezerPluginParameters::toString()
     strParameters += ", Knee: ";
     strParameters += arrParameters[selKneeWidth]->getText();
 
-    strParameters += ", HPF: ";
-
-    if (arrParameters[selSidechainFilterEnable]->getBoolean())
-    {
-        strParameters += arrParameters[selSidechainFilterCutoff]->getText();
-    }
-    else
-    {
-        strParameters += "Bypassed";
-    }
-
     strParameters += "\nAttack: ";
     strParameters += arrParameters[selAttackRate]->getText();
 
@@ -474,7 +499,31 @@ String SqueezerPluginParameters::toString()
     strParameters += " (";
     strParameters += arrParameters[selDetector]->getText();
 
-    strParameters += ")\nMake-Up: ";
+    strParameters += ")\nSide-Chain: ";
+
+    if (!arrParameters[selSidechainFilterEnable]->getBoolean())
+    {
+        strParameters += "Filter Bypassed";
+    }
+    else
+    {
+        if (arrParameters[selSidechainFilterCutoff]->getRealInteger() < 2900)
+        {
+            strParameters += "HPF, ";
+        }
+        else
+        {
+            strParameters += "LPF, ";
+        }
+
+        strParameters += arrParameters[selSidechainFilterCutoff]->getText();
+
+        strParameters += ", ";
+
+        strParameters += arrParameters[selSidechainFilterGain]->getText();
+    }
+
+    strParameters += "\nMake-Up: ";
     strParameters += arrParameters[selMakeupGain]->getText();
 
     strParameters += " (";

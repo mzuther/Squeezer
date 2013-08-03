@@ -32,6 +32,7 @@
 #include "meter_bar_level.h"
 #include "plugin_processor_squeezer.h"
 #include "slider_combined.h"
+#include "slider_switch_linear_bar.h"
 #include "window_about.h"
 #include "window_settings.h"
 
@@ -102,6 +103,7 @@ private:
 
     TextButton* ButtonSidechainFilterEnable;
     SliderCombined* SliderSidechainFilterCutoffCombined;
+    SliderSwitchLinearBar* SliderSidechainFilterGain;
     TextButton* ButtonSidechainListen;
 
     TextButton* ButtonBypass;

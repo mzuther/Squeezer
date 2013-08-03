@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{514EDF43-3E38-E5E5-5DBB-7F474D44BB5C}</ProjectGuid>
+		<ProjectGuid>{65A2A707-4A04-3D1C-2591-6C0576AB38D9}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -231,6 +231,7 @@
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_combined.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\compressor.h" />
+		<ClInclude Include="..\..\..\Source\slider_switch_linear_bar.h" />
 		<ClInclude Include="..\..\..\Source\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\window_settings.h" />
@@ -265,6 +266,8 @@
 		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\slider_switch_linear_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_continuous.cpp">
 		</ClCompile>

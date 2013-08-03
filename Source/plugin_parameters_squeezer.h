@@ -76,6 +76,7 @@ public:
         selSidechainFilterEnable,
         selSidechainFilterCutoffSwitch,
         selSidechainFilterCutoff,
+        selSidechainFilterGain,
         selSidechainListen,
 
         nNumParametersRevealed,
@@ -105,6 +106,7 @@ private:
 
     WrappedParameterToggleSwitch* ParameterSidechainFilterEnable;
     WrappedParameterCombined* ParameterSidechainFilterCutoff;
+    WrappedParameterSwitch* ParameterSidechainFilterGain;
     WrappedParameterToggleSwitch* ParameterSidechainListen;
 };
 

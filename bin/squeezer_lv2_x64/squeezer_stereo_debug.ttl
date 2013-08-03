@@ -300,7 +300,7 @@
         lv2:index 17 ;
         lv2:symbol "attack_rate" ;
         lv2:name "Attack Rate" ;
-        lv2:default 0.500000 ;
+        lv2:default 0.5 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
@@ -395,7 +395,7 @@
         lv2:index 24 ;
         lv2:symbol "make_up_gain" ;
         lv2:name "Make-Up Gain" ;
-        lv2:default 0.500000 ;
+        lv2:default 0.5 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
@@ -426,5 +426,63 @@
         lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 27 ;
+        lv2:symbol "sc_filter_enable" ;
+        lv2:name "SC Filter Enable" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 28 ;
+        lv2:symbol "sc_filter_cutoff_frequency_mode" ;
+        lv2:name "SC Filter Cutoff Frequency Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 29 ;
+        lv2:symbol "sc_filter_cutoff_frequency" ;
+        lv2:name "SC Filter Cutoff Frequency" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 30 ;
+        lv2:symbol "sc_filter_cutoff_gain" ;
+        lv2:name "SC Filter Cutoff Gain" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 31 ;
+        lv2:symbol "listen" ;
+        lv2:name "Listen" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
     ] .
-

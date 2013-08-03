@@ -113,24 +113,12 @@ Compressor::Compressor(int channels, int sample_rate)
 
         // initialise side-chain filter (HPF, 0.5% ripple, 6 poles)
         pHighPassFilter[nChannel] = new FilterChebyshev(0.001f, true, 0.5f, 6);
-
-        // normalise filtered output (the values below were found by
-        // sending several hundred samples of 1.0 through a high-pass
-        // filter with a relative cutoff frequency of 0.1 and then
-        // reading the filter's output value)
-        //
-        //  2 poles:  1.09487492
-        //  4 poles:  2.22993454
-        //  6 poles:  6.53854690
-        //  8 poles:  22.0697314
-        // 10 poles:  79.4259655
-        // 12 poles:  295.703923
-        dGainNormalise = 6.53854690;
     }
 
     // disable side-chain filter
     setSidechainFilterEnable(false);
     setSidechainFilterCutoff(100);
+    setSidechainFilterGain(0.0f);
     setSidechainListen(false);
 }
 
@@ -640,6 +628,42 @@ void Compressor::setSidechainFilterCutoff(int nSidechainFilterCutoffNew)
 }
 
 
+float Compressor::getSidechainFilterGain()
+/*  Get current side-chain filter gain.
+
+    return value (float): side-chain filter gain (in decibels)
+ */
+{
+    return SideChain::level2decibel(fSidechainFilterGain);
+}
+
+
+void Compressor::setSidechainFilterGain(float fSidechainFilterGainNew)
+/*  Set new side-chain filter gain.
+
+    fSidechainFilterGain (float): new side-chain filter gain (in
+    decibels)
+
+    return value: none
+ */
+{
+    fSidechainFilterGain = SideChain::decibel2level(fSidechainFilterGainNew);
+
+    // normalise filtered output (the values below were found by
+    // sending several hundred samples of 1.0 through a high-pass
+    // filter with a relative cutoff frequency of 0.1 and then reading
+    // the filter's output value)
+    //
+    //  2 poles:  1.09487492
+    //  4 poles:  2.22993454
+    //  6 poles:  6.53854690
+    //  8 poles:  22.0697314
+    // 10 poles:  79.4259655
+    // 12 poles:  295.703923
+    dGainNormalise = fSidechainFilterGain / 6.53854690;
+}
+
+
 bool Compressor::getSidechainListen()
 /*  Get current side-chain listen state.
 
@@ -886,7 +910,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 // send side-chain sample through high-pass filter
                 if (bSidechainFilterEnable)
                 {
-                    pSidechainSamples[nChannel] = pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) / dGainNormalise;
+                    pSidechainSamples[nChannel] = float(pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
                 }
 
                 // calculate level of side-chain sample
@@ -948,7 +972,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                 // send side-chain sample through high-pass filter
                 if (bSidechainFilterEnable)
                 {
-                    pSidechainSamples[nChannel] = pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) / dGainNormalise;
+                    pSidechainSamples[nChannel] = float(pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
                 }
 
                 // calculate level of side-chain sample

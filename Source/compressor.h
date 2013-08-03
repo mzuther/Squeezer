@@ -110,6 +110,9 @@ public:
     int getSidechainFilterCutoff();
     void setSidechainFilterCutoff(int nSidechainFilterCutoff);
 
+    float getSidechainFilterGain();
+    void setSidechainFilterGain(float fSidechainFilterGain);
+
     bool getSidechainListen();
     void setSidechainListen(bool bSidechainListenNew);
 
@@ -198,6 +201,7 @@ private:
 
     bool bSidechainFilterEnable;
     int nSidechainFilterCutoff;
+    float fSidechainFilterGain;
     double dGainNormalise;
     bool bSidechainListen;
 };

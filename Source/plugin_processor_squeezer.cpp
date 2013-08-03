@@ -311,6 +311,18 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
+    case SqueezerPluginParameters::selSidechainFilterGain:
+
+        pPluginParameters->setFloat(nIndex, fValue);
+
+        if (pCompressor)
+        {
+            int nSidechainFilterGain = pPluginParameters->getRealInteger(nIndex);
+            pCompressor->setSidechainFilterGain(nSidechainFilterGain);
+        }
+
+        break;
+
     case SqueezerPluginParameters::selSidechainListen:
 
         pPluginParameters->setFloat(nIndex, fValue);
@@ -683,6 +695,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     bool bSidechainFilterEnable = pPluginParameters->getBoolean(SqueezerPluginParameters::selSidechainFilterEnable);
     int nSidechainFilterCutoff = pPluginParameters->getRealInteger(SqueezerPluginParameters::selSidechainFilterCutoff);
+    int nSidechainFilterGain = pPluginParameters->getRealInteger(SqueezerPluginParameters::selSidechainFilterGain);
     bool bSidechainListen = pPluginParameters->getBoolean(SqueezerPluginParameters::selSidechainListen);
 
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
@@ -706,6 +719,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setSidechainFilterEnable(bSidechainFilterEnable);
     pCompressor->setSidechainFilterCutoff(nSidechainFilterCutoff);
+    pCompressor->setSidechainFilterGain(nSidechainFilterGain);
     pCompressor->setSidechainListen(bSidechainListen);
 }
 

@@ -253,6 +253,15 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderSidechainFilterCutoffCombined);
 
 
+    nIndex = SqueezerPluginParameters::selSidechainFilterGain;
+    strName = parameters->getName(nIndex);
+    SliderSidechainFilterGain = new SliderSwitchLinearBar(strName, parameters, nIndex);
+    SliderSidechainFilterGain->setSliderColour(Colours::green.brighter(0.1f));
+
+    SliderSidechainFilterGain->addListener(this);
+    addAndMakeVisible(SliderSidechainFilterGain);
+
+
     ButtonSidechainListen = new TextButton("Listen");
     ButtonSidechainListen->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonSidechainListen->setColour(TextButton::buttonOnColourId, Colours::red);
@@ -349,6 +358,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selSidechainFilterEnable);
     updateParameter(SqueezerPluginParameters::selSidechainFilterCutoffSwitch);
     updateParameter(SqueezerPluginParameters::selSidechainFilterCutoff);
+    updateParameter(SqueezerPluginParameters::selSidechainFilterGain);
     updateParameter(SqueezerPluginParameters::selSidechainListen);
 }
 
@@ -412,8 +422,9 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderReleaseRateCombined->setBounds(275, 15, 52, 60);
 
     SliderSidechainFilterCutoffCombined->setBounds(350, 15, 52, 60);
+    SliderSidechainFilterGain->setBounds(350, 116, 52, 18);
     ButtonSidechainFilterEnable->setBounds(350, 90, 52, 20);
-    ButtonSidechainListen->setBounds(350, 115, 52, 20);
+    ButtonSidechainListen->setBounds(350, 140, 52, 20);
 
     SliderStereoLinkCombined->setBounds(425, 15, 52, 60);
     ButtonAutoMakeupGain->setBounds(485, 90, 52, 20);
@@ -617,6 +628,9 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selSidechainFilterCutoff:
         SliderSidechainFilterCutoffCombined->setValue(fValue, dontSendNotification);
         break;
+    case SqueezerPluginParameters::selSidechainFilterGain:
+        SliderSidechainFilterGain->setValue(fValue, dontSendNotification);
+        break;
     case SqueezerPluginParameters::selSidechainListen:
         ButtonSidechainListen->setToggleState(fValue != 0.0f, false);
         break;
@@ -809,6 +823,10 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == SliderSidechainFilterCutoffCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selSidechainFilterCutoff, fValue);
+    }
+    else if (slider == SliderSidechainFilterGain)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selSidechainFilterGain, fValue);
     }
     else
     {
