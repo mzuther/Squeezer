@@ -331,7 +331,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
 
     fMinimum = 0.0f;
-    fMaximum = 2000.0f;
+    fMaximum = 4000.0f;
     fResolution = 10.0f;
     fLogFactor = 2.0f;
     nDecimalPlaces = 0;
@@ -347,6 +347,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterHighPassFilterCutoff->addConstant(500.0f,   "500 Hz");
     ParameterHighPassFilterCutoff->addConstant(1000.0f,   "1 kHz");
     ParameterHighPassFilterCutoff->addConstant(2000.0f,   "2 kHz");
+    ParameterHighPassFilterCutoff->addConstant(4000.0f,   "4 kHz");
 
     ParameterHighPassFilterCutoff->setSuffix(" Hz");
     ParameterHighPassFilterCutoff->setDefaultRealFloat(0.0f, true);

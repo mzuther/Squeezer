@@ -38,6 +38,7 @@ FilterChebyshev::FilterChebyshev(float fRelativeCutoffFrequency, bool isHighPass
 
     pFilterStages = new FilterChebyshevStage*[nNumberOfStages];
 
+    // TODO: normalise coefficients
     for (int nStage = 0; nStage < nNumberOfStages; nStage++)
     {
         // pole pairs start with index 1!
@@ -65,7 +66,7 @@ FilterChebyshev::~FilterChebyshev()
 
 double FilterChebyshev::filterSample(double dInputCurrent)
 {
-    double dOutputCurrent = dInputCurrent / dGainNormalise;
+    double dOutputCurrent = dInputCurrent;
 
     for (int nStage = 0; nStage < nNumberOfStages; nStage++)
     {
@@ -88,15 +89,6 @@ void FilterChebyshev::changeParameters(float fRelativeCutoffFrequency, bool isHi
         pFilterStages[nStage]->changeParameters(fRelativeCutoffFrequency, isHighPass, fRipple, nNumberOfPoles, nPolePair);
     }
 
-    reset();
-    dGainNormalise = 1.0;
-
-    for (int n = 0; n < (10 * nNumberOfPoles); n++)
-    {
-        filterSample(1.0);
-    }
-
-    dGainNormalise = filterSample(1.0);
     reset();
 }
 

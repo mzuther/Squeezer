@@ -49,7 +49,6 @@ private:
     FilterChebyshevStage** pFilterStages;
     int nNumberOfStages;
     float fRipple;
-    double dGainNormalise;
 };
 
 #endif  // __FILTER_CHEBYSHEV_H__
