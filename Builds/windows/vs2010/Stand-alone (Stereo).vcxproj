@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{ECB30497-37DA-9FBF-7DC1-03B55C261173}</ProjectGuid>
+		<ProjectGuid>{8D56F9A5-639F-E4DF-5E83-ABCE372DC06D}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -211,6 +211,7 @@
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
+		<ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_level.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_toggle_switch.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
@@ -218,6 +219,7 @@
 		<ClInclude Include="..\..\..\Source\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_switch.h" />
+		<ClInclude Include="..\..\..\Source\filter_chebyshev.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_combined.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\compressor.h" />
@@ -241,6 +243,8 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_switch.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\filter_chebyshev_stage.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_bar_level.cpp">
@@ -260,6 +264,8 @@
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_about.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\filter_chebyshev.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_parameters_squeezer.cpp">
 		</ClCompile>

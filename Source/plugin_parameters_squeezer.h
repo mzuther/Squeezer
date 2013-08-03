@@ -73,6 +73,10 @@ public:
         selWetMixSwitch,
         selWetMix,
 
+        selHighPassFilterCutoffSwitch,
+        selHighPassFilterCutoff,
+        selListenToSidechain,
+
         nNumParametersRevealed,
 
         nNumParametersComplete = nNumParametersRevealed,
@@ -97,6 +101,9 @@ private:
     WrappedParameterToggleSwitch* ParameterAutoMakeupGain;
     WrappedParameterCombined* ParameterMakeupGain;
     WrappedParameterCombined* ParameterWetMix;
+
+    WrappedParameterCombined* ParameterHighPassFilterCutoff;
+    WrappedParameterToggleSwitch* ParameterListenToSidechain;
 };
 
 #endif  // __PLUGIN_PARAMETERS_SQUEEZER_H__

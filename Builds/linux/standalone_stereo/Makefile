@@ -114,6 +114,7 @@ OBJECTS := \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
+	$(OBJDIR)/filter_chebyshev_stage.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_bar_level.o \
 	$(OBJDIR)/slider_continuous.o \
@@ -124,6 +125,7 @@ OBJECTS := \
 	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/wrapped_parameter_continuous.o \
 	$(OBJDIR)/window_about.o \
+	$(OBJDIR)/filter_chebyshev.o \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
 	$(OBJDIR)/compressor.o \
 	$(OBJDIR)/plugin_processor_squeezer.o \
@@ -220,6 +222,9 @@ $(OBJDIR)/slider_combined.o: ../../../Source/slider_combined.cpp
 $(OBJDIR)/slider_switch.o: ../../../Source/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/filter_chebyshev_stage.o: ../../../Source/filter_chebyshev_stage.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/main.o: ../../../Source/main.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -248,6 +253,9 @@ $(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/wrapped_parameter_cont
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/filter_chebyshev.o: ../../../Source/filter_chebyshev.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameters_squeezer.o: ../../../Source/plugin_parameters_squeezer.cpp

@@ -234,6 +234,25 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderWetMixCombined);
 
 
+    nIndex = SqueezerPluginParameters::selHighPassFilterCutoff;
+    nIndexSwitch = SqueezerPluginParameters::selHighPassFilterCutoffSwitch;
+    strName = parameters->getName(nIndex);
+    SliderHighPassFilterCutoffCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderHighPassFilterCutoffCombined->setSliderColour(Colours::green.brighter(0.1f));
+
+    SliderHighPassFilterCutoffCombined->addListener(this);
+    SliderHighPassFilterCutoffCombined->addButtonListener(this);
+    addAndMakeVisible(SliderHighPassFilterCutoffCombined);
+
+
+    ButtonListenToSidechain = new TextButton("Listen");
+    ButtonListenToSidechain->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonListenToSidechain->setColour(TextButton::buttonOnColourId, Colours::green);
+
+    ButtonListenToSidechain->addListener(this);
+    addAndMakeVisible(ButtonListenToSidechain);
+
+
 #ifdef DEBUG
     LabelDebug = new Label("Debug Notification", "DEBUG");
     LabelDebug->setColour(Label::textColourId, Colours::red);
@@ -272,7 +291,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pOutputLevelMeters = new MeterBarLevel*[nChannels];
     pGainReductionMeters = new MeterBarGainReduction*[nChannels];
 
-    int x = 550;
+    int x = 615;
     int width = 12;
     int nNumberOfBars = 24;
 
@@ -318,6 +337,10 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selMakeupGain);
     updateParameter(SqueezerPluginParameters::selWetMixSwitch);
     updateParameter(SqueezerPluginParameters::selWetMix);
+
+    updateParameter(SqueezerPluginParameters::selHighPassFilterCutoffSwitch);
+    updateParameter(SqueezerPluginParameters::selHighPassFilterCutoff);
+    updateParameter(SqueezerPluginParameters::selListenToSidechain);
 }
 
 
@@ -353,11 +376,11 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 180;
-    nWidth = 660;
+    nWidth = 720;
 
     setSize(nWidth, nHeight);
 
-    ButtonBypass->setBounds(480, 90, 52, 20);
+    ButtonBypass->setBounds(545, 90, 52, 20);
 
     ButtonDetectorRmsPeak->setBounds(20, 90, 52, 20);
     ButtonDetectorRmsFast->setBounds(80, 90, 52, 20);
@@ -376,21 +399,24 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderRatioCombined->setBounds(80, 15, 52, 60);
     SliderKneeWidthCombined->setBounds(140, 15, 52, 60);
 
-    SliderAttackRateCombined->setBounds(220, 15, 52, 60);
-    SliderReleaseRateCombined->setBounds(280, 15, 52, 60);
+    SliderAttackRateCombined->setBounds(215, 15, 52, 60);
+    SliderReleaseRateCombined->setBounds(275, 15, 52, 60);
 
-    SliderStereoLinkCombined->setBounds(360, 15, 52, 60);
-    ButtonAutoMakeupGain->setBounds(420, 90, 52, 20);
-    SliderMakeupGainCombined->setBounds(420, 15, 52, 60);
-    SliderWetMixCombined->setBounds(480, 15, 52, 60);
+    SliderHighPassFilterCutoffCombined->setBounds(350, 15, 52, 60);
+    ButtonListenToSidechain->setBounds(350, 90, 52, 20);
 
-    ButtonResetMeters->setBounds(565, 140, 52, 20);
-    ButtonSettings->setBounds(420, 140, 52, 20);
-    ButtonAbout->setBounds(480, 140, 52, 20);
+    SliderStereoLinkCombined->setBounds(425, 15, 52, 60);
+    ButtonAutoMakeupGain->setBounds(485, 90, 52, 20);
+    SliderMakeupGainCombined->setBounds(485, 15, 52, 60);
+    SliderWetMixCombined->setBounds(545, 15, 52, 60);
+
+    ButtonResetMeters->setBounds(630, 140, 52, 20);
+    ButtonSettings->setBounds(485, 140, 52, 20);
+    ButtonAbout->setBounds(545, 140, 52, 20);
 
     if (LabelDebug)
     {
-        LabelDebug->setBounds(480, 117, 52, 16);
+        LabelDebug->setBounds(545, 117, 52, 16);
     }
 }
 
@@ -572,6 +598,15 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selWetMix:
         SliderWetMixCombined->setValue(fValue, dontSendNotification);
         break;
+    case SqueezerPluginParameters::selHighPassFilterCutoffSwitch:
+        SliderHighPassFilterCutoffCombined->updateMode();
+        break;
+    case SqueezerPluginParameters::selHighPassFilterCutoff:
+        SliderHighPassFilterCutoffCombined->setValue(fValue, dontSendNotification);
+        break;
+    case SqueezerPluginParameters::selListenToSidechain:
+        ButtonListenToSidechain->setToggleState(fValue != 0.0f, false);
+        break;
     default:
         DBG("[Squeezer] editor::updateParameter --> invalid index");
         break;
@@ -636,6 +671,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     else if (button == ButtonAutoMakeupGain)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selAutoMakeupGain, !button->getToggleState());
+    }
+    else if (button == ButtonListenToSidechain)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selListenToSidechain, !button->getToggleState());
     }
     else if (button == ButtonResetMeters)
     {
@@ -702,6 +741,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selWetMixSwitch, fValue);
         }
+        else if (slider == SliderHighPassFilterCutoffCombined)
+        {
+            pProcessor->changeParameter(SqueezerPluginParameters::selHighPassFilterCutoffSwitch, fValue);
+        }
         else
         {
             DBG("[Squeezer] editor::buttonClicked --> invalid button");
@@ -745,6 +788,10 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == SliderWetMixCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selWetMix, fValue);
+    }
+    else if (slider == SliderHighPassFilterCutoffCombined)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selHighPassFilterCutoff, fValue);
     }
     else
     {

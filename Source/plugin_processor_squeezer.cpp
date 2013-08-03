@@ -287,6 +287,30 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
+    case SqueezerPluginParameters::selHighPassFilterCutoff:
+
+        pPluginParameters->setFloat(nIndex, fValue);
+
+        if (pCompressor)
+        {
+            int nHighPassFilterCutoff = pPluginParameters->getRealInteger(nIndex);
+            pCompressor->setHighPassFilterCutoff(nHighPassFilterCutoff);
+        }
+
+        break;
+
+    case SqueezerPluginParameters::selListenToSidechain:
+
+        pPluginParameters->setFloat(nIndex, fValue);
+
+        if (pCompressor)
+        {
+            bool bListenToSidechain = pPluginParameters->getBoolean(nIndex);
+            pCompressor->setListenToSidechain(bListenToSidechain);
+        }
+
+        break;
+
     default:
     {
         WrappedParameterCombined* pCombined = dynamic_cast<WrappedParameterCombined*>(pPluginParameters->getWrappedParameter(nIndex + 1));
@@ -305,6 +329,8 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
             case SqueezerPluginParameters::selMakeupGainSwitch:
             case SqueezerPluginParameters::selWetMixSwitch:
+
+            case SqueezerPluginParameters::selHighPassFilterCutoffSwitch:
 
                 pCombined->setMode(fValue != 0.0f);
                 break;
@@ -643,6 +669,9 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fMakeupGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selMakeupGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
+    int nHighPassFilterCutoff = pPluginParameters->getRealInteger(SqueezerPluginParameters::selHighPassFilterCutoff);
+    bool bListenToSidechain = pPluginParameters->getBoolean(SqueezerPluginParameters::selListenToSidechain);
+
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
 
     pCompressor->setBypass(bBypassCompressor);
@@ -661,6 +690,9 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setAutoMakeupGain(bAutoMakeupGain);
     pCompressor->setMakeupGain(fMakeupGain);
     pCompressor->setWetMix(nWetMix);
+
+    pCompressor->setHighPassFilterCutoff(nHighPassFilterCutoff);
+    pCompressor->setListenToSidechain(bListenToSidechain);
 }
 
 

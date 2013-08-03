@@ -33,11 +33,12 @@ Compressor::Compressor(int channels, int sample_rate)
     jassert((channels == 1) || (channels == 2));
 
     nChannels = channels;
+    nSampleRate = sample_rate;
     fCrestFactor = 20.0f;
     bUpwardExpansion = false;
 
     // sample buffer holds 50 ms worth of samples
-    nMeterBufferSize = sample_rate / 20;
+    nMeterBufferSize = nSampleRate / 20;
 
     // time that has passed since last update (meter buffer size;
     // corresponds to 50 ms)
@@ -96,17 +97,27 @@ Compressor::Compressor(int channels, int sample_rate)
     setWetMix(100);
 
     pSideChain = new SideChain*[nChannels];
+    pHighPassFilter = new FilterChebyshev*[nChannels];
 
     pInputSamples = new float[nChannels];
+    pSidechainSamples = new float[nChannels];
     pOutputSamples = new float[nChannels];
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pSideChain[nChannel] = new SideChain(sample_rate);
+        pSideChain[nChannel] = new SideChain(nSampleRate);
 
         pInputSamples[nChannel] = 0.0f;
+        pSidechainSamples[nChannel] = 0.0f;
         pOutputSamples[nChannel] = 0.0f;
+
+        // initialise side-chain filter (0.5% ripple, 2 poles)
+        pHighPassFilter[nChannel] = new FilterChebyshev(0.001f, true, 0.5f, 2);
     }
+
+    // disable side-chain filter
+    setHighPassFilterCutoff(0);
+    setListenToSidechain(false);
 }
 
 
@@ -116,6 +127,9 @@ Compressor::~Compressor()
     {
         delete pSideChain[nChannel];
         pSideChain[nChannel] = NULL;
+
+        delete pHighPassFilter[nChannel];
+        pHighPassFilter[nChannel] = NULL;
     }
 
     delete pMeterInputBuffer;
@@ -163,8 +177,14 @@ Compressor::~Compressor()
     delete[] pSideChain;
     pSideChain = NULL;
 
+    delete[] pHighPassFilter;
+    pHighPassFilter = NULL;
+
     delete[] pInputSamples;
     pInputSamples = NULL;
+
+    delete[] pSidechainSamples;
+    pSidechainSamples = NULL;
 
     delete[] pOutputSamples;
     pOutputSamples = NULL;
@@ -549,6 +569,62 @@ void Compressor::setWetMix(int nWetMixNew)
 }
 
 
+int Compressor::getHighPassFilterCutoff()
+/*  Get current high pass filter cutoff frequency.
+
+    return value (integer): high pass filter cutoff frequency (in
+    Hertz)
+ */
+{
+    return nHighPassFilterCutoff;
+}
+
+
+void Compressor::setHighPassFilterCutoff(int nHighPassFilterCutoffNew)
+/*  Set new high pass filter cutoff frequency.
+
+    nHighPassFilterCutoff (integer): new high pass filter cutoff
+    frequency (in Hertz)
+
+    return value: none
+ */
+{
+    nHighPassFilterCutoff = nHighPassFilterCutoffNew;
+
+    if (nHighPassFilterCutoff > 0)
+    {
+        float fRelativeCutoffFrequency = float(nHighPassFilterCutoff) / float(nSampleRate);
+
+        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        {
+            pHighPassFilter[nChannel]->changeParameters(fRelativeCutoffFrequency, true);
+        }
+    }
+}
+
+
+bool Compressor::getListenToSidechain()
+/*  Get current side-chain listen state.
+
+    return value (boolean): returns current side-chain listen state
+ */
+{
+    return bListenToSidechain;
+}
+
+
+void Compressor::setListenToSidechain(bool bListenToSidechainNew)
+/*  Set new side-chain listen state.
+
+    bListenToSidechainNew (boolean): new side-chain listen state
+
+    return value: none
+ */
+{
+    bListenToSidechain = bListenToSidechainNew;
+}
+
+
 float Compressor::getGainReduction(int nChannel)
 /*  Get current gain reduction.
 
@@ -754,12 +830,10 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             // feed-forward design
             if (bDesignFeedForward)
             {
-                float fInputLevel;
-
                 // stereo linking is off (save some processing time)
                 if (fStereoLinkOriginal == 0.0f)
                 {
-                    fInputLevel = SideChain::level2decibel(fabs(pInputSamples[nChannel]));
+                    pSidechainSamples[nChannel] = pInputSamples[nChannel];
                 }
                 // stereo linking is on
                 else
@@ -769,14 +843,23 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
                     // mix stereo input samples according to stereo
                     // link percentage
-                    fInputLevel = SideChain::level2decibel(fabs(pInputSamples[nChannel]) * fStereoLinkOriginal + fabs(pInputSamples[nChannelOther]) * fStereoLinkOther);
+                    pSidechainSamples[nChannel] = (pInputSamples[nChannel] * fStereoLinkOriginal) + (pInputSamples[nChannelOther] * fStereoLinkOther);
                 }
 
+                // send side-chain sample through high-pass filter
+                if (nHighPassFilterCutoff > 0)
+                {
+                    pSidechainSamples[nChannel] = pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]);
+                }
+
+                // calculate level of side-chain sample
+                float fSidechainInputLevel = SideChain::level2decibel(fabs(pSidechainSamples[nChannel]));
+
                 // apply crest factor
-                fInputLevel += fCrestFactor;
+                fSidechainInputLevel += fCrestFactor;
 
                 // send current input sample to gain reduction unit
-                pSideChain[nChannel]->processSample(fInputLevel);
+                pSideChain[nChannel]->processSample(fSidechainInputLevel);
             }
 
             // store gain reduction now and apply ballistics later
@@ -799,16 +882,6 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             // apply make-up gain
             pOutputSamples[nChannel] *= fMakeupGain;
 
-            // dry shall be mixed in (test to save some processing time)
-            if (nWetMix < 100)
-            {
-                pOutputSamples[nChannel] *= fWetMix;
-                pOutputSamples[nChannel] += pInputSamples[nChannel] * fDryMix;
-            }
-
-            // save current output sample
-            buffer.copyFrom(nChannel, nSample, &pOutputSamples[nChannel], 1);
-
             // store output sample for metering
             pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
         }
@@ -816,15 +889,13 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         // post-processing for feed-back design
         if (!bDesignFeedForward)
         {
-            float fOutputLevel;
-
             // loop over channels
             for (int nChannel = 0; nChannel < nChannels; nChannel++)
             {
                 // stereo linking is off (save some processing time)
                 if (fStereoLinkOriginal == 0.0f)
                 {
-                    fOutputLevel = SideChain::level2decibel(fabs(pOutputSamples[nChannel]));
+                    pSidechainSamples[nChannel] = pOutputSamples[nChannel];
                 }
                 // stereo linking is on
                 else
@@ -834,14 +905,46 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
                     // mix stereo output samples according to stereo
                     // link percentage
-                    fOutputLevel = SideChain::level2decibel(fabs(pOutputSamples[nChannel]) * fStereoLinkOriginal + fabs(pOutputSamples[nChannelOther]) * fStereoLinkOther);
+                    pSidechainSamples[nChannel] = (pOutputSamples[nChannel] * fStereoLinkOriginal) + (pOutputSamples[nChannelOther] * fStereoLinkOther);
                 }
 
+                // send side-chain sample through high-pass filter
+                if (nHighPassFilterCutoff > 0)
+                {
+                    pSidechainSamples[nChannel] = pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]);
+                }
+
+                // calculate level of side-chain sample
+                float fSidechainOutputLevel = SideChain::level2decibel(fabs(pSidechainSamples[nChannel]));
+
                 // apply crest factor
-                fOutputLevel += fCrestFactor;
+                fSidechainOutputLevel += fCrestFactor;
 
                 // feed current output sample back to gain reduction unit
-                pSideChain[nChannel]->processSample(fOutputLevel);
+                pSideChain[nChannel]->processSample(fSidechainOutputLevel);
+            }
+        }
+
+        // loop over channels
+        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        {
+            // listen to side-chain
+            if (bListenToSidechain)
+            {
+                buffer.copyFrom(nChannel, nSample, &pSidechainSamples[nChannel], 1);
+            }
+            // listen to compressor's output
+            else
+            {
+                // dry shall be mixed in (test to save some processing
+                // time)
+                if (nWetMix < 100)
+                {
+                    pOutputSamples[nChannel] *= fWetMix;
+                    pOutputSamples[nChannel] += pInputSamples[nChannel] * fDryMix;
+                }
+
+                buffer.copyFrom(nChannel, nSample, &pOutputSamples[nChannel], 1);
             }
         }
 

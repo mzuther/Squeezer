@@ -27,9 +27,11 @@
 #define __COMPRESSOR_H__
 
 class Compressor;
+class FilterChebyshev;
 class SideChain;
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "filter_chebyshev.h"
 #include "side_chain.h"
 
 
@@ -102,6 +104,12 @@ public:
     int getWetMix();
     void setWetMix(int nWetMixNew);
 
+    int getHighPassFilterCutoff();
+    void setHighPassFilterCutoff(int nHighPassFilterCutoff);
+
+    bool getListenToSidechain();
+    void setListenToSidechain(bool bListenToSidechainNew);
+
     float getGainReduction(int nChannel);
     float getGainReductionPeak(int nChannel);
 
@@ -130,10 +138,13 @@ private:
     void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);
 
     SideChain** pSideChain;
+    FilterChebyshev** pHighPassFilter;
+
     AudioSampleBuffer* pMeterInputBuffer;
     AudioSampleBuffer* pMeterOutputBuffer;
 
     float* pInputSamples;
+    float* pSidechainSamples;
     float* pOutputSamples;
 
     float* pPeakMeterInputLevels;
@@ -156,6 +167,7 @@ private:
     float* pGainReductionHoldTime;
 
     int nChannels;
+    int nSampleRate;
     int nMeterBufferSize;
     int nMeterBufferPosition;
     float fCrestFactor;
@@ -180,6 +192,9 @@ private:
     int nWetMix;
     float fWetMix;
     float fDryMix;
+
+    int nHighPassFilterCutoff;
+    bool bListenToSidechain;
 };
 
 #endif  // __COMPRESSOR_H__

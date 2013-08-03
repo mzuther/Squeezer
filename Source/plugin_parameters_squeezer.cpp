@@ -328,6 +328,35 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterWetMix->setSuffix(" %");
     ParameterWetMix->setDefaultRealFloat(100.0f, true);
     addCombined(ParameterWetMix, selWetMix, selWetMixSwitch);
+
+
+    fMinimum = 0.0f;
+    fMaximum = 2000.0f;
+    fResolution = 10.0f;
+    fLogFactor = 2.0f;
+    nDecimalPlaces = 0;
+
+    ParameterHighPassFilterCutoff = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    ParameterHighPassFilterCutoff->setName("HPF Cutoff");
+
+    ParameterHighPassFilterCutoff->addConstant(0.0f,     "Bypass");
+    ParameterHighPassFilterCutoff->addConstant(30.0f,     "30 Hz");
+    ParameterHighPassFilterCutoff->addConstant(60.0f,     "60 Hz");
+    ParameterHighPassFilterCutoff->addConstant(125.0f,   "125 Hz");
+    ParameterHighPassFilterCutoff->addConstant(250.0f,   "250 Hz");
+    ParameterHighPassFilterCutoff->addConstant(500.0f,   "500 Hz");
+    ParameterHighPassFilterCutoff->addConstant(1000.0f,   "1 kHz");
+    ParameterHighPassFilterCutoff->addConstant(2000.0f,   "2 kHz");
+
+    ParameterHighPassFilterCutoff->setSuffix(" Hz");
+    ParameterHighPassFilterCutoff->setDefaultRealFloat(0.0f, true);
+    addCombined(ParameterHighPassFilterCutoff, selHighPassFilterCutoff, selHighPassFilterCutoffSwitch);
+
+
+    ParameterListenToSidechain = new WrappedParameterToggleSwitch("Side-Chain", "Output");
+    ParameterListenToSidechain->setName("Listen");
+    ParameterListenToSidechain->setDefaultBoolean(false, true);
+    add(ParameterListenToSidechain, selListenToSidechain);
 }
 
 
@@ -371,6 +400,12 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
 
     delete ParameterWetMix;
     ParameterWetMix = NULL;
+
+    delete ParameterHighPassFilterCutoff;
+    ParameterHighPassFilterCutoff = NULL;
+
+    delete ParameterListenToSidechain;
+    ParameterListenToSidechain = NULL;
 }
 
 
@@ -394,7 +429,7 @@ String SqueezerPluginParameters::toString()
     strParameters += ", Design: ";
     strParameters += arrParameters[selDesign]->getText();
 
-    strParameters += "\nThreshold: ";
+    strParameters += "\nThresh: ";
     strParameters += arrParameters[selThreshold]->getText();
 
     strParameters += ", Ratio: ";
@@ -402,6 +437,9 @@ String SqueezerPluginParameters::toString()
 
     strParameters += ", Knee: ";
     strParameters += arrParameters[selKneeWidth]->getText();
+
+    strParameters += ", HPF: ";
+    strParameters += arrParameters[selHighPassFilterCutoff]->getText();
 
     strParameters += "\nAttack: ";
     strParameters += arrParameters[selAttackRate]->getText();
