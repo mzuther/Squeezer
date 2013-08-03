@@ -234,6 +234,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderWetMixCombined);
 
 
+    ButtonSidechainEnableFilter = new TextButton("Filter");
+    ButtonSidechainEnableFilter->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonSidechainEnableFilter->setColour(TextButton::buttonOnColourId, Colours::green);
+
+    ButtonSidechainEnableFilter->addListener(this);
+    addAndMakeVisible(ButtonSidechainEnableFilter);
+
+
     nIndex = SqueezerPluginParameters::selHighPassFilterCutoff;
     nIndexSwitch = SqueezerPluginParameters::selHighPassFilterCutoffSwitch;
     strName = parameters->getName(nIndex);
@@ -245,12 +253,12 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderHighPassFilterCutoffCombined);
 
 
-    ButtonListenToSidechain = new TextButton("Listen");
-    ButtonListenToSidechain->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonListenToSidechain->setColour(TextButton::buttonOnColourId, Colours::green);
+    ButtonSidechainListen = new TextButton("Listen");
+    ButtonSidechainListen->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonSidechainListen->setColour(TextButton::buttonOnColourId, Colours::red);
 
-    ButtonListenToSidechain->addListener(this);
-    addAndMakeVisible(ButtonListenToSidechain);
+    ButtonSidechainListen->addListener(this);
+    addAndMakeVisible(ButtonSidechainListen);
 
 
 #ifdef DEBUG
@@ -338,9 +346,10 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selWetMixSwitch);
     updateParameter(SqueezerPluginParameters::selWetMix);
 
+    updateParameter(SqueezerPluginParameters::selSidechainEnableFilter);
     updateParameter(SqueezerPluginParameters::selHighPassFilterCutoffSwitch);
     updateParameter(SqueezerPluginParameters::selHighPassFilterCutoff);
-    updateParameter(SqueezerPluginParameters::selListenToSidechain);
+    updateParameter(SqueezerPluginParameters::selSidechainListen);
 }
 
 
@@ -403,7 +412,8 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     SliderReleaseRateCombined->setBounds(275, 15, 52, 60);
 
     SliderHighPassFilterCutoffCombined->setBounds(350, 15, 52, 60);
-    ButtonListenToSidechain->setBounds(350, 90, 52, 20);
+    ButtonSidechainEnableFilter->setBounds(350, 90, 52, 20);
+    ButtonSidechainListen->setBounds(350, 115, 52, 20);
 
     SliderStereoLinkCombined->setBounds(425, 15, 52, 60);
     ButtonAutoMakeupGain->setBounds(485, 90, 52, 20);
@@ -598,14 +608,17 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selWetMix:
         SliderWetMixCombined->setValue(fValue, dontSendNotification);
         break;
+    case SqueezerPluginParameters::selSidechainEnableFilter:
+        ButtonSidechainEnableFilter->setToggleState(fValue != 0.0f, false);
+        break;
     case SqueezerPluginParameters::selHighPassFilterCutoffSwitch:
         SliderHighPassFilterCutoffCombined->updateMode();
         break;
     case SqueezerPluginParameters::selHighPassFilterCutoff:
         SliderHighPassFilterCutoffCombined->setValue(fValue, dontSendNotification);
         break;
-    case SqueezerPluginParameters::selListenToSidechain:
-        ButtonListenToSidechain->setToggleState(fValue != 0.0f, false);
+    case SqueezerPluginParameters::selSidechainListen:
+        ButtonSidechainListen->setToggleState(fValue != 0.0f, false);
         break;
     default:
         DBG("[Squeezer] editor::updateParameter --> invalid index");
@@ -672,9 +685,13 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selAutoMakeupGain, !button->getToggleState());
     }
-    else if (button == ButtonListenToSidechain)
+    else if (button == ButtonSidechainEnableFilter)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selListenToSidechain, !button->getToggleState());
+        pProcessor->changeParameter(SqueezerPluginParameters::selSidechainEnableFilter, !button->getToggleState());
+    }
+    else if (button == ButtonSidechainListen)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selSidechainListen, !button->getToggleState());
     }
     else if (button == ButtonResetMeters)
     {

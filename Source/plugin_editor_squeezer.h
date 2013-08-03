@@ -103,7 +103,8 @@ private:
     SliderCombined* SliderHighPassFilterCutoffCombined;
     TextButton* ButtonBypass;
 
-    TextButton* ButtonListenToSidechain;
+    TextButton* ButtonSidechainEnableFilter;
+    TextButton* ButtonSidechainListen;
     TextButton* ButtonResetMeters;
     TextButton* ButtonSettings;
     TextButton* ButtonAbout;

@@ -287,6 +287,18 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
+    case SqueezerPluginParameters::selSidechainEnableFilter:
+
+        pPluginParameters->setFloat(nIndex, fValue);
+
+        if (pCompressor)
+        {
+            bool bSidechainEnableFilter = pPluginParameters->getBoolean(nIndex);
+            pCompressor->setSidechainEnableFilter(bSidechainEnableFilter);
+        }
+
+        break;
+
     case SqueezerPluginParameters::selHighPassFilterCutoff:
 
         pPluginParameters->setFloat(nIndex, fValue);
@@ -299,14 +311,14 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
-    case SqueezerPluginParameters::selListenToSidechain:
+    case SqueezerPluginParameters::selSidechainListen:
 
         pPluginParameters->setFloat(nIndex, fValue);
 
         if (pCompressor)
         {
-            bool bListenToSidechain = pPluginParameters->getBoolean(nIndex);
-            pCompressor->setListenToSidechain(bListenToSidechain);
+            bool bSidechainListen = pPluginParameters->getBoolean(nIndex);
+            pCompressor->setSidechainListen(bSidechainListen);
         }
 
         break;
@@ -669,8 +681,9 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fMakeupGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selMakeupGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
+    bool bSidechainEnableFilter = pPluginParameters->getBoolean(SqueezerPluginParameters::selSidechainEnableFilter);
     int nHighPassFilterCutoff = pPluginParameters->getRealInteger(SqueezerPluginParameters::selHighPassFilterCutoff);
-    bool bListenToSidechain = pPluginParameters->getBoolean(SqueezerPluginParameters::selListenToSidechain);
+    bool bSidechainListen = pPluginParameters->getBoolean(SqueezerPluginParameters::selSidechainListen);
 
     pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
 
@@ -691,8 +704,9 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setMakeupGain(fMakeupGain);
     pCompressor->setWetMix(nWetMix);
 
+    pCompressor->setSidechainEnableFilter(bSidechainEnableFilter);
     pCompressor->setHighPassFilterCutoff(nHighPassFilterCutoff);
-    pCompressor->setListenToSidechain(bListenToSidechain);
+    pCompressor->setSidechainListen(bSidechainListen);
 }
 
 

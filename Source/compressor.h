@@ -104,11 +104,14 @@ public:
     int getWetMix();
     void setWetMix(int nWetMixNew);
 
+    bool getSidechainEnableFilter();
+    void setSidechainEnableFilter(bool bSidechainEnableFilterNew);
+
     int getHighPassFilterCutoff();
     void setHighPassFilterCutoff(int nHighPassFilterCutoff);
 
-    bool getListenToSidechain();
-    void setListenToSidechain(bool bListenToSidechainNew);
+    bool getSidechainListen();
+    void setSidechainListen(bool bSidechainListenNew);
 
     float getGainReduction(int nChannel);
     float getGainReductionPeak(int nChannel);
@@ -193,8 +196,10 @@ private:
     float fWetMix;
     float fDryMix;
 
+    bool bSidechainEnableFilter;
     int nHighPassFilterCutoff;
-    bool bListenToSidechain;
+    double dGainNormalise;
+    bool bSidechainListen;
 };
 
 #endif  // __COMPRESSOR_H__
