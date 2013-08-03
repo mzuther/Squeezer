@@ -36,7 +36,7 @@
         foaf:name "Martin Zuther";
         foaf:homepage <http://www.mzuther.de/>;
         ];
-    
+
     doap:maintainer [
         foaf:name "Martin Zuther" ;
         foaf:homepage <http://www.mzuther.de/>;
@@ -469,8 +469,8 @@
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 30 ;
-        lv2:symbol "sc_filter_cutoff_gain" ;
-        lv2:name "SC Filter Cutoff Gain" ;
+        lv2:symbol "sc_filter_gain" ;
+        lv2:name "SC Filter Gain" ;
         lv2:default 0.5 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;

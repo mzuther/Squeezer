@@ -367,7 +367,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
 
     ParameterSidechainFilterGain = new WrappedParameterSwitch();
-    ParameterSidechainFilterGain->setName("SC Filter Cutoff Gain");
+    ParameterSidechainFilterGain->setName("SC Filter Gain");
 
     ParameterSidechainFilterGain->addConstant(-12.0f, "-12 dB");
     ParameterSidechainFilterGain->addConstant(-11.0f, "-11 dB");
