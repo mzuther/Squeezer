@@ -430,8 +430,8 @@
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 27 ;
-        lv2:symbol "sc_filter_enable" ;
-        lv2:name "SC Filter Enable" ;
+        lv2:symbol "sc_filter_state" ;
+        lv2:name "SC Filter State" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;

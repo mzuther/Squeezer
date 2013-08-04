@@ -287,14 +287,14 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
-    case SqueezerPluginParameters::selSidechainFilterEnable:
+    case SqueezerPluginParameters::selSidechainFilterState:
 
         pPluginParameters->setFloat(nIndex, fValue);
 
         if (pCompressor)
         {
-            bool bSidechainFilterEnable = pPluginParameters->getBoolean(nIndex);
-            pCompressor->setSidechainFilterEnable(bSidechainFilterEnable);
+            bool bSidechainFilterState = pPluginParameters->getBoolean(nIndex);
+            pCompressor->setSidechainFilterState(bSidechainFilterState);
         }
 
         break;
@@ -693,7 +693,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fMakeupGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selMakeupGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
 
-    bool bSidechainFilterEnable = pPluginParameters->getBoolean(SqueezerPluginParameters::selSidechainFilterEnable);
+    bool bSidechainFilterState = pPluginParameters->getBoolean(SqueezerPluginParameters::selSidechainFilterState);
     int nSidechainFilterCutoff = pPluginParameters->getRealInteger(SqueezerPluginParameters::selSidechainFilterCutoff);
     float fSidechainFilterGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selSidechainFilterGain);
     bool bSidechainListen = pPluginParameters->getBoolean(SqueezerPluginParameters::selSidechainListen);
@@ -717,7 +717,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setMakeupGain(fMakeupGain);
     pCompressor->setWetMix(nWetMix);
 
-    pCompressor->setSidechainFilterEnable(bSidechainFilterEnable);
+    pCompressor->setSidechainFilterState(bSidechainFilterState);
     pCompressor->setSidechainFilterCutoff(nSidechainFilterCutoff);
     pCompressor->setSidechainFilterGain(fSidechainFilterGain);
     pCompressor->setSidechainListen(bSidechainListen);

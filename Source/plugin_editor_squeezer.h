@@ -101,7 +101,7 @@ private:
     SliderCombined* SliderMakeupGainCombined;
     SliderCombined* SliderWetMixCombined;
 
-    TextButton* ButtonSidechainFilterEnable;
+    TextButton* ButtonSidechainFilterState;
     SliderCombined* SliderSidechainFilterCutoffCombined;
     SliderSwitchLinearBar* SliderSidechainFilterGain;
     TextButton* ButtonSidechainListen;

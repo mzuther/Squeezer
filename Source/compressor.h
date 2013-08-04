@@ -35,7 +35,7 @@ class SideChain;
 #include "side_chain.h"
 
 
-static const float fAntiDenormal = 1e-20;
+static const float fAntiDenormal = 1e-20f;
 
 //============================================================================
 class Compressor
@@ -106,8 +106,8 @@ public:
     int getWetMix();
     void setWetMix(int nWetMixNew);
 
-    bool getSidechainFilterEnable();
-    void setSidechainFilterEnable(bool bSidechainFilterEnableNew);
+    bool getSidechainFilterState();
+    void setSidechainFilterState(bool bSidechainFilterStateNew);
 
     int getSidechainFilterCutoff();
     void setSidechainFilterCutoff(int nSidechainFilterCutoff);
@@ -201,7 +201,7 @@ private:
     float fWetMix;
     float fDryMix;
 
-    bool bSidechainFilterEnable;
+    bool bSidechainFilterState;
     int nSidechainFilterCutoff;
     float fSidechainFilterGain;
     double dGainNormalise;

@@ -330,10 +330,10 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterWetMix, selWetMix, selWetMixSwitch);
 
 
-    ParameterSidechainFilterEnable = new WrappedParameterToggleSwitch("Bypassed", "Active");
-    ParameterSidechainFilterEnable->setName("SC Filter Enable");
-    ParameterSidechainFilterEnable->setDefaultBoolean(false, true);
-    add(ParameterSidechainFilterEnable, selSidechainFilterEnable);
+    ParameterSidechainFilterState = new WrappedParameterToggleSwitch("Enabled", "Disabled");
+    ParameterSidechainFilterState->setName("SC Filter State");
+    ParameterSidechainFilterState->setDefaultBoolean(false, true);
+    add(ParameterSidechainFilterState, selSidechainFilterState);
 
 
     fMinimum = 60.0f;
@@ -447,8 +447,8 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterWetMix;
     ParameterWetMix = NULL;
 
-    delete ParameterSidechainFilterEnable;
-    ParameterSidechainFilterEnable = NULL;
+    delete ParameterSidechainFilterState;
+    ParameterSidechainFilterState = NULL;
 
     delete ParameterSidechainFilterCutoff;
     ParameterSidechainFilterCutoff = NULL;
@@ -501,7 +501,7 @@ String SqueezerPluginParameters::toString()
 
     strParameters += ")\nSide-Chain: ";
 
-    if (!arrParameters[selSidechainFilterEnable]->getBoolean())
+    if (!arrParameters[selSidechainFilterState]->getBoolean())
     {
         strParameters += "Filter Bypassed";
     }

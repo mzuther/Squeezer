@@ -116,7 +116,7 @@ Compressor::Compressor(int channels, int sample_rate)
     }
 
     // disable side-chain filter
-    setSidechainFilterEnable(false);
+    setSidechainFilterState(false);
     setSidechainFilterCutoff(100);
     setSidechainFilterGain(0.0f);
     setSidechainListen(false);
@@ -571,25 +571,25 @@ void Compressor::setWetMix(int nWetMixNew)
 }
 
 
-bool Compressor::getSidechainFilterEnable()
+bool Compressor::getSidechainFilterState()
 /*  Get current side-chain filter state.
 
     return value (boolean): returns current side-chain filter state
  */
 {
-    return bSidechainFilterEnable;
+    return bSidechainFilterState;
 }
 
 
-void Compressor::setSidechainFilterEnable(bool bSidechainFilterEnableNew)
+void Compressor::setSidechainFilterState(bool bSidechainFilterStateNew)
 /*  Set new side-chain filter state.
 
-    bSidechainFilterEnableNew (boolean): new side-chain filter state
+    bSidechainFilterStateNew (boolean): new side-chain filter state
 
     return value: none
  */
 {
-    bSidechainFilterEnable = bSidechainFilterEnableNew;
+    bSidechainFilterState = bSidechainFilterStateNew;
 }
 
 
@@ -615,7 +615,7 @@ void Compressor::setSidechainFilterCutoff(int nSidechainFilterCutoffNew)
 {
     nSidechainFilterCutoff = nSidechainFilterCutoffNew;
 
-    if (bSidechainFilterEnable)
+    if (bSidechainFilterState)
     {
         float fRelativeCutoffFrequency = float(nSidechainFilterCutoff) / float(nSampleRate);
         bool bIsHighpass = (nSidechainFilterCutoff < 2900) ? true : false;
@@ -921,7 +921,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
                 // filter side-chain sample (the filter's output is
                 // already de-normalised!)
-                if (bSidechainFilterEnable)
+                if (bSidechainFilterState)
                 {
                     pSidechainSamples[nChannel] = float(pSidechainFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
                 }
@@ -981,7 +981,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
                 // filter side-chain sample (the filter's output is
                 // already de-normalised!)
-                if (bSidechainFilterEnable)
+                if (bSidechainFilterState)
                 {
                     pSidechainSamples[nChannel] = float(pSidechainFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
                 }
