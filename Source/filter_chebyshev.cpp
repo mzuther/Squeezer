@@ -73,6 +73,7 @@ double FilterChebyshev::filterSample(double dInputCurrent)
         dOutputCurrent = pFilterStages[nStage]->filterSample(dOutputCurrent);
     }
 
+    // output is already de-normalised
     return dOutputCurrent;
 }
 

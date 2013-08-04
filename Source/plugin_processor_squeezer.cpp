@@ -785,6 +785,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
         buffer.clear(nChannel, 0, nNumSamples);
     }
 
+    // compressor's output is already de-normalised
     pCompressor->processBlock(buffer);
 
     // "UM" --> update meters

@@ -113,6 +113,9 @@ double FilterChebyshevStage::filterSample(double dInputCurrent)
     dOutputCurrent += coeff_B1 * dOutputPrevious_1;
     dOutputCurrent += coeff_B2 * dOutputPrevious_2;
 
+    // de-normalise output
+    dOutputCurrent += dAntiDenormal;
+
     dInputPrevious_1 = dInputCurrent;
     dInputPrevious_2 = dInputPrevious_1;
 

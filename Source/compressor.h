@@ -35,6 +35,8 @@ class SideChain;
 #include "side_chain.h"
 
 
+static const float fAntiDenormal = 1e-20;
+
 //============================================================================
 class Compressor
 {
@@ -144,7 +146,7 @@ private:
     void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);
 
     SideChain** pSideChain;
-    FilterChebyshev** pHighPassFilter;
+    FilterChebyshev** pSidechainFilter;
 
     AudioSampleBuffer* pMeterInputBuffer;
     AudioSampleBuffer* pMeterOutputBuffer;

@@ -97,7 +97,7 @@ Compressor::Compressor(int channels, int sample_rate)
     setWetMix(100);
 
     pSideChain = new SideChain*[nChannels];
-    pHighPassFilter = new FilterChebyshev*[nChannels];
+    pSidechainFilter = new FilterChebyshev*[nChannels];
 
     pInputSamples = new float[nChannels];
     pSidechainSamples = new float[nChannels];
@@ -112,7 +112,7 @@ Compressor::Compressor(int channels, int sample_rate)
         pOutputSamples[nChannel] = 0.0f;
 
         // initialise side-chain filter (HPF, 0.5% ripple, 6 poles)
-        pHighPassFilter[nChannel] = new FilterChebyshev(0.001f, true, 0.5f, 6);
+        pSidechainFilter[nChannel] = new FilterChebyshev(0.001f, true, 0.5f, 6);
     }
 
     // disable side-chain filter
@@ -130,8 +130,8 @@ Compressor::~Compressor()
         delete pSideChain[nChannel];
         pSideChain[nChannel] = NULL;
 
-        delete pHighPassFilter[nChannel];
-        pHighPassFilter[nChannel] = NULL;
+        delete pSidechainFilter[nChannel];
+        pSidechainFilter[nChannel] = NULL;
     }
 
     delete pMeterInputBuffer;
@@ -179,8 +179,8 @@ Compressor::~Compressor()
     delete[] pSideChain;
     pSideChain = NULL;
 
-    delete[] pHighPassFilter;
-    pHighPassFilter = NULL;
+    delete[] pSidechainFilter;
+    pSidechainFilter = NULL;
 
     delete[] pInputSamples;
     pInputSamples = NULL;
@@ -622,7 +622,7 @@ void Compressor::setSidechainFilterCutoff(int nSidechainFilterCutoffNew)
 
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
-            pHighPassFilter[nChannel]->changeParameters(fRelativeCutoffFrequency, bIsHighpass);
+            pSidechainFilter[nChannel]->changeParameters(fRelativeCutoffFrequency, bIsHighpass);
         }
     }
 }
@@ -861,9 +861,15 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         {
             for (int nChannel = 0; nChannel < nChannels; nChannel++)
             {
+                // get current input sample
+                float fInputSample = *buffer.getSampleData(nChannel, nSample);
+
+                // de-normalise input sample
+                fInputSample += fAntiDenormal;
+
                 // store input sample for metering
-                pMeterInputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
-                pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
+                pMeterInputBuffer->copyFrom(nChannel, nMeterBufferPosition, &fInputSample, 1);
+                pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, &fInputSample, 1);
 
                 // store gain reduction now and apply ballistics later
                 pGainReduction[nChannel] = 0.0f;
@@ -879,10 +885,16 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
             // get current input sample
-            pInputSamples[nChannel] = *buffer.getSampleData(nChannel, nSample);
+            float fInputSample = *buffer.getSampleData(nChannel, nSample);
+
+            // de-normalise input sample
+            fInputSample += fAntiDenormal;
+
+            // store input sample
+            pInputSamples[nChannel] = fInputSample;
 
             // store input sample for metering
-            pMeterInputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
+            pMeterInputBuffer->copyFrom(nChannel, nMeterBufferPosition, &fInputSample, 1);
         }
 
         // compress channels
@@ -907,10 +919,11 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                     pSidechainSamples[nChannel] = (pInputSamples[nChannel] * fStereoLinkOriginal) + (pInputSamples[nChannelOther] * fStereoLinkOther);
                 }
 
-                // send side-chain sample through high-pass filter
+                // filter side-chain sample (the filter's output is
+                // already de-normalised!)
                 if (bSidechainFilterEnable)
                 {
-                    pSidechainSamples[nChannel] = float(pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
+                    pSidechainSamples[nChannel] = float(pSidechainFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
                 }
 
                 // calculate level of side-chain sample
@@ -942,9 +955,6 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
             // apply make-up gain
             pOutputSamples[nChannel] *= fMakeupGain;
-
-            // store output sample for metering
-            pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
         }
 
         // post-processing for feed-back design
@@ -969,10 +979,11 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
                     pSidechainSamples[nChannel] = (pOutputSamples[nChannel] * fStereoLinkOriginal) + (pOutputSamples[nChannelOther] * fStereoLinkOther);
                 }
 
-                // send side-chain sample through high-pass filter
+                // filter side-chain sample (the filter's output is
+                // already de-normalised!)
                 if (bSidechainFilterEnable)
                 {
-                    pSidechainSamples[nChannel] = float(pHighPassFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
+                    pSidechainSamples[nChannel] = float(pSidechainFilter[nChannel]->filterSample(pSidechainSamples[nChannel]) * dGainNormalise);
                 }
 
                 // calculate level of side-chain sample
@@ -989,12 +1000,12 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         // loop over channels
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
-            // listen to side-chain
+            // listen to side-chain (already de-normalised)
             if (bSidechainListen)
             {
                 buffer.copyFrom(nChannel, nSample, &pSidechainSamples[nChannel], 1);
             }
-            // listen to compressor's output
+            // listen to compressor's output (already de-normalised)
             else
             {
                 // dry shall be mixed in (test to save some processing
@@ -1007,6 +1018,11 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
 
                 buffer.copyFrom(nChannel, nSample, &pOutputSamples[nChannel], 1);
             }
+
+            // store output sample for metering (reflects real output,
+            // so when the user listens to the side-chain, the output
+            // meter will also display the side-chain's level!)
+            pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
         }
 
         updateMeterBallistics();

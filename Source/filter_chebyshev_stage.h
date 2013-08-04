@@ -28,6 +28,9 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+
+static const double dAntiDenormal = 1e-20;
+
 //============================================================================
 class FilterChebyshevStage
 {
