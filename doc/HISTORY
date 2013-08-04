@@ -1,6 +1,18 @@
 Git HEAD
 ========
 
+
+v1.44 (2013-08-04)
+==================
+
+* side-chain filter
+
+* de-normalise floating-point numbers
+
+
+v1.43 (2013-06-01)
+==================
+
 * LV2 plug-in (GNU/Linux)
 
 * experimental 64-bit versions for Windows
