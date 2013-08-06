@@ -615,15 +615,12 @@ void Compressor::setSidechainFilterCutoff(int nSidechainFilterCutoffNew)
 {
     nSidechainFilterCutoff = nSidechainFilterCutoffNew;
 
-    if (bSidechainFilterState)
-    {
-        float fRelativeCutoffFrequency = float(nSidechainFilterCutoff) / float(nSampleRate);
-        bool bIsHighpass = (nSidechainFilterCutoff < 2900) ? true : false;
+    float fRelativeCutoffFrequency = float(nSidechainFilterCutoff) / float(nSampleRate);
+    bool bIsHighpass = (nSidechainFilterCutoff < 2900) ? true : false;
 
-        for (int nChannel = 0; nChannel < nChannels; nChannel++)
-        {
-            pSidechainFilter[nChannel]->changeParameters(fRelativeCutoffFrequency, bIsHighpass);
-        }
+    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    {
+        pSidechainFilter[nChannel]->changeParameters(fRelativeCutoffFrequency, bIsHighpass);
     }
 }
 
