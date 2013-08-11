@@ -726,7 +726,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonAbout)
     {
-        WindowAbout* windowAbout = new WindowAbout(getWidth() - 120, getHeight());
+        WindowAbout* windowAbout = new WindowAbout(getWidth() - 115, getHeight());
         addAndMakeVisible(windowAbout);
 
         windowAbout->runModalLoop();
