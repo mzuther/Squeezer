@@ -27,7 +27,6 @@
 #include "modules/juce_graphics/juce_graphics.h"
 #include "modules/juce_gui_basics/juce_gui_basics.h"
 #include "modules/juce_gui_extra/juce_gui_extra.h"
-#include "modules/juce_opengl/juce_opengl.h"
 #include "modules/juce_video/juce_video.h"
 
 #if ! DONT_SET_USING_JUCE_NAMESPACE
@@ -39,8 +38,8 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "Squeezer";
-    const char* const  versionString  = "1.45.0";
-    const int          versionNumber  = 0x12d00;
+    const char* const  versionString  = "1.45.1";
+    const int          versionNumber  = 0x12d01;
 }
 
 #endif   // __APPHEADERFILE_PY2F1I__

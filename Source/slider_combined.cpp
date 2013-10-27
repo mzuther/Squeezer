@@ -58,7 +58,7 @@ SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParame
 
     pToggleButton = new DrawableButton(componentName + " Switch", DrawableButton::ImageFitted);
     pToggleButton->setClickingTogglesState(true);
-    pToggleButton->setToggleState(pModeSwitch->getBoolean(), false);
+    pToggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
     pToggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, NULL, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, NULL);
     pToggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
     pToggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
@@ -113,7 +113,7 @@ void SliderCombined::setSliderColour(const Colour& colour)
 
 void SliderCombined::updateMode()
 {
-    pToggleButton->setToggleState(pModeSwitch->getBoolean(), false);
+    pToggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
 
     setRange(0.0f, 1.0f, pCombined->getInterval());
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());

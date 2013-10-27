@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.45.0"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.45.1"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
               pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="sqzr"
@@ -9,17 +9,35 @@
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
               pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
               jucerVersion="3.1.0" companyName="mzuther" aaxIdentifier="de.mzuther.Squeezer"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics">
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1">
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" objCExtraSuffix="V6MScW" juceFolder="libraries/juce/modules"
-               vstFolder="~/SDKs/vstsdk2.4">
+    <LINUX_MAKE targetFolder="Builds/Linux">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="Squeezer"
-                       osxSDK="default" osxCompatibility="default" osxArchitecture="default"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="2" targetName="Squeezer"
-                       osxSDK="default" osxCompatibility="default" osxArchitecture="default"/>
+        <CONFIGURATION name="Debug" libraryPath="/usr/X11R6/lib/" isDebug="1" optimisation="1"
+                       targetName="Squeezer"/>
+        <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"
+                       targetName="Squeezer"/>
       </CONFIGURATIONS>
-    </XCODE_MAC>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_events" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_opengl" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_box2d" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_browser_plugin_client"/>
+        <MODULEPATH id="juce_video" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_core" path="libraries/juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="libraries/juce/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
   <MAINGROUP id="fQBrG5" name="Squeezer">
     <GROUP id="{C1484ADF-3ACB-5E6A-3FF0-53F97F27901A}" name="Source">
@@ -104,22 +122,20 @@
     </GROUP>
   </MAINGROUP>
   <MODULES>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_gui_audio" showAllCode="1" useLocalCopy="1"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
 </JUCERPROJECT>

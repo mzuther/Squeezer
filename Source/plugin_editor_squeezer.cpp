@@ -503,25 +503,25 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     switch (nIndex)
     {
     case SqueezerPluginParameters::selBypass:
-        ButtonBypass->setToggleState(fValue != 0.0f, false);
+        ButtonBypass->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
     case SqueezerPluginParameters::selDetectorRmsFilter:
 
         if (fValue == (Compressor::DetectorRmsFilterPeak / float(Compressor::NumberOfDetectorRmsFilters - 1)))
         {
-            ButtonDetectorRmsPeak->setToggleState(true, false);
+            ButtonDetectorRmsPeak->setToggleState(true, dontSendNotification);
         }
         else if (fValue == (Compressor::DetectorRmsFilterFast / float(Compressor::NumberOfDetectorRmsFilters - 1)))
         {
-            ButtonDetectorRmsFast->setToggleState(true, false);
+            ButtonDetectorRmsFast->setToggleState(true, dontSendNotification);
         }
         else if (fValue == (Compressor::DetectorRmsFilterMedium / float(Compressor::NumberOfDetectorRmsFilters - 1)))
         {
-            ButtonDetectorRmsMedium->setToggleState(true, false);
+            ButtonDetectorRmsMedium->setToggleState(true, dontSendNotification);
         }
         else
         {
-            ButtonDetectorRmsSlow->setToggleState(true, false);
+            ButtonDetectorRmsSlow->setToggleState(true, dontSendNotification);
         }
 
         break;
@@ -529,11 +529,11 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 
         if (fValue == Compressor::DesignFeedForward)
         {
-            ButtonDesignFeedForward->setToggleState(true, false);
+            ButtonDesignFeedForward->setToggleState(true, dontSendNotification);
         }
         else
         {
-            ButtonDesignFeedBack->setToggleState(true, false);
+            ButtonDesignFeedBack->setToggleState(true, dontSendNotification);
         }
 
         break;
@@ -541,19 +541,19 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 
         if (fValue == (Compressor::DetectorLinear / float(Compressor::NumberOfDetectors - 1)))
         {
-            ButtonDetectorLinear->setToggleState(true, false);
+            ButtonDetectorLinear->setToggleState(true, dontSendNotification);
         }
         else if (fValue == (Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1)))
         {
-            ButtonDetectorSmoothDecoupled->setToggleState(true, false);
+            ButtonDetectorSmoothDecoupled->setToggleState(true, dontSendNotification);
         }
         else if (fValue == (Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1)))
         {
-            ButtonDetectorSmoothBranching->setToggleState(true, false);
+            ButtonDetectorSmoothBranching->setToggleState(true, dontSendNotification);
         }
         else
         {
-            ButtonDetectorOptical->setToggleState(true, false);
+            ButtonDetectorOptical->setToggleState(true, dontSendNotification);
         }
 
         break;
@@ -605,7 +605,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderStereoLinkCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selAutoMakeupGain:
-        ButtonAutoMakeupGain->setToggleState(fValue != 0.0f, false);
+        ButtonAutoMakeupGain->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
     case SqueezerPluginParameters::selMakeupGainSwitch:
         SliderMakeupGainCombined->updateMode();
@@ -620,7 +620,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderWetMixCombined->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selSidechainFilterState:
-        ButtonSidechainFilterState->setToggleState(fValue != 0.0f, false);
+        ButtonSidechainFilterState->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
     case SqueezerPluginParameters::selSidechainFilterCutoffSwitch:
         SliderSidechainFilterCutoffCombined->updateMode();
@@ -632,7 +632,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderSidechainFilterGain->setValue(fValue, dontSendNotification);
         break;
     case SqueezerPluginParameters::selSidechainListen:
-        ButtonSidechainListen->setToggleState(fValue != 0.0f, false);
+        ButtonSidechainListen->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
     default:
         DBG("[Squeezer] editor::updateParameter --> invalid index");
