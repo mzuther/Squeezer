@@ -6,7 +6,6 @@
 *.suo
 *.vcproj.*.user
 *.vcxproj.user
-mz_*
 
 .Rhistory
 

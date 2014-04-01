@@ -1,0 +1,97 @@
+#!/bin/bash
+
+case $1 in
+	1)
+		PLATFORM="debug64"
+		PLATFORM_PRINT="64-bit (Debug)"
+		EXECUTABLE_EXTENSION="_debug_x64"
+		;;
+	2)
+		PLATFORM="release64"
+		PLATFORM_PRINT="64-bit (Release)"
+		EXECUTABLE_EXTENSION="_x64"
+		;;
+	3)
+		PLATFORM="debug32"
+		PLATFORM_PRINT="32-bit (Debug)"
+		EXECUTABLE_EXTENSION="_debug"
+		;;
+	4)
+		PLATFORM="release32"
+		PLATFORM_PRINT="32-bit (Release)"
+		EXECUTABLE_EXTENSION=""
+		;;
+	*)
+		echo
+		echo "  Usage:  mz_build PLATFORM TARGET [BUILD_OPTIONS]"
+		echo
+		echo
+		echo "  Platform:  ..."
+		echo
+		echo "  1: 64-bit (Debug)"
+		echo "  2: 64-bit (Release)"
+		echo
+		echo "  3: 32-bit (Debug)"
+		echo "  4: 32-bit (Release)"
+		echo
+		exit
+esac
+
+echo
+echo "  Platform: " $PLATFORM_PRINT
+
+case $2 in
+	a)
+		MAKEFILE="all"
+		MAKEFILE_PRINT="all targets"
+		;;
+	c)
+		MAKEFILE="clean"
+		MAKEFILE_PRINT="clean targets"
+		;;
+	1)
+		MAKEFILE="linux_standalone_stereo"
+		MAKEFILE_PRINT="Standalone (Stereo)"
+		EXECUTABLE="squeezer_stereo"
+		;;
+	2)
+		MAKEFILE="linux_lv2_stereo"
+		MAKEFILE_PRINT="LV2 plug-in (Stereo)"
+		;;
+	3)
+		MAKEFILE="linux_vst_stereo"
+		MAKEFILE_PRINT="VST plug-in (Stereo)"
+		;;
+	*)
+		echo "  Target:    ..."
+		echo
+		echo "  a: All targets"
+		echo "  c: Clean targets"
+		echo
+		echo "  1: Standalone (Stereo)"
+		echo "  2: LV2 plug-in (Stereo)"
+		echo "  3: VST plug-in (Stereo)"
+		echo
+		exit
+esac
+
+echo "  Target:   " $MAKEFILE_PRINT
+
+if [ -z $3 ]; then
+	echo "  Options:   none"
+else
+	echo "  Options:  " $3 $4 $5 $6 $7 $8 $9
+fi
+
+echo
+
+case $MAKEFILE in
+	*standalone*)
+		make config=$PLATFORM $MAKEFILE $3 $4 $5 $6 $7 $8 $9 && echo && ../bin/$EXECUTABLE$EXECUTABLE_EXTENSION
+		;;
+	*)
+		make config=$PLATFORM $MAKEFILE $3 $4 $5 $6 $7 $8 $9
+		;;
+esac
+
+exit

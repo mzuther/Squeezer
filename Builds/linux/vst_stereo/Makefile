@@ -23,7 +23,7 @@ ifeq ($(config),debug32)
   OBJDIR     = ../../../bin/intermediate_linux/vst_stereo_debug/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_vst_debug.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline -ggdb
@@ -45,7 +45,7 @@ ifeq ($(config),release32)
   OBJDIR     = ../../../bin/intermediate_linux/vst_stereo_release/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_vst.so
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
+  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -pipe -fvisibility=hidden
@@ -67,7 +67,7 @@ ifeq ($(config),debug64)
   OBJDIR     = ../../../bin/intermediate_linux/vst_stereo_debug/x64
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_vst_debug_x64.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
+  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fPIC -fno-inline -ggdb
@@ -89,7 +89,7 @@ ifeq ($(config),release64)
   OBJDIR     = ../../../bin/intermediate_linux/vst_stereo_release/x64
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_vst_x64.so
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_DIRECTSOUND=0
+  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VST_PLUGIN=1 -DSQUEEZER_STEREO=1 -DJUCE_USE_VSTSDK_2_4=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/vstsdk2.4 -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fPIC -pipe -fvisibility=hidden
