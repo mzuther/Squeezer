@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.45.1"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="1.45.2"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
               pluginManufacturer="mzuther" pluginManufacturerCode="mz" pluginCode="sqzr"
@@ -9,7 +9,8 @@
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
               pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
               jucerVersion="3.1.0" companyName="mzuther" aaxIdentifier="de.mzuther.Squeezer"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1">
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
+              buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com">
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux">
       <CONFIGURATIONS>

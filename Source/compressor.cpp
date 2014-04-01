@@ -859,7 +859,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
             for (int nChannel = 0; nChannel < nChannels; nChannel++)
             {
                 // get current input sample
-                float fInputSample = *buffer.getSampleData(nChannel, nSample);
+                float fInputSample = *buffer.getReadPointer(nChannel, nSample);
 
                 // de-normalise input sample
                 fInputSample += fAntiDenormal;
@@ -882,7 +882,7 @@ void Compressor::processBlock(AudioSampleBuffer& buffer)
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
             // get current input sample
-            float fInputSample = *buffer.getSampleData(nChannel, nSample);
+            float fInputSample = *buffer.getReadPointer(nChannel, nSample);
 
             // de-normalise input sample
             fInputSample += fAntiDenormal;

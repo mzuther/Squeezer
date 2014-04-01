@@ -155,6 +155,10 @@
  //#define JUCE_PLUGINHOST_VST
 #endif
 
+#ifndef    JUCE_PLUGINHOST_VST3
+ //#define JUCE_PLUGINHOST_VST3
+#endif
+
 #ifndef    JUCE_PLUGINHOST_AU
  //#define JUCE_PLUGINHOST_AU
 #endif
@@ -219,6 +223,10 @@
  //#define JUCE_WEB_BROWSER
 #endif
 
+#ifndef    JUCE_ENABLE_LIVE_CONSTANT_EDITOR
+ //#define JUCE_ENABLE_LIVE_CONSTANT_EDITOR
+#endif
+
 //==============================================================================
 // juce_video flags:
 
@@ -245,6 +253,9 @@
 #ifndef  JucePlugin_Build_VST
  #define JucePlugin_Build_VST              1
 #endif
+#ifndef  JucePlugin_Build_VST3
+ #define JucePlugin_Build_VST3             0
+#endif
 #ifndef  JucePlugin_Build_AU
  #define JucePlugin_Build_AU               0
 #endif
@@ -262,6 +273,12 @@
 #endif
 #ifndef  JucePlugin_Manufacturer
  #define JucePlugin_Manufacturer           "mzuther"
+#endif
+#ifndef  JucePlugin_ManufacturerWebsite
+ #define JucePlugin_ManufacturerWebsite    ""
+#endif
+#ifndef  JucePlugin_ManufacturerEmail
+ #define JucePlugin_ManufacturerEmail      "support@yourcompany.com"
 #endif
 #ifndef  JucePlugin_ManufacturerCode
  #define JucePlugin_ManufacturerCode       'mz'
@@ -294,13 +311,13 @@
  #define JucePlugin_EditorRequiresKeyboardFocus  0
 #endif
 #ifndef  JucePlugin_Version
- #define JucePlugin_Version                1.45.1
+ #define JucePlugin_Version                1.45.2
 #endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x12d01
+ #define JucePlugin_VersionCode            0x12d02
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "1.45.1"
+ #define JucePlugin_VersionString          "1.45.2"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
@@ -350,14 +367,14 @@
 #ifndef  JucePlugin_AAXProductId
  #define JucePlugin_AAXProductId           JucePlugin_PluginCode
 #endif
-#ifndef  JucePlugin_AAXPluginId
- #define JucePlugin_AAXPluginId            JucePlugin_PluginCode
-#endif
 #ifndef  JucePlugin_AAXCategory
  #define JucePlugin_AAXCategory            AAX_ePlugInCategory_Dynamics
 #endif
 #ifndef  JucePlugin_AAXDisableBypass
  #define JucePlugin_AAXDisableBypass       0
+#endif
+#ifndef  JucePlugin_AAXDisableMultiMono
+ #define JucePlugin_AAXDisableMultiMono    0
 #endif
 
 #endif  // __JUCE_APPCONFIG_PY2F1I__

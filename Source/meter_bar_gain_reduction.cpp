@@ -82,6 +82,15 @@ void MeterBarGainReduction::initialiseMeter()
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
+        if (n % 6 == 5)
+        {
+            nColor = 1;
+        }
+        else
+        {
+            nColor = 3;
+        }
+
         MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + getName() + ")", nThreshold * 0.1f, fRange, true, nColor);
         addAndMakeVisible(MeterArray[n]);
 
