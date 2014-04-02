@@ -89,11 +89,11 @@ MeterBarLevel::~MeterBarLevel()
         removeChildComponent(MeterArray[n]);
 
         delete MeterArray[n];
-        MeterArray[n] = NULL;
+        MeterArray[n] = nullptr;
     }
 
     delete [] MeterArray;
-    MeterArray = NULL;
+    MeterArray = nullptr;
 
     deleteAllChildren();
 }

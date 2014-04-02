@@ -29,7 +29,7 @@
 SliderSwitch::SliderSwitch(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
     pSwitch = dynamic_cast<WrappedParameterSwitch*>(pParameters->getWrappedParameter(nParameterIndex));
-    jassert(pSwitch != NULL);
+    jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);

@@ -56,11 +56,11 @@ FilterChebyshev::~FilterChebyshev()
     for (int nStage = 0; nStage < nNumberOfStages; nStage++)
     {
         delete pFilterStages[nStage];
-        pFilterStages[nStage] = NULL;
+        pFilterStages[nStage] = nullptr;
     }
 
     delete[] pFilterStages;
-    pFilterStages = NULL;
+    pFilterStages = nullptr;
 }
 
 

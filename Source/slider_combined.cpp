@@ -29,10 +29,10 @@
 SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex, int nParameterIndexSwitch) : Slider(componentName)
 {
     pCombined = dynamic_cast<WrappedParameterCombined*>(pParameters->getWrappedParameter(nParameterIndex));
-    jassert(pCombined != NULL);
+    jassert(pCombined != nullptr);
 
     pModeSwitch = dynamic_cast<WrappedParameterToggleSwitch*>(pParameters->getWrappedParameter(nParameterIndexSwitch));
-    jassert(pModeSwitch != NULL);
+    jassert(pModeSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pCombined->getInterval());
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
@@ -59,7 +59,7 @@ SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParame
     pToggleButton = new DrawableButton(componentName + " Switch", DrawableButton::ImageFitted);
     pToggleButton->setClickingTogglesState(true);
     pToggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
-    pToggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, NULL, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, NULL);
+    pToggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, nullptr, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, nullptr);
     pToggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
     pToggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
 
@@ -70,7 +70,7 @@ SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParame
 SliderCombined::~SliderCombined()
 {
     delete pToggleButton;
-    pToggleButton = NULL;
+    pToggleButton = nullptr;
 }
 
 

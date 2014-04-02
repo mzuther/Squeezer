@@ -46,13 +46,13 @@ WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float rea
 WrappedParameterCombined::~WrappedParameterCombined()
 {
     delete pSwitch;
-    pSwitch = NULL;
+    pSwitch = nullptr;
 
     delete pContinuous;
-    pContinuous = NULL;
+    pContinuous = nullptr;
 
     delete pModeSwitch;
-    pModeSwitch = NULL;
+    pModeSwitch = nullptr;
 }
 
 

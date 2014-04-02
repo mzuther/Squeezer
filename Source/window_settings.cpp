@@ -97,7 +97,7 @@ WindowSettings::WindowSettings(int nWidth, int nHeight, String& strPluginSetting
 WindowSettings::~WindowSettings()
 {
     delete pConstrainer;
-    pConstrainer = NULL;
+    pConstrainer = nullptr;
 
     // delete all children of the window; "contentComponent" will be
     // deleted by the base class, so please leave it alone!

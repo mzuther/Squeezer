@@ -82,7 +82,7 @@ SideChain::~SideChain()
 */
 {
     delete [] fReleaseCoefficientsOptical;
-    fReleaseCoefficientsOptical = NULL;
+    fReleaseCoefficientsOptical = nullptr;
 }
 
 

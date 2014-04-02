@@ -84,7 +84,7 @@ Compressor::Compressor(int channels, int sample_rate)
     // reset meters
     resetMeters();
 
-    pSideChain = NULL;
+    pSideChain = nullptr;
 
     nWetMix = 100;
     setBypass(false);
@@ -128,68 +128,68 @@ Compressor::~Compressor()
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
         delete pSideChain[nChannel];
-        pSideChain[nChannel] = NULL;
+        pSideChain[nChannel] = nullptr;
 
         delete pSidechainFilter[nChannel];
-        pSidechainFilter[nChannel] = NULL;
+        pSidechainFilter[nChannel] = nullptr;
     }
 
     delete pMeterInputBuffer;
-    pMeterInputBuffer = NULL;
+    pMeterInputBuffer = nullptr;
 
     delete pMeterOutputBuffer;
-    pMeterOutputBuffer = NULL;
+    pMeterOutputBuffer = nullptr;
 
     delete[] pPeakMeterInputLevels;
-    pPeakMeterInputLevels = NULL;
+    pPeakMeterInputLevels = nullptr;
 
     delete[] pPeakMeterOutputLevels;
-    pPeakMeterOutputLevels = NULL;
+    pPeakMeterOutputLevels = nullptr;
 
     delete[] pPeakMeterPeakInputLevels;
-    pPeakMeterPeakInputLevels = NULL;
+    pPeakMeterPeakInputLevels = nullptr;
 
     delete[] pPeakMeterPeakOutputLevels;
-    pPeakMeterPeakOutputLevels = NULL;
+    pPeakMeterPeakOutputLevels = nullptr;
 
     delete[] pMaximumInputLevels;
-    pMaximumInputLevels = NULL;
+    pMaximumInputLevels = nullptr;
 
     delete[] pMaximumOutputLevels;
-    pMaximumOutputLevels = NULL;
+    pMaximumOutputLevels = nullptr;
 
     delete[] pAverageMeterInputLevels;
-    pAverageMeterInputLevels = NULL;
+    pAverageMeterInputLevels = nullptr;
 
     delete[] pGainReduction;
-    pGainReduction = NULL;
+    pGainReduction = nullptr;
 
     delete[] pGainReductionPeak;
-    pGainReductionPeak = NULL;
+    pGainReductionPeak = nullptr;
 
     delete[] pPeakMeterPeakInputHoldTime;
-    pPeakMeterPeakInputHoldTime = NULL;
+    pPeakMeterPeakInputHoldTime = nullptr;
 
     delete[] pPeakMeterPeakOutputHoldTime;
-    pPeakMeterPeakOutputHoldTime = NULL;
+    pPeakMeterPeakOutputHoldTime = nullptr;
 
     delete[] pGainReductionHoldTime;
-    pGainReductionHoldTime = NULL;
+    pGainReductionHoldTime = nullptr;
 
     delete[] pSideChain;
-    pSideChain = NULL;
+    pSideChain = nullptr;
 
     delete[] pSidechainFilter;
-    pSidechainFilter = NULL;
+    pSidechainFilter = nullptr;
 
     delete[] pInputSamples;
-    pInputSamples = NULL;
+    pInputSamples = nullptr;
 
     delete[] pSidechainSamples;
-    pSidechainSamples = NULL;
+    pSidechainSamples = nullptr;
 
     delete[] pOutputSamples;
-    pOutputSamples = NULL;
+    pOutputSamples = nullptr;
 }
 
 

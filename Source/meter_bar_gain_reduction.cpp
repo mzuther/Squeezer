@@ -56,7 +56,7 @@ MeterBarGainReduction::~MeterBarGainReduction()
     deleteMeter();
 
     delete [] MeterArray;
-    MeterArray = NULL;
+    MeterArray = nullptr;
 
     deleteAllChildren();
 }
@@ -106,7 +106,7 @@ void MeterBarGainReduction::deleteMeter()
         removeChildComponent(MeterArray[n]);
 
         delete MeterArray[n];
-        MeterArray[n] = NULL;
+        MeterArray[n] = nullptr;
     }
 }
 

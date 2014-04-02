@@ -409,55 +409,55 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 SqueezerPluginParameters::~SqueezerPluginParameters()
 {
     delete ParameterBypass;
-    ParameterBypass = NULL;
+    ParameterBypass = nullptr;
 
     delete ParameterDetectorRmsFilter;
-    ParameterDetectorRmsFilter = NULL;
+    ParameterDetectorRmsFilter = nullptr;
 
     delete ParameterDesign;
-    ParameterDesign = NULL;
+    ParameterDesign = nullptr;
 
     delete ParameterDetector;
-    ParameterDetector = NULL;
+    ParameterDetector = nullptr;
 
     delete ParameterThreshold;
-    ParameterThreshold = NULL;
+    ParameterThreshold = nullptr;
 
     delete ParameterRatio;
-    ParameterRatio = NULL;
+    ParameterRatio = nullptr;
 
     delete ParameterKneeWidth;
-    ParameterKneeWidth = NULL;
+    ParameterKneeWidth = nullptr;
 
     delete ParameterAttackRate;
-    ParameterAttackRate = NULL;
+    ParameterAttackRate = nullptr;
 
     delete ParameterReleaseRate;
-    ParameterReleaseRate = NULL;
+    ParameterReleaseRate = nullptr;
 
     delete ParameterStereoLink;
-    ParameterStereoLink = NULL;
+    ParameterStereoLink = nullptr;
 
     delete ParameterMakeupGain;
-    ParameterMakeupGain = NULL;
+    ParameterMakeupGain = nullptr;
 
     delete ParameterAutoMakeupGain;
-    ParameterAutoMakeupGain = NULL;
+    ParameterAutoMakeupGain = nullptr;
 
     delete ParameterWetMix;
-    ParameterWetMix = NULL;
+    ParameterWetMix = nullptr;
 
     delete ParameterSidechainFilterState;
-    ParameterSidechainFilterState = NULL;
+    ParameterSidechainFilterState = nullptr;
 
     delete ParameterSidechainFilterCutoff;
-    ParameterSidechainFilterCutoff = NULL;
+    ParameterSidechainFilterCutoff = nullptr;
 
     delete ParameterSidechainFilterGain;
-    ParameterSidechainFilterGain = NULL;
+    ParameterSidechainFilterGain = nullptr;
 
     delete ParameterSidechainListen;
-    ParameterSidechainListen = NULL;
+    ParameterSidechainListen = nullptr;
 }
 
 

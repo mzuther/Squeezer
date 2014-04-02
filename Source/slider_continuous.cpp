@@ -29,7 +29,7 @@
 SliderContinuous::SliderContinuous(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
 {
     pContinuous = dynamic_cast<WrappedParameterContinuous*>(pParameters->getWrappedParameter(nParameterIndex));
-    jassert(pContinuous != NULL);
+    jassert(pContinuous != nullptr);
 
     setRange(0.0f, 1.0f, pContinuous->getInterval());
     setSliderStyle(Slider::RotaryVerticalDrag);

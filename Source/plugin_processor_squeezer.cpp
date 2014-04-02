@@ -45,7 +45,7 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
     bSampleRateIsValid = false;
     nNumInputChannels = 0;
 
-    pCompressor = NULL;
+    pCompressor = nullptr;
 
     setLatencySamples(0);
     pPluginParameters = new SqueezerPluginParameters();
@@ -61,7 +61,7 @@ SqueezerAudioProcessor::~SqueezerAudioProcessor()
     releaseResources();
 
     delete pPluginParameters;
-    pPluginParameters = NULL;
+    pPluginParameters = nullptr;
 }
 
 
@@ -736,10 +736,10 @@ void SqueezerAudioProcessor::releaseResources()
         return;
     }
 
-    if (pCompressor != NULL)
+    if (pCompressor != nullptr)
     {
         delete pCompressor;
-        pCompressor = NULL;
+        pCompressor = nullptr;
     }
 }
 

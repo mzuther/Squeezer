@@ -276,7 +276,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     LabelDebug->setJustificationType(Justification::centred);
     addAndMakeVisible(LabelDebug);
 #else
-    LabelDebug = NULL;
+    LabelDebug = nullptr;
 #endif
 
 
@@ -370,23 +370,23 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
         delete pInputLevelMeters[nChannel];
-        pInputLevelMeters[nChannel] = NULL;
+        pInputLevelMeters[nChannel] = nullptr;
 
         delete pOutputLevelMeters[nChannel];
-        pOutputLevelMeters[nChannel] = NULL;
+        pOutputLevelMeters[nChannel] = nullptr;
 
         delete pGainReductionMeters[nChannel];
-        pGainReductionMeters[nChannel] = NULL;
+        pGainReductionMeters[nChannel] = nullptr;
     }
 
     delete[] pInputLevelMeters;
-    pInputLevelMeters = NULL;
+    pInputLevelMeters = nullptr;
 
     delete[] pOutputLevelMeters;
-    pOutputLevelMeters = NULL;
+    pOutputLevelMeters = nullptr;
 
     delete[] pGainReductionMeters;
-    pGainReductionMeters = NULL;
+    pGainReductionMeters = nullptr;
 
     deleteAllChildren();
 }
@@ -722,7 +722,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 
         removeChildComponent(windowSettings);
         delete windowSettings;
-        windowSettings = NULL;
+        windowSettings = nullptr;
     }
     else if (button == ButtonAbout)
     {
@@ -733,7 +733,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 
         removeChildComponent(windowAbout);
         delete windowAbout;
-        windowAbout = NULL;
+        windowAbout = nullptr;
     }
     else
     {
