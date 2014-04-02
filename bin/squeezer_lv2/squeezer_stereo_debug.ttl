@@ -23,7 +23,7 @@
     ui:ui <http://code.mzuther.de/squeezer/stereo/debug#ExternalUI> ,
           <http://code.mzuther.de/squeezer/stereo/debug#ParentUI> ;
 
-    doap:name "Squeezer (Stereo)" ;
+    doap:name "Squeezer (Stereo, Debug)" ;
     doap:license <http://usefulinc.com/doap/licenses/gpl> ;
     doap:shortdesc "Flexible general-purpose audio compressor with a touch of lemon." ;
 
