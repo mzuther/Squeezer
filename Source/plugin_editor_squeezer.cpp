@@ -505,6 +505,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selBypass:
         ButtonBypass->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selDetectorRmsFilter:
 
         if (fValue == (Compressor::DetectorRmsFilterPeak / float(Compressor::NumberOfDetectorRmsFilters - 1)))
@@ -525,6 +526,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         }
 
         break;
+
     case SqueezerPluginParameters::selDesign:
 
         if (fValue == Compressor::DesignFeedForward)
@@ -537,6 +539,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         }
 
         break;
+
     case SqueezerPluginParameters::selDetector:
 
         if (fValue == (Compressor::DetectorLinear / float(Compressor::NumberOfDetectors - 1)))
@@ -557,15 +560,19 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         }
 
         break;
+
     case SqueezerPluginParameters::selThresholdSwitch:
         SliderThresholdCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selThreshold:
         SliderThresholdCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selRatioSwitch:
         SliderRatioCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selRatio:
         SliderRatioCombined->setValue(fValue, dontSendNotification);
 
@@ -580,60 +587,79 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         }
 
         break;
+
     case SqueezerPluginParameters::selKneeWidthSwitch:
         SliderKneeWidthCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selKneeWidth:
         SliderKneeWidthCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selAttackRateSwitch:
         SliderAttackRateCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selAttackRate:
         SliderAttackRateCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selReleaseRateSwitch:
         SliderReleaseRateCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selReleaseRate:
         SliderReleaseRateCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selStereoLinkSwitch:
         SliderStereoLinkCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selStereoLink:
         SliderStereoLinkCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selAutoMakeupGain:
         ButtonAutoMakeupGain->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selMakeupGainSwitch:
         SliderMakeupGainCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selMakeupGain:
         SliderMakeupGainCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selWetMixSwitch:
         SliderWetMixCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selWetMix:
         SliderWetMixCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selSidechainFilterState:
         ButtonSidechainFilterState->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selSidechainFilterCutoffSwitch:
         SliderSidechainFilterCutoffCombined->updateMode();
         break;
+
     case SqueezerPluginParameters::selSidechainFilterCutoff:
         SliderSidechainFilterCutoffCombined->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selSidechainFilterGain:
         SliderSidechainFilterGain->setValue(fValue, dontSendNotification);
         break;
+
     case SqueezerPluginParameters::selSidechainListen:
         ButtonSidechainListen->setToggleState(fValue != 0.0f, dontSendNotification);
         break;
+
     default:
         DBG("[Squeezer] editor::updateParameter --> invalid index");
         break;

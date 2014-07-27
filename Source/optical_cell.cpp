@@ -34,16 +34,30 @@ OpticalCell::OpticalCell(int nSampleRate)
 {
     fSampleRate = (float) nSampleRate;
 
-    int nAttackRate = 8;
-    int nReleaseRate = 78;
+    int nNumberOfCoefficients = 48;
+    pAttackCoefficients = new float[nNumberOfCoefficients];
+    pReleaseCoefficients = new float[nNumberOfCoefficients];
 
-    float fAttackRateSeconds = nAttackRate / 1000.0f;
-    float fReleaseRateSeconds = nReleaseRate / 1000.0f;
+    for (int n = 0; n < nNumberOfCoefficients; n++)
+    {
+        //  0 dB:  Attack: 16 ms, 80 ms Release
+        //  6 dB:  Attack:  5 ms, 27 ms Release
+        // 12 dB:  Attack:  3 ms, 16 ms Release
+        // 18 dB:  Attack:  2 ms, 11 ms Release
+        // 24 dB:  Attack:  2 ms,  9 ms Release
 
-    // logarithmic envelopes that reach 63% of the final reading in
-    // the given attack time
-    fAttackCoefficient = expf(logf(0.37f) / (fAttackRateSeconds * fSampleRate));
-    fReleaseCoefficient = expf(logf(0.37f) / (fReleaseRateSeconds * fSampleRate));
+        float fResistance = 180.0f / (3.0f + n);
+        float fAttackRate = fResistance / 5.0f;
+        float fReleaseRate = fResistance;
+
+        float fAttackRateSeconds = fAttackRate / 1000.0f;
+        float fReleaseRateSeconds = fReleaseRate / 1000.0f;
+
+        // logarithmic envelopes that reach 63% of the final reading
+        // in the given attack time
+        pAttackCoefficients[n] = expf(logf(0.37f) / (fAttackRateSeconds * fSampleRate));
+        pReleaseCoefficients[n] = expf(logf(0.37f) / (fReleaseRateSeconds * fSampleRate));
+    }
 
     // reset (i.e. initialise) all relevant variables
     reset();
@@ -56,6 +70,11 @@ OpticalCell::~OpticalCell()
     return value: none
 */
 {
+    delete[] pAttackCoefficients;
+    pAttackCoefficients = nullptr;
+
+    delete[] pReleaseCoefficients;
+    pReleaseCoefficients = nullptr;
 }
 
 
@@ -79,14 +98,25 @@ float OpticalCell::processGainReduction(float fGainReductionNew)
     decibel
  */
 {
+    float fGainReductionOld = fGainReduction;
+    int nSelector = int(fGainReductionNew);
+
+    if (nSelector < 0)
+    {
+        nSelector = 0;
+    }
+    else if (nSelector > 47)
+    {
+        nSelector = 47;
+    }
+
     if (fGainReductionNew > fGainReduction)
     {
         // algorithm adapted from Giannoulis et al., "Digital Dynamic
         // Range Compressor Design - A Tutorial and Analysis", JAES,
         // 60(6):399-408, 2012
 
-        float fGainReductionOld = fGainReduction;
-        fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionNew;
+        fGainReduction = (pAttackCoefficients[nSelector] * fGainReductionOld) + (1.0f - pAttackCoefficients[nSelector]) * fGainReductionNew;
     }
     // otherwise, apply release rate if proposed gain reduction is
     // below old gain reduction
@@ -96,8 +126,7 @@ float OpticalCell::processGainReduction(float fGainReductionNew)
         // Range Compressor Design - A Tutorial and Analysis", JAES,
         // 60(6):399-408, 2012
 
-        float fGainReductionOld = fGainReduction;
-        fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
+        fGainReduction = (pReleaseCoefficients[nSelector] * fGainReductionOld) + (1.0f - pReleaseCoefficients[nSelector]) * fGainReductionNew;
     }
 
     return fGainReduction;

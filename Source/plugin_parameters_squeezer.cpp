@@ -146,6 +146,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterRatio->addConstant(3.00f,    "3:1");
     ParameterRatio->addConstant(4.00f,    "4:1");
     ParameterRatio->addConstant(6.00f,    "6:1");
+    ParameterRatio->addConstant(8.00f,    "8:1");
     ParameterRatio->addConstant(10.00f,  "10:1");
 
     ParameterRatio->setSuffix(":1");
