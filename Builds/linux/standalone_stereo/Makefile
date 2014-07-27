@@ -29,7 +29,7 @@ ifeq ($(config),debug32)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline -ggdb
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -m32 -L/usr/lib32
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -51,7 +51,7 @@ ifeq ($(config),release32)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -s -m32 -L/usr/lib32
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -73,7 +73,7 @@ ifeq ($(config),debug64)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fno-inline -ggdb
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -m64 -L/usr/lib64
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -95,7 +95,7 @@ ifeq ($(config),release64)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -pipe -fvisibility=hidden
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -s -m64 -L/usr/lib64
-  LIBS      += -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)

@@ -116,6 +116,7 @@ solution "squeezer"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
@@ -176,6 +177,7 @@ solution "squeezer"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
@@ -240,6 +242,7 @@ solution "squeezer"
 			}
 
 			links {
+				"dl",
 				"freetype",
 				"pthread",
 				"rt",
