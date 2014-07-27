@@ -31,6 +31,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "compressor.h"
+#include "optical_cell.h"
 #include "plugin_processor_squeezer.h"
 
 
@@ -43,7 +44,6 @@ public:
     SideChain(int nSampleRate);
     ~SideChain();
 
-    void setSampleRate(int nSampleRate);
     void reset();
 
     float getDetectorRmsFilter();
@@ -76,14 +76,14 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SideChain);
 
-    static const int nNumberOfFactors = 60;
-
 #if DEBUG_RELEASE_RATE
     float fTimePassed;
 
     float fDebugFinalValue90;
     float fDebugTimeInReleasePhase;
 #endif
+
+    OpticalCell* pOpticalCell;
 
     float fSampleRate;
     float fCrestFactorAutoGain;
@@ -107,10 +107,6 @@ private:
 
     int nReleaseRate;
     float fReleaseCoefficient;
-    float* fReleaseCoefficientsOptical;
-
-    float fOpticalDivisorA;
-    float fOpticalDivisorB;
 
     float queryGainComputer(float fInputLevel);
     float applyLevelDetectionFilter(float fDetectorInputLevel);

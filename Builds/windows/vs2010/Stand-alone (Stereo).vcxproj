@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{C96E2788-A4E7-5EC1-FC82-87501905D2AB}</ProjectGuid>
+		<ProjectGuid>{F878F25E-6123-F918-0BC2-4DAB3FBA401A}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -216,6 +216,7 @@
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_toggle_switch.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\optical_cell.h" />
 		<ClInclude Include="..\..\..\Source\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_switch.h" />
@@ -239,6 +240,8 @@
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\optical_cell.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_combined.cpp">
 		</ClCompile>

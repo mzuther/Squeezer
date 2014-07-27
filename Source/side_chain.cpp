@@ -32,26 +32,8 @@ SideChain::SideChain(int nSampleRate)
     return value: none
 */
 {
-    setSampleRate(nSampleRate);
-
-    // optical detector: rate correction for 0 dB gain reduction
-    float y1 = 0.33f;
-
-    // optical detector: gain reduction (in decibels) where rate
-    // correction is exactly 1.0
-    float x2 = 3.0f;
-
-    // optical detector: initialise calculation factors
-    fOpticalDivisorA = 1.0f / y1;
-    fOpticalDivisorB = (1.0f + x2 - fOpticalDivisorA) / x2;
-
-    // optical detector: initialise release coefficients
-    fReleaseCoefficientsOptical = new float[nNumberOfFactors];
-
-    for (int nIndex = 0; nIndex < nNumberOfFactors; nIndex++)
-    {
-        fReleaseCoefficientsOptical[nIndex] = -1.0f;
-    }
+    fSampleRate = (float) nSampleRate;
+    pOpticalCell = new OpticalCell(fSampleRate);
 
     setThreshold(-12.0f);
     setRatio(2.0f);
@@ -81,8 +63,8 @@ SideChain::~SideChain()
     return value: none
 */
 {
-    delete [] fReleaseCoefficientsOptical;
-    fReleaseCoefficientsOptical = nullptr;
+    delete pOpticalCell;
+    pOpticalCell = nullptr;
 }
 
 
@@ -97,18 +79,6 @@ void SideChain::reset()
     fDetectorOutputLevelSquared = 0.0f;
 
     fCrestFactorAutoGain = 0.0f;
-}
-
-
-void SideChain::setSampleRate(int nSampleRate)
-/*  Set new sample rate.
-
-    nSampleRate (int): new sample rate in Hertz
-
-    return value: none
- */
-{
-    fSampleRate = (float) nSampleRate;
 }
 
 
@@ -160,6 +130,11 @@ void SideChain::setDetector(int nDetectorTypeNew)
 {
     nDetectorType = nDetectorTypeNew;
     fGainReductionIntermediate = 0.0f;
+
+    if (nDetectorType == Compressor::DetectorOptical)
+    {
+        pOpticalCell->reset();
+    }
 
     setAttackRate(nAttackRate);
     setReleaseRate(nReleaseRate);
@@ -309,19 +284,9 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
         }
         else if (nDetectorType == Compressor::DetectorOptical)
         {
-            // prepare calculation of logarithmic envelope
-            float fReleaseCoefficientPrepared = logf(0.10f) / (fReleaseRateSeconds * fSampleRate);
-
-            for (int nIndex = 0; nIndex < nNumberOfFactors; nIndex++)
-            {
-                float fGainReductionOld = float(nIndex);
-                float fOpticalCoefficientFactor = (1.0f + fGainReductionOld) / (fOpticalDivisorA + fOpticalDivisorB * fGainReductionOld);
-
-                fReleaseCoefficientsOptical[nIndex] = expf(fReleaseCoefficientPrepared * fOpticalCoefficientFactor);
-            }
-
-            // not used by optical detector
-            fReleaseCoefficient = -1.0f;
+            // logarithmic envelope reaches 90% of the final reading
+            // in the given release time
+            fReleaseCoefficient = expf(logf(0.10f) / (fReleaseRateSeconds * fSampleRate));
         }
         else
         {
@@ -410,6 +375,11 @@ void SideChain::processSample(float fInputLevel)
     // feed input level to gain computer
     float fGainReductionNew = queryGainComputer(fInputLevel);
 
+    if (nDetectorType == Compressor::DetectorOptical)
+    {
+        fGainReductionNew = pOpticalCell->processGainReduction(fGainReductionNew);
+    }
+
     // filter calculated gain reduction through level detection filter
     fGainReductionNew = applyLevelDetectionFilter(fGainReductionNew);
 
@@ -496,7 +466,8 @@ float SideChain::applyLevelDetectionFilter(float fDetectorInputLevel)
 
 
 void SideChain::applyDetectorLinear(float fGainReductionNew)
-/*  Calculate detector with logarithmic attack and linear release.
+/*  Calculate detector with logarithmic attack and linear release
+    ("Linear").
 
     fGainReductionNew (float): calculated new gain reduction in
     decibels
@@ -544,7 +515,7 @@ void SideChain::applyDetectorLinear(float fGainReductionNew)
 
 
 void SideChain::applyDetectorSmoothDecoupled(float fGainReductionNew)
-/*  Calculate smooth decoupled detector.
+/*  Calculate smooth decoupled detector ("S-Curve").
 
     fGainReductionNew (float): calculated gain reduction in decibels
 
@@ -586,7 +557,7 @@ void SideChain::applyDetectorSmoothDecoupled(float fGainReductionNew)
 
 
 void SideChain::applyDetectorSmoothBranching(float fGainReductionNew)
-/*  Calculate smooth branching detector.
+/*  Calculate smooth branching detector ("Logarithmic").
 
     fGainReductionNew (float): calculated gain reduction in decibels
 
@@ -633,7 +604,7 @@ void SideChain::applyDetectorSmoothBranching(float fGainReductionNew)
 
 
 void SideChain::applyDetectorOptical(float fGainReductionNew)
-/*  Calculate optical detector.
+/*  Calculate optical detector ("Optical").
 
     fGainReductionNew (float): calculated gain reduction in decibels
 
@@ -668,32 +639,11 @@ void SideChain::applyDetectorOptical(float fGainReductionNew)
         }
         else
         {
-            float fGainReductionOld = fGainReduction;
-
-            // get release coefficient by linear interpolation
-            float x = fGainReductionOld;
-            int x0 = int(x);
-            int x1 = x0 + 1;
-
-            if (x0 < 0)
-            {
-                fReleaseCoefficient = fReleaseCoefficientsOptical[0];
-            }
-            else if (x1 >= nNumberOfFactors)
-            {
-                fReleaseCoefficient = fReleaseCoefficientsOptical[nNumberOfFactors - 1];
-            }
-            else
-            {
-                float y0 = fReleaseCoefficientsOptical[x0];
-                float y1 = fReleaseCoefficientsOptical[x1];
-
-                fReleaseCoefficient = y0 + (y1 - y0) * (x - float(x0)) / (float(x1) - float(x0));
-            }
-
             // algorithm adapted from Giannoulis et al., "Digital
             // Dynamic Range Compressor Design - A Tutorial and
             // Analysis", JAES, 60(6):399-408, 2012
+
+            float fGainReductionOld = fGainReduction;
             fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
         }
     }

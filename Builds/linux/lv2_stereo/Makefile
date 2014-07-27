@@ -112,6 +112,7 @@ OBJECTS := \
 	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
+	$(OBJDIR)/optical_cell.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/filter_chebyshev_stage.o \
@@ -216,6 +217,9 @@ $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/optical_cell.o: ../../../Source/optical_cell.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_combined.o: ../../../Source/slider_combined.cpp
