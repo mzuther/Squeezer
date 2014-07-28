@@ -113,7 +113,6 @@ private:
     void applyDetectorLinear(float fGainReductionNew);
     void applyDetectorSmoothDecoupled(float fGainReductionNew);
     void applyDetectorSmoothBranching(float fGainReductionNew);
-    void applyDetectorOptical(float fGainReductionNew);
 };
 
 

@@ -282,12 +282,6 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
             // rate (linear)
             fReleaseCoefficient = 10.0f / (fReleaseRateSeconds * fSampleRate);
         }
-        else if (nDetectorType == Compressor::DetectorOptical)
-        {
-            // logarithmic envelope reaches 90% of the final reading
-            // in the given release time
-            fReleaseCoefficient = expf(logf(0.10f) / (fReleaseRateSeconds * fSampleRate));
-        }
         else
         {
             // logarithmic envelope reaches 90% of the final reading
@@ -399,7 +393,7 @@ void SideChain::processSample(float fInputLevel)
         break;
 
     case Compressor::DetectorOptical:
-        applyDetectorOptical(fGainReductionNew);
+        applyDetectorSmoothBranching(fGainReductionNew);
         break;
 
     default:
@@ -558,53 +552,6 @@ void SideChain::applyDetectorSmoothDecoupled(float fGainReductionNew)
 
 void SideChain::applyDetectorSmoothBranching(float fGainReductionNew)
 /*  Calculate smooth branching detector ("Logarithmic").
-
-    fGainReductionNew (float): calculated gain reduction in decibels
-
-    return value: none
-*/
-{
-    // apply attack rate if proposed gain reduction is above old gain
-    // reduction
-    if (fGainReductionNew > fGainReduction)
-    {
-        if (fAttackCoefficient == 0.0f)
-        {
-            fGainReduction = fGainReductionNew;
-        }
-        else
-        {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
-
-            float fGainReductionOld = fGainReduction;
-            fGainReduction = (fAttackCoefficient * fGainReductionOld) + (1.0f - fAttackCoefficient) * fGainReductionNew;
-        }
-    }
-    // otherwise, apply release rate if proposed gain reduction is
-    // below old gain reduction
-    else
-    {
-        if (fReleaseCoefficient == 0.0f)
-        {
-            fGainReduction = fGainReductionNew;
-        }
-        else
-        {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
-
-            float fGainReductionOld = fGainReduction;
-            fGainReduction = (fReleaseCoefficient * fGainReductionOld) + (1.0f - fReleaseCoefficient) * fGainReductionNew;
-        }
-    }
-}
-
-
-void SideChain::applyDetectorOptical(float fGainReductionNew)
-/*  Calculate optical detector ("Optical").
 
     fGainReductionNew (float): calculated gain reduction in decibels
 
