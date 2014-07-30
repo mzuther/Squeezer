@@ -26,7 +26,7 @@
 #include "optical_cell.h"
 
 
-#define NUMBER_OF_DECIBELS 36
+#define NUMBER_OF_DECIBELS 37
 #define COEFFICIENTS_PER_DECIBEL 2.0f
 #define NUMBER_OF_COEFFICIENTS NUMBER_OF_DECIBELS * int(COEFFICIENTS_PER_DECIBEL)
 
@@ -39,33 +39,44 @@ OpticalCell::OpticalCell(int nSampleRate)
 {
     fSampleRate = (float) nSampleRate;
 
+    float fLightHistoryRateSeconds = 10.0f;
+
+    // logarithmic envelope reaches 90% of the final reading
+    // in the given attack/release time
+    fLightHistoryCoefficient = expf(logf(0.10f) / (fLightHistoryRateSeconds * fSampleRate));
+
     pAttackCoefficients = new float[NUMBER_OF_COEFFICIENTS];
     pReleaseCoefficients = new float[NUMBER_OF_COEFFICIENTS];
 
     for (int nCoefficient = 0; nCoefficient < NUMBER_OF_COEFFICIENTS; nCoefficient++)
     {
-        //  0 dB:  Attack: 16 ms, 80 ms Release
-        //  6 dB:  Attack:  5 ms, 27 ms Release
-        // 12 dB:  Attack:  3 ms, 16 ms Release
-        // 18 dB:  Attack:  2 ms, 11 ms Release
-        // 24 dB:  Attack:  2 ms,  9 ms Release
+        //  0 dB:  Attack: 16 ms, Release: 160 ms
+        //  6 dB:  Attack:  5 ms, Release:  53 ms
+        // 12 dB:  Attack:  3 ms, Release:  32 ms
+        // 18 dB:  Attack:  2 ms, Release:  23 ms
+        // 24 dB:  Attack:  2 ms, Release:  18 ms
 
         float fDecibels = float(nCoefficient) / COEFFICIENTS_PER_DECIBEL;
-        float fResistance = 180.0f / (3.0f + fDecibels);
-        float fAttackRate = fResistance / 5.0f;
+        float fResistance = 480.0f / (3.0f + fDecibels);
+        float fAttackRate = fResistance / 10.0f;
         float fReleaseRate = fResistance;
+
+        // if (nCoefficient % (6 * int(COEFFICIENTS_PER_DECIBEL)) == 0)
+        // {
+        //     DBG(String(fDecibels) + " dB:  Attack: " + String(fAttackRate, 1) + " ms, Release: " + String(fReleaseRate, 1) + " ms");
+        // }
 
         float fAttackRateSeconds = fAttackRate / 1000.0f;
         float fReleaseRateSeconds = fReleaseRate / 1000.0f;
 
-        // logarithmic envelopes that reach 63% of the final reading
+        // logarithmic envelopes that reach 73% of the final reading
         // in the given attack time
-        pAttackCoefficients[nCoefficient] = expf(logf(0.37f) / (fAttackRateSeconds * fSampleRate));
-        pReleaseCoefficients[nCoefficient] = expf(logf(0.37f) / (fReleaseRateSeconds * fSampleRate));
+        pAttackCoefficients[nCoefficient] = expf(logf(0.27f) / (fAttackRateSeconds * fSampleRate));
+        pReleaseCoefficients[nCoefficient] = expf(logf(0.27f) / (fReleaseRateSeconds * fSampleRate));
     }
 
     // reset (i.e. initialise) all relevant variables
-    reset();
+    reset(0.0f);
 }
 
 
@@ -83,13 +94,14 @@ OpticalCell::~OpticalCell()
 }
 
 
-void OpticalCell::reset()
+void OpticalCell::reset(float fCurrentGainReduction)
 /*  Reset all relevant variables.
 
     return value: none
 */
 {
-    fGainReduction = 0.0f;
+    fGainReduction = fCurrentGainReduction;
+    fLightHistory = 0.0f;
 }
 
 
@@ -103,8 +115,12 @@ float OpticalCell::processGainReduction(float fGainReductionNew)
     decibel
  */
 {
+    float fLightHistoryOld = fLightHistory;
+    fLightHistory = (fLightHistoryCoefficient * fLightHistoryOld) + (1.0f - fLightHistoryCoefficient) * fGainReductionNew;
+
     float fGainReductionOld = fGainReduction;
-    int nCoefficient = int(fGainReductionNew * COEFFICIENTS_PER_DECIBEL);
+    float fCoefficient = fGainReductionNew - (fLightHistory * 0.15f);
+    int nCoefficient = int(fCoefficient * COEFFICIENTS_PER_DECIBEL);
 
     if (nCoefficient < 0)
     {

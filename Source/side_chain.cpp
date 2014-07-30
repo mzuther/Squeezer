@@ -133,7 +133,7 @@ void SideChain::setDetector(int nDetectorTypeNew)
 
     if (nDetectorType == Compressor::DetectorOptical)
     {
-        pOpticalCell->reset();
+        pOpticalCell->reset(fGainReduction);
     }
 
     setAttackRate(nAttackRate);
@@ -302,13 +302,21 @@ float SideChain::getGainReduction(bool bAutoMakeupGain)
     decibel
  */
 {
+    float fGainReductionTemp = fGainReduction;
+
+    if (nDetectorType == Compressor::DetectorOptical)
+    {
+        fGainReductionTemp = pOpticalCell->processGainReduction(fGainReductionTemp);
+    }
+
     if (bAutoMakeupGain)
     {
-        return fGainReduction - fGainCompensation;
+
+        return fGainReductionTemp - fGainCompensation;
     }
     else
     {
-        return fGainReduction;
+        return fGainReductionTemp;
     }
 }
 
@@ -368,11 +376,6 @@ void SideChain::processSample(float fInputLevel)
 {
     // feed input level to gain computer
     float fGainReductionNew = queryGainComputer(fInputLevel);
-
-    if (nDetectorType == Compressor::DetectorOptical)
-    {
-        fGainReductionNew = pOpticalCell->processGainReduction(fGainReductionNew);
-    }
 
     // filter calculated gain reduction through level detection filter
     fGainReductionNew = applyLevelDetectionFilter(fGainReductionNew);

@@ -38,7 +38,7 @@ public:
     OpticalCell(int nSampleRate);
     ~OpticalCell();
 
-    void reset();
+    void reset(float fCurrentGainReduction);
     float processGainReduction(float fGainReductionNew);
 
     static float level2decibel(float fLevel);
@@ -48,6 +48,9 @@ private:
 
     float fSampleRate;
     float fGainReduction;
+
+    float fLightHistory;
+    float fLightHistoryCoefficient;
 
     float* pAttackCoefficients;
     float* pReleaseCoefficients;
