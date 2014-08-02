@@ -52,6 +52,7 @@ public:
         selDetectorRmsFilter,
         selDesign,
         selDetector,
+        selGainStage,
 
         selThresholdSwitch,
         selThreshold,
@@ -91,6 +92,7 @@ private:
     WrappedParameterSwitch* ParameterDetectorRmsFilter;
     WrappedParameterSwitch* ParameterDesign;
     WrappedParameterSwitch* ParameterDetector;
+    WrappedParameterSwitch* ParameterGainStage;
 
     WrappedParameterCombined* ParameterThreshold;
     WrappedParameterCombined* ParameterRatio;

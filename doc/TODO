@@ -5,3 +5,5 @@ o [mzuther] document code
 * implement parameter smoothing ("anti-zipper")
 
 * implement external side-chain
+
+* mono instance

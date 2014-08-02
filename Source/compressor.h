@@ -58,8 +58,11 @@ public:
         DetectorLinear = 0,
         DetectorSmoothDecoupled,
         DetectorSmoothBranching,
-        DetectorOptical,
         NumberOfDetectors,
+
+        GainStageFET = 0,
+        GainStageOptical,
+        NumberOfGainStages,
     };
 
     Compressor(int channels, int sample_rate);
@@ -93,6 +96,9 @@ public:
 
     int getDetector();
     void setDetector(int nDetectorTypeNew);
+
+    int getGainStage();
+    void setGainStage(int nGainStageTypeNew);
 
     int getStereoLink();
     void setStereoLink(int nStereoLinkNew);

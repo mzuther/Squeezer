@@ -52,6 +52,9 @@ public:
     int getDetector();
     void setDetector(int nDetectorTypeNew);
 
+    int getGainStage();
+    void setGainStage(int nGainStageTypeNew);
+
     float getThreshold();
     void setThreshold(float fThresholdNew);
 
@@ -96,6 +99,8 @@ private:
 
     float fDetectorRateMilliSeconds;
     int nDetectorType;
+    int nGainStageType;
+
     float fThreshold;
     float fRatioInternal;
     float fKneeWidth;

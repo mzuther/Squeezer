@@ -85,7 +85,9 @@ private:
     TextButton* ButtonDetectorLinear;
     TextButton* ButtonDetectorSmoothDecoupled;
     TextButton* ButtonDetectorSmoothBranching;
-    TextButton* ButtonDetectorOptical;
+
+    TextButton* ButtonGainStageFET;
+    TextButton* ButtonGainStageOptical;
 
     SliderCombined* SliderThresholdCombined;
     SliderCombined* SliderRatioCombined;

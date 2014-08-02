@@ -69,10 +69,19 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterDetector->addConstant(Compressor::DetectorLinear,          "Linear");
     ParameterDetector->addConstant(Compressor::DetectorSmoothDecoupled, "S-Curve");
     ParameterDetector->addConstant(Compressor::DetectorSmoothBranching, "Logarithmic");
-    ParameterDetector->addConstant(Compressor::DetectorOptical,         "Optical");
 
     ParameterDetector->setDefaultRealFloat(Compressor::DetectorSmoothBranching, true);
     add(ParameterDetector, selDetector);
+
+
+    ParameterGainStage = new WrappedParameterSwitch();
+    ParameterGainStage->setName("Gain Stage");
+
+    ParameterGainStage->addConstant(Compressor::GainStageFET,     "FET");
+    ParameterGainStage->addConstant(Compressor::GainStageOptical, "Optical");
+
+    ParameterGainStage->setDefaultRealFloat(Compressor::GainStageFET, true);
+    add(ParameterGainStage, selGainStage);
 
 
     float fMinimum = -60.0f;
@@ -421,6 +430,9 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterDetector;
     ParameterDetector = nullptr;
 
+    delete ParameterGainStage;
+    ParameterGainStage = nullptr;
+
     delete ParameterThreshold;
     ParameterThreshold = nullptr;
 
@@ -499,6 +511,9 @@ String SqueezerPluginParameters::toString()
 
     strParameters += " (";
     strParameters += arrParameters[selDetector]->getText();
+
+    strParameters += ", ";
+    strParameters += arrParameters[selGainStage]->getText();
 
     strParameters += ")\nSide-Chain: ";
 

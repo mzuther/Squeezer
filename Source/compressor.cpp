@@ -467,6 +467,31 @@ void Compressor::setDetector(int nDetectorTypeNew)
 }
 
 
+int Compressor::getGainStage()
+/*  Get current compressor detector type.
+
+    return value (integer): returns compressor detector type
+ */
+{
+    return pSideChain[0]->getGainStage();
+}
+
+
+void Compressor::setGainStage(int nGainStageTypeNew)
+/*  Set new compressor gain stage type.
+
+    nGainStageTypeNew (integer): new compressor gain stage type
+
+    return value: none
+ */
+{
+    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    {
+        pSideChain[nChannel]->setGainStage(nGainStageTypeNew);
+    }
+}
+
+
 int Compressor::getStereoLink()
 /*  Get current stereo link percentage.
 

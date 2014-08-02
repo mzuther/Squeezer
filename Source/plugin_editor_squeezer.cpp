@@ -130,13 +130,22 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(ButtonDetectorSmoothBranching);
 
 
-    ButtonDetectorOptical = new TextButton("Opto");
-    ButtonDetectorOptical->setRadioGroupId(3);
-    ButtonDetectorOptical->setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorOptical->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.16f));
+    ButtonGainStageFET = new TextButton("FET");
+    ButtonGainStageFET->setRadioGroupId(4);
+    ButtonGainStageFET->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonGainStageFET->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonDetectorOptical->addListener(this);
-    addAndMakeVisible(ButtonDetectorOptical);
+    ButtonGainStageFET->addListener(this);
+    addAndMakeVisible(ButtonGainStageFET);
+
+
+    ButtonGainStageOptical = new TextButton("Opto");
+    ButtonGainStageOptical->setRadioGroupId(4);
+    ButtonGainStageOptical->setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonGainStageOptical->setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
+
+    ButtonGainStageOptical->addListener(this);
+    addAndMakeVisible(ButtonGainStageOptical);
 
 
     int nIndex = SqueezerPluginParameters::selThreshold;
@@ -334,6 +343,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
     updateParameter(SqueezerPluginParameters::selDesign);
     updateParameter(SqueezerPluginParameters::selDetector);
+    updateParameter(SqueezerPluginParameters::selGainStage);
 
     updateParameter(SqueezerPluginParameters::selThresholdSwitch);
     updateParameter(SqueezerPluginParameters::selThreshold);
@@ -406,13 +416,15 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     ButtonDetectorRmsMedium->setBounds(140, 90, 52, 20);
     ButtonDetectorRmsSlow->setBounds(200, 90, 52, 20);
 
-    ButtonDesignFeedForward->setBounds(80, 115, 52, 20);
-    ButtonDesignFeedBack->setBounds(140, 115, 52, 20);
+    ButtonDesignFeedForward->setBounds(20, 115, 52, 20);
+    ButtonDesignFeedBack->setBounds(80, 115, 52, 20);
+
+    ButtonGainStageFET->setBounds(140, 115, 52, 20);
+    ButtonGainStageOptical->setBounds(200, 115, 52, 20);
 
     ButtonDetectorLinear->setBounds(20, 140, 52, 20);
     ButtonDetectorSmoothDecoupled->setBounds(80, 140, 52, 20);
     ButtonDetectorSmoothBranching->setBounds(140, 140, 52, 20);
-    ButtonDetectorOptical->setBounds(200, 140, 52, 20);
 
     SliderThresholdCombined->setBounds(20, 15, 52, 60);
     SliderRatioCombined->setBounds(80, 15, 52, 60);
@@ -550,13 +562,22 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         {
             ButtonDetectorSmoothDecoupled->setToggleState(true, dontSendNotification);
         }
-        else if (fValue == (Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1)))
+        else
         {
             ButtonDetectorSmoothBranching->setToggleState(true, dontSendNotification);
         }
+
+        break;
+
+    case SqueezerPluginParameters::selGainStage:
+
+        if (fValue == (Compressor::GainStageFET / float(Compressor::NumberOfGainStages - 1)))
+        {
+            ButtonGainStageFET->setToggleState(true, dontSendNotification);
+        }
         else
         {
-            ButtonDetectorOptical->setToggleState(true, dontSendNotification);
+            ButtonGainStageOptical->setToggleState(true, dontSendNotification);
         }
 
         break;
@@ -717,9 +738,13 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1));
     }
-    else if (button == ButtonDetectorOptical)
+    else if (button == ButtonGainStageFET)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorOptical / float(Compressor::NumberOfDetectors - 1));
+        pProcessor->changeParameter(SqueezerPluginParameters::selGainStage, Compressor::GainStageFET / float(Compressor::NumberOfGainStages - 1));
+    }
+    else if (button == ButtonGainStageOptical)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selGainStage, Compressor::GainStageOptical / float(Compressor::NumberOfGainStages - 1));
     }
     else if (button == ButtonAutoMakeupGain)
     {

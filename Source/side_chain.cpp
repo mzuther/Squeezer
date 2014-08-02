@@ -41,9 +41,12 @@ SideChain::SideChain(int nSampleRate)
 
     setDetectorRmsFilter(10.0f);
     nDetectorType = Compressor::DetectorSmoothBranching;
+    nGainStageType = Compressor::GainStageFET;
+
     setAttackRate(10);
     setReleaseRate(100);
     setDetector(nDetectorType);
+    setGainStage(nGainStageType);
 
     // reset (i.e. initialise) all relevant variables
     reset();
@@ -131,13 +134,35 @@ void SideChain::setDetector(int nDetectorTypeNew)
     nDetectorType = nDetectorTypeNew;
     fGainReductionIntermediate = 0.0f;
 
-    if (nDetectorType == Compressor::DetectorOptical)
+    setAttackRate(nAttackRate);
+    setReleaseRate(nReleaseRate);
+}
+
+
+int SideChain::getGainStage()
+/*  Get current compressor detector type.
+
+    return value (integer): returns compressor detector type
+ */
+{
+    return nGainStageType;
+}
+
+
+void SideChain::setGainStage(int nGainStageTypeNew)
+/*  Set new compressor gain stage type.
+
+    nGainStageTypeNew (integer): new compressor gain stage type
+
+    return value: none
+ */
+{
+    nGainStageType = nGainStageTypeNew;
+
+    if (nGainStageType == Compressor::GainStageOptical)
     {
         pOpticalCell->reset(fGainReduction);
     }
-
-    setAttackRate(nAttackRate);
-    setReleaseRate(nReleaseRate);
 }
 
 
@@ -304,7 +329,7 @@ float SideChain::getGainReduction(bool bAutoMakeupGain)
 {
     float fGainReductionTemp = fGainReduction;
 
-    if (nDetectorType == Compressor::DetectorOptical)
+    if (nGainStageType == Compressor::GainStageOptical)
     {
         fGainReductionTemp = pOpticalCell->processGainReduction(fGainReductionTemp);
     }
@@ -392,10 +417,6 @@ void SideChain::processSample(float fInputLevel)
         break;
 
     case Compressor::DetectorSmoothBranching:
-        applyDetectorSmoothBranching(fGainReductionNew);
-        break;
-
-    case Compressor::DetectorOptical:
         applyDetectorSmoothBranching(fGainReductionNew);
         break;
 
