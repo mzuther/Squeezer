@@ -47,9 +47,6 @@ private:
     float fSampleRate;
     float fGainReduction;
 
-    float fLightHistory;
-    float fLightHistoryCoefficient;
-
     float* pAttackCoefficients;
     float* pReleaseCoefficients;
 };

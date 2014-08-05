@@ -39,12 +39,6 @@ GainStageOptical::GainStageOptical(int nSampleRate) : GainStage::GainStage(nSamp
 {
     fSampleRate = (float) nSampleRate;
 
-    float fLightHistoryRateSeconds = 10.0f;
-
-    // logarithmic envelope reaches 90% of the final reading
-    // in the given attack/release time
-    fLightHistoryCoefficient = expf(logf(0.10f) / (fLightHistoryRateSeconds * fSampleRate));
-
     pAttackCoefficients = new float[NUMBER_OF_COEFFICIENTS];
     pReleaseCoefficients = new float[NUMBER_OF_COEFFICIENTS];
 
@@ -101,7 +95,6 @@ void GainStageOptical::reset(float fCurrentGainReduction)
 */
 {
     fGainReduction = fCurrentGainReduction;
-    fLightHistory = 0.0f;
 }
 
 
@@ -115,11 +108,8 @@ float GainStageOptical::processGainReduction(float fGainReductionNew)
     decibel
  */
 {
-    float fLightHistoryOld = fLightHistory;
-    fLightHistory = (fLightHistoryCoefficient * fLightHistoryOld) + (1.0f - fLightHistoryCoefficient) * fGainReductionNew;
-
     float fGainReductionOld = fGainReduction;
-    float fCoefficient = fGainReductionNew - (fLightHistory * 0.15f);
+    float fCoefficient = fGainReductionNew;
     int nCoefficient = int(fCoefficient * COEFFICIENTS_PER_DECIBEL);
 
     if (nCoefficient < 0)
