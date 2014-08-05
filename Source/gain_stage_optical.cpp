@@ -23,7 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "optical_cell.h"
+#include "gain_stage_optical.h"
 
 
 #define NUMBER_OF_DECIBELS 37
@@ -31,7 +31,7 @@
 #define NUMBER_OF_COEFFICIENTS NUMBER_OF_DECIBELS * int(COEFFICIENTS_PER_DECIBEL)
 
 
-OpticalCell::OpticalCell(int nSampleRate)
+GainStageOptical::GainStageOptical(int nSampleRate) : GainStage::GainStage(nSampleRate)
 /*  Constructor.
 
     return value: none
@@ -80,7 +80,7 @@ OpticalCell::OpticalCell(int nSampleRate)
 }
 
 
-OpticalCell::~OpticalCell()
+GainStageOptical::~GainStageOptical()
 /*  Destructor.
 
     return value: none
@@ -94,7 +94,7 @@ OpticalCell::~OpticalCell()
 }
 
 
-void OpticalCell::reset(float fCurrentGainReduction)
+void GainStageOptical::reset(float fCurrentGainReduction)
 /*  Reset all relevant variables.
 
     return value: none
@@ -105,7 +105,7 @@ void OpticalCell::reset(float fCurrentGainReduction)
 }
 
 
-float OpticalCell::processGainReduction(float fGainReductionNew)
+float GainStageOptical::processGainReduction(float fGainReductionNew)
 /*  Get current gain reduction.
 
     bAutoMakeupGain (boolean): determines whether the gain reduction
@@ -151,59 +151,6 @@ float OpticalCell::processGainReduction(float fGainReductionNew)
     }
 
     return fGainReduction;
-}
-
-
-float OpticalCell::level2decibel(float fLevel)
-/*  Convert level from linear scale to decibels (dB).
-
-    fLevel (float): audio level
-
-    return value (float): returns given level in decibels (dB) when
-    above "fMeterMinimumDecibel", otherwise "fMeterMinimumDecibel"
-*/
-{
-    float fMeterMinimumDecibel = -70.01f;
-
-    // log(0) is not defined, so return "fMeterMinimumDecibel"
-    if (fLevel == 0.0f)
-    {
-        return fMeterMinimumDecibel;
-    }
-    else
-    {
-        // calculate decibels from audio level (a factor of 20.0 is
-        // needed to calculate *level* ratios, whereas 10.0 is needed
-        // for *power* ratios!)
-        float fDecibels = 20.0f * log10f(fLevel);
-
-        // to make meter ballistics look nice for low levels, do not
-        // return levels below "fMeterMinimumDecibel"
-        if (fDecibels < fMeterMinimumDecibel)
-        {
-            return fMeterMinimumDecibel;
-        }
-        else
-        {
-            return fDecibels;
-        }
-    }
-}
-
-
-float OpticalCell::decibel2level(float fDecibels)
-/*  Convert level from decibels (dB) to linear scale.
-
-    fLevel (float): audio level in decibels (dB)
-
-    return value (float): given level in linear scale
-*/
-{
-    // calculate audio level from decibels (a divisor of 20.0 is
-    // needed to calculate *level* ratios, whereas 10.0 is needed for
-    // *power* ratios!)
-    float fLevel = powf(10.0f, fDecibels / 20.0f);
-    return fLevel;
 }
 
 

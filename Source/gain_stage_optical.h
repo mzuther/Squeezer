@@ -23,28 +23,26 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __OPTICAL_CELL_H__
-#define __OPTICAL_CELL_H__
+#ifndef __GAIN_STAGE_OPTICAL_H__
+#define __GAIN_STAGE_OPTICAL_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "gain_stage.h"
 
 
 //==============================================================================
 /**
 */
-class OpticalCell
+class GainStageOptical : virtual public GainStage
 {
 public:
-    OpticalCell(int nSampleRate);
-    ~OpticalCell();
+    GainStageOptical(int nSampleRate);
+    ~GainStageOptical();
 
     void reset(float fCurrentGainReduction);
     float processGainReduction(float fGainReductionNew);
-
-    static float level2decibel(float fLevel);
-    static float decibel2level(float fDecibels);
 private:
-    JUCE_LEAK_DETECTOR(OpticalCell);
+    JUCE_LEAK_DETECTOR(GainStageOptical);
 
     float fSampleRate;
     float fGainReduction;
@@ -57,7 +55,7 @@ private:
 };
 
 
-#endif  // __OPTICAL_CELL_H__
+#endif  // __GAIN_STAGE_OPTICAL_H__
 
 
 // Local Variables:

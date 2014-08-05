@@ -31,7 +31,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "compressor.h"
-#include "optical_cell.h"
+#include "gain_stage_fet.h"
+#include "gain_stage_optical.h"
 #include "plugin_processor_squeezer.h"
 
 
@@ -86,7 +87,9 @@ private:
     float fDebugTimeInReleasePhase;
 #endif
 
-    OpticalCell* pOpticalCell;
+    GainStage* pGainStageCurrent;
+    GainStageFET* pGainStageFET;
+    GainStageOptical* pGainStageOptical;
 
     float fSampleRate;
     float fCrestFactorAutoGain;

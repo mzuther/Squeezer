@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{A54AF1E1-2DB0-C7DE-CE6A-CE1A09EF53D3}</ProjectGuid>
+		<ProjectGuid>{5A22624A-2590-2C8D-9EB0-5C26C384D464}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -215,16 +215,17 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_continuous.h" />
 		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
+		<ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_level.h" />
+		<ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_toggle_switch.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
-		<ClInclude Include="..\..\..\Source\optical_cell.h" />
 		<ClInclude Include="..\..\..\Source\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_switch.h" />
@@ -237,18 +238,19 @@
 		<ClInclude Include="..\..\..\Source\plugin_editor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\window_settings.h" />
 		<ClInclude Include="..\..\..\Source\side_chain.h" />
+		<ClInclude Include="..\..\..\Source\gain_stage.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\gain_stage_optical.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_toggle_switch.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\optical_cell.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\slider_combined.cpp">
 		</ClCompile>
@@ -285,6 +287,8 @@
 		<ClCompile Include="..\..\..\Source\plugin_processor_squeezer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_combined.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\gain_stage_fet.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\resources\resources.cpp">
 		</ClCompile>

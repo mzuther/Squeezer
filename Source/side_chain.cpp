@@ -33,7 +33,10 @@ SideChain::SideChain(int nSampleRate)
 */
 {
     fSampleRate = (float) nSampleRate;
-    pOpticalCell = new OpticalCell(fSampleRate);
+
+    pGainStageCurrent = nullptr;
+    pGainStageFET = new GainStageFET(fSampleRate);
+    pGainStageOptical = new GainStageOptical(fSampleRate);
 
     setThreshold(-12.0f);
     setRatio(2.0f);
@@ -66,8 +69,13 @@ SideChain::~SideChain()
     return value: none
 */
 {
-    delete pOpticalCell;
-    pOpticalCell = nullptr;
+    pGainStageCurrent = nullptr;
+
+    delete pGainStageFET;
+    pGainStageFET = nullptr;
+
+    delete pGainStageOptical;
+    pGainStageOptical = nullptr;
 }
 
 
@@ -159,10 +167,16 @@ void SideChain::setGainStage(int nGainStageTypeNew)
 {
     nGainStageType = nGainStageTypeNew;
 
-    if (nGainStageType == Compressor::GainStageOptical)
+    if (nGainStageType == Compressor::GainStageFET)
     {
-        pOpticalCell->reset(fGainReduction);
+        pGainStageCurrent = pGainStageFET;
     }
+    else if (nGainStageType == Compressor::GainStageOptical)
+    {
+        pGainStageCurrent = pGainStageOptical;
+    }
+
+    pGainStageCurrent->reset(fGainReduction);
 }
 
 
@@ -327,12 +341,7 @@ float SideChain::getGainReduction(bool bAutoMakeupGain)
     decibel
  */
 {
-    float fGainReductionTemp = fGainReduction;
-
-    if (nGainStageType == Compressor::GainStageOptical)
-    {
-        fGainReductionTemp = pOpticalCell->processGainReduction(fGainReductionTemp);
-    }
+    float fGainReductionTemp = pGainStageCurrent->processGainReduction(fGainReduction);
 
     if (bAutoMakeupGain)
     {
