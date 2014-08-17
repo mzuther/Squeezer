@@ -29,9 +29,11 @@ StandaloneApplication::StandaloneApplication()
 {
 }
 
+
 StandaloneApplication::~StandaloneApplication()
 {
 }
+
 
 void StandaloneApplication::initialise(const String& commandLineParameters)
 {
@@ -44,22 +46,26 @@ void StandaloneApplication::initialise(const String& commandLineParameters)
     PropertiesFile* pPropertiesFile = new PropertiesFile(options);
     String strApplicationName = getApplicationName();
 
-    filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black, pPropertiesFile);
+    filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black, pPropertiesFile, true);
 
     filterWindow->setTitleBarButtonsRequired(DocumentWindow::allButtons, false);
     filterWindow->setVisible(true);
     filterWindow->setResizable(false, true);
 }
 
+
 void StandaloneApplication::shutdown()
 {
+    filterWindow->pluginHolder->savePluginState();
     deleteAndZero(filterWindow);
 }
+
 
 const String StandaloneApplication::getApplicationName()
 {
     return JucePlugin_Name;
 }
+
 
 const String StandaloneApplication::getApplicationVersion()
 {
