@@ -61,11 +61,11 @@ MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, 
             nColor = 0;
             nThreshold += 20;
         }
-        else if (nThreshold >= 160)
+        else if (nThreshold > 80)
         {
             nColor = 0;
         }
-        else if (nThreshold >= 100)
+        else if (nThreshold > 0)
         {
             nColor = 1;
         }

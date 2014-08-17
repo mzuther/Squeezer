@@ -91,7 +91,7 @@ void SideChain::reset()
     fGainCompensation = 0.0f;
     fDetectorOutputLevelSquared = 0.0f;
 
-    fCrestFactorAutoGain = 0.0f;
+    fCrestFactorAutoGain = 20.0f;
 }
 
 
@@ -178,6 +178,9 @@ void SideChain::setGainStage(int nGainStageTypeNew)
         pGainStageCurrent = pGainStageOptical;
     }
 
+    // update gain compensation
+    setThreshold(fThreshold);
+
     pGainStageCurrent->reset(fGainReduction);
 }
 
@@ -201,7 +204,7 @@ void SideChain::setThreshold(float fThresholdNew)
  */
 {
     fThreshold = fThresholdNew;
-    fGainCompensation = queryGainComputer(fCrestFactorAutoGain);
+    fGainCompensation = queryGainComputer(fCrestFactorAutoGain) / 2.0f;
 }
 
 
