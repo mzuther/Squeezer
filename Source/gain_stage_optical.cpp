@@ -34,6 +34,8 @@
 GainStageOptical::GainStageOptical(int nSampleRate) : GainStage::GainStage(nSampleRate)
 /*  Constructor.
 
+    nSampleRate (integer): internal sample rate
+
     return value: none
 */
 {
@@ -91,6 +93,8 @@ GainStageOptical::~GainStageOptical()
 void GainStageOptical::reset(float fCurrentGainReduction)
 /*  Reset all relevant variables.
 
+    fCurrentGainReduction (float): current gain reduction in decibels
+
     return value: none
 */
 {
@@ -98,13 +102,16 @@ void GainStageOptical::reset(float fCurrentGainReduction)
 }
 
 
-float GainStageOptical::processGainReduction(float fGainReductionNew)
-/*  Get current gain reduction.
+float GainStageOptical::processGainReduction(float fGainReductionNew, float fGainReductionIdeal)
+/*  Process current gain reduction.
 
-    bAutoMakeupGain (boolean): determines whether the gain reduction
-    should be level compensated or not
+    fGainReductionNew (float): calculated new gain reduction in
+    decibels
 
-    return value (float): returns the current gain reduction in
+    fGainReductionIdeal (float): calculated "ideal" gain reduction
+    (without any envelopes) decibels
+
+    return value (float): returns the processed gain reduction in
     decibel
  */
 {
@@ -140,7 +147,19 @@ float GainStageOptical::processGainReduction(float fGainReductionNew)
         fGainReduction = (pReleaseCoefficients[nCoefficient] * fGainReductionOld) + (1.0f - pReleaseCoefficients[nCoefficient]) * fGainReductionNew;
     }
 
-    return fGainReduction;
+    // saturation of optical element
+    if (fGainReduction < fGainReductionIdeal)
+    {
+        float fDiff = fGainReductionIdeal - fGainReduction;
+        float fLimit = 18.0f;
+
+        fDiff = fLimit - fLimit / (1.0f + fDiff / fLimit);
+        return fGainReductionIdeal - fDiff;
+    }
+    else
+    {
+        return fGainReduction;
+    }
 }
 
 

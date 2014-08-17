@@ -34,6 +34,8 @@
 GainStageFET::GainStageFET(int nSampleRate) : GainStage::GainStage(nSampleRate)
 /*  Constructor.
 
+    nSampleRate (integer): internal sample rate
+
     return value: none
 */
 {
@@ -54,6 +56,8 @@ GainStageFET::~GainStageFET()
 void GainStageFET::reset(float fCurrentGainReduction)
 /*  Reset all relevant variables.
 
+    fCurrentGainReduction (float): current gain reduction in decibels
+
     return value: none
 */
 {
@@ -61,13 +65,16 @@ void GainStageFET::reset(float fCurrentGainReduction)
 }
 
 
-float GainStageFET::processGainReduction(float fGainReductionNew)
-/*  Get current gain reduction.
+float GainStageFET::processGainReduction(float fGainReductionNew, float fGainReductionIdeal)
+/*  Process current gain reduction.
 
-    bAutoMakeupGain (boolean): determines whether the gain reduction
-    should be level compensated or not
+    fGainReductionNew (float): calculated new gain reduction in
+    decibels
 
-    return value (float): returns the current gain reduction in
+    fGainReductionIdeal (float): calculated "ideal" gain reduction
+    (without any envelopes) decibels
+
+    return value (float): returns the processed gain reduction in
     decibel
  */
 {

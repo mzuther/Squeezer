@@ -29,6 +29,8 @@
 SideChain::SideChain(int nSampleRate)
 /*  Constructor.
 
+    nSampleRate (integer): internal sample rate
+
     return value: none
 */
 {
@@ -341,7 +343,7 @@ float SideChain::getGainReduction(bool bAutoMakeupGain)
     decibel
  */
 {
-    float fGainReductionTemp = pGainStageCurrent->processGainReduction(fGainReduction);
+    float fGainReductionTemp = pGainStageCurrent->processGainReduction(fGainReduction, fGainReductionIdeal);
 
     if (bAutoMakeupGain)
     {
@@ -409,10 +411,10 @@ void SideChain::processSample(float fInputLevel)
 */
 {
     // feed input level to gain computer
-    float fGainReductionNew = queryGainComputer(fInputLevel);
+    fGainReductionIdeal = queryGainComputer(fInputLevel);
 
     // filter calculated gain reduction through level detection filter
-    fGainReductionNew = applyLevelDetectionFilter(fGainReductionNew);
+    float fGainReductionNew = applyLevelDetectionFilter(fGainReductionIdeal);
 
     // feed output from gain computer to level detector
     switch (nDetectorType)

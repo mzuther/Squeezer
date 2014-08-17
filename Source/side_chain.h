@@ -94,6 +94,7 @@ private:
     float fSampleRate;
     float fCrestFactorAutoGain;
     float fGainReduction;
+    float fGainReductionIdeal;
     float fGainReductionIntermediate;
     float fGainCompensation;
 

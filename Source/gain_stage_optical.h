@@ -40,7 +40,7 @@ public:
     ~GainStageOptical();
 
     void reset(float fCurrentGainReduction);
-    float processGainReduction(float fGainReductionNew);
+    float processGainReduction(float fGainReductionNew, float fGainReductionIdeal);
 private:
     JUCE_LEAK_DETECTOR(GainStageOptical);
 
