@@ -50,6 +50,7 @@ MeterSegment::MeterSegment(const String& componentName, float fThreshold, float 
     // initialise meter segment's brightness (0.0f is dark, 1.0f is
     // fully lit)
     fBrightness = 0.0f;
+    fBrightnessOutline = 0.0f;
 
     // set meter segment's hue from colour number
     if (nColor == 0)
@@ -90,12 +91,19 @@ void MeterSegment::paint(Graphics& g)
     int width = getWidth();
     int height = getHeight();
 
-    // initialise meter segment's colour from hue and brightness
+    // initialise meter segment's outline colour from hue and
+    // brightness
+    g.setColour(Colour(fHue, 1.0f, fBrightnessOutline, 1.0f));
+
+    // outline meter segment with solid colour, but leave a border of
+    // one pixel for peak marker
+    g.drawRect(1, 1, width - 2, height - 2);
+
+    // initialise meter segment's fill colour from hue and brightness
     g.setColour(Colour(fHue, 1.0f, fBrightness, 1.0f));
 
-    // fill meter segment with solid colour, but leave a border of one
-    // pixel for peak marker
-    g.fillRect(1, 1, width - 2, height - 2);
+    // fill remaining meter segment with solid colour
+    g.fillRect(2, 2, width - 4, height - 4);
 
     // if peak marker is lit, draw a white rectangle around meter
     // segment (width: 1 pixel)
@@ -130,28 +138,33 @@ void MeterSegment::setLevels(float fPeakLevel, float fAverageLevel, float fPeakL
     if (fAverageLevel >= fUpperThreshold)
     {
         fBrightness = 0.97f;
+        fBrightnessOutline = 0.90f;
     }
     // peak metering is enabled and current peak level lies within
     // thresholds or on upper threshold, so fully light meter segment
     else if (displayPeakMeter && (fPeakLevel > fLowerThreshold) && (fPeakLevel <= fUpperThreshold))
     {
         fBrightness = 0.97f;
+        fBrightnessOutline = 0.90f;
     }
     // current average level lies on or below lower threshold, so set
     // meter segment to dark
     else if (fAverageLevel <= fLowerThreshold)
     {
-        fBrightness = 0.10f;
+        fBrightness = 0.25f;
+        fBrightnessOutline = 0.30f;
     }
     // current average level lies within thresholds, so calculate
     // brightness from current level
     else
     {
         fBrightness = (fAverageLevel - fLowerThreshold) / fThresholdRange;
+        fBrightnessOutline = fBrightness;
 
         // to look well, meter segments should be left with some
         // colour and not have maximum brightness
-        fBrightness = fBrightness * 0.87f + 0.10f;
+        fBrightness = fBrightness * 0.72f + 0.25f;
+        fBrightnessOutline = fBrightnessOutline * 0.60f + 0.30f;
     }
 
     // peak metering is enabled and meter's peak level peak lies
