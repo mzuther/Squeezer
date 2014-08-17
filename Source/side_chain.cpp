@@ -227,7 +227,7 @@ void SideChain::setRatio(float fRatioNew)
  */
 {
     fRatioInternal = 1.0f - (1.0f / fRatioNew);
-    fGainCompensation = queryGainComputer(fCrestFactorAutoGain);
+    fGainCompensation = queryGainComputer(fCrestFactorAutoGain) / 2.0f;
 }
 
 
@@ -252,6 +252,8 @@ void SideChain::setKneeWidth(float fKneeWidthNew)
     fKneeWidth = fKneeWidthNew;
     fKneeWidthHalf = fKneeWidth / 2.0f;
     fKneeWidthDouble = fKneeWidth * 2.0f;
+
+    fGainCompensation = queryGainComputer(fCrestFactorAutoGain) / 2.0f;
 }
 
 

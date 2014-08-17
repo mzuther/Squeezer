@@ -151,7 +151,7 @@ float GainStageOptical::processGainReduction(float fGainReductionNew, float fGai
     if (fGainReduction < fGainReductionIdeal)
     {
         float fDiff = fGainReductionIdeal - fGainReduction;
-        float fLimit = 18.0f;
+        float fLimit = 24.0f;
 
         fDiff = fLimit - fLimit / (1.0f + fDiff / fLimit);
         return fGainReductionIdeal - fDiff;
