@@ -26,7 +26,7 @@
 #include "wrapped_parameter_toggle_switch.h"
 
 
-WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String& state_on, const String& state_off)
+WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String &state_on, const String &state_off)
 {
     strName = "";
     strAttribute = "";
@@ -52,7 +52,7 @@ String WrappedParameterToggleSwitch::getName()
 }
 
 
-void WrappedParameterToggleSwitch::setName(const String& strParameterName)
+void WrappedParameterToggleSwitch::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
@@ -174,13 +174,13 @@ String WrappedParameterToggleSwitch::getText()
 }
 
 
-bool WrappedParameterToggleSwitch::setText(const String& strText)
+bool WrappedParameterToggleSwitch::setText(const String &strText)
 {
     return setBoolean(strText.compare(strStateOn) == 0);
 }
 
 
-float WrappedParameterToggleSwitch::getFloatFromText(const String& strText)
+float WrappedParameterToggleSwitch::getFloatFromText(const String &strText)
 {
     return (strText.compare(strStateOn) == 0) ? 1.0f : 0.0f;
 }
@@ -210,9 +210,9 @@ void WrappedParameterToggleSwitch::setChangeFlag()
 }
 
 
-void WrappedParameterToggleSwitch::loadFromXml(XmlElement* xml)
+void WrappedParameterToggleSwitch::loadFromXml(XmlElement *xml)
 {
-    XmlElement* xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(strAttribute);
 
     if (xml_element)
     {
@@ -241,9 +241,9 @@ void WrappedParameterToggleSwitch::loadFromXml(XmlElement* xml)
 }
 
 
-void WrappedParameterToggleSwitch::storeAsXml(XmlElement* xml)
+void WrappedParameterToggleSwitch::storeAsXml(XmlElement *xml)
 {
-    XmlElement* xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(strAttribute);
 
     if (xml_element)
     {

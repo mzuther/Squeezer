@@ -26,12 +26,12 @@
 #include "slider_combined.h"
 
 
-SliderCombined::SliderCombined(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex, int nParameterIndexSwitch) : Slider(componentName)
+SliderCombined::SliderCombined(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex, int nParameterIndexSwitch) : Slider(componentName)
 {
-    pCombined = dynamic_cast<WrappedParameterCombined*>(pParameters->getWrappedParameter(nParameterIndex));
+    pCombined = dynamic_cast<WrappedParameterCombined *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pCombined != nullptr);
 
-    pModeSwitch = dynamic_cast<WrappedParameterToggleSwitch*>(pParameters->getWrappedParameter(nParameterIndexSwitch));
+    pModeSwitch = dynamic_cast<WrappedParameterToggleSwitch *>(pParameters->getWrappedParameter(nParameterIndexSwitch));
     jassert(pModeSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pCombined->getInterval());
@@ -104,7 +104,7 @@ void SliderCombined::resized()
 }
 
 
-void SliderCombined::setSliderColour(const Colour& colour)
+void SliderCombined::setSliderColour(const Colour &colour)
 {
     colourRotary = colour;
     setColour(Slider::rotarySliderFillColourId, colourRotary);
@@ -146,13 +146,13 @@ void SliderCombined::updateMode()
 }
 
 
-void SliderCombined::addButtonListener(Button::Listener* newListener)
+void SliderCombined::addButtonListener(Button::Listener *newListener)
 {
     pToggleButton->addListener(newListener);
 }
 
 
-void SliderCombined::removeListener(Button::Listener* listener)
+void SliderCombined::removeListener(Button::Listener *listener)
 {
     pToggleButton->removeListener(listener);
 }
@@ -176,7 +176,7 @@ int SliderCombined::getRealInteger()
 }
 
 
-double SliderCombined::getValueFromText(const String& strText)
+double SliderCombined::getValueFromText(const String &strText)
 {
     return pCombined->getFloatFromText(strText);
 }

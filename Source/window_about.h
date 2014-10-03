@@ -37,22 +37,22 @@ public:
     WindowAbout(int nWidth, int nHeight);
     ~WindowAbout();
 
-    void paint(Graphics& g);
-    void buttonClicked(Button* button);
+    void paint(Graphics &g);
+    void buttonClicked(Button *button);
 
 private:
     JUCE_LEAK_DETECTOR(WindowAbout);
 
-    Component* contentComponent;
-    ProhibitingBoundsConstrainer* pConstrainer;
+    Component *contentComponent;
+    ProhibitingBoundsConstrainer *pConstrainer;
 
-    TextEditor* TextEditorAbout;
-    TextButton* ButtonAbout;
-    ImageButton* ButtonGpl;
+    TextEditor *TextEditorAbout;
+    TextButton *ButtonAbout;
+    ImageButton *ButtonGpl;
 
-    Image* ImageButtonGplNormal;
-    Image* ImageButtonGplOver;
-    Image* ImageButtonGplDown;
+    Image *ImageButtonGplNormal;
+    Image *ImageButtonGplOver;
+    Image *ImageButtonGplDown;
 };
 
 

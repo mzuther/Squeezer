@@ -26,7 +26,7 @@
 #include "meter_segment.h"
 
 
-MeterSegment::MeterSegment(const String& componentName, float fThreshold, float fRange, bool bDisplayPeakMeter, int nColor)
+MeterSegment::MeterSegment(const String &componentName, float fThreshold, float fRange, bool bDisplayPeakMeter, int nColor)
 {
     // set component name
     setName(componentName);
@@ -85,7 +85,7 @@ MeterSegment::~MeterSegment()
 }
 
 
-void MeterSegment::paint(Graphics& g)
+void MeterSegment::paint(Graphics &g)
 {
     // get meter segment's screen dimensions
     int width = getWidth();

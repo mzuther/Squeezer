@@ -262,7 +262,7 @@ WindowAbout::~WindowAbout()
 }
 
 
-void WindowAbout::paint(Graphics& g)
+void WindowAbout::paint(Graphics &g)
 {
     // fill window background with grey colour gradient
     g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
@@ -270,7 +270,7 @@ void WindowAbout::paint(Graphics& g)
 }
 
 
-void WindowAbout::buttonClicked(Button* button)
+void WindowAbout::buttonClicked(Button *button)
 {
     // find out which button has been clicked
     if (button == ButtonAbout)

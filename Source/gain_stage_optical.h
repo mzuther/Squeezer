@@ -47,8 +47,8 @@ private:
     float fSampleRate;
     float fGainReduction;
 
-    float* pAttackCoefficients;
-    float* pReleaseCoefficients;
+    float *pAttackCoefficients;
+    float *pReleaseCoefficients;
 };
 
 

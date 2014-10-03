@@ -48,10 +48,10 @@ public:
     void prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources();
 
-    void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
+    void processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages);
 
     //==========================================================================
-    AudioProcessorEditor* createEditor();
+    AudioProcessorEditor *createEditor();
     bool hasEditor() const;
 
     //==========================================================================
@@ -109,11 +109,11 @@ public:
     void setCurrentProgram(int nIndex);
 
     const String getProgramName(int nIndex);
-    void changeProgramName(int nIndex, const String& newName);
+    void changeProgramName(int nIndex, const String &newName);
 
     //==========================================================================
-    void getStateInformation(MemoryBlock& destData);
-    void setStateInformation(const void* data, int sizeInBytes);
+    void getStateInformation(MemoryBlock &destData);
+    void setStateInformation(const void *data, int sizeInBytes);
 
     //==========================================================================
     juce_UseDebuggingNewOperator
@@ -121,14 +121,14 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessor);
 
-    SqueezerPluginParameters* pPluginParameters;
-    Compressor* pCompressor;
+    SqueezerPluginParameters *pPluginParameters;
+    Compressor *pCompressor;
 
     int nNumInputChannels;
     bool bSampleRateIsValid;
 };
 
-AudioProcessor* JUCE_CALLTYPE createPluginFilter();
+AudioProcessor *JUCE_CALLTYPE createPluginFilter();
 
 #endif  // __SQUEEZER_PLUGINPROCESSOR_H__
 

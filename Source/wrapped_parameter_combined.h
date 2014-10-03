@@ -43,14 +43,14 @@ public:
     ~WrappedParameterCombined();
 
     String getName();
-    void setName(const String& strParameterName);
+    void setName(const String &strParameterName);
 
     bool getMode();
     bool setMode(bool use_constants);
     bool toggleMode();
-    WrappedParameterToggleSwitch* getModeSwitch();
+    WrappedParameterToggleSwitch *getModeSwitch();
 
-    void addConstant(const float fRealValue, const String& strText);
+    void addConstant(const float fRealValue, const String &strText);
     float getInterval();
 
     float getDefaultFloat();
@@ -72,10 +72,10 @@ public:
     bool setRealInteger(int nRealValue);
 
     String getText();
-    bool setText(const String& strText);
-    void setSuffix(const String& suffix);
+    bool setText(const String &strText);
+    void setSuffix(const String &suffix);
 
-    float getFloatFromText(const String& strText);
+    float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
 
     bool hasChanged();
@@ -86,8 +86,8 @@ public:
     void clearChangeFlagMode();
     void setChangeFlagMode();
 
-    void loadFromXml(XmlElement* xml);
-    void storeAsXml(XmlElement* xml);
+    void loadFromXml(XmlElement *xml);
+    void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(WrappedParameterCombined);
 
@@ -97,9 +97,9 @@ private:
     bool bUseConstants;
     bool bChangedMode;
 
-    WrappedParameterToggleSwitch* pModeSwitch;
-    WrappedParameterSwitch* pSwitch;
-    WrappedParameterContinuous* pContinuous;
+    WrappedParameterToggleSwitch *pModeSwitch;
+    WrappedParameterSwitch *pSwitch;
+    WrappedParameterContinuous *pContinuous;
 };
 
 

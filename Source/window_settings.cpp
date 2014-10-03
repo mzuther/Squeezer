@@ -26,7 +26,7 @@
 #include "window_settings.h"
 
 
-WindowSettings::WindowSettings(int nWidth, int nHeight, String& strPluginSettings)
+WindowSettings::WindowSettings(int nWidth, int nHeight, String &strPluginSettings)
     : ResizableWindow("Plugin Settings", false)
     // create new window child of width "nWidth" and height "nHeight"
 {
@@ -105,7 +105,7 @@ WindowSettings::~WindowSettings()
 }
 
 
-void WindowSettings::paint(Graphics& g)
+void WindowSettings::paint(Graphics &g)
 {
     // fill window background with grey colour gradient
     g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
@@ -113,7 +113,7 @@ void WindowSettings::paint(Graphics& g)
 }
 
 
-void WindowSettings::buttonClicked(Button* button)
+void WindowSettings::buttonClicked(Button *button)
 {
     // find out which button has been clicked
     if (button == ButtonSettings)

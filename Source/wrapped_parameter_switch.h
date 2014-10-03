@@ -40,9 +40,9 @@ public:
     ~WrappedParameterSwitch();
 
     String getName();
-    void setName(const String& strParameterName);
+    void setName(const String &strParameterName);
 
-    void addConstant(const float fRealValue, const String& strText);
+    void addConstant(const float fRealValue, const String &strText);
     float getInterval();
 
     float getDefaultFloat();
@@ -65,17 +65,17 @@ public:
     bool setRealInteger(int nRealValue);
 
     String getText();
-    bool setText(const String& strText);
+    bool setText(const String &strText);
 
-    float getFloatFromText(const String& strText);
+    float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
 
     bool hasChanged();
     void clearChangeFlag();
     void setChangeFlag();
 
-    void loadFromXml(XmlElement* xml);
-    void storeAsXml(XmlElement* xml);
+    void loadFromXml(XmlElement *xml);
+    void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(WrappedParameterSwitch);
 

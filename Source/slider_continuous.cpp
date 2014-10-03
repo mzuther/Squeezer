@@ -26,9 +26,9 @@
 #include "slider_continuous.h"
 
 
-SliderContinuous::SliderContinuous(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
+SliderContinuous::SliderContinuous(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pContinuous = dynamic_cast<WrappedParameterContinuous*>(pParameters->getWrappedParameter(nParameterIndex));
+    pContinuous = dynamic_cast<WrappedParameterContinuous *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pContinuous != nullptr);
 
     setRange(0.0f, 1.0f, pContinuous->getInterval());
@@ -64,7 +64,7 @@ void SliderContinuous::resized()
 }
 
 
-void SliderContinuous::setSliderColour(const Colour& colour)
+void SliderContinuous::setSliderColour(const Colour &colour)
 {
     colourRotary = colour;
     setColour(Slider::rotarySliderFillColourId, colourRotary);
@@ -89,7 +89,7 @@ int SliderContinuous::getRealInteger()
 }
 
 
-double SliderContinuous::getValueFromText(const String& strText)
+double SliderContinuous::getValueFromText(const String &strText)
 {
     return pContinuous->getFloatFromText(strText);
 }

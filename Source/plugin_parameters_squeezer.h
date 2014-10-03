@@ -88,28 +88,28 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
 
-    WrappedParameterToggleSwitch* ParameterBypass;
-    WrappedParameterSwitch* ParameterDetectorRmsFilter;
-    WrappedParameterSwitch* ParameterDesign;
-    WrappedParameterSwitch* ParameterDetector;
-    WrappedParameterSwitch* ParameterGainStage;
+    WrappedParameterToggleSwitch *ParameterBypass;
+    WrappedParameterSwitch *ParameterDetectorRmsFilter;
+    WrappedParameterSwitch *ParameterDesign;
+    WrappedParameterSwitch *ParameterDetector;
+    WrappedParameterSwitch *ParameterGainStage;
 
-    WrappedParameterCombined* ParameterThreshold;
-    WrappedParameterCombined* ParameterRatio;
-    WrappedParameterCombined* ParameterKneeWidth;
+    WrappedParameterCombined *ParameterThreshold;
+    WrappedParameterCombined *ParameterRatio;
+    WrappedParameterCombined *ParameterKneeWidth;
 
-    WrappedParameterCombined* ParameterAttackRate;
-    WrappedParameterCombined* ParameterReleaseRate;
+    WrappedParameterCombined *ParameterAttackRate;
+    WrappedParameterCombined *ParameterReleaseRate;
 
-    WrappedParameterCombined* ParameterStereoLink;
-    WrappedParameterToggleSwitch* ParameterAutoMakeupGain;
-    WrappedParameterCombined* ParameterMakeupGain;
-    WrappedParameterCombined* ParameterWetMix;
+    WrappedParameterCombined *ParameterStereoLink;
+    WrappedParameterToggleSwitch *ParameterAutoMakeupGain;
+    WrappedParameterCombined *ParameterMakeupGain;
+    WrappedParameterCombined *ParameterWetMix;
 
-    WrappedParameterToggleSwitch* ParameterSidechainFilterState;
-    WrappedParameterCombined* ParameterSidechainFilterCutoff;
-    WrappedParameterSwitch* ParameterSidechainFilterGain;
-    WrappedParameterToggleSwitch* ParameterSidechainListen;
+    WrappedParameterToggleSwitch *ParameterSidechainFilterState;
+    WrappedParameterCombined *ParameterSidechainFilterCutoff;
+    WrappedParameterSwitch *ParameterSidechainFilterGain;
+    WrappedParameterToggleSwitch *ParameterSidechainListen;
 };
 
 #endif  // __PLUGIN_PARAMETERS_SQUEEZER_H__

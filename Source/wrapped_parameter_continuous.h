@@ -40,7 +40,7 @@ public:
     ~WrappedParameterContinuous();
 
     String getName();
-    void setName(const String& strParameterName);
+    void setName(const String &strParameterName);
 
     float getInterval();
 
@@ -64,18 +64,18 @@ public:
     bool setRealInteger(int nRealValue);
 
     String getText();
-    bool setText(const String& strText);
-    void setSuffix(const String& suffix);
+    bool setText(const String &strText);
+    void setSuffix(const String &suffix);
 
-    float getFloatFromText(const String& strText);
+    float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
 
     bool hasChanged();
     void clearChangeFlag();
     void setChangeFlag();
 
-    void loadFromXml(XmlElement* xml);
-    void storeAsXml(XmlElement* xml);
+    void loadFromXml(XmlElement *xml);
+    void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(WrappedParameterContinuous);
 

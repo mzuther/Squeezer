@@ -42,7 +42,7 @@ public:
     {
     }
 
-    void checkBounds(Rectangle<int>& bounds, const Rectangle<int>& previousBounds, const Rectangle<int>& limits, bool isStretchingTop, bool isStretchingLeft, bool isStretchingBottom, bool isStretchingRight)
+    void checkBounds(Rectangle<int> &bounds, const Rectangle<int> &previousBounds, const Rectangle<int> &limits, bool isStretchingTop, bool isStretchingLeft, bool isStretchingBottom, bool isStretchingRight)
     {
         // prohibit window movement and resizing by simply ignoring
         // the change

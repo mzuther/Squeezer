@@ -37,15 +37,15 @@
 class SliderCombined : public Slider
 {
 public:
-    SliderCombined(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex, int nParameterIndexSwitch);
+    SliderCombined(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex, int nParameterIndexSwitch);
     ~SliderCombined();
 
     void visibilityChanged();
     void resized();
-    void setSliderColour(const Colour& colour);
+    void setSliderColour(const Colour &colour);
 
-    void addButtonListener(Button::Listener* newListener);
-    void removeListener(Button::Listener* listener);
+    void addButtonListener(Button::Listener *newListener);
+    void removeListener(Button::Listener *listener);
 
     void updateMode();
 
@@ -53,16 +53,16 @@ public:
     bool getBoolean();
     int getRealInteger();
 
-    double getValueFromText(const String& strText);
+    double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
     JUCE_LEAK_DETECTOR(SliderCombined);
 
-    DrawableButton* pToggleButton;
+    DrawableButton *pToggleButton;
     Colour colourRotary;
 
-    WrappedParameterCombined* pCombined;
-    WrappedParameterToggleSwitch* pModeSwitch;
+    WrappedParameterCombined *pCombined;
+    WrappedParameterToggleSwitch *pModeSwitch;
 };
 
 

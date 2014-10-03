@@ -37,23 +37,23 @@
 class SliderSwitchLinearBar : public Slider
 {
 public:
-    SliderSwitchLinearBar(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex);
+    SliderSwitchLinearBar(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex);
     ~SliderSwitchLinearBar();
 
     void visibilityChanged();
-    void setSliderColour(const Colour& colour);
+    void setSliderColour(const Colour &colour);
 
     float getRealFloat();
     bool getBoolean();
     int getRealInteger();
 
-    double getValueFromText(const String& strText);
+    double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
     JUCE_LEAK_DETECTOR(SliderSwitchLinearBar);
 
     Colour colourThumb;
-    WrappedParameterSwitch* pSwitch;
+    WrappedParameterSwitch *pSwitch;
 };
 
 

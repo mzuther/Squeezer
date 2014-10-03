@@ -46,7 +46,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(FilterChebyshev);
 
-    FilterChebyshevStage** pFilterStages;
+    FilterChebyshevStage **pFilterStages;
     int nNumberOfStages;
     float fRipple;
 };

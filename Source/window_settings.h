@@ -34,20 +34,20 @@
 class WindowSettings : public ResizableWindow, ButtonListener
 {
 public:
-    WindowSettings(int nWidth, int nHeight, String& strPluginSettings);
+    WindowSettings(int nWidth, int nHeight, String &strPluginSettings);
     ~WindowSettings();
 
-    void paint(Graphics& g);
-    void buttonClicked(Button* button);
+    void paint(Graphics &g);
+    void buttonClicked(Button *button);
 
 private:
     JUCE_LEAK_DETECTOR(WindowSettings);
 
-    Component* contentComponent;
-    ProhibitingBoundsConstrainer* pConstrainer;
+    Component *contentComponent;
+    ProhibitingBoundsConstrainer *pConstrainer;
 
-    TextEditor* TextEditorSettings;
-    TextButton* ButtonSettings;
+    TextEditor *TextEditorSettings;
+    TextButton *ButtonSettings;
 };
 
 

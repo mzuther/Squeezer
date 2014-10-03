@@ -43,18 +43,18 @@
 class SqueezerAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public SliderListener, public ActionListener
 {
 public:
-    SqueezerAudioProcessorEditor(SqueezerAudioProcessor* ownerFilter, SqueezerPluginParameters* parameters);
+    SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters);
     ~SqueezerAudioProcessorEditor();
 
-    void buttonClicked(Button* button);
-    void sliderValueChanged(Slider* slider);
+    void buttonClicked(Button *button);
+    void sliderValueChanged(Slider *slider);
 
-    void actionListenerCallback(const String& strMessage);
+    void actionListenerCallback(const String &strMessage);
     void updateParameter(int nIndex);
 
     //==============================================================================
     // This is just a standard Juce paint method...
-    void paint(Graphics& g);
+    void paint(Graphics &g);
     void resized();
 
 private:
@@ -68,52 +68,52 @@ private:
 
     int nInputChannels;
 
-    SqueezerAudioProcessor* pProcessor;
+    SqueezerAudioProcessor *pProcessor;
 
-    MeterBarLevel** pInputLevelMeters;
-    MeterBarLevel** pOutputLevelMeters;
-    MeterBarGainReduction** pGainReductionMeters;
+    MeterBarLevel **pInputLevelMeters;
+    MeterBarLevel **pOutputLevelMeters;
+    MeterBarGainReduction **pGainReductionMeters;
 
-    TextButton* ButtonDetectorRmsPeak;
-    TextButton* ButtonDetectorRmsFast;
-    TextButton* ButtonDetectorRmsMedium;
-    TextButton* ButtonDetectorRmsSlow;
+    TextButton *ButtonDetectorRmsPeak;
+    TextButton *ButtonDetectorRmsFast;
+    TextButton *ButtonDetectorRmsMedium;
+    TextButton *ButtonDetectorRmsSlow;
 
-    TextButton* ButtonDesignFeedForward;
-    TextButton* ButtonDesignFeedBack;
+    TextButton *ButtonDesignFeedForward;
+    TextButton *ButtonDesignFeedBack;
 
-    TextButton* ButtonDetectorLinear;
-    TextButton* ButtonDetectorSmoothDecoupled;
-    TextButton* ButtonDetectorSmoothBranching;
+    TextButton *ButtonDetectorLinear;
+    TextButton *ButtonDetectorSmoothDecoupled;
+    TextButton *ButtonDetectorSmoothBranching;
 
-    TextButton* ButtonGainStageFET;
-    TextButton* ButtonGainStageOptical;
+    TextButton *ButtonGainStageFET;
+    TextButton *ButtonGainStageOptical;
 
-    SliderCombined* SliderThresholdCombined;
-    SliderCombined* SliderRatioCombined;
-    SliderCombined* SliderKneeWidthCombined;
+    SliderCombined *SliderThresholdCombined;
+    SliderCombined *SliderRatioCombined;
+    SliderCombined *SliderKneeWidthCombined;
 
-    SliderCombined* SliderAttackRateCombined;
-    SliderCombined* SliderReleaseRateCombined;
+    SliderCombined *SliderAttackRateCombined;
+    SliderCombined *SliderReleaseRateCombined;
 
-    SliderCombined* SliderStereoLinkCombined;
+    SliderCombined *SliderStereoLinkCombined;
 
-    SliderCombined* SliderInputGainCombined;
-    TextButton* ButtonAutoMakeupGain;
-    SliderCombined* SliderMakeupGainCombined;
-    SliderCombined* SliderWetMixCombined;
+    SliderCombined *SliderInputGainCombined;
+    TextButton *ButtonAutoMakeupGain;
+    SliderCombined *SliderMakeupGainCombined;
+    SliderCombined *SliderWetMixCombined;
 
-    TextButton* ButtonSidechainFilterState;
-    SliderCombined* SliderSidechainFilterCutoffCombined;
-    SliderSwitchLinearBar* SliderSidechainFilterGain;
-    TextButton* ButtonSidechainListen;
+    TextButton *ButtonSidechainFilterState;
+    SliderCombined *SliderSidechainFilterCutoffCombined;
+    SliderSwitchLinearBar *SliderSidechainFilterGain;
+    TextButton *ButtonSidechainListen;
 
-    TextButton* ButtonBypass;
-    TextButton* ButtonResetMeters;
-    TextButton* ButtonSettings;
-    TextButton* ButtonAbout;
+    TextButton *ButtonBypass;
+    TextButton *ButtonResetMeters;
+    TextButton *ButtonSettings;
+    TextButton *ButtonAbout;
 
-    Label* LabelDebug;
+    Label *LabelDebug;
 };
 
 

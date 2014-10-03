@@ -35,7 +35,7 @@ StandaloneApplication::~StandaloneApplication()
 }
 
 
-void StandaloneApplication::initialise(const String& commandLineParameters)
+void StandaloneApplication::initialise(const String &commandLineParameters)
 {
     PropertiesFile::Options options;
     options.applicationName     = "squeezer_stereo";
@@ -43,7 +43,7 @@ void StandaloneApplication::initialise(const String& commandLineParameters)
     options.filenameSuffix      = "ini";
     options.osxLibrarySubFolder = "Application Support";
 
-    PropertiesFile* pPropertiesFile = new PropertiesFile(options);
+    PropertiesFile *pPropertiesFile = new PropertiesFile(options);
     String strApplicationName = getApplicationName();
 
     filterWindow = new StandaloneFilterWindow(strApplicationName, Colours::black, pPropertiesFile, true);

@@ -36,13 +36,13 @@
 class MeterBarGainReduction : public Component
 {
 public:
-    MeterBarGainReduction(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
+    MeterBarGainReduction(const String &componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
     ~MeterBarGainReduction();
 
     void setUpwardExpansion(bool upward_expansion);
     void setGainReduction(float gainReduction, float gainReductionPeak);
 
-    void paint(Graphics& g);
+    void paint(Graphics &g);
     void resized();
     void visibilityChanged();
 
@@ -63,7 +63,7 @@ private:
     int nSegmentHeight;
     int nNumberOfBars;
 
-    MeterSegment** MeterArray;
+    MeterSegment **MeterArray;
 };
 
 

@@ -36,7 +36,7 @@ public:
     StandaloneApplication();
     ~StandaloneApplication();
 
-    void initialise(const String& commandLineParameters);
+    void initialise(const String &commandLineParameters);
     void shutdown();
 
     const String getApplicationName();
@@ -45,7 +45,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(StandaloneApplication);
 
-    StandaloneFilterWindow* filterWindow;
+    StandaloneFilterWindow *filterWindow;
 };
 
 #endif   // __STANDALONE_APPLICATION_H__

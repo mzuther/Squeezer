@@ -87,9 +87,9 @@ private:
     float fDebugTimeInReleasePhase;
 #endif
 
-    GainStage* pGainStageCurrent;
-    GainStageFET* pGainStageFET;
-    GainStageOptical* pGainStageOptical;
+    GainStage *pGainStageCurrent;
+    GainStageFET *pGainStageFET;
+    GainStageOptical *pGainStageOptical;
 
     float fSampleRate;
     float fCrestFactorAutoGain;

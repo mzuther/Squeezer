@@ -872,7 +872,7 @@ float Compressor::getAverageMeterOutputLevel(int nChannel)
 }
 
 
-void Compressor::processBlock(AudioSampleBuffer& buffer)
+void Compressor::processBlock(AudioSampleBuffer &buffer)
 {
     int nNumSamples = buffer.getNumSamples();
 
@@ -1107,7 +1107,7 @@ void Compressor::updateMeterBallistics()
 }
 
 
-void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld, float& fPeakMarkOld, float& fPeakHoldTime)
+void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float &fPeakLevelOld, float &fPeakMarkOld, float &fPeakHoldTime)
 /*  Calculate ballistics for peak meter levels.
 
     fPeakLevelCurrent (float): current peak meter level in decibel
@@ -1196,7 +1196,7 @@ void Compressor::PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelO
 }
 
 
-void Compressor::AverageMeterBallistics(float fAverageLevelCurrent, float& fAverageLevelOld)
+void Compressor::AverageMeterBallistics(float fAverageLevelCurrent, float &fAverageLevelOld)
 /*  Calculate ballistics for average meter levels and update readout.
 
     fAverageLevelCurrent (float): current average meter level in
@@ -1214,7 +1214,7 @@ void Compressor::AverageMeterBallistics(float fAverageLevelCurrent, float& fAver
 }
 
 
-void Compressor::GainReductionMeterPeakBallistics(float fGainReductionPeakCurrent, float& fGainReductionPeakOld, float& fGainReductionHoldTime)
+void Compressor::GainReductionMeterPeakBallistics(float fGainReductionPeakCurrent, float &fGainReductionPeakOld, float &fGainReductionHoldTime)
 /*  Calculate ballistics for peak gain reduction.
 
     fGainReductionPeakCurrent (float): current peak gain reduction in
@@ -1264,7 +1264,7 @@ void Compressor::GainReductionMeterPeakBallistics(float fGainReductionPeakCurren
 }
 
 
-void Compressor::LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout)
+void Compressor::LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float &fReadout)
 /*  Calculate logarithmic meter ballistics.
 
     fMeterInertia (float): time needed to reach 99% of the final

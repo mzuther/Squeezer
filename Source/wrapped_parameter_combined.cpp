@@ -62,7 +62,7 @@ String WrappedParameterCombined::getName()
 }
 
 
-void WrappedParameterCombined::setName(const String& strParameterName)
+void WrappedParameterCombined::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
@@ -71,7 +71,7 @@ void WrappedParameterCombined::setName(const String& strParameterName)
 }
 
 
-void WrappedParameterCombined::addConstant(const float fRealValue, const String& strText)
+void WrappedParameterCombined::addConstant(const float fRealValue, const String &strText)
 {
     pSwitch->addConstant(fRealValue, strText);
 }
@@ -117,7 +117,7 @@ bool WrappedParameterCombined::toggleMode()
 }
 
 
-WrappedParameterToggleSwitch* WrappedParameterCombined::getModeSwitch()
+WrappedParameterToggleSwitch *WrappedParameterCombined::getModeSwitch()
 {
     return pModeSwitch;
 }
@@ -324,7 +324,7 @@ String WrappedParameterCombined::getText()
 }
 
 
-bool WrappedParameterCombined::setText(const String& strText)
+bool WrappedParameterCombined::setText(const String &strText)
 {
     if (bUseConstants)
     {
@@ -337,13 +337,13 @@ bool WrappedParameterCombined::setText(const String& strText)
 }
 
 
-void WrappedParameterCombined::setSuffix(const String& suffix)
+void WrappedParameterCombined::setSuffix(const String &suffix)
 {
     pContinuous->setSuffix(suffix);
 }
 
 
-float WrappedParameterCombined::getFloatFromText(const String& strText)
+float WrappedParameterCombined::getFloatFromText(const String &strText)
 {
     if (bUseConstants)
     {
@@ -410,9 +410,9 @@ void WrappedParameterCombined::setChangeFlagMode()
 }
 
 
-void WrappedParameterCombined::loadFromXml(XmlElement* xml)
+void WrappedParameterCombined::loadFromXml(XmlElement *xml)
 {
-    XmlElement* xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(strAttribute);
 
     if (xml_element)
     {
@@ -443,9 +443,9 @@ void WrappedParameterCombined::loadFromXml(XmlElement* xml)
 }
 
 
-void WrappedParameterCombined::storeAsXml(XmlElement* xml)
+void WrappedParameterCombined::storeAsXml(XmlElement *xml)
 {
-    XmlElement* xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(strAttribute);
 
     if (xml_element)
     {

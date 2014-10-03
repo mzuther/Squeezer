@@ -26,7 +26,7 @@
 #include "plugin_editor_squeezer.h"
 
 //==============================================================================
-SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor* ownerFilter, SqueezerPluginParameters* parameters)
+SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters)
     : AudioProcessorEditor(ownerFilter)
 {
     // the editor window does not have any transparent areas
@@ -454,7 +454,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 }
 
 
-void SqueezerAudioProcessorEditor::actionListenerCallback(const String& strMessage)
+void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessage)
 {
     // "PC" --> parameter changed, followed by a hash and the
     // parameter's ID
@@ -689,14 +689,14 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 
 
 //==============================================================================
-void SqueezerAudioProcessorEditor::paint(Graphics& g)
+void SqueezerAudioProcessorEditor::paint(Graphics &g)
 {
     g.setColour(Colours::darkgrey.darker(2.5f));
     g.fillAll();
 }
 
 
-void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
+void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
 {
     if (button == ButtonBypass)
     {
@@ -766,7 +766,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     {
         String strPluginSettings = pProcessor->getParameters();
 
-        WindowSettings* windowSettings = new WindowSettings(getWidth() - 179, getHeight(), strPluginSettings);
+        WindowSettings *windowSettings = new WindowSettings(getWidth() - 179, getHeight(), strPluginSettings);
         addAndMakeVisible(windowSettings);
 
         windowSettings->runModalLoop();
@@ -777,7 +777,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     }
     else if (button == ButtonAbout)
     {
-        WindowAbout* windowAbout = new WindowAbout(getWidth() - 115, getHeight());
+        WindowAbout *windowAbout = new WindowAbout(getWidth() - 115, getHeight());
         addAndMakeVisible(windowAbout);
 
         windowAbout->runModalLoop();
@@ -789,7 +789,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
     else
     {
         float fValue = button->getToggleState() ? 1.0f : 0.0f;
-        SliderCombined* slider = dynamic_cast<SliderCombined*>(button->getParentComponent());
+        SliderCombined *slider = dynamic_cast<SliderCombined *>(button->getParentComponent());
 
         if (slider == SliderThresholdCombined)
         {
@@ -835,7 +835,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button* button)
 }
 
 
-void SqueezerAudioProcessorEditor::sliderValueChanged(Slider* slider)
+void SqueezerAudioProcessorEditor::sliderValueChanged(Slider *slider)
 {
     float fValue = (float) slider->getValue();
 

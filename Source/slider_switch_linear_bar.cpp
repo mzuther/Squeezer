@@ -26,9 +26,9 @@
 #include "slider_switch_linear_bar.h"
 
 
-SliderSwitchLinearBar::SliderSwitchLinearBar(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitchLinearBar::SliderSwitchLinearBar(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pSwitch = dynamic_cast<WrappedParameterSwitch*>(pParameters->getWrappedParameter(nParameterIndex));
+    pSwitch = dynamic_cast<WrappedParameterSwitch *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getInterval());
@@ -56,7 +56,7 @@ void SliderSwitchLinearBar::visibilityChanged()
 }
 
 
-void SliderSwitchLinearBar::setSliderColour(const Colour& colour)
+void SliderSwitchLinearBar::setSliderColour(const Colour &colour)
 {
     colourThumb = colour;
     setColour(Slider::thumbColourId, colourThumb);
@@ -80,7 +80,7 @@ int SliderSwitchLinearBar::getRealInteger()
 }
 
 
-double SliderSwitchLinearBar::getValueFromText(const String& strText)
+double SliderSwitchLinearBar::getValueFromText(const String &strText)
 {
     return pSwitch->getFloatFromText(strText);
 }

@@ -26,9 +26,9 @@
 #include "slider_switch.h"
 
 
-SliderSwitch::SliderSwitch(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitch::SliderSwitch(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pSwitch = dynamic_cast<WrappedParameterSwitch*>(pParameters->getWrappedParameter(nParameterIndex));
+    pSwitch = dynamic_cast<WrappedParameterSwitch *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getInterval());
@@ -64,7 +64,7 @@ void SliderSwitch::resized()
 }
 
 
-void SliderSwitch::setSliderColour(const Colour& colour)
+void SliderSwitch::setSliderColour(const Colour &colour)
 {
     colourRotary = colour;
     setColour(Slider::rotarySliderFillColourId, colourRotary);
@@ -88,7 +88,7 @@ int SliderSwitch::getRealInteger()
 }
 
 
-double SliderSwitch::getValueFromText(const String& strText)
+double SliderSwitch::getValueFromText(const String &strText)
 {
     return pSwitch->getFloatFromText(strText);
 }

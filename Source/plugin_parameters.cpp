@@ -46,7 +46,7 @@ PluginParameters::~PluginParameters()
 }
 
 
-WrappedParameter* PluginParameters::getWrappedParameter(int nIndex)
+WrappedParameter *PluginParameters::getWrappedParameter(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex];
@@ -80,7 +80,7 @@ int PluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 }
 
 
-void PluginParameters::add(WrappedParameter* parameter, int nIndex, bool mayModify)
+void PluginParameters::add(WrappedParameter *parameter, int nIndex, bool mayModify)
 {
     arrParameters.add(parameter);
     arrMayModify.add(mayModify);
@@ -90,7 +90,7 @@ void PluginParameters::add(WrappedParameter* parameter, int nIndex, bool mayModi
 }
 
 
-void PluginParameters::addCombined(WrappedParameterCombined* parameter, int nIndex, int nIndexSwitch, bool mayModify)
+void PluginParameters::addCombined(WrappedParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify)
 {
     jassert(nIndex == (nIndexSwitch + 1));
 
@@ -106,7 +106,7 @@ String PluginParameters::getName(int nIndex)
 }
 
 
-void PluginParameters::setName(int nIndex, const String& strParameterName)
+void PluginParameters::setName(int nIndex, const String &strParameterName)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -224,7 +224,7 @@ String PluginParameters::getText(int nIndex)
 }
 
 
-bool PluginParameters::setText(int nIndex, const String& strText)
+bool PluginParameters::setText(int nIndex, const String &strText)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -232,7 +232,7 @@ bool PluginParameters::setText(int nIndex, const String& strText)
 }
 
 
-float PluginParameters::getFloatFromText(int nIndex, const String& strText)
+float PluginParameters::getFloatFromText(int nIndex, const String &strText)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getFloatFromText(strText);
@@ -268,7 +268,7 @@ void PluginParameters::setChangeFlag(int nIndex)
 }
 
 
-void PluginParameters::loadFromXml(XmlElement* xml)
+void PluginParameters::loadFromXml(XmlElement *xml)
 {
     if (xml && xml->hasTagName(strSettingsID))
     {

@@ -51,14 +51,14 @@ String WrappedParameterSwitch::getName()
 }
 
 
-void WrappedParameterSwitch::setName(const String& strParameterName)
+void WrappedParameterSwitch::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
 }
 
 
-void WrappedParameterSwitch::addConstant(const float fRealValue, const String& strText)
+void WrappedParameterSwitch::addConstant(const float fRealValue, const String &strText)
 {
     fRealValues.add(fRealValue);
     strValues.add(strText);
@@ -245,7 +245,7 @@ String WrappedParameterSwitch::getText()
 }
 
 
-bool WrappedParameterSwitch::setText(const String& strText)
+bool WrappedParameterSwitch::setText(const String &strText)
 {
     int nCurrentIndexOld = nCurrentIndex;
     int nIndex = strValues.indexOf(strText);
@@ -270,7 +270,7 @@ bool WrappedParameterSwitch::setText(const String& strText)
 }
 
 
-float WrappedParameterSwitch::getFloatFromText(const String& strText)
+float WrappedParameterSwitch::getFloatFromText(const String &strText)
 {
     int nIndex = strValues.indexOf(strText);
 
@@ -319,9 +319,9 @@ void WrappedParameterSwitch::setChangeFlag()
 }
 
 
-void WrappedParameterSwitch::loadFromXml(XmlElement* xml)
+void WrappedParameterSwitch::loadFromXml(XmlElement *xml)
 {
-    XmlElement* xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(strAttribute);
 
     if (xml_element)
     {
@@ -350,9 +350,9 @@ void WrappedParameterSwitch::loadFromXml(XmlElement* xml)
 }
 
 
-void WrappedParameterSwitch::storeAsXml(XmlElement* xml)
+void WrappedParameterSwitch::storeAsXml(XmlElement *xml)
 {
-    XmlElement* xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(strAttribute);
 
     if (xml_element)
     {

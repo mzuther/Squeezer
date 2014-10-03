@@ -25,7 +25,7 @@
 
 #include "meter_bar_level.h"
 
-MeterBarLevel::MeterBarLevel(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height, float crest_factor)
+MeterBarLevel::MeterBarLevel(const String &componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height, float crest_factor)
 {
     setName(componentName);
 
@@ -122,7 +122,7 @@ void MeterBarLevel::visibilityChanged()
 }
 
 
-void MeterBarLevel::paint(Graphics& g)
+void MeterBarLevel::paint(Graphics &g)
 {
     g.fillAll(Colours::black);
 }

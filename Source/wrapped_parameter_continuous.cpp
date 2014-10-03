@@ -69,7 +69,7 @@ String WrappedParameterContinuous::getName()
 }
 
 
-void WrappedParameterContinuous::setName(const String& strParameterName)
+void WrappedParameterContinuous::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
@@ -261,19 +261,19 @@ String WrappedParameterContinuous::getText()
 }
 
 
-bool WrappedParameterContinuous::setText(const String& strText)
+bool WrappedParameterContinuous::setText(const String &strText)
 {
     return setRealFloat(getFloatFromText(strText));
 }
 
 
-void WrappedParameterContinuous::setSuffix(const String& suffix)
+void WrappedParameterContinuous::setSuffix(const String &suffix)
 {
     strSuffix = suffix;
 }
 
 
-float WrappedParameterContinuous::getFloatFromText(const String& strText)
+float WrappedParameterContinuous::getFloatFromText(const String &strText)
 {
     String strWithoutSuffix = strText.upToLastOccurrenceOf(strSuffix, false, false);
     float fRealValue = strWithoutSuffix.getFloatValue();
@@ -315,9 +315,9 @@ void WrappedParameterContinuous::setChangeFlag()
 }
 
 
-void WrappedParameterContinuous::loadFromXml(XmlElement* xml)
+void WrappedParameterContinuous::loadFromXml(XmlElement *xml)
 {
-    XmlElement* xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(strAttribute);
 
     if (xml_element)
     {
@@ -346,9 +346,9 @@ void WrappedParameterContinuous::loadFromXml(XmlElement* xml)
 }
 
 
-void WrappedParameterContinuous::storeAsXml(XmlElement* xml)
+void WrappedParameterContinuous::storeAsXml(XmlElement *xml)
 {
-    XmlElement* xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(strAttribute);
 
     if (xml_element)
     {

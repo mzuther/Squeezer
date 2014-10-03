@@ -25,7 +25,7 @@
 
 #include "meter_bar_gain_reduction.h"
 
-MeterBarGainReduction::MeterBarGainReduction(const String& componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height)
+MeterBarGainReduction::MeterBarGainReduction(const String &componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height)
 {
     setName(componentName);
 
@@ -126,7 +126,7 @@ void MeterBarGainReduction::visibilityChanged()
 }
 
 
-void MeterBarGainReduction::paint(Graphics& g)
+void MeterBarGainReduction::paint(Graphics &g)
 {
     g.fillAll(Colours::black);
 }

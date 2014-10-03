@@ -139,46 +139,46 @@ public:
     float getAverageMeterInputLevel(int nChannel);
     float getAverageMeterOutputLevel(int nChannel);
 
-    void processBlock(AudioSampleBuffer& buffer);
+    void processBlock(AudioSampleBuffer &buffer);
 
     juce_UseDebuggingNewOperator
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
     void updateMeterBallistics();
-    void PeakMeterBallistics(float fPeakLevelCurrent, float& fPeakLevelOld, float& fPeakMarkOld, float& fPeakHoldTime);
-    void AverageMeterBallistics(float fAverageLevelCurrent, float& fAverageLevelOld);
-    void GainReductionMeterPeakBallistics(float fGainReductionPeakCurrent, float& fGainReductionPeakOld, float& fGainReductionHoldTime);
-    void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float& fReadout);
+    void PeakMeterBallistics(float fPeakLevelCurrent, float &fPeakLevelOld, float &fPeakMarkOld, float &fPeakHoldTime);
+    void AverageMeterBallistics(float fAverageLevelCurrent, float &fAverageLevelOld);
+    void GainReductionMeterPeakBallistics(float fGainReductionPeakCurrent, float &fGainReductionPeakOld, float &fGainReductionHoldTime);
+    void LogMeterBallistics(float fMeterInertia, float fTimePassed, float fLevel, float &fReadout);
 
-    SideChain** pSideChain;
-    FilterChebyshev** pSidechainFilter;
+    SideChain **pSideChain;
+    FilterChebyshev **pSidechainFilter;
 
-    AudioSampleBuffer* pMeterInputBuffer;
-    AudioSampleBuffer* pMeterOutputBuffer;
+    AudioSampleBuffer *pMeterInputBuffer;
+    AudioSampleBuffer *pMeterOutputBuffer;
 
-    float* pInputSamples;
-    float* pSidechainSamples;
-    float* pOutputSamples;
+    float *pInputSamples;
+    float *pSidechainSamples;
+    float *pOutputSamples;
 
-    float* pPeakMeterInputLevels;
-    float* pPeakMeterOutputLevels;
+    float *pPeakMeterInputLevels;
+    float *pPeakMeterOutputLevels;
 
-    float* pPeakMeterPeakInputLevels;
-    float* pPeakMeterPeakOutputLevels;
+    float *pPeakMeterPeakInputLevels;
+    float *pPeakMeterPeakOutputLevels;
 
-    float* pMaximumInputLevels;
-    float* pMaximumOutputLevels;
+    float *pMaximumInputLevels;
+    float *pMaximumOutputLevels;
 
-    float* pAverageMeterInputLevels;
-    float* pAverageMeterOutputLevels;
+    float *pAverageMeterInputLevels;
+    float *pAverageMeterOutputLevels;
 
-    float* pGainReduction;
-    float* pGainReductionPeak;
+    float *pGainReduction;
+    float *pGainReductionPeak;
 
-    float* pPeakMeterPeakInputHoldTime;
-    float* pPeakMeterPeakOutputHoldTime;
-    float* pGainReductionHoldTime;
+    float *pPeakMeterPeakInputHoldTime;
+    float *pPeakMeterPeakOutputHoldTime;
+    float *pGainReductionHoldTime;
 
     int nChannels;
     int nSampleRate;

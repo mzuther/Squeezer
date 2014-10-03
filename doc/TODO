@@ -1,3 +1,5 @@
+o [mzuther] use smart pointers
+
 o [mzuther] use "juce_UseDebuggingNewOperator"
 
 o [mzuther] document code

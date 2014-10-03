@@ -44,15 +44,15 @@ public:
     PluginParameters();
     ~PluginParameters();
 
-    WrappedParameter* getWrappedParameter(int nIndex);
+    WrappedParameter *getWrappedParameter(int nIndex);
     String toString();
 
-    void add(WrappedParameter* parameter, int nIndex, bool mayModify = true);
-    void addCombined(WrappedParameterCombined* parameter, int nIndex, int nIndexSwitch, bool mayModify = true);
+    void add(WrappedParameter *parameter, int nIndex, bool mayModify = true);
+    void addCombined(WrappedParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify = true);
     int getNumParameters(bool bIncludeHiddenParameters);
 
     String getName(int nIndex);
-    void setName(int nIndex, const String& strParameterName);
+    void setName(int nIndex, const String &strParameterName);
 
     float getInterval(int nIndex);
 
@@ -75,16 +75,16 @@ public:
     bool setRealInteger(int nIndex, int nRealValue);
 
     String getText(int nIndex);
-    bool setText(int nIndex, const String& strText);
+    bool setText(int nIndex, const String &strText);
 
     bool hasChanged(int nIndex);
     void clearChangeFlag(int nIndex);
     void setChangeFlag(int nIndex);
 
-    float getFloatFromText(int nIndex, const String& strText);
+    float getFloatFromText(int nIndex, const String &strText);
     String getTextFromFloat(int nIndex, float fValue);
 
-    void loadFromXml(XmlElement* xml);
+    void loadFromXml(XmlElement *xml);
     XmlElement storeAsXml();
 
     enum Parameters  // public namespace!
@@ -95,7 +95,7 @@ public:
 
 protected:
     int nNumParameters;
-    Array<WrappedParameter*> arrParameters;
+    Array<WrappedParameter *> arrParameters;
     Array<bool> arrMayModify;
 
     String strSettingsID;

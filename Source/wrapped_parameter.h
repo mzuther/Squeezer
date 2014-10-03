@@ -38,7 +38,7 @@ public:
     virtual ~WrappedParameter() {}
 
     virtual String getName() = 0;
-    virtual void setName(const String& strParameterName) = 0;
+    virtual void setName(const String &strParameterName) = 0;
 
     virtual float getInterval() = 0;
 
@@ -61,17 +61,17 @@ public:
     virtual bool setRealInteger(int nRealValue) = 0;
 
     virtual String getText() = 0;
-    virtual bool setText(const String& strText) = 0;
+    virtual bool setText(const String &strText) = 0;
 
     virtual bool hasChanged() = 0;
     virtual void clearChangeFlag() = 0;
     virtual void setChangeFlag() = 0;
 
-    virtual float getFloatFromText(const String& strText) = 0;
+    virtual float getFloatFromText(const String &strText) = 0;
     virtual String getTextFromFloat(float fValue) = 0;
 
-    virtual void loadFromXml(XmlElement* xml) = 0;
-    virtual void storeAsXml(XmlElement* xml) = 0;
+    virtual void loadFromXml(XmlElement *xml) = 0;
+    virtual void storeAsXml(XmlElement *xml) = 0;
 
     inline static int round_mz(float x)
     {

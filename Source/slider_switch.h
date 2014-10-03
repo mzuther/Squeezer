@@ -37,24 +37,24 @@
 class SliderSwitch : public Slider
 {
 public:
-    SliderSwitch(const String& componentName, SqueezerPluginParameters* pParameters, int nParameterIndex);
+    SliderSwitch(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex);
     ~SliderSwitch();
 
     void visibilityChanged();
     void resized();
-    void setSliderColour(const Colour& colour);
+    void setSliderColour(const Colour &colour);
 
     float getRealFloat();
     bool getBoolean();
     int getRealInteger();
 
-    double getValueFromText(const String& strText);
+    double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
     JUCE_LEAK_DETECTOR(SliderSwitch);
 
     Colour colourRotary;
-    WrappedParameterSwitch* pSwitch;
+    WrappedParameterSwitch *pSwitch;
 };
 
 

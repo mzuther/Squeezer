@@ -349,7 +349,7 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
     default:
     {
-        WrappedParameterCombined* pCombined = dynamic_cast<WrappedParameterCombined*>(pPluginParameters->getWrappedParameter(nIndex + 1));
+        WrappedParameterCombined *pCombined = dynamic_cast<WrappedParameterCombined *>(pPluginParameters->getWrappedParameter(nIndex + 1));
 
         if (pCombined)
         {
@@ -654,7 +654,7 @@ const String SqueezerAudioProcessor::getProgramName(int nIndex)
 }
 
 
-void SqueezerAudioProcessor::changeProgramName(int nIndex, const String& newName)
+void SqueezerAudioProcessor::changeProgramName(int nIndex, const String &newName)
 {
 }
 
@@ -758,7 +758,7 @@ void SqueezerAudioProcessor::releaseResources()
 }
 
 
-void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages)
 {
     // This is the place where you'd normally do the guts of your
     // plug-in's audio processing...
@@ -809,7 +809,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer& buffer, MidiBuffer&
 
 //==============================================================================
 
-AudioProcessorEditor* SqueezerAudioProcessor::createEditor()
+AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
     return new SqueezerAudioProcessorEditor(this, pPluginParameters);
 }
@@ -823,13 +823,13 @@ bool SqueezerAudioProcessor::hasEditor() const
 
 //==============================================================================
 
-void SqueezerAudioProcessor::getStateInformation(MemoryBlock& destData)
+void SqueezerAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
     copyXmlToBinary(pPluginParameters->storeAsXml(), destData);
 }
 
 
-void SqueezerAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
+void SqueezerAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
 {
     ScopedPointer<XmlElement> xml(getXmlFromBinary(data, sizeInBytes));
     pPluginParameters->loadFromXml(xml);
@@ -840,7 +840,7 @@ void SqueezerAudioProcessor::setStateInformation(const void* data, int sizeInByt
 //==============================================================================
 
 // This creates new instances of the plug-in.
-AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+AudioProcessor *JUCE_CALLTYPE createPluginFilter()
 {
     return new SqueezerAudioProcessor();
 }
