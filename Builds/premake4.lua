@@ -71,12 +71,12 @@ solution "squeezer"
 	configuration { "Debug*" }
 		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
 		flags { "Symbols", "ExtraWarnings" }
-		buildoptions { "-fno-inline", "-ggdb" }
+		buildoptions { "-fno-inline", "-ggdb", "-std=c++11" }
 
 	configuration { "Release*" }
 		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
 		flags { "OptimizeSpeed", "NoFramePointer", "ExtraWarnings" }
-		buildoptions { "-pipe", "-fvisibility=hidden" }
+		buildoptions { "-fvisibility=hidden", "-pipe", "-std=c++11" }
 
 	configuration { "Debug", "x32" }
 		targetsuffix "_debug"
