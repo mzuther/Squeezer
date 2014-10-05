@@ -765,9 +765,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     else if (button == ButtonSettings)
     {
         String strPluginSettings = pProcessor->getParameters();
-
-        WindowSettings windowSettings(getWidth() - 179, getHeight(), strPluginSettings);
-        addAndMakeVisible(windowSettings);
+        WindowSettings windowSettings(this, strPluginSettings);
         windowSettings.runModalLoop();
     }
     else if (button == ButtonAbout)

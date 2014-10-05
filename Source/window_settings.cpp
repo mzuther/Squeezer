@@ -26,12 +26,18 @@
 #include "window_settings.h"
 
 
-WindowSettings::WindowSettings(int nWidth, int nHeight, String &strPluginSettings)
-    : ResizableWindow("Plugin Settings", false)
-    // create new window child of width "nWidth" and height "nHeight"
+WindowSettings::WindowSettings(Component *pEditorWindow, String &strPluginSettings)
+    : DocumentWindow("Plugin Settings", Colours::white, 0, true)
+    // create new window child
 {
+    int nWidth = 440;
+    int nHeight = 155;
+
     // set dimensions to those passed to the function ...
-    setBounds(0, 0, nWidth, nHeight);
+    setSize(nWidth, nHeight + getTitleBarHeight());
+
+    // ... center window on editor ...
+    centreAroundComponent(pEditorWindow, getWidth(), getHeight());
 
     // ... and keep the new window on top
     setAlwaysOnTop(true);
@@ -39,10 +45,6 @@ WindowSettings::WindowSettings(int nWidth, int nHeight, String &strPluginSetting
     // this window does not have any transparent areas (increases
     // performance on redrawing)
     setOpaque(true);
-
-    // prohibit movement of the new window
-    pConstrainer = new ProhibitingBoundsConstrainer();
-    setConstrainer(pConstrainer);
 
     // empty windows are boring, so let's prepare a space for some
     // window components
@@ -57,16 +59,16 @@ WindowSettings::WindowSettings(int nWidth, int nHeight, String &strPluginSetting
 
     // initialise colours of the text editor component
     TextEditorSettings->setColour(TextEditor::backgroundColourId, Colours::black.withAlpha(0.25f));
-    TextEditorSettings->setColour(TextEditor::textColourId, Colours::white);
-    TextEditorSettings->setColour(TextEditor::highlightColourId, Colours::white.withAlpha(0.25f));
-    TextEditorSettings->setColour(TextEditor::highlightedTextColourId, Colours::white);
+    TextEditorSettings->setColour(TextEditor::textColourId, Colours::black);
+    TextEditorSettings->setColour(TextEditor::highlightColourId, Colours::black.withAlpha(0.15f));
+    TextEditorSettings->setColour(TextEditor::highlightedTextColourId, Colours::black);
 
     // set up font for regular text
     Font fontRegular(Font::getDefaultMonospacedFontName(), 15.0f, Font::plain);
 
     // display plug-in description
     TextEditorSettings->setFont(fontRegular);
-    TextEditorSettings->insertTextAtCaret(strPluginSettings);
+    TextEditorSettings->insertTextAtCaret(strPluginSettings.trim());
 
     // copy settings to system clipboard
     TextEditorSettings->selectAll();
@@ -77,46 +79,40 @@ WindowSettings::WindowSettings(int nWidth, int nHeight, String &strPluginSetting
     TextEditorSettings->setCaretPosition(0);
     TextEditorSettings->scrollEditorToPositionCaret(0, 0);
 
+    // hide cursor
+    TextEditorSettings->setCaretVisible(false);
+
     // finally, position and display the text editor component
-    TextEditorSettings->setBounds(0, 0, nWidth, nHeight - 47);
+    TextEditorSettings->setBounds(0, 0, nWidth, nHeight - 37);
     contentComponent->addAndMakeVisible(TextEditorSettings);
 
-    // create and position a "settings" button that appears as if it
-    // were pressed down and which closes the window when clicked
-    ButtonSettings = new TextButton("Settings");
-    ButtonSettings->setBounds(nWidth - 59, nHeight - 43, 52, 20);
-    ButtonSettings->setColour(TextButton::buttonColourId, Colours::yellow);
-    ButtonSettings->setColour(TextButton::buttonOnColourId, Colours::grey);
+    // create and position an "close" button
+    ButtonClose = new TextButton("Close");
+    ButtonClose->setBounds(nWidth / 2 - 30, nHeight - 29, 60, 20);
+    ButtonClose->setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonClose->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    // add "settings" window as button listener and display the button
-    ButtonSettings->addListener(this);
-    contentComponent->addAndMakeVisible(ButtonSettings);
+    // add "about" window as button listener and display the button
+    ButtonClose->addListener(this);
+    contentComponent->addAndMakeVisible(ButtonClose);
+
+    // finally, display window
+    setVisible(true);
 }
 
 
 WindowSettings::~WindowSettings()
 {
-    delete pConstrainer;
-    pConstrainer = nullptr;
-
     // delete all children of the window; "contentComponent" will be
     // deleted by the base class, so please leave it alone!
     contentComponent->deleteAllChildren();
 }
 
 
-void WindowSettings::paint(Graphics &g)
-{
-    // fill window background with grey colour gradient
-    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
-    g.fillAll();
-}
-
-
 void WindowSettings::buttonClicked(Button *button)
 {
     // find out which button has been clicked
-    if (button == ButtonSettings)
+    if (button == ButtonClose)
     {
         // close window by making it invisible
         setVisible(false);
