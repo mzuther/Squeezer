@@ -28,26 +28,23 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "resources/resources.h"
-#include "prohibiting_bounds_constrainer.h"
 
 
-class WindowAbout : public ResizableWindow, ButtonListener
+class WindowAbout : public DocumentWindow, ButtonListener
 {
 public:
-    WindowAbout(int nWidth, int nHeight);
+    WindowAbout(Component *pEditorWindow);
     ~WindowAbout();
 
-    void paint(Graphics &g);
     void buttonClicked(Button *button);
 
 private:
     JUCE_LEAK_DETECTOR(WindowAbout);
 
     Component *contentComponent;
-    ProhibitingBoundsConstrainer *pConstrainer;
 
     TextEditor *TextEditorAbout;
-    TextButton *ButtonAbout;
+    TextButton *ButtonClose;
     ImageButton *ButtonGpl;
 
     Image *ImageButtonGplNormal;

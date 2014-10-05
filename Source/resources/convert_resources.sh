@@ -28,6 +28,13 @@
 BINARY_BUILDER_DIR=../../libraries/juce/extras/binarybuilder/Builds/Linux/build
 OUTPUT_DIR=.
 
+if [ ! -x "$BINARY_BUILDER_DIR/BinaryBuilder" ]; then
+	echo
+	echo "BinaryBuilder not found in $BINARY_BUILDER_DIR"
+	echo
+	exit 1
+fi
+
 cd $(dirname $0)
 "$BINARY_BUILDER_DIR/BinaryBuilder" output "$OUTPUT_DIR" resources '*.png'
 

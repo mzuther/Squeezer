@@ -766,25 +766,14 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     {
         String strPluginSettings = pProcessor->getParameters();
 
-        WindowSettings *windowSettings = new WindowSettings(getWidth() - 179, getHeight(), strPluginSettings);
+        WindowSettings windowSettings(getWidth() - 179, getHeight(), strPluginSettings);
         addAndMakeVisible(windowSettings);
-
-        windowSettings->runModalLoop();
-
-        removeChildComponent(windowSettings);
-        delete windowSettings;
-        windowSettings = nullptr;
+        windowSettings.runModalLoop();
     }
     else if (button == ButtonAbout)
     {
-        WindowAbout *windowAbout = new WindowAbout(getWidth() - 115, getHeight());
-        addAndMakeVisible(windowAbout);
-
-        windowAbout->runModalLoop();
-
-        removeChildComponent(windowAbout);
-        delete windowAbout;
-        windowAbout = nullptr;
+        WindowAbout windowAbout(this);
+        windowAbout.runModalLoop();
     }
     else
     {

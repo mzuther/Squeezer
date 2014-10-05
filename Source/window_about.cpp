@@ -26,12 +26,18 @@
 #include "window_about.h"
 
 
-WindowAbout::WindowAbout(int nWidth, int nHeight)
-    : ResizableWindow("About Squeezer", false)
-    // create new window child of width "nWidth" and height "nHeight"
+WindowAbout::WindowAbout(Component *pEditorWindow)
+    : DocumentWindow(String("About ") + ProjectInfo::projectName, Colours::white, 0, true)
+    // create new window child
 {
+    int nWidth = 270;
+    int nHeight = 540;
+
     // set dimensions to those passed to the function ...
-    setBounds(0, 0, nWidth, nHeight);
+    setSize(nWidth, nHeight + getTitleBarHeight());
+
+    // ... center window on editor ...
+    centreAroundComponent(pEditorWindow, getWidth(), getHeight());
 
     // ... and keep the new window on top
     setAlwaysOnTop(true);
@@ -39,10 +45,6 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // this window does not have any transparent areas (increases
     // performance on redrawing)
     setOpaque(true);
-
-    // prohibit movement of the new window
-    pConstrainer = new ProhibitingBoundsConstrainer();
-    setConstrainer(pConstrainer);
 
     // empty windows are boring, so let's prepare a space for some
     // window components
@@ -57,13 +59,13 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
 
     // initialise colours of the text editor component
     TextEditorAbout->setColour(TextEditor::backgroundColourId, Colours::black.withAlpha(0.25f));
-    TextEditorAbout->setColour(TextEditor::textColourId, Colours::white);
-    TextEditorAbout->setColour(TextEditor::highlightColourId, Colours::white.withAlpha(0.25f));
-    TextEditorAbout->setColour(TextEditor::highlightedTextColourId, Colours::white);
+    TextEditorAbout->setColour(TextEditor::textColourId, Colours::black);
+    TextEditorAbout->setColour(TextEditor::highlightColourId, Colours::black.withAlpha(0.15f));
+    TextEditorAbout->setColour(TextEditor::highlightedTextColourId, Colours::black);
 
     // set up two fonts, one for headlines and one for regular text
-    Font fontHeadline(15.0f, Font::bold);
-    Font fontRegular(13.0f, Font::plain);
+    Font fontHeadline(16.0f, Font::bold);
+    Font fontRegular(15.0f, Font::plain);
 
     // display plug-in name and version number
     TextEditorAbout->setFont(fontHeadline);
@@ -74,7 +76,7 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // display plug-in description
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        String(JucePlugin_Desc) + "\n\n"
+        String(JucePlugin_Desc) + ".\n\n"
     );
 
     // display copyright notice
@@ -121,9 +123,9 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
         L"I want to thank all contributors "
-        L"and beta testers, the open source "
-        L"community - and the users of "
-        L"\"Squeezer\" for using free software!\n\n"
+        L"and beta testers and the open source "
+        L"community at large!\n\n"
+        L"Thank you for using free software!\n\n"
     );
 
     // display used libraries
@@ -212,33 +214,35 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     TextEditorAbout->setCaretPosition(0);
     TextEditorAbout->scrollEditorToPositionCaret(0, 0);
 
+    // hide cursor
+    TextEditorAbout->setCaretVisible(false);
+
     // finally, position and display the text editor component
     TextEditorAbout->setBounds(0, 0, nWidth, nHeight - 47);
     contentComponent->addAndMakeVisible(TextEditorAbout);
 
-    // create and position an "about" button that appears as if it
-    // were pressed down and which closes the window when clicked
-    ButtonAbout = new TextButton("About");
-    ButtonAbout->setBounds(nWidth - 63, nHeight - 43, 52, 20);
-    ButtonAbout->setColour(TextButton::buttonColourId, Colours::yellow);
-    ButtonAbout->setColour(TextButton::buttonOnColourId, Colours::grey);
+    // create and position an "close" button
+    ButtonClose = new TextButton("Close");
+    ButtonClose->setBounds(nWidth - 70, nHeight - 34, 60, 20);
+    ButtonClose->setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonClose->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
     // add "about" window as button listener and display the button
-    ButtonAbout->addListener(this);
-    contentComponent->addAndMakeVisible(ButtonAbout);
+    ButtonClose->addListener(this);
+    contentComponent->addAndMakeVisible(ButtonClose);
 
     // create and position the image button which opens the license
     // text in a web browser
     ButtonGpl = new ImageButton("GPL Link");
-    ButtonGpl->setBounds(4, nHeight - 41, 64, 32);
+    ButtonGpl->setBounds(6, nHeight - 41, 64, 32);
     ButtonGpl->setImages(true, false, true,
                          ImageCache::getFromMemory(
                              resources::button_gpl_normal_png,
                              resources::button_gpl_normal_pngSize),
                          1.0f, Colour(),
                          ImageCache::getFromMemory(
-                             resources::button_gpl_over_png,
-                             resources::button_gpl_over_pngSize),
+                             resources::button_gpl_down_png,
+                             resources::button_gpl_down_pngSize),
                          1.0f, Colour(),
                          ImageCache::getFromMemory(
                              resources::button_gpl_down_png,
@@ -248,32 +252,24 @@ WindowAbout::WindowAbout(int nWidth, int nHeight)
     // add "about" window as button listener and display the button
     ButtonGpl->addListener(this);
     contentComponent->addAndMakeVisible(ButtonGpl);
+
+    // finally, display window
+    setVisible(true);
 }
 
 
 WindowAbout::~WindowAbout()
 {
-    delete pConstrainer;
-    pConstrainer = nullptr;
-
     // delete all children of the window; "contentComponent" will be
     // deleted by the base class, so please leave it alone!
     contentComponent->deleteAllChildren();
 }
 
 
-void WindowAbout::paint(Graphics &g)
-{
-    // fill window background with grey colour gradient
-    g.setGradientFill(ColourGradient(Colours::darkgrey.darker(0.4f), 0, 0, Colours::darkgrey.darker(1.0f), 0, (float) getHeight(), false));
-    g.fillAll();
-}
-
-
 void WindowAbout::buttonClicked(Button *button)
 {
     // find out which button has been clicked
-    if (button == ButtonAbout)
+    if (button == ButtonClose)
     {
         // close window by making it invisible
         setVisible(false);
