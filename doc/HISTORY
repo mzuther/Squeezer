@@ -1,6 +1,33 @@
 Git HEAD
 ========
 
+v1.46 (2015-01-29)
+==================
+
+* new parameter "Gain Stage" (FET, Optical)
+
+* dumped old optical detector in favor of new one
+
+* gain stage: saturation of optical element
+
+* updated auto-gain logic
+
+* beautified meter segments
+
+* changed "settings" and "about" windows
+
+* Windows: enable WASAPI
+
+* updated build instructions
+
+* updated JUCE framework to 3.0.8
+
+
+v1.45 (2013-08-11)
+==================
+
+* some bug fixes
+
 
 v1.44 (2013-08-04)
 ==================
