@@ -27,11 +27,11 @@
 
 
 #define NUMBER_OF_DECIBELS 37
-#define COEFFICIENTS_PER_DECIBEL 2.0f
+#define COEFFICIENTS_PER_DECIBEL 2.0
 #define NUMBER_OF_COEFFICIENTS NUMBER_OF_DECIBELS * int(COEFFICIENTS_PER_DECIBEL)
 
 
-GainStageOptical::GainStageOptical(int nSampleRate) : GainStage::GainStage(nSampleRate)
+GainStageOptical::GainStageOptical(int nSampleRate) : GainStage(nSampleRate)
 /*  Constructor.
 
     nSampleRate (integer): internal sample rate
@@ -39,10 +39,10 @@ GainStageOptical::GainStageOptical(int nSampleRate) : GainStage::GainStage(nSamp
     return value: none
 */
 {
-    fSampleRate = (float) nSampleRate;
+    dSampleRate = (double) nSampleRate;
 
-    pAttackCoefficients = new float[NUMBER_OF_COEFFICIENTS];
-    pReleaseCoefficients = new float[NUMBER_OF_COEFFICIENTS];
+    pAttackCoefficients = new double[NUMBER_OF_COEFFICIENTS];
+    pReleaseCoefficients = new double[NUMBER_OF_COEFFICIENTS];
 
     for (int nCoefficient = 0; nCoefficient < NUMBER_OF_COEFFICIENTS; nCoefficient++)
     {
@@ -52,27 +52,27 @@ GainStageOptical::GainStageOptical(int nSampleRate) : GainStage::GainStage(nSamp
         // 18 dB:  Attack:  2 ms, Release:  23 ms
         // 24 dB:  Attack:  2 ms, Release:  18 ms
 
-        float fDecibels = float(nCoefficient) / COEFFICIENTS_PER_DECIBEL;
-        float fResistance = 480.0f / (3.0f + fDecibels);
-        float fAttackRate = fResistance / 10.0f;
-        float fReleaseRate = fResistance;
+        double dDecibels = double(nCoefficient) / COEFFICIENTS_PER_DECIBEL;
+        double dResistance = 480.0 / (3.0 + dDecibels);
+        double dAttackRate = dResistance / 10.0;
+        double dReleaseRate = dResistance;
 
         // if (nCoefficient % (6 * int(COEFFICIENTS_PER_DECIBEL)) == 0)
         // {
-        //     DBG(String(fDecibels) + " dB:  Attack: " + String(fAttackRate, 1) + " ms, Release: " + String(fReleaseRate, 1) + " ms");
+        //     DBG(String(dDecibels) + " dB:  Attack: " + String(dAttackRate, 1) + " ms, Release: " + String(dReleaseRate, 1) + " ms");
         // }
 
-        float fAttackRateSeconds = fAttackRate / 1000.0f;
-        float fReleaseRateSeconds = fReleaseRate / 1000.0f;
+        double dAttackRateSeconds = dAttackRate / 1000.0;
+        double dReleaseRateSeconds = dReleaseRate / 1000.0;
 
         // logarithmic envelopes that reach 73% of the final reading
         // in the given attack time
-        pAttackCoefficients[nCoefficient] = expf(logf(0.27f) / (fAttackRateSeconds * fSampleRate));
-        pReleaseCoefficients[nCoefficient] = expf(logf(0.27f) / (fReleaseRateSeconds * fSampleRate));
+        pAttackCoefficients[nCoefficient] = exp(log(0.27) / (dAttackRateSeconds * dSampleRate));
+        pReleaseCoefficients[nCoefficient] = exp(log(0.27) / (dReleaseRateSeconds * dSampleRate));
     }
 
     // reset (i.e. initialise) all relevant variables
-    reset(0.0f);
+    reset(0.0);
 }
 
 
@@ -90,34 +90,34 @@ GainStageOptical::~GainStageOptical()
 }
 
 
-void GainStageOptical::reset(float fCurrentGainReduction)
+void GainStageOptical::reset(double dCurrentGainReduction)
 /*  Reset all relevant variables.
 
-    fCurrentGainReduction (float): current gain reduction in decibels
+    dCurrentGainReduction (double): current gain reduction in decibels
 
     return value: none
 */
 {
-    fGainReduction = fCurrentGainReduction;
+    dGainReduction = dCurrentGainReduction;
 }
 
 
-float GainStageOptical::processGainReduction(float fGainReductionNew, float fGainReductionIdeal)
+double GainStageOptical::processGainReduction(double dGainReductionNew, double dGainReductionIdeal)
 /*  Process current gain reduction.
 
-    fGainReductionNew (float): calculated new gain reduction in
+    dGainReductionNew (double): calculated new gain reduction in
     decibels
 
-    fGainReductionIdeal (float): calculated "ideal" gain reduction
+    dGainReductionIdeal (double): calculated "ideal" gain reduction
     (without any envelopes) decibels
 
-    return value (float): returns the processed gain reduction in
+    return value (double): returns the processed gain reduction in
     decibel
  */
 {
-    float fGainReductionOld = fGainReduction;
-    float fCoefficient = fGainReductionNew;
-    int nCoefficient = int(fCoefficient * COEFFICIENTS_PER_DECIBEL);
+    double dGainReductionOld = dGainReduction;
+    double dCoefficient = dGainReductionNew;
+    int nCoefficient = int(dCoefficient * COEFFICIENTS_PER_DECIBEL);
 
     if (nCoefficient < 0)
     {
@@ -128,13 +128,13 @@ float GainStageOptical::processGainReduction(float fGainReductionNew, float fGai
         nCoefficient = (NUMBER_OF_COEFFICIENTS - 1);
     }
 
-    if (fGainReductionNew > fGainReduction)
+    if (dGainReductionNew > dGainReduction)
     {
         // algorithm adapted from Giannoulis et al., "Digital Dynamic
         // Range Compressor Design - A Tutorial and Analysis", JAES,
         // 60(6):399-408, 2012
 
-        fGainReduction = (pAttackCoefficients[nCoefficient] * fGainReductionOld) + (1.0f - pAttackCoefficients[nCoefficient]) * fGainReductionNew;
+        dGainReduction = (pAttackCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - pAttackCoefficients[nCoefficient]) * dGainReductionNew;
     }
     // otherwise, apply release rate if proposed gain reduction is
     // below old gain reduction
@@ -144,21 +144,21 @@ float GainStageOptical::processGainReduction(float fGainReductionNew, float fGai
         // Range Compressor Design - A Tutorial and Analysis", JAES,
         // 60(6):399-408, 2012
 
-        fGainReduction = (pReleaseCoefficients[nCoefficient] * fGainReductionOld) + (1.0f - pReleaseCoefficients[nCoefficient]) * fGainReductionNew;
+        dGainReduction = (pReleaseCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - pReleaseCoefficients[nCoefficient]) * dGainReductionNew;
     }
 
     // saturation of optical element
-    if (fGainReduction < fGainReductionIdeal)
+    if (dGainReduction < dGainReductionIdeal)
     {
-        float fDiff = fGainReductionIdeal - fGainReduction;
-        float fLimit = 24.0f;
+        double dDiff = dGainReductionIdeal - dGainReduction;
+        double dLimit = 24.0;
 
-        fDiff = fLimit - fLimit / (1.0f + fDiff / fLimit);
-        return fGainReductionIdeal - fDiff;
+        dDiff = dLimit - dLimit / (1.0 + dDiff / dLimit);
+        return dGainReductionIdeal - dDiff;
     }
     else
     {
-        return fGainReduction;
+        return dGainReduction;
     }
 }
 

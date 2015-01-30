@@ -131,6 +131,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
 	$(OBJDIR)/compressor.o \
 	$(OBJDIR)/plugin_processor_squeezer.o \
+	$(OBJDIR)/dither.o \
 	$(OBJDIR)/wrapped_parameter_combined.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/resources.o \
@@ -274,6 +275,9 @@ $(OBJDIR)/compressor.o: ../../../Source/compressor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor_squeezer.o: ../../../Source/plugin_processor_squeezer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/dither.o: ../../../Source/dither.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/wrapped_parameter_combined.cpp

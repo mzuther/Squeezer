@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{5A22624A-2590-2C8D-9EB0-5C26C384D464}</ProjectGuid>
+		<ProjectGuid>{79217EDB-96C6-E570-C309-533BB3CAD988}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -214,7 +214,6 @@
 	</ItemDefinitionGroup>
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_continuous.h" />
-		<ClInclude Include="..\..\..\Source\prohibiting_bounds_constrainer.h" />
 		<ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
@@ -226,6 +225,7 @@
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_toggle_switch.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
+		<ClInclude Include="..\..\..\Source\dither.h" />
 		<ClInclude Include="..\..\..\Source\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\wrapped_parameter_switch.h" />
@@ -285,6 +285,8 @@
 		<ClCompile Include="..\..\..\Source\compressor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor_squeezer.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\dither.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\wrapped_parameter_combined.cpp">
 		</ClCompile>

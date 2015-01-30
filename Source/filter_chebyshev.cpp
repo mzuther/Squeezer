@@ -29,12 +29,12 @@
 
 //==============================================================================
 
-FilterChebyshev::FilterChebyshev(float fRelativeCutoffFrequency, bool isHighPass, float fPercentRipple, int nNumberOfPoles)
+FilterChebyshev::FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles)
 {
     jassert(nNumberOfPoles % 2 == 0);
 
     nNumberOfStages = nNumberOfPoles / 2;
-    fRipple = fPercentRipple;
+    dRipple = dPercentRipple;
 
     pFilterStages = new FilterChebyshevStage*[nNumberOfStages];
 
@@ -44,10 +44,10 @@ FilterChebyshev::FilterChebyshev(float fRelativeCutoffFrequency, bool isHighPass
         // pole pairs start with index 1!
         int nPolePair = nStage + 1;
 
-        pFilterStages[nStage] = new FilterChebyshevStage(fRelativeCutoffFrequency, isHighPass, fRipple, nNumberOfPoles, nPolePair);
+        pFilterStages[nStage] = new FilterChebyshevStage(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair);
     }
 
-    changeParameters(fRelativeCutoffFrequency, isHighPass);
+    changeParameters(dRelativeCutoffFrequency, isHighPass);
 }
 
 
@@ -78,7 +78,7 @@ double FilterChebyshev::filterSample(double dInputCurrent)
 }
 
 
-void FilterChebyshev::changeParameters(float fRelativeCutoffFrequency, bool isHighPass)
+void FilterChebyshev::changeParameters(double dRelativeCutoffFrequency, bool isHighPass)
 {
     int nNumberOfPoles = nNumberOfStages * 2;
 
@@ -87,7 +87,7 @@ void FilterChebyshev::changeParameters(float fRelativeCutoffFrequency, bool isHi
         // pole pairs start with index 1!
         int nPolePair = nStage + 1;
 
-        pFilterStages[nStage]->changeParameters(fRelativeCutoffFrequency, isHighPass, fRipple, nNumberOfPoles, nPolePair);
+        pFilterStages[nStage]->changeParameters(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair);
     }
 
     reset();

@@ -37,8 +37,8 @@ class GainStage
 public:
     virtual ~GainStage() {}
 
-    virtual void reset(float fCurrentGainReduction) = 0;
-    virtual float processGainReduction(float fGainReductionNew, float fGainReductionIdeal) = 0;
+    virtual void reset(double dCurrentGainReduction) = 0;
+    virtual double processGainReduction(double dGainReductionNew, double dGainReductionIdeal) = 0;
 protected:
     GainStage(int nSampleRate) {}
 };

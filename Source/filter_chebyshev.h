@@ -35,11 +35,11 @@ class FilterChebyshev
 public:
     //==========================================================================
 
-    FilterChebyshev(float fRelativeCutoffFrequency, bool isHighPass, float fPercentRipple, int nNumberOfPoles);
+    FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles);
     ~FilterChebyshev();
 
     double filterSample(double dInputCurrent);
-    void changeParameters(float fRelativeCutoffFrequency, bool isHighPass);
+    void changeParameters(double dRelativeCutoffFrequency, bool isHighPass);
     void reset();
 
     juce_UseDebuggingNewOperator
@@ -48,7 +48,7 @@ private:
 
     FilterChebyshevStage **pFilterStages;
     int nNumberOfStages;
-    float fRipple;
+    double dRipple;
 };
 
 #endif  // __FILTER_CHEBYSHEV_H__

@@ -39,16 +39,16 @@ public:
     GainStageOptical(int nSampleRate);
     ~GainStageOptical();
 
-    void reset(float fCurrentGainReduction);
-    float processGainReduction(float fGainReductionNew, float fGainReductionIdeal);
+    void reset(double dCurrentGainReduction);
+    double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);
 private:
     JUCE_LEAK_DETECTOR(GainStageOptical);
 
-    float fSampleRate;
-    float fGainReduction;
+    double dSampleRate;
+    double dGainReduction;
 
-    float *pAttackCoefficients;
-    float *pReleaseCoefficients;
+    double *pAttackCoefficients;
+    double *pReleaseCoefficients;
 };
 
 

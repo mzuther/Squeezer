@@ -29,9 +29,9 @@
 
 //==============================================================================
 
-FilterChebyshevStage::FilterChebyshevStage(float fRelativeCutoffFrequency, bool isHighPass, float fPercentRipple, int nNumberOfPoles, int nPolePair)
+FilterChebyshevStage::FilterChebyshevStage(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair)
 {
-    changeParameters(fRelativeCutoffFrequency, isHighPass, fPercentRipple, nNumberOfPoles, nPolePair);
+    changeParameters(dRelativeCutoffFrequency, isHighPass, dPercentRipple, nNumberOfPoles, nPolePair);
 }
 
 
@@ -40,16 +40,16 @@ FilterChebyshevStage::~FilterChebyshevStage()
 }
 
 
-void FilterChebyshevStage::changeParameters(float fRelativeCutoffFrequency, bool isHighPass, float fPercentRipple, int nNumberOfPoles, int nPolePair)
+void FilterChebyshevStage::changeParameters(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair)
 {
     // This function has been derived from "The Scientist and Engineer's
     // Guide to Digital Signal Processing." (http://www.dspguide.com/)
     // under the following copyright notice: "All these programs may be
     // copied, distributed, and used for any noncommercial purpose."
     //
-    // fRelativeCutoffFrequency:  rel. cutoff frequency (0.0 to 0.5)
+    // dRelativeCutoffFrequency:  rel. cutoff frequency (0.0 to 0.5)
     // isHighPass:                Boolean, false --> LPF, true --> HPF
-    // fPercentRipple:            percent ripple (0 to 29)
+    // dPercentRipple:            percent ripple (0 to 29)
     // nNumberOfPoles:            number of poles (2, 4, ..., 20)
     // nPolePair:                 pole pair (1, 2, ..., nNumberOfPoles / 2)
 
@@ -58,9 +58,9 @@ void FilterChebyshevStage::changeParameters(float fRelativeCutoffFrequency, bool
     double IP = sin(M_PI / (nNumberOfPoles * 2.0) + (nPolePair - 1.0) * M_PI / nNumberOfPoles);
 
     // warp from a circle to an ellipse
-    if (fPercentRipple > 0)
+    if (dPercentRipple > 0)
     {
-        double ES = sqrt(pow(100.0 / (100.0 - fPercentRipple), 2.0) - 1.0);
+        double ES = sqrt(pow(100.0 / (100.0 - dPercentRipple), 2.0) - 1.0);
         double VX = (1.0 / nNumberOfPoles) * log((1.0 / ES) + sqrt(1.0 / pow(ES, 2.0) + 1.0));
         double KX = (1.0 / nNumberOfPoles) * log((1.0 / ES) + sqrt(1.0 / pow(ES, 2.0) - 1.0));
         KX = (exp(KX) + exp(-KX)) / 2.0;
@@ -70,7 +70,7 @@ void FilterChebyshevStage::changeParameters(float fRelativeCutoffFrequency, bool
 
     // s-domain to z-domain conversion
     double T = 2.0 * tan(0.5);
-    double W = 2.0 * M_PI * fRelativeCutoffFrequency;
+    double W = 2.0 * M_PI * dRelativeCutoffFrequency;
     double M = pow(RP, 2.0) + pow(IP, 2.0);
     double D = 4.0 - (4.0 * RP * T) + (M * pow(T, 2.0));
     double X0 = pow(T, 2.0) / D;

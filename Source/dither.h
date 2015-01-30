@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   traKmeter
+   =========
+   Loudness meter for correctly setting up tracking and mixing levels
 
-   Copyright (c) 2013 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2012-2014 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,32 +23,42 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GAIN_STAGE_FET_H__
-#define __GAIN_STAGE_FET_H__
+#ifndef __DITHER_H__
+#define __DITHER_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "gain_stage.h"
 
 
 //==============================================================================
 /**
 */
-class GainStageFET : virtual public GainStage
+class Dither
 {
 public:
-    GainStageFET(int nSampleRate);
-    ~GainStageFET();
+    Dither(int number_of_bits, double noise_shaping = 0.5);
+    ~Dither();
 
-    void reset(double dCurrentGainReduction);
-    double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);
+    void initialise(int number_of_bits, double noise_shaping = 0.5);
+    float dither(double input);
+
 private:
-    JUCE_LEAK_DETECTOR(GainStageFET);
+    JUCE_LEAK_DETECTOR(Dither);
 
-    double dGainReduction;
+    int nRandomNumber_1;
+    int nRandomNumber_2;
+
+    double dErrorFeedback_1;
+    double dErrorFeedback_2;
+
+    double dDcOffset;
+    double dDitherAmplitude;
+    double dNoiseShaping;
+    double dWordLength;
+    double dWordLengthInverted;
 };
 
 
-#endif  // __GAIN_STAGE_FET_H__
+#endif  // __DITHER_H__
 
 
 // Local Variables:

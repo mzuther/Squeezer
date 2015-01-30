@@ -47,8 +47,8 @@ public:
 
     void reset();
 
-    float getDetectorRmsFilter();
-    void setDetectorRmsFilter(float fDetectorRateMilliSecondsNew);
+    double getDetectorRmsFilter();
+    void setDetectorRmsFilter(double dDetectorRateMilliSecondsNew);
 
     int getDetector();
     void setDetector(int nDetectorTypeNew);
@@ -56,14 +56,14 @@ public:
     int getGainStage();
     void setGainStage(int nGainStageTypeNew);
 
-    float getThreshold();
-    void setThreshold(float fThresholdNew);
+    double getThreshold();
+    void setThreshold(double dThresholdNew);
 
-    float getRatio();
-    void setRatio(float fRatioNew);
+    double getRatio();
+    void setRatio(double dRatioNew);
 
-    float getKneeWidth();
-    void setKneeWidth(float fKneeWidthNew);
+    double getKneeWidth();
+    void setKneeWidth(double dKneeWidthNew);
 
     int getAttackRate();
     void setAttackRate(int nAttackRateNew);
@@ -71,57 +71,57 @@ public:
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
 
-    float getGainReduction(bool bAutoMakeupGain);
+    double getGainReduction(bool bAutoMakeupGain);
 
-    void processSample(float fSampleValue);
+    void processSample(double dSampleValue);
 
-    static float level2decibel(float fLevel);
-    static float decibel2level(float fDecibels);
+    static double level2decibel(double dLevel);
+    static double decibel2level(double dDecibels);
 private:
     JUCE_LEAK_DETECTOR(SideChain);
 
 #if DEBUG_RELEASE_RATE
-    float fTimePassed;
+    double dTimePassed;
 
-    float fDebugFinalValue90;
-    float fDebugTimeInReleasePhase;
+    double dDebugFinalValue90;
+    double dDebugTimeInReleasePhase;
 #endif
 
     GainStage *pGainStageCurrent;
     GainStageFET *pGainStageFET;
     GainStageOptical *pGainStageOptical;
 
-    float fSampleRate;
-    float fCrestFactorAutoGain;
-    float fGainReduction;
-    float fGainReductionIdeal;
-    float fGainReductionIntermediate;
-    float fGainCompensation;
+    double dSampleRate;
+    double dCrestFactorAutoGain;
+    double dGainReduction;
+    double dGainReductionIdeal;
+    double dGainReductionIntermediate;
+    double dGainCompensation;
 
-    float fDetectorCoefficient;
-    float fDetectorOutputLevelSquared;
+    double dDetectorCoefficient;
+    double dDetectorOutputLevelSquared;
 
-    float fDetectorRateMilliSeconds;
+    double dDetectorRateMilliSeconds;
     int nDetectorType;
     int nGainStageType;
 
-    float fThreshold;
-    float fRatioInternal;
-    float fKneeWidth;
-    float fKneeWidthHalf;
-    float fKneeWidthDouble;
+    double dThreshold;
+    double dRatioInternal;
+    double dKneeWidth;
+    double dKneeWidthHalf;
+    double dKneeWidthDouble;
 
     int nAttackRate;
-    float fAttackCoefficient;
+    double dAttackCoefficient;
 
     int nReleaseRate;
-    float fReleaseCoefficient;
+    double dReleaseCoefficient;
 
-    float queryGainComputer(float fInputLevel);
-    float applyLevelDetectionFilter(float fDetectorInputLevel);
-    void applyDetectorLinear(float fGainReductionNew);
-    void applyDetectorSmoothDecoupled(float fGainReductionNew);
-    void applyDetectorSmoothBranching(float fGainReductionNew);
+    double queryGainComputer(double dInputLevel);
+    double applyLevelDetectionFilter(double dDetectorInputLevel);
+    void applyDetectorLinear(double dGainReductionNew);
+    void applyDetectorSmoothDecoupled(double dGainReductionNew);
+    void applyDetectorSmoothBranching(double dGainReductionNew);
 };
 
 

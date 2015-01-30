@@ -26,12 +26,7 @@
 #include "gain_stage_fet.h"
 
 
-#define NUMBER_OF_DECIBELS 37
-#define COEFFICIENTS_PER_DECIBEL 2.0f
-#define NUMBER_OF_COEFFICIENTS NUMBER_OF_DECIBELS * int(COEFFICIENTS_PER_DECIBEL)
-
-
-GainStageFET::GainStageFET(int nSampleRate) : GainStage::GainStage(nSampleRate)
+GainStageFET::GainStageFET(int nSampleRate) : GainStage(nSampleRate)
 /*  Constructor.
 
     nSampleRate (integer): internal sample rate
@@ -40,7 +35,7 @@ GainStageFET::GainStageFET(int nSampleRate) : GainStage::GainStage(nSampleRate)
 */
 {
     // reset (i.e. initialise) all relevant variables
-    reset(0.0f);
+    reset(0.0);
 }
 
 
@@ -53,33 +48,33 @@ GainStageFET::~GainStageFET()
 }
 
 
-void GainStageFET::reset(float fCurrentGainReduction)
+void GainStageFET::reset(double dCurrentGainReduction)
 /*  Reset all relevant variables.
 
-    fCurrentGainReduction (float): current gain reduction in decibels
+    dCurrentGainReduction (double): current gain reduction in decibels
 
     return value: none
 */
 {
-    fGainReduction = fCurrentGainReduction;
+    dGainReduction = dCurrentGainReduction;
 }
 
 
-float GainStageFET::processGainReduction(float fGainReductionNew, float fGainReductionIdeal)
+double GainStageFET::processGainReduction(double dGainReductionNew, double dGainReductionIdeal)
 /*  Process current gain reduction.
 
-    fGainReductionNew (float): calculated new gain reduction in
+    dGainReductionNew (double): calculated new gain reduction in
     decibels
 
-    fGainReductionIdeal (float): calculated "ideal" gain reduction
+    dGainReductionIdeal (double): calculated "ideal" gain reduction
     (without any envelopes) decibels
 
-    return value (float): returns the processed gain reduction in
+    return value (double): returns the processed gain reduction in
     decibel
  */
 {
-    fGainReduction = fGainReductionNew;
-    return fGainReduction;
+    dGainReduction = dGainReductionNew;
+    return dGainReduction;
 }
 
 

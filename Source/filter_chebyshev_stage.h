@@ -27,9 +27,10 @@
 #define __FILTER_CHEBYSHEV_STAGE_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include <float.h>
 
 
-static const double dAntiDenormal = 1e-20;
+static const double dAntiDenormal = DBL_MIN;
 
 //============================================================================
 class FilterChebyshevStage
@@ -37,10 +38,10 @@ class FilterChebyshevStage
 public:
     //==========================================================================
 
-    FilterChebyshevStage(float fRelativeCutoffFrequency, bool isHighPass, float fPercentRipple, int nNumberOfPoles, int nPolePair);
+    FilterChebyshevStage(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair);
     ~FilterChebyshevStage();
 
-    void changeParameters(float fRelativeCutoffFrequency, bool isHighPass, float fPercentRipple, int nNumberOfPoles, int nPolePair);
+    void changeParameters(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair);
     double filterSample(double dInputCurrent);
     void reset();
 
