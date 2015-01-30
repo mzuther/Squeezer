@@ -35,11 +35,13 @@
  using namespace juce;
 #endif
 
+#if ! JUCE_DONT_DECLARE_PROJECTINFO
 namespace ProjectInfo
 {
     const char* const  projectName    = "Squeezer";
     const char* const  versionString  = "1.46.0";
     const int          versionNumber  = 0x12e00;
 }
+#endif
 
 #endif   // __APPHEADERFILE_PY2F1I__
