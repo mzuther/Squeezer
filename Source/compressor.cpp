@@ -887,9 +887,11 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
             // get current input sample
-            double dInputSample = buffer.getSample(nChannel, nSample);
+            float fInputSample = buffer.getSample(nChannel, nSample);
+            double dInputSample = (double) fInputSample;
 
             // de-normalise input sample
+            fInputSample += fAntiDenormal;
             dInputSample += dAntiDenormal;
 
             // store de-normalised input sample
@@ -897,7 +899,7 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
 
             // store de-normalised input sample in buffer for input
             // meter
-            pMeterInputBuffer->setSample(nChannel, nMeterBufferPosition, (float) dInputSample);
+            pMeterInputBuffer->setSample(nChannel, nMeterBufferPosition, fInputSample);
         }
 
         // compressor is bypassed (or mix is set to 0 percent)
@@ -905,7 +907,7 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
         {
             for (int nChannel = 0; nChannel < nChannels; nChannel++)
             {
-                // store de-normalised input sample in buffer for
+                // store de-normalised (!) input sample in buffer for
                 // output meter
                 pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, *pMeterInputBuffer, nChannel, nSample, 1);
 

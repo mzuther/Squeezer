@@ -30,6 +30,7 @@
 #include <float.h>
 
 
+static const float  fAntiDenormal = FLT_MIN;
 static const double dAntiDenormal = DBL_MIN;
 
 //============================================================================
