@@ -44,22 +44,44 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifdef DEBUG
-  #define JucePlugin_Name                 "Squeezer (Stereo, Debug)"
+#ifdef SQUEEZER_MONO
+  #ifdef DEBUG
+    #define JucePlugin_Name                 "Squeezer (Mono, Debug)"
+  #else
+    #define JucePlugin_Name                 "Squeezer (Mono)"
+  #endif
 #else
-  #define JucePlugin_Name                 "Squeezer (Stereo)"
+  #ifdef DEBUG
+    #define JucePlugin_Name                 "Squeezer (Stereo, Debug)"
+  #else
+    #define JucePlugin_Name                 "Squeezer (Stereo)"
+  #endif
 #endif
 
-#define JucePlugin_MaxNumInputChannels  2
-#define JucePlugin_MaxNumOutputChannels 2
-#define JucePlugin_PreferredChannelConfigurations   {1, 1}, {2, 2}
+#ifdef SQUEEZER_MONO
+  #define JucePlugin_MaxNumInputChannels   1
+  #define JucePlugin_MaxNumOutputChannels  1
+  #define JucePlugin_PreferredChannelConfigurations   {1, 1}
+#else
+  #define JucePlugin_MaxNumInputChannels   2
+  #define JucePlugin_MaxNumOutputChannels  2
+  #define JucePlugin_PreferredChannelConfigurations   {2, 2}
+#endif
 
 #define JUCE_USE_FLAC  1
 
-#ifdef DEBUG
-  #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo/debug"
+#ifdef SQUEEZER_MONO
+  #ifdef DEBUG
+    #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/mono/debug"
+  #else
+    #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/mono"
+  #endif
 #else
-  #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo"
+  #ifdef DEBUG
+    #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo/debug"
+  #else
+    #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo"
+  #endif
 #endif
 
 #define JucePlugin_LV2Category "AnalyserPlugin"

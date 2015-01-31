@@ -251,6 +251,8 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
+#ifdef SQUEEZER_STEREO
+
     case SqueezerPluginParameters::selStereoLink:
 
         pPluginParameters->setFloat(nIndex, fValue);
@@ -262,6 +264,7 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
         }
 
         break;
+#endif
 
     case SqueezerPluginParameters::selAutoMakeupGain:
 
@@ -361,7 +364,10 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
             case SqueezerPluginParameters::selAttackRateSwitch:
             case SqueezerPluginParameters::selReleaseRateSwitch:
+
+#ifdef SQUEEZER_STEREO
             case SqueezerPluginParameters::selStereoLinkSwitch:
+#endif
 
             case SqueezerPluginParameters::selMakeupGainSwitch:
             case SqueezerPluginParameters::selWetMixSwitch:
@@ -701,7 +707,10 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     int nAttackRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selAttackRate);
     int nReleaseRate = pPluginParameters->getRealInteger(SqueezerPluginParameters::selReleaseRate);
 
+#ifdef SQUEEZER_STEREO
     int nStereoLink = pPluginParameters->getRealInteger(SqueezerPluginParameters::selStereoLink);
+#endif
+
     bool bAutoMakeupGain = pPluginParameters->getBoolean(SqueezerPluginParameters::selAutoMakeupGain);
     float fMakeupGain = pPluginParameters->getRealFloat(SqueezerPluginParameters::selMakeupGain);
     int nWetMix = pPluginParameters->getRealInteger(SqueezerPluginParameters::selWetMix);
@@ -726,7 +735,10 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setAttackRate(nAttackRate);
     pCompressor->setReleaseRate(nReleaseRate);
 
+#ifdef SQUEEZER_STEREO
     pCompressor->setStereoLink(nStereoLink);
+#endif
+
     pCompressor->setAutoMakeupGain(bAutoMakeupGain);
     pCompressor->setMakeupGain(fMakeupGain);
     pCompressor->setWetMix(nWetMix);
@@ -811,7 +823,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer 
 
 AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
-    return new SqueezerAudioProcessorEditor(this, pPluginParameters);
+    return new SqueezerAudioProcessorEditor(this, pPluginParameters, nNumInputChannels);
 }
 
 

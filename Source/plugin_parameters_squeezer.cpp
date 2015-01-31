@@ -242,6 +242,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 0.0f;
     nDecimalPlaces = 0;
 
+#ifdef SQUEEZER_STEREO
     ParameterStereoLink = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterStereoLink->setName("Stereo Link");
 
@@ -254,6 +255,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     ParameterStereoLink->setSuffix(" %");
     ParameterStereoLink->setDefaultRealFloat(100.0f, true);
     addCombined(ParameterStereoLink, selStereoLink, selStereoLinkSwitch);
+#endif
 
 
     ParameterAutoMakeupGain = new WrappedParameterToggleSwitch("Auto", "Manual");
@@ -448,8 +450,10 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
     delete ParameterReleaseRate;
     ParameterReleaseRate = nullptr;
 
+#ifdef SQUEEZER_STEREO
     delete ParameterStereoLink;
     ParameterStereoLink = nullptr;
+#endif
 
     delete ParameterMakeupGain;
     ParameterMakeupGain = nullptr;
@@ -479,6 +483,11 @@ String SqueezerPluginParameters::toString()
     String strParameters;
 
     strParameters = String(ProjectInfo::projectName) + " " + String(JucePlugin_VersionString);
+#ifdef SQUEEZER_STEREO
+    strParameters += " (Stereo)";
+#else
+    strParameters += " (Mono)";
+#endif
 
     int nStringLength = strParameters.length();
     strParameters += "\n";
@@ -548,8 +557,10 @@ String SqueezerPluginParameters::toString()
     strParameters += "), Wet: ";
     strParameters += arrParameters[selWetMix]->getText();
 
+#ifdef SQUEEZER_STEREO
     strParameters += ", Link: ";
     strParameters += arrParameters[selStereoLink]->getText();
+#endif
 
     return strParameters + "\n";
 }

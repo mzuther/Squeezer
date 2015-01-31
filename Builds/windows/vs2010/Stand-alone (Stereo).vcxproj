@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{D1D6416E-B779-2C74-3078-9F2C561EAD5A}</ProjectGuid>
+		<ProjectGuid>{9A96E629-B522-2755-14C0-07D3E552167B}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>

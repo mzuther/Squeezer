@@ -55,12 +55,25 @@ case $2 in
 		EXECUTABLE="squeezer_stereo"
 		;;
 	2)
+		MAKEFILE="linux_standalone_mono"
+		MAKEFILE_PRINT="Standalone (Mono)"
+		EXECUTABLE="squeezer_mono"
+		;;
+	3)
 		MAKEFILE="linux_lv2_stereo"
 		MAKEFILE_PRINT="LV2 plug-in (Stereo)"
 		;;
-	3)
+	4)
+		MAKEFILE="linux_lv2_mono"
+		MAKEFILE_PRINT="LV2 plug-in (Mono)"
+		;;
+	5)
 		MAKEFILE="linux_vst_stereo"
 		MAKEFILE_PRINT="VST plug-in (Stereo)"
+		;;
+	5)
+		MAKEFILE="linux_vst_mono"
+		MAKEFILE_PRINT="VST plug-in (Mono)"
 		;;
 	*)
 		echo "  Target:    ..."
@@ -69,8 +82,11 @@ case $2 in
 		echo "  c: Clean targets"
 		echo
 		echo "  1: Standalone (Stereo)"
-		echo "  2: LV2 plug-in (Stereo)"
-		echo "  3: VST plug-in (Stereo)"
+		echo "  2: Standalone (Mono)"
+		echo "  3: LV2 plug-in (Stereo)"
+		echo "  4: LV2 plug-in (Mono)"
+		echo "  5: VST plug-in (Stereo)"
+		echo "  6: VST plug-in (Mono)"
 		echo
 		exit
 esac

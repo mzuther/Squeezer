@@ -133,6 +133,39 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
+	project ("Stand-alone (Mono)")
+		kind "WindowedApp"
+		targetname "Squeezer (Mono"
+		targetprefix ""
+
+		defines {
+			"SQUEEZER_STAND_ALONE=1",
+			"SQUEEZER_MONO=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		includedirs {
+			"../libraries/asiosdk2.2/common"
+		}
+
+		configuration {"windows"}
+			defines {
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=1",
+				"JUCE_WASAPI=1",
+				"JUCE_DIRECTSOUND=1"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_release")
+
+--------------------------------------------------------------------------------
+
 	project ("Stand-alone (Stereo)")
 		kind "WindowedApp"
 		targetname "Squeezer (Stereo"
@@ -163,6 +196,49 @@ solution "squeezer"
 
 		configuration "Release"
 			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project ("VST Plug-in (Mono)")
+		kind "SharedLib"
+		targetname "Squeezer (Mono"
+		targetprefix ""
+
+		defines {
+			"SQUEEZER_VST_PLUGIN=1",
+			"SQUEEZER_MONO=1",
+			"JUCE_USE_VSTSDK_2_4=1"
+		}
+
+		includedirs {
+			"../libraries/vstsdk2.4"
+		}
+
+		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
+			  "../libraries/juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp"
+		}
+
+		excludes {
+			"../Source/standalone_application.h",
+			"../Source/standalone_application.cpp"
+		}
+
+		configuration {"windows"}
+			defines {
+				"JUCE_USE_XSHM=0",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_WASAPI=0",
+				"JUCE_DIRECTSOUND=0"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_release")
 
 --------------------------------------------------------------------------------
 

@@ -26,7 +26,7 @@
 #include "plugin_editor_squeezer.h"
 
 //==============================================================================
-SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters)
+SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels)
     : AudioProcessorEditor(ownerFilter)
 {
     // the editor window does not have any transparent areas
@@ -39,7 +39,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
-    nChannels = 2;
+    nChannels = channels;
 
     ButtonBypass = new TextButton("Bypass");
     ButtonBypass->setColour(TextButton::buttonColourId, Colours::grey);
@@ -202,6 +202,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderReleaseRateCombined);
 
 
+#ifdef SQUEEZER_STEREO
     nIndex = SqueezerPluginParameters::selStereoLink;
     nIndexSwitch = SqueezerPluginParameters::selStereoLinkSwitch;
     strName = parameters->getName(nIndex);
@@ -211,6 +212,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderStereoLinkCombined->addListener(this);
     SliderStereoLinkCombined->addButtonListener(this);
     addAndMakeVisible(SliderStereoLinkCombined);
+#endif
 
 
     ButtonAutoMakeupGain = new TextButton("Auto");
@@ -317,8 +319,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pOutputLevelMeters = new MeterBarLevel*[nChannels];
     pGainReductionMeters = new MeterBarGainReduction*[nChannels];
 
+#ifdef SQUEEZER_STEREO
     int x = 615;
+    int x_spacing = 30;
     int width = 12;
+#else
+    int x = 555;
+    int x_spacing = 20;
+    int width = 16;
+#endif
+
     int nNumberOfBars = 24;
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
@@ -326,10 +336,10 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         pInputLevelMeters[nChannel] = new MeterBarLevel("Input Level Meter #" + String(nChannel), x, 12, width, nNumberOfBars - 2, 5, 20.0f);
         addAndMakeVisible(pInputLevelMeters[nChannel]);
 
-        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 60, 12, width, nNumberOfBars - 2, 5, 20.0f);
+        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 2 * x_spacing, 12, width, nNumberOfBars - 2, 5, 20.0f);
         addAndMakeVisible(pOutputLevelMeters[nChannel]);
 
-        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + 30, 12, width, nNumberOfBars, 5);
+        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + x_spacing, 12, width, nNumberOfBars, 5);
         addAndMakeVisible(pGainReductionMeters[nChannel]);
 
         x += width;
@@ -357,8 +367,11 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selReleaseRateSwitch);
     updateParameter(SqueezerPluginParameters::selReleaseRate);
 
+#ifdef SQUEEZER_STEREO
     updateParameter(SqueezerPluginParameters::selStereoLinkSwitch);
     updateParameter(SqueezerPluginParameters::selStereoLink);
+#endif
+
     updateParameter(SqueezerPluginParameters::selAutoMakeupGain);
     updateParameter(SqueezerPluginParameters::selMakeupGainSwitch);
     updateParameter(SqueezerPluginParameters::selMakeupGain);
@@ -405,11 +418,14 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 180;
+
+#ifdef SQUEEZER_STEREO
     nWidth = 720;
+#else
+    nWidth = 632;
+#endif
 
     setSize(nWidth, nHeight);
-
-    ButtonBypass->setBounds(545, 90, 52, 20);
 
     ButtonDetectorRmsPeak->setBounds(20, 90, 52, 20);
     ButtonDetectorRmsFast->setBounds(80, 90, 52, 20);
@@ -438,19 +454,41 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     ButtonSidechainFilterState->setBounds(350, 90, 52, 20);
     ButtonSidechainListen->setBounds(350, 140, 52, 20);
 
+#ifdef SQUEEZER_STEREO
     SliderStereoLinkCombined->setBounds(425, 15, 52, 60);
+
     ButtonAutoMakeupGain->setBounds(485, 90, 52, 20);
     SliderMakeupGainCombined->setBounds(485, 15, 52, 60);
     SliderWetMixCombined->setBounds(545, 15, 52, 60);
 
-    ButtonResetMeters->setBounds(630, 140, 52, 20);
+    ButtonBypass->setBounds(545, 90, 52, 20);
     ButtonSettings->setBounds(485, 140, 52, 20);
     ButtonAbout->setBounds(545, 140, 52, 20);
+
+    ButtonResetMeters->setBounds(630, 140, 52, 20);
 
     if (LabelDebug)
     {
         LabelDebug->setBounds(545, 117, 52, 16);
     }
+
+#else
+    ButtonAutoMakeupGain->setBounds(425, 90, 52, 20);
+    SliderMakeupGainCombined->setBounds(425, 15, 52, 60);
+    SliderWetMixCombined->setBounds(485, 15, 52, 60);
+
+    ButtonBypass->setBounds(485, 90, 52, 20);
+    ButtonSettings->setBounds(425, 140, 52, 20);
+    ButtonAbout->setBounds(485, 140, 52, 20);
+
+    ButtonResetMeters->setBounds(557, 140, 52, 20);
+
+    if (LabelDebug)
+    {
+        LabelDebug->setBounds(485, 117, 52, 16);
+    }
+
+#endif
 }
 
 
@@ -633,6 +671,8 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderReleaseRateCombined->setValue(fValue, dontSendNotification);
         break;
 
+#ifdef SQUEEZER_STEREO
+
     case SqueezerPluginParameters::selStereoLinkSwitch:
         SliderStereoLinkCombined->updateMode();
         break;
@@ -640,6 +680,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
     case SqueezerPluginParameters::selStereoLink:
         SliderStereoLinkCombined->setValue(fValue, dontSendNotification);
         break;
+#endif
 
     case SqueezerPluginParameters::selAutoMakeupGain:
         ButtonAutoMakeupGain->setToggleState(fValue != 0.0f, dontSendNotification);
@@ -798,10 +839,14 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
         }
+
+#ifdef SQUEEZER_STEREO
         else if (slider == SliderStereoLinkCombined)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selStereoLinkSwitch, fValue);
         }
+
+#endif
         else if (slider == SliderMakeupGainCombined)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGainSwitch, fValue);
@@ -846,10 +891,14 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider *slider)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRate, fValue);
     }
+
+#ifdef SQUEEZER_STEREO
     else if (slider == SliderStereoLinkCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selStereoLink, fValue);
     }
+
+#endif
     else if (slider == SliderMakeupGainCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGain, fValue);

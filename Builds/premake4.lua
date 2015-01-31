@@ -92,6 +92,52 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
+	project (os.get() .. "_standalone_mono")
+		kind "WindowedApp"
+		location (os.get() .. "/standalone_mono")
+		targetname "squeezer_mono"
+		targetprefix ""
+
+		defines {
+			"SQUEEZER_STAND_ALONE=1",
+			"SQUEEZER_MONO=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		configuration {"linux"}
+			defines {
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=1",
+				"JUCE_JACK=1",
+				"JUCE_ASIO=0",
+				"JUCE_WASAPI=0",
+				"JUCE_DIRECTSOUND=0"
+			}
+
+			links {
+				"dl",
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext",
+				"asound"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_release")
+
+--------------------------------------------------------------------------------
+
 	project (os.get() .. "_standalone_stereo")
 		kind "WindowedApp"
 		location (os.get() .. "/standalone_stereo")
@@ -135,6 +181,67 @@ solution "squeezer"
 
 		configuration "Release"
 			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project (os.get() .. "_lv2_mono")
+		kind "SharedLib"
+		location (os.get() .. "/lv2_mono")
+		targetname "squeezer_mono_lv2"
+		targetprefix ""
+
+		defines {
+			"SQUEEZER_LV2_PLUGIN=1",
+			"SQUEEZER_MONO=1",
+			"JUCE_USE_VSTSDK_2_4=0"
+		}
+
+		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
+			  "../libraries/juce/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp"
+		}
+
+		excludes {
+			"../Source/standalone_application.h",
+			"../Source/standalone_application.cpp"
+		}
+
+		configuration {"linux"}
+			defines {
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_WASAPI=0",
+				"JUCE_DIRECTSOUND=0"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+
+			links {
+				"dl",
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext"
+			}
+
+		configuration { "x32" }
+			targetdir "../bin/squeezer_lv2/"
+
+		configuration { "x64" }
+			targetdir "../bin/squeezer_lv2_x64/"
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_mono_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -196,6 +303,65 @@ solution "squeezer"
 
 		configuration "Release"
 			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_release")
+
+--------------------------------------------------------------------------------
+
+	project (os.get() .. "_vst_mono")
+		kind "SharedLib"
+		location (os.get() .. "/vst_mono")
+		targetname "squeezer_mono_vst"
+		targetprefix ""
+
+		defines {
+			"SQUEEZER_VST_PLUGIN=1",
+			"SQUEEZER_MONO=1",
+			"JUCE_USE_VSTSDK_2_4=1"
+		}
+
+		includedirs {
+			"../libraries/vstsdk2.4"
+		}
+
+		files {
+			  "../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp",
+			  "../libraries/juce/modules/juce_audio_plugin_client/VST/juce_VST_Wrapper.cpp"
+		}
+
+		excludes {
+			"../Source/standalone_application.h",
+			"../Source/standalone_application.cpp"
+		}
+
+		configuration {"linux"}
+			defines {
+				"LINUX=1",
+				"JUCE_USE_XSHM=1",
+				"JUCE_ALSA=0",
+				"JUCE_JACK=0",
+				"JUCE_ASIO=0",
+				"JUCE_WASAPI=0",
+				"JUCE_DIRECTSOUND=0"
+			}
+
+			includedirs {
+				"/usr/include",
+				"/usr/include/freetype2"
+			}
+
+			links {
+				"dl",
+				"freetype",
+				"pthread",
+				"rt",
+				"X11",
+				"Xext"
+			}
+
+		configuration "Debug"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_debug")
+
+		configuration "Release"
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_release")
 
 --------------------------------------------------------------------------------
 

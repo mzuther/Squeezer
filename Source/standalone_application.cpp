@@ -38,7 +38,11 @@ StandaloneApplication::~StandaloneApplication()
 void StandaloneApplication::initialise(const String &commandLineParameters)
 {
     PropertiesFile::Options options;
+#ifdef SQUEEZER_MONO
+    options.applicationName     = "squeezer_mono";
+#else
     options.applicationName     = "squeezer_stereo";
+#endif
     options.folderName          = ".config";
     options.filenameSuffix      = "ini";
     options.osxLibrarySubFolder = "Application Support";

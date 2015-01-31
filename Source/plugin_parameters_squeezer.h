@@ -66,8 +66,10 @@ public:
         selReleaseRateSwitch,
         selReleaseRate,
 
+#ifdef SQUEEZER_STEREO
         selStereoLinkSwitch,
         selStereoLink,
+#endif
         selAutoMakeupGain,
         selMakeupGainSwitch,
         selMakeupGain,
@@ -101,7 +103,9 @@ private:
     WrappedParameterCombined *ParameterAttackRate;
     WrappedParameterCombined *ParameterReleaseRate;
 
+#ifdef SQUEEZER_STEREO
     WrappedParameterCombined *ParameterStereoLink;
+#endif
     WrappedParameterToggleSwitch *ParameterAutoMakeupGain;
     WrappedParameterCombined *ParameterMakeupGain;
     WrappedParameterCombined *ParameterWetMix;

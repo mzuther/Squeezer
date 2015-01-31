@@ -43,7 +43,7 @@
 class SqueezerAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public SliderListener, public ActionListener
 {
 public:
-    SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters);
+    SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels);
     ~SqueezerAudioProcessorEditor();
 
     void buttonClicked(Button *button);
@@ -96,7 +96,9 @@ private:
     SliderCombined *SliderAttackRateCombined;
     SliderCombined *SliderReleaseRateCombined;
 
+#ifdef SQUEEZER_STEREO
     SliderCombined *SliderStereoLinkCombined;
+#endif
 
     SliderCombined *SliderInputGainCombined;
     TextButton *ButtonAutoMakeupGain;
