@@ -215,7 +215,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 #endif
 
 
-    ButtonAutoMakeupGain = new TextButton("Auto");
+    ButtonAutoMakeupGain = new TextButton("Auto MU");
     ButtonAutoMakeupGain->setColour(TextButton::buttonColourId, Colours::grey);
     ButtonAutoMakeupGain->setColour(TextButton::buttonOnColourId, Colours::yellow);
 
@@ -282,7 +282,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
 
 #ifdef DEBUG
-    LabelDebug = new Label("Debug Notification", "DEBUG");
+    LabelDebug = new Label("Debug Notification", "dbg");
     LabelDebug->setColour(Label::textColourId, Colours::red);
     LabelDebug->setJustificationType(Justification::centred);
     addAndMakeVisible(LabelDebug);
@@ -319,12 +319,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pOutputLevelMeters = new MeterBarLevel*[nChannels];
     pGainReductionMeters = new MeterBarGainReduction*[nChannels];
 
+    int y = 20;
+
 #ifdef SQUEEZER_STEREO
-    int x = 615;
-    int x_spacing = 30;
+    int x = 610;
+    int x_spacing = 28;
     int width = 12;
 #else
-    int x = 555;
+    int x = 570;
     int x_spacing = 20;
     int width = 16;
 #endif
@@ -333,13 +335,13 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pInputLevelMeters[nChannel] = new MeterBarLevel("Input Level Meter #" + String(nChannel), x, 12, width, nNumberOfBars - 2, 5, 20.0f);
+        pInputLevelMeters[nChannel] = new MeterBarLevel("Input Level Meter #" + String(nChannel), x, y, width, nNumberOfBars - 2, 5, 20.0f);
         addAndMakeVisible(pInputLevelMeters[nChannel]);
 
-        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 2 * x_spacing, 12, width, nNumberOfBars - 2, 5, 20.0f);
+        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 2 * x_spacing, y, width, nNumberOfBars - 2, 5, 20.0f);
         addAndMakeVisible(pOutputLevelMeters[nChannel]);
 
-        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + x_spacing, 12, width, nNumberOfBars, 5);
+        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + x_spacing, y, width, nNumberOfBars, 5);
         addAndMakeVisible(pGainReductionMeters[nChannel]);
 
         x += width;
@@ -417,78 +419,77 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 
 void SqueezerAudioProcessorEditor::resizeEditor()
 {
-    nHeight = 180;
+    nHeight = 188;
 
 #ifdef SQUEEZER_STEREO
-    nWidth = 720;
+    nWidth = 710;
 #else
-    nWidth = 632;
+    nWidth = 646;
 #endif
+
+    int x = 15;
+    int y1 = 18;
+    int y2 = y1 + 78;
 
     setSize(nWidth, nHeight);
 
-    ButtonDetectorRmsPeak->setBounds(20, 90, 52, 20);
-    ButtonDetectorRmsFast->setBounds(80, 90, 52, 20);
-    ButtonDetectorRmsMedium->setBounds(140, 90, 52, 20);
-    ButtonDetectorRmsSlow->setBounds(200, 90, 52, 20);
+    ButtonDetectorRmsPeak->setBounds(x + 37, y2, 52, 20);
+    ButtonDetectorRmsFast->setBounds(x + 97, y2, 52, 20);
+    ButtonDetectorRmsMedium->setBounds(x + 157, y2, 52, 20);
+    ButtonDetectorRmsSlow->setBounds(x + 217, y2, 52, 20);
 
-    ButtonDesignFeedForward->setBounds(20, 115, 52, 20);
-    ButtonDesignFeedBack->setBounds(80, 115, 52, 20);
+    ButtonDesignFeedForward->setBounds(x + 22, y2 + 25, 52, 20);
+    ButtonDesignFeedBack->setBounds(x + 82, y2 + 25, 52, 20);
 
-    ButtonGainStageFET->setBounds(140, 115, 52, 20);
-    ButtonGainStageOptical->setBounds(200, 115, 52, 20);
+    ButtonGainStageFET->setBounds(x + 172, y2 + 25, 52, 20);
+    ButtonGainStageOptical->setBounds(x + 232, y2 + 25, 52, 20);
 
-    ButtonDetectorLinear->setBounds(20, 140, 52, 20);
-    ButtonDetectorSmoothDecoupled->setBounds(80, 140, 52, 20);
-    ButtonDetectorSmoothBranching->setBounds(140, 140, 52, 20);
+    ButtonDetectorLinear->setBounds(x + 67, y2 + 50, 52, 20);
+    ButtonDetectorSmoothDecoupled->setBounds(x + 127, y2 + 50, 52, 20);
+    ButtonDetectorSmoothBranching->setBounds(x + 187, y2 + 50, 52, 20);
 
-    SliderThresholdCombined->setBounds(20, 15, 52, 60);
-    SliderRatioCombined->setBounds(80, 15, 52, 60);
-    SliderKneeWidthCombined->setBounds(140, 15, 52, 60);
+    SliderThresholdCombined->setBounds(x, y1, 52, 60);
+    SliderRatioCombined->setBounds(x + 60, y1, 52, 60);
+    SliderKneeWidthCombined->setBounds(x + 120, y1, 52, 60);
 
-    SliderAttackRateCombined->setBounds(215, 15, 52, 60);
-    SliderReleaseRateCombined->setBounds(275, 15, 52, 60);
+    SliderAttackRateCombined->setBounds(x + 195, y1, 52, 60);
+    SliderReleaseRateCombined->setBounds(x + 255, y1, 52, 60);
 
-    SliderSidechainFilterCutoffCombined->setBounds(350, 15, 52, 60);
-    SliderSidechainFilterGain->setBounds(350, 116, 52, 18);
-    ButtonSidechainFilterState->setBounds(350, 90, 52, 20);
-    ButtonSidechainListen->setBounds(350, 140, 52, 20);
+    SliderSidechainFilterCutoffCombined->setBounds(x + 330, y1, 52, 60);
+    SliderSidechainFilterGain->setBounds(x + 330, y2 + 26, 52, 18);
+    ButtonSidechainFilterState->setBounds(x + 330, y2, 52, 20);
+    ButtonSidechainListen->setBounds(x + 330, y2 + 50, 52, 20);
 
 #ifdef SQUEEZER_STEREO
-    SliderStereoLinkCombined->setBounds(425, 15, 52, 60);
+    SliderStereoLinkCombined->setBounds(x + 405, y1, 52, 60);
 
-    ButtonAutoMakeupGain->setBounds(485, 90, 52, 20);
-    SliderMakeupGainCombined->setBounds(485, 15, 52, 60);
-    SliderWetMixCombined->setBounds(545, 15, 52, 60);
+    SliderMakeupGainCombined->setBounds(x + 465, y1, 52, 60);
+    SliderWetMixCombined->setBounds(x + 525, y1, 52, 60);
 
-    ButtonBypass->setBounds(545, 90, 52, 20);
-    ButtonSettings->setBounds(485, 140, 52, 20);
-    ButtonAbout->setBounds(545, 140, 52, 20);
+    ButtonAutoMakeupGain->setBounds(x + 465, y2, 52, 20);
+    ButtonAbout->setBounds(x + 435, y2 + 25, 52, 20);
+    ButtonSettings->setBounds(x + 495, y2 + 25, 52, 20);
+    ButtonBypass->setBounds(x + 465, y2 + 50, 52, 20);
 
-    ButtonResetMeters->setBounds(630, 140, 52, 20);
-
-    if (LabelDebug)
-    {
-        LabelDebug->setBounds(545, 117, 52, 16);
-    }
+    ButtonResetMeters->setBounds(x + 611, y2 + 50, 52, 20);
 
 #else
-    ButtonAutoMakeupGain->setBounds(425, 90, 52, 20);
-    SliderMakeupGainCombined->setBounds(425, 15, 52, 60);
-    SliderWetMixCombined->setBounds(485, 15, 52, 60);
+    SliderMakeupGainCombined->setBounds(x + 415, y1, 52, 60);
+    SliderWetMixCombined->setBounds(x + 475, y1, 52, 60);
 
-    ButtonBypass->setBounds(485, 90, 52, 20);
-    ButtonSettings->setBounds(425, 140, 52, 20);
-    ButtonAbout->setBounds(485, 140, 52, 20);
+    ButtonAutoMakeupGain->setBounds(x + 445, y2, 52, 20);
+    ButtonAbout->setBounds(x + 415, y2 + 25, 52, 20);
+    ButtonSettings->setBounds(x + 475, y2 + 25, 52, 20);
+    ButtonBypass->setBounds(x + 445, y2 + 50, 52, 20);
 
-    ButtonResetMeters->setBounds(557, 140, 52, 20);
+    ButtonResetMeters->setBounds(x + 557, y2 + 50, 52, 20);
+
+#endif
 
     if (LabelDebug)
     {
-        LabelDebug->setBounds(485, 117, 52, 16);
+        LabelDebug->setBounds(x + 127, y2 + 26, 52, 16);
     }
-
-#endif
 }
 
 
@@ -732,8 +733,56 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 //==============================================================================
 void SqueezerAudioProcessorEditor::paint(Graphics &g)
 {
-    g.setColour(Colours::darkgrey.darker(2.5f));
+    g.setColour(Colours::lightgrey.darker(0.1f));
     g.fillAll();
+
+    int x = 10;
+    int y1 = 10;
+    int y2 = 88;
+
+    g.setColour(Colours::grey.darker(0.0f));
+    g.fillRect(x      , y1, 317, 168);
+    g.fillRect(x + 320, y1,  82, 168);
+#ifdef SQUEEZER_STEREO
+    g.fillRect(x + 405, y1, 182, 168);
+    g.fillRect(x + 590, y1, 100, 168);
+#else
+    g.fillRect(x + 405, y1, 142, 168);
+    g.fillRect(x + 550, y1,  76, 168);
+#endif
+
+    g.setColour(Colours::darkgrey);
+    g.drawRect(x      , y1, 317, 168);
+    g.drawRect(x + 320, y1,  82, 168);
+#ifdef SQUEEZER_STEREO
+    g.drawRect(x + 405, y1, 182, 168);
+    g.drawRect(x + 590, y1, 100, 168);
+#else
+    g.drawRect(x + 405, y1, 142, 168);
+    g.drawRect(x + 550, y1,  76, 168);
+#endif
+
+    g.setColour(Colours::lightgrey.darker(0.2f));
+    g.fillRect(x +   5, y2, 307,  85);
+    g.fillRect(x + 325, y2,  72,  85);
+#ifdef SQUEEZER_STEREO
+    g.fillRect(x + 410, y2, 172,  85);
+    g.fillRect(x + 595, y1 + 5,  90, 158);
+#else
+    g.fillRect(x + 410, y2, 132,  85);
+    g.fillRect(x + 555, y1 + 5,  66, 158);
+#endif
+
+    g.setColour(Colours::grey.darker(0.2f));
+    g.drawRect(x +   5, y2, 307,  85);
+    g.drawRect(x + 325, y2,  72,  85);
+#ifdef SQUEEZER_STEREO
+    g.drawRect(x + 410, y2, 172,  85);
+    g.drawRect(x + 595, y1 + 5,  90, 158);
+#else
+    g.drawRect(x + 410, y2, 132,  85);
+    g.drawRect(x + 555, y1 + 5,  66, 158);
+#endif
 }
 
 

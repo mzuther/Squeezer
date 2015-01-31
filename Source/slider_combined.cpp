@@ -42,19 +42,19 @@ SliderCombined::SliderCombined(const String &componentName, SqueezerPluginParame
     pathCircle.addEllipse(0.0f, 0.0f, 8.0f, 8.0f);
 
     DrawablePath drawCircleOff;
-    drawCircleOff.setFill(FillType(Colours::red.darker(0.5f)));
+    drawCircleOff.setFill(FillType(Colours::red.darker(0.2f)));
     drawCircleOff.setStrokeFill(FillType(Colours::black));
     drawCircleOff.setStrokeType(PathStrokeType(1.0f));
     drawCircleOff.setPath(pathCircle);
 
     DrawablePath drawCircleOn(drawCircleOff);
-    drawCircleOn.setFill(FillType(Colours::red.darker(5.0f)));
+    drawCircleOn.setFill(FillType(Colours::red.darker(2.0f)));
 
     DrawablePath drawCircleOffOver(drawCircleOff);
-    drawCircleOffOver.setFill(FillType(Colours::red.darker(0.1f)));
+    drawCircleOffOver.setFill(FillType(Colours::red));
 
     DrawablePath drawCircleOnOver(drawCircleOff);
-    drawCircleOnOver.setFill(FillType(Colours::red.darker(3.0f)));
+    drawCircleOnOver.setFill(FillType(Colours::red.darker(0.8f)));
 
     pToggleButton = new DrawableButton(componentName + " Switch", DrawableButton::ImageFitted);
     pToggleButton->setClickingTogglesState(true);
