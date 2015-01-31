@@ -98,9 +98,10 @@ WindowAbout::WindowAbout(Component *pEditorWindow)
 
     TextEditorAbout->setFont(fontRegular);
     TextEditorAbout->insertTextAtCaret(
-        L"Martin Zuther\n"
-        L"bram@smartelectronix\n"
-        L"Filipe Lopes\n\n"
+        L"Dimitrios Giannoulis et al.\n"
+        L"Filipe Coelho\n"
+        L"Paul Kellet\n"
+        L"Bram de Jong\n\n"
     );
 
     // // display the beta testers

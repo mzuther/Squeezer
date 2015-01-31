@@ -25,7 +25,7 @@
 
 #include "dither.h"
 
-// Thanks to Paul Kellet from mda for the code snippet!
+// Thanks to Paul Kellet for the code snippet!
 // (http://www.musicdsp.org/showone.php?id=77)
 
 

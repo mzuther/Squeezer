@@ -1,12 +1,41 @@
+Project owner
+=============
+
+* Martin Zuther a.k.a. radix (http://www.mzuther.de/)
+
+
+
 Contributors
 ============
-Martin Zuther a.k.a. radix
-bram@smartelectronix
-Filipe Lopes
+
+* Dimitrios Giannoulis et al.
+
+  Superb comprising AES paper on compressor design: "Digital
+  Dynamic Range Compressor Design - A Tutorial and Analysis",
+  JAES, 60(6):399-408, 2012.
+
+
+* Filipe Coelho (http://www.falktx.com/)
+
+  LV2 support for JUCE.
+
+
+* Paul Kellet (http://mda.smartelectronix.com/)
+
+  Triangular-PDF dither with 2nd-order noise shaping.
+
+
+* Bram de Jong (http://bram.smartelectronix.com/)
+
+  Envelope follower with different attack and release.
+
+
 
 Beta testing
 ============
+
 ---
+
 
 
 (note: do not forget to update "src/window_about.cpp"!)
