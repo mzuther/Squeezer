@@ -880,10 +880,10 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
 {
     int nNumSamples = buffer.getNumSamples();
 
-    // get and prepare input samples (all channels have to be
-    // prepared before any processing can take place!)
     for (int nSample = 0; nSample < nNumSamples; nSample++)
     {
+        // get and prepare input samples (all channels have to be
+        // prepared before any processing can take place!)
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
             // get current input sample
@@ -892,41 +892,34 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
             // de-normalise input sample
             dInputSample += dAntiDenormal;
 
-            // store input sample
+            // store de-normalised input sample
             pInputSamples[nChannel] = dInputSample;
 
-            // store input sample in buffer for input meter
+            // store de-normalised input sample in buffer for input
+            // meter
             pMeterInputBuffer->setSample(nChannel, nMeterBufferPosition, (float) dInputSample);
-
-            // compressor is bypassed (or mix is set to 0 percent)
-            if (bBypassCompressorCombined)
-            {
-                // store input sample in buffer for output meter
-                pMeterOutputBuffer->setSample(nChannel, nMeterBufferPosition, (float) dInputSample);
-
-                // store gain reduction now and apply ballistics later
-                pGainReduction[nChannel] = 0.0;
-            }
         }
 
         // compressor is bypassed (or mix is set to 0 percent)
         if (bBypassCompressorCombined)
         {
+            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            {
+                // store de-normalised input sample in buffer for
+                // output meter
+                pMeterOutputBuffer->copyFrom(nChannel, nMeterBufferPosition, *pMeterInputBuffer, nChannel, nSample, 1);
+
+                // store gain reduction now and apply ballistics later
+                pGainReduction[nChannel] = 0.0;
+            }
+
             // update meter ballistics and increment buffer location
             updateMeterBallistics();
+
+            // skip compressor
+            continue;
         }
-    }
 
-    // compressor is bypassed (or mix is set to 0 percent)
-    if (bBypassCompressorCombined)
-    {
-        // skip compressor
-        return;
-    }
-
-    // loop over input buffer samples
-    for (int nSample = 0; nSample < nNumSamples; nSample++)
-    {
         // compress channels
         for (int nChannel = 0; nChannel < nChannels; nChannel++)
         {
