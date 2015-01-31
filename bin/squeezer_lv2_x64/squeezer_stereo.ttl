@@ -13,7 +13,7 @@
 @prefix unit: <http://lv2plug.in/ns/extensions/units#> .
 
 <http://code.mzuther.de/squeezer/stereo>
-    a lv2:AnalyserPlugin, lv2:Plugin ;
+    a lv2:CompressorPlugin, lv2:Plugin ;
     lv2:requiredFeature <http://lv2plug.in/ns/ext/buf-size#boundedBlockLength> ,
                         <http://lv2plug.in/ns/ext/urid#map> ;
     lv2:extensionData <http://lv2plug.in/ns/ext/options#interface> ,
