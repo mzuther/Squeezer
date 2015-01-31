@@ -412,7 +412,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
 
     ParameterSidechainListen = new WrappedParameterToggleSwitch("Side-Chain", "Compressor");
-    ParameterSidechainListen->setName("Listen");
+    ParameterSidechainListen->setName("SC Listen");
     ParameterSidechainListen->setDefaultBoolean(false, true);
     add(ParameterSidechainListen, selSidechainListen);
 }
