@@ -25,6 +25,6 @@
 #
 # ----------------------------------------------------------------------------
 
-astyle --options=./.astylerc \
+astyle --recursive --exclude="resources" --options=./.astylerc \
   "*.cpp" \
   "*.h"

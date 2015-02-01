@@ -110,30 +110,30 @@ endif
 OBJECTS := \
 	$(OBJDIR)/meter_segment.o \
 	$(OBJDIR)/gain_stage_optical.o \
-	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
-	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
-	$(OBJDIR)/slider_combined.o \
-	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/filter_chebyshev_stage.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_bar_level.o \
-	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/side_chain.o \
 	$(OBJDIR)/window_settings.o \
 	$(OBJDIR)/plugin_editor_squeezer.o \
-	$(OBJDIR)/wrapped_parameter_switch.o \
-	$(OBJDIR)/slider_switch_linear_bar.o \
 	$(OBJDIR)/standalone_application.o \
-	$(OBJDIR)/wrapped_parameter_continuous.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/filter_chebyshev.o \
 	$(OBJDIR)/plugin_parameters_squeezer.o \
 	$(OBJDIR)/compressor.o \
 	$(OBJDIR)/plugin_processor_squeezer.o \
 	$(OBJDIR)/dither.o \
-	$(OBJDIR)/wrapped_parameter_combined.o \
 	$(OBJDIR)/gain_stage_fet.o \
+	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
+	$(OBJDIR)/plugin_parameters.o \
+	$(OBJDIR)/slider_combined.o \
+	$(OBJDIR)/slider_switch.o \
+	$(OBJDIR)/slider_continuous.o \
+	$(OBJDIR)/wrapped_parameter_switch.o \
+	$(OBJDIR)/slider_switch_linear_bar.o \
+	$(OBJDIR)/wrapped_parameter_continuous.o \
+	$(OBJDIR)/wrapped_parameter_combined.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
@@ -214,19 +214,7 @@ $(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
 $(OBJDIR)/gain_stage_optical.o: ../../../Source/gain_stage_optical.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/wrapped_parameter_toggle_switch.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_combined.o: ../../../Source/slider_combined.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch.o: ../../../Source/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/filter_chebyshev_stage.o: ../../../Source/filter_chebyshev_stage.cpp
@@ -238,9 +226,6 @@ $(OBJDIR)/main.o: ../../../Source/main.cpp
 $(OBJDIR)/meter_bar_level.o: ../../../Source/meter_bar_level.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_continuous.o: ../../../Source/slider_continuous.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -250,16 +235,7 @@ $(OBJDIR)/window_settings.o: ../../../Source/window_settings.cpp
 $(OBJDIR)/plugin_editor_squeezer.o: ../../../Source/plugin_editor_squeezer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/wrapped_parameter_switch.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/slider_switch_linear_bar.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/wrapped_parameter_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp
@@ -280,10 +256,34 @@ $(OBJDIR)/plugin_processor_squeezer.o: ../../../Source/plugin_processor_squeezer
 $(OBJDIR)/dither.o: ../../../Source/dither.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/wrapped_parameter_combined.cpp
+$(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
+$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/parameters/wrapped_parameter_toggle_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameters.o: ../../../Source/parameters/plugin_parameters.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_combined.o: ../../../Source/parameters/slider_combined.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_switch.o: ../../../Source/parameters/slider_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_continuous.o: ../../../Source/parameters/slider_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/parameters/wrapped_parameter_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/parameters/slider_switch_linear_bar.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/parameters/wrapped_parameter_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/parameters/wrapped_parameter_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/resources/resources.cpp

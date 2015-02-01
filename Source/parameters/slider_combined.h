@@ -23,25 +23,31 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_SWITCH_LINEAR_BAR_H__
-#define __SLIDER_SWITCH_LINEAR_BAR_H__
+#ifndef __SLIDER_COMBINED_H__
+#define __SLIDER_COMBINED_H__
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "plugin_parameters_squeezer.h"
-#include "wrapped_parameter_switch.h"
+#include "../plugin_parameters_squeezer.h"
+#include "wrapped_parameter_combined.h"
 
 
 //==============================================================================
 /**
 */
-class SliderSwitchLinearBar : public Slider
+class SliderCombined : public Slider
 {
 public:
-    SliderSwitchLinearBar(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex);
-    ~SliderSwitchLinearBar();
+    SliderCombined(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex, int nParameterIndexSwitch);
+    ~SliderCombined();
 
     void visibilityChanged();
+    void resized();
     void setSliderColour(const Colour &colour);
+
+    void addButtonListener(Button::Listener *newListener);
+    void removeListener(Button::Listener *listener);
+
+    void updateMode();
 
     float getRealFloat();
     bool getBoolean();
@@ -50,14 +56,17 @@ public:
     double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderSwitchLinearBar);
+    JUCE_LEAK_DETECTOR(SliderCombined);
 
-    Colour colourThumb;
-    WrappedParameterSwitch *pSwitch;
+    DrawableButton *pToggleButton;
+    Colour colourRotary;
+
+    WrappedParameterCombined *pCombined;
+    WrappedParameterToggleSwitch *pModeSwitch;
 };
 
 
-#endif  // __SLIDER_SWITCH_LINEAR_BAR_H__
+#endif  // __SLIDER_COMBINED_H__
 
 
 // Local Variables:
