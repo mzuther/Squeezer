@@ -26,7 +26,7 @@
 #include "slider_switch.h"
 
 
-SliderSwitch::SliderSwitch(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitch::SliderSwitch(const String &componentName, PluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
 {
     pSwitch = dynamic_cast<WrappedParameterSwitch *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pSwitch != nullptr);

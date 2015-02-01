@@ -28,7 +28,7 @@
 
 class SqueezerPluginParameters;
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "compressor.h"
 #include "parameters/plugin_parameters.h"
 

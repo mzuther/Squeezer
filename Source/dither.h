@@ -26,7 +26,7 @@
 #ifndef __DITHER_H__
 #define __DITHER_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 
 //==============================================================================

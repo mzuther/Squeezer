@@ -26,7 +26,7 @@
 #ifndef __STANDALONE_APPLICATION_H__
 #define __STANDALONE_APPLICATION_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "plugin_processor_squeezer.h"
 #include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
 

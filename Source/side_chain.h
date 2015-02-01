@@ -29,7 +29,7 @@
 #define DEBUG_RELEASE_RATE 0
 
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "compressor.h"
 #include "gain_stage_fet.h"
 #include "gain_stage_optical.h"

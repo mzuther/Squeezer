@@ -26,7 +26,7 @@
 #include "slider_combined.h"
 
 
-SliderCombined::SliderCombined(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex, int nParameterIndexSwitch) : Slider(componentName)
+SliderCombined::SliderCombined(const String &componentName, PluginParameters *pParameters, int nParameterIndex, int nParameterIndexSwitch) : Slider(componentName)
 {
     pCombined = dynamic_cast<WrappedParameterCombined *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pCombined != nullptr);

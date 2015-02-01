@@ -26,7 +26,7 @@
 #ifndef __GAIN_STAGE_FET_H__
 #define __GAIN_STAGE_FET_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "gain_stage.h"
 
 

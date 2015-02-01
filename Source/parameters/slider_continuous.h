@@ -26,8 +26,8 @@
 #ifndef __SLIDER_CONTINUOUS_H__
 #define __SLIDER_CONTINUOUS_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "../plugin_parameters_squeezer.h"
+#include "JuceHeader.h"
+#include "plugin_parameters.h"
 #include "wrapped_parameter_continuous.h"
 
 
@@ -37,7 +37,7 @@
 class SliderContinuous : public Slider
 {
 public:
-    SliderContinuous(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex);
+    SliderContinuous(const String &componentName, PluginParameters *pParameters, int nParameterIndex);
     ~SliderContinuous();
 
     void visibilityChanged();

@@ -26,7 +26,7 @@
 #include "slider_switch_linear_bar.h"
 
 
-SliderSwitchLinearBar::SliderSwitchLinearBar(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitchLinearBar::SliderSwitchLinearBar(const String &componentName, PluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
 {
     pSwitch = dynamic_cast<WrappedParameterSwitch *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pSwitch != nullptr);

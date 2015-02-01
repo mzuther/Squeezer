@@ -30,7 +30,7 @@ class Compressor;
 class FilterChebyshev;
 class SideChain;
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "dither.h"
 #include "filter_chebyshev.h"
 #include "side_chain.h"

@@ -26,8 +26,8 @@
 #ifndef __SLIDER_SWITCH_LINEAR_BAR_H__
 #define __SLIDER_SWITCH_LINEAR_BAR_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "../plugin_parameters_squeezer.h"
+#include "JuceHeader.h"
+#include "plugin_parameters.h"
 #include "wrapped_parameter_switch.h"
 
 
@@ -37,7 +37,7 @@
 class SliderSwitchLinearBar : public Slider
 {
 public:
-    SliderSwitchLinearBar(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex);
+    SliderSwitchLinearBar(const String &componentName, PluginParameters *pParameters, int nParameterIndex);
     ~SliderSwitchLinearBar();
 
     void visibilityChanged();

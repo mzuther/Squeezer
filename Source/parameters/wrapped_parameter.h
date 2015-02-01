@@ -26,7 +26,7 @@
 #ifndef __WRAPPED_PARAMETER_H__
 #define __WRAPPED_PARAMETER_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 
 //==============================================================================

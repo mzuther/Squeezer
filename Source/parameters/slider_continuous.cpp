@@ -26,7 +26,7 @@
 #include "slider_continuous.h"
 
 
-SliderContinuous::SliderContinuous(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
+SliderContinuous::SliderContinuous(const String &componentName, PluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
 {
     pContinuous = dynamic_cast<WrappedParameterContinuous *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pContinuous != nullptr);

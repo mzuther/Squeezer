@@ -26,7 +26,7 @@
 #ifndef __WRAPPED_PARAMETER_COMBINED_H__
 #define __WRAPPED_PARAMETER_COMBINED_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "wrapped_parameter.h"
 #include "wrapped_parameter_continuous.h"
 #include "wrapped_parameter_switch.h"

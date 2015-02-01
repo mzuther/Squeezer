@@ -26,7 +26,7 @@
 #ifndef __WINDOW_ABOUT_H__
 #define __WINDOW_ABOUT_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "resources/resources.h"
 
 

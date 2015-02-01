@@ -26,8 +26,8 @@
 #ifndef __SLIDER_SWITCH_H__
 #define __SLIDER_SWITCH_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "../plugin_parameters_squeezer.h"
+#include "JuceHeader.h"
+#include "plugin_parameters.h"
 #include "wrapped_parameter_switch.h"
 
 
@@ -37,7 +37,7 @@
 class SliderSwitch : public Slider
 {
 public:
-    SliderSwitch(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex);
+    SliderSwitch(const String &componentName, PluginParameters *pParameters, int nParameterIndex);
     ~SliderSwitch();
 
     void visibilityChanged();

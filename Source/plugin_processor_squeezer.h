@@ -30,7 +30,7 @@ class SqueezerAudioProcessor;
 class Compressor;
 class SqueezerPluginParameters;
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "compressor.h"
 #include "plugin_parameters_squeezer.h"
 

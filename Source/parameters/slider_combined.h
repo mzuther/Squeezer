@@ -26,8 +26,8 @@
 #ifndef __SLIDER_COMBINED_H__
 #define __SLIDER_COMBINED_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "../plugin_parameters_squeezer.h"
+#include "JuceHeader.h"
+#include "plugin_parameters.h"
 #include "wrapped_parameter_combined.h"
 
 
@@ -37,7 +37,7 @@
 class SliderCombined : public Slider
 {
 public:
-    SliderCombined(const String &componentName, SqueezerPluginParameters *pParameters, int nParameterIndex, int nParameterIndexSwitch);
+    SliderCombined(const String &componentName, PluginParameters *pParameters, int nParameterIndex, int nParameterIndexSwitch);
     ~SliderCombined();
 
     void visibilityChanged();

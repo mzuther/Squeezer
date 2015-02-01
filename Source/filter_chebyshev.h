@@ -27,7 +27,7 @@
 #define __FILTER_CHEBYSHEV_H__
 
 #include "filter_chebyshev_stage.h"
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 //============================================================================
 class FilterChebyshev

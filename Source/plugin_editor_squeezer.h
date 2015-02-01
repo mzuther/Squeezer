@@ -26,7 +26,7 @@
 #ifndef __PLUGINEDITOR_SQUEEZER_H__
 #define __PLUGINEDITOR_SQUEEZER_H__
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "compressor.h"
 #include "meter_bar_gain_reduction.h"
 #include "meter_bar_level.h"
