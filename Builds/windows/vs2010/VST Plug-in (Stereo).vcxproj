@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{A4C5548C-F6AC-5B65-38BD-5E131FF18A8F}</ProjectGuid>
+		<ProjectGuid>{D9208B81-58A1-C937-7F39-D8703E9ED680}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -215,36 +215,39 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
-		<ClInclude Include="..\..\..\Source\plugin_processor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_level.h" />
 		<ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
-		<ClInclude Include="..\..\..\Source\plugin_parameters_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\dither.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev.h" />
 		<ClInclude Include="..\..\..\Source\compressor.h" />
-		<ClInclude Include="..\..\..\Source\plugin_editor_squeezer.h" />
 		<ClInclude Include="..\..\..\Source\window_settings.h" />
 		<ClInclude Include="..\..\..\Source\side_chain.h" />
+		<ClInclude Include="..\..\..\Source\plugin_processor.h" />
+		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
 		<ClInclude Include="..\..\..\Source\gain_stage.h" />
-		<ClInclude Include="..\..\..\Source\parameters\wrapped_parameter_continuous.h" />
-		<ClInclude Include="..\..\..\Source\parameters\slider_continuous.h" />
-		<ClInclude Include="..\..\..\Source\parameters\wrapped_parameter_toggle_switch.h" />
-		<ClInclude Include="..\..\..\Source\parameters\wrapped_parameter.h" />
-		<ClInclude Include="..\..\..\Source\parameters\slider_combined.h" />
-		<ClInclude Include="..\..\..\Source\parameters\wrapped_parameter_switch.h" />
-		<ClInclude Include="..\..\..\Source\parameters\wrapped_parameter_combined.h" />
-		<ClInclude Include="..\..\..\Source\parameters\plugin_parameters.h" />
-		<ClInclude Include="..\..\..\Source\parameters\slider_switch_linear_bar.h" />
-		<ClInclude Include="..\..\..\Source\parameters\slider_switch.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_continuous.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_continuous.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_toggle_switch.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\parameter_juggler.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_combined.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_switch.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_combined.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_switch_linear_bar.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\gain_stage_optical.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp">
 		</ClCompile>
@@ -258,39 +261,35 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_settings.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_editor_squeezer.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\window_about.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\filter_chebyshev.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_parameters_squeezer.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\compressor.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_processor_squeezer.cpp">
+		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\dither.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\gain_stage_fet.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\wrapped_parameter_toggle_switch.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_toggle_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\plugin_parameters.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\parameter_juggler.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\slider_combined.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_combined.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\slider_switch.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\slider_continuous.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_continuous.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\wrapped_parameter_switch.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\slider_switch_linear_bar.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_switch_linear_bar.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\wrapped_parameter_continuous.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_continuous.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\parameters\wrapped_parameter_combined.cpp">
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_combined.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\resources\resources.cpp">
 		</ClCompile>

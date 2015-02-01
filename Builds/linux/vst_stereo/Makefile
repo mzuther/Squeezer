@@ -109,23 +109,23 @@ endif
 
 OBJECTS := \
 	$(OBJDIR)/meter_segment.o \
+	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/gain_stage_optical.o \
+	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
 	$(OBJDIR)/filter_chebyshev_stage.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/meter_bar_level.o \
 	$(OBJDIR)/side_chain.o \
 	$(OBJDIR)/window_settings.o \
-	$(OBJDIR)/plugin_editor_squeezer.o \
 	$(OBJDIR)/window_about.o \
 	$(OBJDIR)/filter_chebyshev.o \
-	$(OBJDIR)/plugin_parameters_squeezer.o \
 	$(OBJDIR)/compressor.o \
-	$(OBJDIR)/plugin_processor_squeezer.o \
+	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/dither.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
-	$(OBJDIR)/plugin_parameters.o \
+	$(OBJDIR)/parameter_juggler.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/slider_continuous.o \
@@ -212,7 +212,13 @@ endif
 $(OBJDIR)/meter_segment.o: ../../../Source/meter_segment.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/gain_stage_optical.o: ../../../Source/gain_stage_optical.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp
@@ -233,22 +239,16 @@ $(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
 $(OBJDIR)/window_settings.o: ../../../Source/window_settings.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_editor_squeezer.o: ../../../Source/plugin_editor_squeezer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/window_about.o: ../../../Source/window_about.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/filter_chebyshev.o: ../../../Source/filter_chebyshev.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameters_squeezer.o: ../../../Source/plugin_parameters_squeezer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/compressor.o: ../../../Source/compressor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_processor_squeezer.o: ../../../Source/plugin_processor_squeezer.cpp
+$(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/dither.o: ../../../Source/dither.cpp
@@ -257,31 +257,31 @@ $(OBJDIR)/dither.o: ../../../Source/dither.cpp
 $(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/parameters/wrapped_parameter_toggle_switch.cpp
+$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/parameter_juggler/wrapped_parameter_toggle_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/plugin_parameters.o: ../../../Source/parameters/plugin_parameters.cpp
+$(OBJDIR)/parameter_juggler.o: ../../../Source/parameter_juggler/parameter_juggler.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_combined.o: ../../../Source/parameters/slider_combined.cpp
+$(OBJDIR)/slider_combined.o: ../../../Source/parameter_juggler/slider_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch.o: ../../../Source/parameters/slider_switch.cpp
+$(OBJDIR)/slider_switch.o: ../../../Source/parameter_juggler/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_continuous.o: ../../../Source/parameters/slider_continuous.cpp
+$(OBJDIR)/slider_continuous.o: ../../../Source/parameter_juggler/slider_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/parameters/wrapped_parameter_switch.cpp
+$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/parameter_juggler/wrapped_parameter_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/parameters/slider_switch_linear_bar.cpp
+$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/parameter_juggler/slider_switch_linear_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/parameters/wrapped_parameter_continuous.cpp
+$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/parameter_juggler/wrapped_parameter_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/parameters/wrapped_parameter_combined.cpp
+$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/parameter_juggler/wrapped_parameter_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/resources/resources.cpp

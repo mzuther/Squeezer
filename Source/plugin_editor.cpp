@@ -23,7 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "plugin_editor_squeezer.h"
+#include "plugin_editor.h"
 
 //==============================================================================
 SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels)

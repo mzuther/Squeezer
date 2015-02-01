@@ -33,7 +33,7 @@
 #include "compressor.h"
 #include "gain_stage_fet.h"
 #include "gain_stage_optical.h"
-#include "plugin_processor_squeezer.h"
+#include "plugin_processor.h"
 
 
 //==============================================================================

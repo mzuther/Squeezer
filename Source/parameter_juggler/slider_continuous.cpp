@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -26,7 +26,7 @@
 #include "slider_continuous.h"
 
 
-SliderContinuous::SliderContinuous(const String &componentName, PluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
+SliderContinuous::SliderContinuous(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex) : Slider(componentName)
 {
     pContinuous = dynamic_cast<WrappedParameterContinuous *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pContinuous != nullptr);

@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETERS_H__
-#define __PLUGIN_PARAMETERS_H__
+#ifndef __PARAMETER_JUGGLER_H__
+#define __PARAMETER_JUGGLER_H__
 
-class PluginParameters;
+class ParameterJuggler;
 
 #include "JuceHeader.h"
 #include "wrapped_parameter.h"
@@ -36,13 +36,13 @@ class PluginParameters;
 
 
 //============================================================================
-class PluginParameters
+class ParameterJuggler
 {
 public:
     //==========================================================================
 
-    PluginParameters();
-    ~PluginParameters();
+    ParameterJuggler();
+    ~ParameterJuggler();
 
     WrappedParameter *getWrappedParameter(int nIndex);
     String toString();
@@ -101,10 +101,10 @@ protected:
     String strSettingsID;
 
 private:
-    JUCE_LEAK_DETECTOR(PluginParameters);
+    JUCE_LEAK_DETECTOR(ParameterJuggler);
 };
 
-#endif  // __PLUGIN_PARAMETERS_H__
+#endif  // __PARAMETER_JUGGLER_H__
 
 
 // Local Variables:

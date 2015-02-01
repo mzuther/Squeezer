@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 

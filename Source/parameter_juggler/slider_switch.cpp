@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,70 +23,78 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "slider_switch_linear_bar.h"
+#include "slider_switch.h"
 
 
-SliderSwitchLinearBar::SliderSwitchLinearBar(const String &componentName, PluginParameters *pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitch::SliderSwitch(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex) : Slider(componentName)
 {
     pSwitch = dynamic_cast<WrappedParameterSwitch *>(pParameters->getWrappedParameter(nParameterIndex));
     jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getInterval());
-    setSliderStyle(Slider::LinearBar);
-    colourThumb = Colours::white;
+    setSliderStyle(Slider::RotaryVerticalDrag);
+    colourRotary = Colours::white;
 
-    setTextBoxIsEditable(false);
     setDoubleClickReturnValue(true, pSwitch->getDefaultFloat());
 }
 
 
-SliderSwitchLinearBar::~SliderSwitchLinearBar()
+SliderSwitch::~SliderSwitch()
 {
 }
 
 
-void SliderSwitchLinearBar::visibilityChanged()
+void SliderSwitch::visibilityChanged()
 {
     Slider::visibilityChanged();
 
-    setColour(Slider::thumbColourId, colourThumb);
+    setColour(Slider::rotarySliderFillColourId, colourRotary);
     setColour(Slider::textBoxTextColourId, Colours::white);
-    setColour(Slider::backgroundColourId, Colours::darkgrey.darker(0.7f));
+    setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
     setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
 }
 
 
-void SliderSwitchLinearBar::setSliderColour(const Colour &colour)
+void SliderSwitch::resized()
 {
-    colourThumb = colour;
-    setColour(Slider::thumbColourId, colourThumb);
+    Slider::resized();
+
+    int nWidth = getBounds().getWidth();
+    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 }
 
-float SliderSwitchLinearBar::getRealFloat()
+
+void SliderSwitch::setSliderColour(const Colour &colour)
+{
+    colourRotary = colour;
+    setColour(Slider::rotarySliderFillColourId, colourRotary);
+}
+
+float SliderSwitch::getRealFloat()
 {
     return pSwitch->getRealFloat();
 }
 
 
-bool SliderSwitchLinearBar::getBoolean()
+bool SliderSwitch::getBoolean()
 {
     return pSwitch->getBoolean();
 }
 
 
-int SliderSwitchLinearBar::getRealInteger()
+int SliderSwitch::getRealInteger()
 {
     return pSwitch->getRealInteger();
 }
 
 
-double SliderSwitchLinearBar::getValueFromText(const String &strText)
+double SliderSwitch::getValueFromText(const String &strText)
 {
     return pSwitch->getFloatFromText(strText);
 }
 
 
-String SliderSwitchLinearBar::getTextFromValue(double dValue)
+String SliderSwitch::getTextFromValue(double dValue)
 {
     return pSwitch->getTextFromFloat((float) dValue);
 }

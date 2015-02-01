@@ -23,7 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "plugin_parameters_squeezer.h"
+#include "plugin_parameters.h"
 
 
 // The methods of this class may be called on the audio thread, so
@@ -31,7 +31,7 @@
 
 SqueezerPluginParameters::SqueezerPluginParameters()
 {
-    PluginParameters();
+    ParameterJuggler();
 
     strSettingsID = "SQUEEZER_SETTINGS";
 

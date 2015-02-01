@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,24 +23,32 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_SWITCH_H__
-#define __WRAPPED_PARAMETER_SWITCH_H__
+#ifndef __WRAPPED_PARAMETER_COMBINED_H__
+#define __WRAPPED_PARAMETER_COMBINED_H__
 
 #include "JuceHeader.h"
 #include "wrapped_parameter.h"
+#include "wrapped_parameter_continuous.h"
+#include "wrapped_parameter_switch.h"
+#include "wrapped_parameter_toggle_switch.h"
 
 
 //==============================================================================
 /**
 */
-class WrappedParameterSwitch : virtual public WrappedParameter
+class WrappedParameterCombined : virtual public WrappedParameter
 {
 public:
-    WrappedParameterSwitch();
-    ~WrappedParameterSwitch();
+    WrappedParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
+    ~WrappedParameterCombined();
 
     String getName();
     void setName(const String &strParameterName);
+
+    bool getMode();
+    bool setMode(bool use_constants);
+    bool toggleMode();
+    WrappedParameterToggleSwitch *getModeSwitch();
 
     void addConstant(const float fRealValue, const String &strText);
     float getInterval();
@@ -56,7 +64,6 @@ public:
 
     float getRealFloat();
     bool setRealFloat(float fRealValue);
-    bool setNearestRealFloat(float fRealValue);
 
     bool getBoolean();
     bool setBoolean(bool bValue);
@@ -66,6 +73,7 @@ public:
 
     String getText();
     bool setText(const String &strText);
+    void setSuffix(const String &suffix);
 
     float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
@@ -74,26 +82,28 @@ public:
     void clearChangeFlag();
     void setChangeFlag();
 
+    bool hasChangedMode();
+    void clearChangeFlagMode();
+    void setChangeFlagMode();
+
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterSwitch);
+    JUCE_LEAK_DETECTOR(WrappedParameterCombined);
 
     String strName;
     String strAttribute;
 
-    float fDefaultRealValue;
-    int nCurrentIndex;
-    float fValueInternal;
-    bool bChangedValue;
-    float fInterval;
+    bool bUseConstants;
+    bool bChangedMode;
 
-    Array<float> fRealValues;
-    StringArray strValues;
+    WrappedParameterToggleSwitch *pModeSwitch;
+    WrappedParameterSwitch *pSwitch;
+    WrappedParameterContinuous *pContinuous;
 };
 
 
-#endif  // __WRAPPED_PARAMETER_SWITCH_H__
+#endif  // __WRAPPED_PARAMETER_COMBINED_H__
 
 
 // Local Variables:

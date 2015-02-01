@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "plugin_processor_squeezer.h"
-#include "plugin_editor_squeezer.h"
+#include "plugin_processor.h"
+#include "plugin_editor.h"
 
 
 /*==============================================================================

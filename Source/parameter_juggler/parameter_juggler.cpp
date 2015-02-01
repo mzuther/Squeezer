@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,7 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "plugin_parameters.h"
+#include "parameter_juggler.h"
 
 
 // The methods of this class may be called on the audio thread, so
@@ -32,28 +32,28 @@
 // The methods of this class may be called on the audio thread, so
 // they are absolutely time-critical!
 
-PluginParameters::PluginParameters()
+ParameterJuggler::ParameterJuggler()
 {
     strSettingsID = "SETTINGS";
     nNumParameters = 0;
 }
 
 
-PluginParameters::~PluginParameters()
+ParameterJuggler::~ParameterJuggler()
 {
     arrParameters.clear();
     arrMayModify.clear();
 }
 
 
-WrappedParameter *PluginParameters::getWrappedParameter(int nIndex)
+WrappedParameter *ParameterJuggler::getWrappedParameter(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex];
 }
 
 
-String PluginParameters::toString()
+String ParameterJuggler::toString()
 {
     String strParameters;
 
@@ -67,7 +67,7 @@ String PluginParameters::toString()
 }
 
 
-int PluginParameters::getNumParameters(bool bIncludeHiddenParameters)
+int ParameterJuggler::getNumParameters(bool bIncludeHiddenParameters)
 {
     if (bIncludeHiddenParameters)
     {
@@ -80,7 +80,7 @@ int PluginParameters::getNumParameters(bool bIncludeHiddenParameters)
 }
 
 
-void PluginParameters::add(WrappedParameter *parameter, int nIndex, bool mayModify)
+void ParameterJuggler::add(WrappedParameter *parameter, int nIndex, bool mayModify)
 {
     arrParameters.add(parameter);
     arrMayModify.add(mayModify);
@@ -90,7 +90,7 @@ void PluginParameters::add(WrappedParameter *parameter, int nIndex, bool mayModi
 }
 
 
-void PluginParameters::addCombined(WrappedParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify)
+void ParameterJuggler::addCombined(WrappedParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify)
 {
     jassert(nIndex == (nIndexSwitch + 1));
 
@@ -99,14 +99,14 @@ void PluginParameters::addCombined(WrappedParameterCombined *parameter, int nInd
 }
 
 
-String PluginParameters::getName(int nIndex)
+String ParameterJuggler::getName(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getName();
 }
 
 
-void PluginParameters::setName(int nIndex, const String &strParameterName)
+void ParameterJuggler::setName(int nIndex, const String &strParameterName)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -114,42 +114,42 @@ void PluginParameters::setName(int nIndex, const String &strParameterName)
 }
 
 
-float PluginParameters::getInterval(int nIndex)
+float ParameterJuggler::getInterval(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getInterval();
 }
 
 
-float PluginParameters::getDefaultFloat(int nIndex)
+float ParameterJuggler::getDefaultFloat(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getDefaultFloat();
 }
 
 
-float PluginParameters::getDefaultRealFloat(int nIndex)
+float ParameterJuggler::getDefaultRealFloat(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getDefaultRealFloat();
 }
 
 
-bool PluginParameters::getDefaultBoolean(int nIndex)
+bool ParameterJuggler::getDefaultBoolean(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getDefaultBoolean();
 }
 
 
-int PluginParameters::getDefaultRealInteger(int nIndex)
+int ParameterJuggler::getDefaultRealInteger(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getDefaultRealInteger();
 }
 
 
-bool PluginParameters::setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue)
+bool ParameterJuggler::setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -157,14 +157,14 @@ bool PluginParameters::setDefaultRealFloat(int nIndex, float fRealValue, bool up
 }
 
 
-float PluginParameters::getFloat(int nIndex)
+float ParameterJuggler::getFloat(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getFloat();
 }
 
 
-bool PluginParameters::setFloat(int nIndex, float fValue)
+bool ParameterJuggler::setFloat(int nIndex, float fValue)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -172,14 +172,14 @@ bool PluginParameters::setFloat(int nIndex, float fValue)
 }
 
 
-float PluginParameters::getRealFloat(int nIndex)
+float ParameterJuggler::getRealFloat(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getRealFloat();
 }
 
 
-bool PluginParameters::setRealFloat(int nIndex, float fRealValue)
+bool ParameterJuggler::setRealFloat(int nIndex, float fRealValue)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -187,14 +187,14 @@ bool PluginParameters::setRealFloat(int nIndex, float fRealValue)
 }
 
 
-bool PluginParameters::getBoolean(int nIndex)
+bool ParameterJuggler::getBoolean(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getBoolean();
 }
 
 
-bool PluginParameters::setBoolean(int nIndex, bool bValue)
+bool ParameterJuggler::setBoolean(int nIndex, bool bValue)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -202,14 +202,14 @@ bool PluginParameters::setBoolean(int nIndex, bool bValue)
 }
 
 
-int PluginParameters::getRealInteger(int nIndex)
+int ParameterJuggler::getRealInteger(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getRealInteger();
 }
 
 
-bool PluginParameters::setRealInteger(int nIndex, int nRealValue)
+bool ParameterJuggler::setRealInteger(int nIndex, int nRealValue)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -217,14 +217,14 @@ bool PluginParameters::setRealInteger(int nIndex, int nRealValue)
 }
 
 
-String PluginParameters::getText(int nIndex)
+String ParameterJuggler::getText(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getText();
 }
 
 
-bool PluginParameters::setText(int nIndex, const String &strText)
+bool ParameterJuggler::setText(int nIndex, const String &strText)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -232,35 +232,35 @@ bool PluginParameters::setText(int nIndex, const String &strText)
 }
 
 
-float PluginParameters::getFloatFromText(int nIndex, const String &strText)
+float ParameterJuggler::getFloatFromText(int nIndex, const String &strText)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getFloatFromText(strText);
 }
 
 
-String PluginParameters::getTextFromFloat(int nIndex, float fValue)
+String ParameterJuggler::getTextFromFloat(int nIndex, float fValue)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->getTextFromFloat(fValue);
 }
 
 
-bool PluginParameters::hasChanged(int nIndex)
+bool ParameterJuggler::hasChanged(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->hasChanged();
 }
 
 
-void PluginParameters::clearChangeFlag(int nIndex)
+void ParameterJuggler::clearChangeFlag(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->clearChangeFlag();
 }
 
 
-void PluginParameters::setChangeFlag(int nIndex)
+void ParameterJuggler::setChangeFlag(int nIndex)
 {
     jassert(arrMayModify[nIndex]);
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -268,7 +268,7 @@ void PluginParameters::setChangeFlag(int nIndex)
 }
 
 
-void PluginParameters::loadFromXml(XmlElement *xml)
+void ParameterJuggler::loadFromXml(XmlElement *xml)
 {
     if (xml && xml->hasTagName(strSettingsID))
     {
@@ -283,7 +283,7 @@ void PluginParameters::loadFromXml(XmlElement *xml)
 }
 
 
-XmlElement PluginParameters::storeAsXml()
+XmlElement ParameterJuggler::storeAsXml()
 {
     XmlElement xml(strSettingsID);
     xml.setAttribute("version", JucePlugin_VersionString);

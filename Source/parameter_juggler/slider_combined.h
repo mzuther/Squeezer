@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,26 +23,31 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_SWITCH_H__
-#define __SLIDER_SWITCH_H__
+#ifndef __SLIDER_COMBINED_H__
+#define __SLIDER_COMBINED_H__
 
 #include "JuceHeader.h"
-#include "plugin_parameters.h"
-#include "wrapped_parameter_switch.h"
+#include "parameter_juggler.h"
+#include "wrapped_parameter_combined.h"
 
 
 //==============================================================================
 /**
 */
-class SliderSwitch : public Slider
+class SliderCombined : public Slider
 {
 public:
-    SliderSwitch(const String &componentName, PluginParameters *pParameters, int nParameterIndex);
-    ~SliderSwitch();
+    SliderCombined(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
+    ~SliderCombined();
 
     void visibilityChanged();
     void resized();
     void setSliderColour(const Colour &colour);
+
+    void addButtonListener(Button::Listener *newListener);
+    void removeListener(Button::Listener *listener);
+
+    void updateMode();
 
     float getRealFloat();
     bool getBoolean();
@@ -51,14 +56,17 @@ public:
     double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderSwitch);
+    JUCE_LEAK_DETECTOR(SliderCombined);
 
+    DrawableButton *pToggleButton;
     Colour colourRotary;
-    WrappedParameterSwitch *pSwitch;
+
+    WrappedParameterCombined *pCombined;
+    WrappedParameterToggleSwitch *pModeSwitch;
 };
 
 
-#endif  // __SLIDER_SWITCH_H__
+#endif  // __SLIDER_COMBINED_H__
 
 
 // Local Variables:

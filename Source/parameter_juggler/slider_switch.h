@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,22 +23,22 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_CONTINUOUS_H__
-#define __SLIDER_CONTINUOUS_H__
+#ifndef __SLIDER_SWITCH_H__
+#define __SLIDER_SWITCH_H__
 
 #include "JuceHeader.h"
-#include "plugin_parameters.h"
-#include "wrapped_parameter_continuous.h"
+#include "parameter_juggler.h"
+#include "wrapped_parameter_switch.h"
 
 
 //==============================================================================
 /**
 */
-class SliderContinuous : public Slider
+class SliderSwitch : public Slider
 {
 public:
-    SliderContinuous(const String &componentName, PluginParameters *pParameters, int nParameterIndex);
-    ~SliderContinuous();
+    SliderSwitch(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
+    ~SliderSwitch();
 
     void visibilityChanged();
     void resized();
@@ -51,14 +51,14 @@ public:
     double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderContinuous);
+    JUCE_LEAK_DETECTOR(SliderSwitch);
 
     Colour colourRotary;
-    WrappedParameterContinuous *pContinuous;
+    WrappedParameterSwitch *pSwitch;
 };
 
 
-#endif  // __SLIDER_CONTINUOUS_H__
+#endif  // __SLIDER_SWITCH_H__
 
 
 // Local Variables:

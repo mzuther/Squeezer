@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -136,13 +136,13 @@ bool WrappedParameterContinuous::setDefaultRealFloat(float fRealValue, bool upda
 
     if (fRealValue < fRealMinimum)
     {
-        DBG("[Squeezer] default value for \"" + strName + "\" set to minimum.");
+        DBG("[Juggler] default value for \"" + strName + "\" set to minimum.");
         fDefaultRealValue = fRealMinimum;
         bReturn = false;
     }
     else if (fRealValue > fRealMaximum)
     {
-        DBG("[Squeezer] default value for \"" + strName + "\" set to maximum.");
+        DBG("[Juggler] default value for \"" + strName + "\" set to maximum.");
         fDefaultRealValue = fRealMaximum;
         bReturn = false;
     }
@@ -174,13 +174,13 @@ bool WrappedParameterContinuous::setFloat(float fValue)
 
     if (fValue < 0.0f)
     {
-        DBG("[Squeezer] value for \"" + strName + "\" set to minimum.");
+        DBG("[Juggler] value for \"" + strName + "\" set to minimum.");
         fValueInternal = 0.0f;
         bReturn = false;
     }
     else if (fValue > 1.0f)
     {
-        DBG("[Squeezer] value for \"" + strName + "\" set to maximum.");
+        DBG("[Juggler] value for \"" + strName + "\" set to maximum.");
         fValueInternal = 1.0f;
         bReturn = false;
     }

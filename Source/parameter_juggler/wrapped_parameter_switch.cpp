@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -83,7 +83,7 @@ float WrappedParameterSwitch::getDefaultFloat()
 
     if (nIndex < 0)
     {
-        DBG("[Squeezer] default value for \"" + strName + "\" not found.");
+        DBG("[Juggler] default value for \"" + strName + "\" not found.");
         return -1.0f;
     }
     else
@@ -117,7 +117,7 @@ bool WrappedParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateVa
 
     if (nIndex < 0)
     {
-        DBG("[Squeezer] new default value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] new default value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
         return false;
     }
     else
@@ -144,7 +144,7 @@ bool WrappedParameterSwitch::setFloat(float fValue)
 {
     if ((fValue < 0.0f) || (fValue > 1.0f))
     {
-        DBG("[Squeezer] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
         return false;
     }
     else
@@ -177,7 +177,7 @@ bool WrappedParameterSwitch::setRealFloat(float fRealValue)
 
     if (nIndex < 0)
     {
-        DBG("[Squeezer] value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
         return false;
     }
     else
@@ -252,7 +252,7 @@ bool WrappedParameterSwitch::setText(const String &strText)
 
     if (nIndex < 0)
     {
-        DBG("[Squeezer] text value \"" + strText + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + strName + "\".");
         return false;
     }
     else
@@ -276,7 +276,7 @@ float WrappedParameterSwitch::getFloatFromText(const String &strText)
 
     if (nIndex < 0)
     {
-        DBG("[Squeezer] text value \"" + strText + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + strName + "\".");
         return -1.0f;
     }
     else
@@ -290,7 +290,7 @@ String WrappedParameterSwitch::getTextFromFloat(float fValue)
 {
     if ((fValue < 0.0f) || (fValue > 1.0f))
     {
-        DBG("[Squeezer] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
         return "not found";
     }
     else

@@ -30,11 +30,11 @@ class SqueezerPluginParameters;
 
 #include "JuceHeader.h"
 #include "compressor.h"
-#include "parameters/plugin_parameters.h"
+#include "parameter_juggler/parameter_juggler.h"
 
 
 //============================================================================
-class SqueezerPluginParameters  : public PluginParameters
+class SqueezerPluginParameters  : public ParameterJuggler
 {
 public:
     //==========================================================================

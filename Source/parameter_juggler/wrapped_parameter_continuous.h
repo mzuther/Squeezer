@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_TOGGLE_SWITCH_H__
-#define __WRAPPED_PARAMETER_TOGGLE_SWITCH_H__
+#ifndef __WRAPPED_PARAMETER_CONTINUOUS_H__
+#define __WRAPPED_PARAMETER_CONTINUOUS_H__
 
 #include "JuceHeader.h"
 #include "wrapped_parameter.h"
@@ -33,23 +33,21 @@
 //==============================================================================
 /**
 */
-class WrappedParameterToggleSwitch : virtual public WrappedParameter
+class WrappedParameterContinuous : virtual public WrappedParameter
 {
 public:
-    WrappedParameterToggleSwitch(const String &state_on, const String &state_off);
-    ~WrappedParameterToggleSwitch();
+    WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
+    ~WrappedParameterContinuous();
 
     String getName();
     void setName(const String &strParameterName);
 
     float getInterval();
-    void toggleState();
 
     float getDefaultFloat();
     float getDefaultRealFloat();
     bool getDefaultBoolean();
     int getDefaultRealInteger();
-    bool setDefaultBoolean(bool bValue, bool updateValue);
     bool setDefaultRealFloat(float fRealValue, bool updateValue);
 
     float getFloat();
@@ -57,6 +55,7 @@ public:
 
     float getRealFloat();
     bool setRealFloat(float fRealValue);
+    bool setNearestRealFloat(float fRealValue);
 
     bool getBoolean();
     bool setBoolean(bool bValue);
@@ -66,6 +65,7 @@ public:
 
     String getText();
     bool setText(const String &strText);
+    void setSuffix(const String &suffix);
 
     float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
@@ -77,20 +77,34 @@ public:
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterToggleSwitch);
+    JUCE_LEAK_DETECTOR(WrappedParameterContinuous);
+
+    float toRealFloat(float fValue);
+    float toInternalFloat(float fRealValue);
 
     String strName;
     String strAttribute;
-    String strStateOn;
-    String strStateOff;
+    String strSuffix;
 
-    bool bState;
-    bool bDefaultState;
+    float fDefaultRealValue;
+    float fValueInternal;
     bool bChangedValue;
+    bool bLogarithmic;
+
+    float fInterval;
+    float fResolution;
+    int nDecimalPlaces;
+
+    float fRealMinimum;
+    float fRealMaximum;
+    float fRealRange;
+
+    float fLogFactor;
+    float fLogPowerFactor;
 };
 
 
-#endif  // __WRAPPED_PARAMETER_TOGGLE_SWITCH_H__
+#endif  // __WRAPPED_PARAMETER_CONTINUOUS_H__
 
 
 // Local Variables:

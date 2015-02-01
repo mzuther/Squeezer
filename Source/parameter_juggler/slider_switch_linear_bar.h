@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Parameter Juggler
+   =================
+   Module for handling plug-in parameters in JUCE
 
    Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -27,7 +27,7 @@
 #define __SLIDER_SWITCH_LINEAR_BAR_H__
 
 #include "JuceHeader.h"
-#include "plugin_parameters.h"
+#include "parameter_juggler.h"
 #include "wrapped_parameter_switch.h"
 
 
@@ -37,7 +37,7 @@
 class SliderSwitchLinearBar : public Slider
 {
 public:
-    SliderSwitchLinearBar(const String &componentName, PluginParameters *pParameters, int nParameterIndex);
+    SliderSwitchLinearBar(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
     ~SliderSwitchLinearBar();
 
     void visibilityChanged();
