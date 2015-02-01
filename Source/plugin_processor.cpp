@@ -125,7 +125,7 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    // Please only use this method directly for non-automatable
+    // Please only call this method directly for non-automatable
     // values!
 
     // update signal processing unit
@@ -420,7 +420,7 @@ bool SqueezerAudioProcessor::hasChanged(int nIndex)
 
 void SqueezerAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
 {
-    int nNumParameters = pPluginParameters->getNumParameters(bIncludeHiddenParameters);
+    int nNumParameters = pPluginParameters->getNumParameters(false);
 
     for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
     {
@@ -429,6 +429,11 @@ void SqueezerAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
             float fValue = pPluginParameters->getFloat(nIndex);
             changeParameter(nIndex, fValue);
         }
+    }
+
+    if (bIncludeHiddenParameters)
+    {
+        // handle hidden parameters here!
     }
 }
 
@@ -779,16 +784,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer 
 
     if (!bSampleRateIsValid)
     {
-        // In case we have more outputs than inputs, we'll clear any
-        // output channels that didn't contain input data, because these
-        // aren't guaranteed to be empty -- they may contain garbage.
-
-        if (getNumOutputChannels() > nNumInputChannels)
-        {
-            nNumInputChannels = getNumOutputChannels();
-        }
-
-        for (int nChannel = 0; nChannel < nNumInputChannels; nChannel++)
+        for (int nChannel = 0; nChannel < getNumOutputChannels(); nChannel++)
         {
             buffer.clear(nChannel, 0, nNumSamples);
         }
