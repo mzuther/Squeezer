@@ -28,9 +28,9 @@
 
 WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places)
 {
-    strName = "";
-    strAttribute = "";
-    strSuffix = "";
+    strName = String::empty;
+    strAttribute = String::empty;
+    strSuffix = String::empty;
 
     fRealMinimum = real_minimum;
     fRealMaximum = real_maximum;

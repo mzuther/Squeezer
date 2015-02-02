@@ -129,6 +129,7 @@ OBJECTS := \
 	$(OBJDIR)/parameter_juggler.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
+	$(OBJDIR)/wrapped_parameter_string.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/wrapped_parameter_switch.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
@@ -269,6 +270,9 @@ $(OBJDIR)/slider_combined.o: ../../../Source/parameter_juggler/slider_combined.c
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_switch.o: ../../../Source/parameter_juggler/slider_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_string.o: ../../../Source/parameter_juggler/wrapped_parameter_string.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_continuous.o: ../../../Source/parameter_juggler/slider_continuous.cpp

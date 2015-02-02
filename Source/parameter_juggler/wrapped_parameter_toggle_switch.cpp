@@ -28,8 +28,8 @@
 
 WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String &state_on, const String &state_off)
 {
-    strName = "";
-    strAttribute = "";
+    strName = String::empty;
+    strAttribute = String::empty;
 
     strStateOn = state_on;
     strStateOff = state_off;

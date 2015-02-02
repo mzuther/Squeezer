@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{E6A19547-A263-E03C-AE2D-C3A3ED42FB5D}</ProjectGuid>
+		<ProjectGuid>{3AE51CD3-D2B7-83A2-93EE-CDEF5EB0353F}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -214,6 +214,7 @@
 		<ClInclude Include="..\..\..\Source\dither.h" />
 		<ClInclude Include="..\..\..\Source\window_about.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev.h" />
+		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\compressor.h" />
 		<ClInclude Include="..\..\..\Source\window_settings.h" />
 		<ClInclude Include="..\..\..\Source\side_chain.h" />
@@ -229,6 +230,7 @@
 		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_switch.h" />
 		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_combined.h" />
+		<ClInclude Include="..\..\..\Source\parameter_juggler\wrapped_parameter_string.h" />
 		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_switch_linear_bar.h" />
 		<ClInclude Include="..\..\..\Source\parameter_juggler\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\resources\resources.h" />
@@ -275,6 +277,8 @@
 		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_combined.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\parameter_juggler\wrapped_parameter_string.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\parameter_juggler\slider_continuous.cpp">
 		</ClCompile>

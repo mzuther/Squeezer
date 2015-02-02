@@ -28,8 +28,8 @@
 
 WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places)
 {
-    strName = "";
-    strAttribute = "";
+    strName = String::empty;
+    strAttribute = String::empty;
 
     pSwitch = new WrappedParameterSwitch();
     pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places);

@@ -28,8 +28,8 @@
 
 WrappedParameterSwitch::WrappedParameterSwitch()
 {
-    strName = "";
-    strAttribute = "";
+    strName = String::empty;
+    strAttribute = String::empty;
 
     nCurrentIndex = -1;
     fDefaultRealValue = -1.0f;

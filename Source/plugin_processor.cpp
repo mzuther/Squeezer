@@ -393,9 +393,20 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
     // notify plug-in editor of parameter change
     if (pPluginParameters->hasChanged(nIndex))
     {
-        // "PC" --> parameter changed, followed by a hash and the
-        // parameter's ID
-        sendActionMessage("PC#" + String(nIndex));
+        // for visible parameters, notify the editor of changes (this
+        // will also clear the change flag)
+        if (nIndex < pPluginParameters->getNumParameters(false))
+        {
+            // "PC" --> parameter changed, followed by a hash and the
+            // parameter's ID
+            sendActionMessage("PC#" + String(nIndex));
+        }
+        // for hidden parameters, we only have to clear the change
+        // flag
+        else
+        {
+            pPluginParameters->clearChangeFlag(nIndex);
+        }
     }
 }
 
