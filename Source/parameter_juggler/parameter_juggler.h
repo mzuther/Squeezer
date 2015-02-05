@@ -45,6 +45,11 @@ public:
     ParameterJuggler();
     ~ParameterJuggler();
 
+    static String getVersion()
+    {
+        return "1.1";
+    }
+
     WrappedParameter *getWrappedParameter(int nIndex);
     String toString();
 

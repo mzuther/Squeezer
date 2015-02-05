@@ -34,6 +34,8 @@
 
 ParameterJuggler::ParameterJuggler()
 {
+    DBG("[Juggler] version v" + getVersion());
+
     strSettingsID = "SETTINGS";
     nNumParameters = 0;
 }

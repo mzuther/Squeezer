@@ -31,8 +31,6 @@
 
 SqueezerPluginParameters::SqueezerPluginParameters()
 {
-    ParameterJuggler();
-
     strSettingsID = "SQUEEZER_SETTINGS";
 
     ParameterBypass = new WrappedParameterToggleSwitch("Bypassed", "Active");
