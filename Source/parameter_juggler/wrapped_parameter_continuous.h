@@ -36,7 +36,7 @@
 class WrappedParameterContinuous : virtual public WrappedParameter
 {
 public:
-    WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
+    WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion = false);
     ~WrappedParameterContinuous();
 
     String getName();
@@ -74,6 +74,8 @@ public:
     void clearChangeFlag();
     void setChangeFlag();
 
+    bool saveFromDeletion();
+
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
@@ -101,6 +103,8 @@ private:
 
     float fLogFactor;
     float fLogPowerFactor;
+
+    bool bSaveFromDeletion;
 };
 
 

@@ -36,7 +36,7 @@
 class WrappedParameterSwitch : virtual public WrappedParameter
 {
 public:
-    WrappedParameterSwitch();
+    WrappedParameterSwitch(bool save_from_deletion = false);
     ~WrappedParameterSwitch();
 
     String getName();
@@ -74,6 +74,8 @@ public:
     void clearChangeFlag();
     void setChangeFlag();
 
+    bool saveFromDeletion();
+
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
@@ -90,6 +92,8 @@ private:
 
     Array<float> fRealValues;
     StringArray strValues;
+
+    bool bSaveFromDeletion;
 };
 
 

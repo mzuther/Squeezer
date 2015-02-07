@@ -86,6 +86,8 @@ public:
     void clearChangeFlagMode();
     void setChangeFlagMode();
 
+    bool saveFromDeletion();
+
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:

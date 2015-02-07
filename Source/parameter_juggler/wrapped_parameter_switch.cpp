@@ -26,7 +26,7 @@
 #include "wrapped_parameter_switch.h"
 
 
-WrappedParameterSwitch::WrappedParameterSwitch()
+WrappedParameterSwitch::WrappedParameterSwitch(bool save_from_deletion)
 {
     strName = String::empty;
     strAttribute = String::empty;
@@ -35,6 +35,8 @@ WrappedParameterSwitch::WrappedParameterSwitch()
     fDefaultRealValue = -1.0f;
     fValueInternal = fDefaultRealValue;
     fInterval = -1.0f;
+
+    bSaveFromDeletion = save_from_deletion;
 
     setChangeFlag();
 }
@@ -316,6 +318,12 @@ void WrappedParameterSwitch::clearChangeFlag()
 void WrappedParameterSwitch::setChangeFlag()
 {
     bChangedValue = true;
+}
+
+
+bool WrappedParameterSwitch::saveFromDeletion()
+{
+    return bSaveFromDeletion;
 }
 
 

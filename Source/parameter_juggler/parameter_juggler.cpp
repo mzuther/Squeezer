@@ -43,6 +43,18 @@ ParameterJuggler::ParameterJuggler()
 
 ParameterJuggler::~ParameterJuggler()
 {
+    while (arrParameters.size())
+    {
+        WrappedParameter *parameter = arrParameters.remove(0);
+
+        // do not delete elements of combined parameters!
+        if (!parameter->saveFromDeletion())
+        {
+            delete parameter;
+            parameter = nullptr;
+        }
+    }
+
     arrParameters.clear();
     arrMayModify.clear();
 }

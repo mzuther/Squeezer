@@ -33,13 +33,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 {
     strSettingsID = "SQUEEZER_SETTINGS";
 
-    ParameterBypass = new WrappedParameterToggleSwitch("Bypassed", "Active");
+    WrappedParameterToggleSwitch *ParameterBypass = new WrappedParameterToggleSwitch("Bypassed", "Active");
     ParameterBypass->setName("Bypass");
     ParameterBypass->setDefaultBoolean(false, true);
     add(ParameterBypass, selBypass);
 
 
-    ParameterDetectorRmsFilter = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterDetectorRmsFilter = new WrappedParameterSwitch();
     ParameterDetectorRmsFilter->setName("RMS Filter");
 
     ParameterDetectorRmsFilter->addConstant(0.1f,  "Peak (100 us)");
@@ -51,7 +51,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterDetectorRmsFilter, selDetectorRmsFilter);
 
 
-    ParameterDesign = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterDesign = new WrappedParameterSwitch();
     ParameterDesign->setName("Design");
 
     ParameterDesign->addConstant(Compressor::DesignFeedForward, "Feed-Forward");
@@ -61,7 +61,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterDesign, selDesign);
 
 
-    ParameterDetector = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterDetector = new WrappedParameterSwitch();
     ParameterDetector->setName("Detector");
 
     ParameterDetector->addConstant(Compressor::DetectorLinear,          "Linear");
@@ -72,7 +72,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterDetector, selDetector);
 
 
-    ParameterGainStage = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterGainStage = new WrappedParameterSwitch();
     ParameterGainStage->setName("Gain Stage");
 
     ParameterGainStage->addConstant(Compressor::GainStageFET,     "FET");
@@ -88,7 +88,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     float fLogFactor = 0.0f;
     int nDecimalPlaces = 0;
 
-    ParameterThreshold = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterThreshold = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterThreshold->setName("Threshold");
 
     ParameterThreshold->addConstant(-48.0f, "-48 dB");
@@ -137,7 +137,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 1.0f;
     nDecimalPlaces = 2;
 
-    ParameterRatio = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterRatio = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterRatio->setName("Ratio");
 
     ParameterRatio->addConstant(0.50f, "0.50:1");
@@ -167,7 +167,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 0.0f;
     nDecimalPlaces = 0;
 
-    ParameterKneeWidth = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterKneeWidth = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterKneeWidth->setName("Knee Width");
 
     ParameterKneeWidth->addConstant(0.0f,  "Hard");
@@ -185,7 +185,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 2.0f;
     nDecimalPlaces = 0;
 
-    ParameterAttackRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterAttackRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterAttackRate->setName("Attack Rate");
 
     ParameterAttackRate->addConstant(1.0f,     "1 ms");
@@ -209,7 +209,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 3.0f;
     nDecimalPlaces = 0;
 
-    ParameterReleaseRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterReleaseRate = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterReleaseRate->setName("Release Rate");
 
     ParameterReleaseRate->addConstant(50.0f,    "50 ms");
@@ -241,7 +241,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     nDecimalPlaces = 0;
 
 #ifdef SQUEEZER_STEREO
-    ParameterStereoLink = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterStereoLink = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterStereoLink->setName("Stereo Link");
 
     ParameterStereoLink->addConstant(0.0f,     "Off");
@@ -256,7 +256,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 #endif
 
 
-    ParameterAutoMakeupGain = new WrappedParameterToggleSwitch("Auto", "Manual");
+    WrappedParameterToggleSwitch *ParameterAutoMakeupGain = new WrappedParameterToggleSwitch("Auto", "Manual");
     ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
     ParameterAutoMakeupGain->setDefaultBoolean(true, true);
     add(ParameterAutoMakeupGain, selAutoMakeupGain);
@@ -268,7 +268,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 0.0f;
     nDecimalPlaces = 1;
 
-    ParameterMakeupGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterMakeupGain = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterMakeupGain->setName("Make-Up Gain");
 
     ParameterMakeupGain->addConstant(-18.0f, "-18 dB");
@@ -320,7 +320,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 1.0f;
     nDecimalPlaces = 0;
 
-    ParameterWetMix = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterWetMix = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterWetMix->setName("Wet Mix");
 
     ParameterWetMix->addConstant(0.0f,   "Bypass");
@@ -340,7 +340,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterWetMix, selWetMix, selWetMixSwitch);
 
 
-    ParameterSidechainFilterState = new WrappedParameterToggleSwitch("Enabled", "Disabled");
+    WrappedParameterToggleSwitch *ParameterSidechainFilterState = new WrappedParameterToggleSwitch("Enabled", "Disabled");
     ParameterSidechainFilterState->setName("SC Filter State");
     ParameterSidechainFilterState->setDefaultBoolean(false, true);
     add(ParameterSidechainFilterState, selSidechainFilterState);
@@ -352,7 +352,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     fLogFactor = 1.0f;
     nDecimalPlaces = 0;
 
-    ParameterSidechainFilterCutoff = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    WrappedParameterCombined *ParameterSidechainFilterCutoff = new WrappedParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
     ParameterSidechainFilterCutoff->setName("SC Filter Cutoff Frequency");
 
     // high-pass filter
@@ -376,7 +376,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterSidechainFilterCutoff, selSidechainFilterCutoff, selSidechainFilterCutoffSwitch);
 
 
-    ParameterSidechainFilterGain = new WrappedParameterSwitch();
+    WrappedParameterSwitch *ParameterSidechainFilterGain = new WrappedParameterSwitch();
     ParameterSidechainFilterGain->setName("SC Filter Gain");
 
     ParameterSidechainFilterGain->addConstant(-12.0f, "-12 dB");
@@ -409,7 +409,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterSidechainFilterGain, selSidechainFilterGain);
 
 
-    ParameterSidechainListen = new WrappedParameterToggleSwitch("Side-Chain", "Compressor");
+    WrappedParameterToggleSwitch *ParameterSidechainListen = new WrappedParameterToggleSwitch("Side-Chain", "Compressor");
     ParameterSidechainListen->setName("SC Listen");
     ParameterSidechainListen->setDefaultBoolean(false, true);
     add(ParameterSidechainListen, selSidechainListen);
@@ -418,61 +418,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
 SqueezerPluginParameters::~SqueezerPluginParameters()
 {
-    delete ParameterBypass;
-    ParameterBypass = nullptr;
-
-    delete ParameterDetectorRmsFilter;
-    ParameterDetectorRmsFilter = nullptr;
-
-    delete ParameterDesign;
-    ParameterDesign = nullptr;
-
-    delete ParameterDetector;
-    ParameterDetector = nullptr;
-
-    delete ParameterGainStage;
-    ParameterGainStage = nullptr;
-
-    delete ParameterThreshold;
-    ParameterThreshold = nullptr;
-
-    delete ParameterRatio;
-    ParameterRatio = nullptr;
-
-    delete ParameterKneeWidth;
-    ParameterKneeWidth = nullptr;
-
-    delete ParameterAttackRate;
-    ParameterAttackRate = nullptr;
-
-    delete ParameterReleaseRate;
-    ParameterReleaseRate = nullptr;
-
-#ifdef SQUEEZER_STEREO
-    delete ParameterStereoLink;
-    ParameterStereoLink = nullptr;
-#endif
-
-    delete ParameterMakeupGain;
-    ParameterMakeupGain = nullptr;
-
-    delete ParameterAutoMakeupGain;
-    ParameterAutoMakeupGain = nullptr;
-
-    delete ParameterWetMix;
-    ParameterWetMix = nullptr;
-
-    delete ParameterSidechainFilterState;
-    ParameterSidechainFilterState = nullptr;
-
-    delete ParameterSidechainFilterCutoff;
-    ParameterSidechainFilterCutoff = nullptr;
-
-    delete ParameterSidechainFilterGain;
-    ParameterSidechainFilterGain = nullptr;
-
-    delete ParameterSidechainListen;
-    ParameterSidechainListen = nullptr;
+    // parameters will be deleted in "ParameterJuggler"
 }
 
 

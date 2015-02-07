@@ -31,9 +31,10 @@ WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float rea
     strName = String::empty;
     strAttribute = String::empty;
 
-    pSwitch = new WrappedParameterSwitch();
-    pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places);
-    pModeSwitch = new WrappedParameterToggleSwitch("Discrete", "Continuous");
+    // these parameters should not be deleted outside of this class
+    pSwitch = new WrappedParameterSwitch(true);
+    pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places, true);
+    pModeSwitch = new WrappedParameterToggleSwitch("Discrete", "Continuous", true);
 
     bUseConstants = true;
     pModeSwitch->setBoolean(bUseConstants);
@@ -407,6 +408,12 @@ void WrappedParameterCombined::clearChangeFlagMode()
 void WrappedParameterCombined::setChangeFlagMode()
 {
     bChangedMode = true;
+}
+
+
+bool WrappedParameterCombined::saveFromDeletion()
+{
+    return false;
 }
 
 

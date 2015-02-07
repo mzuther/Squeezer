@@ -72,6 +72,8 @@ public:
     void clearChangeFlag();
     void setChangeFlag();
 
+    bool saveFromDeletion();
+
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:

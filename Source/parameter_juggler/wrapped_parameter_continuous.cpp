@@ -26,7 +26,7 @@
 #include "wrapped_parameter_continuous.h"
 
 
-WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places)
+WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion)
 {
     strName = String::empty;
     strAttribute = String::empty;
@@ -52,6 +52,8 @@ WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float
         fLogFactor = -1.0f;
         fLogPowerFactor = -1.0f;
     }
+
+    bSaveFromDeletion = save_from_deletion;
 
     setRealFloat(fRealMinimum);
     setChangeFlag();
@@ -312,6 +314,12 @@ void WrappedParameterContinuous::clearChangeFlag()
 void WrappedParameterContinuous::setChangeFlag()
 {
     bChangedValue = true;
+}
+
+
+bool WrappedParameterContinuous::saveFromDeletion()
+{
+    return bSaveFromDeletion;
 }
 
 

@@ -183,6 +183,12 @@ void WrappedParameterString::setChangeFlag()
 }
 
 
+bool WrappedParameterString::saveFromDeletion()
+{
+    return false;
+}
+
+
 void WrappedParameterString::loadFromXml(XmlElement *xml)
 {
     XmlElement *xml_element = xml->getChildByName(strAttribute);

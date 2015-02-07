@@ -26,7 +26,7 @@
 #include "wrapped_parameter_toggle_switch.h"
 
 
-WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String &state_on, const String &state_off)
+WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion)
 {
     strName = String::empty;
     strAttribute = String::empty;
@@ -36,6 +36,8 @@ WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String &state_o
 
     bDefaultState = false;
     bState = bDefaultState;
+
+    bSaveFromDeletion = save_from_deletion;
 
     setChangeFlag();
 }
@@ -207,6 +209,12 @@ void WrappedParameterToggleSwitch::clearChangeFlag()
 void WrappedParameterToggleSwitch::setChangeFlag()
 {
     bChangedValue = true;
+}
+
+
+bool WrappedParameterToggleSwitch::saveFromDeletion()
+{
+    return bSaveFromDeletion;
 }
 
 

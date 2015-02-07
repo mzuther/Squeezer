@@ -89,31 +89,6 @@ public:
 
 private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
-
-    WrappedParameterToggleSwitch *ParameterBypass;
-    WrappedParameterSwitch *ParameterDetectorRmsFilter;
-    WrappedParameterSwitch *ParameterDesign;
-    WrappedParameterSwitch *ParameterDetector;
-    WrappedParameterSwitch *ParameterGainStage;
-
-    WrappedParameterCombined *ParameterThreshold;
-    WrappedParameterCombined *ParameterRatio;
-    WrappedParameterCombined *ParameterKneeWidth;
-
-    WrappedParameterCombined *ParameterAttackRate;
-    WrappedParameterCombined *ParameterReleaseRate;
-
-#ifdef SQUEEZER_STEREO
-    WrappedParameterCombined *ParameterStereoLink;
-#endif
-    WrappedParameterToggleSwitch *ParameterAutoMakeupGain;
-    WrappedParameterCombined *ParameterMakeupGain;
-    WrappedParameterCombined *ParameterWetMix;
-
-    WrappedParameterToggleSwitch *ParameterSidechainFilterState;
-    WrappedParameterCombined *ParameterSidechainFilterCutoff;
-    WrappedParameterSwitch *ParameterSidechainFilterGain;
-    WrappedParameterToggleSwitch *ParameterSidechainListen;
 };
 
 #endif  // __PLUGIN_PARAMETERS_SQUEEZER_H__

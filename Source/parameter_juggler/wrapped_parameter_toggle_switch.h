@@ -36,7 +36,7 @@
 class WrappedParameterToggleSwitch : virtual public WrappedParameter
 {
 public:
-    WrappedParameterToggleSwitch(const String &state_on, const String &state_off);
+    WrappedParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion = false);
     ~WrappedParameterToggleSwitch();
 
     String getName();
@@ -74,6 +74,8 @@ public:
     void clearChangeFlag();
     void setChangeFlag();
 
+    bool saveFromDeletion();
+
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
@@ -87,6 +89,7 @@ private:
     bool bState;
     bool bDefaultState;
     bool bChangedValue;
+    bool bSaveFromDeletion;
 };
 
 

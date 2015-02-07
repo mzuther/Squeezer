@@ -70,6 +70,8 @@ public:
     virtual float getFloatFromText(const String &strText) = 0;
     virtual String getTextFromFloat(float fValue) = 0;
 
+    virtual bool saveFromDeletion() = 0;
+
     virtual void loadFromXml(XmlElement *xml) = 0;
     virtual void storeAsXml(XmlElement *xml) = 0;
 
