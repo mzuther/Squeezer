@@ -854,14 +854,26 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == ButtonSettings)
     {
+        // manually activate button
+        button->setToggleState(true, dontSendNotification);
+
         String strPluginSettings = pProcessor->getParameters();
         WindowSettings windowSettings(this, strPluginSettings);
         windowSettings.runModalLoop();
+
+        // manually deactivate button
+        button->setToggleState(false, dontSendNotification);
     }
     else if (button == ButtonAbout)
     {
+        // manually activate button
+        button->setToggleState(true, dontSendNotification);
+
         WindowAbout windowAbout(this);
         windowAbout.runModalLoop();
+
+        // manually deactivate button
+        button->setToggleState(false, dontSendNotification);
     }
     else
     {
