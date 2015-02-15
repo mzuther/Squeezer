@@ -134,6 +134,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_plugin_standalone.o \
 	$(OBJDIR)/generic_state_label.o \
 	$(OBJDIR)/resources.o \
+	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/dither.o \
 	$(OBJDIR)/generic_skin.o \
 	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
@@ -291,6 +292,9 @@ $(OBJDIR)/generic_state_label.o: ../../../Source/common/widgets/generic_state_la
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/common/widgets/resources/resources.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/audio_ring_buffer.o: ../../../Source/common/audio/audio_ring_buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/dither.o: ../../../Source/common/audio/dither.cpp
