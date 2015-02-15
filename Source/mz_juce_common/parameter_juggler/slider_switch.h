@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
-   Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,31 +23,42 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_SETTINGS_H__
-#define __WINDOW_SETTINGS_H__
+#ifndef __SLIDER_SWITCH_H__
+#define __SLIDER_SWITCH_H__
 
 #include "JuceHeader.h"
+#include "parameter_juggler.h"
+#include "wrapped_parameter_switch.h"
 
 
-class WindowSettings : public DocumentWindow, ButtonListener
+//==============================================================================
+/**
+*/
+class SliderSwitch : public Slider
 {
 public:
-    WindowSettings(Component *pEditorWindow, String &strPluginSettings);
-    ~WindowSettings();
+    SliderSwitch(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
+    ~SliderSwitch();
 
-    void buttonClicked(Button *button);
+    void visibilityChanged();
+    void resized();
+    void setSliderColour(const Colour &colour);
 
+    float getRealFloat();
+    bool getBoolean();
+    int getRealInteger();
+
+    double getValueFromText(const String &strText);
+    String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(WindowSettings);
+    JUCE_LEAK_DETECTOR(SliderSwitch);
 
-    Component *contentComponent;
-
-    TextEditor *TextEditorSettings;
-    TextButton *ButtonClose;
+    Colour colourRotary;
+    WrappedParameterSwitch *pSwitch;
 };
 
 
-#endif  // __WINDOW_SETTINGS_H__
+#endif  // __SLIDER_SWITCH_H__
 
 
 // Local Variables:

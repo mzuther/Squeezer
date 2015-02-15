@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
-   Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,31 +23,37 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_SETTINGS_H__
-#define __WINDOW_SETTINGS_H__
+#ifndef __AVERAGER__
+#define __AVERAGER__
+
+class Averager;
 
 #include "JuceHeader.h"
 
 
-class WindowSettings : public DocumentWindow, ButtonListener
+class Averager
 {
 public:
-    WindowSettings(Component *pEditorWindow, String &strPluginSettings);
-    ~WindowSettings();
+    Averager(int number_of_samples, float initial_value);
+    ~Averager();
 
-    void buttonClicked(Button *button);
+    void addSample(float newSample);
+    bool isValid();
+    float getSimpleMovingAverage();
 
 private:
-    JUCE_LEAK_DETECTOR(WindowSettings);
+    JUCE_LEAK_DETECTOR(Averager);
 
-    Component *contentComponent;
+    bool bIsValid;
+    int nNumberOfSamples;
+    float fNumberOfSamples;
+    int nCurrentSample;
+    float fSum;
 
-    TextEditor *TextEditorSettings;
-    TextButton *ButtonClose;
+    float *pSamples;
 };
 
-
-#endif  // __WINDOW_SETTINGS_H__
+#endif   // __AVERAGER__
 
 
 // Local Variables:

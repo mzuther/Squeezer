@@ -869,7 +869,59 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         // manually activate button
         button->setToggleState(true, dontSendNotification);
 
-        WindowAbout windowAbout(this);
+        StringPairArray strArray;
+
+        strArray.set("Copyright", "(c) 2013-2015 Martin Zuther\n");
+
+        strArray.set("Contributors",
+                     L"Dimitrios Giannoulis et al.\n"
+                     L"Filipe Coelho\n"
+                     L"Paul Kellet\n"
+                     L"Bram de Jong\n");
+
+        strArray.set("Thanks",
+                     L"I want to thank all contributors "
+                     L"and beta testers and the open source "
+                     L"community at large!\n\n"
+                     L"Thank you for using free software!\n");
+
+        strArray.set("Libraries",
+#ifdef LINUX
+                     L"ALSA\n"
+#endif
+#ifdef LINUX
+                     L"FreeType\n"
+                     L"JACK\n"
+#endif
+                     L"JUCE\n"
+#if (KMETER_LV2_PLUGIN != 0)
+                     L"LV2\n"
+#endif
+#ifdef LINUX
+                     L"POSIX Threads\n"
+                     L"Xlib\n"
+                     L"Xext\n"
+#endif
+                     L"\n"
+                    );
+
+#if (JUCE_USE_VSTSDK_2_4 != 0)
+
+        // display trademarks (but only when necessary)
+        strArray.set("Trademarks",
+                     L"VST PlugIn Technology by Steinberg\n");
+
+#endif
+
+#if (JUCE_ASIO != 0)
+
+        // display trademarks (but only when necessary)
+        strArray.set("Trademarks",
+                     L"ASIO Technology by Steinberg Media Technologies GmbH\n");
+
+#endif
+
+        GenericWindowAbout windowAbout(this, strArray);
         windowAbout.runModalLoop();
 
         // manually deactivate button

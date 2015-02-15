@@ -31,9 +31,9 @@
 #include "meter_bar_gain_reduction.h"
 #include "meter_bar_level.h"
 #include "plugin_processor.h"
-#include "parameter_juggler/slider_combined.h"
-#include "parameter_juggler/slider_switch_linear_bar.h"
-#include "window_about.h"
+#include "mz_juce_common/parameter_juggler/slider_combined.h"
+#include "mz_juce_common/parameter_juggler/slider_switch_linear_bar.h"
+#include "mz_juce_common/widgets/generic_window_about.h"
 #include "window_settings.h"
 
 

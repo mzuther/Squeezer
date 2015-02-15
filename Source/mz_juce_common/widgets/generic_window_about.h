@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
-   Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,31 +23,39 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_SETTINGS_H__
-#define __WINDOW_SETTINGS_H__
+#ifndef __GENERIC_WINDOW_ABOUT_H__
+#define __GENERIC_WINDOW_ABOUT_H__
 
 #include "JuceHeader.h"
+#include "resources/resources.h"
 
 
-class WindowSettings : public DocumentWindow, ButtonListener
+class GenericWindowAbout : public DocumentWindow, ButtonListener
 {
 public:
-    WindowSettings(Component *pEditorWindow, String &strPluginSettings);
-    ~WindowSettings();
+    GenericWindowAbout(Component *pEditorWindow, StringPairArray &strArray);
+    ~GenericWindowAbout();
 
     void buttonClicked(Button *button);
 
 private:
-    JUCE_LEAK_DETECTOR(WindowSettings);
+    JUCE_LEAK_DETECTOR(GenericWindowAbout);
+
+    void addTopic(TextEditor *TextEditorAbout, StringPairArray &strArray, String strTopic);
 
     Component *contentComponent;
 
-    TextEditor *TextEditorSettings;
+    TextEditor *TextEditorAbout;
     TextButton *ButtonClose;
+    ImageButton *ButtonGpl;
+
+    Image *ImageButtonGplNormal;
+    Image *ImageButtonGplOver;
+    Image *ImageButtonGplDown;
 };
 
 
-#endif  // __WINDOW_SETTINGS_H__
+#endif  // __GENERIC_WINDOW_ABOUT_H__
 
 
 // Local Variables:

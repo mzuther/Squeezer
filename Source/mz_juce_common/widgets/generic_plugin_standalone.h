@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
-   Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,31 +23,34 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_SETTINGS_H__
-#define __WINDOW_SETTINGS_H__
+#ifndef __GENERIC_PLUGIN_STANDALONE_H__
+#define __GENERIC_PLUGIN_STANDALONE_H__
 
 #include "JuceHeader.h"
+#include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
 
-
-class WindowSettings : public DocumentWindow, ButtonListener
+class GenericPluginStandalone : public JUCEApplication
 {
 public:
-    WindowSettings(Component *pEditorWindow, String &strPluginSettings);
-    ~WindowSettings();
+    GenericPluginStandalone();
+    ~GenericPluginStandalone();
 
-    void buttonClicked(Button *button);
+    void initialise(const String &commandLineParameters);
+    void shutdown();
+
+    const String getApplicationName();
+    const String getApplicationVersion();
+
+protected:
+    virtual PropertiesFile::Options prepare_properties() = 0;
+
+    StandaloneFilterWindow *filterWindow;
 
 private:
-    JUCE_LEAK_DETECTOR(WindowSettings);
-
-    Component *contentComponent;
-
-    TextEditor *TextEditorSettings;
-    TextButton *ButtonClose;
+    JUCE_LEAK_DETECTOR(GenericPluginStandalone);
 };
 
-
-#endif  // __WINDOW_SETTINGS_H__
+#endif   // __GENERIC_PLUGIN_STANDALONE_H__
 
 
 // Local Variables:

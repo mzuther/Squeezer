@@ -28,7 +28,7 @@
 
 #include "standalone_application.h"
 
-START_JUCE_APPLICATION(StandaloneApplication)
+START_JUCE_APPLICATION(SqueezerStandalone)
 
 #endif
 

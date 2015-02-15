@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,26 +23,41 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SQUEEZER_STANDALONE_H__
-#define __SQUEEZER_STANDALONE_H__
+#ifndef __SLIDER_SWITCH_LINEAR_BAR_H__
+#define __SLIDER_SWITCH_LINEAR_BAR_H__
 
-#include "mz_juce_common/widgets/generic_plugin_standalone.h"
+#include "JuceHeader.h"
+#include "parameter_juggler.h"
+#include "wrapped_parameter_switch.h"
 
 
-class SqueezerStandalone : virtual public GenericPluginStandalone
+//==============================================================================
+/**
+*/
+class SliderSwitchLinearBar : public Slider
 {
 public:
-    SqueezerStandalone();
-    ~SqueezerStandalone();
+    SliderSwitchLinearBar(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
+    ~SliderSwitchLinearBar();
 
-protected:
-    PropertiesFile::Options prepare_properties();
+    void visibilityChanged();
+    void setSliderColour(const Colour &colour);
 
+    float getRealFloat();
+    bool getBoolean();
+    int getRealInteger();
+
+    double getValueFromText(const String &strText);
+    String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SqueezerStandalone);
+    JUCE_LEAK_DETECTOR(SliderSwitchLinearBar);
+
+    Colour colourThumb;
+    WrappedParameterSwitch *pSwitch;
 };
 
-#endif   // __SQUEEZER_STANDALONE_H__
+
+#endif  // __SLIDER_SWITCH_LINEAR_BAR_H__
 
 
 // Local Variables:
