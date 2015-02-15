@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{23A80C46-4BA5-4113-0F0D-811A55964C44}</ProjectGuid>
+		<ProjectGuid>{EEA1C93E-F515-68BE-3978-83C84DA1B05B}</ProjectGuid>
 		<RootNamespace>Stand-alone (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -224,22 +224,22 @@
 		<ClInclude Include="..\..\..\Source\mz_juce_common\mz_juce_common.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\math\averager.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_plugin_standalone.h" />
+		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_window_about.h" />
+		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_window_skin.h" />
+		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_switch_linear_bar.h" />
+		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\generic_state_label.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\widgets\resources\resources.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\audio\dither.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_continuous.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_toggle_switch.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\parameter_juggler.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_switch.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_combined.h" />
 		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_string.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_switch_linear_bar.h" />
-		<ClInclude Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_switch.h" />
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
@@ -274,9 +274,17 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\math\averager.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_combined.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_switch.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\generic_window_skin.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\generic_window_about.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_continuous.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\slider_switch_linear_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\widgets\generic_plugin_standalone.cpp">
 		</ClCompile>
@@ -290,17 +298,9 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\parameter_juggler.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_combined.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_switch.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_string.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_continuous.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_switch.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\slider_switch_linear_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\mz_juce_common\parameter_juggler\wrapped_parameter_continuous.cpp">
 		</ClCompile>

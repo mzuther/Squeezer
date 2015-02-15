@@ -27,8 +27,8 @@
 #define __SLIDER_COMBINED_H__
 
 #include "JuceHeader.h"
-#include "parameter_juggler.h"
-#include "wrapped_parameter_combined.h"
+#include "../parameter_juggler/parameter_juggler.h"
+#include "../parameter_juggler/wrapped_parameter_combined.h"
 
 
 //==============================================================================

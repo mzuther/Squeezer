@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AVERAGER__
-#define __AVERAGER__
+#ifndef __AVERAGER_H__
+#define __AVERAGER_H__
 
 class Averager;
 
@@ -53,7 +53,7 @@ private:
     float *pSamples;
 };
 
-#endif   // __AVERAGER__
+#endif   // __AVERAGER_H__
 
 
 // Local Variables:

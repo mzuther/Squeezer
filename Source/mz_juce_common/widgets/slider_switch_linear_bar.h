@@ -23,25 +23,24 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_SWITCH_H__
-#define __SLIDER_SWITCH_H__
+#ifndef __SLIDER_SWITCH_LINEAR_BAR_H__
+#define __SLIDER_SWITCH_LINEAR_BAR_H__
 
 #include "JuceHeader.h"
-#include "parameter_juggler.h"
-#include "wrapped_parameter_switch.h"
+#include "../parameter_juggler/parameter_juggler.h"
+#include "../parameter_juggler/wrapped_parameter_switch.h"
 
 
 //==============================================================================
 /**
 */
-class SliderSwitch : public Slider
+class SliderSwitchLinearBar : public Slider
 {
 public:
-    SliderSwitch(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
-    ~SliderSwitch();
+    SliderSwitchLinearBar(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
+    ~SliderSwitchLinearBar();
 
     void visibilityChanged();
-    void resized();
     void setSliderColour(const Colour &colour);
 
     float getRealFloat();
@@ -51,14 +50,14 @@ public:
     double getValueFromText(const String &strText);
     String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderSwitch);
+    JUCE_LEAK_DETECTOR(SliderSwitchLinearBar);
 
-    Colour colourRotary;
+    Colour colourThumb;
     WrappedParameterSwitch *pSwitch;
 };
 
 
-#endif  // __SLIDER_SWITCH_H__
+#endif  // __SLIDER_SWITCH_LINEAR_BAR_H__
 
 
 // Local Variables:
