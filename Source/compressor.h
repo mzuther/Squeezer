@@ -31,9 +31,9 @@ class FilterChebyshev;
 class SideChain;
 
 #include "JuceHeader.h"
-#include "mz_juce_common/audio/dither.h"
 #include "filter_chebyshev.h"
 #include "side_chain.h"
+#include "common/audio/dither.h"
 
 
 //============================================================================

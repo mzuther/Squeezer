@@ -123,6 +123,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/averager.o \
+	$(OBJDIR)/generic_horizontal_meter.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/generic_window_skin.o \
@@ -133,6 +134,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_state_label.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/dither.o \
+	$(OBJDIR)/generic_skin.o \
 	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
 	$(OBJDIR)/parameter_juggler.o \
 	$(OBJDIR)/wrapped_parameter_string.o \
@@ -256,55 +258,61 @@ $(OBJDIR)/plugin_editor.o: ../../../Source/plugin_editor.cpp
 $(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/averager.o: ../../../Source/mz_juce_common/math/averager.cpp
+$(OBJDIR)/averager.o: ../../../Source/common/math/averager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_combined.o: ../../../Source/mz_juce_common/widgets/slider_combined.cpp
+$(OBJDIR)/generic_horizontal_meter.o: ../../../Source/common/widgets/generic_horizontal_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch.o: ../../../Source/mz_juce_common/widgets/slider_switch.cpp
+$(OBJDIR)/slider_combined.o: ../../../Source/common/widgets/slider_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_window_skin.o: ../../../Source/mz_juce_common/widgets/generic_window_skin.cpp
+$(OBJDIR)/slider_switch.o: ../../../Source/common/widgets/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_window_about.o: ../../../Source/mz_juce_common/widgets/generic_window_about.cpp
+$(OBJDIR)/generic_window_skin.o: ../../../Source/common/widgets/generic_window_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_continuous.o: ../../../Source/mz_juce_common/widgets/slider_continuous.cpp
+$(OBJDIR)/generic_window_about.o: ../../../Source/common/widgets/generic_window_about.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/mz_juce_common/widgets/slider_switch_linear_bar.cpp
+$(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_plugin_standalone.o: ../../../Source/mz_juce_common/widgets/generic_plugin_standalone.cpp
+$(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_state_label.o: ../../../Source/mz_juce_common/widgets/generic_state_label.cpp
+$(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_plugin_standalone.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/resources.o: ../../../Source/mz_juce_common/widgets/resources/resources.cpp
+$(OBJDIR)/generic_state_label.o: ../../../Source/common/widgets/generic_state_label.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/dither.o: ../../../Source/mz_juce_common/audio/dither.cpp
+$(OBJDIR)/resources.o: ../../../Source/common/widgets/resources/resources.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/mz_juce_common/parameter_juggler/wrapped_parameter_toggle_switch.cpp
+$(OBJDIR)/dither.o: ../../../Source/common/audio/dither.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/parameter_juggler.o: ../../../Source/mz_juce_common/parameter_juggler/parameter_juggler.cpp
+$(OBJDIR)/generic_skin.o: ../../../Source/common/skin/generic_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_string.o: ../../../Source/mz_juce_common/parameter_juggler/wrapped_parameter_string.cpp
+$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/common/parameter_juggler/wrapped_parameter_toggle_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/mz_juce_common/parameter_juggler/wrapped_parameter_switch.cpp
+$(OBJDIR)/parameter_juggler.o: ../../../Source/common/parameter_juggler/parameter_juggler.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/mz_juce_common/parameter_juggler/wrapped_parameter_continuous.cpp
+$(OBJDIR)/wrapped_parameter_string.o: ../../../Source/common/parameter_juggler/wrapped_parameter_string.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/mz_juce_common/parameter_juggler/wrapped_parameter_combined.cpp
+$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/common/parameter_juggler/wrapped_parameter_switch.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/common/parameter_juggler/wrapped_parameter_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/common/parameter_juggler/wrapped_parameter_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_audio_basics.o: ../../../libraries/juce/modules/juce_audio_basics/juce_audio_basics.cpp

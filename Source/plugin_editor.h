@@ -31,10 +31,10 @@
 #include "meter_bar_gain_reduction.h"
 #include "meter_bar_level.h"
 #include "plugin_processor.h"
-#include "mz_juce_common/widgets/slider_combined.h"
-#include "mz_juce_common/widgets/slider_switch_linear_bar.h"
-#include "mz_juce_common/widgets/generic_window_about.h"
 #include "window_settings.h"
+#include "common/widgets/slider_combined.h"
+#include "common/widgets/slider_switch_linear_bar.h"
+#include "common/widgets/generic_window_about.h"
 
 
 //==============================================================================

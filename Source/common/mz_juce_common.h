@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -23,26 +23,26 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SQUEEZER_STANDALONE_H__
-#define __SQUEEZER_STANDALONE_H__
+#ifndef __MZ_JUCE_COMMON_H__
+#define __MZ_JUCE_COMMON_H__
 
-#include "common/widgets/generic_plugin_standalone.h"
+#include "JuceHeader.h"
 
 
-class SqueezerStandalone : virtual public GenericPluginStandalone
+class MZ_Juce_Common
 {
 public:
-    SqueezerStandalone();
-    ~SqueezerStandalone();
-
-protected:
-    PropertiesFile::Options prepare_properties();
+    static String getVersion()
+    {
+        return "1.2.2";
+    }
 
 private:
-    JUCE_LEAK_DETECTOR(SqueezerStandalone);
+    JUCE_LEAK_DETECTOR(MZ_Juce_Common);
 };
 
-#endif   // __SQUEEZER_STANDALONE_H__
+
+#endif  // __MZ_JUCE_COMMON_H__
 
 
 // Local Variables:
