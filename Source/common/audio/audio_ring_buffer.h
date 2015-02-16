@@ -78,7 +78,7 @@ private:
 
     unsigned int uCurrentPosition;
     unsigned int uSamplesInBuffer;
-    unsigned int *uChannelOffset;
+    Array<unsigned int> uChannelOffset;
 
     float *pAudioData;
 };

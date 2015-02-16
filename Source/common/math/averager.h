@@ -50,7 +50,7 @@ private:
     int nCurrentSample;
     float fSum;
 
-    float *pSamples;
+    Array<float> fSamples;
 };
 
 #endif   // __AVERAGER_H__

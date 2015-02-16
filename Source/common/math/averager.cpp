@@ -35,11 +35,9 @@ Averager::Averager(int number_of_samples, float initial_value)
     fNumberOfSamples = float(nNumberOfSamples);
     nCurrentSample = 0;
 
-    pSamples = new float[nNumberOfSamples];
-
     for (int n = 0; n < nNumberOfSamples; n++)
     {
-        pSamples[n] = initial_value;
+        fSamples.insert(n, initial_value);
     }
 
     fSum = initial_value * fNumberOfSamples;
@@ -47,15 +45,13 @@ Averager::Averager(int number_of_samples, float initial_value)
 
 Averager::~Averager()
 {
-    delete [] pSamples;
-    pSamples = nullptr;
 }
 
 void Averager::addSample(float newSample)
 {
-    fSum -= pSamples[nCurrentSample];
-    pSamples[nCurrentSample] = newSample;
-    fSum += pSamples[nCurrentSample];
+    fSum -= fSamples[nCurrentSample];
+    fSamples.set(nCurrentSample, newSample);
+    fSum += fSamples[nCurrentSample];
 
     nCurrentSample++;
 

@@ -51,11 +51,10 @@ AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int c
 
     uCurrentPosition = 0;
     uSamplesInBuffer = 0;
-    uChannelOffset = new unsigned int[uChannels];
 
     for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
     {
-        uChannelOffset[uChannel] = uChannel * (uTotalLength + 2) + 1;
+        uChannelOffset.insert(uChannel, uChannel * (uTotalLength + 2) + 1);
     }
 
     this->clear();
@@ -64,9 +63,6 @@ AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int c
 
 AudioRingBuffer::~AudioRingBuffer()
 {
-    delete [] uChannelOffset;
-    uChannelOffset = nullptr;
-
     free(pAudioData);
 }
 
