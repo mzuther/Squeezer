@@ -55,7 +55,7 @@ protected:
     XmlElement *xmlSkinFallback_1;
     XmlElement *xmlSkinFallback_2;
 
-    File *fileResourcePath;
+    File fileResourcePath;
 
     String strXmlRootName;
     String strBackgroundSelector;

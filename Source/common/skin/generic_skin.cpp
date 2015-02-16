@@ -30,19 +30,12 @@ GenericSkin::GenericSkin(File &fileSkin, String strXmlRoot)
 {
     strXmlRootName = strXmlRoot;
 
-    fileResourcePath = nullptr;
     xml = nullptr;
 }
 
 
 GenericSkin::~GenericSkin()
 {
-    if (fileResourcePath != nullptr)
-    {
-        delete fileResourcePath;
-        fileResourcePath = nullptr;
-    }
-
     if (xml != nullptr)
     {
         delete xml;
@@ -54,12 +47,6 @@ GenericSkin::~GenericSkin()
 bool GenericSkin::loadFromXml(File &fileSkin)
 {
     DBG(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");
-
-    if (fileResourcePath != nullptr)
-    {
-        delete fileResourcePath;
-        fileResourcePath = nullptr;
-    }
 
     if (xml != nullptr)
     {
@@ -94,14 +81,11 @@ bool GenericSkin::loadFromXml(File &fileSkin)
         xmlSkinFallback_2 = xml->getChildByName("default");
 
         String strResourcePath = xml->getStringAttribute("path");
-        fileResourcePath = new File(fileSkin.getSiblingFile(strResourcePath));
+        fileResourcePath = File(fileSkin.getSiblingFile(strResourcePath));
 
-        if (!fileResourcePath->isDirectory())
+        if (!fileResourcePath.isDirectory())
         {
-            Logger::outputDebugString(String("[Skin] directory \"") + fileResourcePath->getFullPathName() + "\" not found");
-
-            delete fileResourcePath;
-            fileResourcePath = nullptr;
+            Logger::outputDebugString(String("[Skin] directory \"") + fileResourcePath.getFullPathName() + "\" not found");
 
             delete xml;
             xml = nullptr;
@@ -157,7 +141,7 @@ void GenericSkin::placeAndSkinButton(ImageButton *button, String strXmlTag)
         int y = xmlButton->getIntAttribute("y", -1);
 
         String strImageOn = xmlButton->getStringAttribute("image_on");
-        File fileImageOn = fileResourcePath->getChildFile(strImageOn);
+        File fileImageOn = fileResourcePath.getChildFile(strImageOn);
         Image imageOn;
 
         if (!fileImageOn.existsAsFile())
@@ -171,7 +155,7 @@ void GenericSkin::placeAndSkinButton(ImageButton *button, String strXmlTag)
         }
 
         String strImageOff = xmlButton->getStringAttribute("image_off");
-        File fileImageOff = fileResourcePath->getChildFile(strImageOff);
+        File fileImageOff = fileResourcePath.getChildFile(strImageOff);
         Image imageOff;
 
         if (!fileImageOff.existsAsFile())
@@ -211,7 +195,7 @@ void GenericSkin::placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, Str
         int spacing_top = xmlMeter->getIntAttribute("spacing_top", 0);
 
         String strImageBackground = xmlMeter->getStringAttribute("image");
-        File fileImageBackground = fileResourcePath->getChildFile(strImageBackground);
+        File fileImageBackground = fileResourcePath.getChildFile(strImageBackground);
         Image imageBackground;
 
         if (!fileImageBackground.existsAsFile())
@@ -227,7 +211,7 @@ void GenericSkin::placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, Str
         XmlElement *xmlNeedle = xmlMeter->getChildByName("needle");
 
         String strImageNeedle = xmlNeedle->getStringAttribute("image");
-        File fileImageNeedle = fileResourcePath->getChildFile(strImageNeedle);
+        File fileImageNeedle = fileResourcePath.getChildFile(strImageNeedle);
         Image imageNeedle;
 
         if (!fileImageNeedle.existsAsFile())
@@ -260,7 +244,7 @@ void GenericSkin::placeAndSkinLabel(ImageComponent *label, String strXmlTag)
         int height = xmlLabel->getIntAttribute("height", -1);
 
         String strImage = xmlLabel->getStringAttribute("image");
-        File fileImage = fileResourcePath->getChildFile(strImage);
+        File fileImage = fileResourcePath.getChildFile(strImage);
         Image imageLabel;
 
         if (!fileImage.existsAsFile())
@@ -300,7 +284,7 @@ void GenericSkin::placeAndSkinStateLabel(GenericStateLabel *label, String strXml
         String strColourActive = xmlLabel->getStringAttribute("colour_active", "ffffff");
 
         String strImageOff = xmlLabel->getStringAttribute("image_off");
-        File fileImageOff = fileResourcePath->getChildFile(strImageOff);
+        File fileImageOff = fileResourcePath.getChildFile(strImageOff);
         Image imageOff;
 
         if (!fileImageOff.existsAsFile())
@@ -314,7 +298,7 @@ void GenericSkin::placeAndSkinStateLabel(GenericStateLabel *label, String strXml
         }
 
         String strImageOn = xmlLabel->getStringAttribute("image_on");
-        File fileImageOn = fileResourcePath->getChildFile(strImageOn);
+        File fileImageOn = fileResourcePath.getChildFile(strImageOn);
         Image imageOn;
 
         if (!fileImageOn.existsAsFile())
@@ -329,7 +313,7 @@ void GenericSkin::placeAndSkinStateLabel(GenericStateLabel *label, String strXml
 
         // will use "image_on" if "image_active" does not exist
         String strImageActive = xmlLabel->getStringAttribute("image_active", strImageOn);
-        File fileImageActive = fileResourcePath->getChildFile(strImageActive);
+        File fileImageActive = fileResourcePath.getChildFile(strImageActive);
         Image imageActive;
 
         if (!fileImageActive.existsAsFile())
@@ -382,7 +366,7 @@ void GenericSkin::setBackgroundImage(ImageComponent *background, AudioProcessorE
         else
         {
             String strImage = xmlBackground->getStringAttribute(strBackgroundSelector);
-            File fileImage = fileResourcePath->getChildFile(strImage);
+            File fileImage = fileResourcePath.getChildFile(strImage);
 
             if (!fileImage.existsAsFile())
             {
@@ -403,7 +387,7 @@ void GenericSkin::setBackgroundImage(ImageComponent *background, AudioProcessorE
         forEachXmlChildElementWithTagName(*xmlSkinGroup, xmlMeterGraduation, "meter_graduation")
         {
             String strImage = xmlMeterGraduation->getStringAttribute(strBackgroundSelector);
-            File fileImage = fileResourcePath->getChildFile(strImage);
+            File fileImage = fileResourcePath.getChildFile(strImage);
 
             if (!fileImage.existsAsFile())
             {
