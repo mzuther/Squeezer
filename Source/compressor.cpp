@@ -161,6 +161,9 @@ Compressor::~Compressor()
     delete[] pAverageMeterInputLevels;
     pAverageMeterInputLevels = nullptr;
 
+    delete[] pAverageMeterOutputLevels;
+    pAverageMeterOutputLevels = nullptr;
+
     delete[] pGainReduction;
     pGainReduction = nullptr;
 

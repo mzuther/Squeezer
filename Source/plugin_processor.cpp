@@ -470,7 +470,7 @@ float SqueezerAudioProcessor::getGainReduction(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getGainReduction(nChannel);
+        return (float) pCompressor->getGainReduction(nChannel);
     }
     else
     {
@@ -483,7 +483,7 @@ float SqueezerAudioProcessor::getGainReductionPeak(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getGainReductionPeak(nChannel);
+        return (float) pCompressor->getGainReductionPeak(nChannel);
     }
     else
     {
@@ -496,7 +496,7 @@ float SqueezerAudioProcessor::getPeakMeterInputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getPeakMeterInputLevel(nChannel);
+        return (float) pCompressor->getPeakMeterInputLevel(nChannel);
     }
     else
     {
@@ -509,7 +509,7 @@ float SqueezerAudioProcessor::getPeakMeterOutputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getPeakMeterOutputLevel(nChannel);
+        return (float) pCompressor->getPeakMeterOutputLevel(nChannel);
     }
     else
     {
@@ -522,7 +522,7 @@ float SqueezerAudioProcessor::getPeakMeterPeakInputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getPeakMeterPeakInputLevel(nChannel);
+        return (float) pCompressor->getPeakMeterPeakInputLevel(nChannel);
     }
     else
     {
@@ -535,7 +535,7 @@ float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getPeakMeterPeakOutputLevel(nChannel);
+        return (float) pCompressor->getPeakMeterPeakOutputLevel(nChannel);
     }
     else
     {
@@ -548,7 +548,7 @@ float SqueezerAudioProcessor::getMaximumInputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getMaximumInputLevel(nChannel);
+        return (float) pCompressor->getMaximumInputLevel(nChannel);
     }
     else
     {
@@ -561,7 +561,7 @@ float SqueezerAudioProcessor::getMaximumOutputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getMaximumOutputLevel(nChannel);
+        return (float) pCompressor->getMaximumOutputLevel(nChannel);
     }
     else
     {
@@ -574,7 +574,7 @@ float SqueezerAudioProcessor::getAverageMeterInputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getAverageMeterInputLevel(nChannel);
+        return (float) pCompressor->getAverageMeterInputLevel(nChannel);
     }
     else
     {
@@ -587,7 +587,7 @@ float SqueezerAudioProcessor::getAverageMeterOutputLevel(int nChannel)
 {
     if (pCompressor)
     {
-        return pCompressor->getAverageMeterOutputLevel(nChannel);
+        return (float) pCompressor->getAverageMeterOutputLevel(nChannel);
     }
     else
     {
