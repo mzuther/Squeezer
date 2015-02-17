@@ -39,32 +39,27 @@ GenericStateLabel::GenericStateLabel(const String &componentName)
     imageOff = Image();
     imageOn = Image();
 
-    pLabel = new Label("Label", "");
-    pLabel->setBorderSize(BorderSize<int>(0, 0, 0, 0));
-    pLabel->setJustificationType(Justification::topRight);
-    addAndMakeVisible(pLabel);
+    label = new Label("Label", "");
+    label->setBorderSize(BorderSize<int>(0, 0, 0, 0));
+    label->setJustificationType(Justification::topRight);
+    addAndMakeVisible(label);
 
-    pBackgroundImage = new ImageComponent("Background Image");
-    addAndMakeVisible(pBackgroundImage);
+    backgroundImage = new ImageComponent("Background Image");
+    addAndMakeVisible(backgroundImage);
 
-    pBackgroundImage->toBack();
+    backgroundImage->toBack();
 }
 
 
 GenericStateLabel::~GenericStateLabel()
 {
-    delete pLabel;
-    pLabel = nullptr;
-
-    delete pBackgroundImage;
-    pBackgroundImage = nullptr;
 }
 
 
 void GenericStateLabel::resized()
 {
-    pLabel->setBounds(nSpacingLeft, nSpacingTop, getWidth() - 2 * nSpacingLeft, getHeight() - 2 * nSpacingTop);
-    pBackgroundImage->setBounds(0, 0, getWidth(), getHeight());
+    label->setBounds(nSpacingLeft, nSpacingTop, getWidth() - 2 * nSpacingLeft, getHeight() - 2 * nSpacingTop);
+    backgroundImage->setBounds(0, 0, getWidth(), getHeight());
 }
 
 
@@ -82,17 +77,17 @@ void GenericStateLabel::updateState()
 {
     if (nState == stateActive)
     {
-        pBackgroundImage->setImage(imageActive);
-        pLabel->setColour(Label::textColourId, colActive);
+        backgroundImage->setImage(imageActive);
+        label->setColour(Label::textColourId, colActive);
     }
     else if (nState == stateOn)
     {
-        pBackgroundImage->setImage(imageOn);
-        pLabel->setColour(Label::textColourId, colOn);
+        backgroundImage->setImage(imageOn);
+        label->setColour(Label::textColourId, colOn);
     }
     else
     {
-        pBackgroundImage->setImage(imageOff);
+        backgroundImage->setImage(imageOff);
     }
 }
 
@@ -101,12 +96,12 @@ void GenericStateLabel::setImages(Image &imageOffNew, Image &imageOnNew, Image &
 {
     nSpacingLeft = nSpacingLeftNew;
     nSpacingTop = nSpacingTopNew;
-    pLabel->setFont(Font((float) nFontSize, Font::bold));
+    label->setFont(Font((float) nFontSize, Font::bold));
 
     colOn = Colour::fromString("ff" + strColourOn);
     colActive = Colour::fromString("ff" + strColourActive);
 
-    pLabel->setColour(Label::textColourId, colOn);
+    label->setColour(Label::textColourId, colOn);
 
     imageOff = Image(imageOffNew);
     imageOn = Image(imageOnNew);

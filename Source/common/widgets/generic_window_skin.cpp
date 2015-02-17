@@ -39,27 +39,27 @@ GenericWindowSkin::GenericWindowSkin(Component *pEditorWindow, const File &fileS
     setContentOwned(contentComponent, false);
 
     // prepare a list box and its model
-    pListBox = new ListBox("ListBox Skins", nullptr);
-    pListBoxModel = new GenericSkinListBoxModel(fileSkin.getParentDirectory());
-    pListBox->setModel(pListBoxModel);
+    listBox = new ListBox("ListBox Skins", nullptr);
+    listBoxModel = new GenericSkinListBoxModel(fileSkin.getParentDirectory());
+    listBox->setModel(listBoxModel);
 
     // calculate and set necessary height for list box
-    int nHeightListBox = pListBoxModel->getNumRows() * pListBox->getRowHeight() + 2;
-    pListBox->setBounds(10, 10, nWidth - 20, nHeightListBox);
+    int nHeightListBox = listBoxModel->getNumRows() * listBox->getRowHeight() + 2;
+    listBox->setBounds(10, 10, nWidth - 20, nHeightListBox);
 
     // set look of list box
-    pListBox->setColour(ListBox::outlineColourId, Colours::grey);
-    pListBox->setOutlineThickness(1);
+    listBox->setColour(ListBox::outlineColourId, Colours::grey);
+    listBox->setOutlineThickness(1);
 
     // disable multiple selections
-    pListBox->setMultipleSelectionEnabled(false);
+    listBox->setMultipleSelectionEnabled(false);
 
     // select current skin in list box
     strSkinName = fileSkin.getFileNameWithoutExtension();
-    pListBox->selectRow(pListBoxModel->getRow(strSkinName));
+    listBox->selectRow(listBoxModel->getRow(strSkinName));
 
     // display list box
-    contentComponent->addAndMakeVisible(pListBox);
+    contentComponent->addAndMakeVisible(listBox);
 
     // calculate window height from height of list box
     nHeight = nHeightListBox + 50;
@@ -104,12 +104,6 @@ GenericWindowSkin::GenericWindowSkin(Component *pEditorWindow, const File &fileS
 
 GenericWindowSkin::~GenericWindowSkin()
 {
-    delete pListBoxModel;
-    pListBoxModel = nullptr;
-
-    // delete all children of the window; "contentComponent" will be
-    // deleted by the base class, so please leave it alone!
-    contentComponent->deleteAllChildren();
 }
 
 
@@ -124,13 +118,13 @@ void GenericWindowSkin::buttonClicked(Button *button)
     else if (button == ButtonDefault)
     {
         // get selected row from list box
-        int nSelectedRow = pListBox->getSelectedRow(0);
+        int nSelectedRow = listBox->getSelectedRow(0);
 
         // update default skin
-        pListBoxModel->setDefault(nSelectedRow);
+        listBoxModel->setDefault(nSelectedRow);
 
         // redraw list box
-        pListBox->repaint();
+        listBox->repaint();
     }
 }
 
@@ -138,10 +132,10 @@ void GenericWindowSkin::buttonClicked(Button *button)
 const String &GenericWindowSkin::getSelectedString()
 {
     // get selected row from list box
-    int nSelectedRow = pListBox->getSelectedRow(0);
+    int nSelectedRow = listBox->getSelectedRow(0);
 
     // get and return selected value
-    return pListBoxModel->getValue(nSelectedRow);
+    return listBoxModel->getValue(nSelectedRow);
 }
 
 

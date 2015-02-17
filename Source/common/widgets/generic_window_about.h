@@ -43,15 +43,11 @@ private:
 
     void addTopic(TextEditor *TextEditorAbout, StringPairArray &strArray, String strTopic);
 
-    Component *contentComponent;
+    ScopedPointer<Component> contentComponent;
 
-    TextEditor *TextEditorAbout;
-    TextButton *ButtonClose;
-    ImageButton *ButtonGpl;
-
-    Image *ImageButtonGplNormal;
-    Image *ImageButtonGplOver;
-    Image *ImageButtonGplDown;
+    ScopedPointer<TextEditor> TextEditorAbout;
+    ScopedPointer<TextButton> ButtonClose;
+    ScopedPointer<ImageButton> ButtonGpl;
 };
 
 

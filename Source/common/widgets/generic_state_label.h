@@ -54,8 +54,8 @@ public:
     void setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &strColourOn, String &strColourActive, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
 
 protected:
-    Label *pLabel;
-    ImageComponent *pBackgroundImage;
+    ScopedPointer<Label> label;
+    ScopedPointer<ImageComponent> backgroundImage;
 
 private:
     JUCE_LEAK_DETECTOR(GenericStateLabel);

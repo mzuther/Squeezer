@@ -56,21 +56,19 @@ SliderCombined::SliderCombined(const String &componentName, ParameterJuggler *pP
     DrawablePath drawCircleOnOver(drawCircleOff);
     drawCircleOnOver.setFill(FillType(Colours::red.darker(0.8f)));
 
-    pToggleButton = new DrawableButton(componentName + " Switch", DrawableButton::ImageFitted);
-    pToggleButton->setClickingTogglesState(true);
-    pToggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
-    pToggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, nullptr, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, nullptr);
-    pToggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
-    pToggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
+    toggleButton = new DrawableButton(componentName + " Switch", DrawableButton::ImageFitted);
+    toggleButton->setClickingTogglesState(true);
+    toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
+    toggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, nullptr, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, nullptr);
+    toggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
+    toggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
 
-    addAndMakeVisible(pToggleButton);
+    addAndMakeVisible(toggleButton);
 }
 
 
 SliderCombined::~SliderCombined()
 {
-    delete pToggleButton;
-    pToggleButton = nullptr;
 }
 
 
@@ -93,14 +91,11 @@ void SliderCombined::resized()
     int nWidth = getBounds().getWidth();
     setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
 
-    if (pToggleButton)
-    {
-        int nSwitchWidth = 15;
-        int nSwitchX = nWidth - nSwitchWidth + 3;
-        int nSwitchY = -3;
+    int nSwitchWidth = 15;
+    int nSwitchX = nWidth - nSwitchWidth + 3;
+    int nSwitchY = -3;
 
-        pToggleButton->setBounds(nSwitchX, nSwitchY, nSwitchWidth, nSwitchWidth);
-    }
+    toggleButton->setBounds(nSwitchX, nSwitchY, nSwitchWidth, nSwitchWidth);
 }
 
 
@@ -113,7 +108,7 @@ void SliderCombined::setSliderColour(const Colour &colour)
 
 void SliderCombined::updateMode()
 {
-    pToggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
+    toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
 
     setRange(0.0f, 1.0f, pCombined->getInterval());
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
@@ -148,13 +143,13 @@ void SliderCombined::updateMode()
 
 void SliderCombined::addButtonListener(Button::Listener *newListener)
 {
-    pToggleButton->addListener(newListener);
+    toggleButton->addListener(newListener);
 }
 
 
 void SliderCombined::removeListener(Button::Listener *listener)
 {
-    pToggleButton->removeListener(listener);
+    toggleButton->removeListener(listener);
 }
 
 

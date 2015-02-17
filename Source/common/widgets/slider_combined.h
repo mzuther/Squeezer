@@ -58,7 +58,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SliderCombined);
 
-    DrawableButton *pToggleButton;
+    ScopedPointer<DrawableButton> toggleButton;
     Colour colourRotary;
 
     WrappedParameterCombined *pCombined;

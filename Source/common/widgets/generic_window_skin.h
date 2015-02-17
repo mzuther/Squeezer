@@ -43,13 +43,13 @@ public:
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSkin);
 
-    Component *contentComponent;
+    ScopedPointer<Component> contentComponent;
 
-    ListBox *pListBox;
-    GenericSkinListBoxModel *pListBoxModel;
+    ScopedPointer<ListBox> listBox;
+    ScopedPointer<GenericSkinListBoxModel> listBoxModel;
 
-    TextButton *ButtonSelect;
-    TextButton *ButtonDefault;
+    ScopedPointer<TextButton> ButtonSelect;
+    ScopedPointer<TextButton> ButtonDefault;
 
     String strSkinName;
 };

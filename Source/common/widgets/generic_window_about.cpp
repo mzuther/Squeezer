@@ -161,9 +161,6 @@ GenericWindowAbout::GenericWindowAbout(Component *pEditorWindow, StringPairArray
 
 GenericWindowAbout::~GenericWindowAbout()
 {
-    // delete all children of the window; "contentComponent" will be
-    // deleted by the base class, so please leave it alone!
-    contentComponent->deleteAllChildren();
 }
 
 
