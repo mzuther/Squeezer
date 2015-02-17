@@ -314,11 +314,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonAbout->addListener(this);
     addAndMakeVisible(ButtonAbout);
 
-
-    pInputLevelMeters = new MeterBarLevel*[nChannels];
-    pOutputLevelMeters = new MeterBarLevel*[nChannels];
-    pGainReductionMeters = new MeterBarGainReduction*[nChannels];
-
     int y = 20;
 
 #ifdef SQUEEZER_STEREO
@@ -335,14 +330,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        pInputLevelMeters[nChannel] = new MeterBarLevel("Input Level Meter #" + String(nChannel), x, y, width, nNumberOfBars - 2, 5, 20.0f);
-        addAndMakeVisible(pInputLevelMeters[nChannel]);
+        MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(new MeterBarLevel("Input Level Meter #" + String(nChannel), x, y, width, nNumberOfBars - 2, 5, 20.0f));
+        addAndMakeVisible(pMeterBarLevelInput);
 
-        pOutputLevelMeters[nChannel] = new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 2 * x_spacing, y, width, nNumberOfBars - 2, 5, 20.0f);
-        addAndMakeVisible(pOutputLevelMeters[nChannel]);
+        MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 2 * x_spacing, y, width, nNumberOfBars - 2, 5, 20.0f));
+        addAndMakeVisible(pMeterBarLevelOutput);
 
-        pGainReductionMeters[nChannel] = new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + x_spacing, y, width, nNumberOfBars, 5);
-        addAndMakeVisible(pGainReductionMeters[nChannel]);
+        MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + x_spacing, y, width, nNumberOfBars, 5));
+        addAndMakeVisible(pMeterBarGainReduction);
 
         x += width;
     }
@@ -391,29 +386,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 {
     pProcessor->removeActionListener(this);
-
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
-    {
-        delete pInputLevelMeters[nChannel];
-        pInputLevelMeters[nChannel] = nullptr;
-
-        delete pOutputLevelMeters[nChannel];
-        pOutputLevelMeters[nChannel] = nullptr;
-
-        delete pGainReductionMeters[nChannel];
-        pGainReductionMeters[nChannel] = nullptr;
-    }
-
-    delete[] pInputLevelMeters;
-    pInputLevelMeters = nullptr;
-
-    delete[] pOutputLevelMeters;
-    pOutputLevelMeters = nullptr;
-
-    delete[] pGainReductionMeters;
-    pGainReductionMeters = nullptr;
-
-    deleteAllChildren();
 }
 
 
@@ -519,14 +491,14 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessa
             float fPeakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(nChannel);
             float fMaximumInputLevel = pProcessor->getMaximumInputLevel(nChannel);
 
-            pInputLevelMeters[nChannel]->setLevel(fPeakInputLevel, fAverageInputLevel, fPeakInputPeakLevel, fMaximumInputLevel);
+            p_arrInputLevelMeters[nChannel]->setLevel(fPeakInputLevel, fAverageInputLevel, fPeakInputPeakLevel, fMaximumInputLevel);
 
             float fPeakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
             float fAverageOutputLevel = pProcessor->getAverageMeterOutputLevel(nChannel);
             float fPeakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(nChannel);
             float fMaximumOutputLevel = pProcessor->getMaximumOutputLevel(nChannel);
 
-            pOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel, fAverageOutputLevel, fPeakOutputPeakLevel, fMaximumOutputLevel);
+            p_arrOutputLevelMeters[nChannel]->setLevel(fPeakOutputLevel, fAverageOutputLevel, fPeakOutputPeakLevel, fMaximumOutputLevel);
 
             float fGainReduction = pProcessor->getGainReduction(nChannel);
             float fGainReductionPeak = pProcessor->getGainReductionPeak(nChannel);
@@ -536,7 +508,7 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessa
             fGainReduction -= 0.01f;
             fGainReductionPeak -= 0.01f;
 
-            pGainReductionMeters[nChannel]->setGainReduction(fGainReduction, fGainReductionPeak);
+            p_arrGainReductionMeters[nChannel]->setGainReduction(fGainReduction, fGainReductionPeak);
         }
     }
     else
@@ -642,7 +614,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 
             for (int nChannel = 0; nChannel < nChannels; nChannel++)
             {
-                pGainReductionMeters[nChannel]->setUpwardExpansion(bUpwardExpansion);
+                p_arrGainReductionMeters[nChannel]->setUpwardExpansion(bUpwardExpansion);
             }
         }
 

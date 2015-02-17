@@ -47,8 +47,8 @@ private:
     double dSampleRate;
     double dGainReduction;
 
-    double *pAttackCoefficients;
-    double *pReleaseCoefficients;
+    Array<double> arrAttackCoefficients;
+    Array<double> arrReleaseCoefficients;
 };
 
 

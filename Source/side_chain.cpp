@@ -26,7 +26,9 @@
 #include "side_chain.h"
 
 
-SideChain::SideChain(int nSampleRate)
+SideChain::SideChain(int nSampleRate) :
+    gainStageFET(nSampleRate),
+    gainStageOptical(nSampleRate)
 /*  Constructor.
 
     nSampleRate (integer): internal sample rate
@@ -35,10 +37,6 @@ SideChain::SideChain(int nSampleRate)
 */
 {
     dSampleRate = (double) nSampleRate;
-
-    pGainStageCurrent = nullptr;
-    pGainStageFET = new GainStageFET(nSampleRate);
-    pGainStageOptical = new GainStageOptical(nSampleRate);
 
     setThreshold(-12.0);
     setRatio(2.0);
@@ -71,13 +69,6 @@ SideChain::~SideChain()
     return value: none
 */
 {
-    pGainStageCurrent = nullptr;
-
-    delete pGainStageFET;
-    pGainStageFET = nullptr;
-
-    delete pGainStageOptical;
-    pGainStageOptical = nullptr;
 }
 
 
@@ -169,19 +160,17 @@ void SideChain::setGainStage(int nGainStageTypeNew)
 {
     nGainStageType = nGainStageTypeNew;
 
-    if (nGainStageType == Compressor::GainStageFET)
-    {
-        pGainStageCurrent = pGainStageFET;
-    }
-    else if (nGainStageType == Compressor::GainStageOptical)
-    {
-        pGainStageCurrent = pGainStageOptical;
-    }
-
     // update gain compensation
     setThreshold(dThreshold);
 
-    pGainStageCurrent->reset(dGainReduction);
+    if (nGainStageType == Compressor::GainStageFET)
+    {
+        gainStageFET.reset(dGainReduction);
+    }
+    else
+    {
+        gainStageOptical.reset(dGainReduction);
+    }
 }
 
 
@@ -348,7 +337,16 @@ double SideChain::getGainReduction(bool bAutoMakeupGain)
     decibel
  */
 {
-    double dGainReductionTemp = pGainStageCurrent->processGainReduction(dGainReduction, dGainReductionIdeal);
+    double dGainReductionTemp;
+
+    if (nGainStageType == Compressor::GainStageFET)
+    {
+        dGainReductionTemp = gainStageFET.processGainReduction(dGainReduction, dGainReductionIdeal);
+    }
+    else
+    {
+        dGainReductionTemp = gainStageOptical.processGainReduction(dGainReduction, dGainReductionIdeal);
+    }
 
     if (bAutoMakeupGain)
     {

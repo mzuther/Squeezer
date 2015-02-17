@@ -61,7 +61,7 @@ private:
     int nSegmentHeight;
     int nNumberOfBars;
 
-    MeterSegment **MeterArray;
+    OwnedArray<MeterSegment> p_arrMeterSegments;
 };
 
 

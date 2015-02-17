@@ -44,44 +44,16 @@ MeterBarGainReduction::MeterBarGainReduction(const String &componentName, int po
     fGainReduction = 0.0f;
     fGainReductionPeak = 0.0f;
 
-    MeterArray = new MeterSegment*[nNumberOfBars];
-
     bUpwardExpansion = false;
-    initialiseMeter();
-}
 
-
-MeterBarGainReduction::~MeterBarGainReduction()
-{
-    deleteMeter();
-
-    delete [] MeterArray;
-    MeterArray = nullptr;
-
-    deleteAllChildren();
-}
-
-
-void MeterBarGainReduction::initialiseMeter()
-{
+    int nThreshold = 0;
+    int nThresholdDiff = 10;
     float fRange = 1.0f;
-    int nColor = 3;
-    int nThreshold;
-    int nThresholdDiff;
-
-    if (bUpwardExpansion)
-    {
-        nThreshold = (nNumberOfBars - 1) * 10;
-        nThresholdDiff = -10;
-    }
-    else
-    {
-        nThreshold = 0;
-        nThresholdDiff = 10;
-    }
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
+        int nColor;
+
         if (n % 6 == 5)
         {
             nColor = 1;
@@ -91,23 +63,16 @@ void MeterBarGainReduction::initialiseMeter()
             nColor = 3;
         }
 
-        MeterArray[n] = new MeterSegment("MeterSegment #" + String(n) + " (" + getName() + ")", nThreshold * 0.1f, fRange, true, nColor);
-        addAndMakeVisible(MeterArray[n]);
+        MeterSegment *pMeterSegment = p_arrMeterSegments.add(new MeterSegment("MeterSegment #" + String(n) + " (" + getName() + ")", nThreshold * 0.1f, fRange, true, nColor));
+        addAndMakeVisible(pMeterSegment);
 
         nThreshold += nThresholdDiff;
     }
 }
 
 
-void MeterBarGainReduction::deleteMeter()
+MeterBarGainReduction::~MeterBarGainReduction()
 {
-    for (int n = 0; n < nNumberOfBars; n++)
-    {
-        removeChildComponent(MeterArray[n]);
-
-        delete MeterArray[n];
-        MeterArray[n] = nullptr;
-    }
 }
 
 
@@ -115,12 +80,19 @@ void MeterBarGainReduction::visibilityChanged()
 {
     setBounds(nPosX, nPosY, nWidth, nHeight);
 
-    int x = 0;
     int y = 0;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
-        MeterArray[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
+        int nIndex = n;
+
+        // upward expansion: turn meter upside down
+        if (bUpwardExpansion)
+        {
+            nIndex = nNumberOfBars - n - 1;
+        }
+
+        p_arrMeterSegments[nIndex]->setBounds(0, y, nWidth, nSegmentHeight + 1);
         y += nSegmentHeight;
     }
 }
@@ -139,14 +111,10 @@ void MeterBarGainReduction::resized()
 
 void MeterBarGainReduction::setUpwardExpansion(bool upward_expansion)
 {
-    if (bUpwardExpansion != upward_expansion)
-    {
-        bUpwardExpansion = upward_expansion;
+    bUpwardExpansion = upward_expansion;
 
-        deleteMeter();
-        initialiseMeter();
-        visibilityChanged();
-    }
+    // re-position meter segments
+    visibilityChanged();
 }
 
 
@@ -159,7 +127,7 @@ void MeterBarGainReduction::setGainReduction(float gainReduction, float gainRedu
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            MeterArray[n]->setLevels(-9999.9f, fGainReduction, -9999.9f, fGainReductionPeak);
+            p_arrMeterSegments[n]->setLevels(-9999.9f, fGainReduction, -9999.9f, fGainReductionPeak);
         }
     }
 }

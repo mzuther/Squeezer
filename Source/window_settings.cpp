@@ -103,9 +103,6 @@ WindowSettings::WindowSettings(Component *pEditorWindow, String &strPluginSettin
 
 WindowSettings::~WindowSettings()
 {
-    // delete all children of the window; "contentComponent" will be
-    // deleted by the base class, so please leave it alone!
-    contentComponent->deleteAllChildren();
 }
 
 

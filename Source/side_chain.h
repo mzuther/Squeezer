@@ -33,7 +33,6 @@
 #include "compressor.h"
 #include "gain_stage_fet.h"
 #include "gain_stage_optical.h"
-#include "plugin_processor.h"
 
 
 //==============================================================================
@@ -87,9 +86,8 @@ private:
     double dDebugTimeInReleasePhase;
 #endif
 
-    GainStage *pGainStageCurrent;
-    GainStageFET *pGainStageFET;
-    GainStageOptical *pGainStageOptical;
+    GainStageFET gainStageFET;
+    GainStageOptical gainStageOptical;
 
     double dSampleRate;
     double dCrestFactorAutoGain;

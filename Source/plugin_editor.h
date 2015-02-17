@@ -70,52 +70,52 @@ private:
 
     SqueezerAudioProcessor *pProcessor;
 
-    MeterBarLevel **pInputLevelMeters;
-    MeterBarLevel **pOutputLevelMeters;
-    MeterBarGainReduction **pGainReductionMeters;
+    OwnedArray<MeterBarLevel> p_arrInputLevelMeters;
+    OwnedArray<MeterBarLevel> p_arrOutputLevelMeters;
+    OwnedArray<MeterBarGainReduction> p_arrGainReductionMeters;
 
-    TextButton *ButtonDetectorRmsPeak;
-    TextButton *ButtonDetectorRmsFast;
-    TextButton *ButtonDetectorRmsMedium;
-    TextButton *ButtonDetectorRmsSlow;
+    ScopedPointer<TextButton> ButtonDetectorRmsPeak;
+    ScopedPointer<TextButton> ButtonDetectorRmsFast;
+    ScopedPointer<TextButton> ButtonDetectorRmsMedium;
+    ScopedPointer<TextButton> ButtonDetectorRmsSlow;
 
-    TextButton *ButtonDesignFeedForward;
-    TextButton *ButtonDesignFeedBack;
+    ScopedPointer<TextButton> ButtonDesignFeedForward;
+    ScopedPointer<TextButton> ButtonDesignFeedBack;
 
-    TextButton *ButtonDetectorLinear;
-    TextButton *ButtonDetectorSmoothDecoupled;
-    TextButton *ButtonDetectorSmoothBranching;
+    ScopedPointer<TextButton> ButtonDetectorLinear;
+    ScopedPointer<TextButton> ButtonDetectorSmoothDecoupled;
+    ScopedPointer<TextButton> ButtonDetectorSmoothBranching;
 
-    TextButton *ButtonGainStageFET;
-    TextButton *ButtonGainStageOptical;
+    ScopedPointer<TextButton> ButtonGainStageFET;
+    ScopedPointer<TextButton> ButtonGainStageOptical;
 
-    SliderCombined *SliderThresholdCombined;
-    SliderCombined *SliderRatioCombined;
-    SliderCombined *SliderKneeWidthCombined;
+    ScopedPointer<SliderCombined> SliderThresholdCombined;
+    ScopedPointer<SliderCombined> SliderRatioCombined;
+    ScopedPointer<SliderCombined> SliderKneeWidthCombined;
 
-    SliderCombined *SliderAttackRateCombined;
-    SliderCombined *SliderReleaseRateCombined;
+    ScopedPointer<SliderCombined> SliderAttackRateCombined;
+    ScopedPointer<SliderCombined> SliderReleaseRateCombined;
 
 #ifdef SQUEEZER_STEREO
-    SliderCombined *SliderStereoLinkCombined;
+    ScopedPointer<SliderCombined> SliderStereoLinkCombined;
 #endif
 
-    SliderCombined *SliderInputGainCombined;
-    TextButton *ButtonAutoMakeupGain;
-    SliderCombined *SliderMakeupGainCombined;
-    SliderCombined *SliderWetMixCombined;
+    ScopedPointer<SliderCombined> SliderInputGainCombined;
+    ScopedPointer<TextButton> ButtonAutoMakeupGain;
+    ScopedPointer<SliderCombined> SliderMakeupGainCombined;
+    ScopedPointer<SliderCombined> SliderWetMixCombined;
 
-    TextButton *ButtonSidechainFilterState;
-    SliderCombined *SliderSidechainFilterCutoffCombined;
-    SliderSwitchLinearBar *SliderSidechainFilterGain;
-    TextButton *ButtonSidechainListen;
+    ScopedPointer<TextButton> ButtonSidechainFilterState;
+    ScopedPointer<SliderCombined> SliderSidechainFilterCutoffCombined;
+    ScopedPointer<SliderSwitchLinearBar> SliderSidechainFilterGain;
+    ScopedPointer<TextButton> ButtonSidechainListen;
 
-    TextButton *ButtonBypass;
-    TextButton *ButtonResetMeters;
-    TextButton *ButtonSettings;
-    TextButton *ButtonAbout;
+    ScopedPointer<TextButton> ButtonBypass;
+    ScopedPointer<TextButton> ButtonResetMeters;
+    ScopedPointer<TextButton> ButtonSettings;
+    ScopedPointer<TextButton> ButtonAbout;
 
-    Label *LabelDebug;
+    ScopedPointer<Label> LabelDebug;
 };
 
 

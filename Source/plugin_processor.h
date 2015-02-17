@@ -26,10 +26,6 @@
 #ifndef __SQUEEZER_PLUGINPROCESSOR_H__
 #define __SQUEEZER_PLUGINPROCESSOR_H__
 
-class SqueezerAudioProcessor;
-class Compressor;
-class SqueezerPluginParameters;
-
 #include "JuceHeader.h"
 #include "compressor.h"
 #include "plugin_parameters.h"
@@ -121,8 +117,8 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessor);
 
-    SqueezerPluginParameters *pPluginParameters;
-    Compressor *pCompressor;
+    SqueezerPluginParameters pluginParameters;
+    ScopedPointer<Compressor> pCompressor;
 
     int nNumInputChannels;
     bool bSampleRateIsValid;

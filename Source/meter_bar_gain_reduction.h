@@ -49,9 +49,6 @@ public:
 private:
     JUCE_LEAK_DETECTOR(MeterBarGainReduction);
 
-    void initialiseMeter();
-    void deleteMeter();
-
     float fGainReduction;
     float fGainReductionPeak;
     bool bUpwardExpansion;
@@ -63,7 +60,7 @@ private:
     int nSegmentHeight;
     int nNumberOfBars;
 
-    MeterSegment **MeterArray;
+    OwnedArray<MeterSegment> p_arrMeterSegments;
 };
 
 

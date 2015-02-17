@@ -40,10 +40,10 @@ public:
 private:
     JUCE_LEAK_DETECTOR(WindowSettings);
 
-    Component *contentComponent;
+    ScopedPointer<Component> contentComponent;
 
-    TextEditor *TextEditorSettings;
-    TextButton *ButtonClose;
+    ScopedPointer<TextEditor> TextEditorSettings;
+    ScopedPointer<TextButton> ButtonClose;
 };
 
 

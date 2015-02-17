@@ -36,15 +36,13 @@ FilterChebyshev::FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPas
     nNumberOfStages = nNumberOfPoles / 2;
     dRipple = dPercentRipple;
 
-    pFilterStages = new FilterChebyshevStage*[nNumberOfStages];
-
     // TODO: normalise coefficients
     for (int nStage = 0; nStage < nNumberOfStages; nStage++)
     {
         // pole pairs start with index 1!
         int nPolePair = nStage + 1;
 
-        pFilterStages[nStage] = new FilterChebyshevStage(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair);
+        p_arrFilterStages.add(new FilterChebyshevStage(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair));
     }
 
     changeParameters(dRelativeCutoffFrequency, isHighPass);
@@ -53,14 +51,6 @@ FilterChebyshev::FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPas
 
 FilterChebyshev::~FilterChebyshev()
 {
-    for (int nStage = 0; nStage < nNumberOfStages; nStage++)
-    {
-        delete pFilterStages[nStage];
-        pFilterStages[nStage] = nullptr;
-    }
-
-    delete[] pFilterStages;
-    pFilterStages = nullptr;
 }
 
 
@@ -70,7 +60,7 @@ double FilterChebyshev::filterSample(double dInputCurrent)
 
     for (int nStage = 0; nStage < nNumberOfStages; nStage++)
     {
-        dOutputCurrent = pFilterStages[nStage]->filterSample(dOutputCurrent);
+        dOutputCurrent = p_arrFilterStages[nStage]->filterSample(dOutputCurrent);
     }
 
     // output is already de-normalised
@@ -87,7 +77,7 @@ void FilterChebyshev::changeParameters(double dRelativeCutoffFrequency, bool isH
         // pole pairs start with index 1!
         int nPolePair = nStage + 1;
 
-        pFilterStages[nStage]->changeParameters(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair);
+        p_arrFilterStages[nStage]->changeParameters(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair);
     }
 
     reset();
@@ -98,7 +88,7 @@ void FilterChebyshev::reset()
 {
     for (int nStage = 0; nStage < nNumberOfStages; nStage++)
     {
-        pFilterStages[nStage]->reset();
+        p_arrFilterStages[nStage]->reset();
     }
 }
 

@@ -144,50 +144,53 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
+    // the meter's sample buffer holds 50 ms worth of samples
+    const double dBufferLength = 0.050;
+
     void updateMeterBallistics();
     void PeakMeterBallistics(double dPeakLevelCurrent, double &dPeakLevelOld, double &dPeakMarkOld, double &dPeakHoldTime);
     void AverageMeterBallistics(double dAverageLevelCurrent, double &dAverageLevelOld);
     void GainReductionMeterPeakBallistics(double dGainReductionPeakCurrent, double &dGainReductionPeakOld, double &dGainReductionHoldTime);
     void LogMeterBallistics(double dMeterInertia, double dTimePassed, double dLevel, double &dReadout);
 
-    Dither *pDither;
-    SideChain **pSideChain;
-    FilterChebyshev **pSidechainFilter;
-
-    AudioSampleBuffer *pMeterInputBuffer;
-    AudioSampleBuffer *pMeterOutputBuffer;
-
-    double *pInputSamples;
-    double *pSidechainSamples;
-    double *pOutputSamples;
-
-    double *pPeakMeterInputLevels;
-    double *pPeakMeterOutputLevels;
-
-    double *pPeakMeterPeakInputLevels;
-    double *pPeakMeterPeakOutputLevels;
-
-    double *pMaximumInputLevels;
-    double *pMaximumOutputLevels;
-
-    double *pAverageMeterInputLevels;
-    double *pAverageMeterOutputLevels;
-
-    double *pGainReduction;
-    double *pGainReductionPeak;
-
-    double *pPeakMeterPeakInputHoldTime;
-    double *pPeakMeterPeakOutputHoldTime;
-    double *pGainReductionHoldTime;
-
     int nChannels;
     int nSampleRate;
-    int nMeterBufferSize;
     int nMeterBufferPosition;
+    int nMeterBufferSize;
+
+    AudioSampleBuffer MeterInputBuffer;
+    AudioSampleBuffer MeterOutputBuffer;
+
+    Dither dither;
+    OwnedArray<SideChain> p_arrSideChain;
+    OwnedArray<FilterChebyshev> p_arrSidechainFilter;
+
+    Array<double> arrInputSamples;
+    Array<double> arrSidechainSamples;
+    Array<double> arrOutputSamples;
+
+    Array<double> arrPeakMeterInputLevels;
+    Array<double> arrPeakMeterOutputLevels;
+
+    Array<double> arrPeakMeterPeakInputLevels;
+    Array<double> arrPeakMeterPeakOutputLevels;
+
+    Array<double> arrMaximumInputLevels;
+    Array<double> arrMaximumOutputLevels;
+
+    Array<double> arrAverageMeterInputLevels;
+    Array<double> arrAverageMeterOutputLevels;
+
+    Array<double> arrGainReduction;
+    Array<double> arrGainReductionPeak;
+
+    Array<double> arrPeakMeterPeakInputHoldTime;
+    Array<double> arrPeakMeterPeakOutputHoldTime;
+    Array<double> arrGainReductionHoldTime;
+
     double dCrestFactor;
     int nDesign;
 
-    double dBufferLength;
     double dReleaseCoefLinear;
 
     bool bBypassCompressor;

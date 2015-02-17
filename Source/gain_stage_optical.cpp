@@ -41,9 +41,6 @@ GainStageOptical::GainStageOptical(int nSampleRate) : GainStage(nSampleRate)
 {
     dSampleRate = (double) nSampleRate;
 
-    pAttackCoefficients = new double[NUMBER_OF_COEFFICIENTS];
-    pReleaseCoefficients = new double[NUMBER_OF_COEFFICIENTS];
-
     for (int nCoefficient = 0; nCoefficient < NUMBER_OF_COEFFICIENTS; nCoefficient++)
     {
         //  0 dB:  Attack: 16 ms, Release: 160 ms
@@ -67,8 +64,8 @@ GainStageOptical::GainStageOptical(int nSampleRate) : GainStage(nSampleRate)
 
         // logarithmic envelopes that reach 73% of the final reading
         // in the given attack time
-        pAttackCoefficients[nCoefficient] = exp(log(0.27) / (dAttackRateSeconds * dSampleRate));
-        pReleaseCoefficients[nCoefficient] = exp(log(0.27) / (dReleaseRateSeconds * dSampleRate));
+        arrAttackCoefficients.add(exp(log(0.27) / (dAttackRateSeconds * dSampleRate)));
+        arrReleaseCoefficients.add(exp(log(0.27) / (dReleaseRateSeconds * dSampleRate)));
     }
 
     // reset (i.e. initialise) all relevant variables
@@ -82,11 +79,6 @@ GainStageOptical::~GainStageOptical()
     return value: none
 */
 {
-    delete[] pAttackCoefficients;
-    pAttackCoefficients = nullptr;
-
-    delete[] pReleaseCoefficients;
-    pReleaseCoefficients = nullptr;
 }
 
 
@@ -134,7 +126,7 @@ double GainStageOptical::processGainReduction(double dGainReductionNew, double d
         // Range Compressor Design - A Tutorial and Analysis", JAES,
         // 60(6):399-408, 2012
 
-        dGainReduction = (pAttackCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - pAttackCoefficients[nCoefficient]) * dGainReductionNew;
+        dGainReduction = (arrAttackCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - arrAttackCoefficients[nCoefficient]) * dGainReductionNew;
     }
     // otherwise, apply release rate if proposed gain reduction is
     // below old gain reduction
@@ -144,7 +136,7 @@ double GainStageOptical::processGainReduction(double dGainReductionNew, double d
         // Range Compressor Design - A Tutorial and Analysis", JAES,
         // 60(6):399-408, 2012
 
-        dGainReduction = (pReleaseCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - pReleaseCoefficients[nCoefficient]) * dGainReductionNew;
+        dGainReduction = (arrReleaseCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - arrReleaseCoefficients[nCoefficient]) * dGainReductionNew;
     }
 
     // saturation of optical element
