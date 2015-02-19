@@ -99,9 +99,9 @@ private:
     bool bUseConstants;
     bool bChangedMode;
 
-    WrappedParameterToggleSwitch *pModeSwitch;
-    WrappedParameterSwitch *pSwitch;
-    WrappedParameterContinuous *pContinuous;
+    WrappedParameterToggleSwitch paramModeSwitch;
+    WrappedParameterSwitch paramSwitch;
+    WrappedParameterContinuous paramContinuous;
 };
 
 

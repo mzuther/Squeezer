@@ -51,7 +51,7 @@ void GenericPluginStandalone::initialise(const String &commandLineParameters)
 void GenericPluginStandalone::shutdown()
 {
     filterWindow->pluginHolder->savePluginState();
-    deleteAndZero(filterWindow);
+    filterWindow = nullptr;
 }
 
 

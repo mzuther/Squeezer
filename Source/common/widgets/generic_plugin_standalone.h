@@ -44,7 +44,7 @@ public:
 protected:
     virtual PropertiesFile::Options prepare_properties() = 0;
 
-    StandaloneFilterWindow *filterWindow;
+    ScopedPointer<StandaloneFilterWindow> filterWindow;
 
 private:
     JUCE_LEAK_DETECTOR(GenericPluginStandalone);

@@ -26,18 +26,17 @@
 #include "wrapped_parameter_combined.h"
 
 
-WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places)
+WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places) :
+    paramModeSwitch("Discrete", "Continuous", true),
+    paramSwitch(true),
+    paramContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places, true)
+
 {
     strName = String::empty;
     strAttribute = String::empty;
 
-    // these parameters should not be deleted outside of this class
-    pSwitch = new WrappedParameterSwitch(true);
-    pContinuous = new WrappedParameterContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places, true);
-    pModeSwitch = new WrappedParameterToggleSwitch("Discrete", "Continuous", true);
-
     bUseConstants = true;
-    pModeSwitch->setBoolean(bUseConstants);
+    paramModeSwitch.setBoolean(bUseConstants);
 
     setChangeFlag();
     setChangeFlagMode();
@@ -46,14 +45,6 @@ WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float rea
 
 WrappedParameterCombined::~WrappedParameterCombined()
 {
-    delete pSwitch;
-    pSwitch = nullptr;
-
-    delete pContinuous;
-    pContinuous = nullptr;
-
-    delete pModeSwitch;
-    pModeSwitch = nullptr;
 }
 
 
@@ -68,13 +59,13 @@ void WrappedParameterCombined::setName(const String &strParameterName)
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
 
-    pModeSwitch->setName(strName + " Mode");
+    paramModeSwitch.setName(strName + " Mode");
 }
 
 
 void WrappedParameterCombined::addConstant(const float fRealValue, const String &strText)
 {
-    pSwitch->addConstant(fRealValue, strText);
+    paramSwitch.addConstant(fRealValue, strText);
 }
 
 
@@ -99,28 +90,29 @@ bool WrappedParameterCombined::setMode(bool use_constants)
 
 bool WrappedParameterCombined::toggleMode()
 {
-    pModeSwitch->toggleState();
-    bUseConstants = pModeSwitch->getBoolean();
+    paramModeSwitch.toggleState();
+    bUseConstants = paramModeSwitch.getBoolean();
 
     setChangeFlag();
     setChangeFlagMode();
 
     if (bUseConstants)
     {
-        float fRealValue = pContinuous->getRealFloat();
-        return pSwitch->setNearestRealFloat(fRealValue);
+        float fRealValue = paramContinuous.getRealFloat();
+        return paramSwitch.setNearestRealFloat(fRealValue);
     }
     else
     {
-        float fRealValue = pSwitch->getRealFloat();
-        return pContinuous->setNearestRealFloat(fRealValue);
+        float fRealValue = paramSwitch.getRealFloat();
+        return paramContinuous.setNearestRealFloat(fRealValue);
     }
 }
 
 
 WrappedParameterToggleSwitch *WrappedParameterCombined::getModeSwitch()
 {
-    return pModeSwitch;
+    // this pointer must not be deleted outside of this class!
+    return &paramModeSwitch;
 }
 
 
@@ -128,11 +120,11 @@ float WrappedParameterCombined::getInterval()
 {
     if (bUseConstants)
     {
-        return pSwitch->getInterval();
+        return paramSwitch.getInterval();
     }
     else
     {
-        return pContinuous->getInterval();
+        return paramContinuous.getInterval();
     }
 }
 
@@ -141,11 +133,11 @@ float WrappedParameterCombined::getDefaultFloat()
 {
     if (bUseConstants)
     {
-        return pSwitch->getDefaultFloat();
+        return paramSwitch.getDefaultFloat();
     }
     else
     {
-        return pContinuous->getDefaultFloat();
+        return paramContinuous.getDefaultFloat();
     }
 }
 
@@ -154,11 +146,11 @@ float WrappedParameterCombined::getDefaultRealFloat()
 {
     if (bUseConstants)
     {
-        return pSwitch->getDefaultRealFloat();
+        return paramSwitch.getDefaultRealFloat();
     }
     else
     {
-        return pContinuous->getDefaultRealFloat();
+        return paramContinuous.getDefaultRealFloat();
     }
 }
 
@@ -167,11 +159,11 @@ bool WrappedParameterCombined::getDefaultBoolean()
 {
     if (bUseConstants)
     {
-        return pSwitch->getDefaultBoolean();
+        return paramSwitch.getDefaultBoolean();
     }
     else
     {
-        return pContinuous->getDefaultBoolean();
+        return paramContinuous.getDefaultBoolean();
     }
 }
 
@@ -180,11 +172,11 @@ int WrappedParameterCombined::getDefaultRealInteger()
 {
     if (bUseConstants)
     {
-        return pSwitch->getDefaultRealInteger();
+        return paramSwitch.getDefaultRealInteger();
     }
     else
     {
-        return pContinuous->getDefaultRealInteger();
+        return paramContinuous.getDefaultRealInteger();
     }
 }
 
@@ -193,15 +185,15 @@ bool WrappedParameterCombined::setDefaultRealFloat(float fRealValue, bool update
 {
     if (bUseConstants)
     {
-        bool bSwitchFound = pSwitch->setDefaultRealFloat(fRealValue, updateValue);
-        bool bContinuousFound = pContinuous->setDefaultRealFloat(fRealValue, false);
+        bool bSwitchFound = paramSwitch.setDefaultRealFloat(fRealValue, updateValue);
+        bool bContinuousFound = paramContinuous.setDefaultRealFloat(fRealValue, false);
 
         return (bSwitchFound && bContinuousFound);
     }
     else
     {
-        bool bContinuousFound = pContinuous->setDefaultRealFloat(fRealValue, updateValue);
-        bool bSwitchFound = pSwitch->setDefaultRealFloat(fRealValue, true);
+        bool bContinuousFound = paramContinuous.setDefaultRealFloat(fRealValue, updateValue);
+        bool bSwitchFound = paramSwitch.setDefaultRealFloat(fRealValue, true);
 
         return (bContinuousFound && bSwitchFound);
     }
@@ -212,11 +204,11 @@ float WrappedParameterCombined::getFloat()
 {
     if (bUseConstants)
     {
-        return pSwitch->getFloat();
+        return paramSwitch.getFloat();
     }
     else
     {
-        return pContinuous->getFloat();
+        return paramContinuous.getFloat();
     }
 }
 
@@ -225,11 +217,11 @@ bool WrappedParameterCombined::setFloat(float fValue)
 {
     if (bUseConstants)
     {
-        return pSwitch->setFloat(fValue);
+        return paramSwitch.setFloat(fValue);
     }
     else
     {
-        return pContinuous->setFloat(fValue);
+        return paramContinuous.setFloat(fValue);
     }
 }
 
@@ -238,11 +230,11 @@ float WrappedParameterCombined::getRealFloat()
 {
     if (bUseConstants)
     {
-        return pSwitch->getRealFloat();
+        return paramSwitch.getRealFloat();
     }
     else
     {
-        return pContinuous->getRealFloat();
+        return paramContinuous.getRealFloat();
     }
 }
 
@@ -251,11 +243,11 @@ bool WrappedParameterCombined::setRealFloat(float fRealValue)
 {
     if (bUseConstants)
     {
-        return pSwitch->setRealFloat(fRealValue);
+        return paramSwitch.setRealFloat(fRealValue);
     }
     else
     {
-        return pContinuous->setRealFloat(fRealValue);
+        return paramContinuous.setRealFloat(fRealValue);
     }
 }
 
@@ -264,11 +256,11 @@ bool WrappedParameterCombined::getBoolean()
 {
     if (bUseConstants)
     {
-        return pSwitch->getBoolean();
+        return paramSwitch.getBoolean();
     }
     else
     {
-        return pContinuous->getBoolean();
+        return paramContinuous.getBoolean();
     }
 }
 
@@ -277,11 +269,11 @@ bool WrappedParameterCombined::setBoolean(bool bValue)
 {
     if (bUseConstants)
     {
-        return pSwitch->setBoolean(bValue);
+        return paramSwitch.setBoolean(bValue);
     }
     else
     {
-        return pContinuous->setBoolean(bValue);
+        return paramContinuous.setBoolean(bValue);
     }
 }
 
@@ -290,11 +282,11 @@ int WrappedParameterCombined::getRealInteger()
 {
     if (bUseConstants)
     {
-        return pSwitch->getRealInteger();
+        return paramSwitch.getRealInteger();
     }
     else
     {
-        return pContinuous->getRealInteger();
+        return paramContinuous.getRealInteger();
     }
 }
 
@@ -303,11 +295,11 @@ bool WrappedParameterCombined::setRealInteger(int nRealValue)
 {
     if (bUseConstants)
     {
-        return pSwitch->setRealInteger(nRealValue);
+        return paramSwitch.setRealInteger(nRealValue);
     }
     else
     {
-        return pContinuous->setRealInteger(nRealValue);
+        return paramContinuous.setRealInteger(nRealValue);
     }
 }
 
@@ -316,11 +308,11 @@ String WrappedParameterCombined::getText()
 {
     if (bUseConstants)
     {
-        return pSwitch->getText();
+        return paramSwitch.getText();
     }
     else
     {
-        return pContinuous->getText();
+        return paramContinuous.getText();
     }
 }
 
@@ -329,18 +321,18 @@ bool WrappedParameterCombined::setText(const String &strText)
 {
     if (bUseConstants)
     {
-        return pSwitch->setText(strText);
+        return paramSwitch.setText(strText);
     }
     else
     {
-        return pContinuous->setText(strText);
+        return paramContinuous.setText(strText);
     }
 }
 
 
 void WrappedParameterCombined::setSuffix(const String &suffix)
 {
-    pContinuous->setSuffix(suffix);
+    paramContinuous.setSuffix(suffix);
 }
 
 
@@ -348,11 +340,11 @@ float WrappedParameterCombined::getFloatFromText(const String &strText)
 {
     if (bUseConstants)
     {
-        return pSwitch->getFloatFromText(strText);
+        return paramSwitch.getFloatFromText(strText);
     }
     else
     {
-        return pContinuous->getFloatFromText(strText);
+        return paramContinuous.getFloatFromText(strText);
     }
 }
 
@@ -361,19 +353,19 @@ String WrappedParameterCombined::getTextFromFloat(float fValue)
 {
     if (bUseConstants)
     {
-        return pSwitch->getTextFromFloat(fValue);
+        return paramSwitch.getTextFromFloat(fValue);
     }
     else
     {
-        return pContinuous->getTextFromFloat(fValue);
+        return paramContinuous.getTextFromFloat(fValue);
     }
 }
 
 
 bool WrappedParameterCombined::hasChanged()
 {
-    bool bChangedSwitch = pSwitch->hasChanged();
-    bool bChangedContinuous = pContinuous->hasChanged();
+    bool bChangedSwitch = paramSwitch.hasChanged();
+    bool bChangedContinuous = paramContinuous.hasChanged();
 
     return (bChangedSwitch || bChangedContinuous);
 }
@@ -381,15 +373,15 @@ bool WrappedParameterCombined::hasChanged()
 
 void WrappedParameterCombined::clearChangeFlag()
 {
-    pSwitch->clearChangeFlag();
-    pContinuous->clearChangeFlag();
+    paramSwitch.clearChangeFlag();
+    paramContinuous.clearChangeFlag();
 }
 
 
 void WrappedParameterCombined::setChangeFlag()
 {
-    pSwitch->setChangeFlag();
-    pContinuous->setChangeFlag();
+    paramSwitch.setChangeFlag();
+    paramContinuous.setChangeFlag();
 }
 
 
