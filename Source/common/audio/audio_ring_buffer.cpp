@@ -25,7 +25,8 @@
 
 #include "audio_ring_buffer.h"
 
-AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size)
+AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size) :
+    fRingBufferMemTest(255.0f)
 {
     jassert(channels > 0);
     jassert(length > 0);
@@ -40,13 +41,13 @@ AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int c
     uTotalLength = uLength + uPreDelay;
     uChunkSize = chunk_size;
 
-    // pad memory areas with RING_BUFFER_MEM_TEST to allow detection of
-    // memory leaks
+    // pad memory areas with value of fRingBufferMemTest to allow
+    // detection of memory leaks
     pAudioData = (float *) malloc(uChannels * (uTotalLength + 2) * sizeof(float));
 
     for (unsigned int i = 0; i < (uChannels * (uTotalLength + 2)); i++)
     {
-        pAudioData[i] = RING_BUFFER_MEM_TEST;
+        pAudioData[i] = fRingBufferMemTest;
     }
 
     uCurrentPosition = 0;
@@ -82,9 +83,9 @@ void AudioRingBuffer::clear()
     // detection of memory leaks
     for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
     {
-        jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
-        jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
-        jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
+        jassert(pAudioData[uChannelOffset[uChannel] - 1] == fRingBufferMemTest);
+        jassert(pAudioData[uChannelOffset[uChannel]] != fRingBufferMemTest);
+        jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == fRingBufferMemTest);
     }
 
 #endif
@@ -211,9 +212,9 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer &source, const unsign
     // detection of memory leaks
     for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
     {
-        jassert(pAudioData[uChannelOffset[uChannel] - 1] == RING_BUFFER_MEM_TEST);
-        jassert(pAudioData[uChannelOffset[uChannel]] != RING_BUFFER_MEM_TEST);
-        jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == RING_BUFFER_MEM_TEST);
+        jassert(pAudioData[uChannelOffset[uChannel] - 1] == fRingBufferMemTest);
+        jassert(pAudioData[uChannelOffset[uChannel]] != fRingBufferMemTest);
+        jassert(pAudioData[uChannelOffset[uChannel] + uTotalLength] == fRingBufferMemTest);
     }
 
 #endif

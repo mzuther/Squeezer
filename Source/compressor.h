@@ -145,7 +145,7 @@ private:
     JUCE_LEAK_DETECTOR(Compressor);
 
     // the meter's sample buffer holds 50 ms worth of samples
-    const double dBufferLength = 0.050;
+    const double dBufferLength;
 
     void updateMeterBallistics();
     void PeakMeterBallistics(double dPeakLevelCurrent, double &dPeakLevelOld, double &dPeakMarkOld, double &dPeakHoldTime);

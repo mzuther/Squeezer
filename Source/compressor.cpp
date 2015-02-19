@@ -29,6 +29,8 @@
 //==============================================================================
 
 Compressor::Compressor(int channels, int sample_rate) :
+    // the meter's sample buffer holds 50 ms worth of samples
+    dBufferLength(0.050),
     nChannels(channels),
     nSampleRate(sample_rate),
     nMeterBufferSize((int)(nSampleRate *dBufferLength)),
@@ -40,8 +42,6 @@ Compressor::Compressor(int channels, int sample_rate) :
 
     dCrestFactor = 20.0;
     bUpwardExpansion = false;
-
-    // the meter's sample buffer holds 50 ms worth of samples
 
     // fall time: 26 dB in 3 seconds (linear)
     dReleaseCoefLinear = 26.0 * dBufferLength / 3.0;

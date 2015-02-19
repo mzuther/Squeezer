@@ -41,11 +41,16 @@ public:
 
     void reset(double dCurrentGainReduction);
     double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);
+
 private:
     JUCE_LEAK_DETECTOR(GainStageOptical);
 
     double dSampleRate;
     double dGainReduction;
+
+    const int nNumberOfDecibels;
+    const int nCoefficientsPerDecibel;
+    const int nNumberOfCoefficients;
 
     Array<double> arrAttackCoefficients;
     Array<double> arrReleaseCoefficients;

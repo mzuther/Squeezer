@@ -26,12 +26,11 @@
 #include "gain_stage_optical.h"
 
 
-#define NUMBER_OF_DECIBELS 37
-#define COEFFICIENTS_PER_DECIBEL 2.0
-#define NUMBER_OF_COEFFICIENTS NUMBER_OF_DECIBELS * int(COEFFICIENTS_PER_DECIBEL)
-
-
-GainStageOptical::GainStageOptical(int nSampleRate) : GainStage(nSampleRate)
+GainStageOptical::GainStageOptical(int nSampleRate) :
+    GainStage(nSampleRate),
+    nNumberOfDecibels(37),
+    nCoefficientsPerDecibel(2),
+    nNumberOfCoefficients(nNumberOfDecibels *nCoefficientsPerDecibel)
 /*  Constructor.
 
     nSampleRate (integer): internal sample rate
@@ -41,7 +40,7 @@ GainStageOptical::GainStageOptical(int nSampleRate) : GainStage(nSampleRate)
 {
     dSampleRate = (double) nSampleRate;
 
-    for (int nCoefficient = 0; nCoefficient < NUMBER_OF_COEFFICIENTS; nCoefficient++)
+    for (int nCoefficient = 0; nCoefficient < nNumberOfCoefficients; nCoefficient++)
     {
         //  0 dB:  Attack: 16 ms, Release: 160 ms
         //  6 dB:  Attack:  5 ms, Release:  53 ms
@@ -49,12 +48,12 @@ GainStageOptical::GainStageOptical(int nSampleRate) : GainStage(nSampleRate)
         // 18 dB:  Attack:  2 ms, Release:  23 ms
         // 24 dB:  Attack:  2 ms, Release:  18 ms
 
-        double dDecibels = double(nCoefficient) / COEFFICIENTS_PER_DECIBEL;
+        double dDecibels = double(nCoefficient) / double(nCoefficientsPerDecibel);
         double dResistance = 480.0 / (3.0 + dDecibels);
         double dAttackRate = dResistance / 10.0;
         double dReleaseRate = dResistance;
 
-        // if (nCoefficient % (6 * int(COEFFICIENTS_PER_DECIBEL)) == 0)
+        // if (nCoefficient % (6 * nCoefficientsPerDecibel) == 0)
         // {
         //     DBG(String(dDecibels) + " dB:  Attack: " + String(dAttackRate, 1) + " ms, Release: " + String(dReleaseRate, 1) + " ms");
         // }
@@ -109,15 +108,15 @@ double GainStageOptical::processGainReduction(double dGainReductionNew, double d
 {
     double dGainReductionOld = dGainReduction;
     double dCoefficient = dGainReductionNew;
-    int nCoefficient = int(dCoefficient * COEFFICIENTS_PER_DECIBEL);
+    int nCoefficient = int(dCoefficient * double(nCoefficientsPerDecibel));
 
     if (nCoefficient < 0)
     {
         nCoefficient = 0;
     }
-    else if (nCoefficient > (NUMBER_OF_COEFFICIENTS - 1))
+    else if (nCoefficient > (nNumberOfCoefficients - 1))
     {
-        nCoefficient = (NUMBER_OF_COEFFICIENTS - 1);
+        nCoefficient = (nNumberOfCoefficients - 1);
     }
 
     if (dGainReductionNew > dGainReduction)

@@ -26,8 +26,6 @@
 #ifndef __AUDIO_RING_BUFFER_H__
 #define __AUDIO_RING_BUFFER_H__
 
-#define RING_BUFFER_MEM_TEST 255.0f
-
 class AudioRingBuffer;
 class AudioRingBufferProcessor;
 
@@ -79,6 +77,8 @@ private:
     unsigned int uCurrentPosition;
     unsigned int uSamplesInBuffer;
     Array<unsigned int> uChannelOffset;
+
+    const float fRingBufferMemTest;
 
     float *pAudioData;
 };
