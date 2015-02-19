@@ -52,10 +52,6 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
 SqueezerAudioProcessor::~SqueezerAudioProcessor()
 {
     removeAllActionListeners();
-
-    // call function "releaseResources()" by force to make sure all
-    // allocated memory is freed
-    releaseResources();
 }
 
 
@@ -686,7 +682,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-    DBG("[Squeezer] in method SqueezerAudioProcessor::prepareToPlay()");
+    DBG("[Squeezer] preparing to play");
 
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
@@ -770,12 +766,7 @@ void SqueezerAudioProcessor::releaseResources()
     // When playback stops, you can use this as an opportunity to free
     // up any spare memory, etc.
 
-    DBG("[Squeezer] in method SqueezerAudioProcessor::releaseResources()");
-
-    if (!bSampleRateIsValid)
-    {
-        return;
-    }
+    DBG("[Squeezer] releasing resources");
 }
 
 
