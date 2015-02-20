@@ -191,8 +191,7 @@ void GenericWindowAbout::buttonClicked(Button *button)
     // find out which button has been clicked
     if (button == ButtonClose)
     {
-        // close window by making it invisible
-        setVisible(false);
+        exitModalState(1);
     }
     else if (button == ButtonGpl)
     {
@@ -201,6 +200,11 @@ void GenericWindowAbout::buttonClicked(Button *button)
     }
 }
 
+
+void GenericWindowAbout::closeButtonPressed()
+{
+    exitModalState(0);
+}
 
 // Local Variables:
 // ispell-local-dictionary: "british"

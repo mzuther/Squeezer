@@ -7,6 +7,7 @@ v1.52 (2015-02-20)
 * lots of internal changes
 
 
+
 v1.51 (2015-01-31)
 ==================
 
@@ -17,6 +18,7 @@ v1.51 (2015-01-31)
 * renamed parameter "Listen" to "SC Listen"
 
 
+
 v1.50 (2015-01-31)
 ==================
 
@@ -25,6 +27,7 @@ v1.50 (2015-01-31)
 * dithered output
 
 * updated to JUCE 3.1.1
+
 
 
 v1.46 (2015-01-29)
@@ -49,6 +52,7 @@ v1.46 (2015-01-29)
 * updated JUCE framework to 3.0.8
 
 
+
 v1.45 (2013-08-11)
 ==================
 
@@ -63,6 +67,7 @@ v1.44 (2013-08-04)
 * de-normalise floating-point numbers
 
 
+
 v1.43 (2013-06-01)
 ==================
 
@@ -71,6 +76,7 @@ v1.43 (2013-06-01)
 * experimental 64-bit versions for Windows
 
 * updated framework to JUCE v2.40
+
 
 
 v1.42 (2013-02-24)
@@ -85,10 +91,12 @@ v1.42 (2013-02-24)
 * changed RMS detection constants
 
 
+
 v1.41 (2013-02-23)
 ==================
 
 * optical detector
+
 
 
 v1.40 (2013-02-18)
@@ -103,12 +111,14 @@ v1.40 (2013-02-18)
 * maximum peak label on meters
 
 
+
 v1.31 (2013-02-10)
 ==================
 
 * combined peak/average meter
 
 * update level meters during bypass
+
 
 
 v1.30 (2013-02-10)
@@ -127,6 +137,7 @@ v1.30 (2013-02-10)
 * check type in parameter wrapper initialisation
 
 
+
 v1.20 (2013-02-01)
 ==================
 
@@ -140,6 +151,7 @@ v1.20 (2013-02-01)
 * fixed parameter automation bug
 
 
+
 v1.10 (2013-01-19)
 ==================
 
@@ -148,6 +160,7 @@ v1.10 (2013-01-19)
 * enhanced parameter handling (including logarithmic scaling)
 
 * fixed setting parameters by controller message
+
 
 
 v1.00 (2013-01-11)

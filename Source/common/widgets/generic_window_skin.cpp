@@ -112,8 +112,7 @@ void GenericWindowSkin::buttonClicked(Button *button)
     // find out which button has been clicked
     if (button == ButtonSelect)
     {
-        // close window by making it invisible
-        setVisible(false);
+        exitModalState(1);
     }
     else if (button == ButtonDefault)
     {
@@ -126,6 +125,12 @@ void GenericWindowSkin::buttonClicked(Button *button)
         // redraw list box
         listBox->repaint();
     }
+}
+
+
+void GenericWindowSkin::closeButtonPressed()
+{
+    exitModalState(0);
 }
 
 

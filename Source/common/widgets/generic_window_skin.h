@@ -38,6 +38,8 @@ public:
     ~GenericWindowSkin();
 
     void buttonClicked(Button *button);
+    void closeButtonPressed();
+
     const String &getSelectedString();
 
 private:

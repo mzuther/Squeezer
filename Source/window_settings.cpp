@@ -109,9 +109,14 @@ void WindowSettings::buttonClicked(Button *button)
     // find out which button has been clicked
     if (button == &ButtonClose)
     {
-        // close window by making it invisible
-        setVisible(false);
+        exitModalState(1);
     }
+}
+
+
+void WindowSettings::closeButtonPressed()
+{
+    exitModalState(0);
 }
 
 

@@ -37,6 +37,7 @@ public:
     ~GenericWindowAbout();
 
     void buttonClicked(Button *button);
+    void closeButtonPressed();
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowAbout);
