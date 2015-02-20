@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{B689D4B7-9DA2-BA22-E357-3361B5E451C6}</ProjectGuid>
+		<ProjectGuid>{82E3F7E8-6A40-D816-A3AE-79E5C106AD94}</ProjectGuid>
 		<RootNamespace>VST Plug-in (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -233,6 +233,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_plugin_standalone.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_continuous.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_channel_slider.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_skin.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.h" />
@@ -295,6 +296,8 @@
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_channel_slider.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_plugin_standalone.cpp">
 		</ClCompile>

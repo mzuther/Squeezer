@@ -36,10 +36,10 @@ class GenericSkin;
 class GenericSkin
 {
 public:
-    GenericSkin(File &fileSkin, String strXmlRoot);
+    GenericSkin();
     ~GenericSkin();
 
-    bool loadFromXml(File &fileSkin);
+    bool loadFromXml(File &fileSkin, const String &strXmlRootName);
     void placeComponent(Component *component, String strXmlTag);
     void placeAndSkinButton(ImageButton *button, String strXmlTag);
     void placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, String strXmlTag);
@@ -50,14 +50,13 @@ public:
 protected:
     XmlElement *getComponentFromXml(String strXmlTag);
 
-    XmlElement *xml;
+    ScopedPointer<XmlElement> xml;
     XmlElement *xmlSkinGroup;
     XmlElement *xmlSkinFallback_1;
     XmlElement *xmlSkinFallback_2;
 
     File fileResourcePath;
 
-    String strXmlRootName;
     String strBackgroundSelector;
     String strSkinGroup;
     String strSkinFallback_1;

@@ -48,53 +48,51 @@ WindowSettings::WindowSettings(Component *pEditorWindow, String &strPluginSettin
 
     // empty windows are boring, so let's prepare a space for some
     // window components
-    contentComponent = new Component("Window Area");
-    setContentOwned(contentComponent, false);
+    setContentOwned(&contentComponent, false);
 
     // create a word-wrapping read-only text editor component with
     // multiple lines for displaying the plugin's settings
-    TextEditorSettings = new TextEditor("Settings Text");
-    TextEditorSettings->setMultiLine(true, true);
-    TextEditorSettings->setReadOnly(true);
+    TextEditorSettings.setMultiLine(true, true);
+    TextEditorSettings.setReadOnly(true);
 
     // initialise colours of the text editor component
-    TextEditorSettings->setColour(TextEditor::backgroundColourId, Colours::black.withAlpha(0.25f));
-    TextEditorSettings->setColour(TextEditor::textColourId, Colours::black);
-    TextEditorSettings->setColour(TextEditor::highlightColourId, Colours::black.withAlpha(0.15f));
-    TextEditorSettings->setColour(TextEditor::highlightedTextColourId, Colours::black);
+    TextEditorSettings.setColour(TextEditor::backgroundColourId, Colours::black.withAlpha(0.25f));
+    TextEditorSettings.setColour(TextEditor::textColourId, Colours::black);
+    TextEditorSettings.setColour(TextEditor::highlightColourId, Colours::black.withAlpha(0.15f));
+    TextEditorSettings.setColour(TextEditor::highlightedTextColourId, Colours::black);
 
     // set up font for regular text
     Font fontRegular(Font::getDefaultMonospacedFontName(), 15.0f, Font::plain);
 
     // display plug-in description
-    TextEditorSettings->setFont(fontRegular);
-    TextEditorSettings->insertTextAtCaret(strPluginSettings.trim());
+    TextEditorSettings.setFont(fontRegular);
+    TextEditorSettings.insertTextAtCaret(strPluginSettings.trim());
 
     // copy settings to system clipboard
-    TextEditorSettings->selectAll();
-    TextEditorSettings->copy();
+    TextEditorSettings.selectAll();
+    TextEditorSettings.copy();
 
     // in case the text has become too long to fit into the text
     // editor component, scroll to the beginning
-    TextEditorSettings->setCaretPosition(0);
-    TextEditorSettings->scrollEditorToPositionCaret(0, 0);
+    TextEditorSettings.setCaretPosition(0);
+    TextEditorSettings.scrollEditorToPositionCaret(0, 0);
 
     // hide cursor
-    TextEditorSettings->setCaretVisible(false);
+    TextEditorSettings.setCaretVisible(false);
 
     // finally, position and display the text editor component
-    TextEditorSettings->setBounds(0, 0, nWidth, nHeight - 37);
-    contentComponent->addAndMakeVisible(TextEditorSettings);
+    TextEditorSettings.setBounds(0, 0, nWidth, nHeight - 37);
+    contentComponent.addAndMakeVisible(&TextEditorSettings);
 
     // create and position an "close" button
-    ButtonClose = new TextButton("Close");
-    ButtonClose->setBounds(nWidth / 2 - 30, nHeight - 29, 60, 20);
-    ButtonClose->setColour(TextButton::buttonColourId, Colours::yellow);
-    ButtonClose->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonClose.setButtonText("Close");
+    ButtonClose.setBounds(nWidth / 2 - 30, nHeight - 29, 60, 20);
+    ButtonClose.setColour(TextButton::buttonColourId, Colours::yellow);
+    ButtonClose.setColour(TextButton::buttonOnColourId, Colours::yellow);
 
     // add "about" window as button listener and display the button
-    ButtonClose->addListener(this);
-    contentComponent->addAndMakeVisible(ButtonClose);
+    ButtonClose.addListener(this);
+    contentComponent.addAndMakeVisible(&ButtonClose);
 
     // finally, display window
     setVisible(true);
@@ -109,7 +107,7 @@ WindowSettings::~WindowSettings()
 void WindowSettings::buttonClicked(Button *button)
 {
     // find out which button has been clicked
-    if (button == ButtonClose)
+    if (button == &ButtonClose)
     {
         // close window by making it invisible
         setVisible(false);

@@ -42,7 +42,6 @@ public:
     void changeParameters(double dRelativeCutoffFrequency, bool isHighPass);
     void reset();
 
-    juce_UseDebuggingNewOperator
 private:
     JUCE_LEAK_DETECTOR(FilterChebyshev);
 

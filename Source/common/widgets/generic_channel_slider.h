@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   traKmeter
+   =========
+   Loudness meter for correctly setting up tracking and mixing levels
 
-   Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2012-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,31 +23,36 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_SETTINGS_H__
-#define __WINDOW_SETTINGS_H__
+#ifndef __GENERIC_CHANNEL_SLIDER_H__
+#define __GENERIC_CHANNEL_SLIDER_H__
 
 #include "JuceHeader.h"
 
 
-class WindowSettings : public DocumentWindow, ButtonListener
+//==============================================================================
+/**
+*/
+class GenericChannelSlider : public Slider
 {
 public:
-    WindowSettings(Component *pEditorWindow, String &strPluginSettings);
-    ~WindowSettings();
+    GenericChannelSlider(const String &componentName = String::empty);
+    ~GenericChannelSlider();
 
-    void buttonClicked(Button *button);
+    int getNumberOfChannels();
+    void setNumberOfChannels(int nNumChannels);
+
+    float getFloat();
+    double getValueFromText(const String &strText);
+    String getTextFromValue(double fValue);
 
 private:
-    JUCE_LEAK_DETECTOR(WindowSettings);
+    JUCE_LEAK_DETECTOR(GenericChannelSlider);
 
-    Component contentComponent;
-
-    TextEditor TextEditorSettings;
-    TextButton ButtonClose;
+    int nNumberOfChannels;
 };
 
 
-#endif  // __WINDOW_SETTINGS_H__
+#endif  // __GENERIC_CHANNEL_SLIDER_H__
 
 
 // Local Variables:

@@ -26,33 +26,19 @@
 #include "generic_skin.h"
 
 
-GenericSkin::GenericSkin(File &fileSkin, String strXmlRoot)
+GenericSkin::GenericSkin()
 {
-    strXmlRootName = strXmlRoot;
-
-    xml = nullptr;
 }
 
 
 GenericSkin::~GenericSkin()
 {
-    if (xml != nullptr)
-    {
-        delete xml;
-        xml = nullptr;
-    }
 }
 
 
-bool GenericSkin::loadFromXml(File &fileSkin)
+bool GenericSkin::loadFromXml(File &fileSkin, const String &strXmlRootName)
 {
     DBG(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");
-
-    if (xml != nullptr)
-    {
-        delete xml;
-        xml = nullptr;
-    }
 
     xml = XmlDocument::parse(fileSkin);
 
@@ -68,8 +54,6 @@ bool GenericSkin::loadFromXml(File &fileSkin)
     else if ((!xml->hasTagName(strXmlRootName)) || (xml->getChildByName("default") == nullptr))
     {
         Logger::outputDebugString("[Skin] XML file not valid");
-
-        delete xml;
         xml = nullptr;
 
         return false;
@@ -86,8 +70,6 @@ bool GenericSkin::loadFromXml(File &fileSkin)
         if (!fileResourcePath.isDirectory())
         {
             Logger::outputDebugString(String("[Skin] directory \"") + fileResourcePath.getFullPathName() + "\" not found");
-
-            delete xml;
             xml = nullptr;
 
             return false;

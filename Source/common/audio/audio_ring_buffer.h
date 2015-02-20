@@ -80,7 +80,7 @@ private:
 
     const float fRingBufferMemTest;
 
-    float *pAudioData;
+    HeapBlock<float> audioData;
 };
 
 

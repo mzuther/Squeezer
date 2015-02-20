@@ -46,7 +46,6 @@ public:
     double filterSample(double dInputCurrent);
     void reset();
 
-    juce_UseDebuggingNewOperator
 private:
     JUCE_LEAK_DETECTOR(FilterChebyshevStage);
 

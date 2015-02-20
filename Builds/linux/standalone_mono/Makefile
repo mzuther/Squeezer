@@ -131,6 +131,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_window_about.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
+	$(OBJDIR)/generic_channel_slider.o \
 	$(OBJDIR)/generic_plugin_standalone.o \
 	$(OBJDIR)/generic_state_label.o \
 	$(OBJDIR)/resources.o \
@@ -283,6 +284,9 @@ $(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_channel_slider.o: ../../../Source/common/widgets/generic_channel_slider.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_plugin_standalone.cpp

@@ -74,20 +74,20 @@ private:
     OwnedArray<MeterBarLevel> p_arrOutputLevelMeters;
     OwnedArray<MeterBarGainReduction> p_arrGainReductionMeters;
 
-    ScopedPointer<TextButton> ButtonDetectorRmsPeak;
-    ScopedPointer<TextButton> ButtonDetectorRmsFast;
-    ScopedPointer<TextButton> ButtonDetectorRmsMedium;
-    ScopedPointer<TextButton> ButtonDetectorRmsSlow;
+    TextButton ButtonDetectorRmsPeak;
+    TextButton ButtonDetectorRmsFast;
+    TextButton ButtonDetectorRmsMedium;
+    TextButton ButtonDetectorRmsSlow;
 
-    ScopedPointer<TextButton> ButtonDesignFeedForward;
-    ScopedPointer<TextButton> ButtonDesignFeedBack;
+    TextButton ButtonDesignFeedForward;
+    TextButton ButtonDesignFeedBack;
 
-    ScopedPointer<TextButton> ButtonDetectorLinear;
-    ScopedPointer<TextButton> ButtonDetectorSmoothDecoupled;
-    ScopedPointer<TextButton> ButtonDetectorSmoothBranching;
+    TextButton ButtonDetectorLinear;
+    TextButton ButtonDetectorSmoothDecoupled;
+    TextButton ButtonDetectorSmoothBranching;
 
-    ScopedPointer<TextButton> ButtonGainStageFET;
-    ScopedPointer<TextButton> ButtonGainStageOptical;
+    TextButton ButtonGainStageFET;
+    TextButton ButtonGainStageOptical;
 
     ScopedPointer<SliderCombined> SliderThresholdCombined;
     ScopedPointer<SliderCombined> SliderRatioCombined;
@@ -101,21 +101,21 @@ private:
 #endif
 
     ScopedPointer<SliderCombined> SliderInputGainCombined;
-    ScopedPointer<TextButton> ButtonAutoMakeupGain;
+    TextButton ButtonAutoMakeupGain;
     ScopedPointer<SliderCombined> SliderMakeupGainCombined;
     ScopedPointer<SliderCombined> SliderWetMixCombined;
 
-    ScopedPointer<TextButton> ButtonSidechainFilterState;
+    TextButton ButtonSidechainFilterState;
     ScopedPointer<SliderCombined> SliderSidechainFilterCutoffCombined;
     ScopedPointer<SliderSwitchLinearBar> SliderSidechainFilterGain;
-    ScopedPointer<TextButton> ButtonSidechainListen;
+    TextButton ButtonSidechainListen;
 
-    ScopedPointer<TextButton> ButtonBypass;
-    ScopedPointer<TextButton> ButtonResetMeters;
-    ScopedPointer<TextButton> ButtonSettings;
-    ScopedPointer<TextButton> ButtonAbout;
+    TextButton ButtonBypass;
+    TextButton ButtonResetMeters;
+    TextButton ButtonSettings;
+    TextButton ButtonAbout;
 
-    ScopedPointer<Label> LabelDebug;
+    Label LabelDebug;
 };
 
 

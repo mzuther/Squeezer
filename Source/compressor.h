@@ -140,7 +140,6 @@ public:
 
     void processBlock(AudioSampleBuffer &buffer);
 
-    juce_UseDebuggingNewOperator
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
