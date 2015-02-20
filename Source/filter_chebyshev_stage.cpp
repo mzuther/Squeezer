@@ -29,7 +29,8 @@
 
 //==============================================================================
 
-FilterChebyshevStage::FilterChebyshevStage(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair)
+FilterChebyshevStage::FilterChebyshevStage(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair) :
+    dAntiDenormal(DBL_MIN)
 {
     changeParameters(dRelativeCutoffFrequency, isHighPass, dPercentRipple, nNumberOfPoles, nPolePair);
 }

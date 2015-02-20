@@ -26,7 +26,6 @@
 #ifndef __AUDIO_RING_BUFFER_H__
 #define __AUDIO_RING_BUFFER_H__
 
-class AudioRingBuffer;
 class AudioRingBufferProcessor;
 
 #include "JuceHeader.h"

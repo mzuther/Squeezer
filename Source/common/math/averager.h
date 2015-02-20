@@ -26,8 +26,6 @@
 #ifndef __AVERAGER_H__
 #define __AVERAGER_H__
 
-class Averager;
-
 #include "JuceHeader.h"
 
 

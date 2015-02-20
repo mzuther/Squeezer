@@ -26,8 +26,6 @@
 #ifndef __COMPRESSOR_H__
 #define __COMPRESSOR_H__
 
-class Compressor;
-class FilterChebyshev;
 class SideChain;
 
 #include "JuceHeader.h"
@@ -143,7 +141,8 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
-    // the meter's sample buffer holds 50 ms worth of samples
+    const float fAntiDenormal;
+    const double dAntiDenormal;
     const double dBufferLength;
 
     void updateMeterBallistics();

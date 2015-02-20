@@ -30,6 +30,8 @@
 
 Compressor::Compressor(int channels, int sample_rate) :
     // the meter's sample buffer holds 50 ms worth of samples
+    fAntiDenormal(FLT_MIN),
+    dAntiDenormal(DBL_MIN),
     dBufferLength(0.050),
     nChannels(channels),
     nSampleRate(sample_rate),

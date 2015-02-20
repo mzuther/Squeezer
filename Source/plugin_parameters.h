@@ -26,8 +26,6 @@
 #ifndef __PLUGIN_PARAMETERS_SQUEEZER_H__
 #define __PLUGIN_PARAMETERS_SQUEEZER_H__
 
-class SqueezerPluginParameters;
-
 #include "JuceHeader.h"
 #include "compressor.h"
 #include "common/parameter_juggler/parameter_juggler.h"

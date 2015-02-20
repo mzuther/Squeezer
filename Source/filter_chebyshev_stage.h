@@ -30,9 +30,6 @@
 #include <float.h>
 
 
-static const float  fAntiDenormal = FLT_MIN;
-static const double dAntiDenormal = DBL_MIN;
-
 //============================================================================
 class FilterChebyshevStage
 {
@@ -48,6 +45,8 @@ public:
 
 private:
     JUCE_LEAK_DETECTOR(FilterChebyshevStage);
+
+    const double dAntiDenormal;
 
     double coeff_A0;
     double coeff_A1;

@@ -28,7 +28,8 @@
 
 #include "JuceHeader.h"
 #include "../parameter_juggler/parameter_juggler.h"
-#include "../parameter_juggler/wrapped_parameter_switch.h"
+
+class WrappedParameterSwitch;
 
 
 //==============================================================================
