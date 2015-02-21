@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -35,11 +35,15 @@
 class GenericMeterSegment : public Component
 {
 public:
-    GenericMeterSegment(const String &componentName, float fThreshold, float fRange, bool bDisplayPeakMeter);
+    GenericMeterSegment(float threshold = -9999.9f, float displayRange = 1.0f);
     ~GenericMeterSegment();
 
+    float setThresholds(float threshold, float displayRange);
     void setColour(float fHueNew, const Colour &colPeakNew);
-    void setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak);
+
+    void setNormalLevels(float normalLevel, float normalLevelPeak);
+    void setDiscreteLevels(float discreteLevel, float discreteLevelPeak);
+    void setLevels(float normalLevel, float discreteLevel, float normalLevelPeak, float discreteLevelPeak);
 
     void paint(Graphics &g);
     void resized();
@@ -48,22 +52,17 @@ public:
 private:
     JUCE_LEAK_DETECTOR(GenericMeterSegment);
 
-    static const int PEAK_MARKER_NONE = 0;
-    static const int PEAK_MARKER_PEAK = 1;
-    static const int PEAK_MARKER_AVERAGE = 2;
-
     Colour colPeak;
 
     float fHue;
     float fBrightness;
     float fBrightnessOutline;
 
-    float fLowerThreshold;
-    float fUpperThreshold;
-    float fThresholdRange;
+    float lowerThreshold;
+    float upperThreshold;
+    float thresholdRange;
 
-    int nPeakMarker;
-    bool displayPeakMeter;
+    bool bPeakMarker;
 };
 
 

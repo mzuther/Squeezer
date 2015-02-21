@@ -328,13 +328,13 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
-        MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(new MeterBarLevel("Input Level Meter #" + String(nChannel), x, y, width, nNumberOfBars - 2, 5, 20.0f));
+        MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(new MeterBarLevel(x, y, width, nNumberOfBars - 2, 5, 20.0f));
         addAndMakeVisible(pMeterBarLevelInput);
 
-        MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(new MeterBarLevel("Output Level Meter #" + String(nChannel), x + 2 * x_spacing, y, width, nNumberOfBars - 2, 5, 20.0f));
+        MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(new MeterBarLevel(x + 2 * x_spacing, y, width, nNumberOfBars - 2, 5, 20.0f));
         addAndMakeVisible(pMeterBarLevelOutput);
 
-        MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(new MeterBarGainReduction("Gain Reduction Meter #" + String(nChannel), x + x_spacing, y, width, nNumberOfBars, 5));
+        MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(new MeterBarGainReduction(x + x_spacing, y, width, nNumberOfBars, 5));
         addAndMakeVisible(pMeterBarGainReduction);
 
         x += width;

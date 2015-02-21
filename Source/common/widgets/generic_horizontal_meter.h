@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 

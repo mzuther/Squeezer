@@ -36,7 +36,7 @@
 class MeterBarGainReduction : public Component
 {
 public:
-    MeterBarGainReduction(const String &componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
+    MeterBarGainReduction(int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
     ~MeterBarGainReduction();
 
     void setUpwardExpansion(bool upward_expansion);

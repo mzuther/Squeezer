@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
 
-   K-Meter
-   =======
-   Implementation of a K-System meter according to Bob Katz' specifications
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
    Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
@@ -26,33 +26,49 @@
 #include "generic_meter_segment.h"
 
 
-GenericMeterSegment::GenericMeterSegment(const String &componentName, float fThreshold, float fRange, bool bDisplayPeakMeter)
+GenericMeterSegment::GenericMeterSegment(float threshold, float displayRange)
+//
+//  The meter segment's state depends on two levels, the "normal" level
+//  and the "discrete" level:
+//
+//  * normal level >= upper threshold
+//
+//    segment is fully lit
+//
+//
+//  * lower threshold < discrete level <= upper threshold
+//
+//    segment is fully lit
+//
+//
+//  * lower threshold < normal level <= upper threshold
+//
+//    level affects segment's brightness
+//
+//
+//  * otherwise
+//
+//    segment is dark
+//
+//
+//  If either the "normal" or the "discrete" level lies between the
+//  upper and lower threshold (or on the lower threshold), the
+//  segment's peak marker is lit.
+//
 {
-    // set component name
-    setName(componentName);
-
-    // display additional peak meter?
-    displayPeakMeter = bDisplayPeakMeter;
-
-    // lower threshold, meter segment will be dark below this level
-    fLowerThreshold = fThreshold;
-
-    // level range above lower threshold; this affects the brightness
-    fThresholdRange = fRange;
-
-    // upper threshold, meter segment will be fully lit above this
-    // level
-    fUpperThreshold = fThreshold + fThresholdRange;
-
-    // show peak level marker on segment?
-    nPeakMarker = PEAK_MARKER_NONE;
+    // initialise thresholds
+    setThresholds(threshold, displayRange);
 
     // initialise meter segment's brightness (0.0f is dark, 1.0f is
     // fully lit)
     fBrightness = 0.0f;
     fBrightnessOutline = 0.0f;
 
+    // initialise meter segment's hue
     fHue = 0.0f;
+
+    // peak level marker is hidden
+    bPeakMarker = false;
 
     // make sure that segment is drawn after initialisation
     setLevels(-9999.9f, -9999.9f, -9999.9f, -9999.9f);
@@ -61,7 +77,21 @@ GenericMeterSegment::GenericMeterSegment(const String &componentName, float fThr
 
 GenericMeterSegment::~GenericMeterSegment()
 {
-    // nothing to do, really
+}
+
+
+float GenericMeterSegment::setThresholds(float threshold, float displayRange)
+{
+    // lower level threshold
+    lowerThreshold = threshold;
+
+    // level range above lower threshold
+    thresholdRange = displayRange;
+
+    // upper level threshold
+    upperThreshold = lowerThreshold + thresholdRange;
+
+    return upperThreshold;
 }
 
 
@@ -95,9 +125,9 @@ void GenericMeterSegment::paint(Graphics &g)
     // fill remaining meter segment with solid colour
     g.fillRect(2, 2, width - 4, height - 4);
 
-    // if peak marker is lit, draw a white rectangle around meter
-    // segment (width: 1 pixel)
-    if (nPeakMarker != PEAK_MARKER_NONE)
+    // if peak marker is lit, draw a rectangle around meter segment
+    // (width: 1 pixel)
+    if (bPeakMarker)
     {
         g.setColour(colPeak);
         g.drawRect(0, 0, width, height);
@@ -117,38 +147,52 @@ void GenericMeterSegment::resized()
 }
 
 
-void GenericMeterSegment::setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak)
+// use this only if you completely disregard discrete levels!
+void GenericMeterSegment::setNormalLevels(float normalLevel, float normalLevelPeak)
+{
+    setLevels(normalLevel, -9999.9f, normalLevelPeak, -9999.9f);
+}
+
+
+// use this only if you completely disregard normal levels!
+void GenericMeterSegment::setDiscreteLevels(float discreteLevel, float discreteLevelPeak)
+{
+    setLevels(-9999.9f, discreteLevel, -9999.9f, discreteLevelPeak);
+}
+
+
+void GenericMeterSegment::setLevels(float normalLevel, float discreteLevel, float normalLevelPeak, float discreteLevelPeak)
 {
     // store old brightness and peak marker values
     float fBrightnessOld = fBrightness;
-    int nPeakMarkerOld = nPeakMarker;
+    bool bPeakMarkerOld = bPeakMarker;
 
-    // current average level lies on or above upper threshold, so
+    // normal level lies on or above upper threshold, so fully light
+    // meter segment
+    if (normalLevel >= upperThreshold)
+    {
+        fBrightness = 0.97f;
+        fBrightnessOutline = 0.90f;
+    }
+    // discrete level lies within thresholds or on upper threshold, so
     // fully light meter segment
-    if (fAverageLevel >= fUpperThreshold)
+    else if ((discreteLevel > lowerThreshold) && (discreteLevel <= upperThreshold))
     {
         fBrightness = 0.97f;
         fBrightnessOutline = 0.90f;
     }
-    // peak metering is enabled and current peak level lies within
-    // thresholds or on upper threshold, so fully light meter segment
-    else if (displayPeakMeter && (fPeakLevel > fLowerThreshold) && (fPeakLevel <= fUpperThreshold))
-    {
-        fBrightness = 0.97f;
-        fBrightnessOutline = 0.90f;
-    }
-    // current average level lies on or below lower threshold, so set
-    // meter segment to dark
-    else if (fAverageLevel <= fLowerThreshold)
+    // normal level lies on or below lower threshold, so set meter
+    // segment to dark
+    else if (normalLevel <= lowerThreshold)
     {
         fBrightness = 0.25f;
         fBrightnessOutline = 0.30f;
     }
-    // current average level lies within thresholds, so calculate
-    // brightness from current level
+    // normal level lies within thresholds, so calculate brightness
+    // from current level
     else
     {
-        fBrightness = (fAverageLevel - fLowerThreshold) / fThresholdRange;
+        fBrightness = (normalLevel - lowerThreshold) / thresholdRange;
         fBrightnessOutline = fBrightness;
 
         // to look well, meter segments should be left with some
@@ -157,28 +201,27 @@ void GenericMeterSegment::setLevels(float fPeakLevel, float fAverageLevel, float
         fBrightnessOutline = fBrightnessOutline * 0.60f + 0.30f;
     }
 
-    // peak metering is enabled and meter's peak level peak lies
-    // within thresholds or on upper threshold, so show peak marker on
-    // segment
-    if (displayPeakMeter && (fPeakLevelPeak > fLowerThreshold) && (fPeakLevelPeak <= fUpperThreshold))
+    // discrete peak level lies within thresholds or on lower
+    // threshold, so light peak marker
+    if ((discreteLevelPeak >= lowerThreshold) && (discreteLevelPeak < upperThreshold))
     {
-        nPeakMarker = PEAK_MARKER_PEAK;
+        bPeakMarker = true;
     }
-    // meter's average level peak lies within thresholds or on upper
-    // threshold, so show peak marker on segment
-    else if ((fAverageLevelPeak > fLowerThreshold) && (fAverageLevelPeak <= fUpperThreshold))
+    // normal peak level lies within thresholds or on lower threshold,
+    // so light peak marker
+    else if ((normalLevelPeak >= lowerThreshold) && (normalLevelPeak < upperThreshold))
     {
-        nPeakMarker = PEAK_MARKER_AVERAGE;
+        bPeakMarker = true;
     }
-    // otherwise, do not show peak marker on segment
+    // otherwise, hide peak marker
     else
     {
-        nPeakMarker = PEAK_MARKER_NONE;
+        bPeakMarker = false;
     }
 
     // re-paint meter segment only when brightness or peak marker have
     // changed
-    if ((fBrightness != fBrightnessOld) || (nPeakMarker != nPeakMarkerOld))
+    if ((fBrightness != fBrightnessOld) || (bPeakMarker != bPeakMarkerOld))
     {
         repaint(getLocalBounds());
     }

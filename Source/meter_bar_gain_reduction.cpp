@@ -25,30 +25,19 @@
 
 #include "meter_bar_gain_reduction.h"
 
-MeterBarGainReduction::MeterBarGainReduction(const String &componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height)
+MeterBarGainReduction::MeterBarGainReduction(int pos_x, int pos_y, int width, int number_of_bars, int segment_height)
 {
-    setName(componentName);
+    nNumberOfBars = number_of_bars;
+    nSegmentHeight = segment_height;
+
+    bUpwardExpansion = false;
+
+    fGainReduction = -9999.8f;
+    fGainReductionPeak = -9999.8f;
 
     // this component does not have any transparent areas (increases
     // performance on redrawing)
     setOpaque(true);
-
-    nNumberOfBars = number_of_bars;
-    nSegmentHeight = segment_height;
-
-    nPosX = pos_x;
-    nPosY = pos_y;
-    nWidth = width;
-    nHeight = nNumberOfBars * nSegmentHeight + 1;
-
-    fGainReduction = 0.0f;
-    fGainReductionPeak = 0.0f;
-
-    bUpwardExpansion = false;
-
-    int nThreshold = 0;
-    int nThresholdDiff = 10;
-    float fRange = 1.0f;
 
     Array<float> arrHues;
 
@@ -56,6 +45,15 @@ MeterBarGainReduction::MeterBarGainReduction(const String &componentName, int po
     arrHues.add(0.18f);  // yellow
     arrHues.add(0.30f);  // green
     arrHues.add(0.58f);  // blue
+
+    nPosX = pos_x;
+    nPosY = pos_y;
+    nWidth = width;
+    nHeight = nNumberOfBars * nSegmentHeight + 1;
+
+    int nThreshold = 0;
+    int nThresholdDiff = 10;
+    float fRange = 1.0f;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
@@ -70,7 +68,8 @@ MeterBarGainReduction::MeterBarGainReduction(const String &componentName, int po
             nColor = 3;
         }
 
-        GenericMeterSegment *pMeterSegment = p_arrMeterSegments.add(new GenericMeterSegment("GenericMeterSegment #" + String(n) + " (" + getName() + ")", nThreshold * 0.1f, fRange, true));
+        GenericMeterSegment *pMeterSegment = p_arrMeterSegments.add(new GenericMeterSegment());
+        pMeterSegment->setThresholds(nThreshold * 0.1f, fRange);
         pMeterSegment->setColour(arrHues[nColor], Colour(arrHues[nColor], 1.0f, 1.0f, 0.7f));
 
         addAndMakeVisible(pMeterSegment);
@@ -136,7 +135,7 @@ void MeterBarGainReduction::setGainReduction(float gainReduction, float gainRedu
 
         for (int n = 0; n < nNumberOfBars; n++)
         {
-            p_arrMeterSegments[n]->setLevels(-9999.9f, fGainReduction, -9999.9f, fGainReductionPeak);
+            p_arrMeterSegments[n]->setNormalLevels(fGainReduction, fGainReductionPeak);
         }
     }
 }

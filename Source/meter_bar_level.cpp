@@ -25,31 +25,22 @@
 
 #include "meter_bar_level.h"
 
-MeterBarLevel::MeterBarLevel(const String &componentName, int pos_x, int pos_y, int width, int number_of_bars, int segment_height, float crest_factor)
+MeterBarLevel::MeterBarLevel(int pos_x, int pos_y, int width, int number_of_bars, int segment_height, float crest_factor)
 {
-    setName(componentName);
+    // add overload marker
+    nNumberOfBars = number_of_bars + 1;
+
+    nSegmentHeight = segment_height;
+    fCrestFactor = crest_factor;
+
+    fAverageLevel = -9999.8f;
+    fPeakLevel = -9999.8f;
+    fPeakLevelPeak = -9999.8f;
+    fMaximumLevel = -9999.8f;
 
     // this component does not have any transparent areas (increases
     // performance on redrawing)
     setOpaque(true);
-
-    // add overload marker
-    nNumberOfBars = number_of_bars + 1;
-    nSegmentHeight = segment_height;
-    fCrestFactor = crest_factor;
-
-    nPosX = pos_x;
-    nPosY = pos_y;
-    nWidth = width;
-    nHeight = (nNumberOfBars + 1) * nSegmentHeight + 1;
-
-    fAverageLevel = -70.01f;
-    fPeakLevel = -70.01f;
-    fPeakLevelPeak = -70.01f;
-    fMaximumLevel = -70.01f;
-
-    float fRange = 2.0f;
-    int nThreshold = 10 * int(fCrestFactor - fRange);
 
     Array<float> arrHues;
 
@@ -57,6 +48,14 @@ MeterBarLevel::MeterBarLevel(const String &componentName, int pos_x, int pos_y, 
     arrHues.add(0.18f);  // yellow
     arrHues.add(0.30f);  // green
     arrHues.add(0.58f);  // blue
+
+    nPosX = pos_x;
+    nPosY = pos_y;
+    nWidth = width;
+    nHeight = (nNumberOfBars + 1) * nSegmentHeight + 1;
+
+    float fRange = 2.0f;
+    int nThreshold = 10 * int(fCrestFactor - fRange);
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
@@ -80,7 +79,8 @@ MeterBarLevel::MeterBarLevel(const String &componentName, int pos_x, int pos_y, 
             nColor = 2;
         }
 
-        GenericMeterSegment *pMeterSegment = p_arrMeterSegments.add(new GenericMeterSegment("GenericMeterSegment #" + String(n) + " (" + componentName + ")", nThreshold * 0.1f, fRange, true));
+        GenericMeterSegment *pMeterSegment = p_arrMeterSegments.add(new GenericMeterSegment());
+        pMeterSegment->setThresholds(nThreshold * 0.1f, fRange);
         pMeterSegment->setColour(arrHues[nColor], Colour(arrHues[nColor], 1.0f, 1.0f, 0.7f));
 
         addAndMakeVisible(pMeterSegment);
@@ -139,7 +139,7 @@ void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float 
 
         for (int n = 1; n < nNumberOfBars; n++)
         {
-            p_arrMeterSegments[n]->setLevels(fPeakLevel, fAverageLevel, fPeakLevelPeak, -9999.9f);
+            p_arrMeterSegments[n]->setLevels(fAverageLevel, fPeakLevel, -9999.9f, fPeakLevelPeak);
         }
     }
 
@@ -149,11 +149,11 @@ void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float 
 
         if (fMaximumLevel >= fCrestFactor)
         {
-            p_arrMeterSegments[0]->setLevels(fCrestFactor + 0.01f, -9999.9f, fCrestFactor + 0.01f, -9999.9f);
+            p_arrMeterSegments[0]->setDiscreteLevels(fCrestFactor + 0.01f, fCrestFactor + 0.01f);
         }
         else
         {
-            p_arrMeterSegments[0]->setLevels(-9999.9f, -9999.9f, -9999.9f, -9999.9f);
+            p_arrMeterSegments[0]->setDiscreteLevels(-9999.9f, -9999.9f);
         }
     }
 }
