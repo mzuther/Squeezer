@@ -67,9 +67,6 @@ GenericMeterSegment::GenericMeterSegment(float threshold, float displayRange)
     // initialise meter segment's hue
     fHue = 0.0f;
 
-    // peak level marker is hidden
-    bPeakMarker = false;
-
     // make sure that segment is drawn after initialisation
     setLevels(-9999.9f, -9999.9f, -9999.9f, -9999.9f);
 }
@@ -90,6 +87,9 @@ float GenericMeterSegment::setThresholds(float threshold, float displayRange)
 
     // upper level threshold
     upperThreshold = lowerThreshold + thresholdRange;
+
+    // peak level marker is hidden
+    bPeakMarker = false;
 
     return upperThreshold;
 }
