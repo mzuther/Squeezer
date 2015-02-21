@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   K-Meter
+   =======
+   Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __METER_SEGMENT_H__
-#define __METER_SEGMENT_H__
+#ifndef __GENERIC_METER_SEGMENT_H__
+#define __GENERIC_METER_SEGMENT_H__
 
 #include "JuceHeader.h"
 
@@ -32,23 +32,27 @@
 //==============================================================================
 /**
 */
-class MeterSegment : public Component
+class GenericMeterSegment : public Component
 {
 public:
-    MeterSegment(const String &componentName, float fThreshold, float fRange, bool bDisplayPeakMeter, int nColor);
-    ~MeterSegment();
+    GenericMeterSegment(const String &componentName, float fThreshold, float fRange, bool bDisplayPeakMeter);
+    ~GenericMeterSegment();
 
+    void setColour(float fHueNew, const Colour &colPeakNew);
     void setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak);
+
     void paint(Graphics &g);
     void resized();
     void visibilityChanged();
 
 private:
-    JUCE_LEAK_DETECTOR(MeterSegment);
+    JUCE_LEAK_DETECTOR(GenericMeterSegment);
 
     static const int PEAK_MARKER_NONE = 0;
     static const int PEAK_MARKER_PEAK = 1;
     static const int PEAK_MARKER_AVERAGE = 2;
+
+    Colour colPeak;
 
     float fHue;
     float fBrightness;
@@ -63,7 +67,7 @@ private:
 };
 
 
-#endif  // __METER_SEGMENT_H__
+#endif  // __GENERIC_METER_SEGMENT_H__
 
 
 // Local Variables:

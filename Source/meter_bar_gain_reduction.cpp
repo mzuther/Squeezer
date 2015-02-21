@@ -50,6 +50,13 @@ MeterBarGainReduction::MeterBarGainReduction(const String &componentName, int po
     int nThresholdDiff = 10;
     float fRange = 1.0f;
 
+    Array<float> arrHues;
+
+    arrHues.add(0.00f);  // red
+    arrHues.add(0.18f);  // yellow
+    arrHues.add(0.30f);  // green
+    arrHues.add(0.58f);  // blue
+
     for (int n = 0; n < nNumberOfBars; n++)
     {
         int nColor;
@@ -63,7 +70,9 @@ MeterBarGainReduction::MeterBarGainReduction(const String &componentName, int po
             nColor = 3;
         }
 
-        MeterSegment *pMeterSegment = p_arrMeterSegments.add(new MeterSegment("MeterSegment #" + String(n) + " (" + getName() + ")", nThreshold * 0.1f, fRange, true, nColor));
+        GenericMeterSegment *pMeterSegment = p_arrMeterSegments.add(new GenericMeterSegment("GenericMeterSegment #" + String(n) + " (" + getName() + ")", nThreshold * 0.1f, fRange, true));
+        pMeterSegment->setColour(arrHues[nColor], Colour(arrHues[nColor], 1.0f, 1.0f, 0.7f));
+
         addAndMakeVisible(pMeterSegment);
 
         nThreshold += nThresholdDiff;

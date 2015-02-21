@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{A723070C-79AD-A3E5-2F1C-16995A048AF4}</ProjectGuid>
+		<ProjectGuid>{1C86BDF9-44DB-F37D-047E-CA999612E83F}</ProjectGuid>
 		<RootNamespace>Stand-alone (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -207,7 +207,6 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
-		<ClInclude Include="..\..\..\Source\meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_level.h" />
 		<ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
@@ -233,6 +232,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_segment.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\resources\resources.h" />
 		<ClInclude Include="..\..\..\Source\common\audio\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
@@ -246,8 +246,6 @@
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\Source\meter_segment.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\gain_stage_optical.cpp">
@@ -283,6 +281,8 @@
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_combined.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_skin.cpp">
 		</ClCompile>

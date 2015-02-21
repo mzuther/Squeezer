@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   K-Meter
+   =======
+   Implementation of a K-System meter according to Bob Katz' specifications
 
-   Copyright (c) 2013-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "meter_segment.h"
+#include "generic_meter_segment.h"
 
 
-MeterSegment::MeterSegment(const String &componentName, float fThreshold, float fRange, bool bDisplayPeakMeter, int nColor)
+GenericMeterSegment::GenericMeterSegment(const String &componentName, float fThreshold, float fRange, bool bDisplayPeakMeter)
 {
     // set component name
     setName(componentName);
@@ -52,40 +52,30 @@ MeterSegment::MeterSegment(const String &componentName, float fThreshold, float 
     fBrightness = 0.0f;
     fBrightnessOutline = 0.0f;
 
-    // set meter segment's hue from colour number
-    if (nColor == 0)
-    {
-        // meter segment is red
-        fHue = 0.00f;
-    }
-    else if (nColor == 1)
-    {
-        // meter segment is yellow
-        fHue = 0.18f;
-    }
-    else if (nColor == 2)
-    {
-        // meter segment is green
-        fHue = 0.34f;
-    }
-    else
-    {
-        // meter segment is blue
-        fHue = 0.61f;
-    }
+    fHue = 0.0f;
 
     // make sure that segment is drawn after initialisation
     setLevels(-9999.9f, -9999.9f, -9999.9f, -9999.9f);
 }
 
 
-MeterSegment::~MeterSegment()
+GenericMeterSegment::~GenericMeterSegment()
 {
     // nothing to do, really
 }
 
 
-void MeterSegment::paint(Graphics &g)
+void GenericMeterSegment::setColour(float fHueNew, const Colour &colPeakNew)
+{
+    fHue = fHueNew;
+    colPeak = colPeakNew;
+
+    // redraw meter segment
+    repaint();
+}
+
+
+void GenericMeterSegment::paint(Graphics &g)
 {
     // get meter segment's screen dimensions
     int width = getWidth();
@@ -109,25 +99,25 @@ void MeterSegment::paint(Graphics &g)
     // segment (width: 1 pixel)
     if (nPeakMarker != PEAK_MARKER_NONE)
     {
-        g.setColour(Colour(fHue, 1.0f, 1.0f, 0.7f));
+        g.setColour(colPeak);
         g.drawRect(0, 0, width, height);
     }
 }
 
 
-void MeterSegment::visibilityChanged()
+void GenericMeterSegment::visibilityChanged()
 {
     // if this function did not exist, the meter segment wouldn't be
     // drawn until the first level change!
 }
 
 
-void MeterSegment::resized()
+void GenericMeterSegment::resized()
 {
 }
 
 
-void MeterSegment::setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak)
+void GenericMeterSegment::setLevels(float fPeakLevel, float fAverageLevel, float fPeakLevelPeak, float fAverageLevelPeak)
 {
     // store old brightness and peak marker values
     float fBrightnessOld = fBrightness;
