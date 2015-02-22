@@ -61,7 +61,6 @@
         </GROUP>
         <GROUP id="{B752DA40-D2A1-9E51-BC7C-9D3CB67D7878}" name="widgets">
           <GROUP id="{8729CFDE-E1BF-C999-DF23-D06F77A9241A}" name="resources">
-            <GROUP id="{6FE57337-AD50-AB8C-8ABF-D43E2C21A651}" name="output"/>
             <FILE id="Q0DpEZ" name="resources.cpp" compile="1" resource="0" file="Source/common/widgets/resources/resources.cpp"/>
             <FILE id="Mvildg" name="resources.h" compile="0" resource="0" file="Source/common/widgets/resources/resources.h"/>
           </GROUP>
@@ -73,6 +72,14 @@
                 file="Source/common/widgets/generic_horizontal_meter.cpp"/>
           <FILE id="GCVgxy" name="generic_horizontal_meter.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_horizontal_meter.h"/>
+          <FILE id="XZiRw0" name="generic_meter_bar.cpp" compile="1" resource="0"
+                file="Source/common/widgets/generic_meter_bar.cpp"/>
+          <FILE id="nZwLpB" name="generic_meter_bar.h" compile="0" resource="0"
+                file="Source/common/widgets/generic_meter_bar.h"/>
+          <FILE id="RNPNI7" name="generic_meter_segment.cpp" compile="1" resource="0"
+                file="Source/common/widgets/generic_meter_segment.cpp"/>
+          <FILE id="C96f6h" name="generic_meter_segment.h" compile="0" resource="0"
+                file="Source/common/widgets/generic_meter_segment.h"/>
           <FILE id="GaGWLS" name="generic_plugin_standalone.cpp" compile="1"
                 resource="0" file="Source/common/widgets/generic_plugin_standalone.cpp"/>
           <FILE id="hER4Cn" name="generic_plugin_standalone.h" compile="0" resource="0"
@@ -137,9 +144,6 @@
             file="Source/meter_bar_level.cpp"/>
       <FILE id="mkI3mO" name="meter_bar_level.h" compile="0" resource="0"
             file="Source/meter_bar_level.h"/>
-      <FILE id="EM5Ywq" name="meter_segment.cpp" compile="1" resource="0"
-            file="Source/meter_segment.cpp"/>
-      <FILE id="st2hTB" name="meter_segment.h" compile="0" resource="0" file="Source/meter_segment.h"/>
       <FILE id="vS0tTB" name="plugin_editor.cpp" compile="1" resource="0"
             file="Source/plugin_editor.cpp"/>
       <FILE id="AEkLud" name="plugin_editor.h" compile="0" resource="0" file="Source/plugin_editor.h"/>
