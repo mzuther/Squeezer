@@ -134,6 +134,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_channel_slider.o \
 	$(OBJDIR)/generic_plugin_standalone.o \
 	$(OBJDIR)/generic_state_label.o \
+	$(OBJDIR)/generic_meter_bar.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/dither.o \
@@ -293,6 +294,9 @@ $(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_pl
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_state_label.o: ../../../Source/common/widgets/generic_state_label.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_meter_bar.o: ../../../Source/common/widgets/generic_meter_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/common/widgets/resources/resources.cpp

@@ -25,56 +25,16 @@
 
 #include "meter_bar_gain_reduction.h"
 
-MeterBarGainReduction::MeterBarGainReduction(int pos_x, int pos_y, int width, int number_of_bars, int segment_height)
+MeterBarGainReduction::MeterBarGainReduction()
 {
-    nNumberOfBars = number_of_bars;
-    nSegmentHeight = segment_height;
-
-    bUpwardExpansion = false;
-
-    fGainReduction = -9999.8f;
-    fGainReductionPeak = -9999.8f;
-
-    // this component does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-
-    Array<float> arrHues;
-
     arrHues.add(0.00f);  // red
     arrHues.add(0.18f);  // yellow
     arrHues.add(0.30f);  // green
     arrHues.add(0.58f);  // blue
 
-    nPosX = pos_x;
-    nPosY = pos_y;
-    nWidth = width;
-    nHeight = nNumberOfBars * nSegmentHeight + 1;
-
-    int nThreshold = 0;
-    int nThresholdDiff = 10;
-    float fRange = 1.0f;
-
-    for (int n = 0; n < nNumberOfBars; n++)
+    for (int n = 0; n < arrHues.size(); n++)
     {
-        int nColor;
-
-        if (n % 6 == 5)
-        {
-            nColor = 1;
-        }
-        else
-        {
-            nColor = 3;
-        }
-
-        GenericMeterSegment *pMeterSegment = p_arrMeterSegments.add(new GenericMeterSegment());
-        pMeterSegment->setThresholds(nThreshold * 0.1f, fRange);
-        pMeterSegment->setColour(arrHues[nColor], Colour(arrHues[nColor], 1.0f, 1.0f, 0.7f));
-
-        addAndMakeVisible(pMeterSegment);
-
-        nThreshold += nThresholdDiff;
+        arrPeakColours.add(Colour(arrHues[n], 1.0f, 1.0f, 0.7f));
     }
 }
 
@@ -84,36 +44,40 @@ MeterBarGainReduction::~MeterBarGainReduction()
 }
 
 
-void MeterBarGainReduction::visibilityChanged()
+void MeterBarGainReduction::create(int nMainSegmentHeight, Orientation orientation)
 {
-    setBounds(nPosX, nPosY, nWidth, nHeight);
+    GenericMeterBar::create();
+    setOrientation(orientation);
 
-    int y = 0;
+    setUpwardExpansion(false);
+
+    int nTrueLowerThreshold = 0;
+    int nRange = 10;
+    int nNumberOfBars = 24;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
-        int nIndex = n;
+        int nColour;
 
-        // upward expansion: turn meter upside down
-        if (bUpwardExpansion)
+        if (n % 6 == 5)
         {
-            nIndex = nNumberOfBars - n - 1;
+            nColour = 1;
+        }
+        else
+        {
+            nColour = 3;
         }
 
-        p_arrMeterSegments[nIndex]->setBounds(0, y, nWidth, nSegmentHeight + 1);
-        y += nSegmentHeight;
+        float fTrueLowerThreshold = nTrueLowerThreshold * 0.1f;
+        float fRange = nRange * 0.1f;
+
+        bool bHasHighestLevel = (n == (nNumberOfBars - 1)) ? true : false;
+        int nSpacingBefore = 0;
+
+        addSegment(fTrueLowerThreshold, fRange, bHasHighestLevel, nMainSegmentHeight, nSpacingBefore, arrHues[nColour], arrPeakColours[nColour]);
+
+        nTrueLowerThreshold += nRange;
     }
-}
-
-
-void MeterBarGainReduction::paint(Graphics &g)
-{
-    g.fillAll(Colours::black);
-}
-
-
-void MeterBarGainReduction::resized()
-{
 }
 
 
@@ -123,21 +87,6 @@ void MeterBarGainReduction::setUpwardExpansion(bool upward_expansion)
 
     // re-position meter segments
     visibilityChanged();
-}
-
-
-void MeterBarGainReduction::setGainReduction(float gainReduction, float gainReductionPeak)
-{
-    if ((gainReduction != fGainReduction) || (gainReductionPeak != fGainReductionPeak))
-    {
-        fGainReduction = gainReduction;
-        fGainReductionPeak = gainReductionPeak;
-
-        for (int n = 0; n < nNumberOfBars; n++)
-        {
-            p_arrMeterSegments[n]->setNormalLevels(fGainReduction, fGainReductionPeak);
-        }
-    }
 }
 
 

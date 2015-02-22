@@ -25,67 +25,16 @@
 
 #include "meter_bar_level.h"
 
-MeterBarLevel::MeterBarLevel(int pos_x, int pos_y, int width, int number_of_bars, int segment_height, float crest_factor)
+MeterBarLevel::MeterBarLevel()
 {
-    // add overload marker
-    nNumberOfBars = number_of_bars + 1;
-
-    nSegmentHeight = segment_height;
-    fCrestFactor = crest_factor;
-
-    fAverageLevel = -9999.8f;
-    fPeakLevel = -9999.8f;
-    fPeakLevelPeak = -9999.8f;
-    fMaximumLevel = -9999.8f;
-
-    // this component does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-
-    Array<float> arrHues;
-
     arrHues.add(0.00f);  // red
     arrHues.add(0.18f);  // yellow
     arrHues.add(0.30f);  // green
     arrHues.add(0.58f);  // blue
 
-    nPosX = pos_x;
-    nPosY = pos_y;
-    nWidth = width;
-    nHeight = (nNumberOfBars + 1) * nSegmentHeight + 1;
-
-    float fRange = 2.0f;
-    int nThreshold = 10 * int(fCrestFactor - fRange);
-
-    for (int n = 0; n < nNumberOfBars; n++)
+    for (int n = 0; n < arrHues.size(); n++)
     {
-        int nColor;
-
-        if (n == 0)
-        {
-            nColor = 0;
-            nThreshold += 20;
-        }
-        else if (nThreshold > 80)
-        {
-            nColor = 0;
-        }
-        else if (nThreshold > 0)
-        {
-            nColor = 1;
-        }
-        else
-        {
-            nColor = 2;
-        }
-
-        GenericMeterSegment *pMeterSegment = p_arrMeterSegments.add(new GenericMeterSegment());
-        pMeterSegment->setThresholds(nThreshold * 0.1f, fRange);
-        pMeterSegment->setColour(arrHues[nColor], Colour(arrHues[nColor], 1.0f, 1.0f, 0.7f));
-
-        addAndMakeVisible(pMeterSegment);
-
-        nThreshold -= 20;
+        arrPeakColours.add(Colour(arrHues[n], 1.0f, 1.0f, 0.7f));
     }
 }
 
@@ -95,66 +44,66 @@ MeterBarLevel::~MeterBarLevel()
 }
 
 
-void MeterBarLevel::visibilityChanged()
+void MeterBarLevel::create(int crestFactor, int nMainSegmentHeight, Orientation orientation)
 {
-    setBounds(nPosX, nPosY, nWidth, nHeight);
+    GenericMeterBar::create();
+    setOrientation(orientation);
 
-    int x = 0;
-    int y = 0;
+    int nCrestFactor = crestFactor * 10;
+    int nRange = 20;
+    int nTrueLowerThreshold = -nRange;
+    int nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
+
+    int nNumberOfBars = 23;
 
     for (int n = 0; n < nNumberOfBars; n++)
     {
+        int nColour;
+        int nSegmentHeight;
+        int nSpacingBefore;
+
         if (n == 0)
         {
-            p_arrMeterSegments[n]->setBounds(x, y, nWidth, 2 * nSegmentHeight - 1);
-            y += 2 * nSegmentHeight;
+            nColour = 0;
+
+            // overload marker
+            nSegmentHeight = 2 * nMainSegmentHeight - 2;
+            nSpacingBefore = 0;
+        }
+        else if (n == 1)
+        {
+            nColour = 0;
+            nSegmentHeight = nMainSegmentHeight;
+
+            // spacing for overload marker
+            nSpacingBefore = 2;
+        }
+        else if (nTrueLowerThreshold >= -80)
+        {
+            nColour = 0;
+            nSegmentHeight = nMainSegmentHeight;
+            nSpacingBefore = 0;
+        }
+        else if (nTrueLowerThreshold >= -200)
+        {
+            nColour = 1;
+            nSegmentHeight = nMainSegmentHeight;
+            nSpacingBefore = 0;
         }
         else
         {
-            p_arrMeterSegments[n]->setBounds(x, y, nWidth, nSegmentHeight + 1);
-            y += nSegmentHeight;
+            nColour = 2;
+            nSegmentHeight = nMainSegmentHeight;
         }
-    }
-}
 
+        float fLowerThreshold = nLowerThreshold * 0.1f;
+        float fRange = nRange * 0.1f;
+        bool bHasHighestLevel = (n == 0) ? true : false;
 
-void MeterBarLevel::paint(Graphics &g)
-{
-    g.fillAll(Colours::black);
-}
+        addSegment(fLowerThreshold, fRange, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColour], arrPeakColours[nColour]);
 
-
-void MeterBarLevel::resized()
-{
-}
-
-
-void MeterBarLevel::setLevel(float fPeakLevelNew, float fAverageLevelNew, float fPeakLevelPeakNew, float fMaximumLevelNew)
-{
-    if ((fPeakLevelNew != fPeakLevel) || (fAverageLevelNew != fAverageLevel) || (fPeakLevelPeakNew != fPeakLevelPeak))
-    {
-        fPeakLevel = fPeakLevelNew;
-        fAverageLevel = fAverageLevelNew;
-        fPeakLevelPeak = fPeakLevelPeakNew;
-
-        for (int n = 1; n < nNumberOfBars; n++)
-        {
-            p_arrMeterSegments[n]->setLevels(fAverageLevel, fPeakLevel, -9999.9f, fPeakLevelPeak);
-        }
-    }
-
-    if (fMaximumLevelNew != fMaximumLevel)
-    {
-        fMaximumLevel = fMaximumLevelNew;
-
-        if (fMaximumLevel >= fCrestFactor)
-        {
-            p_arrMeterSegments[0]->setDiscreteLevels(fCrestFactor + 0.01f, fCrestFactor + 0.01f);
-        }
-        else
-        {
-            p_arrMeterSegments[0]->setDiscreteLevels(-9999.9f, -9999.9f);
-        }
+        nTrueLowerThreshold -= nRange;
+        nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
     }
 }
 

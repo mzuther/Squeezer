@@ -23,23 +23,33 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_METER_SEGMENT_H__
-#define __GENERIC_METER_SEGMENT_H__
+#ifndef __GENERIC_METER_BAR_H__
+#define __GENERIC_METER_BAR_H__
 
 #include "JuceHeader.h"
+#include "generic_meter_segment.h"
 
 
 //==============================================================================
 /**
 */
-class GenericMeterSegment : public Component
+class GenericMeterBar : public Component
 {
 public:
-    GenericMeterSegment(float fLowerThreshold = -9999.9f, float fDisplayRange = 1.0f, bool bHasHighestLevel = false);
-    ~GenericMeterSegment();
+    GenericMeterBar();
+    ~GenericMeterBar();
 
-    float setThresholds(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel);
-    void setColour(float fHueNew, const Colour &colPeakNew);
+    enum Orientation  // public namespace!
+    {
+        orientationHorizontal = 0,
+        orientationVertical,
+    };
+
+    void create();
+    void setOrientation(GenericMeterBar::Orientation orientationNew);
+    GenericMeterBar::Orientation getOrientation();
+
+    void addSegment(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel, int nSegmentHeight, int nSpacingBefore, float fHue, const Colour &colPeak);
 
     void setNormalLevels(float normalLevel, float normalLevelPeak);
     void setDiscreteLevels(float discreteLevel, float discreteLevelPeak);
@@ -47,27 +57,28 @@ public:
 
     void paint(Graphics &g);
     void resized();
-    void visibilityChanged();
 
 private:
-    JUCE_LEAK_DETECTOR(GenericMeterSegment);
+    JUCE_LEAK_DETECTOR(GenericMeterBar);
 
-    Colour colPeak;
+    float fNormalLevel;
+    float fDiscreteLevel;
 
-    float fHue;
-    float fBrightness;
-    float fBrightnessOutline;
+    float fNormalLevelPeak;
+    float fDiscreteLevelPeak;
 
-    float lowerThreshold;
-    float upperThreshold;
-    float thresholdRange;
+    int nNumberOfBars;
 
-    bool lightPeakMarker;
-    bool hasHighestLevel;
+    int nWidth;
+    int nHeight;
+
+    GenericMeterBar::Orientation orientation;
+
+    OwnedArray<GenericMeterSegment> p_arrMeterSegments;
 };
 
 
-#endif  // __GENERIC_METER_SEGMENT_H__
+#endif  // __GENERIC_METER_BAR_H__
 
 
 // Local Variables:

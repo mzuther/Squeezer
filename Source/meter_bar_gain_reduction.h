@@ -27,40 +27,28 @@
 #define __METER_BAR_GAIN_REDUCTION_H__
 
 #include "JuceHeader.h"
-#include "common/widgets/generic_meter_segment.h"
+#include "common/widgets/generic_meter_bar.h"
 
 
 //==============================================================================
 /**
 */
-class MeterBarGainReduction : public Component
+class MeterBarGainReduction : public GenericMeterBar
 {
 public:
-    MeterBarGainReduction(int pos_x, int pos_y, int width, int number_of_bars, int segment_height);
+    MeterBarGainReduction();
     ~MeterBarGainReduction();
 
-    void setUpwardExpansion(bool upward_expansion);
-    void setGainReduction(float gainReduction, float gainReductionPeak);
-
-    void paint(Graphics &g);
-    void resized();
-    void visibilityChanged();
+    void create(int nMainSegmentHeight, Orientation orientation);
+    void setUpwardExpansion(bool upwardExpansion);
 
 private:
     JUCE_LEAK_DETECTOR(MeterBarGainReduction);
 
-    float fGainReduction;
-    float fGainReductionPeak;
     bool bUpwardExpansion;
 
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-    int nSegmentHeight;
-    int nNumberOfBars;
-
-    OwnedArray<GenericMeterSegment> p_arrMeterSegments;
+    Array<float> arrHues;
+    Array<Colour> arrPeakColours;
 };
 
 
