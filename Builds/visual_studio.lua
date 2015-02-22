@@ -35,7 +35,7 @@ else
 	print "Action not specified\n"
 end
 
-solution "squeezer"
+solution "Squeezer"
 	location ("windows/" .. _ACTION .. "/")
 	language "C++"
 
@@ -133,7 +133,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("Stand-alone (Mono)")
+	project ("Squeezer Stand-alone (Mono)")
 		kind "WindowedApp"
 		targetname "Squeezer (Mono"
 		targetprefix ""
@@ -166,7 +166,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("Stand-alone (Stereo)")
+	project ("Squeezer Stand-alone (Stereo)")
 		kind "WindowedApp"
 		targetname "Squeezer (Stereo"
 		targetprefix ""
@@ -199,7 +199,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("VST Plug-in (Mono)")
+	project ("Squeezer VST (Mono)")
 		kind "SharedLib"
 		targetname "Squeezer (Mono"
 		targetprefix ""
@@ -242,7 +242,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("VST Plug-in (Stereo)")
+	project ("Squeezer VST (Stereo)")
 		kind "SharedLib"
 		targetname "Squeezer (Stereo"
 		targetprefix ""

@@ -175,7 +175,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking linux_standalone_mono
+	@echo Linking squeezer_standalone_mono
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -196,7 +196,7 @@ else
 endif
 
 clean:
-	@echo Cleaning linux_standalone_mono
+	@echo Cleaning squeezer_standalone_mono
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)

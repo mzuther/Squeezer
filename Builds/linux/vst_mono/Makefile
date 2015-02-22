@@ -176,7 +176,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking linux_vst_mono
+	@echo Linking squeezer_vst_mono
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -197,7 +197,7 @@ else
 endif
 
 clean:
-	@echo Cleaning linux_vst_mono
+	@echo Cleaning squeezer_vst_mono
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)

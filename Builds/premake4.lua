@@ -92,7 +92,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_standalone_mono")
+	project ("squeezer_standalone_mono")
 		kind "WindowedApp"
 		location (os.get() .. "/standalone_mono")
 		targetname "squeezer_mono"
@@ -138,7 +138,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_standalone_stereo")
+	project ("squeezer_standalone_stereo")
 		kind "WindowedApp"
 		location (os.get() .. "/standalone_stereo")
 		targetname "squeezer_stereo"
@@ -184,7 +184,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_lv2_mono")
+	project ("squeezer_lv2_mono")
 		kind "SharedLib"
 		location (os.get() .. "/lv2_mono")
 		targetname "squeezer_mono_lv2"
@@ -245,7 +245,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_lv2_stereo")
+	project ("squeezer_lv2_stereo")
 		kind "SharedLib"
 		location (os.get() .. "/lv2_stereo")
 		targetname "squeezer_stereo_lv2"
@@ -306,7 +306,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_vst_mono")
+	project ("squeezer_vst_mono")
 		kind "SharedLib"
 		location (os.get() .. "/vst_mono")
 		targetname "squeezer_mono_vst"
@@ -365,7 +365,7 @@ solution "squeezer"
 
 --------------------------------------------------------------------------------
 
-	project (os.get() .. "_vst_stereo")
+	project ("squeezer_vst_stereo")
 		kind "SharedLib"
 		location (os.get() .. "/vst_stereo")
 		targetname "squeezer_stereo_vst"

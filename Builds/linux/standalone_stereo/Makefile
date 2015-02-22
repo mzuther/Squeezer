@@ -175,7 +175,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking linux_standalone_stereo
+	@echo Linking squeezer_standalone_stereo
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -196,7 +196,7 @@ else
 endif
 
 clean:
-	@echo Cleaning linux_standalone_stereo
+	@echo Cleaning squeezer_standalone_stereo
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)

@@ -6,34 +6,34 @@ ifndef config
 endif
 export config
 
-PROJECTS := linux_standalone_mono linux_standalone_stereo linux_lv2_mono linux_lv2_stereo linux_vst_mono linux_vst_stereo
+PROJECTS := squeezer_standalone_mono squeezer_standalone_stereo squeezer_lv2_mono squeezer_lv2_stereo squeezer_vst_mono squeezer_vst_stereo
 
 .PHONY: all clean help $(PROJECTS)
 
 all: $(PROJECTS)
 
-linux_standalone_mono: 
-	@echo "==== Building linux_standalone_mono ($(config)) ===="
+squeezer_standalone_mono: 
+	@echo "==== Building squeezer_standalone_mono ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/standalone_mono -f Makefile
 
-linux_standalone_stereo: 
-	@echo "==== Building linux_standalone_stereo ($(config)) ===="
+squeezer_standalone_stereo: 
+	@echo "==== Building squeezer_standalone_stereo ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/standalone_stereo -f Makefile
 
-linux_lv2_mono: 
-	@echo "==== Building linux_lv2_mono ($(config)) ===="
+squeezer_lv2_mono: 
+	@echo "==== Building squeezer_lv2_mono ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/lv2_mono -f Makefile
 
-linux_lv2_stereo: 
-	@echo "==== Building linux_lv2_stereo ($(config)) ===="
+squeezer_lv2_stereo: 
+	@echo "==== Building squeezer_lv2_stereo ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/lv2_stereo -f Makefile
 
-linux_vst_mono: 
-	@echo "==== Building linux_vst_mono ($(config)) ===="
+squeezer_vst_mono: 
+	@echo "==== Building squeezer_vst_mono ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/vst_mono -f Makefile
 
-linux_vst_stereo: 
-	@echo "==== Building linux_vst_stereo ($(config)) ===="
+squeezer_vst_stereo: 
+	@echo "==== Building squeezer_vst_stereo ($(config)) ===="
 	@${MAKE} --no-print-directory -C linux/vst_stereo -f Makefile
 
 clean:
@@ -56,11 +56,11 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
-	@echo "   linux_standalone_mono"
-	@echo "   linux_standalone_stereo"
-	@echo "   linux_lv2_mono"
-	@echo "   linux_lv2_stereo"
-	@echo "   linux_vst_mono"
-	@echo "   linux_vst_stereo"
+	@echo "   squeezer_standalone_mono"
+	@echo "   squeezer_standalone_stereo"
+	@echo "   squeezer_lv2_mono"
+	@echo "   squeezer_lv2_stereo"
+	@echo "   squeezer_vst_mono"
+	@echo "   squeezer_vst_stereo"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"
