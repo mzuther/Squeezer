@@ -72,7 +72,7 @@ GenericMeterSegment::GenericMeterSegment(float fLowerThreshold, float fDisplayRa
     fHue = 0.0f;
 
     // make sure that segment is drawn after initialisation
-    setLevels(-9999.9f, -9999.9f, -9999.9f, -9999.9f);
+    setLevels(-144.0f, -144.0f, -144.0f, -144.0f);
 }
 
 
@@ -157,14 +157,14 @@ void GenericMeterSegment::resized()
 // use this only if you completely disregard discrete levels!
 void GenericMeterSegment::setNormalLevels(float normalLevel, float normalLevelPeak)
 {
-    setLevels(normalLevel, -9999.9f, normalLevelPeak, -9999.9f);
+    setLevels(normalLevel, -144.0f, normalLevelPeak, -144.0f);
 }
 
 
 // use this only if you completely disregard normal levels!
 void GenericMeterSegment::setDiscreteLevels(float discreteLevel, float discreteLevelPeak)
 {
-    setLevels(-9999.9f, discreteLevel, -9999.9f, discreteLevelPeak);
+    setLevels(-144.0f, discreteLevel, -144.0f, discreteLevelPeak);
 }
 
 

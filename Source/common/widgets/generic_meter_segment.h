@@ -35,7 +35,7 @@
 class GenericMeterSegment : public Component
 {
 public:
-    GenericMeterSegment(float fLowerThreshold = -9999.9f, float fDisplayRange = 1.0f, bool bHasHighestLevel = false);
+    GenericMeterSegment(float fLowerThreshold = -144.0f, float fDisplayRange = 1.0f, bool bHasHighestLevel = false);
     ~GenericMeterSegment();
 
     float setThresholds(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel);

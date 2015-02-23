@@ -45,11 +45,11 @@ void GenericMeterBar::create()
     nWidth = 0;
     nHeight = 0;
 
-    fNormalLevel = -9999.8f;
-    fDiscreteLevel = -9999.8f;
+    fNormalLevel = -144.0f;
+    fDiscreteLevel = -144.0f;
 
-    fNormalLevelPeak = -9999.8f;
-    fDiscreteLevelPeak = -9999.8f;
+    fNormalLevelPeak = -144.0f;
+    fDiscreteLevelPeak = -144.0f;
 
     p_arrMeterSegments.clear();
     nNumberOfBars = 0;
@@ -73,6 +73,7 @@ void GenericMeterBar::addSegment(float fLowerThreshold, float fDisplayRange, boo
     GenericMeterSegment *pMeterSegment = new GenericMeterSegment();
     pMeterSegment->setThresholds(fLowerThreshold, fDisplayRange, bHasHighestLevel);
     pMeterSegment->setColour(fHue, colPeak);
+    pMeterSegment->setLevels(fNormalLevel, fDiscreteLevel, fNormalLevelPeak, fDiscreteLevelPeak);
 
     // meter segment outlines overlap
     nSegmentHeight += 1;
@@ -98,8 +99,6 @@ void GenericMeterBar::addSegment(float fLowerThreshold, float fDisplayRange, boo
         pMeterSegment->setBounds(y, x, height, width);
     }
 
-    addAndMakeVisible(pMeterSegment);
-
     p_arrMeterSegments.add(pMeterSegment);
     nNumberOfBars += 1;
 
@@ -113,6 +112,8 @@ void GenericMeterBar::addSegment(float fLowerThreshold, float fDisplayRange, boo
     {
         setSize(nHeight, nWidth);
     }
+
+    addAndMakeVisible(pMeterSegment);
 }
 
 
