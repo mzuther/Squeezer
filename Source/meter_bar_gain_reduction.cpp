@@ -79,7 +79,7 @@ void MeterBarGainReduction::create(int nMainSegmentWidth, int nMainSegmentHeight
         nTrueLowerThreshold += nRange;
     }
 
-    // set orientation only when *all* meter segments have been added!
+    // set orientation here to save some processing power
     setOrientation(orientation);
 }
 

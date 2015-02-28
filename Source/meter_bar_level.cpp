@@ -106,7 +106,7 @@ void MeterBarLevel::create(int crestFactor, int nMainSegmentWidth, int nMainSegm
         nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
     }
 
-    // set orientation only when *all* meter segments have been added!
+    // set orientation here to save some processing power
     setOrientation(orientation);
 }
 

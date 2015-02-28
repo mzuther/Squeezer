@@ -73,8 +73,16 @@ void GenericMeterBar::create()
 }
 
 
+// this function runs fastest if you change the meter's orientation
+// after all meter segments have been added
 void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, bool isTopmost, int segmentHeight, int spacingBefore, float segmentHue, const Colour &colPeakMarker)
 {
+    // store current orientation
+    GenericMeterBar::Orientation barOrientationOld = barOrientation;
+
+    // set to standard orientation to easily add a new meter segment
+    setOrientation(orientationVertical);
+
     // create new meter segment
     GenericMeterSegment *currentSegment = new GenericMeterSegment();
 
@@ -123,6 +131,9 @@ void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, boo
 
     // show meter segment
     addAndMakeVisible(currentSegment);
+
+    // re-store old orientation
+    setOrientation(barOrientationOld);
 }
 
 
@@ -132,9 +143,16 @@ GenericMeterBar::Orientation GenericMeterBar::getOrientation()
 }
 
 
-// use this function only when *all* meter segments have been added!
+// in order to save some processing power, you should use this
+// function after all meter segments have been added
 void GenericMeterBar::setOrientation(GenericMeterBar::Orientation barOrientationNew)
 {
+    // fast-forward ...
+    if (barOrientationNew == barOrientation)
+    {
+        return;
+    }
+
     // remember old orientation
     bool isOrientationVerticalOld = isOrientationVertical;
     bool isOrientationInvertedOld = isOrientationInverted;
@@ -289,7 +307,8 @@ void GenericMeterBar::setOrientation(GenericMeterBar::Orientation barOrientation
 }
 
 
-// use this function only when *all* meter segments have been added!
+// in order to save some processing power, you should use this
+// function after all meter segments have been added
 void GenericMeterBar::invertMeter(bool isOrientationInvertedNew)
 {
     // convert boolean to enum
