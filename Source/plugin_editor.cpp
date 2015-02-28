@@ -327,26 +327,25 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     for (int nChannel = 0; nChannel < nChannels; nChannel++)
     {
         MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(new MeterBarLevel());
-        pMeterBarLevelInput->create(20, 5, MeterBarLevel::orientationVertical);
+        pMeterBarLevelInput->create(20, 12, 5, MeterBarLevel::orientationVertical);
 
         pMeterBarLevelInput->setBounds(x, y, width, 0);
         addAndMakeVisible(pMeterBarLevelInput);
 
         MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(new MeterBarLevel());
-        pMeterBarLevelOutput->create(20, 5, MeterBarLevel::orientationVertical);
+        pMeterBarLevelOutput->create(20, 12, 5, MeterBarLevel::orientationVertical);
 
         pMeterBarLevelOutput->setBounds(x + 2 * x_spacing, y, width, 0);
         addAndMakeVisible(pMeterBarLevelOutput);
 
         MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(new MeterBarGainReduction());
-        pMeterBarGainReduction->create(5, MeterBarLevel::orientationVertical);
+        pMeterBarGainReduction->create(12, 5, MeterBarLevel::orientationVertical);
 
         pMeterBarGainReduction->setBounds(x + x_spacing, y, width, 0);
         addAndMakeVisible(pMeterBarGainReduction);
 
         x += width;
     }
-
 
     // This is where our plug-in editor's size is set.
     resizeEditor();

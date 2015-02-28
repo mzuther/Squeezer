@@ -42,18 +42,26 @@ public:
     enum Orientation  // public namespace!
     {
         orientationHorizontal = 0,
+        orientationHorizontalInverted,
         orientationVertical,
+        orientationVerticalInverted
     };
 
     void create();
-    void setOrientation(GenericMeterBar::Orientation orientationNew);
+    void addSegment(float lowerThreshold, float thresholdRange, bool isTopmost, int segmentHeight, int spacingBefore, float segmentHue, const Colour &colPeakMarker);
+
+    void setOrientation(GenericMeterBar::Orientation barOrientationNew);
     GenericMeterBar::Orientation getOrientation();
 
-    void addSegment(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel, int nSegmentHeight, int nSpacingBefore, float fHue, const Colour &colPeak);
+    void invertMeter(bool isOrientationInvertedNew);
+    bool isMeterInverted();
 
-    void setNormalLevels(float normalLevel, float normalLevelPeak);
-    void setDiscreteLevels(float discreteLevel, float discreteLevelPeak);
-    void setLevels(float normalLevel, float discreteLevel, float normalLevelPeak, float discreteLevelPeak);
+    int getSegmentWidth();
+    void setSegmentWidth(int segmentWidthNew);
+
+    void setNormalLevels(float normalLevelNew, float normalLevelPeakNew);
+    void setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew);
+    void setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew);
 
     void paint(Graphics &g);
     void resized();
@@ -61,19 +69,21 @@ public:
 private:
     JUCE_LEAK_DETECTOR(GenericMeterBar);
 
-    float fNormalLevel;
-    float fDiscreteLevel;
+    float normalLevel;
+    float discreteLevel;
 
-    float fNormalLevelPeak;
-    float fDiscreteLevelPeak;
+    float normalLevelPeak;
+    float discreteLevelPeak;
 
-    int nNumberOfBars;
+    int barWidth;
+    int barHeight;
+    int segmentWidth;
 
-    int nWidth;
-    int nHeight;
+    bool isOrientationVertical;
+    bool isOrientationInverted;
 
-    GenericMeterBar::Orientation orientation;
-
+    GenericMeterBar::Orientation barOrientation;
+    Array<int> arrSegmentSpacing;
     OwnedArray<GenericMeterSegment> p_arrMeterSegments;
 };
 

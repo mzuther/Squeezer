@@ -40,171 +40,406 @@ GenericMeterBar::~GenericMeterBar()
 
 void GenericMeterBar::create()
 {
-    setOrientation(orientationVertical);
+    // lowest level of a 24-bit-signal in decibels
+    float initialLevel = -144.0f;
 
-    nWidth = 0;
-    nHeight = 0;
+    // initialise "normal" levels
+    normalLevel = initialLevel;
+    discreteLevel = initialLevel;
 
-    fNormalLevel = -144.0f;
-    fDiscreteLevel = -144.0f;
+    // initialise "discrete" levels
+    normalLevelPeak = initialLevel;
+    discreteLevelPeak = initialLevel;
 
-    fNormalLevelPeak = -144.0f;
-    fDiscreteLevelPeak = -144.0f;
+    // initialise meter dimensions
+    barWidth = 0;
+    barHeight = 0;
 
+    // initialise segment width (we always use the coordinates for a
+    // vertical meter, so this corresponds to the segment height in
+    // horizontal meters)
+    segmentWidth = 10;
+
+    // clear array with meter segments
     p_arrMeterSegments.clear();
-    nNumberOfBars = 0;
+
+    // clear array with segment spacings
+    arrSegmentSpacing.clear();
+
+    // set initial orientation
+    barOrientation = orientationVertical;
+    isOrientationVertical = true;
+    isOrientationInverted = false;
 }
 
 
-void GenericMeterBar::setOrientation(GenericMeterBar::Orientation orientationNew)
+void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, bool isTopmost, int segmentHeight, int spacingBefore, float segmentHue, const Colour &colPeakMarker)
 {
-    orientation = orientationNew;
+    // create new meter segment
+    GenericMeterSegment *currentSegment = new GenericMeterSegment();
+
+    // set segment's lower threshold and display range (both in
+    // decibels) and whether it is the topmost segment
+    currentSegment->setThresholds(lowerThreshold, thresholdRange, isTopmost);
+
+    // set segment's hue and peak marker colour
+    currentSegment->setColour(segmentHue, colPeakMarker);
+
+    // set levels to current levels; prevents blinking on (re)load
+    currentSegment->setLevels(normalLevel, discreteLevel, normalLevelPeak, discreteLevelPeak);
+
+    // meter segment outlines overlap (better do it here than relying
+    // on the user to remember this....)
+    segmentHeight += 1;
+    spacingBefore -= 1;
+
+    // add spacing to meter bar's height (no spacing before first
+    // meter segment!)
+    if (p_arrMeterSegments.size() > 0)
+    {
+        barHeight += spacingBefore;
+    }
+
+    // store corrected segment spacing
+    arrSegmentSpacing.add(spacingBefore);
+
+    // add segment to meter bar
+    p_arrMeterSegments.add(currentSegment);
+
+    // we always use the coordinates for a vertical meter!
+    int tempX = 0;
+    int tempY = barHeight;
+    int tempWidth = segmentWidth;
+    int tempHeight = segmentHeight;
+
+    // set dimensions of meter segment
+    currentSegment->setBounds(tempX, tempY, tempWidth, tempHeight);
+
+    // add segment height to meter bar's height
+    barHeight += segmentHeight;
+
+    // update dimensions of meter bar
+    resized();
+
+    // show meter segment
+    addAndMakeVisible(currentSegment);
 }
 
 
 GenericMeterBar::Orientation GenericMeterBar::getOrientation()
 {
-    return orientation;
+    return barOrientation;
 }
 
 
-void GenericMeterBar::addSegment(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel, int nSegmentHeight, int nSpacingBefore, float fHue, const Colour &colPeak)
+// use this function only when *all* meter segments have been added!
+void GenericMeterBar::setOrientation(GenericMeterBar::Orientation barOrientationNew)
 {
-    GenericMeterSegment *pMeterSegment = new GenericMeterSegment();
-    pMeterSegment->setThresholds(fLowerThreshold, fDisplayRange, bHasHighestLevel);
-    pMeterSegment->setColour(fHue, colPeak);
-    pMeterSegment->setLevels(fNormalLevel, fDiscreteLevel, fNormalLevelPeak, fDiscreteLevelPeak);
+    // remember old orientation
+    bool isOrientationVerticalOld = isOrientationVertical;
+    bool isOrientationInvertedOld = isOrientationInverted;
 
-    // meter segment outlines overlap
-    nSegmentHeight += 1;
-    nSpacingBefore -= 1;
+    // update orientation
+    barOrientation = barOrientationNew;
 
-    // no spacing before first meter segment
-    if (nNumberOfBars > 0)
+    switch (barOrientation)
     {
-        nHeight += nSpacingBefore;
+    case orientationVertical:
+
+        // vertical meter
+        isOrientationVertical = true;
+
+        // meter is *not* inverted
+        isOrientationInverted = false;
+
+        break;
+
+    case orientationVerticalInverted:
+
+        // vertical meter
+        isOrientationVertical = true;
+
+        // meter *is* inverted
+        isOrientationInverted = true;
+
+        break;
+
+    case orientationHorizontal:
+
+        // horizontal meter
+        isOrientationVertical = false;
+
+        // meter is *not* inverted; however, we have to set this to
+        // "true", otherwise the meter segments will be drawn the
+        // wrong way round
+        isOrientationInverted = true;
+
+        break;
+
+    case orientationHorizontalInverted:
+
+        // horizontal meter
+        isOrientationVertical = false;
+
+        // meter *is* inverted; however, we have to set this to
+        // "false", otherwise the meter segments will be drawn the
+        // wrong way round
+        isOrientationInverted = false;
+
+        break;
     }
 
-    int x = 0;
-    int y = nHeight;
-    int width = nWidth;
-    int height = nSegmentHeight;
-
-    if (orientation == orientationVertical)
+    // changed from vertical to horizontal orientation or vice versa
+    if (isOrientationVertical != isOrientationVerticalOld)
     {
-        pMeterSegment->setBounds(x, y, width, height);
+        // re-arrange meter segments
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+        {
+            // get current segment
+            GenericMeterSegment *currentSegment = p_arrMeterSegments[segmentIndex];
+
+            // get segment's current position and size
+            int tempX = currentSegment->getX();
+            int tempY = currentSegment->getY();
+            int tempWidth = currentSegment->getWidth();
+            int tempHeight = currentSegment->getHeight();
+
+            // swap x <--> y and width <--> height
+            currentSegment->setBounds(tempY, tempX, tempHeight, tempWidth);
+        }
+
+        // set dimensions of meter bar
+        resized();
+    }
+
+    // changed from inverted to non-inverted orientation or vice versa
+    if (isOrientationInverted != isOrientationInvertedOld)
+    {
+        // initialise position and segment height
+        int tempX = 0;
+        int tempY = 0;
+        int segmentHeight;
+
+        // inverted orientation: start from "bottom" of meter
+        if (isOrientationInverted)
+        {
+            tempY = barHeight;
+        }
+
+        // position meter segments
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+        {
+            // get current segment
+            GenericMeterSegment *currentSegment = p_arrMeterSegments[segmentIndex];
+
+            // get current segment height
+            if (isOrientationVertical)
+            {
+                segmentHeight = currentSegment->getHeight();
+            }
+            // horizontal meter
+            else
+            {
+                segmentHeight = currentSegment->getWidth();
+            }
+
+            // inverted orientation: subtract from current position
+            if (isOrientationInverted)
+            {
+                // subtract spacing from position (no spacing before
+                // first meter segment!)
+                if (segmentIndex > 0)
+                {
+                    tempY -= arrSegmentSpacing[segmentIndex];
+                }
+
+                // subtract segment height from position
+                tempY -= segmentHeight;
+            }
+            // non-inverted orientation: add to current position
+            else
+            {
+                // add spacing to position (no spacing before first
+                // meter segment)!
+                if (segmentIndex > 0)
+                {
+                    tempY += arrSegmentSpacing[segmentIndex];
+                }
+            }
+
+            // move meter segments
+            if (isOrientationVertical)
+            {
+                currentSegment->setTopLeftPosition(tempX, tempY);
+            }
+            // horizontal meter: swap width <--> height
+            else
+            {
+                currentSegment->setTopLeftPosition(tempY, tempX);
+            }
+
+            // non-inverted orientation: add height of segment to
+            // position
+            if (!isOrientationInverted)
+            {
+                tempY += segmentHeight;
+            }
+        }
+    }
+}
+
+
+// use this function only when *all* meter segments have been added!
+void GenericMeterBar::invertMeter(bool isOrientationInvertedNew)
+{
+    // convert boolean to enum
+    if (isOrientationVertical)
+    {
+        if (isOrientationInvertedNew)
+        {
+            setOrientation(orientationVerticalInverted);
+        }
+        else
+        {
+            setOrientation(orientationVertical);
+        }
     }
     else
     {
-        pMeterSegment->setBounds(y, x, height, width);
+        if (isOrientationInvertedNew)
+        {
+            setOrientation(orientationHorizontalInverted);
+        }
+        else
+        {
+            setOrientation(orientationHorizontal);
+        }
     }
+}
 
-    p_arrMeterSegments.add(pMeterSegment);
-    nNumberOfBars += 1;
 
-    nHeight += nSegmentHeight;
+bool GenericMeterBar::isMeterInverted()
+{
+    return isOrientationInverted;
+}
 
-    if (orientation == orientationVertical)
+
+int GenericMeterBar::getSegmentWidth()
+{
+    return segmentWidth;
+}
+
+
+void GenericMeterBar::setSegmentWidth(int segmentWidthNew)
+{
+    // update segment width
+    segmentWidth = segmentWidthNew;
+
+    // update meter bar's width
+    barWidth = segmentWidth;
+
+    // update meter segments
+    for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
     {
-        setSize(nWidth, nHeight);
-    }
-    else
-    {
-        setSize(nHeight, nWidth);
+        // get current segment
+        GenericMeterSegment *currentSegment = p_arrMeterSegments[segmentIndex];
+
+        // set dimensions of meter segment
+        if (isOrientationVertical)
+        {
+            currentSegment->setSize(segmentWidth, currentSegment->getHeight());
+        }
+        else
+        {
+            // horizontal meter
+            int segmentHeight = segmentWidth;
+            currentSegment->setSize(currentSegment->getWidth(), segmentHeight);
+        }
     }
 
-    addAndMakeVisible(pMeterSegment);
+    // update dimensions of meter bar
+    resized();
 }
 
 
 void GenericMeterBar::paint(Graphics &g)
 {
+    // fill background with black (disabled peak markers will be drawn
+    // in black)
     g.fillAll(Colours::black);
 }
 
 
 void GenericMeterBar::resized()
 {
-    if (orientation == orientationVertical)
+    // override dimensions of meter bar
+    if (isOrientationVertical)
     {
-        int nWidthNew = getWidth();
-
-        if (nWidth != nWidthNew)
-        {
-            nWidth = nWidthNew;
-            setSize(nWidth, nHeight);
-
-            for (int n = 0; n < nNumberOfBars; n++)
-            {
-                int nCurrentHeight = p_arrMeterSegments[n]->getHeight();
-                p_arrMeterSegments[n]->setSize(nWidth, nCurrentHeight);
-            }
-        }
+        setSize(barWidth, barHeight);
     }
     else
     {
-        int nWidthNew = getHeight();
+        // horizontal meter: swap width <--> height
+        setSize(barHeight, barWidth);
+    }
+}
 
-        if (nWidth != nWidthNew)
+
+// use this only if you completely disregard "discrete" levels!
+void GenericMeterBar::setNormalLevels(float normalLevelNew, float normalLevelPeakNew)
+{
+    // "normal" levels have changed
+    if ((normalLevel != normalLevelNew) || (normalLevelPeak != normalLevelPeakNew))
+    {
+        // update levels
+        normalLevel = normalLevelNew;
+        normalLevelPeak = normalLevelPeakNew;
+
+        // update meter segments
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
         {
-            nWidth = nWidthNew;
-            setSize(nHeight, nWidth);
-
-            for (int n = 0; n < nNumberOfBars; n++)
-            {
-                int nCurrentHeight = p_arrMeterSegments[n]->getWidth();
-                p_arrMeterSegments[n]->setSize(nCurrentHeight, nWidth);
-            }
+            p_arrMeterSegments[segmentIndex]->setNormalLevels(normalLevel, normalLevelPeak);
         }
     }
 }
 
 
-// use this only if you completely disregard discrete levels!
-void GenericMeterBar::setNormalLevels(float normalLevel, float normalLevelPeak)
+// use this only if you completely disregard "normal" levels!
+void GenericMeterBar::setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew)
 {
-    if ((normalLevel != fNormalLevel) || (normalLevelPeak != fNormalLevelPeak))
+    // "discrete" levels have changed
+    if ((discreteLevel != discreteLevelNew) || (discreteLevelPeak != discreteLevelPeakNew))
     {
-        fNormalLevel = normalLevel;
-        fNormalLevelPeak = normalLevelPeak;
+        // update levels
+        discreteLevel = discreteLevelNew;
+        discreteLevelPeak = discreteLevelPeakNew;
 
-        for (int n = 0; n < nNumberOfBars; n++)
+        // update meter segments
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
         {
-            p_arrMeterSegments[n]->setNormalLevels(fNormalLevel, fNormalLevelPeak);
+            p_arrMeterSegments[segmentIndex]->setDiscreteLevels(discreteLevel, discreteLevelPeak);
         }
     }
 }
 
 
-// use this only if you completely disregard normal levels!
-void GenericMeterBar::setDiscreteLevels(float discreteLevel, float discreteLevelPeak)
+void GenericMeterBar::setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew)
 {
-    if ((discreteLevel != fDiscreteLevel) || (discreteLevelPeak != fDiscreteLevelPeak))
+    // "normal" or "discrete" levels have changed
+    if ((normalLevel != normalLevelNew) || (discreteLevel != discreteLevelNew) || (normalLevelPeak != normalLevelPeakNew) || (discreteLevelPeak != discreteLevelPeakNew))
     {
-        fDiscreteLevel = discreteLevel;
-        fDiscreteLevelPeak = discreteLevelPeak;
+        // update "normal" levels
+        normalLevel = normalLevelNew;
+        discreteLevel = discreteLevelNew;
 
-        for (int n = 0; n < nNumberOfBars; n++)
+        // update "discrete" levels
+        normalLevelPeak = normalLevelPeakNew;
+        discreteLevelPeak = discreteLevelPeakNew;
+
+        // update meter bars
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
         {
-            p_arrMeterSegments[n]->setDiscreteLevels(fDiscreteLevel, fDiscreteLevelPeak);
-        }
-    }
-}
-
-
-void GenericMeterBar::setLevels(float normalLevel, float discreteLevel, float normalLevelPeak, float discreteLevelPeak)
-{
-    if ((normalLevel != fNormalLevel) || (discreteLevel != fDiscreteLevel) || (normalLevelPeak != fNormalLevelPeak) || (discreteLevelPeak != fDiscreteLevelPeak))
-    {
-        fNormalLevel = normalLevel;
-        fDiscreteLevel = discreteLevel;
-
-        fNormalLevelPeak = normalLevelPeak;
-        fDiscreteLevelPeak = discreteLevelPeak;
-
-        for (int n = 0; n < nNumberOfBars; n++)
-        {
-            p_arrMeterSegments[n]->setLevels(fNormalLevel, fDiscreteLevel, fNormalLevelPeak, fDiscreteLevelPeak);
+            p_arrMeterSegments[segmentIndex]->setLevels(normalLevel, discreteLevel, normalLevelPeak, discreteLevelPeak);
         }
     }
 }

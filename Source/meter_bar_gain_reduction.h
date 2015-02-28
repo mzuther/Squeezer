@@ -39,7 +39,7 @@ public:
     MeterBarGainReduction();
     ~MeterBarGainReduction();
 
-    void create(int nMainSegmentHeight, Orientation orientation);
+    void create(int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation);
     void setUpwardExpansion(bool upwardExpansion);
 
 private:

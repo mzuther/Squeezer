@@ -44,10 +44,10 @@ MeterBarGainReduction::~MeterBarGainReduction()
 }
 
 
-void MeterBarGainReduction::create(int nMainSegmentHeight, Orientation orientation)
+void MeterBarGainReduction::create(int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation)
 {
     GenericMeterBar::create();
-    setOrientation(orientation);
+    setSegmentWidth(nMainSegmentWidth);
 
     setUpwardExpansion(false);
 
@@ -78,15 +78,16 @@ void MeterBarGainReduction::create(int nMainSegmentHeight, Orientation orientati
 
         nTrueLowerThreshold += nRange;
     }
+
+    // set orientation only when *all* meter segments have been added!
+    setOrientation(orientation);
 }
 
 
 void MeterBarGainReduction::setUpwardExpansion(bool upward_expansion)
 {
     bUpwardExpansion = upward_expansion;
-
-    // re-position meter segments
-    visibilityChanged();
+    invertMeter(bUpwardExpansion);
 }
 
 

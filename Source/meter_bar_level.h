@@ -39,7 +39,7 @@ public:
     MeterBarLevel();
     ~MeterBarLevel();
 
-    void create(int crestFactor, int nMainSegmentHeight, Orientation orientation);
+    void create(int crestFactor, int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation);
 
 private:
     JUCE_LEAK_DETECTOR(MeterBarLevel);

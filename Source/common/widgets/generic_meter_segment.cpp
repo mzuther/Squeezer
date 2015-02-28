@@ -26,10 +26,10 @@
 #include "generic_meter_segment.h"
 
 
-GenericMeterSegment::GenericMeterSegment(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel)
+GenericMeterSegment::GenericMeterSegment(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
 //
-//  The meter segment's state depends on two levels, the "normal" level
-//  and the "discrete" level:
+//  The meter segment's state depends on two levels, the "normal"
+//  (usually average) level and the "discrete" (usually peak) level:
 //
 //  * normal level >= upper threshold
 //
@@ -60,19 +60,23 @@ GenericMeterSegment::GenericMeterSegment(float fLowerThreshold, float fDisplayRa
 //  reaches or exceeds the lower threshold.
 //
 {
-    // initialise thresholds
-    setThresholds(fLowerThreshold, fDisplayRange, bHasHighestLevel);
+    // initialise thresholds and whether this segment the topmost
+    // segment
+    setThresholds(lowerThresholdNew, thresholdRangeNew, isTopmostNew);
 
     // initialise meter segment's brightness (0.0f is dark, 1.0f is
     // fully lit)
-    fBrightness = 0.0f;
-    fBrightnessOutline = 0.0f;
+    segmentBrightness = 0.0f;
+    outlineBrightness = 0.0f;
 
     // initialise meter segment's hue
-    fHue = 0.0f;
+    segmentHue = 0.0f;
+
+    // lowest level of a 24-bit-signal in decibels
+    float initialLevel = -144.0f;
 
     // make sure that segment is drawn after initialisation
-    setLevels(-144.0f, -144.0f, -144.0f, -144.0f);
+    setLevels(initialLevel, initialLevel, initialLevel, initialLevel);
 }
 
 
@@ -81,31 +85,36 @@ GenericMeterSegment::~GenericMeterSegment()
 }
 
 
-float GenericMeterSegment::setThresholds(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel)
+float GenericMeterSegment::setThresholds(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
 {
-    // lower level threshold
-    lowerThreshold = fLowerThreshold;
+    // set lower level threshold (in decibels)
+    lowerThreshold = lowerThresholdNew;
 
-    // level range above lower threshold
-    thresholdRange = fDisplayRange;
+    // set level range above lower threshold (in decibels)
+    thresholdRange = thresholdRangeNew;
 
-    // upper level threshold
+    // set upper level threshold (in decibels)
     upperThreshold = lowerThreshold + thresholdRange;
 
-    // peak level marker is hidden
+    // peak level marker is currently off
     lightPeakMarker = false;
 
     // is there a meter segment beyond this?
-    hasHighestLevel = bHasHighestLevel;
+    isTopmost = isTopmostNew;
 
+    // return upper threshold (may be useful for creating continuous
+    // meters)
     return upperThreshold;
 }
 
 
-void GenericMeterSegment::setColour(float fHueNew, const Colour &colPeakNew)
+void GenericMeterSegment::setColour(float segmentHueNew, const Colour &colPeakMarkerNew)
 {
-    fHue = fHueNew;
-    colPeak = colPeakNew;
+    // set meter segment's hue
+    segmentHue = segmentHueNew;
+
+    // set peak marker's colour
+    colPeakMarker = colPeakMarkerNew;
 
     // redraw meter segment
     repaint();
@@ -114,30 +123,29 @@ void GenericMeterSegment::setColour(float fHueNew, const Colour &colPeakNew)
 
 void GenericMeterSegment::paint(Graphics &g)
 {
-    // get meter segment's screen dimensions
-    int width = getWidth();
-    int height = getHeight();
+    // get meter segment's dimensions
+    int tempWidth = getWidth();
+    int tempHeight = getHeight();
 
-    // initialise meter segment's outline colour from hue and
-    // brightness
-    g.setColour(Colour(fHue, 1.0f, fBrightnessOutline, 1.0f));
+    // set meter segment's colour from hue and brightness
+    g.setColour(Colour(segmentHue, 1.0f, segmentBrightness, 1.0f));
 
-    // outline meter segment with solid colour, but leave a border of
-    // one pixel for peak marker
-    g.drawRect(1, 1, width - 2, height - 2);
+    // fill meter segment, but leave a border of two pixels for
+    // outline and peak marker
+    g.fillRect(2, 2, tempWidth - 4, tempHeight - 4);
 
-    // initialise meter segment's fill colour from hue and brightness
-    g.setColour(Colour(fHue, 1.0f, fBrightness, 1.0f));
+    // set meter segment's outline colour from hue and brightness
+    g.setColour(Colour(segmentHue, 1.0f, outlineBrightness, 1.0f));
 
-    // fill remaining meter segment with solid colour
-    g.fillRect(2, 2, width - 4, height - 4);
+    // draw outline, but leave a border of one pixel for peak marker
+    g.drawRect(1, 1, tempWidth - 2, tempHeight - 2);
 
-    // if peak marker is lit, draw a rectangle around meter segment
+    // if peak marker is lit, draw peak marker around meter segment
     // (width: 1 pixel)
     if (lightPeakMarker)
     {
-        g.setColour(colPeak);
-        g.drawRect(0, 0, width, height);
+        g.setColour(colPeakMarker);
+        g.drawRect(0, 0, tempWidth, tempHeight);
     }
 }
 
@@ -154,96 +162,101 @@ void GenericMeterSegment::resized()
 }
 
 
-// use this only if you completely disregard discrete levels!
-void GenericMeterSegment::setNormalLevels(float normalLevel, float normalLevelPeak)
+// use this only if you completely disregard "discrete" levels!
+void GenericMeterSegment::setNormalLevels(float normalLevelNew, float normalLevelPeakNew)
 {
-    setLevels(normalLevel, -144.0f, normalLevelPeak, -144.0f);
+    // lowest level of a 24-bit-signal in decibels
+    float initialLevel = -144.0f;
+
+    setLevels(normalLevelNew, initialLevel, normalLevelPeakNew, initialLevel);
 }
 
 
-// use this only if you completely disregard normal levels!
-void GenericMeterSegment::setDiscreteLevels(float discreteLevel, float discreteLevelPeak)
+// use this only if you completely disregard "normal" levels!
+void GenericMeterSegment::setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew)
 {
-    setLevels(-144.0f, discreteLevel, -144.0f, discreteLevelPeak);
+    // lowest level of a 24-bit-signal in decibels
+    float initialLevel = -144.0f;
+
+    setLevels(initialLevel, discreteLevelNew, initialLevel, discreteLevelPeakNew);
 }
 
 
-void GenericMeterSegment::setLevels(float normalLevel, float discreteLevel, float normalLevelPeak, float discreteLevelPeak)
+void GenericMeterSegment::setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew)
 {
     // store old brightness and peak marker values
-    float fBrightnessOld = fBrightness;
+    float segmentBrightnessOld = segmentBrightness;
     bool lightPeakMarkerOld = lightPeakMarker;
 
     // normal level lies on or above upper threshold, so fully light
     // meter segment
-    if (normalLevel >= upperThreshold)
+    if (normalLevelNew >= upperThreshold)
     {
-        fBrightness = 0.97f;
-        fBrightnessOutline = 0.90f;
+        segmentBrightness = 0.97f;
+        outlineBrightness = 0.90f;
     }
     // discrete level lies within thresholds or on lower threshold, so
     // fully light meter segment
-    else if ((discreteLevel >= lowerThreshold) && (discreteLevel < upperThreshold))
+    else if ((discreteLevelNew >= lowerThreshold) && (discreteLevelNew < upperThreshold))
     {
-        fBrightness = 0.97f;
-        fBrightnessOutline = 0.90f;
+        segmentBrightness = 0.97f;
+        outlineBrightness = 0.90f;
     }
     // normal level lies below lower threshold, so set meter segment
     // to dark
-    else if (normalLevel < lowerThreshold)
+    else if (normalLevelNew < lowerThreshold)
     {
-        fBrightness = 0.25f;
-        fBrightnessOutline = 0.30f;
+        segmentBrightness = 0.25f;
+        outlineBrightness = 0.30f;
     }
     // normal level lies within thresholds or on lower threshold, so
     // calculate brightness from current level
     else
     {
-        fBrightness = (normalLevel - lowerThreshold) / thresholdRange;
-        fBrightnessOutline = fBrightness;
+        segmentBrightness = (normalLevelNew - lowerThreshold) / thresholdRange;
+        outlineBrightness = segmentBrightness;
 
         // to look well, meter segments should be left with some
         // colour and not have maximum brightness
-        fBrightness = fBrightness * 0.72f + 0.25f;
-        fBrightnessOutline = fBrightnessOutline * 0.60f + 0.30f;
+        segmentBrightness = segmentBrightness * 0.72f + 0.25f;
+        outlineBrightness = outlineBrightness * 0.60f + 0.30f;
     }
 
-    // there is no meter segment beyond this
-    if (hasHighestLevel)
+    // there is no meter segment beyond this; light peak marker if
+    // peak level is on or above lower threshold
+    if (isTopmost)
     {
-        // normal peak level lies on or above lower threshold, so
-        // light peak marker
-        if (normalLevelPeak >= lowerThreshold)
+        // light peak marker ("normal" peak level)
+        if (normalLevelPeakNew >= lowerThreshold)
         {
             lightPeakMarker = true;
         }
-        // discrete peak level lies on or above lower threshold, so
-        // light peak marker
-        else if (discreteLevelPeak >= lowerThreshold)
+        // light peak marker ("discrete" peak level)
+        else if (discreteLevelPeakNew >= lowerThreshold)
         {
             lightPeakMarker = true;
         }
-        // otherwise, hide peak marker
+        // peak marker is off
         else
         {
             lightPeakMarker = false;
         }
     }
+    // otherwise, light peak marker if peak level lies within
+    // thresholds or on lower threshold
     else
     {
-        // normal peak level lies within thresholds or on lower threshold,
-        // so light peak marker
-        if ((normalLevelPeak >= lowerThreshold) && (normalLevelPeak < upperThreshold))
+        // light peak marker ("normal" peak level)
+        if ((normalLevelPeakNew >= lowerThreshold) && (normalLevelPeakNew < upperThreshold))
         {
             lightPeakMarker = true;
         }
-        // discrete peak level lies within thresholds or on lower
-        // threshold, so light peak marker
-        else if ((discreteLevelPeak >= lowerThreshold) && (discreteLevelPeak < upperThreshold))
+        // light peak marker ("discrete" peak level)
+        else if ((discreteLevelPeakNew >= lowerThreshold) && (discreteLevelPeakNew < upperThreshold))
         {
             lightPeakMarker = true;
         }
-        // otherwise, hide peak marker
+        // peak marker is off
         else
         {
             lightPeakMarker = false;
@@ -252,9 +265,9 @@ void GenericMeterSegment::setLevels(float normalLevel, float discreteLevel, floa
 
     // re-paint meter segment only when brightness or peak marker have
     // changed
-    if ((fBrightness != fBrightnessOld) || (lightPeakMarker != lightPeakMarkerOld))
+    if ((segmentBrightness != segmentBrightnessOld) || (lightPeakMarker != lightPeakMarkerOld))
     {
-        repaint(getLocalBounds());
+        repaint();
     }
 }
 

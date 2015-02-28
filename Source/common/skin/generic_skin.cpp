@@ -332,6 +332,38 @@ void GenericSkin::placeComponent(Component *component, String strXmlTag)
 }
 
 
+void GenericSkin::placeMeterBar(GenericMeterBar *meterBar, String strXmlTag)
+{
+    jassert(meterBar != nullptr);
+
+    XmlElement *xmlComponent = getComponentFromXml(strXmlTag);
+
+    if (xmlComponent != nullptr)
+    {
+        int x = xmlComponent->getIntAttribute("x", -1);
+        int y = xmlComponent->getIntAttribute("y", -1);
+
+        meterBar->setTopLeftPosition(x, y);
+
+        int width = xmlComponent->getIntAttribute("width", -1);
+        int height = xmlComponent->getIntAttribute("height", -1);
+
+        // vertical bar
+        if (height >= width)
+        {
+            meterBar->setSegmentWidth(width);
+            meterBar->setOrientation(GenericMeterBar::orientationVertical);
+        }
+        // horizontal bar
+        else
+        {
+            meterBar->setSegmentWidth(height);
+            meterBar->setOrientation(GenericMeterBar::orientationHorizontal);
+        }
+    }
+}
+
+
 void GenericSkin::setBackgroundImage(ImageComponent *background, AudioProcessorEditor *editor)
 {
     if (xmlSkinGroup != nullptr)

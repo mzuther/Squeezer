@@ -35,15 +35,15 @@
 class GenericMeterSegment : public Component
 {
 public:
-    GenericMeterSegment(float fLowerThreshold = -144.0f, float fDisplayRange = 1.0f, bool bHasHighestLevel = false);
+    GenericMeterSegment(float lowerThresholdNew = -144.0f, float thresholdRangeNew = 1.0f, bool isTopmostNew = false);
     ~GenericMeterSegment();
 
-    float setThresholds(float fLowerThreshold, float fDisplayRange, bool bHasHighestLevel);
-    void setColour(float fHueNew, const Colour &colPeakNew);
+    float setThresholds(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew);
+    void setColour(float segmentHueNew, const Colour &colPeakMarkerNew);
 
-    void setNormalLevels(float normalLevel, float normalLevelPeak);
-    void setDiscreteLevels(float discreteLevel, float discreteLevelPeak);
-    void setLevels(float normalLevel, float discreteLevel, float normalLevelPeak, float discreteLevelPeak);
+    void setNormalLevels(float normalLevelNew, float normalLevelPeakNew);
+    void setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew);
+    void setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew);
 
     void paint(Graphics &g);
     void resized();
@@ -52,18 +52,18 @@ public:
 private:
     JUCE_LEAK_DETECTOR(GenericMeterSegment);
 
-    Colour colPeak;
+    Colour colPeakMarker;
 
-    float fHue;
-    float fBrightness;
-    float fBrightnessOutline;
+    float segmentHue;
+    float segmentBrightness;
+    float outlineBrightness;
 
     float lowerThreshold;
     float upperThreshold;
     float thresholdRange;
 
     bool lightPeakMarker;
-    bool hasHighestLevel;
+    bool isTopmost;
 };
 
 
