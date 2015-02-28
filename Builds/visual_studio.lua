@@ -133,7 +133,7 @@ solution "Squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("Squeezer Stand-alone (Mono)")
+	project ("Squeezer (Mono)")
 		kind "WindowedApp"
 		targetname "Squeezer (Mono"
 		targetprefix ""
@@ -166,7 +166,7 @@ solution "Squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("Squeezer Stand-alone (Stereo)")
+	project ("Squeezer (Stereo)")
 		kind "WindowedApp"
 		targetname "Squeezer (Stereo"
 		targetprefix ""

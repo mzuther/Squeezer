@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{D0F39B81-D708-64AE-5C8B-7C0A47A8CC35}</ProjectGuid>
+		<ProjectGuid>{0257FF81-39B3-AE39-0BAC-DBA5677766D2}</ProjectGuid>
 		<RootNamespace>Squeezer VST (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>

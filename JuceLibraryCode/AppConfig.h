@@ -294,16 +294,16 @@
  #define JucePlugin_Desc                   "Flexible general-purpose audio compressor with a touch of lemon."
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "mzuther"
+ #define JucePlugin_Manufacturer           "Martin Zuther"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
- #define JucePlugin_ManufacturerWebsite    ""
+ #define JucePlugin_ManufacturerWebsite    "http://code.mzuther.de/"
 #endif
 #ifndef  JucePlugin_ManufacturerEmail
  #define JucePlugin_ManufacturerEmail      ""
 #endif
 #ifndef  JucePlugin_ManufacturerCode
- #define JucePlugin_ManufacturerCode       'mz'
+ #define JucePlugin_ManufacturerCode       'MZut'
 #endif
 #ifndef  JucePlugin_PluginCode
  #define JucePlugin_PluginCode             'sqzr'

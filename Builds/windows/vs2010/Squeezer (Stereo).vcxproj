@@ -19,10 +19,9 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{ED38D199-A5B8-44FC-1F75-912AF718B202}</ProjectGuid>
-		<RootNamespace>Squeezer Stand-alone (Stereo)</RootNamespace>
+		<ProjectGuid>{515B487F-8055-31E2-F8E9-A3A03A97EC29}</ProjectGuid>
+		<RootNamespace>Squeezer (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
-		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
