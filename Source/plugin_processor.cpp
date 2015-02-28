@@ -42,6 +42,10 @@ Flow of parameter processing:
 
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
+    DBG(String("App  v") + JucePlugin_VersionString);
+    DBG(String("Comm v") + MZ_Juce_Common::getVersion());
+    DBG("");
+
     bSampleRateIsValid = false;
     nNumInputChannels = 0;
 

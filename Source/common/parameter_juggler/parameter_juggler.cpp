@@ -34,8 +34,6 @@
 
 ParameterJuggler::ParameterJuggler()
 {
-    DBG("[MZ Common] version " + MZ_Juce_Common::getVersion());
-
     strSettingsID = "SETTINGS";
     nNumParameters = 0;
 }
