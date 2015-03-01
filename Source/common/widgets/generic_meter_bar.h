@@ -55,8 +55,8 @@ public:
     void create();
     void addSegment(float lowerThreshold, float thresholdRange, bool isTopmost, int segmentHeight, int spacingBefore, float segmentHue, const Colour &colPeakMarker);
 
-    void setOrientation(GenericMeterBar::Orientation barOrientationNew);
     GenericMeterBar::Orientation getOrientation();
+    void setOrientation(GenericMeterBar::Orientation barOrientationNew);
 
     void invertMeter(bool isOrientationInvertedNew);
     bool isMeterInverted();

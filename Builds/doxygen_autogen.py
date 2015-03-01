@@ -9,7 +9,6 @@ class OnWriteHandler(pyinotify.ProcessEvent):
     def __init__(self, payload_command):
         print()
         print('==> initial run')
-        print()
 
         # initialise payload command
         self.payload_command = payload_command
@@ -35,7 +34,6 @@ class OnWriteHandler(pyinotify.ProcessEvent):
 
         # print name of changed file
         print('==> ' + filename)
-        print()
 
         # run payload
         self.run_payload()
@@ -53,8 +51,12 @@ class OnWriteHandler(pyinotify.ProcessEvent):
         # display output of "stdout" and "stderr" (if any)
         for pipe_output in proc.communicate():
             if pipe_output:
-                print(pipe_output.strip())
                 print()
+                print(pipe_output.strip())
+
+        print()
+        print('Done.')
+        print()
 
 
 # define directories to be ignored
