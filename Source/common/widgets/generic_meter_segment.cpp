@@ -25,40 +25,44 @@
 
 #include "generic_meter_segment.h"
 
-
+/// Create a new meter segment, complete with peak marker.
+///
+/// > #### Internals
+/// >
+/// > The meter segment's state depends on two levels, the normal
+/// > (usually average) level and the discrete (usually peak) level:
+/// >
+/// > 1. normal level >= upper threshold
+/// >
+/// >    segment is fully lit
+/// >
+/// > 2. lower threshold <= discrete level < upper threshold
+/// >
+/// >    segment is fully lit
+/// >
+/// > 3. normal level < lower threshold
+/// >
+/// >    segment is dark
+/// >
+/// > 4. otherwise
+/// >
+/// >    level affects segment's brightness
+/// >
+/// > The segment's peak marker is lit when any level peak lies
+/// > between the upper and lower threshold (or on the lower
+/// > threshold).  If **isTopmost** is **true**, however, the
+/// > segment's peak marker is lit when any level peak reaches or
+/// > exceeds the lower threshold.
+///
+/// @param lowerThreshold lower threshold level (in decibels)
+///
+/// @param thresholdRange difference between lower and upper level
+///        threshold (in decibels)
+///
+/// @param isTopmost if set to **true**, the segment has no upper
+///        level threshold
+///
 GenericMeterSegment::GenericMeterSegment(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
-//
-//  The meter segment's state depends on two levels, the "normal"
-//  (usually average) level and the "discrete" (usually peak) level:
-//
-//  * normal level >= upper threshold
-//
-//    segment is fully lit
-//
-//
-//  * lower threshold <= discrete level < upper threshold
-//
-//    segment is fully lit
-//
-//
-//  * normal level < lower threshold
-//
-//    segment is dark
-//
-//
-//  * otherwise
-//
-//    level affects segment's brightness
-//
-//
-//  For normal meter segments, if any level peak lies between the
-//  upper and lower threshold (or on the lower threshold), the
-//  segment's peak marker is lit.
-//
-//  If there is no meter segment beyond this one, this behaviour is
-//  changed.  The segment's peak marker is lit when any level peak
-//  reaches or exceeds the lower threshold.
-//
 {
     // initialise thresholds and whether this segment the topmost
     // segment
@@ -80,11 +84,27 @@ GenericMeterSegment::GenericMeterSegment(float lowerThresholdNew, float threshol
 }
 
 
+/// Destructor.
+///
 GenericMeterSegment::~GenericMeterSegment()
 {
 }
 
 
+/// Set thresholds and whether the segment is the topmost in a meter
+/// bar.
+///
+/// @param lowerThreshold lower threshold level (in decibels)
+///
+/// @param thresholdRange difference between lower and upper level
+///        threshold (in decibels)
+///
+/// @param isTopmost if set to **true**, the segment has no upper
+///        level threshold
+///
+/// @return return new upper threshold of segment (may be useful for
+///         creating continuous meters)
+///
 float GenericMeterSegment::setThresholds(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
 {
     // set lower level threshold (in decibels)
@@ -108,6 +128,12 @@ float GenericMeterSegment::setThresholds(float lowerThresholdNew, float threshol
 }
 
 
+/// Set colours of segment and peak marker.
+///
+/// @param segmentHue hue of the segment (0.0 to 1.0)
+///
+/// @param colPeakMarker colour of the peak marker
+///
 void GenericMeterSegment::setColour(float segmentHueNew, const Colour &colPeakMarkerNew)
 {
     // set meter segment's hue
@@ -121,6 +147,11 @@ void GenericMeterSegment::setColour(float segmentHueNew, const Colour &colPeakMa
 }
 
 
+/// Paint segment.
+///
+/// @param g the graphics context that must be used to do the drawing
+///        operations
+///
 void GenericMeterSegment::paint(Graphics &g)
 {
     // get meter segment's dimensions
@@ -150,19 +181,29 @@ void GenericMeterSegment::paint(Graphics &g)
 }
 
 
+/// Called when this component's visibility changes.
+///
+/// If this function did not exist, the meter segment wouldn't be
+/// drawn until the first level change!
 void GenericMeterSegment::visibilityChanged()
 {
-    // if this function did not exist, the meter segment wouldn't be
-    // drawn until the first level change!
 }
 
 
+/// Called when this component's size has been changed.
+///
 void GenericMeterSegment::resized()
 {
 }
 
 
-// use this only if you completely disregard "discrete" levels!
+/// Set normal (average) levels.  Use this only if you completely
+/// disregard discrete (peak) levels!
+///
+/// @param normalLevelNew new normal level
+///
+/// @param normalLevelPeakNew new normal peak level
+///
 void GenericMeterSegment::setNormalLevels(float normalLevelNew, float normalLevelPeakNew)
 {
     // lowest level of a 24-bit-signal in decibels
@@ -172,7 +213,13 @@ void GenericMeterSegment::setNormalLevels(float normalLevelNew, float normalLeve
 }
 
 
-// use this only if you completely disregard "normal" levels!
+/// Set discrete (peak) levels.  Use this only if you completely
+/// disregard normal (average) levels!
+///
+/// @param discreteLevelNew new discrete level
+///
+/// @param discreteLevelPeakNew new discrete peak level
+///
 void GenericMeterSegment::setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew)
 {
     // lowest level of a 24-bit-signal in decibels
@@ -182,6 +229,16 @@ void GenericMeterSegment::setDiscreteLevels(float discreteLevelNew, float discre
 }
 
 
+/// Set discrete (peak) and normal (average) levels.
+///
+/// @param normalLevelNew new normal level
+///
+/// @param discreteLevelNew new discrete level
+///
+/// @param normalLevelPeakNew new normal peak level
+///
+/// @param discreteLevelPeakNew new discrete peak level
+///
 void GenericMeterSegment::setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew)
 {
     // store old brightness and peak marker values

@@ -15,6 +15,10 @@ bin/*
 
 ignore/
 
+skins/default_skin.ini
+
+Source/api/
+
 ipch/
 Debug/
 Release/

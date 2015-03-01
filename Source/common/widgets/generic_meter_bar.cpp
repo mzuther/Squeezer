@@ -25,6 +25,9 @@
 
 #include "generic_meter_bar.h"
 
+/// Create container for an empty meter bar.  Call create() to create
+/// a new meter bar.
+///
 GenericMeterBar::GenericMeterBar()
 {
     // this component does not have any transparent areas (increases
@@ -33,11 +36,16 @@ GenericMeterBar::GenericMeterBar()
 }
 
 
+/// Destructor.
+///
 GenericMeterBar::~GenericMeterBar()
 {
 }
 
 
+/// Create a new meter bar (and delete an existing one).  The meter
+/// bar has to be filled using addSegment().
+///
 void GenericMeterBar::create()
 {
     // lowest level of a 24-bit-signal in decibels
@@ -73,8 +81,26 @@ void GenericMeterBar::create()
 }
 
 
-// this function runs fastest if you change the meter's orientation
-// after all meter segments have been added
+/// Add a GenericMeterSegment to the meter.  This function runs
+/// fastest if you change the meter's orientation after all meter
+/// segments have been added.
+///
+/// @param lowerThreshold lower threshold level (in decibels)
+///
+/// @param thresholdRange difference between lower and upper level
+///        threshold (in decibels)
+///
+/// @param isTopmost if set to **true**, the segment has no upper
+///        level threshold
+///
+/// @param segmentHeight height of the segment (in pixels)
+///
+/// @param spacingBefore spacing before the segment (in pixels)
+///
+/// @param segmentHue hue of the segment (0.0 to 1.0)
+///
+/// @param colPeakMarker colour of the peak marker
+///
 void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, bool isTopmost, int segmentHeight, int spacingBefore, float segmentHue, const Colour &colPeakMarker)
 {
     // store current orientation
@@ -137,14 +163,22 @@ void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, boo
 }
 
 
+/// Get the meter's orientation.
+///
+/// @return orientation as type **GenericMeterBar::Orientation**
+///
 GenericMeterBar::Orientation GenericMeterBar::getOrientation()
 {
     return barOrientation;
 }
 
 
-// in order to save some processing power, you should use this
-// function after all meter segments have been added
+/// Get the meter's orientation.  In order to save some processing
+/// power, you should use this function after all meter segments have
+/// been added.
+///
+/// @param barOrientationNew new meter orientation
+///
 void GenericMeterBar::setOrientation(GenericMeterBar::Orientation barOrientationNew)
 {
     // fast-forward ...
@@ -307,8 +341,13 @@ void GenericMeterBar::setOrientation(GenericMeterBar::Orientation barOrientation
 }
 
 
-// in order to save some processing power, you should use this
-// function after all meter segments have been added
+/// Invert the current meter.  In order to save some processing power,
+/// you should use this function after all meter segments have been
+/// added.
+///
+/// @param isOrientationInvertedNew **true** inverts the meter,
+///        **false** reverts to normal orientation
+///
 void GenericMeterBar::invertMeter(bool isOrientationInvertedNew)
 {
     // convert boolean to enum
@@ -337,18 +376,33 @@ void GenericMeterBar::invertMeter(bool isOrientationInvertedNew)
 }
 
 
+/// Find out if the current meter is inverted.
+///
+/// @return **true** if meter is inverted, **false** if meter has
+///         normal orientation
+///
 bool GenericMeterBar::isMeterInverted()
 {
     return isOrientationInverted;
 }
 
 
+/// Get current segment width.
+///
+/// @return segment width for vertical meters and segment height for
+///         horizontal meters.
+///
 int GenericMeterBar::getSegmentWidth()
 {
     return segmentWidth;
 }
 
 
+/// Set segment width.  Sets segment width for vertical meters and
+/// segment height for horizontal meters.
+///
+/// @param segmentWidthNew new segment width
+///
 void GenericMeterBar::setSegmentWidth(int segmentWidthNew)
 {
     // update segment width
@@ -381,6 +435,8 @@ void GenericMeterBar::setSegmentWidth(int segmentWidthNew)
 }
 
 
+/// Paint meter bar.
+///
 void GenericMeterBar::paint(Graphics &g)
 {
     // fill background with black (disabled peak markers will be drawn
@@ -389,6 +445,8 @@ void GenericMeterBar::paint(Graphics &g)
 }
 
 
+/// Overrides dimensions of meter bar.
+///
 void GenericMeterBar::resized()
 {
     // override dimensions of meter bar
@@ -404,7 +462,13 @@ void GenericMeterBar::resized()
 }
 
 
-// use this only if you completely disregard "discrete" levels!
+/// Set normal (average) levels.  Use this only if you completely
+/// disregard discrete (peak) levels!
+///
+/// @param normalLevelNew new normal level
+///
+/// @param normalLevelPeakNew new normal peak level
+///
 void GenericMeterBar::setNormalLevels(float normalLevelNew, float normalLevelPeakNew)
 {
     // "normal" levels have changed
@@ -423,7 +487,13 @@ void GenericMeterBar::setNormalLevels(float normalLevelNew, float normalLevelPea
 }
 
 
-// use this only if you completely disregard "normal" levels!
+/// Set discrete (peak) levels.  Use this only if you completely
+/// disregard normal (average) levels!
+///
+/// @param discreteLevelNew new discrete level
+///
+/// @param discreteLevelPeakNew new discrete peak level
+///
 void GenericMeterBar::setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew)
 {
     // "discrete" levels have changed
@@ -442,6 +512,16 @@ void GenericMeterBar::setDiscreteLevels(float discreteLevelNew, float discreteLe
 }
 
 
+/// Set discrete (peak) and normal (average) levels.
+///
+/// @param normalLevelNew new normal level
+///
+/// @param discreteLevelNew new discrete level
+///
+/// @param normalLevelPeakNew new normal peak level
+///
+/// @param discreteLevelPeakNew new discrete peak level
+///
 void GenericMeterBar::setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew)
 {
     // "normal" or "discrete" levels have changed

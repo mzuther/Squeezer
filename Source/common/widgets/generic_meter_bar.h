@@ -39,11 +39,16 @@ public:
     GenericMeterBar();
     ~GenericMeterBar();
 
+    /// Orientation for the meter.
     enum Orientation  // public namespace!
     {
+        /// horizontal meter (bottom to top)
         orientationHorizontal = 0,
+        /// inverted horizontal meter (top to bottom)
         orientationHorizontalInverted,
+        /// vertical meter (left to right)
         orientationVertical,
+        /// inverted vertical meter (right to left)
         orientationVerticalInverted
     };
 
