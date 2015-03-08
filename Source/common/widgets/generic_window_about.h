@@ -33,8 +33,10 @@
 class GenericWindowAbout : public DocumentWindow, ButtonListener
 {
 public:
-    GenericWindowAbout(Component *pEditorWindow, StringPairArray &strArray);
+    GenericWindowAbout(Component *editorWindow);
     ~GenericWindowAbout();
+
+    void addChapters(StringPairArray &arrChapters);
 
     void buttonClicked(Button *button);
     void closeButtonPressed();
@@ -42,13 +44,11 @@ public:
 private:
     JUCE_LEAK_DETECTOR(GenericWindowAbout);
 
-    void addTopic(TextEditor *TextEditorAbout, StringPairArray &strArray, String strTopic);
+    Component contentComponent;
 
-    ScopedPointer<Component> contentComponent;
-
-    ScopedPointer<TextEditor> TextEditorAbout;
-    ScopedPointer<TextButton> ButtonClose;
-    ScopedPointer<ImageButton> ButtonGpl;
+    TextEditor editorAbout;
+    TextButton buttonClose;
+    ImageButton buttonGpl;
 };
 
 

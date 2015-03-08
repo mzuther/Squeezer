@@ -29,14 +29,15 @@
 /// Create dialog window for selecting a new GUI skin.
 ///
 /// @param editorWindow pointer to the plug-in GUI
+///
 /// @param currentSkinFile file pointing to the currently used skin
 ///
 /// ### Exit values
 ///
-/// | %Value | %Result                            |
-/// | :----: | ---------------------------------- |
-/// | 0      | skin selection has been cancelled  |
-/// | 1      | user has selected a skin           |
+/// | %Value | %Result                           |
+/// | :----: | --------------------------------- |
+/// | 0      | window has been closed "by force" |
+/// | 1      | user has selected a skin          |
 ///
 GenericWindowSkin::GenericWindowSkin(Component *editorWindow, const File &currentSkinFile)
     : DocumentWindow("Select skin", Colours::white, 0, true)
@@ -47,59 +48,57 @@ GenericWindowSkin::GenericWindowSkin(Component *editorWindow, const File &curren
 
     // empty windows are boring, so let's prepare a space for some
     // window components
-    contentComponent = new Component("Window Area");
-    setContentOwned(contentComponent, false);
+    setContentOwned(&contentComponent, false);
 
-    // locate skin directory and prepare list box model
+    // locate skin directory and fill list box model
     File fileSkinDirectory = currentSkinFile.getParentDirectory();
-    listBoxModel = new GenericSkinListBoxModel(fileSkinDirectory);
+    listBoxModel.fill(fileSkinDirectory);
 
-    // prepare a list box
-    listBox = new ListBox("ListBox Skins", nullptr);
-    listBox->setModel(listBoxModel);
+    // set model for list box
+    listBox.setModel(&listBoxModel);
 
     // calculate and set list box dimensions
     int listBoxWidth = windowWidth - 20;
-    int listBoxHeight = listBoxModel->getNumRows() * listBox->getRowHeight() + 2;
-    listBox->setBounds(10, 10, listBoxWidth, listBoxHeight);
+    int listBoxHeight = listBoxModel.getNumRows() * listBox.getRowHeight() + 2;
+    listBox.setBounds(10, 10, listBoxWidth, listBoxHeight);
 
     // set look of list box
-    listBox->setColour(ListBox::outlineColourId, Colours::grey);
-    listBox->setOutlineThickness(1);
+    listBox.setColour(ListBox::outlineColourId, Colours::grey);
+    listBox.setOutlineThickness(1);
 
     // disable multiple selections
-    listBox->setMultipleSelectionEnabled(false);
+    listBox.setMultipleSelectionEnabled(false);
 
     // select current skin in list box
     currentSkinName = currentSkinFile.getFileNameWithoutExtension();
-    int rowNumber = listBoxModel->getRow(currentSkinName);
-    listBox->selectRow(rowNumber);
+    int rowNumber = listBoxModel.getRow(currentSkinName);
+    listBox.selectRow(rowNumber);
 
     // display list box
-    contentComponent->addAndMakeVisible(listBox);
+    contentComponent.addAndMakeVisible(listBox);
 
     // calculate dialog window height from height of list box
     windowHeight = listBoxHeight + 50;
 
     // create and position an "select" button
-    buttonSelect = new TextButton("Select");
-    buttonSelect->setBounds(10, windowHeight - 30, 60, 20);
-    buttonSelect->setColour(TextButton::buttonColourId, Colours::red);
-    buttonSelect->setColour(TextButton::buttonOnColourId, Colours::red);
+    buttonSelect.setButtonText("Select");
+    buttonSelect.setBounds(10, windowHeight - 30, 60, 20);
+    buttonSelect.setColour(TextButton::buttonColourId, Colours::red);
+    buttonSelect.setColour(TextButton::buttonOnColourId, Colours::red);
 
     // add "skin" window as button listener and display the button
-    buttonSelect->addListener(this);
-    contentComponent->addAndMakeVisible(buttonSelect);
+    buttonSelect.addListener(this);
+    contentComponent.addAndMakeVisible(buttonSelect);
 
     // create and position an "default" button
-    buttonDefault = new TextButton("Default");
-    buttonDefault->setBounds(windowWidth - 70, windowHeight - 30, 60, 20);
-    buttonDefault->setColour(TextButton::buttonColourId, Colours::yellow);
-    buttonDefault->setColour(TextButton::buttonOnColourId, Colours::yellow);
+    buttonDefault.setButtonText("Default");
+    buttonDefault.setBounds(windowWidth - 70, windowHeight - 30, 60, 20);
+    buttonDefault.setColour(TextButton::buttonColourId, Colours::yellow);
+    buttonDefault.setColour(TextButton::buttonOnColourId, Colours::yellow);
 
     // add "skin" window as button listener and display the button
-    buttonDefault->addListener(this);
-    contentComponent->addAndMakeVisible(buttonDefault);
+    buttonDefault.addListener(this);
+    contentComponent.addAndMakeVisible(buttonDefault);
 
     // set window dimensions
     setSize(windowWidth, windowHeight + getTitleBarHeight());
@@ -133,7 +132,7 @@ GenericWindowSkin::~GenericWindowSkin()
 void GenericWindowSkin::buttonClicked(Button *button)
 {
     // user has selected a skin
-    if (button == buttonSelect)
+    if (button == &buttonSelect)
     {
         // exit code 1: user has selected a skin
         int exitValue = 1;
@@ -143,21 +142,23 @@ void GenericWindowSkin::buttonClicked(Button *button)
         exitModalState(exitValue);
     }
     // user has selected a default skin
-    else if (button == buttonDefault)
+    else if (button == &buttonDefault)
     {
         // get first selected row index from list box
-        int selectedRow = listBox->getSelectedRow(0);
+        int selectedRow = listBox.getSelectedRow(0);
 
         // update default skin
-        listBoxModel->setDefault(selectedRow);
+        listBoxModel.setDefault(selectedRow);
 
         // redraw list box
-        listBox->repaint();
+        listBox.repaint();
     }
 }
 
 
-/// This method is called when the user tries to close the window.
+/// This method is called when the user tries to close the window "by
+/// force".  For example, this may be achieved by pressing the close
+/// button on the title bar.
 ///
 void GenericWindowSkin::closeButtonPressed()
 {
@@ -179,16 +180,34 @@ void GenericWindowSkin::closeButtonPressed()
 const String GenericWindowSkin::getSelectedSkinName()
 {
     // get first selected row index from list box
-    int selectedRow = listBox->getSelectedRow(0);
+    int selectedRow = listBox.getSelectedRow(0);
 
     // get and return selected skin name
-    return listBoxModel->getSkinName(selectedRow);
+    return listBoxModel.getSkinName(selectedRow);
 }
 
 
-GenericSkinListBoxModel::GenericSkinListBoxModel(const File &fileSkinDirectory)
+/// Create a list box model for a GenericWindowSkin.
+///
+GenericSkinListBoxModel::GenericSkinListBoxModel()
     : skinWildcard("*.skin", String::empty, "Skin files"),
       directoryThread("Skin directory scanner")
+{
+}
+
+
+/// Destructor.
+///
+GenericSkinListBoxModel::~GenericSkinListBoxModel()
+{
+}
+
+
+/// Fill list box model with all skins in a given directory.
+///
+/// @param fileSkinDirectory directory containing the skins
+///
+void GenericSkinListBoxModel::fill(const File &fileSkinDirectory)
 {
     // set up scanner for skin directory
     DirectoryContentsList skinFiles(&skinWildcard, directoryThread);
@@ -232,13 +251,6 @@ GenericSkinListBoxModel::GenericSkinListBoxModel(const File &fileSkinDirectory)
         // add skin name to internal array
         arrSkinNames.add(skinName);
     }
-}
-
-
-/// Destructor.
-///
-GenericSkinListBoxModel::~GenericSkinListBoxModel()
-{
 }
 
 

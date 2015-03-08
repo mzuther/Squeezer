@@ -28,7 +28,29 @@
 
 #include "JuceHeader.h"
 
-class GenericSkinListBoxModel;
+class GenericSkinListBoxModel : public ListBoxModel
+{
+public:
+    GenericSkinListBoxModel();
+    ~GenericSkinListBoxModel();
+
+    void fill(const File &fileSkinDirectory);
+
+    int getNumRows();
+    int getRow(const String &skinNameToLookFor);
+    const String getSkinName(int rowNumber);
+    void setDefault(int rowNumber);
+
+    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height, bool isRowSelected);
+
+private:
+    WildcardFileFilter skinWildcard;
+    TimeSliceThread directoryThread;
+
+    File defaultSkinFile;
+    String defaultSkinName;
+    StringArray arrSkinNames;
+};
 
 
 class GenericWindowSkin : public DocumentWindow, ButtonListener
@@ -45,38 +67,15 @@ public:
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSkin);
 
-    ScopedPointer<Component> contentComponent;
+    Component contentComponent;
 
-    ScopedPointer<ListBox> listBox;
-    ScopedPointer<GenericSkinListBoxModel> listBoxModel;
+    ListBox listBox;
+    GenericSkinListBoxModel listBoxModel;
 
-    ScopedPointer<TextButton> buttonSelect;
-    ScopedPointer<TextButton> buttonDefault;
+    TextButton buttonSelect;
+    TextButton buttonDefault;
 
     String currentSkinName;
-};
-
-
-class GenericSkinListBoxModel : public ListBoxModel
-{
-public:
-    GenericSkinListBoxModel(const File &fileSkinDirectory);
-    ~GenericSkinListBoxModel();
-
-    int getNumRows();
-    int getRow(const String &skinNameToLookFor);
-    const String getSkinName(int rowNumber);
-    void setDefault(int rowNumber);
-
-    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height, bool isRowSelected);
-
-private:
-    WildcardFileFilter skinWildcard;
-    TimeSliceThread directoryThread;
-
-    File defaultSkinFile;
-    String defaultSkinName;
-    StringArray arrSkinNames;
 };
 
 
