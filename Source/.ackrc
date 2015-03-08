@@ -1,0 +1,2 @@
+# ignore documentation directory
+--ignore-dir=api

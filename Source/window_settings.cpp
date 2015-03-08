@@ -109,14 +109,16 @@ void WindowSettings::buttonClicked(Button *button)
     // find out which button has been clicked
     if (button == &ButtonClose)
     {
-        exitModalState(1);
+        int exitValue = 1;
+        exitModalState(exitValue);
     }
 }
 
 
 void WindowSettings::closeButtonPressed()
 {
-    exitModalState(0);
+    int exitValue = 0;
+    exitModalState(exitValue);
 }
 
 

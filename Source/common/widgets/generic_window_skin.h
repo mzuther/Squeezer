@@ -34,13 +34,13 @@ class GenericSkinListBoxModel;
 class GenericWindowSkin : public DocumentWindow, ButtonListener
 {
 public:
-    GenericWindowSkin(Component *pEditorWindow, const File &fileSkin);
+    GenericWindowSkin(Component *editorWindow, const File &currentSkinFile);
     ~GenericWindowSkin();
 
     void buttonClicked(Button *button);
     void closeButtonPressed();
 
-    const String &getSelectedString();
+    const String getSelectedSkinName();
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSkin);
@@ -50,10 +50,10 @@ private:
     ScopedPointer<ListBox> listBox;
     ScopedPointer<GenericSkinListBoxModel> listBoxModel;
 
-    ScopedPointer<TextButton> ButtonSelect;
-    ScopedPointer<TextButton> ButtonDefault;
+    ScopedPointer<TextButton> buttonSelect;
+    ScopedPointer<TextButton> buttonDefault;
 
-    String strSkinName;
+    String currentSkinName;
 };
 
 
@@ -64,19 +64,19 @@ public:
     ~GenericSkinListBoxModel();
 
     int getNumRows();
-    int getRow(const String &strQuery);
-    const String &getValue(int nRow);
-    void setDefault(int nRow);
+    int getRow(const String &skinNameToLookFor);
+    const String getSkinName(int rowNumber);
+    void setDefault(int rowNumber);
 
-    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height, bool rowIsSelected);
+    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height, bool isRowSelected);
 
 private:
     WildcardFileFilter skinWildcard;
     TimeSliceThread directoryThread;
 
-    File fileDefaultSkin;
-    String strDefaultSkin;
-    StringArray strValues;
+    File defaultSkinFile;
+    String defaultSkinName;
+    StringArray arrSkinNames;
 };
 
 
