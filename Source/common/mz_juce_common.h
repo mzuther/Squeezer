@@ -34,7 +34,7 @@ class MZ_Juce_Common
 public:
     static String getVersion()
     {
-        return "1.3.9";
+        return "1.4.0";
     }
 
 private:

@@ -23,21 +23,21 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_TOGGLE_SWITCH_H__
-#define __WRAPPED_PARAMETER_TOGGLE_SWITCH_H__
+#ifndef __PLUGIN_PARAMETER_TOGGLE_SWITCH_H__
+#define __PLUGIN_PARAMETER_TOGGLE_SWITCH_H__
 
 #include "JuceHeader.h"
-#include "wrapped_parameter.h"
+#include "plugin_parameter.h"
 
 
 //==============================================================================
 /**
 */
-class WrappedParameterToggleSwitch : virtual public WrappedParameter
+class PluginParameterToggleSwitch : virtual public PluginParameter
 {
 public:
-    WrappedParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion = false);
-    ~WrappedParameterToggleSwitch();
+    PluginParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion = false);
+    ~PluginParameterToggleSwitch();
 
     String getName();
     void setName(const String &strParameterName);
@@ -79,7 +79,7 @@ public:
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterToggleSwitch);
+    JUCE_LEAK_DETECTOR(PluginParameterToggleSwitch);
 
     String strName;
     String strAttribute;
@@ -93,7 +93,7 @@ private:
 };
 
 
-#endif  // __WRAPPED_PARAMETER_TOGGLE_SWITCH_H__
+#endif  // __PLUGIN_PARAMETER_TOGGLE_SWITCH_H__
 
 
 // Local Variables:

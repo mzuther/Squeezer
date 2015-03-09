@@ -29,7 +29,7 @@
 #include "JuceHeader.h"
 #include "../parameter_juggler/parameter_juggler.h"
 
-class WrappedParameterContinuous;
+class PluginParameterContinuous;
 
 
 //==============================================================================
@@ -55,7 +55,7 @@ private:
     JUCE_LEAK_DETECTOR(SliderContinuous);
 
     Colour colourRotary;
-    WrappedParameterContinuous *pContinuous;
+    PluginParameterContinuous *pContinuous;
 };
 
 

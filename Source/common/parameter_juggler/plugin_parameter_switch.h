@@ -23,25 +23,26 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_CONTINUOUS_H__
-#define __WRAPPED_PARAMETER_CONTINUOUS_H__
+#ifndef __PLUGIN_PARAMETER_SWITCH_H__
+#define __PLUGIN_PARAMETER_SWITCH_H__
 
 #include "JuceHeader.h"
-#include "wrapped_parameter.h"
+#include "plugin_parameter.h"
 
 
 //==============================================================================
 /**
 */
-class WrappedParameterContinuous : virtual public WrappedParameter
+class PluginParameterSwitch : virtual public PluginParameter
 {
 public:
-    WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion = false);
-    ~WrappedParameterContinuous();
+    PluginParameterSwitch(bool save_from_deletion = false);
+    ~PluginParameterSwitch();
 
     String getName();
     void setName(const String &strParameterName);
 
+    void addConstant(const float fRealValue, const String &strText);
     float getInterval();
 
     float getDefaultFloat();
@@ -65,7 +66,6 @@ public:
 
     String getText();
     bool setText(const String &strText);
-    void setSuffix(const String &suffix);
 
     float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
@@ -79,36 +79,25 @@ public:
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterContinuous);
-
-    float toRealFloat(float fValue);
-    float toInternalFloat(float fRealValue);
+    JUCE_LEAK_DETECTOR(PluginParameterSwitch);
 
     String strName;
     String strAttribute;
-    String strSuffix;
 
     float fDefaultRealValue;
+    int nCurrentIndex;
     float fValueInternal;
     bool bChangedValue;
-    bool bLogarithmic;
-
     float fInterval;
-    float fResolution;
-    int nDecimalPlaces;
 
-    float fRealMinimum;
-    float fRealMaximum;
-    float fRealRange;
-
-    float fLogFactor;
-    float fLogPowerFactor;
+    Array<float> fRealValues;
+    StringArray strValues;
 
     bool bSaveFromDeletion;
 };
 
 
-#endif  // __WRAPPED_PARAMETER_CONTINUOUS_H__
+#endif  // __PLUGIN_PARAMETER_SWITCH_H__
 
 
 // Local Variables:

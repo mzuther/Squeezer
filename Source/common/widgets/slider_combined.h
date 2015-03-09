@@ -29,7 +29,7 @@
 #include "JuceHeader.h"
 #include "../parameter_juggler/parameter_juggler.h"
 
-class WrappedParameterCombined;
+class PluginParameterCombined;
 
 
 //==============================================================================
@@ -62,8 +62,8 @@ private:
     ScopedPointer<DrawableButton> toggleButton;
     Colour colourRotary;
 
-    WrappedParameterCombined *pCombined;
-    WrappedParameterToggleSwitch *pModeSwitch;
+    PluginParameterCombined *pCombined;
+    PluginParameterToggleSwitch *pModeSwitch;
 };
 
 

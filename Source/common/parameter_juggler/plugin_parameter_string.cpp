@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "wrapped_parameter_string.h"
+#include "plugin_parameter_string.h"
 
 
-WrappedParameterString::WrappedParameterString(const String &strText)
+PluginParameterString::PluginParameterString(const String &strText)
 {
     strName = String::empty;
     strAttribute = String::empty;
@@ -36,115 +36,115 @@ WrappedParameterString::WrappedParameterString(const String &strText)
 }
 
 
-WrappedParameterString::~WrappedParameterString()
+PluginParameterString::~PluginParameterString()
 {
 }
 
 
-String WrappedParameterString::getName()
+String PluginParameterString::getName()
 {
     return strName;
 }
 
 
-void WrappedParameterString::setName(const String &strParameterName)
+void PluginParameterString::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
 }
 
 
-float WrappedParameterString::getInterval()
+float PluginParameterString::getInterval()
 {
     return 0.0f;
 }
 
 
-float WrappedParameterString::getDefaultFloat()
+float PluginParameterString::getDefaultFloat()
 {
     return 0.0f;
 }
 
 
-float WrappedParameterString::getDefaultRealFloat()
+float PluginParameterString::getDefaultRealFloat()
 {
     return 0.0f;
 }
 
 
-bool WrappedParameterString::getDefaultBoolean()
+bool PluginParameterString::getDefaultBoolean()
 {
     return false;
 }
 
 
-int WrappedParameterString::getDefaultRealInteger()
+int PluginParameterString::getDefaultRealInteger()
 {
     return 0;
 }
 
 
-bool WrappedParameterString::setDefaultRealFloat(float fRealValue, bool updateValue)
+bool PluginParameterString::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
     return false;
 }
 
 
-float WrappedParameterString::getFloat()
+float PluginParameterString::getFloat()
 {
     return 0.0f;
 }
 
 
-bool WrappedParameterString::setFloat(float fValue)
+bool PluginParameterString::setFloat(float fValue)
 {
     return false;
 }
 
 
-float WrappedParameterString::getRealFloat()
+float PluginParameterString::getRealFloat()
 {
     return 0.0f;
 }
 
 
-bool WrappedParameterString::setRealFloat(float fRealValue)
+bool PluginParameterString::setRealFloat(float fRealValue)
 {
     return false;
 }
 
 
-bool WrappedParameterString::getBoolean()
+bool PluginParameterString::getBoolean()
 {
     return false;
 }
 
 
-bool WrappedParameterString::setBoolean(bool bValue)
+bool PluginParameterString::setBoolean(bool bValue)
 {
     return false;
 }
 
 
-int WrappedParameterString::getRealInteger()
+int PluginParameterString::getRealInteger()
 {
     return 0;
 }
 
 
-bool WrappedParameterString::setRealInteger(int nRealValue)
+bool PluginParameterString::setRealInteger(int nRealValue)
 {
     return false;
 }
 
 
-String WrappedParameterString::getText()
+String PluginParameterString::getText()
 {
     return strValue;
 }
 
 
-bool WrappedParameterString::setText(const String &strText)
+bool PluginParameterString::setText(const String &strText)
 {
     strValue = strText;
     setChangeFlag();
@@ -153,43 +153,43 @@ bool WrappedParameterString::setText(const String &strText)
 }
 
 
-float WrappedParameterString::getFloatFromText(const String &strText)
+float PluginParameterString::getFloatFromText(const String &strText)
 {
     return 0.0f;
 }
 
 
-String WrappedParameterString::getTextFromFloat(float fValue)
+String PluginParameterString::getTextFromFloat(float fValue)
 {
     return strValue;
 }
 
 
-bool WrappedParameterString::hasChanged()
+bool PluginParameterString::hasChanged()
 {
     return bChangedValue;
 }
 
 
-void WrappedParameterString::clearChangeFlag()
+void PluginParameterString::clearChangeFlag()
 {
     bChangedValue = false;
 }
 
 
-void WrappedParameterString::setChangeFlag()
+void PluginParameterString::setChangeFlag()
 {
     bChangedValue = true;
 }
 
 
-bool WrappedParameterString::saveFromDeletion()
+bool PluginParameterString::saveFromDeletion()
 {
     return false;
 }
 
 
-void WrappedParameterString::loadFromXml(XmlElement *xml)
+void PluginParameterString::loadFromXml(XmlElement *xml)
 {
     XmlElement *xml_element = xml->getChildByName(strAttribute);
 
@@ -203,7 +203,7 @@ void WrappedParameterString::loadFromXml(XmlElement *xml)
 }
 
 
-void WrappedParameterString::storeAsXml(XmlElement *xml)
+void PluginParameterString::storeAsXml(XmlElement *xml)
 {
     XmlElement *xml_element = new XmlElement(strAttribute);
 

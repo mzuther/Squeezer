@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "wrapped_parameter_continuous.h"
+#include "plugin_parameter_continuous.h"
 
 
-WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion)
+PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion)
 {
     strName = String::empty;
     strAttribute = String::empty;
@@ -60,31 +60,31 @@ WrappedParameterContinuous::WrappedParameterContinuous(float real_minimum, float
 }
 
 
-WrappedParameterContinuous::~WrappedParameterContinuous()
+PluginParameterContinuous::~PluginParameterContinuous()
 {
 }
 
 
-String WrappedParameterContinuous::getName()
+String PluginParameterContinuous::getName()
 {
     return strName;
 }
 
 
-void WrappedParameterContinuous::setName(const String &strParameterName)
+void PluginParameterContinuous::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
 }
 
 
-float WrappedParameterContinuous::getInterval()
+float PluginParameterContinuous::getInterval()
 {
     return fInterval;
 }
 
 
-float WrappedParameterContinuous::toRealFloat(float fValue)
+float PluginParameterContinuous::toRealFloat(float fValue)
 {
     if (bLogarithmic)
     {
@@ -95,7 +95,7 @@ float WrappedParameterContinuous::toRealFloat(float fValue)
 }
 
 
-float WrappedParameterContinuous::toInternalFloat(float fRealValue)
+float PluginParameterContinuous::toInternalFloat(float fRealValue)
 {
     fRealValue = (fRealValue - fRealMinimum) / fRealRange;
 
@@ -108,31 +108,31 @@ float WrappedParameterContinuous::toInternalFloat(float fRealValue)
 }
 
 
-float WrappedParameterContinuous::getDefaultFloat()
+float PluginParameterContinuous::getDefaultFloat()
 {
     return toInternalFloat(fDefaultRealValue);
 }
 
 
-float WrappedParameterContinuous::getDefaultRealFloat()
+float PluginParameterContinuous::getDefaultRealFloat()
 {
     return fDefaultRealValue;
 }
 
 
-bool WrappedParameterContinuous::getDefaultBoolean()
+bool PluginParameterContinuous::getDefaultBoolean()
 {
     return getDefaultRealFloat() != 0.0f;
 }
 
 
-int WrappedParameterContinuous::getDefaultRealInteger()
+int PluginParameterContinuous::getDefaultRealInteger()
 {
     return round_mz(getDefaultRealFloat());
 }
 
 
-bool WrappedParameterContinuous::setDefaultRealFloat(float fRealValue, bool updateValue)
+bool PluginParameterContinuous::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
     bool bReturn;
 
@@ -163,13 +163,13 @@ bool WrappedParameterContinuous::setDefaultRealFloat(float fRealValue, bool upda
 }
 
 
-float WrappedParameterContinuous::getFloat()
+float PluginParameterContinuous::getFloat()
 {
     return fValueInternal;
 }
 
 
-bool WrappedParameterContinuous::setFloat(float fValue)
+bool PluginParameterContinuous::setFloat(float fValue)
 {
     float fValueInternalOld = fValueInternal;
     bool bReturn;
@@ -201,20 +201,20 @@ bool WrappedParameterContinuous::setFloat(float fValue)
 }
 
 
-float WrappedParameterContinuous::getRealFloat()
+float PluginParameterContinuous::getRealFloat()
 {
     return toRealFloat(fValueInternal);
 }
 
 
-bool WrappedParameterContinuous::setRealFloat(float fRealValue)
+bool PluginParameterContinuous::setRealFloat(float fRealValue)
 {
     float fValue = toInternalFloat(fRealValue);
     return setFloat(fValue);
 }
 
 
-bool WrappedParameterContinuous::setNearestRealFloat(float fRealValue)
+bool PluginParameterContinuous::setNearestRealFloat(float fRealValue)
 {
     if (fRealValue < fRealMinimum)
     {
@@ -233,49 +233,49 @@ bool WrappedParameterContinuous::setNearestRealFloat(float fRealValue)
 }
 
 
-bool WrappedParameterContinuous::getBoolean()
+bool PluginParameterContinuous::getBoolean()
 {
     return getRealFloat() != 0.0f;
 }
 
 
-bool WrappedParameterContinuous::setBoolean(bool bValue)
+bool PluginParameterContinuous::setBoolean(bool bValue)
 {
     return setFloat(bValue ? 1.0f : 0.0f);
 }
 
 
-int WrappedParameterContinuous::getRealInteger()
+int PluginParameterContinuous::getRealInteger()
 {
     return round_mz(getRealFloat());
 }
 
 
-bool WrappedParameterContinuous::setRealInteger(int nRealValue)
+bool PluginParameterContinuous::setRealInteger(int nRealValue)
 {
     return setRealFloat((float) nRealValue);
 }
 
 
-String WrappedParameterContinuous::getText()
+String PluginParameterContinuous::getText()
 {
     return getTextFromFloat(getFloat());
 }
 
 
-bool WrappedParameterContinuous::setText(const String &strText)
+bool PluginParameterContinuous::setText(const String &strText)
 {
     return setRealFloat(getFloatFromText(strText));
 }
 
 
-void WrappedParameterContinuous::setSuffix(const String &suffix)
+void PluginParameterContinuous::setSuffix(const String &suffix)
 {
     strSuffix = suffix;
 }
 
 
-float WrappedParameterContinuous::getFloatFromText(const String &strText)
+float PluginParameterContinuous::getFloatFromText(const String &strText)
 {
     String strWithoutSuffix = strText.upToLastOccurrenceOf(strSuffix, false, false);
     float fRealValue = strWithoutSuffix.getFloatValue();
@@ -284,7 +284,7 @@ float WrappedParameterContinuous::getFloatFromText(const String &strText)
 }
 
 
-String WrappedParameterContinuous::getTextFromFloat(float fValue)
+String PluginParameterContinuous::getTextFromFloat(float fValue)
 {
     float fRealValue = toRealFloat(fValue);
 
@@ -299,31 +299,31 @@ String WrappedParameterContinuous::getTextFromFloat(float fValue)
 }
 
 
-bool WrappedParameterContinuous::hasChanged()
+bool PluginParameterContinuous::hasChanged()
 {
     return bChangedValue;
 }
 
 
-void WrappedParameterContinuous::clearChangeFlag()
+void PluginParameterContinuous::clearChangeFlag()
 {
     bChangedValue = false;
 }
 
 
-void WrappedParameterContinuous::setChangeFlag()
+void PluginParameterContinuous::setChangeFlag()
 {
     bChangedValue = true;
 }
 
 
-bool WrappedParameterContinuous::saveFromDeletion()
+bool PluginParameterContinuous::saveFromDeletion()
 {
     return bSaveFromDeletion;
 }
 
 
-void WrappedParameterContinuous::loadFromXml(XmlElement *xml)
+void PluginParameterContinuous::loadFromXml(XmlElement *xml)
 {
     XmlElement *xml_element = xml->getChildByName(strAttribute);
 
@@ -354,7 +354,7 @@ void WrappedParameterContinuous::loadFromXml(XmlElement *xml)
 }
 
 
-void WrappedParameterContinuous::storeAsXml(XmlElement *xml)
+void PluginParameterContinuous::storeAsXml(XmlElement *xml)
 {
     XmlElement *xml_element = new XmlElement(strAttribute);
 

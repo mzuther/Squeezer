@@ -23,25 +23,34 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_STRING_H__
-#define __WRAPPED_PARAMETER_STRING_H__
+#ifndef __PLUGIN_PARAMETER_COMBINED_H__
+#define __PLUGIN_PARAMETER_COMBINED_H__
 
 #include "JuceHeader.h"
-#include "wrapped_parameter.h"
+#include "plugin_parameter.h"
+#include "plugin_parameter_continuous.h"
+#include "plugin_parameter_switch.h"
+#include "plugin_parameter_toggle_switch.h"
 
 
 //==============================================================================
 /**
 */
-class WrappedParameterString : virtual public WrappedParameter
+class PluginParameterCombined : virtual public PluginParameter
 {
 public:
-    WrappedParameterString(const String &strText);
-    ~WrappedParameterString();
+    PluginParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
+    ~PluginParameterCombined();
 
     String getName();
     void setName(const String &strParameterName);
 
+    bool getMode();
+    bool setMode(bool use_constants);
+    bool toggleMode();
+    PluginParameterToggleSwitch *getModeSwitch();
+
+    void addConstant(const float fRealValue, const String &strText);
     float getInterval();
 
     float getDefaultFloat();
@@ -64,6 +73,7 @@ public:
 
     String getText();
     bool setText(const String &strText);
+    void setSuffix(const String &suffix);
 
     float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
@@ -72,22 +82,30 @@ public:
     void clearChangeFlag();
     void setChangeFlag();
 
+    bool hasChangedMode();
+    void clearChangeFlagMode();
+    void setChangeFlagMode();
+
     bool saveFromDeletion();
 
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterString);
+    JUCE_LEAK_DETECTOR(PluginParameterCombined);
 
     String strName;
     String strAttribute;
 
-    String strValue;
-    bool bChangedValue;
+    bool bUseConstants;
+    bool bChangedMode;
+
+    PluginParameterToggleSwitch paramModeSwitch;
+    PluginParameterSwitch paramSwitch;
+    PluginParameterContinuous paramContinuous;
 };
 
 
-#endif  // __WRAPPED_PARAMETER_STRING_H__
+#endif  // __PLUGIN_PARAMETER_COMBINED_H__
 
 
 // Local Variables:

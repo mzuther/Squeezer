@@ -43,7 +43,7 @@ ParameterJuggler::~ParameterJuggler()
 {
     while (arrParameters.size())
     {
-        WrappedParameter *parameter = arrParameters.remove(0);
+        PluginParameter *parameter = arrParameters.remove(0);
 
         // do not delete elements of combined parameters!
         if (!parameter->saveFromDeletion())
@@ -58,7 +58,7 @@ ParameterJuggler::~ParameterJuggler()
 }
 
 
-WrappedParameter *ParameterJuggler::getWrappedParameter(int nIndex)
+PluginParameter *ParameterJuggler::getPluginParameter(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex];
@@ -92,7 +92,7 @@ int ParameterJuggler::getNumParameters(bool bIncludeHiddenParameters)
 }
 
 
-void ParameterJuggler::add(WrappedParameter *parameter, int nIndex, bool mayModify)
+void ParameterJuggler::add(PluginParameter *parameter, int nIndex, bool mayModify)
 {
     arrParameters.add(parameter);
     arrMayModify.add(mayModify);
@@ -102,7 +102,7 @@ void ParameterJuggler::add(WrappedParameter *parameter, int nIndex, bool mayModi
 }
 
 
-void ParameterJuggler::addCombined(WrappedParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify)
+void ParameterJuggler::addCombined(PluginParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify)
 {
     jassert(nIndex == (nIndexSwitch + 1));
 

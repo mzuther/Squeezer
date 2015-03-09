@@ -29,7 +29,7 @@
 #include "JuceHeader.h"
 #include "../parameter_juggler/parameter_juggler.h"
 
-class WrappedParameterSwitch;
+class PluginParameterSwitch;
 
 
 //==============================================================================
@@ -55,7 +55,7 @@ private:
     JUCE_LEAK_DETECTOR(SliderSwitch);
 
     Colour colourRotary;
-    WrappedParameterSwitch *pSwitch;
+    PluginParameterSwitch *pSwitch;
 };
 
 

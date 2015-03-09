@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "wrapped_parameter_toggle_switch.h"
+#include "plugin_parameter_toggle_switch.h"
 
 
-WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion)
+PluginParameterToggleSwitch::PluginParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion)
 {
     strName = String::empty;
     strAttribute = String::empty;
@@ -43,62 +43,62 @@ WrappedParameterToggleSwitch::WrappedParameterToggleSwitch(const String &state_o
 }
 
 
-WrappedParameterToggleSwitch::~WrappedParameterToggleSwitch()
+PluginParameterToggleSwitch::~PluginParameterToggleSwitch()
 {
 }
 
 
-String WrappedParameterToggleSwitch::getName()
+String PluginParameterToggleSwitch::getName()
 {
     return strName;
 }
 
 
-void WrappedParameterToggleSwitch::setName(const String &strParameterName)
+void PluginParameterToggleSwitch::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
 }
 
 
-float WrappedParameterToggleSwitch::getInterval()
+float PluginParameterToggleSwitch::getInterval()
 {
     return 1.0f;
 }
 
 
-void WrappedParameterToggleSwitch::toggleState()
+void PluginParameterToggleSwitch::toggleState()
 {
     bState = !bState;
     setChangeFlag();
 }
 
 
-float WrappedParameterToggleSwitch::getDefaultFloat()
+float PluginParameterToggleSwitch::getDefaultFloat()
 {
     return bDefaultState ? 1.0f : 0.0f;
 }
 
 
-float WrappedParameterToggleSwitch::getDefaultRealFloat()
+float PluginParameterToggleSwitch::getDefaultRealFloat()
 {
     return bDefaultState ? 1.0f : 0.0f;
 }
 
 
-bool WrappedParameterToggleSwitch::getDefaultBoolean()
+bool PluginParameterToggleSwitch::getDefaultBoolean()
 {
     return bDefaultState;
 }
 
 
-int WrappedParameterToggleSwitch::getDefaultRealInteger()
+int PluginParameterToggleSwitch::getDefaultRealInteger()
 {
     return bDefaultState ? 1 : 0;
 }
 
 
-bool WrappedParameterToggleSwitch::setDefaultBoolean(bool bValue, bool updateValue)
+bool PluginParameterToggleSwitch::setDefaultBoolean(bool bValue, bool updateValue)
 {
     bool bDefaultState = bValue;
 
@@ -111,43 +111,43 @@ bool WrappedParameterToggleSwitch::setDefaultBoolean(bool bValue, bool updateVal
 }
 
 
-bool WrappedParameterToggleSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
+bool PluginParameterToggleSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
     return setDefaultBoolean((fRealValue != 0.0f), updateValue);
 }
 
 
-float WrappedParameterToggleSwitch::getFloat()
+float PluginParameterToggleSwitch::getFloat()
 {
     return bState ? 1.0f : 0.0f;
 }
 
 
-bool WrappedParameterToggleSwitch::setFloat(float fValue)
+bool PluginParameterToggleSwitch::setFloat(float fValue)
 {
     return setBoolean(fValue != 0.0f);
 }
 
 
-float WrappedParameterToggleSwitch::getRealFloat()
+float PluginParameterToggleSwitch::getRealFloat()
 {
     return bState ? 1.0f : 0.0f;
 }
 
 
-bool WrappedParameterToggleSwitch::setRealFloat(float fRealValue)
+bool PluginParameterToggleSwitch::setRealFloat(float fRealValue)
 {
     return setBoolean(fRealValue != 0.0f);
 }
 
 
-bool WrappedParameterToggleSwitch::getBoolean()
+bool PluginParameterToggleSwitch::getBoolean()
 {
     return bState;
 }
 
 
-bool WrappedParameterToggleSwitch::setBoolean(bool bValue)
+bool PluginParameterToggleSwitch::setBoolean(bool bValue)
 {
     if (bValue != bState)
     {
@@ -158,67 +158,67 @@ bool WrappedParameterToggleSwitch::setBoolean(bool bValue)
 }
 
 
-int WrappedParameterToggleSwitch::getRealInteger()
+int PluginParameterToggleSwitch::getRealInteger()
 {
     return bState ? 1 : 0;
 }
 
 
-bool WrappedParameterToggleSwitch::setRealInteger(int nRealValue)
+bool PluginParameterToggleSwitch::setRealInteger(int nRealValue)
 {
     return setBoolean(nRealValue != 0);
 }
 
 
-String WrappedParameterToggleSwitch::getText()
+String PluginParameterToggleSwitch::getText()
 {
     return bState ? strStateOn : strStateOff;
 }
 
 
-bool WrappedParameterToggleSwitch::setText(const String &strText)
+bool PluginParameterToggleSwitch::setText(const String &strText)
 {
     return setBoolean(strText.compare(strStateOn) == 0);
 }
 
 
-float WrappedParameterToggleSwitch::getFloatFromText(const String &strText)
+float PluginParameterToggleSwitch::getFloatFromText(const String &strText)
 {
     return (strText.compare(strStateOn) == 0) ? 1.0f : 0.0f;
 }
 
 
-String WrappedParameterToggleSwitch::getTextFromFloat(float fValue)
+String PluginParameterToggleSwitch::getTextFromFloat(float fValue)
 {
     return (fValue == 0.0f) ? strStateOff : strStateOn;
 }
 
 
-bool WrappedParameterToggleSwitch::hasChanged()
+bool PluginParameterToggleSwitch::hasChanged()
 {
     return bChangedValue;
 }
 
 
-void WrappedParameterToggleSwitch::clearChangeFlag()
+void PluginParameterToggleSwitch::clearChangeFlag()
 {
     bChangedValue = false;
 }
 
 
-void WrappedParameterToggleSwitch::setChangeFlag()
+void PluginParameterToggleSwitch::setChangeFlag()
 {
     bChangedValue = true;
 }
 
 
-bool WrappedParameterToggleSwitch::saveFromDeletion()
+bool PluginParameterToggleSwitch::saveFromDeletion()
 {
     return bSaveFromDeletion;
 }
 
 
-void WrappedParameterToggleSwitch::loadFromXml(XmlElement *xml)
+void PluginParameterToggleSwitch::loadFromXml(XmlElement *xml)
 {
     XmlElement *xml_element = xml->getChildByName(strAttribute);
 
@@ -249,7 +249,7 @@ void WrappedParameterToggleSwitch::loadFromXml(XmlElement *xml)
 }
 
 
-void WrappedParameterToggleSwitch::storeAsXml(XmlElement *xml)
+void PluginParameterToggleSwitch::storeAsXml(XmlElement *xml)
 {
     XmlElement *xml_element = new XmlElement(strAttribute);
 

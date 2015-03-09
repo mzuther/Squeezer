@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "wrapped_parameter_combined.h"
+#include "plugin_parameter_combined.h"
 
 
-WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places) :
+PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places) :
     paramModeSwitch("Discrete", "Continuous", true),
     paramSwitch(true),
     paramContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places, true)
@@ -43,18 +43,18 @@ WrappedParameterCombined::WrappedParameterCombined(float real_minimum, float rea
 }
 
 
-WrappedParameterCombined::~WrappedParameterCombined()
+PluginParameterCombined::~PluginParameterCombined()
 {
 }
 
 
-String WrappedParameterCombined::getName()
+String PluginParameterCombined::getName()
 {
     return strName;
 }
 
 
-void WrappedParameterCombined::setName(const String &strParameterName)
+void PluginParameterCombined::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
@@ -63,19 +63,19 @@ void WrappedParameterCombined::setName(const String &strParameterName)
 }
 
 
-void WrappedParameterCombined::addConstant(const float fRealValue, const String &strText)
+void PluginParameterCombined::addConstant(const float fRealValue, const String &strText)
 {
     paramSwitch.addConstant(fRealValue, strText);
 }
 
 
-bool WrappedParameterCombined::getMode()
+bool PluginParameterCombined::getMode()
 {
     return bUseConstants;
 }
 
 
-bool WrappedParameterCombined::setMode(bool use_constants)
+bool PluginParameterCombined::setMode(bool use_constants)
 {
     if (bUseConstants != use_constants)
     {
@@ -88,7 +88,7 @@ bool WrappedParameterCombined::setMode(bool use_constants)
 }
 
 
-bool WrappedParameterCombined::toggleMode()
+bool PluginParameterCombined::toggleMode()
 {
     paramModeSwitch.toggleState();
     bUseConstants = paramModeSwitch.getBoolean();
@@ -109,14 +109,14 @@ bool WrappedParameterCombined::toggleMode()
 }
 
 
-WrappedParameterToggleSwitch *WrappedParameterCombined::getModeSwitch()
+PluginParameterToggleSwitch *PluginParameterCombined::getModeSwitch()
 {
     // this pointer must not be deleted outside of this class!
     return &paramModeSwitch;
 }
 
 
-float WrappedParameterCombined::getInterval()
+float PluginParameterCombined::getInterval()
 {
     if (bUseConstants)
     {
@@ -129,7 +129,7 @@ float WrappedParameterCombined::getInterval()
 }
 
 
-float WrappedParameterCombined::getDefaultFloat()
+float PluginParameterCombined::getDefaultFloat()
 {
     if (bUseConstants)
     {
@@ -142,7 +142,7 @@ float WrappedParameterCombined::getDefaultFloat()
 }
 
 
-float WrappedParameterCombined::getDefaultRealFloat()
+float PluginParameterCombined::getDefaultRealFloat()
 {
     if (bUseConstants)
     {
@@ -155,7 +155,7 @@ float WrappedParameterCombined::getDefaultRealFloat()
 }
 
 
-bool WrappedParameterCombined::getDefaultBoolean()
+bool PluginParameterCombined::getDefaultBoolean()
 {
     if (bUseConstants)
     {
@@ -168,7 +168,7 @@ bool WrappedParameterCombined::getDefaultBoolean()
 }
 
 
-int WrappedParameterCombined::getDefaultRealInteger()
+int PluginParameterCombined::getDefaultRealInteger()
 {
     if (bUseConstants)
     {
@@ -181,7 +181,7 @@ int WrappedParameterCombined::getDefaultRealInteger()
 }
 
 
-bool WrappedParameterCombined::setDefaultRealFloat(float fRealValue, bool updateValue)
+bool PluginParameterCombined::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
     if (bUseConstants)
     {
@@ -200,7 +200,7 @@ bool WrappedParameterCombined::setDefaultRealFloat(float fRealValue, bool update
 }
 
 
-float WrappedParameterCombined::getFloat()
+float PluginParameterCombined::getFloat()
 {
     if (bUseConstants)
     {
@@ -213,7 +213,7 @@ float WrappedParameterCombined::getFloat()
 }
 
 
-bool WrappedParameterCombined::setFloat(float fValue)
+bool PluginParameterCombined::setFloat(float fValue)
 {
     if (bUseConstants)
     {
@@ -226,7 +226,7 @@ bool WrappedParameterCombined::setFloat(float fValue)
 }
 
 
-float WrappedParameterCombined::getRealFloat()
+float PluginParameterCombined::getRealFloat()
 {
     if (bUseConstants)
     {
@@ -239,7 +239,7 @@ float WrappedParameterCombined::getRealFloat()
 }
 
 
-bool WrappedParameterCombined::setRealFloat(float fRealValue)
+bool PluginParameterCombined::setRealFloat(float fRealValue)
 {
     if (bUseConstants)
     {
@@ -252,7 +252,7 @@ bool WrappedParameterCombined::setRealFloat(float fRealValue)
 }
 
 
-bool WrappedParameterCombined::getBoolean()
+bool PluginParameterCombined::getBoolean()
 {
     if (bUseConstants)
     {
@@ -265,7 +265,7 @@ bool WrappedParameterCombined::getBoolean()
 }
 
 
-bool WrappedParameterCombined::setBoolean(bool bValue)
+bool PluginParameterCombined::setBoolean(bool bValue)
 {
     if (bUseConstants)
     {
@@ -278,7 +278,7 @@ bool WrappedParameterCombined::setBoolean(bool bValue)
 }
 
 
-int WrappedParameterCombined::getRealInteger()
+int PluginParameterCombined::getRealInteger()
 {
     if (bUseConstants)
     {
@@ -291,7 +291,7 @@ int WrappedParameterCombined::getRealInteger()
 }
 
 
-bool WrappedParameterCombined::setRealInteger(int nRealValue)
+bool PluginParameterCombined::setRealInteger(int nRealValue)
 {
     if (bUseConstants)
     {
@@ -304,7 +304,7 @@ bool WrappedParameterCombined::setRealInteger(int nRealValue)
 }
 
 
-String WrappedParameterCombined::getText()
+String PluginParameterCombined::getText()
 {
     if (bUseConstants)
     {
@@ -317,7 +317,7 @@ String WrappedParameterCombined::getText()
 }
 
 
-bool WrappedParameterCombined::setText(const String &strText)
+bool PluginParameterCombined::setText(const String &strText)
 {
     if (bUseConstants)
     {
@@ -330,13 +330,13 @@ bool WrappedParameterCombined::setText(const String &strText)
 }
 
 
-void WrappedParameterCombined::setSuffix(const String &suffix)
+void PluginParameterCombined::setSuffix(const String &suffix)
 {
     paramContinuous.setSuffix(suffix);
 }
 
 
-float WrappedParameterCombined::getFloatFromText(const String &strText)
+float PluginParameterCombined::getFloatFromText(const String &strText)
 {
     if (bUseConstants)
     {
@@ -349,7 +349,7 @@ float WrappedParameterCombined::getFloatFromText(const String &strText)
 }
 
 
-String WrappedParameterCombined::getTextFromFloat(float fValue)
+String PluginParameterCombined::getTextFromFloat(float fValue)
 {
     if (bUseConstants)
     {
@@ -362,7 +362,7 @@ String WrappedParameterCombined::getTextFromFloat(float fValue)
 }
 
 
-bool WrappedParameterCombined::hasChanged()
+bool PluginParameterCombined::hasChanged()
 {
     bool bChangedSwitch = paramSwitch.hasChanged();
     bool bChangedContinuous = paramContinuous.hasChanged();
@@ -371,45 +371,45 @@ bool WrappedParameterCombined::hasChanged()
 }
 
 
-void WrappedParameterCombined::clearChangeFlag()
+void PluginParameterCombined::clearChangeFlag()
 {
     paramSwitch.clearChangeFlag();
     paramContinuous.clearChangeFlag();
 }
 
 
-void WrappedParameterCombined::setChangeFlag()
+void PluginParameterCombined::setChangeFlag()
 {
     paramSwitch.setChangeFlag();
     paramContinuous.setChangeFlag();
 }
 
 
-bool WrappedParameterCombined::hasChangedMode()
+bool PluginParameterCombined::hasChangedMode()
 {
     return bChangedMode;
 }
 
 
-void WrappedParameterCombined::clearChangeFlagMode()
+void PluginParameterCombined::clearChangeFlagMode()
 {
     bChangedMode = false;
 }
 
 
-void WrappedParameterCombined::setChangeFlagMode()
+void PluginParameterCombined::setChangeFlagMode()
 {
     bChangedMode = true;
 }
 
 
-bool WrappedParameterCombined::saveFromDeletion()
+bool PluginParameterCombined::saveFromDeletion()
 {
     return false;
 }
 
 
-void WrappedParameterCombined::loadFromXml(XmlElement *xml)
+void PluginParameterCombined::loadFromXml(XmlElement *xml)
 {
     XmlElement *xml_element = xml->getChildByName(strAttribute);
 
@@ -442,7 +442,7 @@ void WrappedParameterCombined::loadFromXml(XmlElement *xml)
 }
 
 
-void WrappedParameterCombined::storeAsXml(XmlElement *xml)
+void PluginParameterCombined::storeAsXml(XmlElement *xml)
 {
     XmlElement *xml_element = new XmlElement(strAttribute);
 

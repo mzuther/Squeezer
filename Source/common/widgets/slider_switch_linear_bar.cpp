@@ -28,7 +28,7 @@
 
 SliderSwitchLinearBar::SliderSwitchLinearBar(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pSwitch = dynamic_cast<WrappedParameterSwitch *>(pParameters->getWrappedParameter(nParameterIndex));
+    pSwitch = dynamic_cast<PluginParameterSwitch *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getInterval());

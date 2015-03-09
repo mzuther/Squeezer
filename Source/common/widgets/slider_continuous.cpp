@@ -28,7 +28,7 @@
 
 SliderContinuous::SliderContinuous(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex) : Slider(componentName)
 {
-    pContinuous = dynamic_cast<WrappedParameterContinuous *>(pParameters->getWrappedParameter(nParameterIndex));
+    pContinuous = dynamic_cast<PluginParameterContinuous *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pContinuous != nullptr);
 
     setRange(0.0f, 1.0f, pContinuous->getInterval());

@@ -28,10 +28,10 @@
 
 SliderCombined::SliderCombined(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch) : Slider(componentName)
 {
-    pCombined = dynamic_cast<WrappedParameterCombined *>(pParameters->getWrappedParameter(nParameterIndex));
+    pCombined = dynamic_cast<PluginParameterCombined *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pCombined != nullptr);
 
-    pModeSwitch = dynamic_cast<WrappedParameterToggleSwitch *>(pParameters->getWrappedParameter(nParameterIndexSwitch));
+    pModeSwitch = dynamic_cast<PluginParameterToggleSwitch *>(pParameters->getPluginParameter(nParameterIndexSwitch));
     jassert(pModeSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pCombined->getInterval());

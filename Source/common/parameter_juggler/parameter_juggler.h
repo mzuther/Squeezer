@@ -30,11 +30,11 @@ class ParameterJuggler;
 
 #include "JuceHeader.h"
 #include "../mz_juce_common.h"
-#include "wrapped_parameter.h"
-#include "wrapped_parameter_combined.h"
-#include "wrapped_parameter_string.h"
-#include "wrapped_parameter_switch.h"
-#include "wrapped_parameter_toggle_switch.h"
+#include "plugin_parameter.h"
+#include "plugin_parameter_combined.h"
+#include "plugin_parameter_string.h"
+#include "plugin_parameter_switch.h"
+#include "plugin_parameter_toggle_switch.h"
 
 
 //============================================================================
@@ -46,11 +46,11 @@ public:
     ParameterJuggler();
     ~ParameterJuggler();
 
-    WrappedParameter *getWrappedParameter(int nIndex);
+    PluginParameter *getPluginParameter(int nIndex);
     String toString();
 
-    void add(WrappedParameter *parameter, int nIndex, bool mayModify = true);
-    void addCombined(WrappedParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify = true);
+    void add(PluginParameter *parameter, int nIndex, bool mayModify = true);
+    void addCombined(PluginParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify = true);
     int getNumParameters(bool bIncludeHiddenParameters);
 
     String getName(int nIndex);
@@ -97,7 +97,7 @@ public:
 
 protected:
     int nNumParameters;
-    Array<WrappedParameter *> arrParameters;
+    Array<PluginParameter *> arrParameters;
     Array<bool> arrMayModify;
 
     String strSettingsID;

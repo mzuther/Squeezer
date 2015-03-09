@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{0257FF81-39B3-AE39-0BAC-DBA5677766D2}</ProjectGuid>
+		<ProjectGuid>{E5EE32E8-23A5-1DC9-9F3D-FDC0A87EC239}</ProjectGuid>
 		<RootNamespace>Squeezer VST (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -245,13 +245,13 @@
 		<ClInclude Include="..\..\..\Source\common\audio\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
 		<ClInclude Include="..\..\..\Source\common\skin\generic_skin.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_continuous.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_toggle_switch.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_toggle_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_switch.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_combined.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_continuous.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.h" />
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
@@ -314,17 +314,17 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\skin\generic_skin.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_toggle_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_string.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_toggle_switch.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_continuous.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\wrapped_parameter_combined.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_basics\juce_audio_basics.cpp">
 		</ClCompile>

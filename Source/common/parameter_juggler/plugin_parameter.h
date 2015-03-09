@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_H__
-#define __WRAPPED_PARAMETER_H__
+#ifndef __PLUGIN_PARAMETER_H__
+#define __PLUGIN_PARAMETER_H__
 
 #include "JuceHeader.h"
 
@@ -32,10 +32,10 @@
 //==============================================================================
 /**
 */
-class WrappedParameter
+class PluginParameter
 {
 public:
-    virtual ~WrappedParameter() {}
+    virtual ~PluginParameter() {}
 
     virtual String getName() = 0;
     virtual void setName(const String &strParameterName) = 0;
@@ -81,11 +81,11 @@ public:
         return (int) x;
     }
 protected:
-    WrappedParameter() {}
+    PluginParameter() {}
 };
 
 
-#endif  // __WRAPPED_PARAMETER_H__
+#endif  // __PLUGIN_PARAMETER_H__
 
 
 // Local Variables:

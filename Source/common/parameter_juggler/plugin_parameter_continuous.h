@@ -23,26 +23,25 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WRAPPED_PARAMETER_SWITCH_H__
-#define __WRAPPED_PARAMETER_SWITCH_H__
+#ifndef __PLUGIN_PARAMETER_CONTINUOUS_H__
+#define __PLUGIN_PARAMETER_CONTINUOUS_H__
 
 #include "JuceHeader.h"
-#include "wrapped_parameter.h"
+#include "plugin_parameter.h"
 
 
 //==============================================================================
 /**
 */
-class WrappedParameterSwitch : virtual public WrappedParameter
+class PluginParameterContinuous : virtual public PluginParameter
 {
 public:
-    WrappedParameterSwitch(bool save_from_deletion = false);
-    ~WrappedParameterSwitch();
+    PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion = false);
+    ~PluginParameterContinuous();
 
     String getName();
     void setName(const String &strParameterName);
 
-    void addConstant(const float fRealValue, const String &strText);
     float getInterval();
 
     float getDefaultFloat();
@@ -66,6 +65,7 @@ public:
 
     String getText();
     bool setText(const String &strText);
+    void setSuffix(const String &suffix);
 
     float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
@@ -79,25 +79,36 @@ public:
     void loadFromXml(XmlElement *xml);
     void storeAsXml(XmlElement *xml);
 private:
-    JUCE_LEAK_DETECTOR(WrappedParameterSwitch);
+    JUCE_LEAK_DETECTOR(PluginParameterContinuous);
+
+    float toRealFloat(float fValue);
+    float toInternalFloat(float fRealValue);
 
     String strName;
     String strAttribute;
+    String strSuffix;
 
     float fDefaultRealValue;
-    int nCurrentIndex;
     float fValueInternal;
     bool bChangedValue;
-    float fInterval;
+    bool bLogarithmic;
 
-    Array<float> fRealValues;
-    StringArray strValues;
+    float fInterval;
+    float fResolution;
+    int nDecimalPlaces;
+
+    float fRealMinimum;
+    float fRealMaximum;
+    float fRealRange;
+
+    float fLogFactor;
+    float fLogPowerFactor;
 
     bool bSaveFromDeletion;
 };
 
 
-#endif  // __WRAPPED_PARAMETER_SWITCH_H__
+#endif  // __PLUGIN_PARAMETER_CONTINUOUS_H__
 
 
 // Local Variables:

@@ -138,12 +138,12 @@ OBJECTS := \
 	$(OBJDIR)/audio_ring_buffer.o \
 	$(OBJDIR)/dither.o \
 	$(OBJDIR)/generic_skin.o \
-	$(OBJDIR)/wrapped_parameter_toggle_switch.o \
+	$(OBJDIR)/plugin_parameter_switch.o \
 	$(OBJDIR)/parameter_juggler.o \
-	$(OBJDIR)/wrapped_parameter_string.o \
-	$(OBJDIR)/wrapped_parameter_switch.o \
-	$(OBJDIR)/wrapped_parameter_continuous.o \
-	$(OBJDIR)/wrapped_parameter_combined.o \
+	$(OBJDIR)/plugin_parameter_toggle_switch.o \
+	$(OBJDIR)/plugin_parameter_string.o \
+	$(OBJDIR)/plugin_parameter_combined.o \
+	$(OBJDIR)/plugin_parameter_continuous.o \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
 	$(OBJDIR)/juce_audio_formats.o \
@@ -309,22 +309,22 @@ $(OBJDIR)/dither.o: ../../../Source/common/audio/dither.cpp
 $(OBJDIR)/generic_skin.o: ../../../Source/common/skin/generic_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_toggle_switch.o: ../../../Source/common/parameter_juggler/wrapped_parameter_toggle_switch.cpp
+$(OBJDIR)/plugin_parameter_switch.o: ../../../Source/common/parameter_juggler/plugin_parameter_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/parameter_juggler.o: ../../../Source/common/parameter_juggler/parameter_juggler.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_string.o: ../../../Source/common/parameter_juggler/wrapped_parameter_string.cpp
+$(OBJDIR)/plugin_parameter_toggle_switch.o: ../../../Source/common/parameter_juggler/plugin_parameter_toggle_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_switch.o: ../../../Source/common/parameter_juggler/wrapped_parameter_switch.cpp
+$(OBJDIR)/plugin_parameter_string.o: ../../../Source/common/parameter_juggler/plugin_parameter_string.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_continuous.o: ../../../Source/common/parameter_juggler/wrapped_parameter_continuous.cpp
+$(OBJDIR)/plugin_parameter_combined.o: ../../../Source/common/parameter_juggler/plugin_parameter_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/wrapped_parameter_combined.o: ../../../Source/common/parameter_juggler/wrapped_parameter_combined.cpp
+$(OBJDIR)/plugin_parameter_continuous.o: ../../../Source/common/parameter_juggler/plugin_parameter_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_audio_basics.o: ../../../libraries/juce/modules/juce_audio_basics/juce_audio_basics.cpp

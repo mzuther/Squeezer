@@ -23,10 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "wrapped_parameter_switch.h"
+#include "plugin_parameter_switch.h"
 
 
-WrappedParameterSwitch::WrappedParameterSwitch(bool save_from_deletion)
+PluginParameterSwitch::PluginParameterSwitch(bool save_from_deletion)
 {
     strName = String::empty;
     strAttribute = String::empty;
@@ -42,25 +42,25 @@ WrappedParameterSwitch::WrappedParameterSwitch(bool save_from_deletion)
 }
 
 
-WrappedParameterSwitch::~WrappedParameterSwitch()
+PluginParameterSwitch::~PluginParameterSwitch()
 {
 }
 
 
-String WrappedParameterSwitch::getName()
+String PluginParameterSwitch::getName()
 {
     return strName;
 }
 
 
-void WrappedParameterSwitch::setName(const String &strParameterName)
+void PluginParameterSwitch::setName(const String &strParameterName)
 {
     strName = strParameterName;
     strAttribute = strName.removeCharacters(" ");
 }
 
 
-void WrappedParameterSwitch::addConstant(const float fRealValue, const String &strText)
+void PluginParameterSwitch::addConstant(const float fRealValue, const String &strText)
 {
     fRealValues.add(fRealValue);
     strValues.add(strText);
@@ -73,13 +73,13 @@ void WrappedParameterSwitch::addConstant(const float fRealValue, const String &s
 }
 
 
-float WrappedParameterSwitch::getInterval()
+float PluginParameterSwitch::getInterval()
 {
     return fInterval;
 }
 
 
-float WrappedParameterSwitch::getDefaultFloat()
+float PluginParameterSwitch::getDefaultFloat()
 {
     int nIndex = fRealValues.indexOf(fDefaultRealValue);
 
@@ -95,25 +95,25 @@ float WrappedParameterSwitch::getDefaultFloat()
 }
 
 
-float WrappedParameterSwitch::getDefaultRealFloat()
+float PluginParameterSwitch::getDefaultRealFloat()
 {
     return fDefaultRealValue;
 }
 
 
-bool WrappedParameterSwitch::getDefaultBoolean()
+bool PluginParameterSwitch::getDefaultBoolean()
 {
     return getDefaultRealFloat() != 0.0f;
 }
 
 
-int WrappedParameterSwitch::getDefaultRealInteger()
+int PluginParameterSwitch::getDefaultRealInteger()
 {
     return round_mz(getDefaultRealFloat());
 }
 
 
-bool WrappedParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
+bool PluginParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
     int nIndex = fRealValues.indexOf(fRealValue);
 
@@ -136,13 +136,13 @@ bool WrappedParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateVa
 }
 
 
-float WrappedParameterSwitch::getFloat()
+float PluginParameterSwitch::getFloat()
 {
     return fValueInternal;
 }
 
 
-bool WrappedParameterSwitch::setFloat(float fValue)
+bool PluginParameterSwitch::setFloat(float fValue)
 {
     if ((fValue < 0.0f) || (fValue > 1.0f))
     {
@@ -166,13 +166,13 @@ bool WrappedParameterSwitch::setFloat(float fValue)
 }
 
 
-float WrappedParameterSwitch::getRealFloat()
+float PluginParameterSwitch::getRealFloat()
 {
     return fRealValues[nCurrentIndex];
 }
 
 
-bool WrappedParameterSwitch::setRealFloat(float fRealValue)
+bool PluginParameterSwitch::setRealFloat(float fRealValue)
 {
     int nCurrentIndexOld = nCurrentIndex;
     int nIndex = fRealValues.indexOf(fRealValue);
@@ -197,7 +197,7 @@ bool WrappedParameterSwitch::setRealFloat(float fRealValue)
 }
 
 
-bool WrappedParameterSwitch::setNearestRealFloat(float fRealValue)
+bool PluginParameterSwitch::setNearestRealFloat(float fRealValue)
 {
     int nIndexSelected = 0;
     float fDifference = fabs(fRealValue - fRealValues[nIndexSelected]);
@@ -217,37 +217,37 @@ bool WrappedParameterSwitch::setNearestRealFloat(float fRealValue)
 }
 
 
-bool WrappedParameterSwitch::getBoolean()
+bool PluginParameterSwitch::getBoolean()
 {
     return getRealFloat() != 0.0f;
 }
 
 
-bool WrappedParameterSwitch::setBoolean(bool bValue)
+bool PluginParameterSwitch::setBoolean(bool bValue)
 {
     return setRealFloat(bValue ? 1.0f : 0.0f);
 }
 
 
-int WrappedParameterSwitch::getRealInteger()
+int PluginParameterSwitch::getRealInteger()
 {
     return round_mz(getRealFloat());
 }
 
 
-bool WrappedParameterSwitch::setRealInteger(int nRealValue)
+bool PluginParameterSwitch::setRealInteger(int nRealValue)
 {
     return setRealFloat((float) nRealValue);
 }
 
 
-String WrappedParameterSwitch::getText()
+String PluginParameterSwitch::getText()
 {
     return strValues[nCurrentIndex];
 }
 
 
-bool WrappedParameterSwitch::setText(const String &strText)
+bool PluginParameterSwitch::setText(const String &strText)
 {
     int nCurrentIndexOld = nCurrentIndex;
     int nIndex = strValues.indexOf(strText);
@@ -272,7 +272,7 @@ bool WrappedParameterSwitch::setText(const String &strText)
 }
 
 
-float WrappedParameterSwitch::getFloatFromText(const String &strText)
+float PluginParameterSwitch::getFloatFromText(const String &strText)
 {
     int nIndex = strValues.indexOf(strText);
 
@@ -288,7 +288,7 @@ float WrappedParameterSwitch::getFloatFromText(const String &strText)
 }
 
 
-String WrappedParameterSwitch::getTextFromFloat(float fValue)
+String PluginParameterSwitch::getTextFromFloat(float fValue)
 {
     if ((fValue < 0.0f) || (fValue > 1.0f))
     {
@@ -303,31 +303,31 @@ String WrappedParameterSwitch::getTextFromFloat(float fValue)
 }
 
 
-bool WrappedParameterSwitch::hasChanged()
+bool PluginParameterSwitch::hasChanged()
 {
     return bChangedValue;
 }
 
 
-void WrappedParameterSwitch::clearChangeFlag()
+void PluginParameterSwitch::clearChangeFlag()
 {
     bChangedValue = false;
 }
 
 
-void WrappedParameterSwitch::setChangeFlag()
+void PluginParameterSwitch::setChangeFlag()
 {
     bChangedValue = true;
 }
 
 
-bool WrappedParameterSwitch::saveFromDeletion()
+bool PluginParameterSwitch::saveFromDeletion()
 {
     return bSaveFromDeletion;
 }
 
 
-void WrappedParameterSwitch::loadFromXml(XmlElement *xml)
+void PluginParameterSwitch::loadFromXml(XmlElement *xml)
 {
     XmlElement *xml_element = xml->getChildByName(strAttribute);
 
@@ -358,7 +358,7 @@ void WrappedParameterSwitch::loadFromXml(XmlElement *xml)
 }
 
 
-void WrappedParameterSwitch::storeAsXml(XmlElement *xml)
+void PluginParameterSwitch::storeAsXml(XmlElement *xml)
 {
     XmlElement *xml_element = new XmlElement(strAttribute);
 
