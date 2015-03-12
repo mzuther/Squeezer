@@ -54,12 +54,6 @@ void PluginParameterString::setName(const String &strParameterName)
 }
 
 
-float PluginParameterString::getInterval()
-{
-    return 0.0f;
-}
-
-
 float PluginParameterString::getDefaultFloat()
 {
     return 0.0f;
@@ -150,18 +144,6 @@ bool PluginParameterString::setText(const String &strText)
     setChangeFlag();
 
     return true;
-}
-
-
-float PluginParameterString::getFloatFromText(const String &strText)
-{
-    return 0.0f;
-}
-
-
-String PluginParameterString::getTextFromFloat(float fValue)
-{
-    return strValue;
 }
 
 

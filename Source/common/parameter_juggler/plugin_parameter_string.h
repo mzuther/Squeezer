@@ -42,8 +42,6 @@ public:
     String getName();
     void setName(const String &strParameterName);
 
-    float getInterval();
-
     float getDefaultFloat();
     float getDefaultRealFloat();
     bool getDefaultBoolean();
@@ -65,12 +63,8 @@ public:
     String getText();
     bool setText(const String &strText);
 
-    float getFloatFromText(const String &strText);
-    String getTextFromFloat(float fValue);
-
     bool hasChanged();
     void clearChangeFlag();
-    void setChangeFlag();
 
     bool saveFromDeletion();
 
@@ -78,6 +72,8 @@ public:
     void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(PluginParameterString);
+
+    void setChangeFlag();
 
     String strName;
     String strAttribute;

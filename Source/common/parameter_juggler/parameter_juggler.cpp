@@ -126,13 +126,6 @@ void ParameterJuggler::setName(int nIndex, const String &strParameterName)
 }
 
 
-float ParameterJuggler::getInterval(int nIndex)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getInterval();
-}
-
-
 float ParameterJuggler::getDefaultFloat(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -244,20 +237,6 @@ bool ParameterJuggler::setText(int nIndex, const String &strText)
 }
 
 
-float ParameterJuggler::getFloatFromText(int nIndex, const String &strText)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getFloatFromText(strText);
-}
-
-
-String ParameterJuggler::getTextFromFloat(int nIndex, float fValue)
-{
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getTextFromFloat(fValue);
-}
-
-
 bool ParameterJuggler::hasChanged(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
@@ -269,14 +248,6 @@ void ParameterJuggler::clearChangeFlag(int nIndex)
 {
     jassert((nIndex >= 0) && (nIndex < nNumParameters));
     return arrParameters[nIndex]->clearChangeFlag();
-}
-
-
-void ParameterJuggler::setChangeFlag(int nIndex)
-{
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->setChangeFlag();
 }
 
 

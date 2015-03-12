@@ -35,52 +35,218 @@
 class PluginParameter
 {
 public:
+    /// Empty destructor.
+    ///
     virtual ~PluginParameter() {}
 
+    /// Get parameter's name.  Subclasses must override this method.
+    ///
+    /// @return parameter name
+    ///
     virtual String getName() = 0;
-    virtual void setName(const String &strParameterName) = 0;
 
-    virtual float getInterval() = 0;
+    /// Set parameter's name.  Subclasses must override this method.
+    ///
+    /// @param newParameterName new parameter name
+    ///
+    virtual void setName(const String &newParameterName) = 0;
 
+    /// Get **normalised** default value as float.  Values range from
+    /// 0.0 to 1.0.  Subclasses must override this method.
+    ///
+    /// @return normalised default value (between 0.0 and 1.0)
+    ///
     virtual float getDefaultFloat() = 0;
+
+    /// Get **real** default value as float.  Values range from the
+    /// parameter's minimum value to its maximum value.  Subclasses
+    /// must override this method.
+    ///
+    /// @return default value
+    ///
     virtual float getDefaultRealFloat() = 0;
+
+    /// Get default value as Boolean.  Subclasses must override this
+    /// method.
+    ///
+    /// @return default value
+    ///
     virtual bool getDefaultBoolean() = 0;
+
+    /// Get **real** default value as integer.  Values range from the
+    /// parameter's minimum value to its maximum value.  Subclasses
+    /// must override this method.
+    ///
+    /// @return default value
+    ///
     virtual int getDefaultRealInteger() = 0;
-    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) = 0;
 
+    /// Set **real** default value from float.  The new value must be
+    /// in the defined range of the parameter's values.  Subclasses
+    /// must override this method.
+    ///
+    /// @param newRealValue new default value
+    ///
+    /// @param updateParameter if this is true, the parameter's value
+    ///        will be set to the new default value
+    ///
+    /// @return **true** if update was successful, **false** otherwise
+    ///
+    virtual bool setDefaultRealFloat(float newRealValue, bool updateValue) = 0;
+
+    /// Get **normalised** parameter value as float.  Values range from 0.0
+    /// to 1.0.  Subclasses must override this method.
+    ///
+    /// @return current value (between 0.0 and 1.0)
+    ///
     virtual float getFloat() = 0;
-    virtual bool setFloat(float fValue) = 0;
 
+    /// Set **normalised** parameter value from float.  The new value
+    /// must be in the range from 0.0 to 1.0.  Subclasses must
+    /// override this method.
+    ///
+    /// @param newValue new value (between 0.0 and 1.0)
+    ///
+    /// @return **true** if update was successful, **false** otherwise
+    ///
+    virtual bool setFloat(float newValue) = 0;
+
+    /// Get **real** parameter value as float.  Values range from the
+    /// parameter's minimum value to its maximum value.  Subclasses
+    /// must override this method.
+    ///
+    /// @return current value
+    ///
     virtual float getRealFloat() = 0;
-    virtual bool setRealFloat(float fRealValue) = 0;
 
+    /// Set **real** parameter value from float.  The new value must
+    /// be in the defined range of the parameter's values.  Subclasses
+    /// must override this method.
+    ///
+    /// @param newRealValue new value
+    ///
+    /// @return **true** if update was successful, **false** otherwise
+    ///
+    virtual bool setRealFloat(float newRealValue) = 0;
+
+    /// Get parameter value as Boolean.  Subclasses must override this
+    /// method.
+    ///
+    /// @return current value
+    ///
     virtual bool getBoolean() = 0;
-    virtual bool setBoolean(bool bValue) = 0;
 
+    /// Set parameter value from Boolean.  Subclasses must override
+    /// this method.
+    ///
+    /// @param newValue new value
+    ///
+    /// @return **true** if update was successful, **false** otherwise
+    ///
+    virtual bool setBoolean(bool newValue) = 0;
+
+    /// Get **real** parameter value as integer.  Values range from
+    /// the parameter's minimum value to its maximum value.
+    /// Subclasses must override this method.
+    ///
+    /// @return current value
+    ///
     virtual int getRealInteger() = 0;
-    virtual bool setRealInteger(int nRealValue) = 0;
 
+    /// Set **real** parameter value from integer.  The new value must
+    /// be in the defined range of the parameter's values.  Subclasses
+    /// must override this method.
+    ///
+    /// @param newRealValue new value
+    ///
+    /// @return **true** if update was successful, **false** otherwise
+    ///
+    virtual bool setRealInteger(int newRealValue) = 0;
+
+    /// Get parameter value as formatted string.  Subclasses must
+    /// override this method.
+    ///
+    /// @return current value
+    ///
     virtual String getText() = 0;
-    virtual bool setText(const String &strText) = 0;
 
+    /// Set parameter value from (correctly) formatted string.
+    /// Subclasses must override this method.
+    ///
+    /// @param newValue new value as formatted string
+    ///
+    /// @return **true** if update was successful, **false** otherwise
+    ///
+    virtual bool setText(const String &newValue) = 0;
+
+    /// Get parameter's change flag.  Determines whether the parameter
+    /// has changed since the last time the change flag was reset.
+    /// Subclasses must override this method.
+    ///
+    /// @return change flag
+    ///
     virtual bool hasChanged() = 0;
+
+    /// Mark parameter as unchanged.  Subclasses must override this
+    /// method.
+    ///
     virtual void clearChangeFlag() = 0;
-    virtual void setChangeFlag() = 0;
 
-    virtual float getFloatFromText(const String &strText) = 0;
-    virtual String getTextFromFloat(float fValue) = 0;
-
+    /// Should parameter be spared from deletion in destructor of
+    /// ParameterJuggler?
+    ///
+    /// Sorry, I know this sort of method is *really* ugly, but I
+    /// currently see no other way to implement
+    /// PluginParameterCombined.  Subclasses must override this
+    /// method.
+    ///
+    /// @return true if parameter should be spare, false otherwise
+    ///
     virtual bool saveFromDeletion() = 0;
 
+    /// Load parameter value from XML.  Subclasses must override this
+    /// method.
+    ///
+    /// @param xml XML element to load from
+    ///
     virtual void loadFromXml(XmlElement *xml) = 0;
+
+    /// Store parameter value as XML.  Subclasses must override this
+    /// method.
+    ///
+    /// @param xml XML element to store in
+    ///
     virtual void storeAsXml(XmlElement *xml) = 0;
 
+    /// Round given value to nearest integer.  Will always round
+    /// **away** from zero!
+    ///
+    /// @param x value to be rounded
+    ///
+    /// @return rounded value
+    ///
     inline static int round_mz(float x)
     {
-        x += (x >= 0.0f) ? 0.5f : -0.5f;
+        // value is greater than (or exactly) zero
+        if (x >= 0.0f)
+        {
+            // round away from zero by adding 0.5
+            x += 0.5f;
+        }
+        // value is below zero
+        else
+        {
+            // round away from zero by substracting 0.5
+            x -= 0.5f;
+        }
+
+        // remove remainder and return it
         return (int) x;
     }
 protected:
+    /// Empty constructor.  Only defined for the sake of
+    /// completeness...
+    ///
     PluginParameter() {}
 };
 

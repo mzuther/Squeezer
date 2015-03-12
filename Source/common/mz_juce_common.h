@@ -32,9 +32,39 @@
 class MZ_Juce_Common
 {
 public:
+    /// Get version number of common classes.
+    ///
+    /// @return version number
+    ///
     static String getVersion()
     {
         return "1.4.0";
+    }
+
+    /// Round given value to nearest integer.  Will always round
+    /// **away** from zero!
+    ///
+    /// @param x value to be rounded
+    ///
+    /// @return rounded value
+    ///
+    static int round_mz(float x)
+    {
+        // value is greater than (or exactly) zero
+        if (x >= 0.0f)
+        {
+            // round away from zero by adding 0.5
+            x += 0.5f;
+        }
+        // value is below zero
+        else
+        {
+            // round away from zero by substracting 0.5
+            x -= 0.5f;
+        }
+
+        // remove remainder and return it
+        return (int) x;
     }
 
 private:

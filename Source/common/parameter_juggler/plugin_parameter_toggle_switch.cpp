@@ -61,12 +61,6 @@ void PluginParameterToggleSwitch::setName(const String &strParameterName)
 }
 
 
-float PluginParameterToggleSwitch::getInterval()
-{
-    return 1.0f;
-}
-
-
 void PluginParameterToggleSwitch::toggleState()
 {
     bState = !bState;
@@ -179,18 +173,6 @@ String PluginParameterToggleSwitch::getText()
 bool PluginParameterToggleSwitch::setText(const String &strText)
 {
     return setBoolean(strText.compare(strStateOn) == 0);
-}
-
-
-float PluginParameterToggleSwitch::getFloatFromText(const String &strText)
-{
-    return (strText.compare(strStateOn) == 0) ? 1.0f : 0.0f;
-}
-
-
-String PluginParameterToggleSwitch::getTextFromFloat(float fValue)
-{
-    return (fValue == 0.0f) ? strStateOff : strStateOn;
 }
 
 

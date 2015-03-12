@@ -72,7 +72,6 @@ public:
 
     bool hasChanged();
     void clearChangeFlag();
-    void setChangeFlag();
 
     bool saveFromDeletion();
 
@@ -80,6 +79,8 @@ public:
     void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(PluginParameterContinuous);
+
+    void setChangeFlag();
 
     float toRealFloat(float fValue);
     float toInternalFloat(float fRealValue);

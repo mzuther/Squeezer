@@ -56,8 +56,6 @@ public:
     String getName(int nIndex);
     void setName(int nIndex, const String &strParameterName);
 
-    float getInterval(int nIndex);
-
     float getDefaultFloat(int nIndex);
     float getDefaultRealFloat(int nIndex);
     bool getDefaultBoolean(int nIndex);
@@ -81,10 +79,6 @@ public:
 
     bool hasChanged(int nIndex);
     void clearChangeFlag(int nIndex);
-    void setChangeFlag(int nIndex);
-
-    float getFloatFromText(int nIndex, const String &strText);
-    String getTextFromFloat(int nIndex, float fValue);
 
     void loadFromXml(XmlElement *xml);
     XmlElement storeAsXml();

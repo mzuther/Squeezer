@@ -72,7 +72,6 @@ public:
 
     bool hasChanged();
     void clearChangeFlag();
-    void setChangeFlag();
 
     bool saveFromDeletion();
 
@@ -80,6 +79,8 @@ public:
     void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(PluginParameterSwitch);
+
+    void setChangeFlag();
 
     String strName;
     String strAttribute;

@@ -416,12 +416,6 @@ void SqueezerAudioProcessor::clearChangeFlag(int nIndex)
 }
 
 
-void SqueezerAudioProcessor::setChangeFlag(int nIndex)
-{
-    pluginParameters.setChangeFlag(nIndex);
-}
-
-
 bool SqueezerAudioProcessor::hasChanged(int nIndex)
 {
     return pluginParameters.hasChanged(nIndex);

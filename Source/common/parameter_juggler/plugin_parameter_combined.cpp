@@ -30,16 +30,12 @@ PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_
     paramModeSwitch("Discrete", "Continuous", true),
     paramSwitch(true),
     paramContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places, true)
-
 {
     strName = String::empty;
     strAttribute = String::empty;
 
     bUseConstants = true;
     paramModeSwitch.setBoolean(bUseConstants);
-
-    setChangeFlag();
-    setChangeFlagMode();
 }
 
 
@@ -92,9 +88,6 @@ bool PluginParameterCombined::toggleMode()
 {
     paramModeSwitch.toggleState();
     bUseConstants = paramModeSwitch.getBoolean();
-
-    setChangeFlag();
-    setChangeFlagMode();
 
     if (bUseConstants)
     {
@@ -375,31 +368,6 @@ void PluginParameterCombined::clearChangeFlag()
 {
     paramSwitch.clearChangeFlag();
     paramContinuous.clearChangeFlag();
-}
-
-
-void PluginParameterCombined::setChangeFlag()
-{
-    paramSwitch.setChangeFlag();
-    paramContinuous.setChangeFlag();
-}
-
-
-bool PluginParameterCombined::hasChangedMode()
-{
-    return bChangedMode;
-}
-
-
-void PluginParameterCombined::clearChangeFlagMode()
-{
-    bChangedMode = false;
-}
-
-
-void PluginParameterCombined::setChangeFlagMode()
-{
-    bChangedMode = true;
 }
 
 

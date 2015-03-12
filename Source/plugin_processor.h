@@ -61,7 +61,6 @@ public:
     void setParameter(int nIndex, float fValue);
 
     void clearChangeFlag(int nIndex);
-    void setChangeFlag(int nIndex);
     bool hasChanged(int nIndex);
     void updateParameters(bool bIncludeHiddenParameters);
 

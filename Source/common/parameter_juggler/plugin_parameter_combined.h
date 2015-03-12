@@ -80,11 +80,6 @@ public:
 
     bool hasChanged();
     void clearChangeFlag();
-    void setChangeFlag();
-
-    bool hasChangedMode();
-    void clearChangeFlagMode();
-    void setChangeFlagMode();
 
     bool saveFromDeletion();
 
@@ -97,7 +92,6 @@ private:
     String strAttribute;
 
     bool bUseConstants;
-    bool bChangedMode;
 
     PluginParameterToggleSwitch paramModeSwitch;
     PluginParameterSwitch paramSwitch;
