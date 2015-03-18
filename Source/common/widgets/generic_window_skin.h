@@ -28,6 +28,11 @@
 
 #include "JuceHeader.h"
 
+
+/// List box model that lists all available GUI skins.
+///
+/// @see GenericWindowSkin
+///
 class GenericSkinListBoxModel : public ListBoxModel
 {
 public:
@@ -53,6 +58,10 @@ private:
 };
 
 
+/// Dialog window for selecting a GUI skin.
+///
+/// @see GenericSkinListBoxModel
+///
 class GenericWindowSkin : public DocumentWindow, ButtonListener
 {
 public:

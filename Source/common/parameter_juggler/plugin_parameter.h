@@ -29,27 +29,67 @@
 #include "JuceHeader.h"
 
 
-//==============================================================================
-/**
-*/
+/// Common base class for plug-in parameters.
+///
 class PluginParameter
 {
 public:
+    /// Empty constructor.  Only defined for the sake of
+    /// completeness...
+    ///
+    PluginParameter()
+    {
+        parameterName = String::empty;
+        xmlTagName = String::empty;
+    }
+
     /// Empty destructor.
     ///
     virtual ~PluginParameter() {}
 
-    /// Get parameter's name.  Subclasses must override this method.
+    /// Get parameter's name.
     ///
     /// @return parameter name
     ///
-    virtual String getName() = 0;
+    String getName()
+    {
+        return parameterName;
+    }
 
-    /// Set parameter's name.  Subclasses must override this method.
+    /// Set parameter's name.
     ///
     /// @param newParameterName new parameter name
     ///
-    virtual void setName(const String &newParameterName) = 0;
+    void setName(const String &newParameterName)
+    {
+        // set new parameter name
+        parameterName = newParameterName;
+
+        // trim leading and trailing white space
+        parameterName = parameterName.trim();
+
+        // set xml tag name from parameter name
+        xmlTagName = parameterName;
+
+        // convert tag name to lower case
+        xmlTagName = xmlTagName.toLowerCase();
+
+        // strip all characters except a-z, space and underscore
+        xmlTagName = xmlTagName.retainCharacters(
+                         "abcdefghijklmnopqrstuvwxyz _");
+
+        // change all spaces to underscores
+        xmlTagName = xmlTagName.replace(" ", "_");
+    }
+
+    /// Get parameter's XML tag name.
+    ///
+    /// @return XML tag name
+    ///
+    String getTagName()
+    {
+        return xmlTagName;
+    }
 
     /// Get **normalised** default value as float.  Values range from
     /// 0.0 to 1.0.  Subclasses must override this method.
@@ -243,11 +283,10 @@ public:
         // remove remainder and return it
         return (int) x;
     }
-protected:
-    /// Empty constructor.  Only defined for the sake of
-    /// completeness...
-    ///
-    PluginParameter() {}
+
+private:
+    String parameterName;
+    String xmlTagName;
 };
 
 

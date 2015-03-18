@@ -31,9 +31,6 @@ PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_
     paramSwitch(true),
     paramContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places, true)
 {
-    strName = String::empty;
-    strAttribute = String::empty;
-
     bUseConstants = true;
     paramModeSwitch.setBoolean(bUseConstants);
 }
@@ -44,18 +41,12 @@ PluginParameterCombined::~PluginParameterCombined()
 }
 
 
-String PluginParameterCombined::getName()
-{
-    return strName;
-}
-
-
 void PluginParameterCombined::setName(const String &strParameterName)
 {
-    strName = strParameterName;
-    strAttribute = strName.removeCharacters(" ");
+    // call base class method
+    PluginParameter::setName(strParameterName);
 
-    paramModeSwitch.setName(strName + " Mode");
+    paramModeSwitch.setName(strParameterName + " Mode");
 }
 
 
@@ -379,7 +370,7 @@ bool PluginParameterCombined::saveFromDeletion()
 
 void PluginParameterCombined::loadFromXml(XmlElement *xml)
 {
-    XmlElement *xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(getTagName());
 
     if (xml_element)
     {
@@ -412,7 +403,7 @@ void PluginParameterCombined::loadFromXml(XmlElement *xml)
 
 void PluginParameterCombined::storeAsXml(XmlElement *xml)
 {
-    XmlElement *xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(getTagName());
 
     if (xml_element)
     {

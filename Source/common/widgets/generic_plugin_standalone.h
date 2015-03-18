@@ -29,6 +29,11 @@
 #include "JuceHeader.h"
 #include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
 
+
+/// Stand-alone application for audio plug-ins.  When an instance of
+/// this class is created, the plug-in is instantiated and its GUI
+/// opened.
+///
 class GenericPluginStandalone : public JUCEApplication
 {
 public:

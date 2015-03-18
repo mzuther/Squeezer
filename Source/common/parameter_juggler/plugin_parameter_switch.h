@@ -39,9 +39,6 @@ public:
     PluginParameterSwitch(bool save_from_deletion = false);
     ~PluginParameterSwitch();
 
-    String getName();
-    void setName(const String &strParameterName);
-
     void addConstant(const float fRealValue, const String &strText);
     float getInterval();
 
@@ -81,9 +78,6 @@ private:
     JUCE_LEAK_DETECTOR(PluginParameterSwitch);
 
     void setChangeFlag();
-
-    String strName;
-    String strAttribute;
 
     float fDefaultRealValue;
     int nCurrentIndex;

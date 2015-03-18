@@ -39,9 +39,6 @@ public:
     PluginParameterString(const String &strText);
     ~PluginParameterString();
 
-    String getName();
-    void setName(const String &strParameterName);
-
     float getDefaultFloat();
     float getDefaultRealFloat();
     bool getDefaultBoolean();
@@ -74,9 +71,6 @@ private:
     JUCE_LEAK_DETECTOR(PluginParameterString);
 
     void setChangeFlag();
-
-    String strName;
-    String strAttribute;
 
     String strValue;
     bool bChangedValue;

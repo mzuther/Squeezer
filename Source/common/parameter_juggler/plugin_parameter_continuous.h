@@ -39,9 +39,6 @@ public:
     PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion = false);
     ~PluginParameterContinuous();
 
-    String getName();
-    void setName(const String &strParameterName);
-
     float getInterval();
 
     float getDefaultFloat();
@@ -85,8 +82,6 @@ private:
     float toRealFloat(float fValue);
     float toInternalFloat(float fRealValue);
 
-    String strName;
-    String strAttribute;
     String strSuffix;
 
     float fDefaultRealValue;

@@ -28,9 +28,6 @@
 
 PluginParameterSwitch::PluginParameterSwitch(bool save_from_deletion)
 {
-    strName = String::empty;
-    strAttribute = String::empty;
-
     nCurrentIndex = -1;
     fDefaultRealValue = -1.0f;
     fValueInternal = fDefaultRealValue;
@@ -44,19 +41,6 @@ PluginParameterSwitch::PluginParameterSwitch(bool save_from_deletion)
 
 PluginParameterSwitch::~PluginParameterSwitch()
 {
-}
-
-
-String PluginParameterSwitch::getName()
-{
-    return strName;
-}
-
-
-void PluginParameterSwitch::setName(const String &strParameterName)
-{
-    strName = strParameterName;
-    strAttribute = strName.removeCharacters(" ");
 }
 
 
@@ -85,7 +69,7 @@ float PluginParameterSwitch::getDefaultFloat()
 
     if (nIndex < 0)
     {
-        DBG("[Juggler] default value for \"" + strName + "\" not found.");
+        DBG("[Juggler] default value for \"" + getName() + "\" not found.");
         return -1.0f;
     }
     else
@@ -119,7 +103,7 @@ bool PluginParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateVal
 
     if (nIndex < 0)
     {
-        DBG("[Juggler] new default value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] new default value \"" + String(fRealValue) + "\" not found in \"" + getName() + "\".");
         return false;
     }
     else
@@ -146,7 +130,7 @@ bool PluginParameterSwitch::setFloat(float fValue)
 {
     if ((fValue < 0.0f) || (fValue > 1.0f))
     {
-        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + getName() + "\".");
         return false;
     }
     else
@@ -179,7 +163,7 @@ bool PluginParameterSwitch::setRealFloat(float fRealValue)
 
     if (nIndex < 0)
     {
-        DBG("[Juggler] value \"" + String(fRealValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] value \"" + String(fRealValue) + "\" not found in \"" + getName() + "\".");
         return false;
     }
     else
@@ -254,7 +238,7 @@ bool PluginParameterSwitch::setText(const String &strText)
 
     if (nIndex < 0)
     {
-        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + getName() + "\".");
         return false;
     }
     else
@@ -278,7 +262,7 @@ float PluginParameterSwitch::getFloatFromText(const String &strText)
 
     if (nIndex < 0)
     {
-        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + getName() + "\".");
         return -1.0f;
     }
     else
@@ -292,7 +276,7 @@ String PluginParameterSwitch::getTextFromFloat(float fValue)
 {
     if ((fValue < 0.0f) || (fValue > 1.0f))
     {
-        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + strName + "\".");
+        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + getName() + "\".");
         return "not found";
     }
     else
@@ -329,7 +313,7 @@ bool PluginParameterSwitch::saveFromDeletion()
 
 void PluginParameterSwitch::loadFromXml(XmlElement *xml)
 {
-    XmlElement *xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(getTagName());
 
     if (xml_element)
     {
@@ -360,7 +344,7 @@ void PluginParameterSwitch::loadFromXml(XmlElement *xml)
 
 void PluginParameterSwitch::storeAsXml(XmlElement *xml)
 {
-    XmlElement *xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(getTagName());
 
     if (xml_element)
     {

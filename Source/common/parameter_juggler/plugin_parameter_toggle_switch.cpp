@@ -28,9 +28,6 @@
 
 PluginParameterToggleSwitch::PluginParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion)
 {
-    strName = String::empty;
-    strAttribute = String::empty;
-
     strStateOn = state_on;
     strStateOff = state_off;
 
@@ -45,19 +42,6 @@ PluginParameterToggleSwitch::PluginParameterToggleSwitch(const String &state_on,
 
 PluginParameterToggleSwitch::~PluginParameterToggleSwitch()
 {
-}
-
-
-String PluginParameterToggleSwitch::getName()
-{
-    return strName;
-}
-
-
-void PluginParameterToggleSwitch::setName(const String &strParameterName)
-{
-    strName = strParameterName;
-    strAttribute = strName.removeCharacters(" ");
 }
 
 
@@ -202,7 +186,7 @@ bool PluginParameterToggleSwitch::saveFromDeletion()
 
 void PluginParameterToggleSwitch::loadFromXml(XmlElement *xml)
 {
-    XmlElement *xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(getTagName());
 
     if (xml_element)
     {
@@ -233,7 +217,7 @@ void PluginParameterToggleSwitch::loadFromXml(XmlElement *xml)
 
 void PluginParameterToggleSwitch::storeAsXml(XmlElement *xml)
 {
-    XmlElement *xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(getTagName());
 
     if (xml_element)
     {

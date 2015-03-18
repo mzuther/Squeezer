@@ -28,9 +28,6 @@
 
 PluginParameterString::PluginParameterString(const String &strText)
 {
-    strName = String::empty;
-    strAttribute = String::empty;
-
     strValue = strText;
     setChangeFlag();
 }
@@ -38,19 +35,6 @@ PluginParameterString::PluginParameterString(const String &strText)
 
 PluginParameterString::~PluginParameterString()
 {
-}
-
-
-String PluginParameterString::getName()
-{
-    return strName;
-}
-
-
-void PluginParameterString::setName(const String &strParameterName)
-{
-    strName = strParameterName;
-    strAttribute = strName.removeCharacters(" ");
 }
 
 
@@ -173,7 +157,7 @@ bool PluginParameterString::saveFromDeletion()
 
 void PluginParameterString::loadFromXml(XmlElement *xml)
 {
-    XmlElement *xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(getTagName());
 
     if (xml_element)
     {
@@ -187,7 +171,7 @@ void PluginParameterString::loadFromXml(XmlElement *xml)
 
 void PluginParameterString::storeAsXml(XmlElement *xml)
 {
-    XmlElement *xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(getTagName());
 
     if (xml_element)
     {

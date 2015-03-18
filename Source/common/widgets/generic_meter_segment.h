@@ -29,9 +29,13 @@
 #include "JuceHeader.h"
 
 
-//==============================================================================
-/**
-*/
+/// Meter segment component.  This widget consists of a coloured
+/// filled rectangle (meter segment) surrounded by a small coloured
+/// rectangle (peak marker).  Both rectangles react to level changes
+/// with a change in colour or visibility.
+///
+/// @see GenericMeterBar
+///
 class GenericMeterSegment : public Component
 {
 public:

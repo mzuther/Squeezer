@@ -30,6 +30,9 @@
 #include "resources/resources.h"
 
 
+/// Dialog window for displaying version, copyright, license and so
+/// on.
+///
 class GenericWindowAbout : public DocumentWindow, ButtonListener
 {
 public:

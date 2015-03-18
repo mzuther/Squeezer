@@ -28,8 +28,6 @@
 
 PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion)
 {
-    strName = String::empty;
-    strAttribute = String::empty;
     strSuffix = String::empty;
 
     fRealMinimum = real_minimum;
@@ -62,19 +60,6 @@ PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float r
 
 PluginParameterContinuous::~PluginParameterContinuous()
 {
-}
-
-
-String PluginParameterContinuous::getName()
-{
-    return strName;
-}
-
-
-void PluginParameterContinuous::setName(const String &strParameterName)
-{
-    strName = strParameterName;
-    strAttribute = strName.removeCharacters(" ");
 }
 
 
@@ -138,13 +123,13 @@ bool PluginParameterContinuous::setDefaultRealFloat(float fRealValue, bool updat
 
     if (fRealValue < fRealMinimum)
     {
-        DBG("[Juggler] default value for \"" + strName + "\" set to minimum.");
+        DBG("[Juggler] default value for \"" + getName() + "\" set to minimum.");
         fDefaultRealValue = fRealMinimum;
         bReturn = false;
     }
     else if (fRealValue > fRealMaximum)
     {
-        DBG("[Juggler] default value for \"" + strName + "\" set to maximum.");
+        DBG("[Juggler] default value for \"" + getName() + "\" set to maximum.");
         fDefaultRealValue = fRealMaximum;
         bReturn = false;
     }
@@ -176,13 +161,13 @@ bool PluginParameterContinuous::setFloat(float fValue)
 
     if (fValue < 0.0f)
     {
-        DBG("[Juggler] value for \"" + strName + "\" set to minimum.");
+        DBG("[Juggler] value for \"" + getName() + "\" set to minimum.");
         fValueInternal = 0.0f;
         bReturn = false;
     }
     else if (fValue > 1.0f)
     {
-        DBG("[Juggler] value for \"" + strName + "\" set to maximum.");
+        DBG("[Juggler] value for \"" + getName() + "\" set to maximum.");
         fValueInternal = 1.0f;
         bReturn = false;
     }
@@ -325,7 +310,7 @@ bool PluginParameterContinuous::saveFromDeletion()
 
 void PluginParameterContinuous::loadFromXml(XmlElement *xml)
 {
-    XmlElement *xml_element = xml->getChildByName(strAttribute);
+    XmlElement *xml_element = xml->getChildByName(getTagName());
 
     if (xml_element)
     {
@@ -356,7 +341,7 @@ void PluginParameterContinuous::loadFromXml(XmlElement *xml)
 
 void PluginParameterContinuous::storeAsXml(XmlElement *xml)
 {
-    XmlElement *xml_element = new XmlElement(strAttribute);
+    XmlElement *xml_element = new XmlElement(getTagName());
 
     if (xml_element)
     {

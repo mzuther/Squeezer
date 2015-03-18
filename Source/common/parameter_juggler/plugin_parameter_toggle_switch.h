@@ -39,9 +39,6 @@ public:
     PluginParameterToggleSwitch(const String &state_on, const String &state_off, bool save_from_deletion = false);
     ~PluginParameterToggleSwitch();
 
-    String getName();
-    void setName(const String &strParameterName);
-
     void toggleState();
 
     float getDefaultFloat();
@@ -78,8 +75,6 @@ private:
 
     void setChangeFlag();
 
-    String strName;
-    String strAttribute;
     String strStateOn;
     String strStateOff;
 

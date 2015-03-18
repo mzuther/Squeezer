@@ -29,6 +29,8 @@
 #include "JuceHeader.h"
 
 
+/// Simple class for version info and common functions.
+///
 class MZ_Juce_Common
 {
 public:

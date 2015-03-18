@@ -42,7 +42,6 @@ public:
     PluginParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
     ~PluginParameterCombined();
 
-    String getName();
     void setName(const String &strParameterName);
 
     bool getMode();
@@ -87,9 +86,6 @@ public:
     void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(PluginParameterCombined);
-
-    String strName;
-    String strAttribute;
 
     bool bUseConstants;
 
