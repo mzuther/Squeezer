@@ -54,25 +54,13 @@ void PluginParameterToggleSwitch::toggleState()
 
 float PluginParameterToggleSwitch::getDefaultFloat()
 {
-    return bDefaultState ? 1.0f : 0.0f;
+    return getDefaultRealFloat();
 }
 
 
 float PluginParameterToggleSwitch::getDefaultRealFloat()
 {
     return bDefaultState ? 1.0f : 0.0f;
-}
-
-
-bool PluginParameterToggleSwitch::getDefaultBoolean()
-{
-    return bDefaultState;
-}
-
-
-int PluginParameterToggleSwitch::getDefaultRealInteger()
-{
-    return bDefaultState ? 1 : 0;
 }
 
 
@@ -91,7 +79,9 @@ bool PluginParameterToggleSwitch::setDefaultBoolean(bool bValue, bool updateValu
 
 bool PluginParameterToggleSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
-    return setDefaultBoolean((fRealValue != 0.0f), updateValue);
+    bool bValue = (fRealValue != 0.0f);
+
+    return setDefaultBoolean(bValue, updateValue);
 }
 
 

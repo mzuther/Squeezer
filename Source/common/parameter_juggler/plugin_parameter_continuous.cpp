@@ -105,18 +105,6 @@ float PluginParameterContinuous::getDefaultRealFloat()
 }
 
 
-bool PluginParameterContinuous::getDefaultBoolean()
-{
-    return getDefaultRealFloat() != 0.0f;
-}
-
-
-int PluginParameterContinuous::getDefaultRealInteger()
-{
-    return round_mz(getDefaultRealFloat());
-}
-
-
 bool PluginParameterContinuous::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
     bool bReturn;

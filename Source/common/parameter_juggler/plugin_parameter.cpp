@@ -26,8 +26,7 @@
 #include "plugin_parameter.h"
 
 
-/// Empty constructor.  Only defined for the sake of
-/// completeness...
+/// Constructor.
 ///
 PluginParameter::PluginParameter()
 {
@@ -36,7 +35,7 @@ PluginParameter::PluginParameter()
 }
 
 
-/// Empty destructor.
+/// Destructor.
 ///
 PluginParameter::~PluginParameter()
 {
@@ -90,6 +89,30 @@ String PluginParameter::getTagName()
 }
 
 
+/// Get default value as Boolean.
+///
+/// @return default value
+///
+bool PluginParameter::getDefaultBoolean()
+{
+    return getDefaultRealFloat() != 0.0f;
+}
+
+
+/// Get **real** default value as integer.  Values range from the
+/// parameter's (rounded) minimum value to its (rounded) maximum
+/// value.
+///
+/// @return default value
+///
+int PluginParameter::getDefaultRealInteger()
+{
+    return round_mz(getDefaultRealFloat());
+}
+
+
+
+
 /// Get parameter value as Boolean.
 ///
 /// @return current value
@@ -124,8 +147,8 @@ int PluginParameter::getRealInteger()
 }
 
 
-/// Set **real** parameter value from integer.  The new value must
-/// be in the defined range of the parameter's values.
+/// Set **real** parameter value from integer.  The new value must be
+/// in the defined range of the parameter's values.
 ///
 /// @param newRealValue new value
 ///
@@ -197,8 +220,8 @@ void PluginParameter::storeAsXml(XmlElement *xml)
 }
 
 
-/// Round given value to nearest integer.  Will always round
-/// **away** from zero!
+/// Round given value to nearest integer.  Will always round **away**
+/// from zero!
 ///
 /// @param x value to be rounded
 ///

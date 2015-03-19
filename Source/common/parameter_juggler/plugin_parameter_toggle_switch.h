@@ -43,8 +43,6 @@ public:
 
     virtual float getDefaultFloat() override;
     virtual float getDefaultRealFloat() override;
-    virtual bool getDefaultBoolean() override;
-    virtual int getDefaultRealInteger() override;
     bool setDefaultBoolean(bool bValue, bool updateValue);
     virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
 

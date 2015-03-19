@@ -40,25 +40,13 @@ PluginParameterString::~PluginParameterString()
 
 float PluginParameterString::getDefaultFloat()
 {
-    return 0.0f;
+    return getDefaultRealFloat();
 }
 
 
 float PluginParameterString::getDefaultRealFloat()
 {
     return 0.0f;
-}
-
-
-bool PluginParameterString::getDefaultBoolean()
-{
-    return false;
-}
-
-
-int PluginParameterString::getDefaultRealInteger()
-{
-    return 0;
 }
 
 

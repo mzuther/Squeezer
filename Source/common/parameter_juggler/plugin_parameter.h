@@ -56,20 +56,8 @@ public:
     ///
     virtual float getDefaultRealFloat() = 0;
 
-    /// Get default value as Boolean.  Subclasses must override this
-    /// method.
-    ///
-    /// @return default value
-    ///
-    virtual bool getDefaultBoolean() = 0;
-
-    /// Get **real** default value as integer.  Values range from the
-    /// parameter's minimum value to its maximum value.  Subclasses
-    /// must override this method.
-    ///
-    /// @return default value
-    ///
-    virtual int getDefaultRealInteger() = 0;
+    virtual bool getDefaultBoolean();
+    virtual int getDefaultRealInteger();
 
     /// Set **real** default value from float.  The new value must be
     /// in the defined range of the parameter's values.  Subclasses

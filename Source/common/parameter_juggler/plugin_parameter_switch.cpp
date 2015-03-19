@@ -85,18 +85,6 @@ float PluginParameterSwitch::getDefaultRealFloat()
 }
 
 
-bool PluginParameterSwitch::getDefaultBoolean()
-{
-    return getDefaultRealFloat() != 0.0f;
-}
-
-
-int PluginParameterSwitch::getDefaultRealInteger()
-{
-    return round_mz(getDefaultRealFloat());
-}
-
-
 bool PluginParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
 {
     int nIndex = fRealValues.indexOf(fRealValue);
