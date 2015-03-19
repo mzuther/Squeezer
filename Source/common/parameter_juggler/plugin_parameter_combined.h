@@ -42,7 +42,7 @@ public:
     PluginParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
     ~PluginParameterCombined();
 
-    void setName(const String &strParameterName);
+    virtual void setName(const String &strParameterName) override;
 
     bool getMode();
     bool setMode(bool use_constants);
@@ -52,38 +52,42 @@ public:
     void addConstant(const float fRealValue, const String &strText);
     float getInterval();
 
-    float getDefaultFloat();
-    float getDefaultRealFloat();
-    bool getDefaultBoolean();
-    int getDefaultRealInteger();
-    bool setDefaultRealFloat(float fRealValue, bool updateValue);
+    virtual float getDefaultFloat() override;
+    virtual float getDefaultRealFloat() override;
+    virtual bool getDefaultBoolean() override;
+    virtual int getDefaultRealInteger() override;
+    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
 
-    float getFloat();
-    bool setFloat(float fValue);
+    virtual float getFloat() override;
+    virtual bool setFloat(float fValue) override;
 
-    float getRealFloat();
-    bool setRealFloat(float fRealValue);
+    virtual float getRealFloat() override;
+    virtual bool setRealFloat(float fRealValue) override;
 
-    bool getBoolean();
-    bool setBoolean(bool bValue);
+    virtual bool getBoolean() override;
+    virtual bool setBoolean(bool bValue) override;
 
-    int getRealInteger();
-    bool setRealInteger(int nRealValue);
+    virtual int getRealInteger() override;
+    virtual bool setRealInteger(int nRealValue) override;
 
-    String getText();
-    bool setText(const String &strText);
+    virtual String getText() override;
+    virtual bool setText(const String &strText) override;
     void setSuffix(const String &suffix);
 
     float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
 
-    bool hasChanged();
-    void clearChangeFlag();
+    virtual bool hasChanged() override;
+    virtual void clearChangeFlag() override;
 
-    bool saveFromDeletion();
+    virtual bool saveFromDeletion() override;
 
-    void loadFromXml(XmlElement *xml);
-    void storeAsXml(XmlElement *xml);
+    virtual void loadFromXml(XmlElement *xml) override;
+    virtual void storeAsXml(XmlElement *xml) override;
+
+protected:
+    virtual void setChangeFlag() override;
+
 private:
     JUCE_LEAK_DETECTOR(PluginParameterCombined);
 

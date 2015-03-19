@@ -362,6 +362,12 @@ void PluginParameterCombined::clearChangeFlag()
 }
 
 
+void PluginParameterCombined::setChangeFlag()
+{
+    jassert(false);
+}
+
+
 bool PluginParameterCombined::saveFromDeletion()
 {
     return false;
@@ -375,28 +381,10 @@ void PluginParameterCombined::loadFromXml(XmlElement *xml)
     if (xml_element)
     {
         bool useConstants = xml_element->getBoolAttribute("use_constants", true);
-        float fRealValue;
-
-        if (xml_element->hasAttribute("value"))
-        {
-            fRealValue = (float) xml_element->getDoubleAttribute("value", getDefaultRealFloat());
-        }
-        else
-        {
-            String strRealValue = xml_element->getAllSubText().trim();
-
-            if (strRealValue.isEmpty())
-            {
-                fRealValue = getDefaultRealFloat();
-            }
-            else
-            {
-                fRealValue = strRealValue.getFloatValue();
-            }
-        }
-
         setMode(useConstants);
-        setRealFloat(fRealValue);
+
+        double realValue = xml_element->getDoubleAttribute("value", getDefaultRealFloat());
+        setRealFloat((float) realValue);
     }
 }
 
@@ -407,10 +395,10 @@ void PluginParameterCombined::storeAsXml(XmlElement *xml)
 
     if (xml_element)
     {
-        float fRealValue = getRealFloat();
-
         xml_element->setAttribute("use_constants", bUseConstants ? "true" : "false");
-        xml_element->setAttribute("value", fRealValue);
+
+        float realValue = getRealFloat();
+        xml_element->setAttribute("value", realValue);
         xml->addChildElement(xml_element);
     }
 }

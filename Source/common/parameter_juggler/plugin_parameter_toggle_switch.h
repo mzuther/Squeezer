@@ -41,39 +41,26 @@ public:
 
     void toggleState();
 
-    float getDefaultFloat();
-    float getDefaultRealFloat();
-    bool getDefaultBoolean();
-    int getDefaultRealInteger();
+    virtual float getDefaultFloat() override;
+    virtual float getDefaultRealFloat() override;
+    virtual bool getDefaultBoolean() override;
+    virtual int getDefaultRealInteger() override;
     bool setDefaultBoolean(bool bValue, bool updateValue);
-    bool setDefaultRealFloat(float fRealValue, bool updateValue);
+    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
 
-    float getFloat();
-    bool setFloat(float fValue);
+    virtual float getFloat() override;
+    virtual bool setFloat(float fValue) override;
 
-    float getRealFloat();
-    bool setRealFloat(float fRealValue);
+    virtual float getRealFloat() override;
+    virtual bool setRealFloat(float fRealValue) override;
 
-    bool getBoolean();
-    bool setBoolean(bool bValue);
+    virtual String getText() override;
+    virtual bool setText(const String &strText) override;
 
-    int getRealInteger();
-    bool setRealInteger(int nRealValue);
+    virtual bool saveFromDeletion() override;
 
-    String getText();
-    bool setText(const String &strText);
-
-    bool hasChanged();
-    void clearChangeFlag();
-
-    bool saveFromDeletion();
-
-    void loadFromXml(XmlElement *xml);
-    void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(PluginParameterToggleSwitch);
-
-    void setChangeFlag();
 
     String strStateOn;
     String strStateOff;

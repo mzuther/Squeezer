@@ -201,30 +201,6 @@ bool PluginParameterSwitch::setNearestRealFloat(float fRealValue)
 }
 
 
-bool PluginParameterSwitch::getBoolean()
-{
-    return getRealFloat() != 0.0f;
-}
-
-
-bool PluginParameterSwitch::setBoolean(bool bValue)
-{
-    return setRealFloat(bValue ? 1.0f : 0.0f);
-}
-
-
-int PluginParameterSwitch::getRealInteger()
-{
-    return round_mz(getRealFloat());
-}
-
-
-bool PluginParameterSwitch::setRealInteger(int nRealValue)
-{
-    return setRealFloat((float) nRealValue);
-}
-
-
 String PluginParameterSwitch::getText()
 {
     return strValues[nCurrentIndex];
@@ -287,71 +263,9 @@ String PluginParameterSwitch::getTextFromFloat(float fValue)
 }
 
 
-bool PluginParameterSwitch::hasChanged()
-{
-    return bChangedValue;
-}
-
-
-void PluginParameterSwitch::clearChangeFlag()
-{
-    bChangedValue = false;
-}
-
-
-void PluginParameterSwitch::setChangeFlag()
-{
-    bChangedValue = true;
-}
-
-
 bool PluginParameterSwitch::saveFromDeletion()
 {
     return bSaveFromDeletion;
-}
-
-
-void PluginParameterSwitch::loadFromXml(XmlElement *xml)
-{
-    XmlElement *xml_element = xml->getChildByName(getTagName());
-
-    if (xml_element)
-    {
-        float fRealValue;
-
-        if (xml_element->hasAttribute("value"))
-        {
-            fRealValue = (float) xml_element->getDoubleAttribute("value", getDefaultRealFloat());
-        }
-        else
-        {
-            String strRealValue = xml_element->getAllSubText().trim();
-
-            if (strRealValue.isEmpty())
-            {
-                fRealValue = getDefaultRealFloat();
-            }
-            else
-            {
-                fRealValue = strRealValue.getFloatValue();
-            }
-        }
-
-        setRealFloat(fRealValue);
-    }
-}
-
-
-void PluginParameterSwitch::storeAsXml(XmlElement *xml)
-{
-    XmlElement *xml_element = new XmlElement(getTagName());
-
-    if (xml_element)
-    {
-        float fRealValue = getRealFloat();
-        xml_element->setAttribute("value", fRealValue);
-        xml->addChildElement(xml_element);
-    }
 }
 
 

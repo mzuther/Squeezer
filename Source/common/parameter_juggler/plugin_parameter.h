@@ -34,62 +34,12 @@
 class PluginParameter
 {
 public:
-    /// Empty constructor.  Only defined for the sake of
-    /// completeness...
-    ///
-    PluginParameter()
-    {
-        parameterName = String::empty;
-        xmlTagName = String::empty;
-    }
+    PluginParameter();
+    virtual ~PluginParameter();
 
-    /// Empty destructor.
-    ///
-    virtual ~PluginParameter() {}
-
-    /// Get parameter's name.
-    ///
-    /// @return parameter name
-    ///
-    String getName()
-    {
-        return parameterName;
-    }
-
-    /// Set parameter's name.
-    ///
-    /// @param newParameterName new parameter name
-    ///
-    void setName(const String &newParameterName)
-    {
-        // set new parameter name
-        parameterName = newParameterName;
-
-        // trim leading and trailing white space
-        parameterName = parameterName.trim();
-
-        // set xml tag name from parameter name
-        xmlTagName = parameterName;
-
-        // convert tag name to lower case
-        xmlTagName = xmlTagName.toLowerCase();
-
-        // strip all characters except a-z, space and underscore
-        xmlTagName = xmlTagName.retainCharacters(
-                         "abcdefghijklmnopqrstuvwxyz _");
-
-        // change all spaces to underscores
-        xmlTagName = xmlTagName.replace(" ", "_");
-    }
-
-    /// Get parameter's XML tag name.
-    ///
-    /// @return XML tag name
-    ///
-    String getTagName()
-    {
-        return xmlTagName;
-    }
+    virtual String getName();
+    virtual void setName(const String &newParameterName);
+    virtual String getTagName();
 
     /// Get **normalised** default value as float.  Values range from
     /// 0.0 to 1.0.  Subclasses must override this method.
@@ -169,39 +119,11 @@ public:
     ///
     virtual bool setRealFloat(float newRealValue) = 0;
 
-    /// Get parameter value as Boolean.  Subclasses must override this
-    /// method.
-    ///
-    /// @return current value
-    ///
-    virtual bool getBoolean() = 0;
+    virtual bool getBoolean();
+    virtual bool setBoolean(bool newValue);
 
-    /// Set parameter value from Boolean.  Subclasses must override
-    /// this method.
-    ///
-    /// @param newValue new value
-    ///
-    /// @return **true** if update was successful, **false** otherwise
-    ///
-    virtual bool setBoolean(bool newValue) = 0;
-
-    /// Get **real** parameter value as integer.  Values range from
-    /// the parameter's minimum value to its maximum value.
-    /// Subclasses must override this method.
-    ///
-    /// @return current value
-    ///
-    virtual int getRealInteger() = 0;
-
-    /// Set **real** parameter value from integer.  The new value must
-    /// be in the defined range of the parameter's values.  Subclasses
-    /// must override this method.
-    ///
-    /// @param newRealValue new value
-    ///
-    /// @return **true** if update was successful, **false** otherwise
-    ///
-    virtual bool setRealInteger(int newRealValue) = 0;
+    virtual int getRealInteger();
+    virtual bool setRealInteger(int newRealValue);
 
     /// Get parameter value as formatted string.  Subclasses must
     /// override this method.
@@ -219,18 +141,8 @@ public:
     ///
     virtual bool setText(const String &newValue) = 0;
 
-    /// Get parameter's change flag.  Determines whether the parameter
-    /// has changed since the last time the change flag was reset.
-    /// Subclasses must override this method.
-    ///
-    /// @return change flag
-    ///
-    virtual bool hasChanged() = 0;
-
-    /// Mark parameter as unchanged.  Subclasses must override this
-    /// method.
-    ///
-    virtual void clearChangeFlag() = 0;
+    virtual bool hasChanged();
+    virtual void clearChangeFlag();
 
     /// Should parameter be spared from deletion in destructor of
     /// ParameterJuggler?
@@ -244,49 +156,19 @@ public:
     ///
     virtual bool saveFromDeletion() = 0;
 
-    /// Load parameter value from XML.  Subclasses must override this
-    /// method.
-    ///
-    /// @param xml XML element to load from
-    ///
-    virtual void loadFromXml(XmlElement *xml) = 0;
+    virtual void loadFromXml(XmlElement *xml);
+    virtual void storeAsXml(XmlElement *xml);
 
-    /// Store parameter value as XML.  Subclasses must override this
-    /// method.
-    ///
-    /// @param xml XML element to store in
-    ///
-    virtual void storeAsXml(XmlElement *xml) = 0;
+    static int round_mz(float x);
 
-    /// Round given value to nearest integer.  Will always round
-    /// **away** from zero!
-    ///
-    /// @param x value to be rounded
-    ///
-    /// @return rounded value
-    ///
-    inline static int round_mz(float x)
-    {
-        // value is greater than (or exactly) zero
-        if (x >= 0.0f)
-        {
-            // round away from zero by adding 0.5
-            x += 0.5f;
-        }
-        // value is below zero
-        else
-        {
-            // round away from zero by substracting 0.5
-            x -= 0.5f;
-        }
-
-        // remove remainder and return it
-        return (int) x;
-    }
+protected:
+    virtual void setChangeFlag();
 
 private:
     String parameterName;
     String xmlTagName;
+
+    bool valueHasChanged;
 };
 
 

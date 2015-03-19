@@ -82,37 +82,13 @@ bool PluginParameterString::setFloat(float fValue)
 
 float PluginParameterString::getRealFloat()
 {
-    return 0.0f;
+    return getFloat();
 }
 
 
 bool PluginParameterString::setRealFloat(float fRealValue)
 {
-    return false;
-}
-
-
-bool PluginParameterString::getBoolean()
-{
-    return false;
-}
-
-
-bool PluginParameterString::setBoolean(bool bValue)
-{
-    return false;
-}
-
-
-int PluginParameterString::getRealInteger()
-{
-    return 0;
-}
-
-
-bool PluginParameterString::setRealInteger(int nRealValue)
-{
-    return false;
+    return setFloat(fRealValue);
 }
 
 
@@ -131,24 +107,6 @@ bool PluginParameterString::setText(const String &strText)
 }
 
 
-bool PluginParameterString::hasChanged()
-{
-    return bChangedValue;
-}
-
-
-void PluginParameterString::clearChangeFlag()
-{
-    bChangedValue = false;
-}
-
-
-void PluginParameterString::setChangeFlag()
-{
-    bChangedValue = true;
-}
-
-
 bool PluginParameterString::saveFromDeletion()
 {
     return false;
@@ -161,10 +119,7 @@ void PluginParameterString::loadFromXml(XmlElement *xml)
 
     if (xml_element)
     {
-        if (xml_element->hasAttribute("value"))
-        {
-            setText(xml_element->getStringAttribute("value", getText()));
-        }
+        setText(xml_element->getStringAttribute("value", getText()));
     }
 }
 

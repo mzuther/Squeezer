@@ -103,31 +103,9 @@ float PluginParameterToggleSwitch::getFloat()
 
 bool PluginParameterToggleSwitch::setFloat(float fValue)
 {
-    return setBoolean(fValue != 0.0f);
-}
+    bool newState = (fValue != 0.0f);
 
-
-float PluginParameterToggleSwitch::getRealFloat()
-{
-    return bState ? 1.0f : 0.0f;
-}
-
-
-bool PluginParameterToggleSwitch::setRealFloat(float fRealValue)
-{
-    return setBoolean(fRealValue != 0.0f);
-}
-
-
-bool PluginParameterToggleSwitch::getBoolean()
-{
-    return bState;
-}
-
-
-bool PluginParameterToggleSwitch::setBoolean(bool bValue)
-{
-    if (bValue != bState)
+    if (bState != newState)
     {
         toggleState();
     }
@@ -136,15 +114,15 @@ bool PluginParameterToggleSwitch::setBoolean(bool bValue)
 }
 
 
-int PluginParameterToggleSwitch::getRealInteger()
+float PluginParameterToggleSwitch::getRealFloat()
 {
-    return bState ? 1 : 0;
+    return getFloat();
 }
 
 
-bool PluginParameterToggleSwitch::setRealInteger(int nRealValue)
+bool PluginParameterToggleSwitch::setRealFloat(float fRealValue)
 {
-    return setBoolean(nRealValue != 0);
+    return setFloat(fRealValue);
 }
 
 
@@ -160,70 +138,9 @@ bool PluginParameterToggleSwitch::setText(const String &strText)
 }
 
 
-bool PluginParameterToggleSwitch::hasChanged()
-{
-    return bChangedValue;
-}
-
-
-void PluginParameterToggleSwitch::clearChangeFlag()
-{
-    bChangedValue = false;
-}
-
-
-void PluginParameterToggleSwitch::setChangeFlag()
-{
-    bChangedValue = true;
-}
-
-
 bool PluginParameterToggleSwitch::saveFromDeletion()
 {
     return bSaveFromDeletion;
-}
-
-
-void PluginParameterToggleSwitch::loadFromXml(XmlElement *xml)
-{
-    XmlElement *xml_element = xml->getChildByName(getTagName());
-
-    if (xml_element)
-    {
-        bool bStateNew;
-
-        if (xml_element->hasAttribute("value"))
-        {
-            bStateNew = xml_element->getBoolAttribute("value", getDefaultBoolean());
-        }
-        else
-        {
-            String strStateInteger = xml_element->getAllSubText().trim();
-
-            if (strStateInteger.isEmpty())
-            {
-                bStateNew = getDefaultBoolean();
-            }
-            else
-            {
-                bStateNew = (strStateInteger.getIntValue() != 0);
-            }
-        }
-
-        setBoolean(bStateNew);
-    }
-}
-
-
-void PluginParameterToggleSwitch::storeAsXml(XmlElement *xml)
-{
-    XmlElement *xml_element = new XmlElement(getTagName());
-
-    if (xml_element)
-    {
-        xml_element->setAttribute("value", bState ? "true" : "false");
-        xml->addChildElement(xml_element);
-    }
 }
 
 

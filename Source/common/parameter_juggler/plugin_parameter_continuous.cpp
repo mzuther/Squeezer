@@ -218,30 +218,6 @@ bool PluginParameterContinuous::setNearestRealFloat(float fRealValue)
 }
 
 
-bool PluginParameterContinuous::getBoolean()
-{
-    return getRealFloat() != 0.0f;
-}
-
-
-bool PluginParameterContinuous::setBoolean(bool bValue)
-{
-    return setFloat(bValue ? 1.0f : 0.0f);
-}
-
-
-int PluginParameterContinuous::getRealInteger()
-{
-    return round_mz(getRealFloat());
-}
-
-
-bool PluginParameterContinuous::setRealInteger(int nRealValue)
-{
-    return setRealFloat((float) nRealValue);
-}
-
-
 String PluginParameterContinuous::getText()
 {
     return getTextFromFloat(getFloat());
@@ -284,71 +260,9 @@ String PluginParameterContinuous::getTextFromFloat(float fValue)
 }
 
 
-bool PluginParameterContinuous::hasChanged()
-{
-    return bChangedValue;
-}
-
-
-void PluginParameterContinuous::clearChangeFlag()
-{
-    bChangedValue = false;
-}
-
-
-void PluginParameterContinuous::setChangeFlag()
-{
-    bChangedValue = true;
-}
-
-
 bool PluginParameterContinuous::saveFromDeletion()
 {
     return bSaveFromDeletion;
-}
-
-
-void PluginParameterContinuous::loadFromXml(XmlElement *xml)
-{
-    XmlElement *xml_element = xml->getChildByName(getTagName());
-
-    if (xml_element)
-    {
-        float fRealValue;
-
-        if (xml_element->hasAttribute("value"))
-        {
-            fRealValue = (float) xml_element->getDoubleAttribute("value", getDefaultRealFloat());
-        }
-        else
-        {
-            String strRealValue = xml_element->getAllSubText().trim();
-
-            if (strRealValue.isEmpty())
-            {
-                fRealValue = getDefaultRealFloat();
-            }
-            else
-            {
-                fRealValue = strRealValue.getFloatValue();
-            }
-        }
-
-        setRealFloat(fRealValue);
-    }
-}
-
-
-void PluginParameterContinuous::storeAsXml(XmlElement *xml)
-{
-    XmlElement *xml_element = new XmlElement(getTagName());
-
-    if (xml_element)
-    {
-        float fRealValue = getRealFloat();
-        xml_element->setAttribute("value", fRealValue);
-        xml->addChildElement(xml_element);
-    }
 }
 
 

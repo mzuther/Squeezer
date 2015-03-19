@@ -41,43 +41,30 @@ public:
 
     float getInterval();
 
-    float getDefaultFloat();
-    float getDefaultRealFloat();
-    bool getDefaultBoolean();
-    int getDefaultRealInteger();
-    bool setDefaultRealFloat(float fRealValue, bool updateValue);
+    virtual float getDefaultFloat() override;
+    virtual float getDefaultRealFloat() override;
+    virtual bool getDefaultBoolean() override;
+    virtual int getDefaultRealInteger() override;
+    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
 
-    float getFloat();
-    bool setFloat(float fValue);
+    virtual float getFloat() override;
+    virtual bool setFloat(float fValue) override;
 
-    float getRealFloat();
-    bool setRealFloat(float fRealValue);
+    virtual float getRealFloat() override;
+    virtual bool setRealFloat(float fRealValue) override;
     bool setNearestRealFloat(float fRealValue);
 
-    bool getBoolean();
-    bool setBoolean(bool bValue);
-
-    int getRealInteger();
-    bool setRealInteger(int nRealValue);
-
-    String getText();
-    bool setText(const String &strText);
+    virtual String getText() override;
+    virtual bool setText(const String &strText) override;
     void setSuffix(const String &suffix);
 
     float getFloatFromText(const String &strText);
     String getTextFromFloat(float fValue);
 
-    bool hasChanged();
-    void clearChangeFlag();
+    virtual bool saveFromDeletion() override;
 
-    bool saveFromDeletion();
-
-    void loadFromXml(XmlElement *xml);
-    void storeAsXml(XmlElement *xml);
 private:
     JUCE_LEAK_DETECTOR(PluginParameterContinuous);
-
-    void setChangeFlag();
 
     float toRealFloat(float fValue);
     float toInternalFloat(float fRealValue);

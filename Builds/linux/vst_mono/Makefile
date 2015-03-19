@@ -140,6 +140,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_skin.o \
 	$(OBJDIR)/plugin_parameter_switch.o \
 	$(OBJDIR)/parameter_juggler.o \
+	$(OBJDIR)/plugin_parameter.o \
 	$(OBJDIR)/plugin_parameter_toggle_switch.o \
 	$(OBJDIR)/plugin_parameter_string.o \
 	$(OBJDIR)/plugin_parameter_combined.o \
@@ -313,6 +314,9 @@ $(OBJDIR)/plugin_parameter_switch.o: ../../../Source/common/parameter_juggler/pl
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/parameter_juggler.o: ../../../Source/common/parameter_juggler/parameter_juggler.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/plugin_parameter.o: ../../../Source/common/parameter_juggler/plugin_parameter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_parameter_toggle_switch.o: ../../../Source/common/parameter_juggler/plugin_parameter_toggle_switch.cpp
