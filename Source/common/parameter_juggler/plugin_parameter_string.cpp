@@ -26,100 +26,122 @@
 #include "plugin_parameter_string.h"
 
 
-PluginParameterString::PluginParameterString(const String &strText)
+/// Create a parameter for storing a string.  **Note: several
+/// functions must not be used -- see below!**
+///
+/// @param newValue intial value
+///
+PluginParameterString::PluginParameterString(const String &newValue)
 {
-    strValue = strText;
+    // initialise value
+    setText(newValue);
+
+    // mark parameter as changed
     setChangeFlag();
 }
 
 
+/// Destructor.
+///
 PluginParameterString::~PluginParameterString()
 {
 }
 
 
-float PluginParameterString::getDefaultFloat()
+/// Set **real** default value from float.  **This function must not
+/// be used!**
+///
+/// @param newRealValue do not use
+///
+/// @param updateParameter do not use
+///
+void PluginParameterString::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
-    return getDefaultRealFloat();
+    // do nothing till you hear from me ...
+    jassert(false);
 }
 
 
-float PluginParameterString::getDefaultRealFloat()
+/// Set **internal** parameter value from float.  **This function must not
+/// be used!**
+///
+/// @param newValue do not use
+///
+void PluginParameterString::setFloat(float newValue)
 {
-    return 0.0f;
+    // do nothing till you hear from me ...
+    jassert(false);
 }
 
 
-bool PluginParameterString::setDefaultRealFloat(float fRealValue, bool updateValue)
+/// Set **real** parameter value from float.  **This function must not
+/// be used!**
+///
+/// @param newRealValue do not use
+///
+void PluginParameterString::setRealFloat(float newRealValue)
 {
-    return false;
+    // do nothing till you hear from me ...
+    jassert(false);
 }
 
 
-float PluginParameterString::getFloat()
+/// Set parameter value from string.
+///
+/// @param newValue new parameter value
+///
+void PluginParameterString::setText(const String &newValue)
 {
-    return 0.0f;
-}
-
-
-bool PluginParameterString::setFloat(float fValue)
-{
-    return false;
-}
-
-
-float PluginParameterString::getRealFloat()
-{
-    return getFloat();
-}
-
-
-bool PluginParameterString::setRealFloat(float fRealValue)
-{
-    return setFloat(fRealValue);
-}
-
-
-String PluginParameterString::getText()
-{
-    return strValue;
-}
-
-
-bool PluginParameterString::setText(const String &strText)
-{
-    strValue = strText;
-    setChangeFlag();
-
-    return true;
-}
-
-
-bool PluginParameterString::saveFromDeletion()
-{
-    return false;
-}
-
-
-void PluginParameterString::loadFromXml(XmlElement *xml)
-{
-    XmlElement *xml_element = xml->getChildByName(getTagName());
-
-    if (xml_element)
+    // mark parameter as changed if necessary
+    if (textValue.compare(newValue) != 0)
     {
-        setText(xml_element->getStringAttribute("value", getText()));
+        setChangeFlag();
+    }
+
+    // update value
+    textValue = newValue;
+}
+
+
+/// Load parameter value from XML.
+///
+/// @param xmlDocument XML document to load from
+///
+void PluginParameterString::loadFromXml(XmlElement *xmlDocument)
+{
+    // get parameter's element from XML document
+    XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
+
+    // parameter's element found
+    if (xmlParameter)
+    {
+        // get stored value from attribute "value" (or use empty string)
+        String newValue = xmlParameter->getStringAttribute("value", String::empty);
+
+        // update value
+        setText(newValue);
     }
 }
 
 
-void PluginParameterString::storeAsXml(XmlElement *xml)
+/// Store parameter value as XML.
+///
+/// @param xmlDocument XML document to store in
+///
+void PluginParameterString::storeAsXml(XmlElement *xmlDocument)
 {
-    XmlElement *xml_element = new XmlElement(getTagName());
+    // create new XML element with parameter's tag name (will be
+    // deleted by XML document)
+    XmlElement *xmlParameter = new XmlElement(getTagName());
 
-    if (xml_element)
+    // XML element was successfully created
+    if (xmlParameter)
     {
-        xml_element->setAttribute("value", getText());
-        xml->addChildElement(xml_element);
+        // set attribute "value" to current value
+        xmlParameter->setAttribute("value", getText());
+
+        // add new element to XML document
+        xmlDocument->addChildElement(xmlParameter);
     }
 }
 

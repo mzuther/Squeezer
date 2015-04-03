@@ -31,70 +31,67 @@ class ParameterJuggler;
 #include "JuceHeader.h"
 #include "../mz_juce_common.h"
 #include "plugin_parameter.h"
+#include "plugin_parameter_boolean.h"
 #include "plugin_parameter_combined.h"
 #include "plugin_parameter_string.h"
 #include "plugin_parameter_switch.h"
-#include "plugin_parameter_toggle_switch.h"
 
 
-//============================================================================
 class ParameterJuggler
 {
 public:
-    //==========================================================================
-
     ParameterJuggler();
     ~ParameterJuggler();
 
-    PluginParameter *getPluginParameter(int nIndex);
+    PluginParameter *getPluginParameter(int index);
     String toString();
 
-    void add(PluginParameter *parameter, int nIndex, bool mayModify = true);
-    void addCombined(PluginParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify = true);
-    int getNumParameters(bool bIncludeHiddenParameters);
+    void add(PluginParameter *parameter, int index, bool mayModify = true);
+    void addCombined(PluginParameterCombined *parameter, int parameterIndex, int switchIndex, bool mayModify = true);
+    int getNumParameters(bool includeHiddenParameters);
 
-    String getName(int nIndex);
-    void setName(int nIndex, const String &strParameterName);
+    String getName(int index);
+    void setName(int index, const String &strParameterName);
 
-    float getDefaultFloat(int nIndex);
-    float getDefaultRealFloat(int nIndex);
-    bool getDefaultBoolean(int nIndex);
-    int getDefaultRealInteger(int nIndex);
-    bool setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue);
+    float getDefaultFloat(int index);
+    float getDefaultRealFloat(int index);
+    bool getDefaultBoolean(int index);
+    int getDefaultRealInteger(int index);
+    void setDefaultRealFloat(int index, float newRealValue, bool updateParameter);
 
-    float getFloat(int nIndex);
-    bool setFloat(int nIndex, float fValue);
+    float getFloat(int index);
+    void setFloat(int index, float newValue);
 
-    bool getBoolean(int nIndex);
-    bool setBoolean(int nIndex, bool bValue);
+    float getRealFloat(int index);
+    void setRealFloat(int index, float newRealValue);
 
-    float getRealFloat(int nIndex);
-    bool setRealFloat(int nIndex, float fRealValue);
+    int getRealInteger(int index);
+    void setRealInteger(int index, int newRealValue);
 
-    int getRealInteger(int nIndex);
-    bool setRealInteger(int nIndex, int nRealValue);
+    bool getBoolean(int index);
 
-    String getText(int nIndex);
-    bool setText(int nIndex, const String &strText);
+    String getText(int index);
+    void setText(int index, const String &newValue);
 
-    bool hasChanged(int nIndex);
-    void clearChangeFlag(int nIndex);
+    bool hasChanged(int index);
+    void clearChangeFlag(int index);
 
-    void loadFromXml(XmlElement *xml);
+    void loadFromXml(XmlElement *xmlDocument);
     XmlElement storeAsXml();
 
     enum Parameters  // public namespace!
     {
-        nNumParametersRevealed = 0,
-        nNumParametersComplete = nNumParametersRevealed
+        numberOfParametersRevealed = 0,
+        numberOfParametersComplete = 0,
     };
 
 protected:
-    int nNumParameters;
+    int numberOfParameters;
+
+    String jugglerID;
+
     Array<PluginParameter *> arrParameters;
     Array<bool> arrMayModify;
-
-    String strSettingsID;
 
 private:
     JUCE_LEAK_DETECTOR(ParameterJuggler);

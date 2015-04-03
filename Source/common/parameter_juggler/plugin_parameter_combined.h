@@ -28,9 +28,9 @@
 
 #include "JuceHeader.h"
 #include "plugin_parameter.h"
+#include "plugin_parameter_boolean.h"
 #include "plugin_parameter_continuous.h"
 #include "plugin_parameter_switch.h"
-#include "plugin_parameter_toggle_switch.h"
 
 
 //==============================================================================
@@ -39,51 +39,48 @@
 class PluginParameterCombined : virtual public PluginParameter
 {
 public:
-    PluginParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places);
+    PluginParameterCombined(float real_minimum, float real_maximum, float step_size, float scaling_factor, int decimal_places);
     ~PluginParameterCombined();
 
-    virtual void setName(const String &strParameterName) override;
+    virtual void setName(const String &newParameterName) override;
 
     bool getMode();
-    bool setMode(bool use_constants);
-    bool toggleMode();
-    PluginParameterToggleSwitch *getModeSwitch();
+    void setMode(bool use_presets);
+    void toggleMode();
+    PluginParameterBoolean *getModeSwitch();
 
-    void addConstant(const float fRealValue, const String &strText);
-    float getInterval();
+    void addPreset(const float newRealValue, const String &newLabel);
+    int getNumberOfSteps();
 
     virtual float getDefaultFloat() override;
     virtual float getDefaultRealFloat() override;
     virtual bool getDefaultBoolean() override;
     virtual int getDefaultRealInteger() override;
-    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
 
     virtual float getFloat() override;
-    virtual bool setFloat(float fValue) override;
+    virtual void setFloat(float newValue) override;
 
     virtual float getRealFloat() override;
-    virtual bool setRealFloat(float fRealValue) override;
-
-    virtual bool getBoolean() override;
-    virtual bool setBoolean(bool bValue) override;
+    virtual void setRealFloat(float newRealValue) override;
 
     virtual int getRealInteger() override;
-    virtual bool setRealInteger(int nRealValue) override;
+    virtual void setRealInteger(int nRealValue) override;
+
+    virtual bool getBoolean() override;
 
     virtual String getText() override;
-    virtual bool setText(const String &strText) override;
-    void setSuffix(const String &suffix);
+    virtual void setText(const String &newValue) override;
+    void setSuffix(const String &newSuffix);
 
-    float getFloatFromText(const String &strText);
-    String getTextFromFloat(float fValue);
+    float getFloatFromText(const String &newValue);
+    String getTextFromFloat(float newValue);
 
     virtual bool hasChanged() override;
     virtual void clearChangeFlag() override;
 
-    virtual bool saveFromDeletion() override;
-
-    virtual void loadFromXml(XmlElement *xml) override;
-    virtual void storeAsXml(XmlElement *xml) override;
+    virtual void loadFromXml(XmlElement *xmlDocument) override;
+    virtual void storeAsXml(XmlElement *xmlDocument) override;
 
 protected:
     virtual void setChangeFlag() override;
@@ -91,11 +88,11 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(PluginParameterCombined);
 
-    bool bUseConstants;
+    bool usePresets;
 
-    PluginParameterToggleSwitch paramModeSwitch;
-    PluginParameterSwitch paramSwitch;
-    PluginParameterContinuous paramContinuous;
+    PluginParameterBoolean modeSwitch;
+    PluginParameterSwitch presetValues;
+    PluginParameterContinuous continuousValues;
 };
 
 

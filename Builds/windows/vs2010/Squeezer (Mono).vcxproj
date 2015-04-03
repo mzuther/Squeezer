@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{ABC477F8-79FD-416F-2C6A-AABF51C3D4D3}</ProjectGuid>
+		<ProjectGuid>{8A657046-0E88-FD72-F9A0-3A5F339D671F}</ProjectGuid>
 		<RootNamespace>Squeezer (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -238,8 +238,8 @@
 		<ClInclude Include="..\..\..\Source\common\audio\audio_ring_buffer.h" />
 		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
 		<ClInclude Include="..\..\..\Source\common\skin\generic_skin.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_toggle_switch.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_boolean.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.h" />
@@ -313,9 +313,9 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_boolean.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_toggle_switch.cpp">
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.cpp">
 		</ClCompile>

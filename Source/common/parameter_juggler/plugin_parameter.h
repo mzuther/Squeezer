@@ -41,21 +41,8 @@ public:
     virtual void setName(const String &newParameterName);
     virtual String getTagName();
 
-    /// Get **normalised** default value as float.  Values range from
-    /// 0.0 to 1.0.  Subclasses must override this method.
-    ///
-    /// @return normalised default value (between 0.0 and 1.0)
-    ///
-    virtual float getDefaultFloat() = 0;
-
-    /// Get **real** default value as float.  Values range from the
-    /// parameter's minimum value to its maximum value.  Subclasses
-    /// must override this method.
-    ///
-    /// @return default value
-    ///
-    virtual float getDefaultRealFloat() = 0;
-
+    virtual float getDefaultFloat();
+    virtual float getDefaultRealFloat();
     virtual bool getDefaultBoolean();
     virtual int getDefaultRealInteger();
 
@@ -68,34 +55,18 @@ public:
     /// @param updateParameter if this is true, the parameter's value
     ///        will be set to the new default value
     ///
-    /// @return **true** if update was successful, **false** otherwise
-    ///
-    virtual bool setDefaultRealFloat(float newRealValue, bool updateValue) = 0;
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) = 0;
 
-    /// Get **normalised** parameter value as float.  Values range from 0.0
-    /// to 1.0.  Subclasses must override this method.
-    ///
-    /// @return current value (between 0.0 and 1.0)
-    ///
-    virtual float getFloat() = 0;
+    virtual float getFloat();
+    virtual float getRealFloat();
 
-    /// Set **normalised** parameter value from float.  The new value
+    /// Set **internal** parameter value from float.  The new value
     /// must be in the range from 0.0 to 1.0.  Subclasses must
     /// override this method.
     ///
     /// @param newValue new value (between 0.0 and 1.0)
     ///
-    /// @return **true** if update was successful, **false** otherwise
-    ///
-    virtual bool setFloat(float newValue) = 0;
-
-    /// Get **real** parameter value as float.  Values range from the
-    /// parameter's minimum value to its maximum value.  Subclasses
-    /// must override this method.
-    ///
-    /// @return current value
-    ///
-    virtual float getRealFloat() = 0;
+    virtual void setFloat(float newValue) = 0;
 
     /// Set **real** parameter value from float.  The new value must
     /// be in the defined range of the parameter's values.  Subclasses
@@ -103,54 +74,43 @@ public:
     ///
     /// @param newRealValue new value
     ///
-    /// @return **true** if update was successful, **false** otherwise
-    ///
-    virtual bool setRealFloat(float newRealValue) = 0;
-
-    virtual bool getBoolean();
-    virtual bool setBoolean(bool newValue);
+    virtual void setRealFloat(float newRealValue) = 0;
 
     virtual int getRealInteger();
-    virtual bool setRealInteger(int newRealValue);
+    virtual void setRealInteger(int newRealValue);
 
-    /// Get parameter value as formatted string.  Subclasses must
-    /// override this method.
-    ///
-    /// @return current value
-    ///
-    virtual String getText() = 0;
+    virtual bool getBoolean();
+
+    virtual String getText();
 
     /// Set parameter value from (correctly) formatted string.
     /// Subclasses must override this method.
     ///
     /// @param newValue new value as formatted string
     ///
-    /// @return **true** if update was successful, **false** otherwise
-    ///
-    virtual bool setText(const String &newValue) = 0;
+    virtual void setText(const String &newValue) = 0;
 
     virtual bool hasChanged();
     virtual void clearChangeFlag();
 
-    /// Should parameter be spared from deletion in destructor of
-    /// ParameterJuggler?
-    ///
-    /// Sorry, I know this sort of method is *really* ugly, but I
-    /// currently see no other way to implement
-    /// PluginParameterCombined.  Subclasses must override this
-    /// method.
-    ///
-    /// @return true if parameter should be spare, false otherwise
-    ///
-    virtual bool saveFromDeletion() = 0;
+    virtual bool saveFromDeletion();
 
-    virtual void loadFromXml(XmlElement *xml);
-    virtual void storeAsXml(XmlElement *xml);
+    virtual void loadFromXml(XmlElement *xmlDocument);
+    virtual void storeAsXml(XmlElement *xmlDocument);
 
     static int round_mz(float x);
 
 protected:
     virtual void setChangeFlag();
+
+    float value;
+    float realValue;
+    String textValue;
+
+    float defaultValue;
+    float defaultRealValue;
+
+    bool doNotDelete;
 
 private:
     String parameterName;

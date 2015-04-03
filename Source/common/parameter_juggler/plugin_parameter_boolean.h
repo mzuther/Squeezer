@@ -23,51 +23,39 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_COMBINED_H__
-#define __SLIDER_COMBINED_H__
+#ifndef __PLUGIN_PARAMETER_BOOLEAN_H__
+#define __PLUGIN_PARAMETER_BOOLEAN_H__
 
 #include "JuceHeader.h"
-#include "../parameter_juggler/parameter_juggler.h"
-
-class PluginParameterCombined;
+#include "plugin_parameter.h"
 
 
-//==============================================================================
-/**
-*/
-class SliderCombined : public Slider
+class PluginParameterBoolean : virtual public PluginParameter
 {
 public:
-    SliderCombined(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
-    ~SliderCombined();
+    PluginParameterBoolean(const String &state_true, const String &state_false, bool save_from_deletion = false);
+    ~PluginParameterBoolean();
 
-    void visibilityChanged();
-    void resized();
-    void setSliderColour(const Colour &colour);
+    void toggleState();
 
-    void addButtonListener(Button::Listener *newListener);
-    void removeListener(Button::Listener *listener);
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+    void setDefaultBoolean(bool newValue, bool updateParameter);
 
-    void updateMode();
+    virtual void setFloat(float newValue) override;
+    virtual void setRealFloat(float newRealValue) override;
+    void setBoolean(bool newValue);
 
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
+    virtual void setText(const String &newValue) override;
 
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
 private:
-    JUCE_LEAK_DETECTOR(SliderCombined);
+    JUCE_LEAK_DETECTOR(PluginParameterBoolean);
 
-    ScopedPointer<DrawableButton> toggleButton;
-    Colour colourRotary;
-
-    PluginParameterCombined *pCombined;
-    PluginParameterBoolean *pModeSwitch;
+    String labelTrue;
+    String labelFalse;
 };
 
 
-#endif  // __SLIDER_COMBINED_H__
+#endif  // __PLUGIN_PARAMETER_BOOLEAN_H__
 
 
 // Local Variables:

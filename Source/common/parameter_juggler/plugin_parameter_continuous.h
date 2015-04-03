@@ -30,62 +30,42 @@
 #include "plugin_parameter.h"
 
 
-//==============================================================================
-/**
-*/
 class PluginParameterContinuous : virtual public PluginParameter
 {
 public:
-    PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion = false);
+    PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float scaling_factor, int decimal_places, bool save_from_deletion = false);
     ~PluginParameterContinuous();
 
-    float getInterval();
+    int getNumberOfSteps();
 
-    virtual float getDefaultFloat() override;
-    virtual float getDefaultRealFloat() override;
-    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
 
-    virtual float getFloat() override;
-    virtual bool setFloat(float fValue) override;
+    virtual void setFloat(float newValue) override;
+    virtual void setRealFloat(float newRealValue) override;
 
-    virtual float getRealFloat() override;
-    virtual bool setRealFloat(float fRealValue) override;
-    bool setNearestRealFloat(float fRealValue);
+    virtual void setText(const String &newValue) override;
+    void setSuffix(const String &newSuffix);
 
-    virtual String getText() override;
-    virtual bool setText(const String &strText) override;
-    void setSuffix(const String &suffix);
-
-    float getFloatFromText(const String &strText);
-    String getTextFromFloat(float fValue);
-
-    virtual bool saveFromDeletion() override;
+    float getFloatFromText(const String &newValue);
+    String getTextFromFloat(float newValue);
 
 private:
     JUCE_LEAK_DETECTOR(PluginParameterContinuous);
 
-    float toRealFloat(float fValue);
-    float toInternalFloat(float fRealValue);
+    float toRealFloat(float newValue);
+    float toInternalFloat(float newRealValue);
 
-    String strSuffix;
+    float realMinimum;
+    float realMaximum;
+    float realRange;
 
-    float fDefaultRealValue;
-    float fValueInternal;
-    bool bChangedValue;
-    bool bLogarithmic;
+    float stepSize;
+    int decimalPlaces;
+    String valueSuffix;
 
-    float fInterval;
-    float fResolution;
-    int nDecimalPlaces;
-
-    float fRealMinimum;
-    float fRealMaximum;
-    float fRealRange;
-
-    float fLogFactor;
-    float fLogPowerFactor;
-
-    bool bSaveFromDeletion;
+    bool isNonlinear;
+    float scalingFactor;
+    float scalingConstantFactor;
 };
 
 

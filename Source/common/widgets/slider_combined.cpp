@@ -31,10 +31,10 @@ SliderCombined::SliderCombined(const String &componentName, ParameterJuggler *pP
     pCombined = dynamic_cast<PluginParameterCombined *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pCombined != nullptr);
 
-    pModeSwitch = dynamic_cast<PluginParameterToggleSwitch *>(pParameters->getPluginParameter(nParameterIndexSwitch));
+    pModeSwitch = dynamic_cast<PluginParameterBoolean *>(pParameters->getPluginParameter(nParameterIndexSwitch));
     jassert(pModeSwitch != nullptr);
 
-    setRange(0.0f, 1.0f, pCombined->getInterval());
+    setRange(0.0f, 1.0f, 1.0f / pCombined->getNumberOfSteps());
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
     colourRotary = Colours::white;
 
@@ -110,7 +110,7 @@ void SliderCombined::updateMode()
 {
     toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
 
-    setRange(0.0f, 1.0f, pCombined->getInterval());
+    setRange(0.0f, 1.0f, 1.0f / pCombined->getNumberOfSteps());
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
 
     float fNewValue = pCombined->getFloat();

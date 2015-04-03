@@ -36,32 +36,20 @@
 class PluginParameterString : virtual public PluginParameter
 {
 public:
-    PluginParameterString(const String &strText);
+    PluginParameterString(const String &newValue);
     ~PluginParameterString();
 
-    virtual float getDefaultFloat() override;
-    virtual float getDefaultRealFloat() override;
-    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+    virtual void setFloat(float newValue) override;
+    virtual void setRealFloat(float newRealValue) override;
 
-    virtual float getFloat() override;
-    virtual bool setFloat(float fValue) override;
+    virtual void setText(const String &newValue) override;
 
-    virtual float getRealFloat() override;
-    virtual bool setRealFloat(float fRealValue) override;
-
-    virtual String getText() override;
-    virtual bool setText(const String &strText) override;
-
-    virtual bool saveFromDeletion() override;
-
-    virtual void loadFromXml(XmlElement *xml) override;
-    virtual void storeAsXml(XmlElement *xml) override;
+    virtual void loadFromXml(XmlElement *xmlDocument) override;
+    virtual void storeAsXml(XmlElement *xmlDocument) override;
 
 private:
     JUCE_LEAK_DETECTOR(PluginParameterString);
-
-    String strValue;
-    bool bChangedValue;
 };
 
 

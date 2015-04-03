@@ -26,380 +26,591 @@
 #include "plugin_parameter_combined.h"
 
 
-PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places) :
-    paramModeSwitch("Discrete", "Continuous", true),
-    paramSwitch(true),
-    paramContinuous(real_minimum, real_maximum, resolution, log_factor, decimal_places, true)
+/// Create a parameter that can be switched between preset values
+/// (PluginParameterSwitch) and continuous values
+/// (PluginParameterContinuous).  **Real** values range from
+/// **real_minimum** to **real_maximum**, are quantised by
+/// **step_size**, and may be transformed to exponential or
+/// logarithmic scalings using **scaling_factor**.  **Internal**
+/// values simply range from 0.0 to 1.0.
+///
+/// @param real_minimum **real** parameter minimum (may be less than
+///        **real_maximum**)
+///
+/// @param real_maximum **real** parameter maximum (may be higher than
+///        **real_minimum**)
+///
+/// @param step_size **real** parameter values are quantised using
+///        this value.  For example, a minimum value of 0, maximum
+///        value of 6 and a step size of 2 will lead to (unscaled)
+///        parameter values of 0, 2, 4, and 6.
+///
+/// @param scaling_factor set this to positive values for exponential
+///        scaling and negative values for logarithmic scaling: \f$
+///        realValue = \frac{10^{internalValue * scalingFactor} -
+///        1}{10^{scalingFactor} - 1} \f$.  With \f$ SCF =
+///        10^{scalingFactor} - 1 \f$ this can be reduced to \f$
+///        realValue = \frac{10^{internalValue * scalingFactor} -
+///        1}{SCF} \f$ and \f$ internalValue =
+///        \frac{log_{10}(realValue * SCF + 1)}{scalingFactor} \f$.  A
+///        value of 0 evokes linear scaling.
+///
+/// @param decimal_places number of decimal places for formatting the
+///        real value
+///
+PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_maximum, float step_size, float scaling_factor, int decimal_places) :
+
+    // initialise parameter for switching between "presets" and
+    // "continuous" mode (parameter is saved from deletion!)
+    modeSwitch("Presets", "Continuous", true),
+
+    // initialise parameter for preset values (parameter is saved from
+    // deletion!)
+    presetValues(true),
+
+    // initialise parameter for continuous values (parameter is saved
+    // from deletion!)
+    continuousValues(real_minimum, real_maximum, step_size, scaling_factor, decimal_places, true)
+
 {
-    bUseConstants = true;
-    paramModeSwitch.setBoolean(bUseConstants);
+    // initialise values (invalid because the parameter itself
+    // contains no values)
+    value = -1.0f;
+    realValue = -1.0f;
+
+    // initialise default values (invalid because the parameter itself
+    // contains no values)
+    defaultValue = -1.0f;
+    defaultRealValue = -1.0f;
+
+    // initially use preset values
+    usePresets = true;
+    modeSwitch.setBoolean(usePresets);
 }
 
 
+/// Destructor.
+///
 PluginParameterCombined::~PluginParameterCombined()
 {
 }
 
 
-void PluginParameterCombined::setName(const String &strParameterName)
+/// Set parameter's name.
+///
+/// @param newParameterName new parameter name
+///
+void PluginParameterCombined::setName(const String &newParameterName)
 {
     // call base class method
-    PluginParameter::setName(strParameterName);
+    PluginParameter::setName(newParameterName);
 
-    paramModeSwitch.setName(strParameterName + " Mode");
+    // set name of mode switch
+    modeSwitch.setName(newParameterName + " Mode");
 }
 
 
-void PluginParameterCombined::addConstant(const float fRealValue, const String &strText)
+/// Add a preset value and a corresponding string representation.
+/// **This function must be called at least twice for the parameter to
+/// work as expected.**
+///
+/// @param newRealValue new real value
+///
+/// @param newLabel string representation
+///
+void PluginParameterCombined::addPreset(const float newRealValue, const String &newLabel)
 {
-    paramSwitch.addConstant(fRealValue, strText);
+    // add value to presets
+    presetValues.addPreset(newRealValue, newLabel);
 }
 
 
+/// Get preset mode.
+///
+/// @return **true** for preset values and **false** for continuous
+///         values
+///
 bool PluginParameterCombined::getMode()
 {
-    return bUseConstants;
+    return usePresets;
 }
 
 
-bool PluginParameterCombined::setMode(bool use_constants)
+/// Set preset mode.
+///
+/// @param use_presets **true** for preset values and **false** for
+///        continuous values
+///
+void PluginParameterCombined::setMode(bool use_presets)
 {
-    if (bUseConstants != use_constants)
+    // preset mode has changed
+    if (use_presets != usePresets)
     {
-        return toggleMode();
+        // toggle preset mode
+        toggleMode();
     }
+}
+
+
+/// Toggle preset mode while retaining the current value.
+///
+void PluginParameterCombined::toggleMode()
+{
+    // toggle mode switch
+    modeSwitch.toggleState();
+
+    // use presets?
+    usePresets = modeSwitch.getBoolean();
+
+    // new mode is "presets"
+    if (usePresets)
+    {
+        // get current continuous value
+        float newRealValue = continuousValues.getRealFloat();
+
+        // update preset value (rounds to nearest value)
+        presetValues.setRealFloat(newRealValue);
+    }
+    // new mode is "continuous"
     else
     {
-        return true;
+        // get current preset value
+        float newRealValue = presetValues.getRealFloat();
+
+        // update continuous value
+        continuousValues.setRealFloat(newRealValue);
     }
 }
 
 
-bool PluginParameterCombined::toggleMode()
-{
-    paramModeSwitch.toggleState();
-    bUseConstants = paramModeSwitch.getBoolean();
-
-    if (bUseConstants)
-    {
-        float fRealValue = paramContinuous.getRealFloat();
-        return paramSwitch.setNearestRealFloat(fRealValue);
-    }
-    else
-    {
-        float fRealValue = paramSwitch.getRealFloat();
-        return paramContinuous.setNearestRealFloat(fRealValue);
-    }
-}
-
-
-PluginParameterToggleSwitch *PluginParameterCombined::getModeSwitch()
+/// Get pointer to mode switch.  **This pointer must not be deleted
+/// outside of this class!**
+///
+/// @return pointer to mode switch
+///
+PluginParameterBoolean *PluginParameterCombined::getModeSwitch()
 {
     // this pointer must not be deleted outside of this class!
-    return &paramModeSwitch;
+    return &modeSwitch;
 }
 
 
-float PluginParameterCombined::getInterval()
+/// Get number of discrete parameter values.
+///
+/// @return number of discrete parameter values
+///
+int PluginParameterCombined::getNumberOfSteps()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getInterval();
+        return presetValues.getNumberOfSteps();
     }
     else
     {
-        return paramContinuous.getInterval();
+        return continuousValues.getNumberOfSteps();
     }
 }
 
 
+/// Get **internal** default value as float.  Values range from 0.0 to
+/// 1.0.
+///
+/// @return internal default value (between 0.0 and 1.0)
+///
 float PluginParameterCombined::getDefaultFloat()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getDefaultFloat();
+        return presetValues.getDefaultFloat();
     }
     else
     {
-        return paramContinuous.getDefaultFloat();
+        return continuousValues.getDefaultFloat();
     }
 }
 
 
+/// Get **real** default value as float.  Values range from the
+/// parameter's minimum value to its maximum value.
+///
+/// @return default value
+///
 float PluginParameterCombined::getDefaultRealFloat()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getDefaultRealFloat();
+        return presetValues.getDefaultRealFloat();
     }
     else
     {
-        return paramContinuous.getDefaultRealFloat();
+        return continuousValues.getDefaultRealFloat();
     }
 }
 
 
+/// Get default value as Boolean.
+///
+/// @return **false** if the default value is set to the parameter's
+///         minimum, **true** otherwise
+///
 bool PluginParameterCombined::getDefaultBoolean()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getDefaultBoolean();
+        return presetValues.getDefaultBoolean();
     }
     else
     {
-        return paramContinuous.getDefaultBoolean();
+        return continuousValues.getDefaultBoolean();
     }
 }
 
 
+/// Get **real** default value as integer.  Values range from the
+/// parameter's (rounded) minimum value to its (rounded) maximum
+/// value.
+///
+/// @return default value
+///
 int PluginParameterCombined::getDefaultRealInteger()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getDefaultRealInteger();
+        return presetValues.getDefaultRealInteger();
     }
     else
     {
-        return paramContinuous.getDefaultRealInteger();
+        return continuousValues.getDefaultRealInteger();
     }
 }
 
 
-bool PluginParameterCombined::setDefaultRealFloat(float fRealValue, bool updateValue)
+/// Set **real** default value from float.  The new value must be in
+/// the defined range of the parameter's values.
+///
+/// @param newRealValue new default value
+///
+/// @param updateParameter if this is true, the parameter's value will
+///        be set to the new default value
+///
+void PluginParameterCombined::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        bool bSwitchFound = paramSwitch.setDefaultRealFloat(fRealValue, updateValue);
-        bool bContinuousFound = paramContinuous.setDefaultRealFloat(fRealValue, false);
+        // update default preset value
+        presetValues.setDefaultRealFloat(newRealValue, updateParameter);
 
-        return (bSwitchFound && bContinuousFound);
+        // update default continuous value (do not update internal
+        // value)
+        continuousValues.setDefaultRealFloat(newRealValue, false);
     }
     else
     {
-        bool bContinuousFound = paramContinuous.setDefaultRealFloat(fRealValue, updateValue);
-        bool bSwitchFound = paramSwitch.setDefaultRealFloat(fRealValue, true);
+        // update default continuous value
+        continuousValues.setDefaultRealFloat(newRealValue, updateParameter);
 
-        return (bContinuousFound && bSwitchFound);
+        // update default preset value (do not update internal value)
+        presetValues.setDefaultRealFloat(newRealValue, false);
     }
 }
 
 
+/// Get **internal** parameter value as float.  Values range from 0.0
+/// to 1.0.
+///
+/// @return current value (between 0.0 and 1.0)
+///
 float PluginParameterCombined::getFloat()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getFloat();
+        return presetValues.getFloat();
     }
     else
     {
-        return paramContinuous.getFloat();
+        return continuousValues.getFloat();
     }
 }
 
 
-bool PluginParameterCombined::setFloat(float fValue)
+/// Set **internal** parameter value from float.  The new value must
+/// be in the range from 0.0 to 1.0.
+///
+/// @param newValue new value (between 0.0 and 1.0)
+///
+void PluginParameterCombined::setFloat(float newValue)
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.setFloat(fValue);
+        presetValues.setFloat(newValue);
     }
     else
     {
-        return paramContinuous.setFloat(fValue);
+        continuousValues.setFloat(newValue);
     }
 }
 
 
+/// Get **real** parameter value as float.  Values range from the
+/// parameter's minimum value to its maximum value.
+///
+/// @return current value
+///
 float PluginParameterCombined::getRealFloat()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getRealFloat();
+        return presetValues.getRealFloat();
     }
     else
     {
-        return paramContinuous.getRealFloat();
+        return continuousValues.getRealFloat();
     }
 }
 
 
-bool PluginParameterCombined::setRealFloat(float fRealValue)
+/// Set **real** parameter value from float.  The new value must be in
+/// the defined range of the parameter's values.
+///
+/// @param newRealValue new value
+///
+void PluginParameterCombined::setRealFloat(float newRealValue)
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.setRealFloat(fRealValue);
+        presetValues.setRealFloat(newRealValue);
     }
     else
     {
-        return paramContinuous.setRealFloat(fRealValue);
+        continuousValues.setRealFloat(newRealValue);
     }
 }
 
 
-bool PluginParameterCombined::getBoolean()
-{
-    if (bUseConstants)
-    {
-        return paramSwitch.getBoolean();
-    }
-    else
-    {
-        return paramContinuous.getBoolean();
-    }
-}
-
-
-bool PluginParameterCombined::setBoolean(bool bValue)
-{
-    if (bUseConstants)
-    {
-        return paramSwitch.setBoolean(bValue);
-    }
-    else
-    {
-        return paramContinuous.setBoolean(bValue);
-    }
-}
-
-
+/// Get **real** parameter value as integer.  Values range from the
+/// (rounded) parameter's minimum value to its (rounded) maximum
+/// value.
+///
+/// @return current value
+///
 int PluginParameterCombined::getRealInteger()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getRealInteger();
+        return presetValues.getRealInteger();
     }
     else
     {
-        return paramContinuous.getRealInteger();
+        return continuousValues.getRealInteger();
     }
 }
 
 
-bool PluginParameterCombined::setRealInteger(int nRealValue)
+/// Set **real** parameter value from integer.  The new value must be
+/// in the defined range of the parameter's values.
+///
+/// @param newRealValue new value
+///
+void PluginParameterCombined::setRealInteger(int newRealValue)
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.setRealInteger(nRealValue);
+        presetValues.setRealInteger(newRealValue);
     }
     else
     {
-        return paramContinuous.setRealInteger(nRealValue);
+        continuousValues.setRealInteger(newRealValue);
     }
 }
 
 
+/// Get parameter value as Boolean.
+///
+/// @return **false** if current value is at its minimum, **true**
+///         otherwise
+///
+bool PluginParameterCombined::getBoolean()
+{
+    if (usePresets)
+    {
+        return presetValues.getBoolean();
+    }
+    else
+    {
+        return continuousValues.getBoolean();
+    }
+}
+
+
+/// Get parameter value as formatted string.
+///
+/// @return current value
+///
 String PluginParameterCombined::getText()
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getText();
+        return presetValues.getText();
     }
     else
     {
-        return paramContinuous.getText();
+        return continuousValues.getText();
     }
 }
 
 
-bool PluginParameterCombined::setText(const String &strText)
+/// Set parameter value from (correctly) formatted string.
+///
+/// @param newValue new value as formatted string
+///
+void PluginParameterCombined::setText(const String &newValue)
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.setText(strText);
+        presetValues.setText(newValue);
     }
     else
     {
-        return paramContinuous.setText(strText);
+        continuousValues.setText(newValue);
     }
 }
 
 
-void PluginParameterCombined::setSuffix(const String &suffix)
+/// Set suffix that will be appended to the formatted continuous
+/// parameter.
+///
+/// @param newSuffix new suffix (may be an empty string)
+///
+void PluginParameterCombined::setSuffix(const String &newSuffix)
 {
-    paramContinuous.setSuffix(suffix);
+    // update suffix
+    continuousValues.setSuffix(newSuffix);
 }
 
 
-float PluginParameterCombined::getFloatFromText(const String &strText)
+/// Transform string to **internal** parameter value.
+///
+/// @param newValue correctly formatted string
+///
+/// @return **internal** value
+///
+float PluginParameterCombined::getFloatFromText(const String &newValue)
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getFloatFromText(strText);
+        return presetValues.getFloatFromText(newValue);
     }
     else
     {
-        return paramContinuous.getFloatFromText(strText);
+        return continuousValues.getFloatFromText(newValue);
     }
 }
 
 
-String PluginParameterCombined::getTextFromFloat(float fValue)
+/// Transform **internal** value to string.
+///
+/// @param newValue **internal** value
+///
+/// @return formatted string
+///
+String PluginParameterCombined::getTextFromFloat(float newValue)
 {
-    if (bUseConstants)
+    if (usePresets)
     {
-        return paramSwitch.getTextFromFloat(fValue);
+        return presetValues.getTextFromFloat(newValue);
     }
     else
     {
-        return paramContinuous.getTextFromFloat(fValue);
+        return continuousValues.getTextFromFloat(newValue);
     }
 }
 
 
+/// Get parameter's change flag.  Determines whether the parameter has
+/// changed since the last time the change flag was reset.
+///
+/// @return change flag
+///
 bool PluginParameterCombined::hasChanged()
 {
-    bool bChangedSwitch = paramSwitch.hasChanged();
-    bool bChangedContinuous = paramContinuous.hasChanged();
+    bool changedPreset = presetValues.hasChanged();
+    bool changedContinuous = continuousValues.hasChanged();
 
-    return (bChangedSwitch || bChangedContinuous);
+    return (changedPreset || changedContinuous);
 }
 
 
+/// Mark parameter as unchanged.
+///
 void PluginParameterCombined::clearChangeFlag()
 {
-    paramSwitch.clearChangeFlag();
-    paramContinuous.clearChangeFlag();
+    presetValues.clearChangeFlag();
+    continuousValues.clearChangeFlag();
 }
 
 
+/// Mark parameter as changed.
+///
 void PluginParameterCombined::setChangeFlag()
 {
+    // do nothing till you hear from me ...
     jassert(false);
 }
 
 
-bool PluginParameterCombined::saveFromDeletion()
+/// Load parameter value from XML.
+///
+/// @param xmlDocument XML document to load from
+///
+void PluginParameterCombined::loadFromXml(XmlElement *xmlDocument)
 {
-    return false;
-}
+    // get parameter's element from XML document
+    XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
 
-
-void PluginParameterCombined::loadFromXml(XmlElement *xml)
-{
-    XmlElement *xml_element = xml->getChildByName(getTagName());
-
-    if (xml_element)
+    // parameter's element found
+    if (xmlParameter)
     {
-        bool useConstants = xml_element->getBoolAttribute("use_constants", true);
-        setMode(useConstants);
+        // get stored preset mode from attribute "use_presets"
+        // (defaults to "true")
+        bool use_presets = xmlParameter->getBoolAttribute("use_presets", true);
 
-        double realValue = xml_element->getDoubleAttribute("value", getDefaultRealFloat());
+        // update preset mode
+        setMode(use_presets);
+
+        // get stored value from attribute "value" (or use default
+        // real value)
+        double realValue = xmlParameter->getDoubleAttribute("value", getDefaultRealFloat());
+
+        // update real value
         setRealFloat((float) realValue);
     }
 }
 
 
-void PluginParameterCombined::storeAsXml(XmlElement *xml)
+/// Store parameter value as XML.
+///
+/// @param xmlDocument XML document to store in
+///
+void PluginParameterCombined::storeAsXml(XmlElement *xmlDocument)
 {
-    XmlElement *xml_element = new XmlElement(getTagName());
+    // create new XML element with parameter's tag name (will be
+    // deleted by XML document)
+    XmlElement *xmlParameter = new XmlElement(getTagName());
 
-    if (xml_element)
+    // XML element was successfully created
+    if (xmlParameter)
     {
-        xml_element->setAttribute("use_constants", bUseConstants ? "true" : "false");
+        // set attribute "use_presets" to current preset mode
+        xmlParameter->setAttribute("use_presets", usePresets ? "1" : "0");
 
+        // get current real value
         float realValue = getRealFloat();
-        xml_element->setAttribute("value", realValue);
-        xml->addChildElement(xml_element);
+
+        // set attribute "value" to current value
+        xmlParameter->setAttribute("value", realValue);
+
+        // add new element to XML document
+        xmlDocument->addChildElement(xmlParameter);
     }
 }
 

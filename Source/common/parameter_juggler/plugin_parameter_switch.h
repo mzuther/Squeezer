@@ -39,41 +39,28 @@ public:
     PluginParameterSwitch(bool save_from_deletion = false);
     ~PluginParameterSwitch();
 
-    void addConstant(const float fRealValue, const String &strText);
-    float getInterval();
+    void addPreset(const float newRealValue, const String &newLabel);
+    int getNumberOfSteps();
 
-    virtual float getDefaultFloat() override;
-    virtual float getDefaultRealFloat() override;
-    virtual bool setDefaultRealFloat(float fRealValue, bool updateValue) override;
+    float toRealFloat(float newValue);
+    float toInternalFloat(float newRealValue);
 
-    virtual float getFloat() override;
-    virtual bool setFloat(float fValue) override;
+    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
 
-    virtual float getRealFloat() override;
-    virtual bool setRealFloat(float fRealValue) override;
-    bool setNearestRealFloat(float fRealValue);
+    virtual void setFloat(float newValue) override;
+    virtual void setRealFloat(float newRealValue) override;
+    virtual void setText(const String &newValue) override;
 
-    virtual String getText() override;
-    virtual bool setText(const String &strText) override;
-
-    float getFloatFromText(const String &strText);
-    String getTextFromFloat(float fValue);
-
-    virtual bool saveFromDeletion() override;
+    float getFloatFromText(const String &newValue);
+    String getTextFromFloat(float newValue);
 
 private:
     JUCE_LEAK_DETECTOR(PluginParameterSwitch);
 
-    float fDefaultRealValue;
-    int nCurrentIndex;
-    float fValueInternal;
-    bool bChangedValue;
-    float fInterval;
+    Array<float> arrRealValues;
+    StringArray arrLabels;
 
-    Array<float> fRealValues;
-    StringArray strValues;
-
-    bool bSaveFromDeletion;
+    float stepSize;
 };
 
 

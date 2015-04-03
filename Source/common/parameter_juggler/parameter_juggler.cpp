@@ -29,13 +29,10 @@
 // The methods of this class may be called on the audio thread, so
 // they are absolutely time-critical!
 
-// The methods of this class may be called on the audio thread, so
-// they are absolutely time-critical!
-
 ParameterJuggler::ParameterJuggler()
 {
-    strSettingsID = "SETTINGS";
-    nNumParameters = 0;
+    jugglerID = "SETTINGS";
+    numberOfParameters = 0;
 }
 
 
@@ -58,10 +55,12 @@ ParameterJuggler::~ParameterJuggler()
 }
 
 
-PluginParameter *ParameterJuggler::getPluginParameter(int nIndex)
+PluginParameter *ParameterJuggler::getPluginParameter(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex];
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index];
 }
 
 
@@ -69,197 +68,225 @@ String ParameterJuggler::toString()
 {
     String strParameters;
 
-    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
+    for (int n = 0; n < numberOfParameters; n++)
     {
-        strParameters += arrParameters[nIndex]->getName() + ":  ";
-        strParameters += arrParameters[nIndex]->getText() + "\n";
+        strParameters += arrParameters[n]->getName() + ":  ";
+        strParameters += arrParameters[n]->getText() + "\n";
     }
 
     return strParameters;
 }
 
 
-int ParameterJuggler::getNumParameters(bool bIncludeHiddenParameters)
+int ParameterJuggler::getNumParameters(bool includeHiddenParameters)
 {
-    if (bIncludeHiddenParameters)
+    if (includeHiddenParameters)
     {
-        return nNumParametersComplete;
+        return numberOfParametersComplete;
     }
     else
     {
-        return nNumParametersRevealed;
+        return numberOfParametersRevealed;
     }
 }
 
 
-void ParameterJuggler::add(PluginParameter *parameter, int nIndex, bool mayModify)
+void ParameterJuggler::add(PluginParameter *parameter, int index, bool mayModify)
 {
     arrParameters.add(parameter);
     arrMayModify.add(mayModify);
-    nNumParameters = arrParameters.size();
+    numberOfParameters = arrParameters.size();
 
-    jassert(nNumParameters == nIndex + 1);
+    jassert(numberOfParameters == index + 1);
 }
 
 
-void ParameterJuggler::addCombined(PluginParameterCombined *parameter, int nIndex, int nIndexSwitch, bool mayModify)
+void ParameterJuggler::addCombined(PluginParameterCombined *parameter, int parameterIndex, int switchIndex, bool mayModify)
 {
-    jassert(nIndex == (nIndexSwitch + 1));
+    jassert(parameterIndex == (switchIndex + 1));
 
-    add(parameter->getModeSwitch(), nIndexSwitch, false);
-    add(parameter, nIndex, mayModify);
+    add(parameter->getModeSwitch(), switchIndex, false);
+    add(parameter, parameterIndex, mayModify);
 }
 
 
-String ParameterJuggler::getName(int nIndex)
+String ParameterJuggler::getName(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getName();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getName();
 }
 
 
-void ParameterJuggler::setName(int nIndex, const String &strParameterName)
+void ParameterJuggler::setName(int index, const String &strParameterName)
 {
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    arrParameters[nIndex]->setName(strParameterName);
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+    jassert(arrMayModify[index]);
+
+    arrParameters[index]->setName(strParameterName);
 }
 
 
-float ParameterJuggler::getDefaultFloat(int nIndex)
+float ParameterJuggler::getDefaultFloat(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getDefaultFloat();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getDefaultFloat();
 }
 
 
-float ParameterJuggler::getDefaultRealFloat(int nIndex)
+float ParameterJuggler::getDefaultRealFloat(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getDefaultRealFloat();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getDefaultRealFloat();
 }
 
 
-bool ParameterJuggler::getDefaultBoolean(int nIndex)
+bool ParameterJuggler::getDefaultBoolean(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getDefaultBoolean();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getDefaultBoolean();
 }
 
 
-int ParameterJuggler::getDefaultRealInteger(int nIndex)
+int ParameterJuggler::getDefaultRealInteger(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getDefaultRealInteger();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getDefaultRealInteger();
 }
 
 
-bool ParameterJuggler::setDefaultRealFloat(int nIndex, float fRealValue, bool updateValue)
+void ParameterJuggler::setDefaultRealFloat(int index, float newRealValue, bool updateParameter)
 {
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->setDefaultRealFloat(fRealValue, updateValue);
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+    jassert(arrMayModify[index]);
+
+    arrParameters[index]->setDefaultRealFloat(newRealValue, updateParameter);
 }
 
 
-float ParameterJuggler::getFloat(int nIndex)
+float ParameterJuggler::getFloat(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getFloat();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getFloat();
 }
 
 
-bool ParameterJuggler::setFloat(int nIndex, float fValue)
+void ParameterJuggler::setFloat(int index, float newValue)
 {
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->setFloat(fValue);
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+    jassert(arrMayModify[index]);
+
+    arrParameters[index]->setFloat(newValue);
 }
 
 
-float ParameterJuggler::getRealFloat(int nIndex)
+float ParameterJuggler::getRealFloat(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getRealFloat();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getRealFloat();
 }
 
 
-bool ParameterJuggler::setRealFloat(int nIndex, float fRealValue)
+void ParameterJuggler::setRealFloat(int index, float newRealValue)
 {
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->setRealFloat(fRealValue);
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+    jassert(arrMayModify[index]);
+
+    arrParameters[index]->setRealFloat(newRealValue);
 }
 
 
-bool ParameterJuggler::getBoolean(int nIndex)
+int ParameterJuggler::getRealInteger(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getBoolean();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getRealInteger();
 }
 
 
-bool ParameterJuggler::setBoolean(int nIndex, bool bValue)
+void ParameterJuggler::setRealInteger(int index, int newRealValue)
 {
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->setBoolean(bValue);
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+    jassert(arrMayModify[index]);
+
+    arrParameters[index]->setRealInteger(newRealValue);
 }
 
 
-int ParameterJuggler::getRealInteger(int nIndex)
+bool ParameterJuggler::getBoolean(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getRealInteger();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getBoolean();
 }
 
 
-bool ParameterJuggler::setRealInteger(int nIndex, int nRealValue)
+String ParameterJuggler::getText(int index)
 {
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->setRealInteger(nRealValue);
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->getText();
 }
 
 
-String ParameterJuggler::getText(int nIndex)
+void ParameterJuggler::setText(int index, const String &newValue)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->getText();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+    jassert(arrMayModify[index]);
+
+    arrParameters[index]->setText(newValue);
 }
 
 
-bool ParameterJuggler::setText(int nIndex, const String &strText)
+bool ParameterJuggler::hasChanged(int index)
 {
-    jassert(arrMayModify[nIndex]);
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->setText(strText);
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->hasChanged();
 }
 
 
-bool ParameterJuggler::hasChanged(int nIndex)
+void ParameterJuggler::clearChangeFlag(int index)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->hasChanged();
+    jassert(index >= 0);
+    jassert(index < numberOfParameters);
+
+    return arrParameters[index]->clearChangeFlag();
 }
 
 
-void ParameterJuggler::clearChangeFlag(int nIndex)
+void ParameterJuggler::loadFromXml(XmlElement *xmlDocument)
 {
-    jassert((nIndex >= 0) && (nIndex < nNumParameters));
-    return arrParameters[nIndex]->clearChangeFlag();
-}
-
-
-void ParameterJuggler::loadFromXml(XmlElement *xml)
-{
-    if (xml && xml->hasTagName(strSettingsID))
+    if (xmlDocument && xmlDocument->hasTagName(jugglerID))
     {
-        for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
+        for (int n = 0; n < numberOfParameters; n++)
         {
-            if (arrMayModify[nIndex])
+            if (arrMayModify[n])
             {
-                arrParameters[nIndex]->loadFromXml(xml);
+                arrParameters[n]->loadFromXml(xmlDocument);
             }
         }
     }
@@ -268,18 +295,18 @@ void ParameterJuggler::loadFromXml(XmlElement *xml)
 
 XmlElement ParameterJuggler::storeAsXml()
 {
-    XmlElement xml(strSettingsID);
-    xml.setAttribute("version", JucePlugin_VersionString);
+    XmlElement xmlDocument(jugglerID);
+    xmlDocument.setAttribute("version", JucePlugin_VersionString);
 
-    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
+    for (int n = 0; n < numberOfParameters; n++)
     {
-        if (arrMayModify[nIndex])
+        if (arrMayModify[n])
         {
-            arrParameters[nIndex]->storeAsXml(&xml);
+            arrParameters[n]->storeAsXml(&xmlDocument);
         }
     }
 
-    return xml;
+    return xmlDocument;
 }
 
 

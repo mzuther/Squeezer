@@ -26,231 +26,344 @@
 #include "plugin_parameter_continuous.h"
 
 
-PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float log_factor, int decimal_places, bool save_from_deletion)
+/// Create a stepped parameter with continuous floating-point values.
+/// **Real** values range from **real_minimum** to **real_maximum**,
+/// are quantised by **step_size**, and may be transformed to
+/// exponential or logarithmic scalings using **scaling_factor**.
+/// **Internal** values simply range from 0.0 to 1.0.
+///
+/// @param real_minimum **real** parameter minimum (may be less than
+///        **real_maximum**)
+///
+/// @param real_maximum **real** parameter maximum (may be higher than
+///        **real_minimum**)
+///
+/// @param step_size **real** parameter values are quantised using
+///        this value.  For example, a minimum value of 0, maximum
+///        value of 6 and a step size of 2 will lead to (unscaled)
+///        parameter values of 0, 2, 4, and 6.
+///
+/// @param scaling_factor set this to positive values for exponential
+///        scaling and negative values for logarithmic scaling: \f$
+///        realValue = \frac{10^{internalValue * scalingFactor} -
+///        1}{10^{scalingFactor} - 1} \f$.  With \f$ SCF =
+///        10^{scalingFactor} - 1 \f$ this can be reduced to \f$
+///        realValue = \frac{10^{internalValue * scalingFactor} -
+///        1}{SCF} \f$ and \f$ internalValue =
+///        \frac{log_{10}(realValue * SCF + 1)}{scalingFactor} \f$.  A
+///        value of 0 evokes linear scaling.
+///
+/// @param decimal_places number of decimal places for formatting the
+///        real value
+///
+/// @param save_from_deletion should parameter be spared from deletion
+///        in destructor of ParameterJuggler?
+///
+PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float real_maximum, float step_size, float scaling_factor, int decimal_places, bool save_from_deletion)
 {
-    strSuffix = String::empty;
+    // minimum and maximum real parameter value
+    realMinimum = real_minimum;
+    realMaximum = real_maximum;
 
-    fRealMinimum = real_minimum;
-    fRealMaximum = real_maximum;
+    // range of real parameter values
+    realRange = realMaximum - realMinimum;
 
-    fRealRange = fRealMaximum - fRealMinimum;
-    fResolution = resolution;
-    fInterval = fResolution / fRealRange;
-    nDecimalPlaces = decimal_places;
+    // real parameter values are quantised using the step size.  For
+    // example, a minimum value of 0, maximum value of 6 and a step
+    // size of 2 will lead to (unscaled) parameter values of 0, 2, 4,
+    // and 6.
+    //
+    // So far, this is only reflected in the function
+    // getNumberOfSteps() and intermediate parameter values are
+    // accepted and left alone.
+    stepSize = step_size;
 
-    if (log_factor > 0.0f)
+    // number of decimal places (for formatting of value only)
+    decimalPlaces = decimal_places;
+
+    // initialise value suffix (for formatting of value only)
+    valueSuffix = String::empty;
+
+    // initialise scaling factor (for exponential or logarithmic
+    // parameters)
+    scalingFactor = scaling_factor;
+
+    // parameter is linear
+    if (scalingFactor == 0.0f)
     {
-        bLogarithmic = true;
-        fLogFactor = log_factor;
-        fLogPowerFactor = powf(10.0f, fLogFactor) - 1.0f;
+        isNonlinear = false;
+        scalingConstantFactor = 0.0f;
     }
+    // parameter is non-linear
     else
     {
-        bLogarithmic = false;
-        fLogFactor = -1.0f;
-        fLogPowerFactor = -1.0f;
+        isNonlinear = true;
+
+        // initialise constant scaling factor to increase processing
+        // speed (see formula in description)
+        scalingConstantFactor = powf(10.0f, scalingFactor) - 1.0f;
     }
 
-    bSaveFromDeletion = save_from_deletion;
+    // may parameter be deleted?
+    doNotDelete = save_from_deletion;
 
-    setRealFloat(fRealMinimum);
-    setChangeFlag();
+    // force update
+    value = -1.0f;
+
+    // set parameter to minimum value (also marks parameter as
+    // changed)
+    setFloat(0.0f);
 }
 
 
+/// Destructor.
+///
 PluginParameterContinuous::~PluginParameterContinuous()
 {
 }
 
 
-float PluginParameterContinuous::getInterval()
+/// Convert **internal** parameter value to **real** value.
+///
+/// @param newValue **internal** parameter value
+///
+/// @return **real** parameter value
+///
+float PluginParameterContinuous::toRealFloat(float newValue)
 {
-    return fInterval;
+    // confine new value to internal parameter range
+    if (newValue < 0.0f)
+    {
+        newValue = 0.0f;
+    }
+    else if (newValue > 1.0f)
+    {
+        newValue = 1.0f;
+    }
+
+    // transform exponential and logarithmic parameters
+    if (isNonlinear)
+    {
+        newValue = (powf(10.0f, newValue * scalingFactor) - 1.0f) / scalingConstantFactor;
+    }
+
+    // transform to real parameter range
+    float newRealValue = (newValue * realRange) + realMinimum;
+
+    // TODO: quantise to step size here!
+
+    return newRealValue;
 }
 
 
-float PluginParameterContinuous::toRealFloat(float fValue)
+/// Convert **real** parameter value to **internal** value.
+///
+/// @param newRealValue **real** parameter value
+///
+/// @return **internal** parameter value
+///
+float PluginParameterContinuous::toInternalFloat(float newRealValue)
 {
-    if (bLogarithmic)
+    // confine new value to real parameter range
+    if (newRealValue < realMinimum)
     {
-        fValue = (powf(10.0f, fValue * fLogFactor) - 1.0f) / fLogPowerFactor;
+        newRealValue = realMinimum;
+    }
+    else if (newRealValue > realMaximum)
+    {
+        newRealValue = realMaximum;
     }
 
-    return (fValue * fRealRange) + fRealMinimum;
+    // transform to internal parameter range
+    float newValue = (newRealValue - realMinimum) / realRange;
+
+    // TODO: quantise to step size here!
+
+    // transform exponential and logarithmic parameters
+    if (isNonlinear)
+    {
+        newValue = log10f(newValue * scalingConstantFactor + 1.0f) / scalingFactor;
+    }
+
+    return newValue;
 }
 
 
-float PluginParameterContinuous::toInternalFloat(float fRealValue)
+/// Get number of discrete parameter values.
+///
+/// @return number of discrete parameter values
+///
+int PluginParameterContinuous::getNumberOfSteps()
 {
-    fRealValue = (fRealValue - fRealMinimum) / fRealRange;
-
-    if (bLogarithmic)
-    {
-        fRealValue = log10f(fRealValue * fLogPowerFactor + 1.0f) / fLogFactor;
-    }
-
-    return fRealValue;
+    return int(realRange / stepSize) + 1;
 }
 
 
-float PluginParameterContinuous::getDefaultFloat()
+/// Set **real** default value from float.  The new value must be in
+/// the defined range of the parameter's values.
+///
+/// @param newRealValue new default value
+///
+/// @param updateParameter if this is true, the parameter's value will
+///        be set to the new default value
+///
+void PluginParameterContinuous::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
-    return toInternalFloat(fDefaultRealValue);
+    // confine new default value to real parameter range
+    if (newRealValue < realMinimum)
+    {
+        newRealValue = realMinimum;
+    }
+    else if (newRealValue > realMaximum)
+    {
+        newRealValue = realMaximum;
+    }
+
+    // update real default value
+    defaultRealValue = newRealValue;
+
+    // update internal default value
+    defaultValue = toInternalFloat(defaultRealValue);
+
+    // optionally, update current parameter value
+    if (updateParameter)
+    {
+        setFloat(defaultValue);
+    }
 }
 
 
-float PluginParameterContinuous::getDefaultRealFloat()
+/// Set **internal** parameter value from float.  The new value must
+/// be in the range from 0.0 to 1.0.
+///
+/// @param newValue new value (between 0.0 and 1.0)
+///
+void PluginParameterContinuous::setFloat(float newValue)
 {
-    return fDefaultRealValue;
-}
-
-
-bool PluginParameterContinuous::setDefaultRealFloat(float fRealValue, bool updateValue)
-{
-    bool bReturn;
-
-    if (fRealValue < fRealMinimum)
+    // confine new value to internal parameter range
+    if (newValue < 0.0f)
     {
-        DBG("[Juggler] default value for \"" + getName() + "\" set to minimum.");
-        fDefaultRealValue = fRealMinimum;
-        bReturn = false;
+        newValue = 0.0f;
     }
-    else if (fRealValue > fRealMaximum)
+    else if (newValue > 1.0f)
     {
-        DBG("[Juggler] default value for \"" + getName() + "\" set to maximum.");
-        fDefaultRealValue = fRealMaximum;
-        bReturn = false;
-    }
-    else
-    {
-        fDefaultRealValue = fRealValue;
-        bReturn = true;
+        newValue = 1.0f;
     }
 
-    if (updateValue)
+    // value has changed
+    if (newValue != value)
     {
-        setRealFloat(fDefaultRealValue);
-    }
+        // update internal parameter value
+        value = newValue;
 
-    return bReturn;
-}
+        // update real parameter value
+        realValue = toRealFloat(value);
 
+        // update text value
+        textValue = getTextFromFloat(value);
 
-float PluginParameterContinuous::getFloat()
-{
-    return fValueInternal;
-}
-
-
-bool PluginParameterContinuous::setFloat(float fValue)
-{
-    float fValueInternalOld = fValueInternal;
-    bool bReturn;
-
-    if (fValue < 0.0f)
-    {
-        DBG("[Juggler] value for \"" + getName() + "\" set to minimum.");
-        fValueInternal = 0.0f;
-        bReturn = false;
-    }
-    else if (fValue > 1.0f)
-    {
-        DBG("[Juggler] value for \"" + getName() + "\" set to maximum.");
-        fValueInternal = 1.0f;
-        bReturn = false;
-    }
-    else
-    {
-        fValueInternal = fValue;
-        bReturn = true;
-    }
-
-    if (fValueInternal != fValueInternalOld)
-    {
+        // mark parameter as changed
         setChangeFlag();
     }
-
-    return bReturn;
 }
 
 
-float PluginParameterContinuous::getRealFloat()
+/// Set **real** parameter value from float.  The new value must be in
+/// the defined range of the parameter's values.
+///
+/// @param newRealValue new value
+///
+void PluginParameterContinuous::setRealFloat(float newRealValue)
 {
-    return toRealFloat(fValueInternal);
+    // transform real value to internal value
+    float internalValue = toInternalFloat(newRealValue);
+
+    // update internal value
+    setFloat(internalValue);
 }
 
 
-bool PluginParameterContinuous::setRealFloat(float fRealValue)
+/// Set parameter value from (correctly) formatted string.
+///
+/// @param newValue new value as formatted string
+///
+void PluginParameterContinuous::setText(const String &newValue)
 {
-    float fValue = toInternalFloat(fRealValue);
-    return setFloat(fValue);
+    // transform string to internal value
+    float internalValue = getFloatFromText(newValue);
+
+    // update internal value
+    setFloat(internalValue);
 }
 
 
-bool PluginParameterContinuous::setNearestRealFloat(float fRealValue)
+/// Set suffix that will be appended to the formatted parameter.
+///
+/// @param newSuffix new suffix (may be an empty string)
+///
+void PluginParameterContinuous::setSuffix(const String &newSuffix)
 {
-    if (fRealValue < fRealMinimum)
+    // set new suffix for text value
+    valueSuffix = newSuffix;
+
+    // update text value
+    float internalValue = getFloat();
+    textValue = getTextFromFloat(internalValue);
+}
+
+
+/// Transform string to **internal** parameter value.
+///
+/// @param newValue correctly formatted string
+///
+/// @return **internal** value
+///
+float PluginParameterContinuous::getFloatFromText(const String &newValue)
+{
+    // removed suffix from string
+    String cleanedTextValue = newValue.upToLastOccurrenceOf(valueSuffix, false, false);
+
+    // convert string to float
+    float realValueNew = cleanedTextValue.getFloatValue();
+
+    // transform real value to internal value
+    return toInternalFloat(realValueNew);
+}
+
+
+/// Transform **internal** value to string.
+///
+/// @param newValue **internal** value
+///
+/// @return formatted string
+///
+String PluginParameterContinuous::getTextFromFloat(float newValue)
+{
+    // transform internal value to real value
+    float newRealValue = toRealFloat(newValue);
+
+    String textValueNew;
+
+    // use decimal places
+    if (decimalPlaces > 0)
     {
-        setRealFloat(fRealMinimum);
-        return false;
-    }
-    else if (fRealValue > fRealMaximum)
-    {
-        setRealFloat(fRealMaximum);
-        return false;
+        // format parameter value using given number of decimal places
+        textValueNew = String(newRealValue, decimalPlaces);
     }
     else
     {
-        return setRealFloat(fRealValue);
+        // round real parameter value
+        newRealValue = round_mz(newRealValue);
+
+        // format parameter value
+        textValueNew = String(newRealValue);
     }
-}
 
+    // add parameter suffix
+    textValueNew += valueSuffix;
 
-String PluginParameterContinuous::getText()
-{
-    return getTextFromFloat(getFloat());
-}
-
-
-bool PluginParameterContinuous::setText(const String &strText)
-{
-    return setRealFloat(getFloatFromText(strText));
-}
-
-
-void PluginParameterContinuous::setSuffix(const String &suffix)
-{
-    strSuffix = suffix;
-}
-
-
-float PluginParameterContinuous::getFloatFromText(const String &strText)
-{
-    String strWithoutSuffix = strText.upToLastOccurrenceOf(strSuffix, false, false);
-    float fRealValue = strWithoutSuffix.getFloatValue();
-
-    return toInternalFloat(fRealValue);
-}
-
-
-String PluginParameterContinuous::getTextFromFloat(float fValue)
-{
-    float fRealValue = toRealFloat(fValue);
-
-    if (nDecimalPlaces > 0)
-    {
-        return String(fRealValue, nDecimalPlaces) + strSuffix;
-    }
-    else
-    {
-        return String(round_mz(fRealValue)) + strSuffix;
-    }
-}
-
-
-bool PluginParameterContinuous::saveFromDeletion()
-{
-    return bSaveFromDeletion;
+    // return formatted string
+    return textValueNew;
 }
 
 

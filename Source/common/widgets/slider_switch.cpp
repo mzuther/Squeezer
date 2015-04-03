@@ -31,7 +31,7 @@ SliderSwitch::SliderSwitch(const String &componentName, ParameterJuggler *pParam
     pSwitch = dynamic_cast<PluginParameterSwitch *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pSwitch != nullptr);
 
-    setRange(0.0f, 1.0f, pSwitch->getInterval());
+    setRange(0.0f, 1.0f, 1.0f / pSwitch->getNumberOfSteps());
     setSliderStyle(Slider::RotaryVerticalDrag);
     colourRotary = Colours::white;
 

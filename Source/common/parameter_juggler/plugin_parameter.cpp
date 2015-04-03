@@ -30,8 +30,23 @@
 ///
 PluginParameter::PluginParameter()
 {
+    // initialise current value
+    value = 0.0f;
+    realValue = 0.0f;
+    textValue = String::empty;
+
+    // initialise default value
+    defaultValue = 0.0f;
+    defaultRealValue = 0.0f;
+
+    // initialise parameter name
     parameterName = String::empty;
+
+    // initialise XML tag name
     xmlTagName = String::empty;
+
+    // parameter may be deleted
+    doNotDelete = false;
 }
 
 
@@ -70,12 +85,15 @@ void PluginParameter::setName(const String &newParameterName)
     // convert tag name to lower case
     xmlTagName = xmlTagName.toLowerCase();
 
-    // strip all characters except a-z, space and underscore
+    // strip all characters except a-z, underscore and space
     xmlTagName = xmlTagName.retainCharacters(
-                     "abcdefghijklmnopqrstuvwxyz _");
+                     "abcdefghijklmnopqrstuvwxyz_ ");
 
     // change all spaces to underscores
     xmlTagName = xmlTagName.replace(" ", "_");
+
+    // remove double underscores
+    xmlTagName = xmlTagName.replace("__", "_");
 }
 
 
@@ -89,13 +107,36 @@ String PluginParameter::getTagName()
 }
 
 
-/// Get default value as Boolean.
+/// Get **internal** default value as float.  Values range from 0.0 to
+/// 1.0.
+///
+/// @return internal default value (between 0.0 and 1.0)
+///
+float PluginParameter::getDefaultFloat()
+{
+    return defaultValue;
+}
+
+
+/// Get **real** default value as float.  Values range from the
+/// parameter's minimum value to its maximum value.
 ///
 /// @return default value
 ///
+float PluginParameter::getDefaultRealFloat()
+{
+    return defaultRealValue;
+}
+
+
+/// Get default value as Boolean.
+///
+/// @return **false** if the default value is set to the parameter's
+///         minimum, **true** otherwise
+///
 bool PluginParameter::getDefaultBoolean()
 {
-    return getDefaultRealFloat() != 0.0f;
+    return getDefaultFloat() != 0.0f;
 }
 
 
@@ -111,27 +152,25 @@ int PluginParameter::getDefaultRealInteger()
 }
 
 
-
-
-/// Get parameter value as Boolean.
+/// Get **internal** parameter value as float.  Values range from 0.0
+/// to 1.0.
 ///
-/// @return current value
+/// @return current value (between 0.0 and 1.0)
 ///
-bool PluginParameter::getBoolean()
+float PluginParameter::getFloat()
 {
-    return getRealFloat() != 0.0f;
+    return value;
 }
 
 
-/// Set parameter value from Boolean.
+/// Get **real** parameter value as float.  Values range from the
+/// parameter's minimum value to its maximum value.
 ///
-/// @param newValue new value
+/// @return current value
 ///
-/// @return **true** if update was successful, **false** otherwise
-///
-bool PluginParameter::setBoolean(bool newValue)
+float PluginParameter::getRealFloat()
 {
-    return setRealFloat(newValue ? 1.0f : 0.0f);
+    return realValue;
 }
 
 
@@ -152,11 +191,30 @@ int PluginParameter::getRealInteger()
 ///
 /// @param newRealValue new value
 ///
-/// @return **true** if update was successful, **false** otherwise
-///
-bool PluginParameter::setRealInteger(int newRealValue)
+void PluginParameter::setRealInteger(int newRealValue)
 {
-    return setRealFloat((float) newRealValue);
+    setRealFloat((float) newRealValue);
+}
+
+
+/// Get parameter value as Boolean.
+///
+/// @return **false** if current value is at its minimum, **true**
+///         otherwise
+///
+bool PluginParameter::getBoolean()
+{
+    return getFloat() != 0.0f;
+}
+
+
+/// Get parameter value as formatted string.
+///
+/// @return current value
+///
+String PluginParameter::getText()
+{
+    return textValue;
 }
 
 
@@ -189,34 +247,71 @@ void PluginParameter::setChangeFlag()
 
 /// Load parameter value from XML.
 ///
-/// @param xml XML element to load from
+/// @param xmlDocument XML document to load from
 ///
-void PluginParameter::loadFromXml(XmlElement *xml)
+void PluginParameter::loadFromXml(XmlElement *xmlDocument)
 {
-    XmlElement *xml_element = xml->getChildByName(getTagName());
+    float realValue;
 
-    if (xml_element)
+    // get parameter's element from XML document
+    XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
+
+    // parameter's element found
+    if (xmlParameter)
     {
-        double realValue = xml_element->getDoubleAttribute("value", getDefaultRealFloat());
-        setRealFloat((float) realValue);
+        // get stored value from attribute "value" (or use default
+        // real value)
+        realValue = (float) xmlParameter->getDoubleAttribute("value", getDefaultRealFloat());
     }
+    // otherwise
+    else
+    {
+        // use default real value
+        realValue = getDefaultRealFloat();
+    }
+
+    // update real value
+    setRealFloat(realValue);
 }
 
 
 /// Store parameter value as XML.
 ///
-/// @param xml XML element to store in
+/// @param xmlDocument XML document to store in
 ///
-void PluginParameter::storeAsXml(XmlElement *xml)
+void PluginParameter::storeAsXml(XmlElement *xmlDocument)
 {
-    XmlElement *xml_element = new XmlElement(getTagName());
+    // create new XML element with parameter's tag name (will be
+    // deleted by XML document)
+    XmlElement *xmlParameter = new XmlElement(getTagName());
 
-    if (xml_element)
+    // XML element was successfully created
+    if (xmlParameter)
     {
+        // get current real value
         float realValue = getRealFloat();
-        xml_element->setAttribute("value", realValue);
-        xml->addChildElement(xml_element);
+
+        // set attribute "value" to current value
+        xmlParameter->setAttribute("value", realValue);
+
+        // add new element to XML document
+        xmlDocument->addChildElement(xmlParameter);
     }
+}
+
+
+/// Should parameter be spared from deletion in destructor of
+/// ParameterJuggler?
+///
+/// Sorry, I know this sort of method is *really* ugly, but I
+/// currently see no other way to implement PluginParameterCombined.
+///
+/// @return **true** if parameter should be spared, **false**
+///         otherwise
+///
+bool PluginParameter::saveFromDeletion()
+{
+    return doNotDelete;
 }
 
 

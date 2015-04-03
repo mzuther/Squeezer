@@ -80,9 +80,9 @@ public:
         selSidechainFilterGain,
         selSidechainListen,
 
-        nNumParametersRevealed,
+        numberOfParametersRevealed,
 
-        nNumParametersComplete = nNumParametersRevealed,
+        numberOfParametersComplete = numberOfParametersRevealed,
     };
 
 private:

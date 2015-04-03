@@ -26,234 +26,288 @@
 #include "plugin_parameter_switch.h"
 
 
+/// Create a stepped parameter that can be filled with arbitrary
+/// preset values.  **Internal** values simply range from 0.0 to 1.0.
+///
+/// @param save_from_deletion should parameter be spared from deletion
+///        in destructor of ParameterJuggler?
+///
 PluginParameterSwitch::PluginParameterSwitch(bool save_from_deletion)
 {
-    nCurrentIndex = -1;
-    fDefaultRealValue = -1.0f;
-    fValueInternal = fDefaultRealValue;
-    fInterval = -1.0f;
+    // initialise values (invalid because parameter contains no
+    // values)
+    value = -1.0f;
+    realValue = -1.0f;
 
-    bSaveFromDeletion = save_from_deletion;
+    // initialise default values (invalid because parameter contains
+    // no values)
+    defaultValue = -1.0f;
+    defaultRealValue = -1.0f;
 
+    // internal spacing between values (invalid because parameter
+    // contains no values)
+    stepSize = -1.0f;
+
+    // may parameter be deleted?
+    doNotDelete = save_from_deletion;
+
+    // mark parameter as changed
     setChangeFlag();
 }
 
 
+/// Destructor.
+///
 PluginParameterSwitch::~PluginParameterSwitch()
 {
 }
 
 
-void PluginParameterSwitch::addConstant(const float fRealValue, const String &strText)
+/// Add a preset value and a corresponding string representation.
+/// **This function must be called at least twice for the parameter to
+/// work as expected.**
+///
+/// @param newRealValue new real value
+///
+/// @param newLabel string representation
+///
+void PluginParameterSwitch::addPreset(const float newRealValue, const String &newLabel)
 {
-    fRealValues.add(fRealValue);
-    strValues.add(strText);
-    fInterval = 1.0f / (strValues.size() - 1.0f);
+    // store real value in array
+    arrRealValues.add(newRealValue);
 
-    if (fRealValues.size() == 1)
+    // store label in array
+    arrLabels.add(newLabel);
+
+    // this is the first preset value we have added
+    if (arrRealValues.size() == 1)
     {
-        setDefaultRealFloat(fRealValue, true);
+        // update default value and value
+        setDefaultRealFloat(newRealValue, true);
+
+        // mark parameter as changed
+        setChangeFlag();
+    }
+    // prevent division by zero
+    else
+    {
+        // update step size
+        stepSize = 1.0f / (arrLabels.size() - 1.0f);
     }
 }
 
 
-float PluginParameterSwitch::getInterval()
+/// Get number of discrete parameter values.
+///
+/// @return number of discrete parameter values
+///
+int PluginParameterSwitch::getNumberOfSteps()
 {
-    return fInterval;
+    return arrLabels.size();
 }
 
 
-float PluginParameterSwitch::getDefaultFloat()
+/// Convert **internal** parameter value to **real** value.
+///
+/// @param newValue **internal** parameter value
+///
+/// @return **real** parameter value
+///
+float PluginParameterSwitch::toRealFloat(float newValue)
 {
-    int nIndex = fRealValues.indexOf(fDefaultRealValue);
-
-    if (nIndex < 0)
+    // confine new value to internal parameter range
+    if (newValue < 0.0f)
     {
-        DBG("[Juggler] default value for \"" + getName() + "\" not found.");
+        newValue = 0.0f;
+    }
+    else if (newValue > 1.0f)
+    {
+        newValue = 1.0f;
+    }
+
+    // find matching index in array with real values
+    int selectedIndex = round_mz(newValue / stepSize);
+
+    // return real value
+    return arrRealValues[selectedIndex];
+}
+
+
+/// Convert **real** parameter value to **internal** value.
+///
+/// @param newRealValue **real** parameter value
+///
+/// @return **internal** parameter value
+///
+float PluginParameterSwitch::toInternalFloat(float newRealValue)
+{
+    // try to find new value in array
+    int selectedIndex = arrRealValues.indexOf(newRealValue);
+
+    // new value not found, find nearest stored value
+    if (selectedIndex < 0)
+    {
+        // reset index
+        selectedIndex = 0;
+
+        // get difference between value and first stored value
+        float oldDifference = fabs(newRealValue - arrRealValues[selectedIndex]);
+
+        // loop over stored values
+        for (int currentIndex = 1; currentIndex < arrRealValues.size(); currentIndex++)
+        {
+            // get difference between value and current stored value
+            float newDifference = fabs(newRealValue - arrRealValues[currentIndex]);
+
+            // found smaller difference
+            if (newDifference < oldDifference)
+            {
+                // store new index and difference
+                selectedIndex = currentIndex;
+                oldDifference = newDifference;
+            }
+        }
+    }
+
+    // convert index to internal value
+    float newValue = selectedIndex * stepSize;
+
+    // return internal value
+    return newValue;
+}
+
+
+/// Set **real** default value from float.  The new value must be in
+/// the defined range of the parameter's values.
+///
+/// @param newRealValue new default value
+///
+/// @param updateParameter if this is true, the parameter's value will
+///        be set to the new default value
+///
+void PluginParameterSwitch::setDefaultRealFloat(float newRealValue, bool updateParameter)
+{
+    // update internal default value
+    defaultValue = toInternalFloat(newRealValue);
+
+    // update real default value
+    defaultRealValue = toRealFloat(defaultValue);
+
+    // optionally, update current parameter value
+    if (updateParameter)
+    {
+        setFloat(defaultValue);
+    }
+}
+
+
+/// Set **internal** parameter value from float.  The new value must
+/// be in the range from 0.0 to 1.0.
+///
+/// @param newValue new value (between 0.0 and 1.0)
+///
+void PluginParameterSwitch::setFloat(float newValue)
+{
+    // calculate internal value
+    float newRealValue = toRealFloat(newValue);
+
+    // value has changed
+    if (newRealValue != realValue)
+    {
+        // update real parameter value
+        realValue = newRealValue;
+
+        // update internal parameter value
+        value = toInternalFloat(realValue);
+
+        // update text value
+        textValue = getTextFromFloat(value);
+
+        // mark parameter as changed
+        setChangeFlag();
+    }
+}
+
+
+/// Set **real** parameter value from float.  The new value must be in
+/// the defined range of the parameter's values.
+///
+/// @param newRealValue new value
+///
+void PluginParameterSwitch::setRealFloat(float newRealValue)
+{
+    // transform real value to internal value
+    float internalValue = toInternalFloat(newRealValue);
+
+    // update internal value
+    setFloat(internalValue);
+}
+
+
+/// Set parameter value from (correctly) formatted string.
+///
+/// @param newValue new value as formatted string
+///
+void PluginParameterSwitch::setText(const String &newValue)
+{
+    // transform string to internal value
+    float internalValue = getFloatFromText(newValue);
+
+    // update internal value
+    setFloat(internalValue);
+}
+
+
+/// Transform string to **internal** parameter value.
+///
+/// @param newValue correctly formatted string
+///
+/// @return **internal** value
+///
+float PluginParameterSwitch::getFloatFromText(const String &newValue)
+{
+    // try to find value in array
+    int selectedIndex = arrLabels.indexOf(newValue);
+
+    // new value not found
+    if (selectedIndex < 0)
+    {
+        DBG("[Juggler] text value \"" + newValue + "\" not found in \"" + getName() + "\".");
+
+        // return invalid value
         return -1.0f;
     }
     else
     {
-        return nIndex * fInterval;
+        // return internal value
+        return selectedIndex * stepSize;
     }
 }
 
 
-float PluginParameterSwitch::getDefaultRealFloat()
+/// Transform **internal** value to string.
+///
+/// @param newValue **internal** value
+///
+/// @return formatted string
+///
+String PluginParameterSwitch::getTextFromFloat(float newValue)
 {
-    return fDefaultRealValue;
-}
-
-
-bool PluginParameterSwitch::setDefaultRealFloat(float fRealValue, bool updateValue)
-{
-    int nIndex = fRealValues.indexOf(fRealValue);
-
-    if (nIndex < 0)
+    // confine new value to internal parameter range
+    if (newValue < 0.0f)
     {
-        DBG("[Juggler] new default value \"" + String(fRealValue) + "\" not found in \"" + getName() + "\".");
-        return false;
+        newValue = 0.0f;
     }
-    else
+    else if (newValue > 1.0f)
     {
-        fDefaultRealValue = fRealValue;
-
-        if (updateValue)
-        {
-            setRealFloat(fDefaultRealValue);
-        }
-
-        return true;
-    }
-}
-
-
-float PluginParameterSwitch::getFloat()
-{
-    return fValueInternal;
-}
-
-
-bool PluginParameterSwitch::setFloat(float fValue)
-{
-    if ((fValue < 0.0f) || (fValue > 1.0f))
-    {
-        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + getName() + "\".");
-        return false;
-    }
-    else
-    {
-        int nCurrentIndexOld = nCurrentIndex;
-
-        nCurrentIndex = round_mz(fValue / fInterval);
-        fValueInternal = nCurrentIndex * fInterval;
-
-        if (nCurrentIndex != nCurrentIndexOld)
-        {
-            setChangeFlag();
-        }
-
-        return true;
-    }
-}
-
-
-float PluginParameterSwitch::getRealFloat()
-{
-    return fRealValues[nCurrentIndex];
-}
-
-
-bool PluginParameterSwitch::setRealFloat(float fRealValue)
-{
-    int nCurrentIndexOld = nCurrentIndex;
-    int nIndex = fRealValues.indexOf(fRealValue);
-
-    if (nIndex < 0)
-    {
-        DBG("[Juggler] value \"" + String(fRealValue) + "\" not found in \"" + getName() + "\".");
-        return false;
-    }
-    else
-    {
-        nCurrentIndex = nIndex;
-        fValueInternal = nCurrentIndex * fInterval;
-
-        if (nCurrentIndex != nCurrentIndexOld)
-        {
-            setChangeFlag();
-        }
-
-        return true;
-    }
-}
-
-
-bool PluginParameterSwitch::setNearestRealFloat(float fRealValue)
-{
-    int nIndexSelected = 0;
-    float fDifference = fabs(fRealValue - fRealValues[nIndexSelected]);
-
-    for (int nIndex = 1; nIndex < fRealValues.size(); nIndex++)
-    {
-        float fDifferenceNew = fabs(fRealValue - fRealValues[nIndex]);
-
-        if (fDifferenceNew < fDifference)
-        {
-            nIndexSelected = nIndex;
-            fDifference = fDifferenceNew;
-        }
+        newValue = 1.0f;
     }
 
-    return setRealFloat(fRealValues[nIndexSelected]);
-}
+    // find matching index in array with real values
+    int selectedIndex = round_mz(newValue / stepSize);
 
-
-String PluginParameterSwitch::getText()
-{
-    return strValues[nCurrentIndex];
-}
-
-
-bool PluginParameterSwitch::setText(const String &strText)
-{
-    int nCurrentIndexOld = nCurrentIndex;
-    int nIndex = strValues.indexOf(strText);
-
-    if (nIndex < 0)
-    {
-        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + getName() + "\".");
-        return false;
-    }
-    else
-    {
-        nCurrentIndex = nIndex;
-        fValueInternal = nCurrentIndex * fInterval;
-
-        if (nCurrentIndex != nCurrentIndexOld)
-        {
-            setChangeFlag();
-        }
-
-        return true;
-    }
-}
-
-
-float PluginParameterSwitch::getFloatFromText(const String &strText)
-{
-    int nIndex = strValues.indexOf(strText);
-
-    if (nIndex < 0)
-    {
-        DBG("[Juggler] text value \"" + strText + "\" not found in \"" + getName() + "\".");
-        return -1.0f;
-    }
-    else
-    {
-        return nIndex * fInterval;
-    }
-}
-
-
-String PluginParameterSwitch::getTextFromFloat(float fValue)
-{
-    if ((fValue < 0.0f) || (fValue > 1.0f))
-    {
-        DBG("[Juggler] value \"" + String(fValue) + "\" not found in \"" + getName() + "\".");
-        return "not found";
-    }
-    else
-    {
-        int nIndex = round_mz(fValue / fInterval);
-        return strValues[nIndex];
-    }
-}
-
-
-bool PluginParameterSwitch::saveFromDeletion()
-{
-    return bSaveFromDeletion;
+    // return label
+    return arrLabels[selectedIndex];
 }
 
 
