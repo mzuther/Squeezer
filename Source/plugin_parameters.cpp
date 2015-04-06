@@ -82,13 +82,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterGainStage, selGainStage);
 
 
-    float fMinimum = -60.0f;
-    float fMaximum = +18.0f;
-    float fResolution = 1.0f;
-    float fLogFactor = 0.0f;
-    int nDecimalPlaces = 0;
+    float realMinimum = -60.0f;
+    float realMaximum = +18.0f;
+    float stepSize = 1.0f;
+    float scalingFactor = 0.0f;
+    int decimalPlaces = 0;
 
-    PluginParameterCombined *ParameterThreshold = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterThreshold = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterThreshold->setName("Threshold");
 
     ParameterThreshold->addPreset(-48.0f, "-48 dB");
@@ -131,13 +131,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterThreshold, selThreshold, selThresholdSwitch);
 
 
-    fMinimum = 0.1f;
-    fMaximum = 10.0f;
-    fResolution = 0.05f;
-    fLogFactor = 1.0f;
-    nDecimalPlaces = 2;
+    realMinimum = 0.1f;
+    realMaximum = 10.0f;
+    stepSize = 0.05f;
+    scalingFactor = 1.0f;
+    decimalPlaces = 2;
 
-    PluginParameterCombined *ParameterRatio = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterRatio = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterRatio->setName("Ratio");
 
     ParameterRatio->addPreset(0.50f, "0.50:1");
@@ -161,13 +161,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterRatio, selRatio, selRatioSwitch);
 
 
-    fMinimum = 0.0f;
-    fMaximum = 48.0f;
-    fResolution = 6.0f;
-    fLogFactor = 0.0f;
-    nDecimalPlaces = 0;
+    realMinimum = 0.0f;
+    realMaximum = 48.0f;
+    stepSize = 6.0f;
+    scalingFactor = 0.0f;
+    decimalPlaces = 0;
 
-    PluginParameterCombined *ParameterKneeWidth = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterKneeWidth = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterKneeWidth->setName("Knee Width");
 
     ParameterKneeWidth->addPreset(0.0f,  "Hard");
@@ -179,13 +179,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterKneeWidth, selKneeWidth, selKneeWidthSwitch);
 
 
-    fMinimum = 0.0f;
-    fMaximum = 500.0f;
-    fResolution = 1.0f;
-    fLogFactor = 2.0f;
-    nDecimalPlaces = 0;
+    realMinimum = 0.0f;
+    realMaximum = 500.0f;
+    stepSize = 1.0f;
+    scalingFactor = 2.0f;
+    decimalPlaces = 0;
 
-    PluginParameterCombined *ParameterAttackRate = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterAttackRate = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterAttackRate->setName("Attack Rate");
 
     ParameterAttackRate->addPreset(1.0f,     "1 ms");
@@ -203,13 +203,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterAttackRate, selAttackRate, selAttackRateSwitch);
 
 
-    fMinimum = 0.0f;
-    fMaximum = 8000.0f;
-    fResolution = 1.0f;
-    fLogFactor = 3.0f;
-    nDecimalPlaces = 0;
+    realMinimum = 0.0f;
+    realMaximum = 8000.0f;
+    stepSize = 1.0f;
+    scalingFactor = 3.0f;
+    decimalPlaces = 0;
 
-    PluginParameterCombined *ParameterReleaseRate = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterReleaseRate = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterReleaseRate->setName("Release Rate");
 
     ParameterReleaseRate->addPreset(50.0f,    "50 ms");
@@ -234,14 +234,14 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterReleaseRate, selReleaseRate, selReleaseRateSwitch);
 
 
-    fMinimum = 0.0f;
-    fMaximum = 100.0f;
-    fResolution = 1.0f;
-    fLogFactor = 0.0f;
-    nDecimalPlaces = 0;
+    realMinimum = 0.0f;
+    realMaximum = 100.0f;
+    stepSize = 1.0f;
+    scalingFactor = 0.0f;
+    decimalPlaces = 0;
 
 #ifdef SQUEEZER_STEREO
-    PluginParameterCombined *ParameterStereoLink = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterStereoLink = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterStereoLink->setName("Stereo Link");
 
     ParameterStereoLink->addPreset(0.0f,     "Off");
@@ -262,13 +262,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterAutoMakeupGain, selAutoMakeupGain);
 
 
-    fMinimum = -36.0f;
-    fMaximum = +36.0f;
-    fResolution = 0.5f;
-    fLogFactor = 0.0f;
-    nDecimalPlaces = 1;
+    realMinimum = -36.0f;
+    realMaximum = +36.0f;
+    stepSize = 0.5f;
+    scalingFactor = 0.0f;
+    decimalPlaces = 1;
 
-    PluginParameterCombined *ParameterMakeupGain = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterMakeupGain = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterMakeupGain->setName("Make-Up Gain");
 
     ParameterMakeupGain->addPreset(-18.0f, "-18 dB");
@@ -314,13 +314,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     addCombined(ParameterMakeupGain, selMakeupGain, selMakeupGainSwitch);
 
 
-    fMinimum = 0.0f;
-    fMaximum = 100.0f;
-    fResolution = 1.0f;
-    fLogFactor = 1.0f;
-    nDecimalPlaces = 0;
+    realMinimum = 0.0f;
+    realMaximum = 100.0f;
+    stepSize = 1.0f;
+    scalingFactor = 1.0f;
+    decimalPlaces = 0;
 
-    PluginParameterCombined *ParameterWetMix = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterWetMix = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterWetMix->setName("Wet Mix");
 
     ParameterWetMix->addPreset(0.0f,   "Bypass");
@@ -346,13 +346,13 @@ SqueezerPluginParameters::SqueezerPluginParameters()
     add(ParameterSidechainFilterState, selSidechainFilterState);
 
 
-    fMinimum = 60.0f;
-    fMaximum = 12000.0f;
-    fResolution = 10.0f;
-    fLogFactor = 1.0f;
-    nDecimalPlaces = 0;
+    realMinimum = 60.0f;
+    realMaximum = 12000.0f;
+    stepSize = 10.0f;
+    scalingFactor = 1.0f;
+    decimalPlaces = 0;
 
-    PluginParameterCombined *ParameterSidechainFilterCutoff = new PluginParameterCombined(fMinimum, fMaximum, fResolution, fLogFactor, nDecimalPlaces);
+    PluginParameterCombined *ParameterSidechainFilterCutoff = new PluginParameterCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterSidechainFilterCutoff->setName("SC Filter Cutoff Frequency");
 
     // high-pass filter
@@ -424,89 +424,89 @@ SqueezerPluginParameters::~SqueezerPluginParameters()
 
 String SqueezerPluginParameters::toString()
 {
-    String strParameters;
+    String parameterValues;
 
-    strParameters = String(ProjectInfo::projectName) + " " + String(JucePlugin_VersionString);
+    parameterValues = String(ProjectInfo::projectName) + " " + String(JucePlugin_VersionString);
 #ifdef SQUEEZER_STEREO
-    strParameters += " (Stereo)";
+    parameterValues += " (Stereo)";
 #else
-    strParameters += " (Mono)";
+    parameterValues += " (Mono)";
 #endif
 
-    int nStringLength = strParameters.length();
-    strParameters += "\n";
+    int stringLength = parameterValues.length();
+    parameterValues += "\n";
 
-    for (int nPosition = 0; nPosition < nStringLength; nPosition++)
+    for (int n = 0; n < stringLength; n++)
     {
-        strParameters += "=";
+        parameterValues += "=";
     }
 
-    strParameters += "\nRMS Filter: ";
-    strParameters += arrParameters[selDetectorRmsFilter]->getText();
+    parameterValues += "\nRMS Filter: ";
+    parameterValues += arrParameters[selDetectorRmsFilter]->getText();
 
-    strParameters += ", Design: ";
-    strParameters += arrParameters[selDesign]->getText();
+    parameterValues += ", Design: ";
+    parameterValues += arrParameters[selDesign]->getText();
 
-    strParameters += "\nThresh: ";
-    strParameters += arrParameters[selThreshold]->getText();
+    parameterValues += "\nThresh: ";
+    parameterValues += arrParameters[selThreshold]->getText();
 
-    strParameters += ", Ratio: ";
-    strParameters += arrParameters[selRatio]->getText();
+    parameterValues += ", Ratio: ";
+    parameterValues += arrParameters[selRatio]->getText();
 
-    strParameters += ", Knee: ";
-    strParameters += arrParameters[selKneeWidth]->getText();
+    parameterValues += ", Knee: ";
+    parameterValues += arrParameters[selKneeWidth]->getText();
 
-    strParameters += "\nAttack: ";
-    strParameters += arrParameters[selAttackRate]->getText();
+    parameterValues += "\nAttack: ";
+    parameterValues += arrParameters[selAttackRate]->getText();
 
-    strParameters += ", Release: ";
-    strParameters += arrParameters[selReleaseRate]->getText();
+    parameterValues += ", Release: ";
+    parameterValues += arrParameters[selReleaseRate]->getText();
 
-    strParameters += " (";
-    strParameters += arrParameters[selDetector]->getText();
+    parameterValues += " (";
+    parameterValues += arrParameters[selDetector]->getText();
 
-    strParameters += ", ";
-    strParameters += arrParameters[selGainStage]->getText();
+    parameterValues += ", ";
+    parameterValues += arrParameters[selGainStage]->getText();
 
-    strParameters += ")\nSide-Chain: ";
+    parameterValues += ")\nSide-Chain: ";
 
     if (!arrParameters[selSidechainFilterState]->getBoolean())
     {
-        strParameters += "Filter Bypassed";
+        parameterValues += "Filter Bypassed";
     }
     else
     {
         if (arrParameters[selSidechainFilterCutoff]->getRealInteger() < 2900)
         {
-            strParameters += "HPF, ";
+            parameterValues += "HPF, ";
         }
         else
         {
-            strParameters += "LPF, ";
+            parameterValues += "LPF, ";
         }
 
-        strParameters += arrParameters[selSidechainFilterCutoff]->getText();
+        parameterValues += arrParameters[selSidechainFilterCutoff]->getText();
 
-        strParameters += ", ";
+        parameterValues += ", ";
 
-        strParameters += arrParameters[selSidechainFilterGain]->getText();
+        parameterValues += arrParameters[selSidechainFilterGain]->getText();
     }
 
-    strParameters += "\nMake-Up: ";
-    strParameters += arrParameters[selMakeupGain]->getText();
+    parameterValues += "\nMake-Up: ";
+    parameterValues += arrParameters[selMakeupGain]->getText();
 
-    strParameters += " (";
-    strParameters += arrParameters[selAutoMakeupGain]->getText();
+    parameterValues += " (";
+    parameterValues += arrParameters[selAutoMakeupGain]->getText();
 
-    strParameters += "), Wet: ";
-    strParameters += arrParameters[selWetMix]->getText();
+    parameterValues += "), Wet: ";
+    parameterValues += arrParameters[selWetMix]->getText();
 
 #ifdef SQUEEZER_STEREO
-    strParameters += ", Link: ";
-    strParameters += arrParameters[selStereoLink]->getText();
+    parameterValues += ", Link: ";
+    parameterValues += arrParameters[selStereoLink]->getText();
 #endif
 
-    return strParameters + "\n";
+    return parameterValues + "\n";
 }
 
 

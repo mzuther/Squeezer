@@ -28,7 +28,7 @@
 
 /// Create a stepped parameter with continuous floating-point values.
 /// **Real** values range from **real_minimum** to **real_maximum**,
-/// are quantised by **step_size**, and may be transformed to
+/// are quantised by **real_step_size**, and may be transformed to
 /// exponential or logarithmic scalings using **scaling_factor**.
 /// **Internal** values simply range from 0.0 to 1.0.
 ///
@@ -38,10 +38,10 @@
 /// @param real_maximum **real** parameter maximum (may be higher than
 ///        **real_minimum**)
 ///
-/// @param step_size **real** parameter values are quantised using
-///        this value.  For example, a minimum value of 0, maximum
-///        value of 6 and a step size of 2 will lead to (unscaled)
-///        parameter values of 0, 2, 4, and 6.
+/// @param real_step_size **real** parameter values are quantised
+///        using this value.  For example, a minimum value of 0,
+///        maximum value of 6 and a step size of 2 will lead to
+///        (unscaled) parameter values of 0, 2, 4, and 6.
 ///
 /// @param scaling_factor set this to positive values for exponential
 ///        scaling and negative values for logarithmic scaling: \f$
@@ -59,7 +59,7 @@
 /// @param save_from_deletion should parameter be spared from deletion
 ///        in destructor of ParameterJuggler?
 ///
-PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float real_maximum, float step_size, float scaling_factor, int decimal_places, bool save_from_deletion)
+PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion)
 {
     // minimum and maximum real parameter value
     realMinimum = real_minimum;
@@ -76,7 +76,7 @@ PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float r
     // So far, this is only reflected in the function
     // getNumberOfSteps() and intermediate parameter values are
     // accepted and left alone.
-    stepSize = step_size;
+    realStepSize = real_step_size;
 
     // number of decimal places (for formatting of value only)
     decimalPlaces = decimal_places;
@@ -195,7 +195,17 @@ float PluginParameterContinuous::toInternalFloat(float newRealValue)
 ///
 int PluginParameterContinuous::getNumberOfSteps()
 {
-    return int(realRange / stepSize) + 1;
+    return int(realRange / realStepSize) + 1;
+}
+
+
+/// Get **internal** step size of parameter values.
+///
+/// @return step size
+///
+float PluginParameterContinuous::getStepSize()
+{
+    return 1.0f / float(getNumberOfSteps() - 1);
 }
 
 

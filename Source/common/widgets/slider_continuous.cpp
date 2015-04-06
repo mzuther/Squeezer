@@ -31,7 +31,7 @@ SliderContinuous::SliderContinuous(const String &componentName, ParameterJuggler
     pContinuous = dynamic_cast<PluginParameterContinuous *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pContinuous != nullptr);
 
-    setRange(0.0f, 1.0f, 1.0f / pContinuous->getNumberOfSteps());
+    setRange(0.0f, 1.0f, pContinuous->getStepSize());
     setSliderStyle(Slider::RotaryVerticalDrag);
     colourRotary = Colours::white;
 

@@ -33,10 +33,11 @@
 class PluginParameterContinuous : virtual public PluginParameter
 {
 public:
-    PluginParameterContinuous(float real_minimum, float real_maximum, float resolution, float scaling_factor, int decimal_places, bool save_from_deletion = false);
+    PluginParameterContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion = false);
     ~PluginParameterContinuous();
 
     int getNumberOfSteps();
+    float getStepSize();
 
     virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
 
@@ -59,7 +60,7 @@ private:
     float realMaximum;
     float realRange;
 
-    float stepSize;
+    float realStepSize;
     int decimalPlaces;
     String valueSuffix;
 

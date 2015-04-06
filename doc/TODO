@@ -1,11 +1,5 @@
-o [mzuther] use smart pointers
-
-o [mzuther] use "juce_UseDebuggingNewOperator"
-
 o [mzuther] document code
 
 * implement parameter smoothing ("anti-zipper")
 
 * implement external side-chain
-
-* mono instance

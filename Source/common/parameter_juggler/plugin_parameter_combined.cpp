@@ -30,7 +30,7 @@
 /// (PluginParameterSwitch) and continuous values
 /// (PluginParameterContinuous).  **Real** values range from
 /// **real_minimum** to **real_maximum**, are quantised by
-/// **step_size**, and may be transformed to exponential or
+/// **real_step_size**, and may be transformed to exponential or
 /// logarithmic scalings using **scaling_factor**.  **Internal**
 /// values simply range from 0.0 to 1.0.
 ///
@@ -40,10 +40,10 @@
 /// @param real_maximum **real** parameter maximum (may be higher than
 ///        **real_minimum**)
 ///
-/// @param step_size **real** parameter values are quantised using
-///        this value.  For example, a minimum value of 0, maximum
-///        value of 6 and a step size of 2 will lead to (unscaled)
-///        parameter values of 0, 2, 4, and 6.
+/// @param real_step_size **real** parameter values are quantised
+///        using this value.  For example, a minimum value of 0,
+///        maximum value of 6 and a step size of 2 will lead to
+///        (unscaled) parameter values of 0, 2, 4, and 6.
 ///
 /// @param scaling_factor set this to positive values for exponential
 ///        scaling and negative values for logarithmic scaling: \f$
@@ -58,7 +58,7 @@
 /// @param decimal_places number of decimal places for formatting the
 ///        real value
 ///
-PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_maximum, float step_size, float scaling_factor, int decimal_places) :
+PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places) :
 
     // initialise parameter for switching between "presets" and
     // "continuous" mode (parameter is saved from deletion!)
@@ -70,7 +70,7 @@ PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_
 
     // initialise parameter for continuous values (parameter is saved
     // from deletion!)
-    continuousValues(real_minimum, real_maximum, step_size, scaling_factor, decimal_places, true)
+    continuousValues(real_minimum, real_maximum, real_step_size, scaling_factor, decimal_places, true)
 
 {
     // initialise values (invalid because the parameter itself
@@ -208,6 +208,23 @@ int PluginParameterCombined::getNumberOfSteps()
     else
     {
         return continuousValues.getNumberOfSteps();
+    }
+}
+
+
+/// Get **internal** step size of parameter values.
+///
+/// @return step size
+///
+float PluginParameterCombined::getStepSize()
+{
+    if (usePresets)
+    {
+        return presetValues.getStepSize();
+    }
+    else
+    {
+        return continuousValues.getStepSize();
     }
 }
 

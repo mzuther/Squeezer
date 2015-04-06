@@ -107,6 +107,16 @@ int PluginParameterSwitch::getNumberOfSteps()
 }
 
 
+/// Get **internal** step size of parameter values.
+///
+/// @return step size
+///
+float PluginParameterSwitch::getStepSize()
+{
+    return 1.0f / float(getNumberOfSteps() - 1);
+}
+
+
 /// Convert **internal** parameter value to **real** value.
 ///
 /// @param newValue **internal** parameter value

@@ -41,6 +41,7 @@ public:
 
     void addPreset(const float newRealValue, const String &newLabel);
     int getNumberOfSteps();
+    float getStepSize();
 
     float toRealFloat(float newValue);
     float toInternalFloat(float newRealValue);
