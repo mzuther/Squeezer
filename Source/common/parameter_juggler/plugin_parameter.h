@@ -81,14 +81,26 @@ public:
 
     virtual bool getBoolean();
 
-    virtual String getText();
+    virtual const String getText();
+    virtual void setText(const String &newValue);
 
-    /// Set parameter value from (correctly) formatted string.
-    /// Subclasses must override this method.
+    /// Transform string to **internal** parameter value.  Subclasses
+    /// must override this method.
     ///
-    /// @param newValue new value as formatted string
+    /// @param newValue correctly formatted string
     ///
-    virtual void setText(const String &newValue) = 0;
+    /// @return **internal** value
+    ///
+    virtual float getFloatFromText(const String &newValue) = 0;
+
+    /// Transform **internal** value to string.  Subclasses must
+    /// override this method.
+    ///
+    /// @param newValue **internal** value
+    ///
+    /// @return formatted string
+    ///
+    virtual const String getTextFromFloat(float newValue) = 0;
 
     virtual bool hasChanged();
     virtual void clearChangeFlag();
@@ -105,7 +117,6 @@ protected:
 
     float value;
     float realValue;
-    String textValue;
 
     float defaultValue;
     float defaultRealValue;

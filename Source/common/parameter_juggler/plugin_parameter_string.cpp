@@ -86,6 +86,16 @@ void PluginParameterString::setRealFloat(float newRealValue)
 }
 
 
+/// Get parameter value as formatted string.
+///
+/// @return current value
+///
+const String PluginParameterString::getText()
+{
+    return textValue;
+}
+
+
 /// Set parameter value from string.
 ///
 /// @param newValue new parameter value
@@ -100,6 +110,38 @@ void PluginParameterString::setText(const String &newValue)
 
     // update value
     textValue = newValue;
+}
+
+
+/// Transform string to **internal** parameter value.  **This function
+/// must not be used!**
+///
+/// @param newValue correctly formatted string
+///
+/// @return **internal** value
+///
+float PluginParameterString::getFloatFromText(const String &newValue)
+{
+    // do nothing till you hear from me ...
+    jassert(false);
+
+    return 0.0f;
+}
+
+
+/// Transform **internal** value to string.  **This function must not
+/// be used!**
+///
+/// @param newValue **internal** value
+///
+/// @return formatted string
+///
+const String PluginParameterString::getTextFromFloat(float newValue)
+{
+    // do nothing till you hear from me ...
+    jassert(false);
+
+    return String::empty;
 }
 
 

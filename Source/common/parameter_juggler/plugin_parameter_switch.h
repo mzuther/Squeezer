@@ -50,10 +50,9 @@ public:
 
     virtual void setFloat(float newValue) override;
     virtual void setRealFloat(float newRealValue) override;
-    virtual void setText(const String &newValue) override;
 
-    float getFloatFromText(const String &newValue);
-    String getTextFromFloat(float newValue);
+    virtual float getFloatFromText(const String &newValue) override;
+    virtual const String getTextFromFloat(float newValue) override;
 
 private:
     JUCE_LEAK_DETECTOR(PluginParameterSwitch);

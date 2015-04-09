@@ -70,12 +70,10 @@ public:
 
     virtual bool getBoolean() override;
 
-    virtual String getText() override;
-    virtual void setText(const String &newValue) override;
     void setSuffix(const String &newSuffix);
 
-    float getFloatFromText(const String &newValue);
-    String getTextFromFloat(float newValue);
+    virtual float getFloatFromText(const String &newValue) override;
+    virtual const String getTextFromFloat(float newValue) override;
 
     virtual bool hasChanged() override;
     virtual void clearChangeFlag() override;

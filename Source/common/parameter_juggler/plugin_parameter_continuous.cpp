@@ -68,15 +68,15 @@ PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float r
     // range of real parameter values
     realRange = realMaximum - realMinimum;
 
-    // real parameter values are quantised using the step size.  For
-    // example, a minimum value of 0, maximum value of 6 and a step
-    // size of 2 will lead to (unscaled) parameter values of 0, 2, 4,
-    // and 6.
+    // real parameter values are quantised using the number of steps
+    // (which depends on step size).  For example, 4 steps with a
+    // minimum value of 0 and a maximum value of 6 will lead to
+    // (unscaled) parameter values of 0, 2, 4, and 6.
     //
     // So far, this is only reflected in the function
-    // getNumberOfSteps() and intermediate parameter values are
-    // accepted and left alone.
-    realStepSize = real_step_size;
+    // getNumberOfSteps().  Intermediate parameter values are accepted
+    // and left alone.
+    numberOfSteps = int(realRange / real_step_size) + 1;
 
     // number of decimal places (for formatting of value only)
     decimalPlaces = decimal_places;
@@ -195,7 +195,7 @@ float PluginParameterContinuous::toInternalFloat(float newRealValue)
 ///
 int PluginParameterContinuous::getNumberOfSteps()
 {
-    return int(realRange / realStepSize) + 1;
+    return numberOfSteps;
 }
 
 
@@ -205,7 +205,7 @@ int PluginParameterContinuous::getNumberOfSteps()
 ///
 float PluginParameterContinuous::getStepSize()
 {
-    return 1.0f / float(getNumberOfSteps() - 1);
+    return 1.0f / float(numberOfSteps - 1);
 }
 
 
@@ -269,9 +269,6 @@ void PluginParameterContinuous::setFloat(float newValue)
         // update real parameter value
         realValue = toRealFloat(value);
 
-        // update text value
-        textValue = getTextFromFloat(value);
-
         // mark parameter as changed
         setChangeFlag();
     }
@@ -293,20 +290,6 @@ void PluginParameterContinuous::setRealFloat(float newRealValue)
 }
 
 
-/// Set parameter value from (correctly) formatted string.
-///
-/// @param newValue new value as formatted string
-///
-void PluginParameterContinuous::setText(const String &newValue)
-{
-    // transform string to internal value
-    float internalValue = getFloatFromText(newValue);
-
-    // update internal value
-    setFloat(internalValue);
-}
-
-
 /// Set suffix that will be appended to the formatted parameter.
 ///
 /// @param newSuffix new suffix (may be an empty string)
@@ -315,10 +298,6 @@ void PluginParameterContinuous::setSuffix(const String &newSuffix)
 {
     // set new suffix for text value
     valueSuffix = newSuffix;
-
-    // update text value
-    float internalValue = getFloat();
-    textValue = getTextFromFloat(internalValue);
 }
 
 
@@ -347,7 +326,7 @@ float PluginParameterContinuous::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-String PluginParameterContinuous::getTextFromFloat(float newValue)
+const String PluginParameterContinuous::getTextFromFloat(float newValue)
 {
     // transform internal value to real value
     float newRealValue = toRealFloat(newValue);

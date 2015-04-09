@@ -230,9 +230,6 @@ void PluginParameterSwitch::setFloat(float newValue)
         // update internal parameter value
         value = toInternalFloat(realValue);
 
-        // update text value
-        textValue = getTextFromFloat(value);
-
         // mark parameter as changed
         setChangeFlag();
     }
@@ -248,20 +245,6 @@ void PluginParameterSwitch::setRealFloat(float newRealValue)
 {
     // transform real value to internal value
     float internalValue = toInternalFloat(newRealValue);
-
-    // update internal value
-    setFloat(internalValue);
-}
-
-
-/// Set parameter value from (correctly) formatted string.
-///
-/// @param newValue new value as formatted string
-///
-void PluginParameterSwitch::setText(const String &newValue)
-{
-    // transform string to internal value
-    float internalValue = getFloatFromText(newValue);
 
     // update internal value
     setFloat(internalValue);
@@ -301,7 +284,7 @@ float PluginParameterSwitch::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-String PluginParameterSwitch::getTextFromFloat(float newValue)
+const String PluginParameterSwitch::getTextFromFloat(float newValue)
 {
     // confine new value to internal parameter range
     if (newValue < 0.0f)

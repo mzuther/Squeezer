@@ -459,40 +459,6 @@ bool PluginParameterCombined::getBoolean()
 }
 
 
-/// Get parameter value as formatted string.
-///
-/// @return current value
-///
-String PluginParameterCombined::getText()
-{
-    if (usePresets)
-    {
-        return presetValues.getText();
-    }
-    else
-    {
-        return continuousValues.getText();
-    }
-}
-
-
-/// Set parameter value from (correctly) formatted string.
-///
-/// @param newValue new value as formatted string
-///
-void PluginParameterCombined::setText(const String &newValue)
-{
-    if (usePresets)
-    {
-        presetValues.setText(newValue);
-    }
-    else
-    {
-        continuousValues.setText(newValue);
-    }
-}
-
-
 /// Set suffix that will be appended to the formatted continuous
 /// parameter.
 ///
@@ -530,7 +496,7 @@ float PluginParameterCombined::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-String PluginParameterCombined::getTextFromFloat(float newValue)
+const String PluginParameterCombined::getTextFromFloat(float newValue)
 {
     if (usePresets)
     {

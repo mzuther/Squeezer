@@ -144,16 +144,6 @@ void PluginParameterBoolean::setFloat(float newValue)
         value = newValue;
         realValue = newValue;
 
-        // update text value
-        if (value == 0.0f)
-        {
-            textValue = labelFalse;
-        }
-        else
-        {
-            textValue = labelTrue;
-        }
-
         // mark parameter as changed
         setChangeFlag();
     }
@@ -181,14 +171,43 @@ void PluginParameterBoolean::setBoolean(bool newValue)
 }
 
 
-/// Set parameter value from (correctly) formatted string.
+/// Transform string to **internal** parameter value.
 ///
-/// @param newValue new value as formatted string
+/// @param newValue correctly formatted string
 ///
-void PluginParameterBoolean::setText(const String &newValue)
+/// @return **internal** value
+///
+float PluginParameterBoolean::getFloatFromText(const String &newValue)
 {
-    // set to "true" if string matches "labelTrue"
-    setBoolean(newValue.compare(labelTrue) == 0);
+    // return "true" (1.0) if string matches "labelTrue"
+    if (newValue.compare(labelTrue) == 0)
+    {
+        return 1.0f;
+    }
+    // otherwise, return "false" (0.0)
+    else
+    {
+        return 0.0f;
+    }
+}
+
+
+/// Transform **internal** value to string.
+///
+/// @param newValue **internal** value
+///
+/// @return formatted string
+///
+const String PluginParameterBoolean::getTextFromFloat(float newValue)
+{
+    if (newValue == 0.0f)
+    {
+        return labelFalse;
+    }
+    else
+    {
+        return labelTrue;
+    }
 }
 
 

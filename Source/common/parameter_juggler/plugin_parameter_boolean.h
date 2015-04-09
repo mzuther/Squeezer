@@ -45,7 +45,8 @@ public:
     virtual void setRealFloat(float newRealValue) override;
     void setBoolean(bool newValue);
 
-    virtual void setText(const String &newValue) override;
+    virtual float getFloatFromText(const String &newValue) override;
+    virtual const String getTextFromFloat(float newValue) override;
 
 private:
     JUCE_LEAK_DETECTOR(PluginParameterBoolean);

@@ -33,7 +33,6 @@ PluginParameter::PluginParameter()
     // initialise current value
     value = 0.0f;
     realValue = 0.0f;
-    textValue = String::empty;
 
     // initialise default value
     defaultValue = 0.0f;
@@ -212,9 +211,24 @@ bool PluginParameter::getBoolean()
 ///
 /// @return current value
 ///
-String PluginParameter::getText()
+const String PluginParameter::getText()
 {
-    return textValue;
+    // transform internal value to string
+    return getTextFromFloat(value);
+}
+
+
+/// Set parameter value from (correctly) formatted string.
+///
+/// @param newValue new value as formatted string
+///
+void PluginParameter::setText(const String &newValue)
+{
+    // transform string to internal value
+    float newInternalValue = getFloatFromText(newValue);
+
+    // update internal value
+    setFloat(newInternalValue);
 }
 
 
