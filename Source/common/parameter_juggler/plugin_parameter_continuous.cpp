@@ -26,6 +26,9 @@
 #include "plugin_parameter_continuous.h"
 
 
+// The methods of this class may be called on the audio thread, so
+// they are absolutely time-critical!
+
 /// Create a stepped parameter with continuous floating-point values.
 /// **Real** values range from **real_minimum** to **real_maximum**,
 /// are quantised by **real_step_size**, and may be transformed to

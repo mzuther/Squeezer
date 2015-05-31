@@ -33,9 +33,12 @@
 #include "plugin_parameter_switch.h"
 
 
-//==============================================================================
-/**
-*/
+/// Plug-in parameter for storing a floating-point value (can be
+/// switched between preset and continuous values).
+///
+/// The methods of this class may be called on the audio thread, so
+/// they are absolutely time-critical!
+///
 class PluginParameterCombined : virtual public PluginParameter
 {
 public:

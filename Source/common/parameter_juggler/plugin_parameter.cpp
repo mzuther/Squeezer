@@ -26,6 +26,9 @@
 #include "plugin_parameter.h"
 
 
+// The methods of this class may be called on the audio thread, so
+// they are absolutely time-critical!
+
 /// Constructor.
 ///
 PluginParameter::PluginParameter()

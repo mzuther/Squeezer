@@ -26,6 +26,9 @@
 #include "plugin_parameter_boolean.h"
 
 
+// The methods of this class may be called on the audio thread, so
+// they are absolutely time-critical!
+
 /// Create a Boolean parameter.
 ///
 /// @param state_true string that is returned when the parameter is

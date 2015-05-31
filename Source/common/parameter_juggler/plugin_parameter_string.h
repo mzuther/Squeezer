@@ -30,9 +30,11 @@
 #include "plugin_parameter.h"
 
 
-//==============================================================================
-/**
-*/
+/// Plug-in parameter for storing a String value.
+///
+/// The methods of this class may be called on the audio thread, so
+/// they are absolutely time-critical!
+///
 class PluginParameterString : virtual public PluginParameter
 {
 public:

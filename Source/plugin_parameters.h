@@ -42,8 +42,6 @@ public:
 
     String toString();
 
-    int getNumParameters(bool bIncludeHiddenParameters);
-
     enum Parameters  // public namespace!
     {
         selBypass = 0,

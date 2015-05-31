@@ -30,6 +30,12 @@
 #include "plugin_parameter.h"
 
 
+/// Plug-in parameter for storing a floating-point value (continuous
+/// values with a given number of decimal places).
+///
+/// The methods of this class may be called on the audio thread, so
+/// they are absolutely time-critical!
+///
 class PluginParameterContinuous : virtual public PluginParameter
 {
 public:

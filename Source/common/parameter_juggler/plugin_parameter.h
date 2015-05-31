@@ -31,6 +31,9 @@
 
 /// Common base class for plug-in parameters.
 ///
+/// The methods of this class may be called on the audio thread, so
+/// they are absolutely time-critical!
+///
 class PluginParameter
 {
 public:

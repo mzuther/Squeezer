@@ -26,6 +26,9 @@
 #include "plugin_parameter_string.h"
 
 
+// The methods of this class may be called on the audio thread, so
+// they are absolutely time-critical!
+
 /// Create a parameter for storing a string.  **Note: several
 /// functions must not be used -- see below!**
 ///

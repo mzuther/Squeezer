@@ -26,6 +26,9 @@
 #include "plugin_parameter_combined.h"
 
 
+// The methods of this class may be called on the audio thread, so
+// they are absolutely time-critical!
+
 /// Create a parameter that can be switched between preset values
 /// (PluginParameterSwitch) and continuous values
 /// (PluginParameterContinuous).  **Real** values range from

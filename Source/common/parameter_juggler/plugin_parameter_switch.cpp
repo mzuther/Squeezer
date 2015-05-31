@@ -26,6 +26,9 @@
 #include "plugin_parameter_switch.h"
 
 
+// The methods of this class may be called on the audio thread, so
+// they are absolutely time-critical!
+
 /// Create a stepped parameter that can be filled with arbitrary
 /// preset values.  **Internal** values simply range from 0.0 to 1.0.
 ///

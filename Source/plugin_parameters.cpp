@@ -29,10 +29,10 @@
 // The methods of this class may be called on the audio thread, so
 // they are absolutely time-critical!
 
-SqueezerPluginParameters::SqueezerPluginParameters()
+SqueezerPluginParameters::SqueezerPluginParameters() :
+    ParameterJuggler("SQUEEZER_SETTINGS", numberOfParametersComplete,
+                     numberOfParametersRevealed)
 {
-    jugglerID = "SQUEEZER_SETTINGS";
-
     PluginParameterBoolean *ParameterBypass = new PluginParameterBoolean("Bypassed", "Active");
     ParameterBypass->setName("Bypass");
     ParameterBypass->setDefaultBoolean(false, true);
@@ -128,7 +128,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterThreshold->setSuffix(" dB");
     ParameterThreshold->setDefaultRealFloat(-12.0f, true);
-    addCombined(ParameterThreshold, selThreshold, selThresholdSwitch);
+    addCombined(ParameterThreshold, selThresholdSwitch, selThreshold);
 
 
     realMinimum = 0.1f;
@@ -158,7 +158,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterRatio->setSuffix(":1");
     ParameterRatio->setDefaultRealFloat(2.0f, true);
-    addCombined(ParameterRatio, selRatio, selRatioSwitch);
+    addCombined(ParameterRatio, selRatioSwitch, selRatio);
 
 
     realMinimum = 0.0f;
@@ -176,7 +176,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterKneeWidth->setSuffix(" dB");
     ParameterKneeWidth->setDefaultRealFloat(0.0f, true);
-    addCombined(ParameterKneeWidth, selKneeWidth, selKneeWidthSwitch);
+    addCombined(ParameterKneeWidth, selKneeWidthSwitch, selKneeWidth);
 
 
     realMinimum = 0.0f;
@@ -200,7 +200,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterAttackRate->setSuffix(" ms");
     ParameterAttackRate->setDefaultRealFloat(20.0f, true);
-    addCombined(ParameterAttackRate, selAttackRate, selAttackRateSwitch);
+    addCombined(ParameterAttackRate, selAttackRateSwitch, selAttackRate);
 
 
     realMinimum = 0.0f;
@@ -231,7 +231,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterReleaseRate->setSuffix(" ms");
     ParameterReleaseRate->setDefaultRealFloat(150.0f, true);
-    addCombined(ParameterReleaseRate, selReleaseRate, selReleaseRateSwitch);
+    addCombined(ParameterReleaseRate, selReleaseRateSwitch, selReleaseRate);
 
 
     realMinimum = 0.0f;
@@ -252,7 +252,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterStereoLink->setSuffix(" %");
     ParameterStereoLink->setDefaultRealFloat(100.0f, true);
-    addCombined(ParameterStereoLink, selStereoLink, selStereoLinkSwitch);
+    addCombined(ParameterStereoLink, selStereoLinkSwitch, selStereoLink);
 #endif
 
 
@@ -311,7 +311,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterMakeupGain->setSuffix(" dB");
     ParameterMakeupGain->setDefaultRealFloat(0.0f, true);
-    addCombined(ParameterMakeupGain, selMakeupGain, selMakeupGainSwitch);
+    addCombined(ParameterMakeupGain, selMakeupGainSwitch, selMakeupGain);
 
 
     realMinimum = 0.0f;
@@ -337,7 +337,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterWetMix->setSuffix(" %");
     ParameterWetMix->setDefaultRealFloat(100.0f, true);
-    addCombined(ParameterWetMix, selWetMix, selWetMixSwitch);
+    addCombined(ParameterWetMix, selWetMixSwitch, selWetMix);
 
 
     PluginParameterBoolean *ParameterSidechainFilterState = new PluginParameterBoolean("Enabled", "Disabled");
@@ -373,7 +373,7 @@ SqueezerPluginParameters::SqueezerPluginParameters()
 
     ParameterSidechainFilterCutoff->setSuffix(" Hz");
     ParameterSidechainFilterCutoff->setDefaultRealFloat(100.0f, true);
-    addCombined(ParameterSidechainFilterCutoff, selSidechainFilterCutoff, selSidechainFilterCutoffSwitch);
+    addCombined(ParameterSidechainFilterCutoff, selSidechainFilterCutoffSwitch, selSidechainFilterCutoff);
 
 
     PluginParameterSwitch *ParameterSidechainFilterGain = new PluginParameterSwitch();
@@ -507,19 +507,6 @@ String SqueezerPluginParameters::toString()
 #endif
 
     return parameterValues + "\n";
-}
-
-
-int SqueezerPluginParameters::getNumParameters(bool bIncludeHiddenParameters)
-{
-    if (bIncludeHiddenParameters)
-    {
-        return numberOfParametersComplete;
-    }
-    else
-    {
-        return numberOfParametersRevealed;
-    }
 }
 
 

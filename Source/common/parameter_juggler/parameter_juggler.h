@@ -37,21 +37,27 @@ class ParameterJuggler;
 #include "plugin_parameter_switch.h"
 
 
+/// Container for all parameters of a plug-in.
+///
+/// The methods of this class may be called on the audio thread, so
+/// they are absolutely time-critical!
+///
 class ParameterJuggler
 {
 public:
-    ParameterJuggler();
+    ParameterJuggler(const String &settingsID, int completeParameters, int revealedParameters);
     ~ParameterJuggler();
 
     PluginParameter *getPluginParameter(int index);
     String toString();
 
-    void add(PluginParameter *parameter, int index, bool mayModify = true);
-    void addCombined(PluginParameterCombined *parameter, int parameterIndex, int switchIndex, bool mayModify = true);
+    void add(PluginParameter *parameter, int index);
+    void addProtected(PluginParameter *parameter, int index);
+    void addCombined(PluginParameterCombined *parameter, int switchIndex, int parameterIndex);
     int getNumParameters(bool includeHiddenParameters);
 
     String getName(int index);
-    void setName(int index, const String &strParameterName);
+    void setName(int index, const String &newParameterName);
 
     float getDefaultFloat(int index);
     float getDefaultRealFloat(int index);
@@ -79,14 +85,11 @@ public:
     void loadFromXml(XmlElement *xmlDocument);
     XmlElement storeAsXml();
 
-    enum Parameters  // public namespace!
-    {
-        numberOfParametersRevealed = 0,
-        numberOfParametersComplete = 0,
-    };
-
 protected:
+    void assertParameter(int index, bool wantModification);
+
     int numberOfParameters;
+    int numberOfRevealedParameters;
 
     String jugglerID;
 
