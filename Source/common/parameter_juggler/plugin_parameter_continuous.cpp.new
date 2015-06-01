@@ -222,21 +222,11 @@ float PluginParameterContinuous::getStepSize()
 ///
 void PluginParameterContinuous::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
-    // confine new default value to real parameter range
-    if (newRealValue < realMinimum)
-    {
-        newRealValue = realMinimum;
-    }
-    else if (newRealValue > realMaximum)
-    {
-        newRealValue = realMaximum;
-    }
+    // update internal default value
+    defaultValue = toInternalFloat(newRealValue);
 
     // update real default value
-    defaultRealValue = newRealValue;
-
-    // update internal default value
-    defaultValue = toInternalFloat(defaultRealValue);
+    defaultRealValue = toRealFloat(defaultValue);
 
     // optionally, update current parameter value
     if (updateParameter)
@@ -345,7 +335,7 @@ const String PluginParameterContinuous::getTextFromFloat(float newValue)
     else
     {
         // round real parameter value
-        newRealValue = MZ_Juce_Common::round_mz(newRealValue);
+        newRealValue = round_mz(newRealValue);
 
         // format parameter value
         textValueNew = String(newRealValue);

@@ -150,7 +150,7 @@ bool PluginParameter::getDefaultBoolean()
 ///
 int PluginParameter::getDefaultRealInteger()
 {
-    return round_mz(getDefaultRealFloat());
+    return MZ_Juce_Common::round_mz(getDefaultRealFloat());
 }
 
 
@@ -184,7 +184,7 @@ float PluginParameter::getRealFloat()
 ///
 int PluginParameter::getRealInteger()
 {
-    return round_mz(getRealFloat());
+    return MZ_Juce_Common::round_mz(getRealFloat());
 }
 
 
@@ -329,33 +329,6 @@ void PluginParameter::storeAsXml(XmlElement *xmlDocument)
 bool PluginParameter::saveFromDeletion()
 {
     return doNotDelete;
-}
-
-
-/// Round given value to nearest integer.  Will always round **away**
-/// from zero!
-///
-/// @param x value to be rounded
-///
-/// @return rounded value
-///
-int PluginParameter::round_mz(float x)
-{
-    // value is greater than (or exactly) zero
-    if (x >= 0.0f)
-    {
-        // round away from zero by adding 0.5
-        x += 0.5f;
-    }
-    // value is below zero
-    else
-    {
-        // round away from zero by substracting 0.5
-        x -= 0.5f;
-    }
-
-    // remove remainder and return it
-    return (int) x;
 }
 
 

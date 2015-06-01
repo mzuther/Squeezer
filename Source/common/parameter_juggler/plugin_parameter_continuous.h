@@ -27,6 +27,7 @@
 #define __PLUGIN_PARAMETER_CONTINUOUS_H__
 
 #include "JuceHeader.h"
+#include "../mz_juce_common.h"
 #include "plugin_parameter.h"
 
 

@@ -27,6 +27,7 @@
 #define __PLUGIN_PARAMETER_H__
 
 #include "JuceHeader.h"
+#include "../mz_juce_common.h"
 
 
 /// Common base class for plug-in parameters.
@@ -112,8 +113,6 @@ public:
 
     virtual void loadFromXml(XmlElement *xmlDocument);
     virtual void storeAsXml(XmlElement *xmlDocument);
-
-    static int round_mz(float x);
 
 protected:
     virtual void setChangeFlag();
