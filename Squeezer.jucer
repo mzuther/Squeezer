@@ -8,163 +8,164 @@
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
               pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
               pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="3.1.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
+              jucerVersion="3.2.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategEffect">
   <MAINGROUP id="BIo7Gh" name="Squeezer">
     <GROUP id="{E5D6C2E3-DE4D-DA0C-CEA9-A13107169316}" name="Source">
-      <GROUP id="{86023D44-7E20-5DCD-ED87-E3EB92589E28}" name="common">
-        <GROUP id="{F20ADB53-951E-307A-2A9F-A7FF92A45319}" name="audio">
-          <FILE id="eBQAoT" name="audio_ring_buffer.cpp" compile="1" resource="0"
+      <GROUP id="{34CE7571-5053-0C78-8A95-C334C63345B3}" name="common">
+        <GROUP id="{F300BB4B-9D1A-D2EE-8F00-62F932528260}" name="audio">
+          <FILE id="eOvdAI" name="audio_ring_buffer.cpp" compile="1" resource="0"
                 file="Source/common/audio/audio_ring_buffer.cpp"/>
-          <FILE id="Tqxcve" name="audio_ring_buffer.h" compile="0" resource="0"
+          <FILE id="vu1MSY" name="audio_ring_buffer.h" compile="0" resource="0"
                 file="Source/common/audio/audio_ring_buffer.h"/>
-          <FILE id="sTqhtH" name="dither.cpp" compile="1" resource="0" file="Source/common/audio/dither.cpp"/>
-          <FILE id="G38hNJ" name="dither.h" compile="0" resource="0" file="Source/common/audio/dither.h"/>
+          <FILE id="iFrIAS" name="dither.cpp" compile="1" resource="0" file="Source/common/audio/dither.cpp"/>
+          <FILE id="wFm6x2" name="dither.h" compile="0" resource="0" file="Source/common/audio/dither.h"/>
         </GROUP>
-        <GROUP id="{3E3F5283-B031-E246-3938-039480BF3702}" name="math">
-          <FILE id="Rgs30l" name="averager.cpp" compile="1" resource="0" file="Source/common/math/averager.cpp"/>
-          <FILE id="Buyq5n" name="averager.h" compile="0" resource="0" file="Source/common/math/averager.h"/>
+        <GROUP id="{C654C761-1EC4-0AE8-542F-2A0D696F04A4}" name="math">
+          <FILE id="bMSffo" name="averager.cpp" compile="1" resource="0" file="Source/common/math/averager.cpp"/>
+          <FILE id="WBnZWo" name="averager.h" compile="0" resource="0" file="Source/common/math/averager.h"/>
         </GROUP>
-        <GROUP id="{4ADC640F-3774-E326-C2AC-7CB3A484026A}" name="parameter_juggler">
-          <FILE id="szeYCn" name="parameter_juggler.cpp" compile="1" resource="0"
+        <FILE id="ryxuyU" name="mz_juce_common.h" compile="0" resource="0"
+              file="Source/common/mz_juce_common.h"/>
+        <GROUP id="{FD5AF73A-826C-763B-DA6B-3DB06DCB8877}" name="parameter_juggler">
+          <FILE id="LbmoCM" name="parameter_juggler.cpp" compile="1" resource="0"
                 file="Source/common/parameter_juggler/parameter_juggler.cpp"/>
-          <FILE id="C4z6Rd" name="parameter_juggler.h" compile="0" resource="0"
+          <FILE id="JsgssR" name="parameter_juggler.h" compile="0" resource="0"
                 file="Source/common/parameter_juggler/parameter_juggler.h"/>
-          <FILE id="I1Onou" name="wrapped_parameter.h" compile="0" resource="0"
-                file="Source/common/parameter_juggler/wrapped_parameter.h"/>
-          <FILE id="IdsLZQ" name="wrapped_parameter_combined.cpp" compile="1"
-                resource="0" file="Source/common/parameter_juggler/wrapped_parameter_combined.cpp"/>
-          <FILE id="qCuCoJ" name="wrapped_parameter_combined.h" compile="0" resource="0"
-                file="Source/common/parameter_juggler/wrapped_parameter_combined.h"/>
-          <FILE id="rq0BS0" name="wrapped_parameter_continuous.cpp" compile="1"
-                resource="0" file="Source/common/parameter_juggler/wrapped_parameter_continuous.cpp"/>
-          <FILE id="I0O3hX" name="wrapped_parameter_continuous.h" compile="0"
-                resource="0" file="Source/common/parameter_juggler/wrapped_parameter_continuous.h"/>
-          <FILE id="Q3bRCd" name="wrapped_parameter_string.cpp" compile="1" resource="0"
-                file="Source/common/parameter_juggler/wrapped_parameter_string.cpp"/>
-          <FILE id="Zj2UwX" name="wrapped_parameter_string.h" compile="0" resource="0"
-                file="Source/common/parameter_juggler/wrapped_parameter_string.h"/>
-          <FILE id="VCpdfU" name="wrapped_parameter_switch.cpp" compile="1" resource="0"
-                file="Source/common/parameter_juggler/wrapped_parameter_switch.cpp"/>
-          <FILE id="PPgeOO" name="wrapped_parameter_switch.h" compile="0" resource="0"
-                file="Source/common/parameter_juggler/wrapped_parameter_switch.h"/>
-          <FILE id="VIE5nP" name="wrapped_parameter_toggle_switch.cpp" compile="1"
-                resource="0" file="Source/common/parameter_juggler/wrapped_parameter_toggle_switch.cpp"/>
-          <FILE id="Hd8ndX" name="wrapped_parameter_toggle_switch.h" compile="0"
-                resource="0" file="Source/common/parameter_juggler/wrapped_parameter_toggle_switch.h"/>
+          <FILE id="Mlv8Ak" name="plugin_parameter.cpp" compile="1" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter.cpp"/>
+          <FILE id="OyJVdV" name="plugin_parameter.h" compile="0" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter.h"/>
+          <FILE id="kDygSY" name="plugin_parameter_boolean.cpp" compile="1" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter_boolean.cpp"/>
+          <FILE id="lo1BmQ" name="plugin_parameter_boolean.h" compile="0" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter_boolean.h"/>
+          <FILE id="zglyIx" name="plugin_parameter_combined.cpp" compile="1"
+                resource="0" file="Source/common/parameter_juggler/plugin_parameter_combined.cpp"/>
+          <FILE id="ndKpPw" name="plugin_parameter_combined.h" compile="0" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter_combined.h"/>
+          <FILE id="d5moxb" name="plugin_parameter_continuous.cpp" compile="1"
+                resource="0" file="Source/common/parameter_juggler/plugin_parameter_continuous.cpp"/>
+          <FILE id="pb378G" name="plugin_parameter_continuous.h" compile="0"
+                resource="0" file="Source/common/parameter_juggler/plugin_parameter_continuous.h"/>
+          <FILE id="PEdPmZ" name="plugin_parameter_string.cpp" compile="1" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter_string.cpp"/>
+          <FILE id="qGUOZR" name="plugin_parameter_string.h" compile="0" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter_string.h"/>
+          <FILE id="Oo7Jeb" name="plugin_parameter_switch.cpp" compile="1" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter_switch.cpp"/>
+          <FILE id="WbSEdI" name="plugin_parameter_switch.h" compile="0" resource="0"
+                file="Source/common/parameter_juggler/plugin_parameter_switch.h"/>
         </GROUP>
-        <GROUP id="{41C7C39F-7747-DA0E-F996-D614E610103B}" name="skin">
-          <FILE id="EPU4qd" name="generic_skin.cpp" compile="1" resource="0"
+        <GROUP id="{91B2BCE9-9BEA-E1F2-CFAF-5C29B771E5DC}" name="skin">
+          <FILE id="QcjHVo" name="generic_skin.cpp" compile="1" resource="0"
                 file="Source/common/skin/generic_skin.cpp"/>
-          <FILE id="F019z5" name="generic_skin.h" compile="0" resource="0" file="Source/common/skin/generic_skin.h"/>
+          <FILE id="GUR3Kt" name="generic_skin.h" compile="0" resource="0" file="Source/common/skin/generic_skin.h"/>
         </GROUP>
-        <GROUP id="{B752DA40-D2A1-9E51-BC7C-9D3CB67D7878}" name="widgets">
-          <GROUP id="{8729CFDE-E1BF-C999-DF23-D06F77A9241A}" name="resources">
-            <FILE id="Q0DpEZ" name="resources.cpp" compile="1" resource="0" file="Source/common/widgets/resources/resources.cpp"/>
-            <FILE id="Mvildg" name="resources.h" compile="0" resource="0" file="Source/common/widgets/resources/resources.h"/>
-          </GROUP>
-          <FILE id="ghsaK4" name="generic_channel_slider.cpp" compile="1" resource="0"
+        <GROUP id="{4DC33B1F-C88F-711D-5D11-02DAD1594F81}" name="widgets">
+          <FILE id="z6JdJN" name="generic_channel_slider.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_channel_slider.cpp"/>
-          <FILE id="RmJq4y" name="generic_channel_slider.h" compile="0" resource="0"
+          <FILE id="bwi3zs" name="generic_channel_slider.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_channel_slider.h"/>
-          <FILE id="YWD6Iu" name="generic_horizontal_meter.cpp" compile="1" resource="0"
+          <FILE id="pjEXMA" name="generic_horizontal_meter.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_horizontal_meter.cpp"/>
-          <FILE id="GCVgxy" name="generic_horizontal_meter.h" compile="0" resource="0"
+          <FILE id="vYEheg" name="generic_horizontal_meter.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_horizontal_meter.h"/>
-          <FILE id="XZiRw0" name="generic_meter_bar.cpp" compile="1" resource="0"
+          <FILE id="RMa7aR" name="generic_meter_bar.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_meter_bar.cpp"/>
-          <FILE id="nZwLpB" name="generic_meter_bar.h" compile="0" resource="0"
+          <FILE id="t9CrDE" name="generic_meter_bar.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_meter_bar.h"/>
-          <FILE id="RNPNI7" name="generic_meter_segment.cpp" compile="1" resource="0"
+          <FILE id="urMvfD" name="generic_meter_segment.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_meter_segment.cpp"/>
-          <FILE id="C96f6h" name="generic_meter_segment.h" compile="0" resource="0"
+          <FILE id="zIXp4x" name="generic_meter_segment.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_meter_segment.h"/>
-          <FILE id="GaGWLS" name="generic_plugin_standalone.cpp" compile="1"
+          <FILE id="TAb5jN" name="generic_plugin_standalone.cpp" compile="1"
                 resource="0" file="Source/common/widgets/generic_plugin_standalone.cpp"/>
-          <FILE id="hER4Cn" name="generic_plugin_standalone.h" compile="0" resource="0"
+          <FILE id="NnnzHO" name="generic_plugin_standalone.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_plugin_standalone.h"/>
-          <FILE id="Tf7zJh" name="generic_state_label.cpp" compile="1" resource="0"
+          <FILE id="vwe3IX" name="generic_state_label.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_state_label.cpp"/>
-          <FILE id="D7G27Z" name="generic_state_label.h" compile="0" resource="0"
+          <FILE id="WpTsvx" name="generic_state_label.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_state_label.h"/>
-          <FILE id="Qt5s3G" name="generic_window_about.cpp" compile="1" resource="0"
+          <FILE id="szQ5HI" name="generic_window_about.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_window_about.cpp"/>
-          <FILE id="lbz6Cf" name="generic_window_about.h" compile="0" resource="0"
+          <FILE id="e8Mk1O" name="generic_window_about.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_window_about.h"/>
-          <FILE id="jeQvBN" name="generic_window_skin.cpp" compile="1" resource="0"
+          <FILE id="D4gdWw" name="generic_window_skin.cpp" compile="1" resource="0"
                 file="Source/common/widgets/generic_window_skin.cpp"/>
-          <FILE id="ojlY6s" name="generic_window_skin.h" compile="0" resource="0"
+          <FILE id="ebIqov" name="generic_window_skin.h" compile="0" resource="0"
                 file="Source/common/widgets/generic_window_skin.h"/>
-          <FILE id="YeVMoN" name="slider_combined.cpp" compile="1" resource="0"
+          <GROUP id="{6D84513D-34B1-322F-9993-C9B7C6BC8547}" name="resources">
+            <FILE id="BlHBdL" name="resources.cpp" compile="1" resource="0" file="Source/common/widgets/resources/resources.cpp"/>
+            <FILE id="xojgnE" name="resources.h" compile="0" resource="0" file="Source/common/widgets/resources/resources.h"/>
+          </GROUP>
+          <FILE id="sNtjvm" name="slider_combined.cpp" compile="1" resource="0"
                 file="Source/common/widgets/slider_combined.cpp"/>
-          <FILE id="bymp5c" name="slider_combined.h" compile="0" resource="0"
+          <FILE id="pZrgRl" name="slider_combined.h" compile="0" resource="0"
                 file="Source/common/widgets/slider_combined.h"/>
-          <FILE id="YTmtCt" name="slider_continuous.cpp" compile="1" resource="0"
+          <FILE id="io5Y0H" name="slider_continuous.cpp" compile="1" resource="0"
                 file="Source/common/widgets/slider_continuous.cpp"/>
-          <FILE id="zOYjkF" name="slider_continuous.h" compile="0" resource="0"
+          <FILE id="ixfMCn" name="slider_continuous.h" compile="0" resource="0"
                 file="Source/common/widgets/slider_continuous.h"/>
-          <FILE id="spo5mQ" name="slider_switch.cpp" compile="1" resource="0"
+          <FILE id="pVZ5Bf" name="slider_switch.cpp" compile="1" resource="0"
                 file="Source/common/widgets/slider_switch.cpp"/>
-          <FILE id="ponbkJ" name="slider_switch.h" compile="0" resource="0" file="Source/common/widgets/slider_switch.h"/>
-          <FILE id="VYdz9Y" name="slider_switch_linear_bar.cpp" compile="1" resource="0"
+          <FILE id="MmYPhG" name="slider_switch.h" compile="0" resource="0" file="Source/common/widgets/slider_switch.h"/>
+          <FILE id="GtB5JF" name="slider_switch_linear_bar.cpp" compile="1" resource="0"
                 file="Source/common/widgets/slider_switch_linear_bar.cpp"/>
-          <FILE id="RvZevN" name="slider_switch_linear_bar.h" compile="0" resource="0"
+          <FILE id="KPKI5u" name="slider_switch_linear_bar.h" compile="0" resource="0"
                 file="Source/common/widgets/slider_switch_linear_bar.h"/>
         </GROUP>
-        <FILE id="jgHVJu" name="mz_juce_common.h" compile="0" resource="0"
-              file="Source/common/mz_juce_common.h"/>
-        <FILE id="mqFBEQ" name="tools.h" compile="0" resource="0" file="Source/common/tools.h"/>
       </GROUP>
-      <FILE id="bHENFV" name="compressor.cpp" compile="1" resource="0" file="Source/compressor.cpp"/>
-      <FILE id="i3L18R" name="compressor.h" compile="0" resource="0" file="Source/compressor.h"/>
-      <FILE id="Nf1pkU" name="filter_chebyshev.cpp" compile="1" resource="0"
+      <FILE id="ESOGid" name="compressor.cpp" compile="1" resource="0" file="Source/compressor.cpp"/>
+      <FILE id="uU7GYV" name="compressor.h" compile="0" resource="0" file="Source/compressor.h"/>
+      <FILE id="SW3sfE" name="filter_chebyshev.cpp" compile="1" resource="0"
             file="Source/filter_chebyshev.cpp"/>
-      <FILE id="kXMUaY" name="filter_chebyshev.h" compile="0" resource="0"
+      <FILE id="pby4MP" name="filter_chebyshev.h" compile="0" resource="0"
             file="Source/filter_chebyshev.h"/>
-      <FILE id="rd8eiL" name="filter_chebyshev_stage.cpp" compile="1" resource="0"
+      <FILE id="f8iPOz" name="filter_chebyshev_stage.cpp" compile="1" resource="0"
             file="Source/filter_chebyshev_stage.cpp"/>
-      <FILE id="ta18OV" name="filter_chebyshev_stage.h" compile="0" resource="0"
+      <FILE id="raNmzU" name="filter_chebyshev_stage.h" compile="0" resource="0"
             file="Source/filter_chebyshev_stage.h"/>
-      <FILE id="emESyT" name="gain_stage.h" compile="0" resource="0" file="Source/gain_stage.h"/>
-      <FILE id="kCdAwN" name="gain_stage_fet.cpp" compile="1" resource="0"
+      <FILE id="OE9xMD" name="gain_stage.h" compile="0" resource="0" file="Source/gain_stage.h"/>
+      <FILE id="vjk4Rd" name="gain_stage_fet.cpp" compile="1" resource="0"
             file="Source/gain_stage_fet.cpp"/>
-      <FILE id="bgwmlp" name="gain_stage_fet.h" compile="0" resource="0"
+      <FILE id="JZgWvB" name="gain_stage_fet.h" compile="0" resource="0"
             file="Source/gain_stage_fet.h"/>
-      <FILE id="Db7d9k" name="gain_stage_optical.cpp" compile="1" resource="0"
+      <FILE id="wgtiuw" name="gain_stage_optical.cpp" compile="1" resource="0"
             file="Source/gain_stage_optical.cpp"/>
-      <FILE id="AK2lNi" name="gain_stage_optical.h" compile="0" resource="0"
+      <FILE id="dm0JTA" name="gain_stage_optical.h" compile="0" resource="0"
             file="Source/gain_stage_optical.h"/>
-      <FILE id="kHv7tG" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
-      <FILE id="wuDXQJ" name="meter_bar_gain_reduction.cpp" compile="1" resource="0"
+      <FILE id="mCDZiz" name="main.cpp" compile="1" resource="0" file="Source/main.cpp"/>
+      <FILE id="dKIgHZ" name="meter_bar_gain_reduction.cpp" compile="1" resource="0"
             file="Source/meter_bar_gain_reduction.cpp"/>
-      <FILE id="ndnNXv" name="meter_bar_gain_reduction.h" compile="0" resource="0"
+      <FILE id="WVyA8K" name="meter_bar_gain_reduction.h" compile="0" resource="0"
             file="Source/meter_bar_gain_reduction.h"/>
-      <FILE id="rKx3rY" name="meter_bar_level.cpp" compile="1" resource="0"
+      <FILE id="WBge9q" name="meter_bar_level.cpp" compile="1" resource="0"
             file="Source/meter_bar_level.cpp"/>
-      <FILE id="mkI3mO" name="meter_bar_level.h" compile="0" resource="0"
+      <FILE id="L76w0x" name="meter_bar_level.h" compile="0" resource="0"
             file="Source/meter_bar_level.h"/>
-      <FILE id="vS0tTB" name="plugin_editor.cpp" compile="1" resource="0"
+      <FILE id="hW3j9C" name="plugin_editor.cpp" compile="1" resource="0"
             file="Source/plugin_editor.cpp"/>
-      <FILE id="AEkLud" name="plugin_editor.h" compile="0" resource="0" file="Source/plugin_editor.h"/>
-      <FILE id="m8HUtY" name="plugin_parameters.cpp" compile="1" resource="0"
+      <FILE id="hCQAyW" name="plugin_editor.h" compile="0" resource="0" file="Source/plugin_editor.h"/>
+      <FILE id="uWKqH8" name="plugin_parameters.cpp" compile="1" resource="0"
             file="Source/plugin_parameters.cpp"/>
-      <FILE id="lurwOw" name="plugin_parameters.h" compile="0" resource="0"
+      <FILE id="N9gBP8" name="plugin_parameters.h" compile="0" resource="0"
             file="Source/plugin_parameters.h"/>
-      <FILE id="vVUqCW" name="plugin_processor.cpp" compile="1" resource="0"
+      <FILE id="EzaqBI" name="plugin_processor.cpp" compile="1" resource="0"
             file="Source/plugin_processor.cpp"/>
-      <FILE id="kMqNhL" name="plugin_processor.h" compile="0" resource="0"
+      <FILE id="rxgid5" name="plugin_processor.h" compile="0" resource="0"
             file="Source/plugin_processor.h"/>
-      <FILE id="l2gZVy" name="side_chain.cpp" compile="1" resource="0" file="Source/side_chain.cpp"/>
-      <FILE id="wd28Rr" name="side_chain.h" compile="0" resource="0" file="Source/side_chain.h"/>
-      <FILE id="GJeWd0" name="standalone_application.cpp" compile="1" resource="0"
+      <FILE id="QeQ0SE" name="side_chain.cpp" compile="1" resource="0" file="Source/side_chain.cpp"/>
+      <FILE id="zkmQmJ" name="side_chain.h" compile="0" resource="0" file="Source/side_chain.h"/>
+      <FILE id="SaEYeW" name="standalone_application.cpp" compile="1" resource="0"
             file="Source/standalone_application.cpp"/>
-      <FILE id="zdEbzv" name="standalone_application.h" compile="0" resource="0"
+      <FILE id="rQVJJU" name="standalone_application.h" compile="0" resource="0"
             file="Source/standalone_application.h"/>
-      <FILE id="z5mpkv" name="window_settings.cpp" compile="1" resource="0"
+      <FILE id="GSZgNF" name="window_settings.cpp" compile="1" resource="0"
             file="Source/window_settings.cpp"/>
-      <FILE id="HJKkos" name="window_settings.h" compile="0" resource="0"
+      <FILE id="IIJFBt" name="window_settings.h" compile="0" resource="0"
             file="Source/window_settings.h"/>
     </GROUP>
   </MAINGROUP>
