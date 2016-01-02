@@ -170,8 +170,6 @@ void GenericSkin::placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, Str
     {
         int x = xmlMeter->getIntAttribute("x", -1);
         int y = xmlMeter->getIntAttribute("y", -1);
-        int width = xmlMeter->getIntAttribute("width", -1);
-        int height = xmlMeter->getIntAttribute("height", -1);
 
         int spacing_left = xmlMeter->getIntAttribute("spacing_left", 0);
         int spacing_top = xmlMeter->getIntAttribute("spacing_top", 0);
@@ -190,9 +188,7 @@ void GenericSkin::placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, Str
             imageBackground = ImageFileFormat::loadFrom(fileImageBackground);
         }
 
-        XmlElement *xmlNeedle = xmlMeter->getChildByName("needle");
-
-        String strImageNeedle = xmlNeedle->getStringAttribute("image");
+        String strImageNeedle = xmlMeter->getStringAttribute("image_needle");
         File fileImageNeedle = fileResourcePath.getChildFile(strImageNeedle);
         Image imageNeedle;
 
@@ -205,6 +201,9 @@ void GenericSkin::placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, Str
         {
             imageNeedle = ImageFileFormat::loadFrom(fileImageNeedle);
         }
+
+        int width = imageBackground.getWidth();
+        int height = imageBackground.getHeight();
 
         meter->setImages(imageBackground, imageNeedle, spacing_left, spacing_top);
         meter->setBounds(x, y, width, height);
@@ -222,8 +221,6 @@ void GenericSkin::placeAndSkinLabel(ImageComponent *label, String strXmlTag)
     {
         int x = xmlLabel->getIntAttribute("x", -1);
         int y = xmlLabel->getIntAttribute("y", -1);
-        int width = xmlLabel->getIntAttribute("width", -1);
-        int height = xmlLabel->getIntAttribute("height", -1);
 
         String strImage = xmlLabel->getStringAttribute("image");
         File fileImage = fileResourcePath.getChildFile(strImage);
@@ -238,6 +235,9 @@ void GenericSkin::placeAndSkinLabel(ImageComponent *label, String strXmlTag)
         {
             imageLabel = ImageFileFormat::loadFrom(fileImage);
         }
+
+        int width = imageLabel.getWidth();
+        int height = imageLabel.getHeight();
 
         label->setImage(imageLabel);
         label->setBounds(x, y, width, height);
@@ -255,8 +255,6 @@ void GenericSkin::placeAndSkinStateLabel(GenericStateLabel *label, String strXml
     {
         int x = xmlLabel->getIntAttribute("x", -1);
         int y = xmlLabel->getIntAttribute("y", -1);
-        int width = xmlLabel->getIntAttribute("width", -1);
-        int height = xmlLabel->getIntAttribute("height", -1);
 
         int spacing_left = xmlLabel->getIntAttribute("spacing_left", 0);
         int spacing_top = xmlLabel->getIntAttribute("spacing_top", 0);
@@ -308,6 +306,20 @@ void GenericSkin::placeAndSkinStateLabel(GenericStateLabel *label, String strXml
             imageActive = ImageFileFormat::loadFrom(fileImageActive);
         }
 
+        int width = imageOff.getWidth();
+
+        if (width != imageActive.getWidth())
+        {
+            Logger::outputDebugString(String("[Skin] width of image files for \"") + strXmlTag + "\" differs");
+        }
+
+        int height = imageOff.getHeight();
+
+        if (height != imageActive.getHeight())
+        {
+            Logger::outputDebugString(String("[Skin] height of image files for \"") + strXmlTag + "\" differs");
+        }
+
         label->setImages(imageOff, imageOn, imageActive, strColourOn, strColourActive, spacing_left, spacing_top, font_size);
         label->setBounds(x, y, width, height);
     }
@@ -345,19 +357,25 @@ void GenericSkin::placeMeterBar(GenericMeterBar *meterBar, String strXmlTag)
 
         meterBar->setTopLeftPosition(x, y);
 
-        int width = xmlComponent->getIntAttribute("width", -1);
-        int height = xmlComponent->getIntAttribute("height", -1);
+        int segment_width = xmlComponent->getIntAttribute("segment_width", -1);
+        bool isVertical = xmlComponent->getBoolAttribute("vertical", true);
+
+        if (segment_width < 4)
+        {
+            Logger::outputDebugString(String("[Skin] segment width for \"") + strXmlTag + "\" not set");
+            segment_width = 8;
+        }
+
+        meterBar->setSegmentWidth(segment_width);
 
         // vertical bar
-        if (height >= width)
+        if (isVertical)
         {
-            meterBar->setSegmentWidth(width);
             meterBar->setOrientation(GenericMeterBar::orientationVertical);
         }
         // horizontal bar
         else
         {
-            meterBar->setSegmentWidth(height);
             meterBar->setOrientation(GenericMeterBar::orientationHorizontal);
         }
     }
