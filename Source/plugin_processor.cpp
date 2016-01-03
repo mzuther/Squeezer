@@ -42,9 +42,9 @@ Flow of parameter processing:
 
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
-    DBG(String("App  v") + JucePlugin_VersionString);
-    DBG(String("Comm v") + MZ_Juce_Common::getVersion());
-    DBG("");
+    Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
+    Logger::outputDebugString(String("Comm v") + MZ_Juce_Common::getVersion());
+    Logger::outputDebugString("");
 
     bSampleRateIsValid = false;
     nNumInputChannels = 0;
@@ -680,7 +680,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-    DBG("[Squeezer] preparing to play");
+    Logger::outputDebugString("[Squeezer] preparing to play");
 
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
@@ -695,13 +695,18 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     nNumInputChannels = getNumInputChannels();
 
-    if (nNumInputChannels < 1)
+    if (nNumInputChannels <= 0)
     {
+        Logger::outputDebugString("[Squeezer] no input channels detected, correcting this");
         nNumInputChannels = JucePlugin_MaxNumInputChannels;
-        DBG("[K-Meter] no input channels detected, correcting this");
+    }
+    else if (nNumInputChannels < JucePlugin_MaxNumInputChannels)
+    {
+        Logger::outputDebugString("[Squeezer] only " +  String(nNumInputChannels) + " input channel(s) detected, correcting this");
+        nNumInputChannels = JucePlugin_MaxNumInputChannels;
     }
 
-    DBG("[Squeezer] number of input channels: " + String(nNumInputChannels));
+    Logger::outputDebugString("[Squeezer] number of input channels: " + String(nNumInputChannels));
 
     bool bBypassCompressor = pluginParameters.getBoolean(SqueezerPluginParameters::selBypass);
     float fDetectorRateMilliSeconds = pluginParameters.getRealFloat(SqueezerPluginParameters::selDetectorRmsFilter);
@@ -764,7 +769,8 @@ void SqueezerAudioProcessor::releaseResources()
     // When playback stops, you can use this as an opportunity to free
     // up any spare memory, etc.
 
-    DBG("[Squeezer] releasing resources");
+    Logger::outputDebugString("[Squeezer] releasing resources");
+    Logger::outputDebugString("");
 }
 
 
