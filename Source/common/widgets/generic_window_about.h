@@ -4,7 +4,7 @@
    ==============
    Common classes for use with the JUCE library
 
-   Copyright (c) 2010-2015 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
