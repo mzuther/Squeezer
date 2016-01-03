@@ -38,7 +38,7 @@ GenericSkin::~GenericSkin()
 
 bool GenericSkin::loadFromXml(File &fileSkin, const String &strXmlRootName)
 {
-    DBG(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");
+    Logger::outputDebugString(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");
 
     xml = XmlDocument::parse(fileSkin);
 

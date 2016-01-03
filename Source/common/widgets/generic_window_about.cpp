@@ -29,7 +29,8 @@
 /// Create dialog window showing version, copyright, license and so
 /// on.
 ///
-/// @param editorWindow pointer to the plug-in GUI
+/// @param arrChapters dictionary containing chapter headlines and the
+///        accompanying text
 ///
 /// ### Exit values
 ///
@@ -38,17 +39,11 @@
 /// | 0      | window has been closed "by force" |
 /// | 1      | user wants to close the window    |
 ///
-GenericWindowAbout::GenericWindowAbout(Component *editorWindow)
-    : DocumentWindow(String("About ") + ProjectInfo::projectName,
-                     Colours::white, 0, true)
+GenericWindowAbout::GenericWindowAbout(StringPairArray &arrChapters)
 {
-    // dialog window dimentsions
+    // dialog window dimensions
     int windowWidth = 270;
     int windowHeight = 540;
-
-    // empty windows are boring, so let's prepare a space for some
-    // window components
-    setContentOwned(&contentComponent, false);
 
     // create a word-wrapping read-only text editor component with
     // multiple lines for displaying information about the plug-in
@@ -63,7 +58,10 @@ GenericWindowAbout::GenericWindowAbout(Component *editorWindow)
 
     // position and display the text editor component
     editorAbout.setBounds(0, 0, windowWidth, windowHeight - 47);
-    contentComponent.addAndMakeVisible(editorAbout);
+    this->addAndMakeVisible(editorAbout);
+
+    // add headlines and text to the text editor component
+    addChapters(arrChapters);
 
     // create and position an "close" button
     buttonClose.setButtonText("Close");
@@ -73,7 +71,7 @@ GenericWindowAbout::GenericWindowAbout(Component *editorWindow)
 
     // add "about" window as button listener and display the button
     buttonClose.addListener(this);
-    contentComponent.addAndMakeVisible(buttonClose);
+    this->addAndMakeVisible(buttonClose);
 
     // create and position the image button which opens the license
     // text in a web browser
@@ -94,23 +92,10 @@ GenericWindowAbout::GenericWindowAbout(Component *editorWindow)
 
     // add "about" window as button listener and display the button
     buttonGpl.addListener(this);
-    contentComponent.addAndMakeVisible(buttonGpl);
+    this->addAndMakeVisible(buttonGpl);
 
     // set window dimensions
-    setSize(windowWidth, windowHeight + getTitleBarHeight());
-
-    // keep dialog window on top
-    setAlwaysOnTop(true);
-
-    // center window on editor
-    centreAroundComponent(editorWindow, getWidth(), getHeight());
-
-    // this window does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-
-    // finally, display window
-    setVisible(true);
+    setSize(windowWidth, windowHeight);
 }
 
 
@@ -118,6 +103,39 @@ GenericWindowAbout::GenericWindowAbout(Component *editorWindow)
 ///
 GenericWindowAbout::~GenericWindowAbout()
 {
+}
+
+
+/// Static helper function to create a dialog window for showing
+/// version, copyright, license and so on.
+///
+/// @param pEditor pointer to audio plug-in editor
+///
+/// @param arrChapters dictionary containing chapter headlines and the
+///        accompanying text
+///
+/// @return created dialog window
+///
+DialogWindow *GenericWindowAbout::createWindowAbout(AudioProcessorEditor *pEditor, StringPairArray &arrChapters)
+{
+    // prepare dialog window
+    DialogWindow::LaunchOptions windowAboutLauncher;
+
+    windowAboutLauncher.dialogTitle = String("About ") + ProjectInfo::projectName;
+    windowAboutLauncher.dialogBackgroundColour = Colours::white;
+    windowAboutLauncher.content.setOwned(new GenericWindowAbout(arrChapters));
+    windowAboutLauncher.componentToCentreAround = pEditor;
+
+    windowAboutLauncher.escapeKeyTriggersCloseButton = true;
+    windowAboutLauncher.useNativeTitleBar = false;
+    windowAboutLauncher.resizable = false;
+    windowAboutLauncher.useBottomRightCornerResizer = false;
+
+    // launch dialog window
+    DialogWindow *windowAbout = windowAboutLauncher.launchAsync();
+    windowAbout->setAlwaysOnTop(true);
+
+    return windowAbout;
 }
 
 
@@ -183,11 +201,14 @@ void GenericWindowAbout::buttonClicked(Button *button)
     // user wants to close the window
     if (button == &buttonClose)
     {
-        // exit code 1: user wants to close the window
-        int exitValue = 1;
+        // get parent dialog window
+        DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();
 
-        // close window and return exit value
-        exitModalState(exitValue);
+        if (dialogWindow != nullptr)
+        {
+            // close dialog window (exit code 1)
+            dialogWindow->exitModalState(1);
+        }
     }
     // user wants to read the GPL
     else if (button == &buttonGpl)
@@ -198,19 +219,6 @@ void GenericWindowAbout::buttonClicked(Button *button)
     }
 }
 
-
-/// This method is called when the user tries to close the window "by
-/// force".  For example, this may be achieved by pressing the close
-/// button on the title bar.
-///
-void GenericWindowAbout::closeButtonPressed()
-{
-    // exit code 0: window closed by force
-    int exitValue = 0;
-
-    // close window and return exit value
-    exitModalState(exitValue);
-}
 
 // Local Variables:
 // ispell-local-dictionary: "british"

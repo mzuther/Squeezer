@@ -32,7 +32,7 @@
 
 
 //============================================================================
-class SqueezerAudioProcessor  : public AudioProcessor, public ActionBroadcaster
+class SqueezerAudioProcessor : public AudioProcessor, public ActionBroadcaster
 {
 public:
     //==========================================================================

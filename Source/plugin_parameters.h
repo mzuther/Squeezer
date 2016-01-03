@@ -32,7 +32,7 @@
 
 
 //============================================================================
-class SqueezerPluginParameters  : public ParameterJuggler
+class SqueezerPluginParameters : public ParameterJuggler
 {
 public:
     //==========================================================================

@@ -33,21 +33,20 @@
 /// Dialog window for displaying version, copyright, license and so
 /// on.
 ///
-class GenericWindowAbout : public DocumentWindow, ButtonListener
+class GenericWindowAbout : public Component, public ButtonListener
 {
 public:
-    GenericWindowAbout(Component *editorWindow);
+    GenericWindowAbout(StringPairArray &arrChapters);
     ~GenericWindowAbout();
 
-    void addChapters(StringPairArray &arrChapters);
-
     void buttonClicked(Button *button);
-    void closeButtonPressed();
+
+    static DialogWindow *createWindowAbout(AudioProcessorEditor *pEditor, StringPairArray &arrChapters);
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowAbout);
 
-    Component contentComponent;
+    void addChapters(StringPairArray &arrChapters);
 
     TextEditor editorAbout;
     TextButton buttonClose;

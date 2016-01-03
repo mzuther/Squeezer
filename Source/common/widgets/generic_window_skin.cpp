@@ -28,30 +28,28 @@
 
 /// Create dialog window for selecting a new GUI skin.
 ///
-/// @param editorWindow pointer to the plug-in GUI
+/// @param pSkinName pointer to name of the currently used skin
 ///
-/// @param currentSkinFile file pointing to the currently used skin
+/// @param fileSkinDirectory directory containing the skins
 ///
-/// ### Exit values
+/// ### Dialog window exit values
 ///
 /// | %Value | %Result                           |
 /// | :----: | --------------------------------- |
 /// | 0      | window has been closed "by force" |
-/// | 1      | user has selected a skin          |
+/// | 1      | user has selected old skin        |
+/// | 2      | user has selected a new skin      |
 ///
-GenericWindowSkin::GenericWindowSkin(Component *editorWindow, const File &currentSkinFile)
-    : DocumentWindow("Select skin", Colours::white, 0, true)
+GenericWindowSkin::GenericWindowSkin(String *pSkinName, const File &fileSkinDirectory)
 {
-    // dialog window dimentsions
+    // store pointer to name of the currenty used skin
+    currentSkinName = pSkinName;
+
+    // dialog window dimensions
     int windowWidth = 150;
     int windowHeight = 0;
 
-    // empty windows are boring, so let's prepare a space for some
-    // window components
-    setContentOwned(&contentComponent, false);
-
-    // locate skin directory and fill list box model
-    File fileSkinDirectory = currentSkinFile.getParentDirectory();
+    // fill list box model
     listBoxModel.fill(fileSkinDirectory);
 
     // set model for list box
@@ -70,12 +68,11 @@ GenericWindowSkin::GenericWindowSkin(Component *editorWindow, const File &curren
     listBox.setMultipleSelectionEnabled(false);
 
     // select current skin in list box
-    currentSkinName = currentSkinFile.getFileNameWithoutExtension();
-    int rowNumber = listBoxModel.getRow(currentSkinName);
+    int rowNumber = listBoxModel.getRow(*currentSkinName);
     listBox.selectRow(rowNumber);
 
     // display list box
-    contentComponent.addAndMakeVisible(listBox);
+    this->addAndMakeVisible(listBox);
 
     // calculate dialog window height from height of list box
     windowHeight = listBoxHeight + 50;
@@ -88,7 +85,7 @@ GenericWindowSkin::GenericWindowSkin(Component *editorWindow, const File &curren
 
     // add "skin" window as button listener and display the button
     buttonSelect.addListener(this);
-    contentComponent.addAndMakeVisible(buttonSelect);
+    this->addAndMakeVisible(buttonSelect);
 
     // create and position an "default" button
     buttonDefault.setButtonText("Default");
@@ -98,23 +95,10 @@ GenericWindowSkin::GenericWindowSkin(Component *editorWindow, const File &curren
 
     // add "skin" window as button listener and display the button
     buttonDefault.addListener(this);
-    contentComponent.addAndMakeVisible(buttonDefault);
+    this->addAndMakeVisible(buttonDefault);
 
-    // set window dimensions
-    setSize(windowWidth, windowHeight + getTitleBarHeight());
-
-    // keep dialog window on top
-    setAlwaysOnTop(true);
-
-    // center window on editor
-    centreAroundComponent(editorWindow, getWidth(), getHeight());
-
-    // this window does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
-
-    // finally, display window
-    setVisible(true);
+    // set component window dimensions
+    setSize(windowWidth, windowHeight);
 }
 
 
@@ -122,6 +106,40 @@ GenericWindowSkin::GenericWindowSkin(Component *editorWindow, const File &curren
 ///
 GenericWindowSkin::~GenericWindowSkin()
 {
+}
+
+
+/// Static helper function to create a dialog window for selecting a
+/// new GUI skin.
+///
+/// @param pEditor pointer to audio plug-in editor
+///
+/// @param pSkinName pointer to name of the currently used skin
+///
+/// @param fileSkinDirectory directory containing the skins
+///
+/// @return created dialog window
+///
+DialogWindow *GenericWindowSkin::createWindowSkin(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory)
+{
+    // prepare dialog window
+    DialogWindow::LaunchOptions windowSkinLauncher;
+
+    windowSkinLauncher.dialogTitle = "Select skin";
+    windowSkinLauncher.dialogBackgroundColour = Colours::white;
+    windowSkinLauncher.content.setOwned(new GenericWindowSkin(pSkinName, fileSkinDirectory));
+    windowSkinLauncher.componentToCentreAround = pEditor;
+
+    windowSkinLauncher.escapeKeyTriggersCloseButton = true;
+    windowSkinLauncher.useNativeTitleBar = false;
+    windowSkinLauncher.resizable = false;
+    windowSkinLauncher.useBottomRightCornerResizer = false;
+
+    // launch dialog window
+    DialogWindow *windowSkin = windowSkinLauncher.launchAsync();
+    windowSkin->setAlwaysOnTop(true);
+
+    return windowSkin;
 }
 
 
@@ -134,12 +152,31 @@ void GenericWindowSkin::buttonClicked(Button *button)
     // user has selected a skin
     if (button == &buttonSelect)
     {
-        // exit code 1: user has selected a skin
-        int exitValue = 1;
+        // get parent dialog window
+        DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();
 
-        // close window and return exit value -- the selected skin's
-        // name may be obtained from the plug-in's GUI window
-        exitModalState(exitValue);
+        if (dialogWindow != nullptr)
+        {
+            // get first selected row index from list box
+            int selectedRow = listBox.getSelectedRow(0);
+
+            // get selected skin name and update editor
+            String newSkinName = listBoxModel.getSkinName(selectedRow);
+
+            if (newSkinName == *currentSkinName)
+            {
+                // close dialog window (exit code 1)
+                dialogWindow->exitModalState(1);
+            }
+            else
+            {
+                // update skin name
+                *currentSkinName = newSkinName;
+
+                // close dialog window (exit code 2)
+                dialogWindow->exitModalState(2);
+            }
+        }
     }
     // user has selected a default skin
     else if (button == &buttonDefault)
@@ -153,37 +190,6 @@ void GenericWindowSkin::buttonClicked(Button *button)
         // redraw list box
         listBox.repaint();
     }
-}
-
-
-/// This method is called when the user tries to close the window "by
-/// force".  For example, this may be achieved by pressing the close
-/// button on the title bar.
-///
-void GenericWindowSkin::closeButtonPressed()
-{
-    // exit code 0: skin selection has been cancelled
-    int exitValue = 0;
-
-    // close window and return exit value
-    exitModalState(exitValue);
-}
-
-
-/// Get the currently selected string.  This method may be called
-/// after closing the window, as long as the window class instance
-/// still exists.
-///
-/// @return base name of the selected skin (without file ending or
-///         directory)
-///
-const String GenericWindowSkin::getSelectedSkinName()
-{
-    // get first selected row index from list box
-    int selectedRow = listBox.getSelectedRow(0);
-
-    // get and return selected skin name
-    return listBoxModel.getSkinName(selectedRow);
 }
 
 

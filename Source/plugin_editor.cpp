@@ -25,6 +25,16 @@
 
 #include "plugin_editor.h"
 
+
+static void window_about_callback(int modalResult, SqueezerAudioProcessorEditor *pEditor)
+{
+    if (pEditor != nullptr)
+    {
+        pEditor->windowAboutCallback(modalResult);
+    }
+}
+
+
 //==============================================================================
 SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels)
     : AudioProcessorEditor(ownerFilter)
@@ -468,6 +478,13 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 }
 
 
+void SqueezerAudioProcessorEditor::windowAboutCallback(int modalResult)
+{
+    // manually deactivate about button
+    ButtonAbout.setToggleState(false, dontSendNotification);
+}
+
+
 void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessage)
 {
     // "PC" --> parameter changed, followed by a hash and the
@@ -841,7 +858,8 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     }
     else if (button == &ButtonAbout)
     {
-        // manually activate button
+        // manually activate button (will be deactivated in dialog
+        // window callback)
         button->setToggleState(true, dontSendNotification);
 
         StringPairArray arrChapters;
@@ -925,15 +943,11 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
 
             L"Thank you for using free software!");
 
-        GenericWindowAbout windowAbout(this);
+        // prepare and launch dialog window
+        DialogWindow *windowAbout = GenericWindowAbout::createWindowAbout(this, arrChapters);
 
-        // display "chapters"
-        windowAbout.addChapters(arrChapters);
-
-        windowAbout.runModalLoop();
-
-        // manually deactivate button
-        button->setToggleState(false, dontSendNotification);
+        // attach callback to dialog window
+        ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));
     }
     else
     {

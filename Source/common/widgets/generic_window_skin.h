@@ -62,21 +62,18 @@ private:
 ///
 /// @see GenericSkinListBoxModel
 ///
-class GenericWindowSkin : public DocumentWindow, ButtonListener
+class GenericWindowSkin : public Component, public ButtonListener
 {
 public:
-    GenericWindowSkin(Component *editorWindow, const File &currentSkinFile);
+    GenericWindowSkin(String *pSkinName, const File &currentSkinFile);
     ~GenericWindowSkin();
 
     void buttonClicked(Button *button);
-    void closeButtonPressed();
 
-    const String getSelectedSkinName();
+    static DialogWindow *createWindowSkin(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory);
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSkin);
-
-    Component contentComponent;
 
     ListBox listBox;
     GenericSkinListBoxModel listBoxModel;
@@ -84,7 +81,7 @@ private:
     TextButton buttonSelect;
     TextButton buttonDefault;
 
-    String currentSkinName;
+    String *currentSkinName;
 };
 
 
