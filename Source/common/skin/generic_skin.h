@@ -31,6 +31,7 @@ class GenericSkin;
 #include "JuceHeader.h"
 #include "../widgets/generic_horizontal_meter.h"
 #include "../widgets/generic_meter_bar.h"
+#include "../widgets/generic_signal_led.h"
 #include "../widgets/generic_state_label.h"
 
 
@@ -46,6 +47,7 @@ public:
     void placeAndSkinButton(ImageButton *button, String strXmlTag);
     void placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, String strXmlTag);
     void placeAndSkinLabel(ImageComponent *label, String strXmlTag);
+    void placeAndSkinSignalLed(GenericSignalLed *label, String strXmlTag);
     void placeAndSkinStateLabel(GenericStateLabel *label, String strXmlTag);
     void setBackgroundImage(ImageComponent *background, AudioProcessorEditor *editor);
 

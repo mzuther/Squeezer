@@ -245,6 +245,79 @@ void GenericSkin::placeAndSkinLabel(ImageComponent *label, String strXmlTag)
 }
 
 
+void GenericSkin::placeAndSkinSignalLed(GenericSignalLed *label, String strXmlTag)
+{
+    jassert(label != nullptr);
+
+    XmlElement *xmlLabel = getComponentFromXml(strXmlTag);
+
+    if (xmlLabel != nullptr)
+    {
+        int x = xmlLabel->getIntAttribute("x", -1);
+        int y = xmlLabel->getIntAttribute("y", -1);
+
+        String strImageOff = xmlLabel->getStringAttribute("image_off");
+        File fileImageOff = fileResourcePath.getChildFile(strImageOff);
+        Image imageOff;
+
+        if (!fileImageOff.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageOff.getFullPathName() + "\" not found");
+            imageOff = Image();
+        }
+        else
+        {
+            imageOff = ImageFileFormat::loadFrom(fileImageOff);
+        }
+
+        String strImageLow = xmlLabel->getStringAttribute("image_low");
+        File fileImageLow = fileResourcePath.getChildFile(strImageLow);
+        Image imageLow;
+
+        if (!fileImageLow.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageLow.getFullPathName() + "\" not found");
+            imageLow = Image();
+        }
+        else
+        {
+            imageLow = ImageFileFormat::loadFrom(fileImageLow);
+        }
+
+        String strImageHigh = xmlLabel->getStringAttribute("image_high");
+        File fileImageHigh = fileResourcePath.getChildFile(strImageHigh);
+        Image imageHigh;
+
+        if (!fileImageHigh.existsAsFile())
+        {
+            Logger::outputDebugString(String("[Skin] image file \"") + fileImageHigh.getFullPathName() + "\" not found");
+            imageHigh = Image();
+        }
+        else
+        {
+            imageHigh = ImageFileFormat::loadFrom(fileImageHigh);
+        }
+
+        int width = imageOff.getWidth();
+
+        if ((width != imageLow.getWidth()) or (width != imageHigh.getWidth()))
+        {
+            Logger::outputDebugString(String("[Skin] width of image files for \"") + strXmlTag + "\" differs");
+        }
+
+        int height = imageOff.getHeight();
+
+        if ((height != imageLow.getHeight()) or (height != imageHigh.getHeight()))
+        {
+            Logger::outputDebugString(String("[Skin] height of image files for \"") + strXmlTag + "\" differs");
+        }
+
+        label->setImages(imageOff, imageLow, imageHigh);
+        label->setBounds(x, y, width, height);
+    }
+}
+
+
 void GenericSkin::placeAndSkinStateLabel(GenericStateLabel *label, String strXmlTag)
 {
     jassert(label != nullptr);
