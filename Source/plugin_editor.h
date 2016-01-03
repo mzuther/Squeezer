@@ -34,7 +34,7 @@
 #include "window_settings.h"
 #include "common/widgets/slider_combined.h"
 #include "common/widgets/slider_switch_linear_bar.h"
-#include "common/widgets/generic_window_about.h"
+#include "common/widgets/generic_window_about_content.h"
 
 
 //==============================================================================

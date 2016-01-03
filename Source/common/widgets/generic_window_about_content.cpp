@@ -23,7 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_window_about.h"
+#include "generic_window_about_content.h"
 
 
 /// Create dialog window showing version, copyright, license and so
@@ -39,7 +39,7 @@
 /// | 0      | window has been closed "by force" |
 /// | 1      | user wants to close the window    |
 ///
-GenericWindowAbout::GenericWindowAbout(StringPairArray &arrChapters)
+GenericWindowAboutContent::GenericWindowAboutContent(StringPairArray &arrChapters)
 {
     // dialog window dimensions
     int windowWidth = 270;
@@ -101,7 +101,7 @@ GenericWindowAbout::GenericWindowAbout(StringPairArray &arrChapters)
 
 /// Destructor.
 ///
-GenericWindowAbout::~GenericWindowAbout()
+GenericWindowAboutContent::~GenericWindowAboutContent()
 {
 }
 
@@ -116,14 +116,14 @@ GenericWindowAbout::~GenericWindowAbout()
 ///
 /// @return created dialog window
 ///
-DialogWindow *GenericWindowAbout::createWindowAbout(AudioProcessorEditor *pEditor, StringPairArray &arrChapters)
+DialogWindow *GenericWindowAboutContent::createDialogWindow(AudioProcessorEditor *pEditor, StringPairArray &arrChapters)
 {
     // prepare dialog window
     DialogWindow::LaunchOptions windowAboutLauncher;
 
     windowAboutLauncher.dialogTitle = String("About ") + ProjectInfo::projectName;
     windowAboutLauncher.dialogBackgroundColour = Colours::white;
-    windowAboutLauncher.content.setOwned(new GenericWindowAbout(arrChapters));
+    windowAboutLauncher.content.setOwned(new GenericWindowAboutContent(arrChapters));
     windowAboutLauncher.componentToCentreAround = pEditor;
 
     windowAboutLauncher.escapeKeyTriggersCloseButton = true;
@@ -144,7 +144,7 @@ DialogWindow *GenericWindowAbout::createWindowAbout(AudioProcessorEditor *pEdito
 /// @param arrChapters dictionary containing chapter headlines and the
 ///        accompanying text
 ///
-void GenericWindowAbout::addChapters(StringPairArray &arrChapters)
+void GenericWindowAboutContent::addChapters(StringPairArray &arrChapters)
 {
     // set up two fonts, one for headlines and one for regular text
     Font headlineFont(16.0f, Font::bold);
@@ -196,7 +196,7 @@ void GenericWindowAbout::addChapters(StringPairArray &arrChapters)
 ///
 /// @param button clicked button
 ///
-void GenericWindowAbout::buttonClicked(Button *button)
+void GenericWindowAboutContent::buttonClicked(Button *button)
 {
     // user wants to close the window
     if (button == &buttonClose)

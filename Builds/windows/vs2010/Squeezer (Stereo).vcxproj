@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{40CAB118-A38E-83C9-2742-AF44217ED031}</ProjectGuid>
+		<ProjectGuid>{CC3CCF51-DC0E-4EDE-AA39-1A19BB5D125A}</ProjectGuid>
 		<RootNamespace>Squeezer (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -205,122 +205,122 @@
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemGroup>
-		<ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
+		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
+		<ClInclude Include="..\..\..\Source\window_settings.h" />
+		<ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
+		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
+		<ClInclude Include="..\..\..\Source\side_chain.h" />
+		<ClInclude Include="..\..\..\Source\gain_stage.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_level.h" />
+		<ClInclude Include="..\..\..\Source\plugin_processor.h" />
+		<ClInclude Include="..\..\..\Source\compressor.h" />
 		<ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev.h" />
-		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
-		<ClInclude Include="..\..\..\Source\compressor.h" />
-		<ClInclude Include="..\..\..\Source\window_settings.h" />
-		<ClInclude Include="..\..\..\Source\side_chain.h" />
-		<ClInclude Include="..\..\..\Source\plugin_processor.h" />
-		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
 		<ClInclude Include="..\..\..\Source\standalone_application.h" />
-		<ClInclude Include="..\..\..\Source\gain_stage.h" />
 		<ClInclude Include="..\..\..\Source\common\mz_juce_common.h" />
-		<ClInclude Include="..\..\..\Source\common\math\averager.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_plugin_standalone.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\slider_continuous.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\generic_channel_slider.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\slider_combined.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_bar.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_skin.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_segment.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_skin_content.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about_content.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_bar.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_combined.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\slider_continuous.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_channel_slider.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\resources\resources.h" />
-		<ClInclude Include="..\..\..\Source\common\audio\audio_ring_buffer.h" />
-		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
 		<ClInclude Include="..\..\..\Source\common\skin\generic_skin.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.h" />
+		<ClInclude Include="..\..\..\Source\common\math\averager.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_boolean.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.h" />
+		<ClInclude Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.h" />
 		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_continuous.h" />
-		<ClInclude Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.h" />
+		<ClInclude Include="..\..\..\Source\common\audio\dither.h" />
+		<ClInclude Include="..\..\..\Source\common\audio\audio_ring_buffer.h" />
 	</ItemGroup>
 	<ItemGroup>
+		<ClCompile Include="..\..\..\Source\compressor.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\main.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\filter_chebyshev.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\side_chain.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\window_settings.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\gain_stage_optical.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\filter_chebyshev_stage.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\main.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\meter_bar_level.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\side_chain.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\window_settings.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\filter_chebyshev.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\compressor.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\plugin_editor.cpp">
+		<ClCompile Include="..\..\..\Source\plugin_parameters.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\gain_stage_fet.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\math\averager.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\generic_horizontal_meter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\slider_combined.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_skin.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_about.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_continuous.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_channel_slider.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\generic_plugin_standalone.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_skin_content.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\generic_state_label.cpp">
+		<ClCompile Include="..\..\..\Source\common\widgets\slider_combined.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_horizontal_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_bar.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_state_label.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_plugin_standalone.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_about_content.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\resources\resources.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\skin\generic_skin.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\math\averager.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_continuous.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_boolean.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\audio\audio_ring_buffer.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\audio\dither.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\skin\generic_skin.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_switch.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\parameter_juggler.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_boolean.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_string.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_combined.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\parameter_juggler\plugin_parameter_continuous.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\libraries\juce\modules\juce_audio_basics\juce_audio_basics.cpp">
 		</ClCompile>

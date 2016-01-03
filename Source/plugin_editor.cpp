@@ -944,7 +944,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
             L"Thank you for using free software!");
 
         // prepare and launch dialog window
-        DialogWindow *windowAbout = GenericWindowAbout::createWindowAbout(this, arrChapters);
+        DialogWindow *windowAbout = GenericWindowAboutContent::createDialogWindow(this, arrChapters);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));

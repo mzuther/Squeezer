@@ -23,7 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_window_skin.h"
+#include "generic_window_skin_content.h"
 
 
 /// Create dialog window for selecting a new GUI skin.
@@ -40,7 +40,7 @@
 /// | 1      | user has selected old skin        |
 /// | 2      | user has selected a new skin      |
 ///
-GenericWindowSkin::GenericWindowSkin(String *pSkinName, const File &fileSkinDirectory)
+GenericWindowSkinContent::GenericWindowSkinContent(String *pSkinName, const File &fileSkinDirectory)
 {
     // store pointer to name of the currenty used skin
     currentSkinName = pSkinName;
@@ -104,7 +104,7 @@ GenericWindowSkin::GenericWindowSkin(String *pSkinName, const File &fileSkinDire
 
 /// Destructor.
 ///
-GenericWindowSkin::~GenericWindowSkin()
+GenericWindowSkinContent::~GenericWindowSkinContent()
 {
 }
 
@@ -120,14 +120,14 @@ GenericWindowSkin::~GenericWindowSkin()
 ///
 /// @return created dialog window
 ///
-DialogWindow *GenericWindowSkin::createWindowSkin(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory)
+DialogWindow *GenericWindowSkinContent::createDialogWindow(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory)
 {
     // prepare dialog window
     DialogWindow::LaunchOptions windowSkinLauncher;
 
     windowSkinLauncher.dialogTitle = "Select skin";
     windowSkinLauncher.dialogBackgroundColour = Colours::white;
-    windowSkinLauncher.content.setOwned(new GenericWindowSkin(pSkinName, fileSkinDirectory));
+    windowSkinLauncher.content.setOwned(new GenericWindowSkinContent(pSkinName, fileSkinDirectory));
     windowSkinLauncher.componentToCentreAround = pEditor;
 
     windowSkinLauncher.escapeKeyTriggersCloseButton = true;
@@ -147,7 +147,7 @@ DialogWindow *GenericWindowSkin::createWindowSkin(AudioProcessorEditor *pEditor,
 ///
 /// @param button clicked button
 ///
-void GenericWindowSkin::buttonClicked(Button *button)
+void GenericWindowSkinContent::buttonClicked(Button *button)
 {
     // user has selected a skin
     if (button == &buttonSelect)
@@ -193,7 +193,7 @@ void GenericWindowSkin::buttonClicked(Button *button)
 }
 
 
-/// Create a list box model for a GenericWindowSkin.
+/// Create a list box model for a GenericWindowSkinContent.
 ///
 GenericSkinListBoxModel::GenericSkinListBoxModel()
     : skinWildcard("*.skin", String::empty, "Skin files"),

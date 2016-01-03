@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_WINDOW_ABOUT_H__
-#define __GENERIC_WINDOW_ABOUT_H__
+#ifndef __GENERIC_WINDOW_ABOUT_CONTENT_H__
+#define __GENERIC_WINDOW_ABOUT_CONTENT_H__
 
 #include "JuceHeader.h"
 #include "resources/resources.h"
@@ -33,18 +33,18 @@
 /// Dialog window for displaying version, copyright, license and so
 /// on.
 ///
-class GenericWindowAbout : public Component, public ButtonListener
+class GenericWindowAboutContent : public Component, public ButtonListener
 {
 public:
-    GenericWindowAbout(StringPairArray &arrChapters);
-    ~GenericWindowAbout();
+    GenericWindowAboutContent(StringPairArray &arrChapters);
+    ~GenericWindowAboutContent();
 
     void buttonClicked(Button *button);
 
-    static DialogWindow *createWindowAbout(AudioProcessorEditor *pEditor, StringPairArray &arrChapters);
+    static DialogWindow *createDialogWindow(AudioProcessorEditor *pEditor, StringPairArray &arrChapters);
 
 private:
-    JUCE_LEAK_DETECTOR(GenericWindowAbout);
+    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
 
     void addChapters(StringPairArray &arrChapters);
 
@@ -54,7 +54,7 @@ private:
 };
 
 
-#endif  // __GENERIC_WINDOW_ABOUT_H__
+#endif  // __GENERIC_WINDOW_ABOUT_CONTENT_H__
 
 
 // Local Variables:

@@ -121,10 +121,9 @@ OBJECTS := \
 	$(OBJDIR)/meter_bar_level.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/gain_stage_fet.o \
-	$(OBJDIR)/generic_window_about.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/generic_channel_slider.o \
-	$(OBJDIR)/generic_window_skin.o \
+	$(OBJDIR)/generic_window_skin_content.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/generic_horizontal_meter.o \
 	$(OBJDIR)/generic_meter_bar.o \
@@ -133,6 +132,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_plugin_standalone.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
 	$(OBJDIR)/generic_meter_segment.o \
+	$(OBJDIR)/generic_window_about_content.o \
 	$(OBJDIR)/resources.o \
 	$(OBJDIR)/generic_skin.o \
 	$(OBJDIR)/averager.o \
@@ -259,16 +259,13 @@ $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 $(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_window_about.o: ../../../Source/common/widgets/generic_window_about.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_channel_slider.o: ../../../Source/common/widgets/generic_channel_slider.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_window_skin.o: ../../../Source/common/widgets/generic_window_skin.cpp
+$(OBJDIR)/generic_window_skin_content.o: ../../../Source/common/widgets/generic_window_skin_content.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_combined.o: ../../../Source/common/widgets/slider_combined.cpp
@@ -293,6 +290,9 @@ $(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_swit
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_meter_segment.o: ../../../Source/common/widgets/generic_meter_segment.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_window_about_content.o: ../../../Source/common/widgets/generic_window_about_content.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/resources.o: ../../../Source/common/widgets/resources/resources.cpp

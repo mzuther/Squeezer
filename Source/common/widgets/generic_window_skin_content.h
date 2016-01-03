@@ -23,15 +23,15 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_WINDOW_SKIN_H__
-#define __GENERIC_WINDOW_SKIN_H__
+#ifndef __GENERIC_WINDOW_SKIN_CONTENT_H__
+#define __GENERIC_WINDOW_SKIN_CONTENT_H__
 
 #include "JuceHeader.h"
 
 
 /// List box model that lists all available GUI skins.
 ///
-/// @see GenericWindowSkin
+/// @see GenericWindowSkinContent
 ///
 class GenericSkinListBoxModel : public ListBoxModel
 {
@@ -62,18 +62,18 @@ private:
 ///
 /// @see GenericSkinListBoxModel
 ///
-class GenericWindowSkin : public Component, public ButtonListener
+class GenericWindowSkinContent : public Component, public ButtonListener
 {
 public:
-    GenericWindowSkin(String *pSkinName, const File &currentSkinFile);
-    ~GenericWindowSkin();
+    GenericWindowSkinContent(String *pSkinName, const File &currentSkinFile);
+    ~GenericWindowSkinContent();
 
     void buttonClicked(Button *button);
 
-    static DialogWindow *createWindowSkin(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory);
+    static DialogWindow *createDialogWindow(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory);
 
 private:
-    JUCE_LEAK_DETECTOR(GenericWindowSkin);
+    JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
 
     ListBox listBox;
     GenericSkinListBoxModel listBoxModel;
@@ -85,7 +85,7 @@ private:
 };
 
 
-#endif  // __GENERIC_WINDOW_SKIN_H__
+#endif  // __GENERIC_WINDOW_SKIN_CONTENT_H__
 
 
 // Local Variables:
