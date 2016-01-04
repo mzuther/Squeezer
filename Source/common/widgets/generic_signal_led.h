@@ -29,25 +29,30 @@
 #include "JuceHeader.h"
 
 
-//==============================================================================
-/**
-*/
+/// Signal LED component.  This widget loads three images of the same
+/// size which will be displayed according to the meter's level.
+///
+/// | %Level     | %Display                            |
+/// | :--------: | ----------------------------------- |
+/// | <= 0.0     | *imageOff*                          |
+/// | in between | blend of *imageLow* and *imageHigh* |
+/// | >= 1.0     | *imageHigh*                         |
+///
 class GenericSignalLed : public Component
 {
 public:
     GenericSignalLed(const String &componentName);
     ~GenericSignalLed();
 
-    void resized();
-    void setLevel(float fBrightnessNew);
     void paint(Graphics &g);
 
+    void setLevel(float levelNew);
     void setImages(Image &imageOffNew, Image &imageLowNew, Image &imageHighNew);
 
 private:
     JUCE_LEAK_DETECTOR(GenericSignalLed);
 
-    float fBrightness;
+    float level;
 
     Image imageOff;
     Image imageLow;

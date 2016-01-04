@@ -26,8 +26,8 @@
 #include "generic_window_about_content.h"
 
 
-/// Create dialog window showing version, copyright, license and so
-/// on.
+/// Create content component for dialog window showing version,
+/// copyright, license and so on.
 ///
 /// @param arrChapters dictionary containing chapter headlines and the
 ///        accompanying text

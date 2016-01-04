@@ -26,7 +26,8 @@
 #include "generic_window_skin_content.h"
 
 
-/// Create dialog window for selecting a new GUI skin.
+/// Create content component for dialog window that allows selecting a
+/// new GUI skin.
 ///
 /// @param pSkinName pointer to name of the currently used skin
 ///

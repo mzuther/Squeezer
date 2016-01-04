@@ -393,7 +393,7 @@ void GenericSkin::placeAndSkinStateLabel(GenericStateLabel *label, String strXml
             Logger::outputDebugString(String("[Skin] height of image files for \"") + strXmlTag + "\" differs");
         }
 
-        label->setImages(imageOff, imageOn, imageActive, strColourOn, strColourActive, spacing_left, spacing_top, font_size);
+        label->setImages(imageOff, imageOn, imageActive, strColourOn, strColourActive, spacing_left, spacing_top, (float) font_size);
         label->setBounds(x, y, width, height);
     }
 }

@@ -25,6 +25,10 @@
 
 #include "generic_signal_led.h"
 
+/// Create a signal LED.
+///
+/// @param componentName String containing the component's name
+///
 GenericSignalLed::GenericSignalLed(const String &componentName)
 {
     // set component name
@@ -33,34 +37,30 @@ GenericSignalLed::GenericSignalLed(const String &componentName)
     // this component blends in with the background
     setOpaque(false);
 
-    // initialise meter segment's brightness (0.0f is dark, 1.0f is
-    // fully lit)
-    fBrightness = 0.0f;
-
-    imageOff = Image();
-    imageLow = Image();
-    imageHigh = Image();
+    // initialise LED's level (0.0f is dark, 1.0f is fully lit)
+    level = 0.0f;
 }
 
 
+/// Destructor.
+///
 GenericSignalLed::~GenericSignalLed()
 {
     // nothing to do, really
 }
 
 
-void GenericSignalLed::resized()
+/// Set new level.
+///
+/// @param level new level (0.0 is dark, 1.0 is fully lit)
+///
+void GenericSignalLed::setLevel(float levelNew)
 {
-}
-
-
-void GenericSignalLed::setLevel(float fBrightnessNew)
-{
-    // re-paint meter segment only when the brightness has changed
-    if (fBrightnessNew != fBrightness)
+    // re-paint meter segment only when the level has changed
+    if (levelNew != level)
     {
-        // update brightness
-        fBrightness = fBrightnessNew;
+        // update level
+        level = levelNew;
 
         // redraw component
         repaint(getLocalBounds());
@@ -68,35 +68,59 @@ void GenericSignalLed::setLevel(float fBrightnessNew)
 }
 
 
+/// Draw content of component.
+///
+/// The paint() method gets called when a region of a component needs
+/// redrawing, either because the component's repaint() method has
+/// been called, or because something has happened on the screen that
+/// means a section of a window needs to be redrawn.
 void GenericSignalLed::paint(Graphics &g)
 {
-    if (fBrightness <= 0.0f)
+    // LED is dark
+    if (level <= 0.0f)
     {
+        // paint imageOff
         g.setOpacity(1.0f);
         g.drawImageAt(imageOff, 0, 0, false);
     }
-    else if (fBrightness >= 1.0f)
+    // LED is fully lit
+    else if (level >= 1.0f)
     {
+        // paint imageHigh
         g.setOpacity(1.0f);
         g.drawImageAt(imageHigh, 0, 0, false);
     }
+    // LED is in between
     else
     {
+        // paint imageLow
         g.setOpacity(1.0f);
         g.drawImageAt(imageLow, 0, 0, false);
 
-        g.setOpacity(fBrightness);
+        // blend with imageHigh
+        g.setOpacity(level);
         g.drawImageAt(imageHigh, 0, 0, false);
     }
 }
 
 
+/// Set new images.
+///
+/// @param imageOffNew image is displayed when the LED is dark
+///
+/// @param imageLowNew image is displayed for levels in between (and
+///        mixed with *imageHighNew*)
+///
+/// @param imageHighNew image is displayed when the LED is fully lit
+///
 void GenericSignalLed::setImages(Image &imageOffNew, Image &imageLowNew, Image &imageHighNew)
 {
-    imageOff = Image(imageOffNew);
-    imageLow = Image(imageLowNew);
-    imageHigh = Image(imageHighNew);
+    // update images (creates a copy of each image)
+    imageOff = imageOffNew.createCopy();
+    imageLow = imageLowNew.createCopy();
+    imageHigh = imageHighNew.createCopy();
 
+    // assert that all images have the same size
     jassert(imageOff.getBounds() == imageLow.getBounds());
     jassert(imageOff.getBounds() == imageHigh.getBounds());
 

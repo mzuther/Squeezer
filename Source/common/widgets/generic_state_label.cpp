@@ -25,92 +25,171 @@
 
 #include "generic_state_label.h"
 
+/// Create a state label.
+///
+/// @param componentName String containing the component's name
+///
 GenericStateLabel::GenericStateLabel(const String &componentName)
 {
+    // set component name
     setName(componentName);
 
     // this component blends in with the background
     setOpaque(false);
 
-    nSpacingLeft = 0;
-    nSpacingTop = 0;
-    nState = stateOff;
+    // initialise meter state
+    currentState = stateOff;
 
-    imageOff = Image();
-    imageOn = Image();
+    // initialise spacing of text label
+    horizontalTextSpacing = 0;
+    verticalTextSpacing = 0;
 
-    label = new Label("Label", "");
-    label->setBorderSize(BorderSize<int>(0, 0, 0, 0));
-    label->setJustificationType(Justification::topRight);
-    addAndMakeVisible(label);
+    // initialise widget for displaying text
+    textLabel.setName("Text label");
+    textLabel.setJustificationType(Justification::topRight);
+    textLabel.setBorderSize(BorderSize<int>(0, 0, 0, 0));
+    addAndMakeVisible(textLabel);
 
-    backgroundImage = new ImageComponent("Background Image");
-    addAndMakeVisible(backgroundImage);
+    // initialise widget for displaying the background image
+    addAndMakeVisible(imageComponent);
 
-    backgroundImage->toBack();
+    // background images should be in the back -- I don't know why I'm
+    // even writing this ... :)
+    imageComponent.toBack();
 }
 
 
+/// Destructor.
+///
 GenericStateLabel::~GenericStateLabel()
 {
 }
 
 
+/// Called when this component's size has been changed.
+///
 void GenericStateLabel::resized()
 {
-    label->setBounds(nSpacingLeft, nSpacingTop, getWidth() - 2 * nSpacingLeft, getHeight() - 2 * nSpacingTop);
-    backgroundImage->setBounds(0, 0, getWidth(), getHeight());
+    // call base method
+    Component::resized();
+
+    // set size of text label, taking text spacing into account
+    textLabel.setBounds(horizontalTextSpacing,
+                        verticalTextSpacing,
+                        getWidth() - 2 * horizontalTextSpacing,
+                        getHeight() - 2 * verticalTextSpacing);
+
+    // set size of background image
+    imageComponent.setBounds(0, 0, getWidth(), getHeight());
 }
 
 
-void GenericStateLabel::setState(int nStateNew, bool bForceUpdate)
+/// Set new state.
+///
+/// @param newState new state (see GenericStateLabel::Parameters)
+///
+/// @param forceUpdate update state regardless of current state
+///
+void GenericStateLabel::setState(int newState, bool forceUpdate)
 {
-    if ((nState != nStateNew) || bForceUpdate)
+    if ((newState != currentState) || forceUpdate)
     {
-        nState = nStateNew;
+        currentState = newState;
         updateState();
     }
 }
 
 
+/// Update background image and text colour according to current
+/// state.
+///
 void GenericStateLabel::updateState()
 {
-    if (nState == stateActive)
+    // "active" state
+    if (currentState == stateActive)
     {
-        backgroundImage->setImage(imageActive);
-        label->setColour(Label::textColourId, colActive);
+        imageComponent.setImage(imageActive);
+        setLabelColour(colActive);
     }
-    else if (nState == stateOn)
+    // "on" state
+    else if (currentState == stateOn)
     {
-        backgroundImage->setImage(imageOn);
-        label->setColour(Label::textColourId, colOn);
+        imageComponent.setImage(imageOn);
+        setLabelColour(colOn);
     }
+    // "off" state
     else
     {
-        backgroundImage->setImage(imageOff);
+        imageComponent.setImage(imageOff);
     }
 }
 
 
-void GenericStateLabel::setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &strColourOn, String &strColourActive, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize)
+/// Set new images and text label settings.
+///
+/// @param imageOffNew image displayed in the "off" state
+///
+/// @param imageOnNew image displayed in the "on" state
+///
+/// @param imageActiveNew image displayed in the "active" state
+///
+/// @param colourStringOn HTML text colour for the "on" state
+///        ("ff0000" is red)
+///
+/// @param colourStringActive HTML text colour for the "active" state
+///        ("ff0000" is red)
+///
+/// @param horizontalTextSpacingNew horizontal spacing of text label
+///
+/// @param verticalTextSpacingNew vertical spacing of text label
+///
+/// @param fontSize font size for text label
+///
+void GenericStateLabel::setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &colourStringOn, String &colourStringActive, int horizontalTextSpacingNew, int verticalTextSpacingNew, float fontSize)
 {
-    nSpacingLeft = nSpacingLeftNew;
-    nSpacingTop = nSpacingTopNew;
-    label->setFont(Font((float) nFontSize, Font::bold));
+    // update spacing of text label
+    horizontalTextSpacing = horizontalTextSpacingNew;
+    verticalTextSpacing = verticalTextSpacingNew;
 
-    colOn = Colour::fromString("ff" + strColourOn);
-    colActive = Colour::fromString("ff" + strColourActive);
+    // update font of text label (bold weight)
+    textLabel.setFont(Font(fontSize, Font::bold));
 
-    label->setColour(Label::textColourId, colOn);
+    // update colours of text label
+    colOn = Colour::fromString("ff" + colourStringOn);
+    colActive = Colour::fromString("ff" + colourStringActive);
 
-    imageOff = Image(imageOffNew);
-    imageOn = Image(imageOnNew);
-    imageActive = Image(imageActiveNew);
+    // update images (creates a copy of each image)
+    imageOff = imageOffNew.createCopy();
+    imageOn = imageOnNew.createCopy();
+    imageActive = imageActiveNew.createCopy();
 
+    // assert that all images have the same size
     jassert(imageOff.getBounds() == imageOn.getBounds());
     jassert(imageOff.getBounds() == imageActive.getBounds());
 
+    // update component
     updateState();
+}
+
+
+/// Changes the label's text colour.  This will be overwritten on the
+/// next call of updateState().
+///
+/// @param newColour new text colour
+///
+void GenericStateLabel::setLabelColour(const Colour &newColour)
+{
+    textLabel.setColour(Label::textColourId, newColour);
+}
+
+
+/// Changes the label's text.
+///
+/// @param newText new text string
+///
+void GenericStateLabel::setLabelText(const String &newText)
+{
+    textLabel.setText(newText, dontSendNotification);
 }
 
 

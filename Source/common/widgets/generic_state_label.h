@@ -29,40 +29,53 @@
 #include "JuceHeader.h"
 
 
-//==============================================================================
-/**
-*/
+/// State label component.  This widget loads three images of the same
+/// size which will be displayed according to the label's state.  It
+/// can also display a text string.
+///
+/// | %State | %Example                            |
+/// | :----: | ----------------------------------- |
+/// | off    | no overload detected yet            |
+/// | on     | overload(s) detected in the past    |
+/// | active | currently dectecting an overload    |
+///
 class GenericStateLabel : public Component
 {
 public:
     enum Parameters  // public namespace!
     {
+        /// off, no overload detected yet
         stateOff = 0,
+        /// on, overload(s) detected in the past
         stateOn,
+        /// active, currently dectecting an overload
         stateActive,
 
-        nNumStates,
+        numberOfStates,
     };
 
     GenericStateLabel(const String &componentName);
     ~GenericStateLabel();
 
     void resized();
-    void setState(int nStateNew, bool bForceUpdate = false);
-    void updateState();
+    void setState(int newState, bool forceUpdate = false);
+    void setLabelColour(const Colour &newColour);
+    void setLabelText(const String &newText);
 
-    void setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &strColourOn, String &strColourActive, int nSpacingLeftNew, int nSpacingTopNew, int nFontSize);
+    void setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &colourStringOn, String &colourStringActive, int horizontalTextSpacingNew, int verticalTextSpacingNew, float fontSize);
 
 protected:
-    ScopedPointer<Label> label;
-    ScopedPointer<ImageComponent> backgroundImage;
+    void updateState();
 
 private:
     JUCE_LEAK_DETECTOR(GenericStateLabel);
 
-    int nSpacingLeft;
-    int nSpacingTop;
-    int nState;
+    int currentState;
+    int horizontalTextSpacing;
+    int verticalTextSpacing;
+
+    Label textLabel;
+    ImageComponent imageComponent;
 
     Image imageOff;
     Image imageOn;
