@@ -32,7 +32,7 @@ MeterBarLevel::MeterBarLevel()
     arrHues.add(0.30f);  // green
     arrHues.add(0.58f);  // blue
 
-    for (int n = 0; n < arrHues.size(); n++)
+    for (int n = 0; n < arrHues.size(); ++n)
     {
         arrPeakColours.add(Colour(arrHues[n], 1.0f, 1.0f, 0.7f));
     }
@@ -56,7 +56,7 @@ void MeterBarLevel::create(int crestFactor, int nMainSegmentWidth, int nMainSegm
 
     int nNumberOfBars = 23;
 
-    for (int n = 0; n < nNumberOfBars; n++)
+    for (int n = 0; n < nNumberOfBars; ++n)
     {
         int nColour;
         int nSegmentHeight;

@@ -63,7 +63,7 @@ Compressor::Compressor(int channels, int sample_rate) :
     setMakeupGain(0.0);
     setWetMix(100);
 
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain.add(new SideChain(nSampleRate));
 
@@ -93,7 +93,7 @@ void Compressor::resetMeters()
     double dMeterMinimumDecibel = -(70.01 + dCrestFactor);
 
     // loop through all audio channels
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         // set peak meter levels to meter minimum
         arrPeakMeterInputLevels.set(nChannel, dMeterMinimumDecibel);
@@ -165,7 +165,7 @@ void Compressor::setDetectorRmsFilter(double dDetectorRateMilliSecondsNew)
     return value: none
 */
 {
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setDetectorRmsFilter(dDetectorRateMilliSecondsNew);
     }
@@ -213,7 +213,7 @@ void Compressor::setThreshold(double dThresholdNew)
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setThreshold(dThresholdNew);
     }
@@ -257,7 +257,7 @@ void Compressor::setRatio(double dRatioNew)
         bUpwardExpansion = false;
     }
 
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setRatio(dRatioNew);
     }
@@ -282,7 +282,7 @@ void Compressor::setKneeWidth(double dKneeWidthNew)
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setKneeWidth(dKneeWidthNew);
     }
@@ -309,7 +309,7 @@ void Compressor::setAttackRate(int nAttackRateNew)
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setAttackRate(nAttackRateNew);
     }
@@ -335,7 +335,7 @@ void Compressor::setReleaseRate(int nReleaseRateNew)
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setReleaseRate(nReleaseRateNew);
     }
@@ -360,7 +360,7 @@ void Compressor::setDetector(int nDetectorTypeNew)
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setDetector(nDetectorTypeNew);
     }
@@ -385,7 +385,7 @@ void Compressor::setGainStage(int nGainStageTypeNew)
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSideChain[nChannel]->setGainStage(nGainStageTypeNew);
     }
@@ -543,7 +543,7 @@ void Compressor::setSidechainFilterCutoff(int nSidechainFilterCutoffNew)
     double dRelativeCutoffFrequency = double(nSidechainFilterCutoff) / double(nSampleRate);
     bool bIsHighpass = (nSidechainFilterCutoff < 2900) ? true : false;
 
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         p_arrSidechainFilter[nChannel]->changeParameters(dRelativeCutoffFrequency, bIsHighpass);
     }
@@ -777,11 +777,11 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
 {
     int nNumSamples = buffer.getNumSamples();
 
-    for (int nSample = 0; nSample < nNumSamples; nSample++)
+    for (int nSample = 0; nSample < nNumSamples; ++nSample)
     {
         // get and prepare input samples (all channels have to be
         // prepared before any processing can take place!)
-        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
         {
             // get current input sample
             float fInputSample = buffer.getSample(nChannel, nSample);
@@ -802,7 +802,7 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
         // compressor is bypassed (or mix is set to 0 percent)
         if (bBypassCompressorCombined)
         {
-            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            for (int nChannel = 0; nChannel < nChannels; ++nChannel)
             {
                 // store de-normalised (!) input sample in buffer for
                 // output meter
@@ -820,7 +820,7 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
         }
 
         // compress channels
-        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
         {
             // feed-forward design
             if (bDesignFeedForward)
@@ -883,7 +883,7 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
         if (!bDesignFeedForward)
         {
             // loop over channels
-            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            for (int nChannel = 0; nChannel < nChannels; ++nChannel)
             {
                 // stereo linking is off (save some processing time)
                 if (dStereoLinkOriginal == 0.0)
@@ -920,7 +920,7 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
         }
 
         // loop over channels
-        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
         {
             // listen to side-chain (already de-normalised)
             if (bSidechainListen)
@@ -959,7 +959,7 @@ void Compressor::processBlock(AudioSampleBuffer &buffer)
 void Compressor::updateMeterBallistics()
 {
     // update metering buffer position
-    nMeterBufferPosition++;
+    ++nMeterBufferPosition;
 
     // meter will only be updated when buffer is full
     if (nMeterBufferPosition < nMeterBufferSize)
@@ -971,7 +971,7 @@ void Compressor::updateMeterBallistics()
     nMeterBufferPosition = 0;
 
     // loop over channels
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         // determine peak levels
         double dInputPeak = MeterInputBuffer.getMagnitude(nChannel, 0, nMeterBufferSize);

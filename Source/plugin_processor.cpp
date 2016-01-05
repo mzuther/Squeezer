@@ -426,7 +426,7 @@ void SqueezerAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
 {
     int nNumParameters = pluginParameters.getNumParameters(false);
 
-    for (int nIndex = 0; nIndex < nNumParameters; nIndex++)
+    for (int nIndex = 0; nIndex < nNumParameters; ++nIndex)
     {
         if (pluginParameters.hasChanged(nIndex))
         {
@@ -783,7 +783,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer 
 
     if (!bSampleRateIsValid)
     {
-        for (int nChannel = 0; nChannel < getNumOutputChannels(); nChannel++)
+        for (int nChannel = 0; nChannel < getNumOutputChannels(); ++nChannel)
         {
             buffer.clear(nChannel, 0, nNumSamples);
         }
@@ -801,7 +801,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer 
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int nChannel = nNumInputChannels; nChannel < getNumOutputChannels(); nChannel++)
+    for (int nChannel = nNumInputChannels; nChannel < getNumOutputChannels(); ++nChannel)
     {
         buffer.clear(nChannel, 0, nNumSamples);
     }

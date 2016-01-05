@@ -436,7 +436,7 @@ String SqueezerPluginParameters::toString()
     int stringLength = parameterValues.length();
     parameterValues += "\n";
 
-    for (int n = 0; n < stringLength; n++)
+    for (int n = 0; n < stringLength; ++n)
     {
         parameterValues += "=";
     }

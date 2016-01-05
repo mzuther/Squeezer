@@ -35,7 +35,7 @@ Averager::Averager(int number_of_samples, float initial_value)
     fNumberOfSamples = float(nNumberOfSamples);
     nCurrentSample = 0;
 
-    for (int n = 0; n < nNumberOfSamples; n++)
+    for (int n = 0; n < nNumberOfSamples; ++n)
     {
         fSamples.insert(n, initial_value);
     }
@@ -53,7 +53,7 @@ void Averager::addSample(float newSample)
     fSamples.set(nCurrentSample, newSample);
     fSum += fSamples[nCurrentSample];
 
-    nCurrentSample++;
+    ++nCurrentSample;
 
     if (nCurrentSample >= nNumberOfSamples)
     {

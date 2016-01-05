@@ -167,7 +167,7 @@ float PluginParameterSwitch::toInternalFloat(float newRealValue)
         float oldDifference = fabs(newRealValue - arrRealValues[selectedIndex]);
 
         // loop over stored values
-        for (int currentIndex = 1; currentIndex < arrRealValues.size(); currentIndex++)
+        for (int currentIndex = 1; currentIndex < arrRealValues.size(); ++currentIndex)
         {
             // get difference between value and current stored value
             float newDifference = fabs(newRealValue - arrRealValues[currentIndex]);

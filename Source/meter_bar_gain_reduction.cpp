@@ -32,7 +32,7 @@ MeterBarGainReduction::MeterBarGainReduction()
     arrHues.add(0.30f);  // green
     arrHues.add(0.58f);  // blue
 
-    for (int n = 0; n < arrHues.size(); n++)
+    for (int n = 0; n < arrHues.size(); ++n)
     {
         arrPeakColours.add(Colour(arrHues[n], 1.0f, 1.0f, 0.7f));
     }
@@ -55,7 +55,7 @@ void MeterBarGainReduction::create(int nMainSegmentWidth, int nMainSegmentHeight
     int nRange = 10;
     int nNumberOfBars = 24;
 
-    for (int n = 0; n < nNumberOfBars; n++)
+    for (int n = 0; n < nNumberOfBars; ++n)
     {
         int nColour;
 

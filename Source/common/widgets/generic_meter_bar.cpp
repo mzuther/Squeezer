@@ -245,7 +245,7 @@ void GenericMeterBar::setOrientation(GenericMeterBar::Orientation barOrientation
     if (isOrientationVertical != isOrientationVerticalOld)
     {
         // re-arrange meter segments
-        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
             // get current segment
             GenericMeterSegment *currentSegment = p_arrMeterSegments[segmentIndex];
@@ -279,7 +279,7 @@ void GenericMeterBar::setOrientation(GenericMeterBar::Orientation barOrientation
         }
 
         // position meter segments
-        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
             // get current segment
             GenericMeterSegment *currentSegment = p_arrMeterSegments[segmentIndex];
@@ -412,7 +412,7 @@ void GenericMeterBar::setSegmentWidth(int segmentWidthNew)
     barWidth = segmentWidth;
 
     // update meter segments
-    for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+    for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
     {
         // get current segment
         GenericMeterSegment *currentSegment = p_arrMeterSegments[segmentIndex];
@@ -479,7 +479,7 @@ void GenericMeterBar::setNormalLevels(float normalLevelNew, float normalLevelPea
         normalLevelPeak = normalLevelPeakNew;
 
         // update meter segments
-        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
             p_arrMeterSegments[segmentIndex]->setNormalLevels(normalLevel, normalLevelPeak);
         }
@@ -504,7 +504,7 @@ void GenericMeterBar::setDiscreteLevels(float discreteLevelNew, float discreteLe
         discreteLevelPeak = discreteLevelPeakNew;
 
         // update meter segments
-        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
             p_arrMeterSegments[segmentIndex]->setDiscreteLevels(discreteLevel, discreteLevelPeak);
         }
@@ -536,7 +536,7 @@ void GenericMeterBar::setLevels(float normalLevelNew, float discreteLevelNew, fl
         discreteLevelPeak = discreteLevelPeakNew;
 
         // update meter bars
-        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); segmentIndex++)
+        for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
             p_arrMeterSegments[segmentIndex]->setLevels(normalLevel, discreteLevel, normalLevelPeak, discreteLevelPeak);
         }

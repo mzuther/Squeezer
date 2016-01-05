@@ -154,7 +154,7 @@ void GenericWindowAboutContent::addChapters(StringPairArray &arrChapters)
     StringArray arrHeadlines = arrChapters.getAllKeys();
 
     // loop over headlines
-    for (int n = 0; n < arrHeadlines.size(); n++)
+    for (int n = 0; n < arrHeadlines.size(); ++n)
     {
         // get current headline
         String currentHeadline = arrHeadlines[n];

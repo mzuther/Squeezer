@@ -247,7 +247,7 @@ void GenericSkinListBoxModel::fill(const File &fileSkinDirectory)
     }
 
     // add found skins to list box
-    for (int n = 0; n < skinFiles.getNumFiles(); n++)
+    for (int n = 0; n < skinFiles.getNumFiles(); ++n)
     {
         // get skin file
         File skinFile = skinFiles.getFile(n);

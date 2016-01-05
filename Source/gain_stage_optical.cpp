@@ -40,7 +40,7 @@ GainStageOptical::GainStageOptical(int nSampleRate) :
 {
     dSampleRate = (double) nSampleRate;
 
-    for (int nCoefficient = 0; nCoefficient < nNumberOfCoefficients; nCoefficient++)
+    for (int nCoefficient = 0; nCoefficient < nNumberOfCoefficients; ++nCoefficient)
     {
         //  0 dB:  Attack: 16 ms, Release: 160 ms
         //  6 dB:  Attack:  5 ms, Release:  53 ms

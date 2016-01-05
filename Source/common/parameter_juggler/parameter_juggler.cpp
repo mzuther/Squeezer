@@ -120,7 +120,7 @@ String ParameterJuggler::toString()
     String strParameters;
 
     // loop over plug-in parameters
-    for (int n = 0; n < arrParameters.size(); n++)
+    for (int n = 0; n < arrParameters.size(); ++n)
     {
         // add parameter name
         strParameters += arrParameters[n]->getName() + ":  ";
@@ -529,7 +529,7 @@ void ParameterJuggler::loadFromXml(XmlElement *xmlDocument)
     if (xmlDocument && xmlDocument->hasTagName(jugglerID))
     {
         // loop over plug-in parameters
-        for (int n = 0; n < arrParameters.size(); n++)
+        for (int n = 0; n < arrParameters.size(); ++n)
         {
             // only load values of writeable parameters
             if (arrMayModify[n])
@@ -555,7 +555,7 @@ XmlElement ParameterJuggler::storeAsXml()
     xmlDocument.setAttribute("version", JucePlugin_VersionString);
 
     // loop over plug-in parameters
-    for (int n = 0; n < arrParameters.size(); n++)
+    for (int n = 0; n < arrParameters.size(); ++n)
     {
         // only store writeable parameters
         if (arrMayModify[n])

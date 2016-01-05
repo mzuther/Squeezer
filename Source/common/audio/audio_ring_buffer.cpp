@@ -45,7 +45,7 @@ AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int c
     // detection of memory leaks
     audioData.calloc(uChannels * (uTotalLength + 2));
 
-    for (unsigned int i = 0; i < (uChannels * (uTotalLength + 2)); i++)
+    for (unsigned int i = 0; i < (uChannels * (uTotalLength + 2)); ++i)
     {
         audioData[i] = fRingBufferMemTest;
     }
@@ -53,7 +53,7 @@ AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int c
     uCurrentPosition = 0;
     uSamplesInBuffer = 0;
 
-    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+    for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
     {
         uChannelOffset.insert(uChannel, uChannel * (uTotalLength + 2) + 1);
     }
@@ -71,8 +71,8 @@ void AudioRingBuffer::clear()
 {
     uCurrentPosition = 0;
 
-    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
-        for (unsigned int uSample = 0; uSample < uTotalLength; uSample++)
+    for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
+        for (unsigned int uSample = 0; uSample < uTotalLength; ++uSample)
         {
             audioData[uSample + uChannelOffset[uChannel]] = 0.0f;
         }
@@ -80,7 +80,7 @@ void AudioRingBuffer::clear()
 #ifdef DEBUG
 
     // detection of memory leaks
-    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+    for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
     {
         jassert(audioData[uChannelOffset[uChannel] - 1] == fRingBufferMemTest);
         jassert(audioData[uChannelOffset[uChannel]] != fRingBufferMemTest);
@@ -181,7 +181,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer &source, const unsign
             uSamplesToCopy = uSamplesLeft;
         }
 
-        for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+        for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
         {
             memcpy(audioData + uCurrentPosition + uChannelOffset[uChannel], source.getReadPointer(uChannel, sourceStartSample + uSamplesFinished), sizeof(float) * uSamplesToCopy);
         }
@@ -209,7 +209,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer &source, const unsign
 #ifdef DEBUG
 
     // detection of memory leaks
-    for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+    for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
     {
         jassert(audioData[uChannelOffset[uChannel] - 1] == fRingBufferMemTest);
         jassert(audioData[uChannelOffset[uChannel]] != fRingBufferMemTest);
@@ -256,7 +256,7 @@ void AudioRingBuffer::copyToBuffer(AudioSampleBuffer &destination, const unsigne
             uSamplesToCopy = uSamplesLeft;
         }
 
-        for (unsigned int uChannel = 0; uChannel < uChannels; uChannel++)
+        for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
         {
             memcpy(destination.getWritePointer(uChannel, destStartSample + uSamplesFinished), audioData + nStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
         }
@@ -274,7 +274,7 @@ float AudioRingBuffer::getMagnitude(const unsigned int channel, const unsigned i
 {
     float fMagnitude = 0.0f;
 
-    for (unsigned int uSample = 0; uSample < numSamples; uSample++)
+    for (unsigned int uSample = 0; uSample < numSamples; ++uSample)
     {
         float fSampleValue = fabsf(getSample(channel, uSample, pre_delay));
 
@@ -292,7 +292,7 @@ float AudioRingBuffer::getRMSLevel(const unsigned int channel, const unsigned in
 {
     double dRunningSum = 0.0;
 
-    for (unsigned int uSample = 0; uSample < numSamples; uSample++)
+    for (unsigned int uSample = 0; uSample < numSamples; ++uSample)
     {
         float fSampleValue = getSample(channel, uSample, pre_delay);
         dRunningSum += fSampleValue * fSampleValue;

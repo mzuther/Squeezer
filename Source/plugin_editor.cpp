@@ -334,7 +334,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     int width = 16;
 #endif
 
-    for (int nChannel = 0; nChannel < nChannels; nChannel++)
+    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
         MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(new MeterBarLevel());
         pMeterBarLevelInput->create(20, 12, 5, MeterBarLevel::orientationVertical);
@@ -504,7 +504,7 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessa
     // "UM" --> update meters
     else if (!strMessage.compare("UM"))
     {
-        for (int nChannel = 0; nChannel < nChannels; nChannel++)
+        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
         {
             float fPeakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
             float fAverageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
@@ -632,7 +632,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
             float fRealValue = SliderRatioCombined->getRealFloat();
             bool bUpwardExpansion = (fRealValue < 1.0f);
 
-            for (int nChannel = 0; nChannel < nChannels; nChannel++)
+            for (int nChannel = 0; nChannel < nChannels; ++nChannel)
             {
                 p_arrGainReductionMeters[nChannel]->setUpwardExpansion(bUpwardExpansion);
             }

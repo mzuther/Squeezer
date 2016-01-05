@@ -37,7 +37,7 @@ FilterChebyshev::FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPas
     dRipple = dPercentRipple;
 
     // TODO: normalise coefficients
-    for (int nStage = 0; nStage < nNumberOfStages; nStage++)
+    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
     {
         // pole pairs start with index 1!
         int nPolePair = nStage + 1;
@@ -58,7 +58,7 @@ double FilterChebyshev::filterSample(double dInputCurrent)
 {
     double dOutputCurrent = dInputCurrent;
 
-    for (int nStage = 0; nStage < nNumberOfStages; nStage++)
+    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
     {
         dOutputCurrent = p_arrFilterStages[nStage]->filterSample(dOutputCurrent);
     }
@@ -72,7 +72,7 @@ void FilterChebyshev::changeParameters(double dRelativeCutoffFrequency, bool isH
 {
     int nNumberOfPoles = nNumberOfStages * 2;
 
-    for (int nStage = 0; nStage < nNumberOfStages; nStage++)
+    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
     {
         // pole pairs start with index 1!
         int nPolePair = nStage + 1;
@@ -86,7 +86,7 @@ void FilterChebyshev::changeParameters(double dRelativeCutoffFrequency, bool isH
 
 void FilterChebyshev::reset()
 {
-    for (int nStage = 0; nStage < nNumberOfStages; nStage++)
+    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
     {
         p_arrFilterStages[nStage]->reset();
     }

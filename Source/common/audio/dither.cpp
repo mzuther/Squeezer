@@ -87,7 +87,7 @@ float Dither::dither(double dInput)
     if (dTmp < 0.0)
     {
         // this is faster than floor()
-        nOutputTruncate--;
+        --nOutputTruncate;
     }
 
     // old error feedback
