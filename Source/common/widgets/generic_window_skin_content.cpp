@@ -47,14 +47,15 @@ GenericWindowSkinContent::GenericWindowSkinContent()
 ///
 /// @param pluginEditor audio plug-in editor
 ///
-/// @param skinName name of the currently used skin
+/// @param skinName name of the currently used skin (will always be
+///        changed to reflect the current skin name)
 ///
 /// @param skinDirectory directory containing the skins
 ///
 /// @return created dialog window
 ///
 DialogWindow *GenericWindowSkinContent::createDialogWindow(
-    AudioProcessorEditor *pluginEditor, const String &skinName,
+    AudioProcessorEditor *pluginEditor, String *skinName,
     const File &skinDirectory)
 {
     // prepare dialog window
@@ -85,11 +86,12 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(
 
 /// Initialise dialog window components.
 ///
-/// @param skinName name of the currently used skin
+/// @param skinName name of the currently used skin (will always be
+///        changed to reflect the current skin name)
 ///
 /// @param skinDirectory directory containing the skins
 ///
-void GenericWindowSkinContent::initialize(const String &skinName,
+void GenericWindowSkinContent::initialize(String *skinName,
         const File &skinDirectory)
 {
     // store name of the currenty used skin
@@ -104,7 +106,7 @@ void GenericWindowSkinContent::initialize(const String &skinName,
     SkinList.setMultipleSelectionEnabled(false);
 
     // select current skin in list box
-    int row = ListBoxModel.getRow(currentSkinName);
+    int row = ListBoxModel.getRow(*currentSkinName);
     SkinList.selectRow(row);
 
     // initialize "select" button for selecting a new skin
@@ -187,7 +189,7 @@ void GenericWindowSkinContent::buttonClicked(Button *button)
         if (dialogWindow != nullptr)
         {
             // old skin re-selected
-            if (newSkinName == currentSkinName)
+            if (newSkinName == *currentSkinName)
             {
                 // close dialog window (exit code 1)
                 dialogWindow->exitModalState(1);
@@ -196,7 +198,7 @@ void GenericWindowSkinContent::buttonClicked(Button *button)
             else
             {
                 // update skin name
-                currentSkinName = newSkinName;
+                *currentSkinName = newSkinName;
 
                 // close dialog window (exit code 2)
                 dialogWindow->exitModalState(2);
@@ -245,6 +247,7 @@ void GenericSkinListBoxModel::fill(const File &skinDirectory)
     if (!defaultSkinFile.existsAsFile())
     {
         // create file
+        DBG("[Skin] creating new \"default_skin.ini\" file");
         defaultSkinFile.create();
 
         // set "Default" as default skin as it comes with the plug-in

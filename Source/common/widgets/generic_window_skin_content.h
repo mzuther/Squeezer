@@ -68,13 +68,13 @@ public:
     GenericWindowSkinContent();
 
     static DialogWindow *createDialogWindow(
-        AudioProcessorEditor *pluginEditor, const String &skinName,
+        AudioProcessorEditor *pluginEditor, String *skinName,
         const File &skinDirectory);
 
     virtual void buttonClicked(Button *button);
 
     virtual void applySkin();
-    virtual void initialize(const String &skinName, const File &skinDirectory);
+    virtual void initialize(String *skinName, const File &skinDirectory);
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
@@ -85,7 +85,7 @@ private:
     TextButton ButtonSelect;
     TextButton ButtonDefault;
 
-    String currentSkinName;
+    String *currentSkinName;
 };
 
 
