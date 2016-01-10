@@ -42,7 +42,6 @@ class SideChain
 {
 public:
     SideChain(int nSampleRate);
-    ~SideChain();
 
     void reset();
 

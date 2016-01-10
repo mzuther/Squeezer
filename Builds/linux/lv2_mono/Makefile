@@ -114,7 +114,6 @@ OBJECTS := \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/filter_chebyshev.o \
 	$(OBJDIR)/side_chain.o \
-	$(OBJDIR)/window_settings.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/gain_stage_optical.o \
 	$(OBJDIR)/filter_chebyshev_stage.o \
@@ -123,6 +122,7 @@ OBJECTS := \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/slider_continuous.o \
 	$(OBJDIR)/generic_channel_slider.o \
+	$(OBJDIR)/generic_window_settings_content.o \
 	$(OBJDIR)/generic_window_skin_content.o \
 	$(OBJDIR)/slider_combined.o \
 	$(OBJDIR)/generic_horizontal_meter.o \
@@ -130,6 +130,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_state_label.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/generic_plugin_standalone.o \
+	$(OBJDIR)/generic_window_validation_content.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
 	$(OBJDIR)/generic_meter_segment.o \
 	$(OBJDIR)/generic_signal_led.o \
@@ -239,9 +240,6 @@ $(OBJDIR)/filter_chebyshev.o: ../../../Source/filter_chebyshev.cpp
 $(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/window_settings.o: ../../../Source/window_settings.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -266,6 +264,9 @@ $(OBJDIR)/slider_continuous.o: ../../../Source/common/widgets/slider_continuous.
 $(OBJDIR)/generic_channel_slider.o: ../../../Source/common/widgets/generic_channel_slider.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_window_settings_content.o: ../../../Source/common/widgets/generic_window_settings_content.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_window_skin_content.o: ../../../Source/common/widgets/generic_window_skin_content.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -285,6 +286,9 @@ $(OBJDIR)/slider_switch.o: ../../../Source/common/widgets/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_plugin_standalone.o: ../../../Source/common/widgets/generic_plugin_standalone.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_window_validation_content.o: ../../../Source/common/widgets/generic_window_validation_content.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp

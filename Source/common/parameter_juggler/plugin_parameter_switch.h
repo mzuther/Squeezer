@@ -41,7 +41,6 @@ class PluginParameterSwitch : virtual public PluginParameter
 {
 public:
     PluginParameterSwitch(bool save_from_deletion = false);
-    ~PluginParameterSwitch();
 
     void addPreset(const float newRealValue, const String &newLabel);
     int getNumberOfSteps();

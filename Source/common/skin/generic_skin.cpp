@@ -31,11 +31,6 @@ GenericSkin::GenericSkin()
 }
 
 
-GenericSkin::~GenericSkin()
-{
-}
-
-
 bool GenericSkin::loadFromXml(File &fileSkin, const String &strXmlRootName)
 {
     Logger::outputDebugString(String("[Skin] loading file \"") + fileSkin.getFileName() + "\"");

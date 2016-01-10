@@ -35,12 +35,14 @@
 class GainStage
 {
 public:
-    virtual ~GainStage() {}
+    // Destructor.
+    virtual ~GainStage() {};
 
     virtual void reset(double dCurrentGainReduction) = 0;
     virtual double processGainReduction(double dGainReductionNew, double dGainReductionIdeal) = 0;
+
 protected:
-    GainStage(int nSampleRate) {}
+    GainStage(int nSampleRate) {};
 };
 
 

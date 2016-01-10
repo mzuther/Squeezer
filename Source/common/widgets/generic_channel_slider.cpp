@@ -36,11 +36,6 @@ GenericChannelSlider::GenericChannelSlider(const String &componentName) :
 }
 
 
-GenericChannelSlider::~GenericChannelSlider()
-{
-}
-
-
 int GenericChannelSlider::getNumberOfChannels()
 {
     return nNumberOfChannels;
@@ -51,7 +46,7 @@ void GenericChannelSlider::setNumberOfChannels(int nNumChannels)
 {
     nNumberOfChannels = nNumChannels;
 
-    setRange(-1.0, nNumberOfChannels, 1.0);
+    setRange(-1.0, nNumberOfChannels - 1, 1.0);
     setValue(-1.0, sendNotificationAsync);
 }
 

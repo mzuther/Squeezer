@@ -29,10 +29,6 @@
 /// Create content component for dialog window that allows selecting a
 /// new GUI skin.
 ///
-/// @param pSkinName pointer to name of the currently used skin
-///
-/// @param fileSkinDirectory directory containing the skins
-///
 /// ### Dialog window exit values
 ///
 /// | %Value | %Result                           |
@@ -41,71 +37,7 @@
 /// | 1      | user has selected old skin        |
 /// | 2      | user has selected a new skin      |
 ///
-GenericWindowSkinContent::GenericWindowSkinContent(String *pSkinName, const File &fileSkinDirectory)
-{
-    // store pointer to name of the currenty used skin
-    currentSkinName = pSkinName;
-
-    // dialog window dimensions
-    int windowWidth = 150;
-    int windowHeight = 0;
-
-    // fill list box model
-    listBoxModel.fill(fileSkinDirectory);
-
-    // set model for list box
-    listBox.setModel(&listBoxModel);
-
-    // calculate and set list box dimensions
-    int listBoxWidth = windowWidth - 20;
-    int listBoxHeight = listBoxModel.getNumRows() * listBox.getRowHeight() + 2;
-    listBox.setBounds(10, 10, listBoxWidth, listBoxHeight);
-
-    // set look of list box
-    listBox.setColour(ListBox::outlineColourId, Colours::grey);
-    listBox.setOutlineThickness(1);
-
-    // disable multiple selections
-    listBox.setMultipleSelectionEnabled(false);
-
-    // select current skin in list box
-    int rowNumber = listBoxModel.getRow(*currentSkinName);
-    listBox.selectRow(rowNumber);
-
-    // display list box
-    this->addAndMakeVisible(listBox);
-
-    // calculate dialog window height from height of list box
-    windowHeight = listBoxHeight + 50;
-
-    // create and position an "select" button
-    buttonSelect.setButtonText("Select");
-    buttonSelect.setBounds(10, windowHeight - 30, 60, 20);
-    buttonSelect.setColour(TextButton::buttonColourId, Colours::red);
-    buttonSelect.setColour(TextButton::buttonOnColourId, Colours::red);
-
-    // add "skin" window as button listener and display the button
-    buttonSelect.addListener(this);
-    this->addAndMakeVisible(buttonSelect);
-
-    // create and position an "default" button
-    buttonDefault.setButtonText("Default");
-    buttonDefault.setBounds(windowWidth - 70, windowHeight - 30, 60, 20);
-    buttonDefault.setColour(TextButton::buttonColourId, Colours::yellow);
-    buttonDefault.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    // add "skin" window as button listener and display the button
-    buttonDefault.addListener(this);
-    this->addAndMakeVisible(buttonDefault);
-
-    // set component window dimensions
-    setSize(windowWidth, windowHeight);
-}
-
-
-/// Destructor.
-///
-GenericWindowSkinContent::~GenericWindowSkinContent()
+GenericWindowSkinContent::GenericWindowSkinContent()
 {
 }
 
@@ -113,23 +45,30 @@ GenericWindowSkinContent::~GenericWindowSkinContent()
 /// Static helper function to create a dialog window for selecting a
 /// new GUI skin.
 ///
-/// @param pEditor pointer to audio plug-in editor
+/// @param pluginEditor audio plug-in editor
 ///
-/// @param pSkinName pointer to name of the currently used skin
+/// @param skinName name of the currently used skin
 ///
-/// @param fileSkinDirectory directory containing the skins
+/// @param skinDirectory directory containing the skins
 ///
 /// @return created dialog window
 ///
-DialogWindow *GenericWindowSkinContent::createDialogWindow(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory)
+DialogWindow *GenericWindowSkinContent::createDialogWindow(
+    AudioProcessorEditor *pluginEditor, const String &skinName,
+    const File &skinDirectory)
 {
     // prepare dialog window
     DialogWindow::LaunchOptions windowSkinLauncher;
 
+    // create content component
+    GenericWindowSkinContent *content = new GenericWindowSkinContent();
+    content->initialize(skinName, skinDirectory);
+
+    // initialize dialog window settings
     windowSkinLauncher.dialogTitle = "Select skin";
     windowSkinLauncher.dialogBackgroundColour = Colours::white;
-    windowSkinLauncher.content.setOwned(new GenericWindowSkinContent(pSkinName, fileSkinDirectory));
-    windowSkinLauncher.componentToCentreAround = pEditor;
+    windowSkinLauncher.content.setOwned(content);
+    windowSkinLauncher.componentToCentreAround = pluginEditor;
 
     windowSkinLauncher.escapeKeyTriggersCloseButton = true;
     windowSkinLauncher.useNativeTitleBar = false;
@@ -144,6 +83,89 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(AudioProcessorEditor 
 }
 
 
+/// Initialise dialog window components.
+///
+/// @param skinName name of the currently used skin
+///
+/// @param skinDirectory directory containing the skins
+///
+void GenericWindowSkinContent::initialize(const String &skinName,
+        const File &skinDirectory)
+{
+    // store name of the currenty used skin
+    currentSkinName = skinName;
+
+    // initialize list box
+    ListBoxModel.fill(skinDirectory);
+    SkinList.setModel(&ListBoxModel);
+    addAndMakeVisible(SkinList);
+
+    // disable multiple selections
+    SkinList.setMultipleSelectionEnabled(false);
+
+    // select current skin in list box
+    int row = ListBoxModel.getRow(currentSkinName);
+    SkinList.selectRow(row);
+
+    // initialize "select" button for selecting a new skin
+    ButtonSelect.setButtonText("Select");
+    addAndMakeVisible(ButtonSelect);
+    ButtonSelect.addListener(this);
+
+    // initialize "default" button for selecting a new default skin
+    ButtonDefault.setButtonText("Default");
+    addAndMakeVisible(ButtonDefault);
+    ButtonDefault.addListener(this);
+
+    // style and place the dialog window's components
+    applySkin();
+}
+
+
+/// Style and place the dialog window's components.
+///
+void GenericWindowSkinContent::applySkin()
+{
+    // style list box
+    SkinList.setOutlineThickness(1);
+    SkinList.setColour(
+        ListBox::outlineColourId,
+        Colours::grey);
+
+    // style "style" button
+    ButtonSelect.setColour(
+        TextButton::buttonColourId,
+        Colours::red);
+    ButtonSelect.setColour(
+        TextButton::buttonOnColourId,
+        Colours::red);
+
+    // style "default" button
+    ButtonDefault.setColour(
+        TextButton::buttonColourId,
+        Colours::yellow);
+    ButtonDefault.setColour(
+        TextButton::buttonOnColourId,
+        Colours::yellow);
+
+    // initialize content component dimensions
+    int width = 150;
+    int height = 50;
+
+    // add height of list box to height of content component
+    int listBoxHeight = ListBoxModel.getNumRows() * SkinList.getRowHeight() + 2;
+    height += listBoxHeight;
+
+    // set component window dimensions
+    setSize(width, height);
+
+    // place components
+    SkinList.setBounds(10, 10, width - 20, listBoxHeight);
+    ButtonSelect.setBounds(10, height - 30, 60, 20);
+    ButtonDefault.setBounds(width - 70, height - 30, 60, 20);
+}
+
+
 /// Called when a button is clicked.
 ///
 /// @param button clicked button
@@ -151,28 +173,30 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(AudioProcessorEditor 
 void GenericWindowSkinContent::buttonClicked(Button *button)
 {
     // user has selected a skin
-    if (button == &buttonSelect)
+    if (button == &ButtonSelect)
     {
+        // get first selected row index from list box
+        int selectedRow = SkinList.getSelectedRow(0);
+
+        // get selected skin name and update editor
+        String newSkinName = ListBoxModel.getSkinName(selectedRow);
+
         // get parent dialog window
         DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();
 
         if (dialogWindow != nullptr)
         {
-            // get first selected row index from list box
-            int selectedRow = listBox.getSelectedRow(0);
-
-            // get selected skin name and update editor
-            String newSkinName = listBoxModel.getSkinName(selectedRow);
-
-            if (newSkinName == *currentSkinName)
+            // old skin re-selected
+            if (newSkinName == currentSkinName)
             {
                 // close dialog window (exit code 1)
                 dialogWindow->exitModalState(1);
             }
+            // new skin selected
             else
             {
                 // update skin name
-                *currentSkinName = newSkinName;
+                currentSkinName = newSkinName;
 
                 // close dialog window (exit code 2)
                 dialogWindow->exitModalState(2);
@@ -180,16 +204,16 @@ void GenericWindowSkinContent::buttonClicked(Button *button)
         }
     }
     // user has selected a default skin
-    else if (button == &buttonDefault)
+    else if (button == &ButtonDefault)
     {
         // get first selected row index from list box
-        int selectedRow = listBox.getSelectedRow(0);
+        int selectedRow = SkinList.getSelectedRow(0);
 
         // update default skin
-        listBoxModel.setDefault(selectedRow);
+        ListBoxModel.setDefault(selectedRow);
 
         // redraw list box
-        listBox.repaint();
+        SkinList.repaint();
     }
 }
 
@@ -203,28 +227,19 @@ GenericSkinListBoxModel::GenericSkinListBoxModel()
 }
 
 
-/// Destructor.
-///
-GenericSkinListBoxModel::~GenericSkinListBoxModel()
-{
-}
-
-
 /// Fill list box model with all skins in a given directory.
 ///
-/// @param fileSkinDirectory directory containing the skins
+/// @param skinDirectory directory containing the skins
 ///
-void GenericSkinListBoxModel::fill(const File &fileSkinDirectory)
+void GenericSkinListBoxModel::fill(const File &skinDirectory)
 {
-    // set up scanner for skin directory
-    DirectoryContentsList skinFiles(&skinWildcard, directoryThread);
-    skinFiles.setDirectory(fileSkinDirectory, false, true);
-
     // search skin files in directory
+    DirectoryContentsList skinFiles(&skinWildcard, directoryThread);
+    skinFiles.setDirectory(skinDirectory, false, true);
     directoryThread.startThread();
 
     // locate file containing the default skin's name
-    defaultSkinFile = fileSkinDirectory.getChildFile("default_skin.ini");
+    defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
 
     // make sure the file exists
     if (!defaultSkinFile.existsAsFile())
@@ -232,7 +247,8 @@ void GenericSkinListBoxModel::fill(const File &fileSkinDirectory)
         // create file
         defaultSkinFile.create();
 
-        // set "Default" as default skin (using Unicode encoding)
+        // set "Default" as default skin as it comes with the plug-in
+        // (uses Unicode encoding)
         defaultSkinFile.replaceWithText("Default", true, true);
     }
 
@@ -256,7 +272,7 @@ void GenericSkinListBoxModel::fill(const File &fileSkinDirectory)
         String skinName = skinFile.getFileNameWithoutExtension();
 
         // add skin name to internal array
-        arrSkinNames.add(skinName);
+        skinNames.add(skinName);
     }
 }
 
@@ -268,7 +284,7 @@ void GenericSkinListBoxModel::fill(const File &fileSkinDirectory)
 int GenericSkinListBoxModel::getNumRows()
 {
     // return size of internal array
-    return arrSkinNames.size();
+    return skinNames.size();
 }
 
 
@@ -281,7 +297,7 @@ int GenericSkinListBoxModel::getNumRows()
 int GenericSkinListBoxModel::getRow(const String &skinNameToLookFor)
 {
     // search internal array for skin name
-    return arrSkinNames.indexOf(skinNameToLookFor);
+    return skinNames.indexOf(skinNameToLookFor);
 }
 
 
@@ -294,10 +310,10 @@ int GenericSkinListBoxModel::getRow(const String &skinNameToLookFor)
 const String GenericSkinListBoxModel::getSkinName(int rowNumber)
 {
     // check for valid index
-    if (rowNumber < arrSkinNames.size())
+    if (rowNumber < skinNames.size())
     {
         // return matching skin name from internal array
-        return arrSkinNames[rowNumber];
+        return skinNames[rowNumber];
     }
     // invalid index
     else
@@ -317,15 +333,15 @@ const String GenericSkinListBoxModel::getSkinName(int rowNumber)
 void GenericSkinListBoxModel::setDefault(int rowNumber)
 {
     // skip invalid index
-    if (rowNumber >= arrSkinNames.size())
+    if (rowNumber >= skinNames.size())
     {
         return;
     }
 
     // store name of default skin
-    defaultSkinName = arrSkinNames[rowNumber];
+    defaultSkinName = skinNames[rowNumber];
 
-    // store default skin name in file "default_skin.ini" (using
+    // store default skin name in file "default_skin.ini" (uses
     // Unicode encoding)
     defaultSkinFile.replaceWithText(defaultSkinName, true, true);
 }
@@ -367,7 +383,8 @@ void GenericSkinListBoxModel::paintListBoxItem(int rowNumber, Graphics &g, int w
 
     // render row text in black
     g.setColour(Colours::black);
-    g.drawText(skinName, 2, 0, width - 4, height, Justification::centredLeft, true);
+    g.drawText(skinName, 2, 0, width - 4, height,
+               Justification::centredLeft, true);
 }
 
 // Local Variables:

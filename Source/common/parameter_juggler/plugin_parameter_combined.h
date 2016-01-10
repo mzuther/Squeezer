@@ -43,7 +43,6 @@ class PluginParameterCombined : virtual public PluginParameter
 {
 public:
     PluginParameterCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places);
-    ~PluginParameterCombined();
 
     virtual void setName(const String &newParameterName) override;
 

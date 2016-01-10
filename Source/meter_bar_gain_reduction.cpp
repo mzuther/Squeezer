@@ -39,11 +39,6 @@ MeterBarGainReduction::MeterBarGainReduction()
 }
 
 
-MeterBarGainReduction::~MeterBarGainReduction()
-{
-}
-
-
 void MeterBarGainReduction::create(int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation)
 {
     GenericMeterBar::create();

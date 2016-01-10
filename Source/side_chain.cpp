@@ -63,15 +63,6 @@ SideChain::SideChain(int nSampleRate) :
 }
 
 
-SideChain::~SideChain()
-/*  Destructor.
-
-    return value: none
-*/
-{
-}
-
-
 void SideChain::reset()
 /*  Reset all relevant variables.
 

@@ -41,7 +41,6 @@ class PluginParameterContinuous : virtual public PluginParameter
 {
 public:
     PluginParameterContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion = false);
-    ~PluginParameterContinuous();
 
     int getNumberOfSteps();
     float getStepSize();

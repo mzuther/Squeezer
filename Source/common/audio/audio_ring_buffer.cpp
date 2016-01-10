@@ -62,11 +62,6 @@ AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int c
 }
 
 
-AudioRingBuffer::~AudioRingBuffer()
-{
-}
-
-
 void AudioRingBuffer::clear()
 {
     uCurrentPosition = 0;

@@ -63,7 +63,6 @@ public:
     };
 
     Compressor(int channels, int sample_rate);
-    ~Compressor();
 
     void resetMeters();
 

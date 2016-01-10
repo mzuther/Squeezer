@@ -37,7 +37,6 @@ class GainStageFET : virtual public GainStage
 {
 public:
     GainStageFET(int nSampleRate);
-    ~GainStageFET();
 
     void reset(double dCurrentGainReduction);
     double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);

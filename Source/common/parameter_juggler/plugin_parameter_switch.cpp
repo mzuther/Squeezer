@@ -59,13 +59,6 @@ PluginParameterSwitch::PluginParameterSwitch(bool save_from_deletion)
 }
 
 
-/// Destructor.
-///
-PluginParameterSwitch::~PluginParameterSwitch()
-{
-}
-
-
 /// Add a preset value and a corresponding string representation.
 /// **This function must be called at least twice for the parameter to
 /// work as expected.**

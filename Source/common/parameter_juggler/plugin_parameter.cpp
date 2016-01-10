@@ -52,13 +52,6 @@ PluginParameter::PluginParameter()
 }
 
 
-/// Destructor.
-///
-PluginParameter::~PluginParameter()
-{
-}
-
-
 /// Get parameter's name.
 ///
 /// @return parameter name

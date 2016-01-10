@@ -40,7 +40,6 @@ class GenericMeterSegment : public Component
 {
 public:
     GenericMeterSegment(float lowerThresholdNew = -144.0f, float thresholdRangeNew = 1.0f, bool isTopmostNew = false);
-    ~GenericMeterSegment();
 
     float setThresholds(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew);
     void setColour(float segmentHueNew, const Colour &colPeakMarkerNew);

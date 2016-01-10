@@ -39,11 +39,6 @@ MeterBarLevel::MeterBarLevel()
 }
 
 
-MeterBarLevel::~MeterBarLevel()
-{
-}
-
-
 void MeterBarLevel::create(int crestFactor, int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation)
 {
     GenericMeterBar::create();

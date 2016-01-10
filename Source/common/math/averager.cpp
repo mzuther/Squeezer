@@ -43,9 +43,6 @@ Averager::Averager(int number_of_samples, float initial_value)
     fSum = initial_value * fNumberOfSamples;
 }
 
-Averager::~Averager()
-{
-}
 
 void Averager::addSample(float newSample)
 {

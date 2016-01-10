@@ -39,11 +39,6 @@ SliderSwitch::SliderSwitch(const String &componentName, ParameterJuggler *pParam
 }
 
 
-SliderSwitch::~SliderSwitch()
-{
-}
-
-
 void SliderSwitch::visibilityChanged()
 {
     Slider::visibilityChanged();

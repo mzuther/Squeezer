@@ -37,7 +37,6 @@ class MeterBarLevel : public GenericMeterBar
 {
 public:
     MeterBarLevel();
-    ~MeterBarLevel();
 
     void create(int crestFactor, int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation);
 

@@ -23,32 +23,38 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __WINDOW_SETTINGS_H__
-#define __WINDOW_SETTINGS_H__
+#ifndef __GENERIC_WINDOW_SETTINGS_CONTENT_H__
+#define __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 
 #include "JuceHeader.h"
 
 
-class WindowSettings : public DocumentWindow, ButtonListener
+/// Dialog window for displaying plugin-settings.
+///
+class GenericWindowSettingsContent : public Component, public ButtonListener
 {
 public:
-    WindowSettings(Component *pEditorWindow, String &strPluginSettings);
-    ~WindowSettings();
+    GenericWindowSettingsContent();
 
-    void buttonClicked(Button *button);
-    void closeButtonPressed();
+    static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
+                                            int width, int height,
+                                            const String &pluginSettings);
+
+    virtual void buttonClicked(Button *button);
+    virtual void closeButtonPressed();
+
+    virtual void applySkin();
+    virtual void initialize(int width, int height, const String &pluginSettings);
 
 private:
-    JUCE_LEAK_DETECTOR(WindowSettings);
-
-    Component contentComponent;
+    JUCE_LEAK_DETECTOR(GenericWindowSettingsContent);
 
     TextEditor TextEditorSettings;
     TextButton ButtonClose;
 };
 
 
-#endif  // __WINDOW_SETTINGS_H__
+#endif  // __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 
 
 // Local Variables:

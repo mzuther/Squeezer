@@ -37,7 +37,6 @@ public:
     //==========================================================================
 
     FilterChebyshevStage(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair);
-    ~FilterChebyshevStage();
 
     void changeParameters(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair);
     double filterSample(double dInputCurrent);

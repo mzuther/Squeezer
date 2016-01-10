@@ -84,13 +84,6 @@ GenericMeterSegment::GenericMeterSegment(float lowerThresholdNew, float threshol
 }
 
 
-/// Destructor.
-///
-GenericMeterSegment::~GenericMeterSegment()
-{
-}
-
-
 /// Set thresholds and whether the segment is the topmost in a meter
 /// bar.
 ///

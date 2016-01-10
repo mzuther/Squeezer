@@ -30,11 +30,6 @@ SqueezerStandalone::SqueezerStandalone()
 }
 
 
-SqueezerStandalone::~SqueezerStandalone()
-{
-}
-
-
 PropertiesFile::Options SqueezerStandalone::prepare_properties()
 {
     PropertiesFile::Options options;

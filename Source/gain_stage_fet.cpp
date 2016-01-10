@@ -39,15 +39,6 @@ GainStageFET::GainStageFET(int nSampleRate) : GainStage(nSampleRate)
 }
 
 
-GainStageFET::~GainStageFET()
-/*  Destructor.
-
-    return value: none
-*/
-{
-}
-
-
 void GainStageFET::reset(double dCurrentGainReduction)
 /*  Reset all relevant variables.
 

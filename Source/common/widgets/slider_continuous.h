@@ -39,7 +39,6 @@ class SliderContinuous : public Slider
 {
 public:
     SliderContinuous(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
-    ~SliderContinuous();
 
     void visibilityChanged();
     void resized();

@@ -36,11 +36,6 @@ FilterChebyshevStage::FilterChebyshevStage(double dRelativeCutoffFrequency, bool
 }
 
 
-FilterChebyshevStage::~FilterChebyshevStage()
-{
-}
-
-
 void FilterChebyshevStage::changeParameters(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair)
 {
     // This function has been derived from "The Scientist and Engineer's

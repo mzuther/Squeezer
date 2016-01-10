@@ -35,6 +35,15 @@ static void window_about_callback(int modalResult, SqueezerAudioProcessorEditor 
 }
 
 
+static void window_settings_callback(int modalResult, SqueezerAudioProcessorEditor *pEditor)
+{
+    if (pEditor != nullptr)
+    {
+        pEditor->windowSettingsCallback(modalResult);
+    }
+}
+
+
 //==============================================================================
 SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels)
     : AudioProcessorEditor(ownerFilter)
@@ -485,6 +494,13 @@ void SqueezerAudioProcessorEditor::windowAboutCallback(int modalResult)
 }
 
 
+void SqueezerAudioProcessorEditor::windowSettingsCallback(int modalResult)
+{
+    // manually deactivate about button
+    ButtonSettings.setToggleState(false, dontSendNotification);
+}
+
+
 void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessage)
 {
     // "PC" --> parameter changed, followed by a hash and the
@@ -849,9 +865,15 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         // manually activate button
         button->setToggleState(true, dontSendNotification);
 
-        String strPluginSettings = pProcessor->getParameters();
-        WindowSettings windowSettings(this, strPluginSettings);
-        windowSettings.runModalLoop();
+        int width = 440;
+        int height = 155;
+        String pluginSettings = pProcessor->getParameters().trim();
+
+        // prepare and launch dialog window
+        DialogWindow *windowSettings = GenericWindowSettingsContent::createDialogWindow(this, width, height, pluginSettings);
+
+        // attach callback to dialog window
+        ModalComponentManager::getInstance()->attachCallback(windowSettings, ModalCallbackFunction::forComponent(window_settings_callback, this));
 
         // manually deactivate button
         button->setToggleState(false, dontSendNotification);
@@ -944,7 +966,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
             L"Thank you for using free software!");
 
         // prepare and launch dialog window
-        DialogWindow *windowAbout = GenericWindowAboutContent::createDialogWindow(this, arrChapters);
+        int width = 270;
+        int height = 540;
+
+        DialogWindow *windowAbout = GenericWindowAboutContent::createDialogWindow(this, width, height, arrChapters);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));

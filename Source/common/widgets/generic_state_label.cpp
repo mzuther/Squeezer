@@ -59,13 +59,6 @@ GenericStateLabel::GenericStateLabel(const String &componentName)
 }
 
 
-/// Destructor.
-///
-GenericStateLabel::~GenericStateLabel()
-{
-}
-
-
 /// Called when this component's size has been changed.
 ///
 void GenericStateLabel::resized()

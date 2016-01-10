@@ -37,16 +37,16 @@ class GenericSkinListBoxModel : public ListBoxModel
 {
 public:
     GenericSkinListBoxModel();
-    ~GenericSkinListBoxModel();
 
-    void fill(const File &fileSkinDirectory);
+    void fill(const File &skinDirectory);
 
     int getNumRows();
     int getRow(const String &skinNameToLookFor);
     const String getSkinName(int rowNumber);
     void setDefault(int rowNumber);
 
-    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height, bool isRowSelected);
+    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height,
+                          bool isRowSelected);
 
 private:
     WildcardFileFilter skinWildcard;
@@ -54,7 +54,7 @@ private:
 
     File defaultSkinFile;
     String defaultSkinName;
-    StringArray arrSkinNames;
+    StringArray skinNames;
 };
 
 
@@ -65,23 +65,27 @@ private:
 class GenericWindowSkinContent : public Component, public ButtonListener
 {
 public:
-    GenericWindowSkinContent(String *pSkinName, const File &currentSkinFile);
-    ~GenericWindowSkinContent();
+    GenericWindowSkinContent();
 
-    void buttonClicked(Button *button);
+    static DialogWindow *createDialogWindow(
+        AudioProcessorEditor *pluginEditor, const String &skinName,
+        const File &skinDirectory);
 
-    static DialogWindow *createDialogWindow(AudioProcessorEditor *pEditor, String *pSkinName, const File &fileSkinDirectory);
+    virtual void buttonClicked(Button *button);
+
+    virtual void applySkin();
+    virtual void initialize(const String &skinName, const File &skinDirectory);
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
 
-    ListBox listBox;
-    GenericSkinListBoxModel listBoxModel;
+    ListBox SkinList;
+    GenericSkinListBoxModel ListBoxModel;
 
-    TextButton buttonSelect;
-    TextButton buttonDefault;
+    TextButton ButtonSelect;
+    TextButton ButtonDefault;
 
-    String *currentSkinName;
+    String currentSkinName;
 };
 
 

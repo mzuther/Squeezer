@@ -33,7 +33,6 @@ class Averager
 {
 public:
     Averager(int number_of_samples, float initial_value);
-    ~Averager();
 
     void addSample(float newSample);
     bool isValid();

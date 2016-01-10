@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{AB73197F-25FE-1A72-C2A5-C1B8BD7FEA61}</ProjectGuid>
+		<ProjectGuid>{D2D4F886-5052-2ED6-EF09-86873AFFD80B}</ProjectGuid>
 		<RootNamespace>Squeezer VST (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -216,7 +216,6 @@
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
-		<ClInclude Include="..\..\..\Source\window_settings.h" />
 		<ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
 		<ClInclude Include="..\..\..\Source\plugin_editor.h" />
 		<ClInclude Include="..\..\..\Source\side_chain.h" />
@@ -229,6 +228,7 @@
 		<ClInclude Include="..\..\..\Source\common\mz_juce_common.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_plugin_standalone.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_segment.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_validation_content.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_skin_content.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_signal_led.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about_content.h" />
@@ -238,6 +238,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_continuous.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_settings_content.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_state_label.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_channel_slider.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\resources\resources.h" />
@@ -266,8 +267,6 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\side_chain.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\window_settings.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\gain_stage_optical.cpp">
@@ -284,6 +283,8 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_channel_slider.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_settings_content.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_skin_content.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_combined.cpp">
@@ -297,6 +298,8 @@
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_plugin_standalone.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_window_validation_content.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.cpp">
 		</ClCompile>

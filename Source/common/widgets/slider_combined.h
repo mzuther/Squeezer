@@ -39,7 +39,6 @@ class SliderCombined : public Slider
 {
 public:
     SliderCombined(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
-    ~SliderCombined();
 
     void visibilityChanged();
     void resized();

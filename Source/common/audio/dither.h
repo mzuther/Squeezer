@@ -36,7 +36,6 @@ class Dither
 {
 public:
     Dither(int number_of_bits, double noise_shaping = 0.5);
-    ~Dither();
 
     void initialise(int number_of_bits, double noise_shaping = 0.5);
     float dither(double input);

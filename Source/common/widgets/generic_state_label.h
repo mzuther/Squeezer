@@ -55,7 +55,6 @@ public:
     };
 
     GenericStateLabel(const String &componentName);
-    ~GenericStateLabel();
 
     void resized();
     void setState(int newState, bool forceUpdate = false);

@@ -72,15 +72,6 @@ GainStageOptical::GainStageOptical(int nSampleRate) :
 }
 
 
-GainStageOptical::~GainStageOptical()
-/*  Destructor.
-
-    return value: none
-*/
-{
-}
-
-
 void GainStageOptical::reset(double dCurrentGainReduction)
 /*  Reset all relevant variables.
 

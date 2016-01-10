@@ -40,7 +40,6 @@ class GenericMeterBar : public Component
 {
 public:
     GenericMeterBar();
-    ~GenericMeterBar();
 
     /// Orientation for the meter.
     enum Orientation  // public namespace!

@@ -92,13 +92,6 @@ PluginParameterCombined::PluginParameterCombined(float real_minimum, float real_
 }
 
 
-/// Destructor.
-///
-PluginParameterCombined::~PluginParameterCombined()
-{
-}
-
-
 /// Set parameter's name.
 ///
 /// @param newParameterName new parameter name

@@ -31,10 +31,10 @@
 #include "meter_bar_gain_reduction.h"
 #include "meter_bar_level.h"
 #include "plugin_processor.h"
-#include "window_settings.h"
 #include "common/widgets/slider_combined.h"
 #include "common/widgets/slider_switch_linear_bar.h"
 #include "common/widgets/generic_window_about_content.h"
+#include "common/widgets/generic_window_settings_content.h"
 
 
 //==============================================================================
@@ -53,6 +53,7 @@ public:
     void updateParameter(int nIndex);
 
     void windowAboutCallback(int modalResult);
+    void windowSettingsCallback(int modalResult);
 
     //==============================================================================
     // This is just a standard Juce paint method...

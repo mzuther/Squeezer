@@ -67,11 +67,6 @@ SliderCombined::SliderCombined(const String &componentName, ParameterJuggler *pP
 }
 
 
-SliderCombined::~SliderCombined()
-{
-}
-
-
 void SliderCombined::visibilityChanged()
 {
     Slider::visibilityChanged();

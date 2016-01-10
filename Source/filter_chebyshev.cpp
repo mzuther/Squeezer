@@ -49,11 +49,6 @@ FilterChebyshev::FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPas
 }
 
 
-FilterChebyshev::~FilterChebyshev()
-{
-}
-
-
 double FilterChebyshev::filterSample(double dInputCurrent)
 {
     double dOutputCurrent = dInputCurrent;

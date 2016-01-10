@@ -38,7 +38,6 @@ class AudioRingBuffer
 {
 public:
     AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
-    ~AudioRingBuffer();
 
     void clear();
     void setCallbackClass(AudioRingBufferProcessor *callback_class);

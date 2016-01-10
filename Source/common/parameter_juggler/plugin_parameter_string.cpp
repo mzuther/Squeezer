@@ -44,13 +44,6 @@ PluginParameterString::PluginParameterString(const String &newValue)
 }
 
 
-/// Destructor.
-///
-PluginParameterString::~PluginParameterString()
-{
-}
-
-
 /// Set **real** default value from float.  **This function must not
 /// be used!**
 ///

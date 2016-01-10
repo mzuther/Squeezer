@@ -39,7 +39,6 @@ class GenericSkin
 {
 public:
     GenericSkin();
-    ~GenericSkin();
 
     bool loadFromXml(File &fileSkin, const String &strXmlRootName);
     void placeComponent(Component *component, String strXmlTag);

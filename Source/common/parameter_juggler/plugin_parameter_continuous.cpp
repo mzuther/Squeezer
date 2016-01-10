@@ -119,13 +119,6 @@ PluginParameterContinuous::PluginParameterContinuous(float real_minimum, float r
 }
 
 
-/// Destructor.
-///
-PluginParameterContinuous::~PluginParameterContinuous()
-{
-}
-
-
 /// Convert **internal** parameter value to **real** value.
 ///
 /// @param newValue **internal** parameter value

@@ -37,7 +37,6 @@ class GainStageOptical : virtual public GainStage
 {
 public:
     GainStageOptical(int nSampleRate);
-    ~GainStageOptical();
 
     void reset(double dCurrentGainReduction);
     double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);

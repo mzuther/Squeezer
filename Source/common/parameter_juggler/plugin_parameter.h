@@ -39,7 +39,9 @@ class PluginParameter
 {
 public:
     PluginParameter();
-    virtual ~PluginParameter();
+
+    // Destructor.
+    virtual ~PluginParameter() {};
 
     virtual String getName();
     virtual void setName(const String &newParameterName);

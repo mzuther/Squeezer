@@ -42,7 +42,6 @@ class GenericSignalLed : public Component
 {
 public:
     GenericSignalLed(const String &componentName);
-    ~GenericSignalLed();
 
     void paint(Graphics &g);
 

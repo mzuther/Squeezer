@@ -36,7 +36,6 @@ class GenericChannelSlider : public Slider
 {
 public:
     GenericChannelSlider(const String &componentName = String::empty);
-    ~GenericChannelSlider();
 
     int getNumberOfChannels();
     void setNumberOfChannels(int nNumChannels);

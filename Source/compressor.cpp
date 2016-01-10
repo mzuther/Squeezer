@@ -83,11 +83,6 @@ Compressor::Compressor(int channels, int sample_rate) :
 }
 
 
-Compressor::~Compressor()
-{
-}
-
-
 void Compressor::resetMeters()
 {
     double dMeterMinimumDecibel = -(70.01 + dCrestFactor);

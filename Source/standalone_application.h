@@ -33,7 +33,6 @@ class SqueezerStandalone : virtual public GenericPluginStandalone
 {
 public:
     SqueezerStandalone();
-    ~SqueezerStandalone();
 
 protected:
     PropertiesFile::Options prepare_properties();

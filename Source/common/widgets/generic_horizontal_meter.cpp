@@ -48,11 +48,6 @@ GenericHorizontalMeter::GenericHorizontalMeter(const String &componentName)
 }
 
 
-GenericHorizontalMeter::~GenericHorizontalMeter()
-{
-}
-
-
 void GenericHorizontalMeter::paint(Graphics &g)
 {
     g.setColour(Colours::black);
@@ -71,11 +66,11 @@ void GenericHorizontalMeter::paint(Graphics &g)
 
 void GenericHorizontalMeter::resized()
 {
-    initialize();
+    initialise();
 }
 
 
-void GenericHorizontalMeter::initialize()
+void GenericHorizontalMeter::initialise()
 {
     nWidth = getWidth();
     nHeight = getHeight();
@@ -117,7 +112,7 @@ void GenericHorizontalMeter::setImages(Image &imageBackgroundNew, Image &imageNe
     imageBackground = Image(imageBackgroundNew);
     imageNeedle = Image(imageNeedleNew);
 
-    initialize();
+    initialise();
 }
 
 

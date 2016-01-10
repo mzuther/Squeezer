@@ -37,7 +37,6 @@ class MeterBarGainReduction : public GenericMeterBar
 {
 public:
     MeterBarGainReduction();
-    ~MeterBarGainReduction();
 
     void create(int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation);
     void setUpwardExpansion(bool upwardExpansion);

@@ -39,11 +39,6 @@ SliderContinuous::SliderContinuous(const String &componentName, ParameterJuggler
 }
 
 
-SliderContinuous::~SliderContinuous()
-{
-}
-
-
 void SliderContinuous::visibilityChanged()
 {
     Slider::visibilityChanged();

@@ -39,7 +39,6 @@ class SliderSwitch : public Slider
 {
 public:
     SliderSwitch(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
-    ~SliderSwitch();
 
     void visibilityChanged();
     void resized();

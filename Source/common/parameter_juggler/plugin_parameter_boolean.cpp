@@ -60,13 +60,6 @@ PluginParameterBoolean::PluginParameterBoolean(const String &state_true, const S
 }
 
 
-/// Destructor.
-///
-PluginParameterBoolean::~PluginParameterBoolean()
-{
-}
-
-
 /// Toggle parameter state from **true** to **false** and vice versa.
 ///
 void PluginParameterBoolean::toggleState()

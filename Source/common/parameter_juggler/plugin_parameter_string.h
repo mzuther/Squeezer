@@ -39,7 +39,6 @@ class PluginParameterString : virtual public PluginParameter
 {
 public:
     PluginParameterString(const String &newValue);
-    ~PluginParameterString();
 
     virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
     virtual void setFloat(float newValue) override;

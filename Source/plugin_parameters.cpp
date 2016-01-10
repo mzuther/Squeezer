@@ -33,6 +33,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterJuggler("SQUEEZER_SETTINGS", numberOfParametersComplete,
                      numberOfParametersRevealed)
 {
+    // parameters created here will be deleted in "ParameterJuggler"!
+
     PluginParameterBoolean *ParameterBypass = new PluginParameterBoolean("Bypassed", "Active");
     ParameterBypass->setName("Bypass");
     ParameterBypass->setDefaultBoolean(false, true);
@@ -413,12 +415,6 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterSidechainListen->setName("SC Listen");
     ParameterSidechainListen->setDefaultBoolean(false, true);
     add(ParameterSidechainListen, selSidechainListen);
-}
-
-
-SqueezerPluginParameters::~SqueezerPluginParameters()
-{
-    // parameters will be deleted in "ParameterJuggler"
 }
 
 

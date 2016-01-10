@@ -23,43 +23,54 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_WINDOW_ABOUT_CONTENT_H__
-#define __GENERIC_WINDOW_ABOUT_CONTENT_H__
+#ifndef __GENERIC_WINDOW_VALIDATION_CONTENT_H__
+#define __GENERIC_WINDOW_VALIDATION_CONTENT_H__
 
 #include "JuceHeader.h"
-#include "resources/resources.h"
+#include "generic_channel_slider.h"
 
 
-/// Dialog window for displaying version, copyright, license and so
-/// on.
+/// Dialog window for validation settings.
 ///
-class GenericWindowAboutContent : public Component, public ButtonListener
+class GenericWindowValidationContent : public Component, public ButtonListener
 {
 public:
-    GenericWindowAboutContent();
-
-    static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
-                                            int width, int height,
-                                            const StringPairArray &chapters);
+    GenericWindowValidationContent();
 
     virtual void buttonClicked(Button *button);
-
+    void closeButtonPressed();
     virtual void applySkin();
-    virtual void initialize(int width, int height,
-                            const StringPairArray &chapters);
+
+    virtual void initialise(int width, int height, int numberOfInputChannels,
+                            int sampleRate, int selectedChannel,
+                            const File &validationFileNew);
+
+    /// Select a new audio file for validation.
+    ///
+    /// @param validationFileNew audio file for validation
+    ///
+    virtual void selectValidationFile(const File &validationFileNew) = 0;
+
+protected:
+    File validationFile;
+
+    Label LabelFileSelection;
+    Label LabelSampleRate;
+    Label LabelSampleRateValue;
+
+    TextButton ButtonFileSelection;
+    TextButton ButtonValidation;
+    TextButton ButtonCancel;
+
+    Label LabelDumpSelectedChannel;
+    GenericChannelSlider SliderDumpSelectedChannel;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
-
-    void addChapters(const StringPairArray &chapters);
-
-    TextEditor EditorAbout;
-    TextButton ButtonClose;
-    ImageButton ButtonGpl;
+    JUCE_LEAK_DETECTOR(GenericWindowValidationContent);
 };
 
 
-#endif  // __GENERIC_WINDOW_ABOUT_CONTENT_H__
+#endif  // __GENERIC_WINDOW_VALIDATION_CONTENT_H__
 
 
 // Local Variables:

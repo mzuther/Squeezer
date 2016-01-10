@@ -39,7 +39,6 @@ class SliderSwitchLinearBar : public Slider
 {
 public:
     SliderSwitchLinearBar(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
-    ~SliderSwitchLinearBar();
 
     void visibilityChanged();
     void setSliderColour(const Colour &colour);

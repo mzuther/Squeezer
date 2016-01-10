@@ -38,7 +38,12 @@ class GenericPluginStandalone : public JUCEApplication
 {
 public:
     GenericPluginStandalone();
-    ~GenericPluginStandalone();
+
+    /// Destructor.  If a subclass implements a destructor, it
+    /// shouldn't call any JUCE code in there -- put your shutdown
+    /// code in shutdown() instead.
+    ///
+    ~GenericPluginStandalone() {};
 
     void initialise(const String &commandLineParameters);
     void shutdown();

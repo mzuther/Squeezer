@@ -36,12 +36,11 @@ class GenericHorizontalMeter : public Component
 {
 public:
     GenericHorizontalMeter(const String &componentName);
-    ~GenericHorizontalMeter();
 
     void setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew);
     void setValue(float newValue);
     void paint(Graphics &g);
-    void initialize();
+    void initialise();
     void resized();
 
 private:

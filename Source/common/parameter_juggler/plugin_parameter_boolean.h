@@ -39,7 +39,6 @@ class PluginParameterBoolean : virtual public PluginParameter
 {
 public:
     PluginParameterBoolean(const String &state_true, const String &state_false, bool save_from_deletion = false);
-    ~PluginParameterBoolean();
 
     void toggleState();
 

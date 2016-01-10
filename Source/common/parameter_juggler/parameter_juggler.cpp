@@ -99,7 +99,7 @@ void ParameterJuggler::assertParameter(int index, bool wantModification)
 ///
 /// @param index parameter index
 ///
-/// @return pointer to requested PluginParameter instance
+/// @return requested PluginParameter instance
 ///
 PluginParameter *ParameterJuggler::getPluginParameter(int index)
 {
@@ -158,7 +158,7 @@ int ParameterJuggler::getNumParameters(bool includeHiddenParameters)
 
 /// Add plug-in parameter to container.
 ///
-/// @param parameter pointer to plug-in parameter instance
+/// @param parameter plug-in parameter instance
 ///
 /// @param index parameter index (must point to the end of the array
 ///        and is used for sanity checking only)
@@ -178,7 +178,7 @@ void ParameterJuggler::add(PluginParameter *parameter, int index)
 
 /// Add **read-only** plug-in parameter to container.
 ///
-/// @param parameter pointer to plug-in parameter instance
+/// @param parameter plug-in parameter instance
 ///
 /// @param index parameter index (must point to the end of the array
 ///        and is used for sanity checking only)
@@ -195,7 +195,7 @@ void ParameterJuggler::addProtected(PluginParameter *parameter, int index)
 
 /// Add **combined** plug-in parameter to container.
 ///
-/// @param parameter pointer to plug-in parameter instance
+/// @param parameter plug-in parameter instance
 ///
 /// @param switchIndex index of parameter switch (must point to the
 ///        end of the array and is used for sanity checking only)

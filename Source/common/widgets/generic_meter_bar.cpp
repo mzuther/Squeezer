@@ -36,13 +36,6 @@ GenericMeterBar::GenericMeterBar()
 }
 
 
-/// Destructor.
-///
-GenericMeterBar::~GenericMeterBar()
-{
-}
-
-
 /// Create a new meter bar (and delete an existing one).  The meter
 /// bar has to be filled using addSegment().
 ///

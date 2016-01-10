@@ -38,7 +38,6 @@ public:
     //==========================================================================
 
     SqueezerPluginParameters();
-    ~SqueezerPluginParameters();
 
     String toString();
 

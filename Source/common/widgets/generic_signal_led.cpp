@@ -42,14 +42,6 @@ GenericSignalLed::GenericSignalLed(const String &componentName)
 }
 
 
-/// Destructor.
-///
-GenericSignalLed::~GenericSignalLed()
-{
-    // nothing to do, really
-}
-
-
 /// Set new level.
 ///
 /// @param level new level (0.0 is dark, 1.0 is fully lit)

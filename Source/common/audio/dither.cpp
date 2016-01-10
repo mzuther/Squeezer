@@ -35,12 +35,6 @@ Dither::Dither(int number_of_bits, double noise_shaping)
 }
 
 
-Dither::~Dither()
-{
-    // nothing to do, really
-}
-
-
 void Dither::initialise(int number_of_bits, double noise_shaping)
 {
     jassert(number_of_bits <= 24);

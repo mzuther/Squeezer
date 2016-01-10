@@ -40,11 +40,6 @@ SliderSwitchLinearBar::SliderSwitchLinearBar(const String &componentName, Parame
 }
 
 
-SliderSwitchLinearBar::~SliderSwitchLinearBar()
-{
-}
-
-
 void SliderSwitchLinearBar::visibilityChanged()
 {
     Slider::visibilityChanged();
