@@ -295,14 +295,14 @@ void GenericSkin::placeAndSkinSignalLed(GenericSignalLed *label, String strXmlTa
 
         int width = imageOff.getWidth();
 
-        if ((width != imageLow.getWidth()) or (width != imageHigh.getWidth()))
+        if ((width != imageLow.getWidth()) || (width != imageHigh.getWidth()))
         {
             Logger::outputDebugString(String("[Skin] width of image files for \"") + strXmlTag + "\" differs");
         }
 
         int height = imageOff.getHeight();
 
-        if ((height != imageLow.getHeight()) or (height != imageHigh.getHeight()))
+        if ((height != imageLow.getHeight()) || (height != imageHigh.getHeight()))
         {
             Logger::outputDebugString(String("[Skin] height of image files for \"") + strXmlTag + "\" differs");
         }

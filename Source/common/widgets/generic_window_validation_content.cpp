@@ -234,7 +234,7 @@ void GenericWindowValidationContent::buttonClicked(Button *button)
                                nullptr))
         {
             // get selected file
-            File selectedFile = { browser.getResult() };
+            File selectedFile(browser.getResult());
 
             // update validation file
             selectValidationFile(selectedFile);
