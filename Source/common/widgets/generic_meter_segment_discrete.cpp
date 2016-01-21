@@ -23,7 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_meter_segment.h"
+#include "generic_meter_segment_discrete.h"
 
 /// Create a new meter segment, complete with peak marker.
 ///
@@ -62,7 +62,8 @@
 /// @param isTopmost if set to **true**, the segment has no upper
 ///        level threshold
 ///
-GenericMeterSegment::GenericMeterSegment(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
+GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete(
+    float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
 {
     // initialise thresholds and whether this segment the topmost
     // segment
@@ -98,7 +99,8 @@ GenericMeterSegment::GenericMeterSegment(float lowerThresholdNew, float threshol
 /// @return return new upper threshold of segment (may be useful for
 ///         creating continuous meters)
 ///
-float GenericMeterSegment::setThresholds(float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
+float GenericMeterSegmentDiscrete::setThresholds(
+    float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
 {
     // set lower level threshold (in decibels)
     lowerThreshold = lowerThresholdNew;
@@ -127,7 +129,8 @@ float GenericMeterSegment::setThresholds(float lowerThresholdNew, float threshol
 ///
 /// @param colPeakMarker colour of the peak marker
 ///
-void GenericMeterSegment::setColour(float segmentHueNew, const Colour &colPeakMarkerNew)
+void GenericMeterSegmentDiscrete::setColour(float segmentHueNew,
+        const Colour &colPeakMarkerNew)
 {
     // set meter segment's hue
     segmentHue = segmentHueNew;
@@ -145,7 +148,7 @@ void GenericMeterSegment::setColour(float segmentHueNew, const Colour &colPeakMa
 /// @param g the graphics context that must be used to do the drawing
 ///        operations
 ///
-void GenericMeterSegment::paint(Graphics &g)
+void GenericMeterSegmentDiscrete::paint(Graphics &g)
 {
     // get meter segment's dimensions
     int tempWidth = getWidth();
@@ -178,14 +181,14 @@ void GenericMeterSegment::paint(Graphics &g)
 ///
 /// If this function did not exist, the meter segment wouldn't be
 /// drawn until the first level change!
-void GenericMeterSegment::visibilityChanged()
+void GenericMeterSegmentDiscrete::visibilityChanged()
 {
 }
 
 
 /// Called when this component's size has been changed.
 ///
-void GenericMeterSegment::resized()
+void GenericMeterSegmentDiscrete::resized()
 {
 }
 
@@ -197,12 +200,13 @@ void GenericMeterSegment::resized()
 ///
 /// @param normalLevelPeakNew new normal peak level
 ///
-void GenericMeterSegment::setNormalLevels(float normalLevelNew, float normalLevelPeakNew)
+void GenericMeterSegmentDiscrete::setNormalLevels(float normalLevelNew,
+        float normalLevelPeakNew)
 {
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;
 
-    setLevels(normalLevelNew, initialLevel, normalLevelPeakNew, initialLevel);
+    setLevels(normalLevelNew, normalLevelPeakNew, initialLevel, initialLevel);
 }
 
 
@@ -213,12 +217,13 @@ void GenericMeterSegment::setNormalLevels(float normalLevelNew, float normalLeve
 ///
 /// @param discreteLevelPeakNew new discrete peak level
 ///
-void GenericMeterSegment::setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew)
+void GenericMeterSegmentDiscrete::setDiscreteLevels(float discreteLevelNew,
+        float discreteLevelPeakNew)
 {
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;
 
-    setLevels(initialLevel, discreteLevelNew, initialLevel, discreteLevelPeakNew);
+    setLevels(initialLevel, initialLevel, discreteLevelNew, discreteLevelPeakNew);
 }
 
 
@@ -226,13 +231,15 @@ void GenericMeterSegment::setDiscreteLevels(float discreteLevelNew, float discre
 ///
 /// @param normalLevelNew new normal level
 ///
-/// @param discreteLevelNew new discrete level
-///
 /// @param normalLevelPeakNew new normal peak level
+///
+/// @param discreteLevelNew new discrete level
 ///
 /// @param discreteLevelPeakNew new discrete peak level
 ///
-void GenericMeterSegment::setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew)
+void GenericMeterSegmentDiscrete::setLevels(
+    float normalLevelNew, float normalLevelPeakNew, float discreteLevelNew,
+    float discreteLevelPeakNew)
 {
     // store old brightness and peak marker values
     float segmentBrightnessOld = segmentBrightness;

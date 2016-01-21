@@ -133,7 +133,7 @@ OBJECTS := \
 	$(OBJDIR)/generic_plugin_standalone.o \
 	$(OBJDIR)/generic_window_validation_content.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
-	$(OBJDIR)/generic_meter_segment.o \
+	$(OBJDIR)/generic_meter_segment_discrete.o \
 	$(OBJDIR)/generic_signal_led.o \
 	$(OBJDIR)/generic_window_about_content.o \
 	$(OBJDIR)/resources.o \
@@ -296,7 +296,7 @@ $(OBJDIR)/generic_window_validation_content.o: ../../../Source/common/widgets/ge
 $(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_switch_linear_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_meter_segment.o: ../../../Source/common/widgets/generic_meter_segment.cpp
+$(OBJDIR)/generic_meter_segment_discrete.o: ../../../Source/common/widgets/generic_meter_segment_discrete.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_signal_led.o: ../../../Source/common/widgets/generic_signal_led.cpp

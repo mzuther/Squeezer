@@ -46,10 +46,10 @@ void GenericMeterBar::create()
 
     // initialise "normal" levels
     normalLevel = initialLevel;
-    discreteLevel = initialLevel;
+    normalLevelPeak = initialLevel;
 
     // initialise "discrete" levels
-    normalLevelPeak = initialLevel;
+    discreteLevel = initialLevel;
     discreteLevelPeak = initialLevel;
 
     // initialise meter dimensions
@@ -94,7 +94,10 @@ void GenericMeterBar::create()
 ///
 /// @param colPeakMarker colour of the peak marker
 ///
-void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, bool isTopmost, int segmentHeight, int spacingBefore, float segmentHue, const Colour &colPeakMarker)
+void GenericMeterBar::addSegment(
+    float lowerThreshold, float thresholdRange, bool isTopmost,
+    int segmentHeight, int spacingBefore, float segmentHue,
+    const Colour &colPeakMarker)
 {
     // store current orientation
     GenericMeterBar::Orientation barOrientationOld = barOrientation;
@@ -102,8 +105,8 @@ void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, boo
     // set to standard orientation to easily add a new meter segment
     setOrientation(orientationVertical);
 
-    // create new meter segment
-    GenericMeterSegment *currentSegment = new GenericMeterSegment();
+    // create new discrete meter segment
+    GenericMeterSegmentDiscrete *currentSegment = new GenericMeterSegmentDiscrete();
 
     // set segment's lower threshold and display range (both in
     // decibels) and whether it is the topmost segment
@@ -113,7 +116,8 @@ void GenericMeterBar::addSegment(float lowerThreshold, float thresholdRange, boo
     currentSegment->setColour(segmentHue, colPeakMarker);
 
     // set levels to current levels; prevents blinking on (re)load
-    currentSegment->setLevels(normalLevel, discreteLevel, normalLevelPeak, discreteLevelPeak);
+    currentSegment->setLevels(normalLevel, normalLevelPeak,
+                              discreteLevel, discreteLevelPeak);
 
     // meter segment outlines overlap (better do it here than relying
     // on the user to remember this....)
@@ -462,10 +466,12 @@ void GenericMeterBar::resized()
 ///
 /// @param normalLevelPeakNew new normal peak level
 ///
-void GenericMeterBar::setNormalLevels(float normalLevelNew, float normalLevelPeakNew)
+void GenericMeterBar::setNormalLevels(float normalLevelNew,
+                                      float normalLevelPeakNew)
 {
     // "normal" levels have changed
-    if ((normalLevel != normalLevelNew) || (normalLevelPeak != normalLevelPeakNew))
+    if ((normalLevel != normalLevelNew) ||
+            (normalLevelPeak != normalLevelPeakNew))
     {
         // update levels
         normalLevel = normalLevelNew;
@@ -474,7 +480,8 @@ void GenericMeterBar::setNormalLevels(float normalLevelNew, float normalLevelPea
         // update meter segments
         for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
-            p_arrMeterSegments[segmentIndex]->setNormalLevels(normalLevel, normalLevelPeak);
+            p_arrMeterSegments[segmentIndex]->setNormalLevels(
+                normalLevel, normalLevelPeak);
         }
     }
 }
@@ -487,10 +494,12 @@ void GenericMeterBar::setNormalLevels(float normalLevelNew, float normalLevelPea
 ///
 /// @param discreteLevelPeakNew new discrete peak level
 ///
-void GenericMeterBar::setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew)
+void GenericMeterBar::setDiscreteLevels(float discreteLevelNew,
+                                        float discreteLevelPeakNew)
 {
     // "discrete" levels have changed
-    if ((discreteLevel != discreteLevelNew) || (discreteLevelPeak != discreteLevelPeakNew))
+    if ((discreteLevel != discreteLevelNew) ||
+            (discreteLevelPeak != discreteLevelPeakNew))
     {
         // update levels
         discreteLevel = discreteLevelNew;
@@ -499,7 +508,8 @@ void GenericMeterBar::setDiscreteLevels(float discreteLevelNew, float discreteLe
         // update meter segments
         for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
-            p_arrMeterSegments[segmentIndex]->setDiscreteLevels(discreteLevel, discreteLevelPeak);
+            p_arrMeterSegments[segmentIndex]->setDiscreteLevels(
+                discreteLevel, discreteLevelPeak);
         }
     }
 }
@@ -509,29 +519,36 @@ void GenericMeterBar::setDiscreteLevels(float discreteLevelNew, float discreteLe
 ///
 /// @param normalLevelNew new normal level
 ///
-/// @param discreteLevelNew new discrete level
-///
 /// @param normalLevelPeakNew new normal peak level
+///
+/// @param discreteLevelNew new discrete level
 ///
 /// @param discreteLevelPeakNew new discrete peak level
 ///
-void GenericMeterBar::setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew)
+void GenericMeterBar::setLevels(
+    float normalLevelNew, float normalLevelPeakNew, float discreteLevelNew,
+    float discreteLevelPeakNew)
 {
     // "normal" or "discrete" levels have changed
-    if ((normalLevel != normalLevelNew) || (discreteLevel != discreteLevelNew) || (normalLevelPeak != normalLevelPeakNew) || (discreteLevelPeak != discreteLevelPeakNew))
+    if ((normalLevel != normalLevelNew) ||
+            (normalLevelPeak != normalLevelPeakNew) ||
+            (discreteLevel != discreteLevelNew) ||
+            (discreteLevelPeak != discreteLevelPeakNew))
     {
         // update "normal" levels
         normalLevel = normalLevelNew;
-        discreteLevel = discreteLevelNew;
+        normalLevelPeak = normalLevelPeakNew;
 
         // update "discrete" levels
-        normalLevelPeak = normalLevelPeakNew;
+        discreteLevel = discreteLevelNew;
         discreteLevelPeak = discreteLevelPeakNew;
 
         // update meter bars
         for (int segmentIndex = 0; segmentIndex < p_arrMeterSegments.size(); ++segmentIndex)
         {
-            p_arrMeterSegments[segmentIndex]->setLevels(normalLevel, discreteLevel, normalLevelPeak, discreteLevelPeak);
+            p_arrMeterSegments[segmentIndex]->setLevels(
+                normalLevel, normalLevelPeak,
+                discreteLevel, discreteLevelPeak);
         }
     }
 }

@@ -23,10 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_METER_SEGMENT_H__
-#define __GENERIC_METER_SEGMENT_H__
+#ifndef __GENERIC_METER_SEGMENT_DISCRETE_H__
+#define __GENERIC_METER_SEGMENT_DISCRETE_H__
 
 #include "JuceHeader.h"
+#include "generic_meter_segment.h"
 
 
 /// Meter segment component.  This widget consists of a coloured
@@ -36,25 +37,52 @@
 ///
 /// @see GenericMeterBar
 ///
-class GenericMeterSegment : public Component
+class GenericMeterSegmentDiscrete : public GenericMeterSegment
 {
 public:
-    virtual ~GenericMeterSegment() { } ;
+    GenericMeterSegmentDiscrete(float lowerThresholdNew = -144.0f,
+                                float thresholdRangeNew = 1.0f,
+                                bool isTopmostNew = false);
+
+    float setThresholds(float lowerThresholdNew, float thresholdRangeNew,
+                        bool isTopmostNew);
+
+    void setColour(float segmentHueNew, const Colour &colPeakMarkerNew);
 
     virtual void setNormalLevels(float normalLevelNew,
-                                 float normalLevelPeakNew) { } ;
+                                 float normalLevelPeakNew);
 
     virtual void setDiscreteLevels(float discreteLevelNew,
-                                   float discreteLevelPeakNew) { } ;
+                                   float discreteLevelPeakNew);
 
     virtual void setLevels(float normalLevelNew,
                            float normalLevelPeakNew,
                            float discreteLevelNew,
-                           float discreteLevelPeakNew) { } ;
+                           float discreteLevelPeakNew);
+
+    void paint(Graphics &g);
+    void resized();
+    void visibilityChanged();
+
+private:
+    JUCE_LEAK_DETECTOR(GenericMeterSegmentDiscrete);
+
+    Colour colPeakMarker;
+
+    float segmentHue;
+    float segmentBrightness;
+    float outlineBrightness;
+
+    float lowerThreshold;
+    float upperThreshold;
+    float thresholdRange;
+
+    bool lightPeakMarker;
+    bool isTopmost;
 };
 
 
-#endif  // __GENERIC_METER_SEGMENT_H__
+#endif  // __GENERIC_METER_SEGMENT_DISCRETE_H__
 
 
 // Local Variables:

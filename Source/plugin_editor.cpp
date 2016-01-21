@@ -522,29 +522,36 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessa
     {
         for (int nChannel = 0; nChannel < nChannels; ++nChannel)
         {
-            float fPeakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
-            float fAverageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
-            float fPeakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(nChannel);
-            float fMaximumInputLevel = pProcessor->getMaximumInputLevel(nChannel);
+            float averageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
+            float maximumInputLevel = pProcessor->getMaximumInputLevel(nChannel);
 
-            p_arrInputLevelMeters[nChannel]->setLevels(fAverageInputLevel, fPeakInputLevel, fMaximumInputLevel, fPeakInputPeakLevel);
+            float peakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
+            float peakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(nChannel);
 
-            float fPeakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
-            float fAverageOutputLevel = pProcessor->getAverageMeterOutputLevel(nChannel);
-            float fPeakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(nChannel);
-            float fMaximumOutputLevel = pProcessor->getMaximumOutputLevel(nChannel);
+            p_arrInputLevelMeters[nChannel]->setLevels(
+                averageInputLevel, maximumInputLevel,
+                peakInputLevel, peakInputPeakLevel);
 
-            p_arrOutputLevelMeters[nChannel]->setLevels(fAverageOutputLevel, fPeakOutputLevel, fMaximumOutputLevel, fPeakOutputPeakLevel);
+            float averageOutputLevel = pProcessor->getAverageMeterOutputLevel(nChannel);
+            float maximumOutputLevel = pProcessor->getMaximumOutputLevel(nChannel);
 
-            float fGainReduction = pProcessor->getGainReduction(nChannel);
-            float fGainReductionPeak = pProcessor->getGainReductionPeak(nChannel);
+            float peakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
+            float peakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(nChannel);
+
+            p_arrOutputLevelMeters[nChannel]->setLevels(
+                averageOutputLevel, maximumOutputLevel,
+                peakOutputLevel, peakOutputPeakLevel);
+
+            float gainReduction = pProcessor->getGainReduction(nChannel);
+            float gainReductionPeak = pProcessor->getGainReductionPeak(nChannel);
 
             // make sure gain reduction meter doesn't show anything
             // while there is no gain reduction
-            fGainReduction -= 0.01f;
-            fGainReductionPeak -= 0.01f;
+            gainReduction -= 0.01f;
+            gainReductionPeak -= 0.01f;
 
-            p_arrGainReductionMeters[nChannel]->setNormalLevels(fGainReduction, fGainReductionPeak);
+            p_arrGainReductionMeters[nChannel]->setNormalLevels(
+                gainReduction, gainReductionPeak);
         }
     }
     else

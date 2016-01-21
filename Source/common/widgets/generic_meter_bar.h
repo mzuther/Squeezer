@@ -27,7 +27,7 @@
 #define __GENERIC_METER_BAR_H__
 
 #include "JuceHeader.h"
-#include "generic_meter_segment.h"
+#include "generic_meter_segment_discrete.h"
 
 
 /// Meter bar component.  This widget is an empty container that can
@@ -55,7 +55,9 @@ public:
     };
 
     void create();
-    void addSegment(float lowerThreshold, float thresholdRange, bool isTopmost, int segmentHeight, int spacingBefore, float segmentHue, const Colour &colPeakMarker);
+    void addSegment(float lowerThreshold, float thresholdRange, bool isTopmost,
+                    int segmentHeight, int spacingBefore, float segmentHue,
+                    const Colour &colPeakMarker);
 
     GenericMeterBar::Orientation getOrientation();
     void setOrientation(GenericMeterBar::Orientation barOrientationNew);
@@ -66,9 +68,16 @@ public:
     int getSegmentWidth();
     void setSegmentWidth(int segmentWidthNew);
 
-    void setNormalLevels(float normalLevelNew, float normalLevelPeakNew);
-    void setDiscreteLevels(float discreteLevelNew, float discreteLevelPeakNew);
-    void setLevels(float normalLevelNew, float discreteLevelNew, float normalLevelPeakNew, float discreteLevelPeakNew);
+    void setNormalLevels(float normalLevelNew,
+                         float normalLevelPeakNew);
+
+    void setDiscreteLevels(float discreteLevelNew,
+                           float discreteLevelPeakNew);
+
+    void setLevels(float normalLevelNew,
+                   float normalLevelPeakNew,
+                   float discreteLevelNew,
+                   float discreteLevelPeakNew);
 
     void paint(Graphics &g);
     void resized();
@@ -77,9 +86,9 @@ private:
     JUCE_LEAK_DETECTOR(GenericMeterBar);
 
     float normalLevel;
-    float discreteLevel;
-
     float normalLevelPeak;
+
+    float discreteLevel;
     float discreteLevelPeak;
 
     int barWidth;
