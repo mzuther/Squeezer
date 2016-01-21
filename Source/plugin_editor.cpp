@@ -877,7 +877,8 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         String pluginSettings = pProcessor->getParameters().trim();
 
         // prepare and launch dialog window
-        DialogWindow *windowSettings = GenericWindowSettingsContent::createDialogWindow(this, width, height, pluginSettings);
+        DialogWindow *windowSettings = GenericWindowSettingsContent::createDialogWindow(
+                                           this, width, height, pluginSettings);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowSettings, ModalCallbackFunction::forComponent(window_settings_callback, this));
@@ -976,7 +977,8 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         int width = 270;
         int height = 540;
 
-        DialogWindow *windowAbout = GenericWindowAboutContent::createDialogWindow(this, width, height, arrChapters);
+        DialogWindow *windowAbout = GenericWindowAboutContent::createDialogWindow(
+                                        this, width, height, arrChapters);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));

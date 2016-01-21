@@ -44,9 +44,9 @@ GenericWindowSettingsContent::GenericWindowSettingsContent()
 ///
 /// @param pluginEditor audio plug-in editor
 ///
-/// @param width width of content component
+/// @param componentWidth width of content component
 ///
-/// @param height height of content component
+/// @param componentHeight height of content component
 ///
 /// @param pluginSettings string containing the formatted plug-in
 ///        settings
@@ -54,21 +54,27 @@ GenericWindowSettingsContent::GenericWindowSettingsContent()
 /// @return created dialog window
 ///
 DialogWindow *GenericWindowSettingsContent::createDialogWindow(
-    AudioProcessorEditor *pluginEditor, int width, int height,
+    AudioProcessorEditor *pluginEditor,
+    int componentWidth,
+    int componentHeight,
     const String &pluginSettings)
+
 {
     // prepare dialog window
     DialogWindow::LaunchOptions windowSettingsLauncher;
 
     // create content component
-    GenericWindowSettingsContent *content = new GenericWindowSettingsContent();
-    content->initialize(width, height, pluginSettings);
+    GenericWindowSettingsContent *contentComponent =
+        new GenericWindowSettingsContent();
+
+    contentComponent->initialize(componentWidth,
+                                 componentHeight,
+                                 pluginSettings);
 
     // initialize dialog window settings
     windowSettingsLauncher.dialogTitle = String("Plug-in Settings");
     windowSettingsLauncher.dialogBackgroundColour = Colours::white;
-    windowSettingsLauncher.content.setOwned(
-        content);
+    windowSettingsLauncher.content.setOwned(contentComponent);
     windowSettingsLauncher.componentToCentreAround = pluginEditor;
 
     windowSettingsLauncher.escapeKeyTriggersCloseButton = true;
@@ -86,44 +92,47 @@ DialogWindow *GenericWindowSettingsContent::createDialogWindow(
 
 /// Initialise dialog window components.
 ///
-/// @param width width of content component
+/// @param componentWidth width of content component
 ///
-/// @param height height of content component
+/// @param componentHeight height of content component
 ///
 /// @param pluginSettings string containing the formatted plug-in
 ///        settings
 ///
-void GenericWindowSettingsContent::initialize(int width, int height,
-        const String &pluginSettings)
+void GenericWindowSettingsContent::initialize(
+    int componentWidth,
+    int componentHeight,
+    const String &pluginSettings)
+
 {
     // set dimensions of content component
-    setSize(width, height);
+    setSize(componentWidth, componentHeight);
 
     // initialize text editor component for displaying the plugin's
     // settings (read-only, can display multiple lines)
-    TextEditorSettings.setReadOnly(true);
-    TextEditorSettings.setMultiLine(true, true);
-    addAndMakeVisible(TextEditorSettings);
+    textEditor_.setReadOnly(true);
+    textEditor_.setMultiLine(true, true);
+    addAndMakeVisible(textEditor_);
 
     // display plug-in settings
-    Font fontRegular(Font::getDefaultMonospacedFontName(),
-                     15.0f, Font::plain);
-    TextEditorSettings.setFont(fontRegular);
-    TextEditorSettings.insertTextAtCaret(pluginSettings);
+    Font fontRegular(Font::getDefaultMonospacedFontName(), 15.0f, Font::plain);
+
+    textEditor_.setFont(fontRegular);
+    textEditor_.insertTextAtCaret(pluginSettings);
 
     // copy settings to system clipboard
-    TextEditorSettings.selectAll();
-    TextEditorSettings.copy();
+    textEditor_.selectAll();
+    textEditor_.copy();
 
     // in case the text has become too long to fit into the text
     // editor component, scroll to the beginning
-    TextEditorSettings.setCaretPosition(0);
-    TextEditorSettings.scrollEditorToPositionCaret(0, 0);
+    textEditor_.setCaretPosition(0);
+    textEditor_.scrollEditorToPositionCaret(0, 0);
 
     // initialize "close" button
-    ButtonClose.setButtonText("Close");
-    addAndMakeVisible(ButtonClose);
-    ButtonClose.addListener(this);
+    buttonClose_.setButtonText("Close");
+    addAndMakeVisible(buttonClose_);
+    buttonClose_.addListener(this);
 
     // style and place the dialog window's components
     applySkin();
@@ -135,27 +144,32 @@ void GenericWindowSettingsContent::initialize(int width, int height,
 void GenericWindowSettingsContent::applySkin()
 {
     // style text editor
-    TextEditorSettings.setColour(
+    textEditor_.setColour(
         TextEditor::backgroundColourId,
         Colours::black.withAlpha(0.25f));
-    TextEditorSettings.setColour(
+
+    textEditor_.setColour(
         TextEditor::textColourId,
         Colours::black);
-    TextEditorSettings.setColour(
+
+    textEditor_.setColour(
         TextEditor::highlightColourId,
         Colours::black.withAlpha(0.15f));
-    TextEditorSettings.setColour(
+
+    textEditor_.setColour(
         TextEditor::highlightedTextColourId,
         Colours::black);
 
     // hide cursor
-    TextEditorSettings.setCaretVisible(false);
+    textEditor_.setCaretVisible(false);
+
 
     // style "close" button
-    ButtonClose.setColour(
+    buttonClose_.setColour(
         TextButton::buttonColourId,
         Colours::yellow);
-    ButtonClose.setColour(
+
+    buttonClose_.setColour(
         TextButton::buttonOnColourId,
         Colours::yellow);
 
@@ -163,8 +177,8 @@ void GenericWindowSettingsContent::applySkin()
     int width = getWidth();
     int height = getHeight();
 
-    TextEditorSettings.setBounds(0, 0, width, height - 37);
-    ButtonClose.setBounds(width / 2 - 30, height - 29, 60, 20);
+    textEditor_.setBounds(0, 0, width, height - 37);
+    buttonClose_.setBounds(width / 2 - 30, height - 29, 60, 20);
 }
 
 
@@ -172,10 +186,12 @@ void GenericWindowSettingsContent::applySkin()
 ///
 /// @param button clicked button
 ///
-void GenericWindowSettingsContent::buttonClicked(Button *button)
+void GenericWindowSettingsContent::buttonClicked(
+    Button *button)
+
 {
     // user wants to close the window
-    if (button == &ButtonClose)
+    if (button == &buttonClose_)
     {
         // close dialog window
         closeButtonPressed();

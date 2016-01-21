@@ -30,24 +30,24 @@
 #include "generic_meter_segment.h"
 
 
-/// Meter segment component.  This widget consists of a coloured
-/// filled rectangle (meter segment) surrounded by a small coloured
-/// rectangle (peak marker).  Both rectangles react to level changes
-/// with a change in colour or visibility.
+/// Discrete meter segment component.  This widget consists of a
+/// coloured filled rectangle (meter segment) surrounded by a small
+/// coloured rectangle (peak marker).  Both rectangles react to level
+/// changes with a change in colour or visibility.
 ///
 /// @see GenericMeterBar
 ///
 class GenericMeterSegmentDiscrete : public GenericMeterSegment
 {
 public:
-    GenericMeterSegmentDiscrete(float lowerThresholdNew = -144.0f,
-                                float thresholdRangeNew = 1.0f,
-                                bool isTopmostNew = false);
+    GenericMeterSegmentDiscrete();
 
-    float setThresholds(float lowerThresholdNew, float thresholdRangeNew,
+    float setThresholds(float lowerThresholdNew,
+                        float thresholdRangeNew,
                         bool isTopmostNew);
 
-    void setColour(float segmentHueNew, const Colour &colPeakMarkerNew);
+    void setColour(float segmentHueNew,
+                   const Colour &colPeakMarkerNew);
 
     virtual void setNormalLevels(float normalLevelNew,
                                  float normalLevelPeakNew);

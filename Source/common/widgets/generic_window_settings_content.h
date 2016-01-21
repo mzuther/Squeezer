@@ -31,26 +31,31 @@
 
 /// Dialog window for displaying plugin-settings.
 ///
-class GenericWindowSettingsContent : public Component, public ButtonListener
+class GenericWindowSettingsContent :
+    public Component,
+    public ButtonListener
 {
 public:
     GenericWindowSettingsContent();
 
     static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
-                                            int width, int height,
+                                            int componentWidth,
+                                            int componentHeight,
                                             const String &pluginSettings);
 
     virtual void buttonClicked(Button *button);
     virtual void closeButtonPressed();
 
     virtual void applySkin();
-    virtual void initialize(int width, int height, const String &pluginSettings);
+    virtual void initialize(int componentWidth,
+                            int componentHeight,
+                            const String &pluginSettings);
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSettingsContent);
 
-    TextEditor TextEditorSettings;
-    TextButton ButtonClose;
+    TextEditor textEditor_;
+    TextButton buttonClose_;
 };
 
 

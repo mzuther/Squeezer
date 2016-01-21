@@ -33,19 +33,23 @@
 /// Dialog window for displaying version, copyright, license and so
 /// on.
 ///
-class GenericWindowAboutContent : public Component, public ButtonListener
+class GenericWindowAboutContent :
+    public Component,
+    public ButtonListener
 {
 public:
     GenericWindowAboutContent();
 
     static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
-                                            int width, int height,
+                                            int componentWidth,
+                                            int componentHeight,
                                             const StringPairArray &chapters);
 
     virtual void buttonClicked(Button *button);
 
     virtual void applySkin();
-    virtual void initialize(int width, int height,
+    virtual void initialize(int componentWidth,
+                            int componentHeight,
                             const StringPairArray &chapters);
 
 private:
@@ -53,9 +57,9 @@ private:
 
     void addChapters(const StringPairArray &chapters);
 
-    TextEditor EditorAbout;
-    TextButton ButtonClose;
-    ImageButton ButtonGpl;
+    TextEditor textEditor_;
+    TextButton buttonClose_;
+    ImageButton buttonLicense_;
 };
 
 

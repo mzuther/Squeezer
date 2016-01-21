@@ -42,9 +42,9 @@ GenericWindowValidationContent::GenericWindowValidationContent()
 
 /// Initialise dialog window components.
 ///
-/// @param width width of content component
+/// @param componentWidth width of content component
 ///
-/// @param height height of content component
+/// @param componentHeight height of content component
 ///
 /// @param numberOfInputChannels current number of audio input
 ///        channels
@@ -54,32 +54,37 @@ GenericWindowValidationContent::GenericWindowValidationContent()
 /// @param selectedChannel current audio channel used for validation
 ///        (starting at 0; -1 designates all channels)
 ///
-/// @param validationFileNew current audio file used for validation
+/// @param validationFile current audio file used for validation
 ///
-void GenericWindowValidationContent::initialise(int width, int height,
-        int numberOfInputChannels, int sampleRate, int selectedChannel,
-        const File &validationFileNew)
+void GenericWindowValidationContent::initialise(
+    int componentWidth,
+    int componentHeight,
+    int numberOfInputChannels,
+    int sampleRate,
+    int selectedChannel,
+    const File &validationFile)
+
 {
     // set content component dimensions
-    setSize(width, height);
+    setSize(componentWidth, componentHeight);
 
     // set audio file used for validation
-    validationFile = validationFileNew;
+    validationFile_ = validationFile;
 
     // initialise label that displays the name of the validation file
-    LabelFileSelection.setText(validationFile.getFileName(),
-                               dontSendNotification);
-    addAndMakeVisible(LabelFileSelection);
+    labelFileSelection_.setText(validationFile_.getFileName(),
+                                dontSendNotification);
+    addAndMakeVisible(labelFileSelection_);
 
     // initialise button for validation file selection
-    ButtonFileSelection.setButtonText("...");
-    addAndMakeVisible(ButtonFileSelection);
-    ButtonFileSelection.addListener(this);
+    buttonFileSelection_.setButtonText("...");
+    addAndMakeVisible(buttonFileSelection_);
+    buttonFileSelection_.addListener(this);
 
     // initialise helper label
-    LabelSampleRate.setText("Host SR: ",
-                            dontSendNotification);
-    addAndMakeVisible(LabelSampleRate);
+    labelSampleRate_.setText("Host SR: ",
+                             dontSendNotification);
+    addAndMakeVisible(labelSampleRate_);
 
     // format sample rate
     String formattedSampleRate(sampleRate);
@@ -87,30 +92,30 @@ void GenericWindowValidationContent::initialise(int width, int height,
                           formattedSampleRate.getLastCharacters(3) + " Hz";
 
     // initialise label for displaying the sample rate
-    LabelSampleRateValue.setText(formattedSampleRate,
-                                 dontSendNotification);
-    addAndMakeVisible(LabelSampleRateValue);
+    labelSampleRateValue_.setText(formattedSampleRate,
+                                  dontSendNotification);
+    addAndMakeVisible(labelSampleRateValue_);
 
     // initialise helper label
-    LabelDumpSelectedChannel.setText("Channel: ",
-                                     dontSendNotification);
-    addAndMakeVisible(LabelDumpSelectedChannel);
+    labelSelectedChannel.setText("Channel: ",
+                                 dontSendNotification);
+    addAndMakeVisible(labelSelectedChannel);
 
     // initialise label for displaying the current audio channel
-    SliderDumpSelectedChannel.setNumberOfChannels(numberOfInputChannels);
-    SliderDumpSelectedChannel.setValue(selectedChannel,
-                                       dontSendNotification);
-    addAndMakeVisible(SliderDumpSelectedChannel);
+    sliderSelectChannel_.setNumberOfChannels(numberOfInputChannels);
+    sliderSelectChannel_.setValue(selectedChannel,
+                                  dontSendNotification);
+    addAndMakeVisible(sliderSelectChannel_);
 
     // initialise "validation" button
-    ButtonValidation.setButtonText("Validate");
-    addAndMakeVisible(ButtonValidation);
-    ButtonValidation.addListener(this);
+    buttonValidation_.setButtonText("Validate");
+    addAndMakeVisible(buttonValidation_);
+    buttonValidation_.addListener(this);
 
     // initialise "cancel" button
-    ButtonCancel.setButtonText("Cancel");
-    addAndMakeVisible(ButtonCancel);
-    ButtonCancel.addListener(this);
+    buttonCancel_.setButtonText("Cancel");
+    addAndMakeVisible(buttonCancel_);
+    buttonCancel_.addListener(this);
 }
 
 
@@ -119,86 +124,105 @@ void GenericWindowValidationContent::initialise(int width, int height,
 void GenericWindowValidationContent::applySkin()
 {
     // style label that displays the name of the validation file
-    LabelFileSelection.setMinimumHorizontalScale(1.0f);
-    LabelFileSelection.setColour(
+    labelFileSelection_.setMinimumHorizontalScale(1.0f);
+
+    labelFileSelection_.setColour(
         Label::textColourId,
         Colours::black);
-    LabelFileSelection.setColour(
+
+    labelFileSelection_.setColour(
         Label::backgroundColourId,
         Colours::white.darker(0.15f));
-    LabelFileSelection.setColour(
+
+    labelFileSelection_.setColour(
         Label::outlineColourId,
         Colours::grey);
 
+
     // style helper label
-    LabelSampleRate.setColour(
+    labelSampleRate_.setColour(
         Label::textColourId,
         Colours::black);
+
 
     // style label for displaying the sample rate
-    LabelSampleRateValue.setMinimumHorizontalScale(1.0f);
-    LabelSampleRateValue.setColour(
+    labelSampleRateValue_.setMinimumHorizontalScale(1.0f);
+
+    labelSampleRateValue_.setColour(
         Label::textColourId,
         Colours::black);
-    LabelSampleRateValue.setColour(
+
+    labelSampleRateValue_.setColour(
         Label::backgroundColourId,
         Colours::white.darker(0.15f));
-    LabelSampleRateValue.setColour(
+
+    labelSampleRateValue_.setColour(
         Label::outlineColourId,
         Colours::grey);
 
+
     // style helper label
-    LabelDumpSelectedChannel.setColour(
+    labelSelectedChannel.setColour(
         Label::textColourId,
         Colours::black);
 
+
     // style label for displaying the current audio channel
-    SliderDumpSelectedChannel.setColour(
+    sliderSelectChannel_.setColour(
         GenericChannelSlider::textBoxTextColourId,
         Colours::black);
-    SliderDumpSelectedChannel.setColour(
+
+    sliderSelectChannel_.setColour(
         GenericChannelSlider::textBoxBackgroundColourId,
         Colours::white.darker(0.15f));
-    SliderDumpSelectedChannel.setColour(
+
+    sliderSelectChannel_.setColour(
         GenericChannelSlider::textBoxOutlineColourId,
         Colours::grey);
 
+
     // style "validation" button
-    ButtonValidation.setColour(
+    buttonValidation_.setColour(
         TextButton::textColourOffId,
         Colours::black);
-    ButtonValidation.setColour(
+
+    buttonValidation_.setColour(
         TextButton::buttonColourId,
         Colours::red);
-    ButtonValidation.setColour(
+
+    buttonValidation_.setColour(
         TextButton::buttonOnColourId,
         Colours::grey);
 
+
     // style "cancel" button
-    ButtonCancel.setColour(
+    buttonCancel_.setColour(
         TextButton::textColourOffId,
         Colours::black);
-    ButtonCancel.setColour(
+
+    buttonCancel_.setColour(
         TextButton::buttonColourId,
         Colours::yellow);
-    ButtonCancel.setColour(
+
+    buttonCancel_.setColour(
         TextButton::buttonOnColourId,
         Colours::grey);
+
 
     // place the components
     int positionX = 4;
     int positionY = 7;
 
-    LabelFileSelection.setBounds(positionX + 4, positionY, 120, 20);
-    ButtonFileSelection.setBounds(positionX + 127, positionY, 30, 20);
+    labelFileSelection_.setBounds(positionX + 4, positionY, 120, 20);
+    buttonFileSelection_.setBounds(positionX + 127, positionY, 30, 20);
 
     positionY += 24;
-    LabelSampleRate.setBounds(positionX, positionY, 75, 20);
-    LabelSampleRateValue.setBounds(positionX + 66, positionY, 82, 20);
+    labelSampleRate_.setBounds(positionX, positionY, 75, 20);
+    labelSampleRateValue_.setBounds(positionX + 66, positionY, 82, 20);
 
     positionY += 24;
-    LabelDumpSelectedChannel.setBounds(positionX, positionY, 75, 20);
-    SliderDumpSelectedChannel.setBounds(positionX + 66, positionY, 70, 20);
+    labelSelectedChannel.setBounds(positionX, positionY, 75, 20);
+    sliderSelectChannel_.setBounds(positionX + 66, positionY, 70, 20);
 }
 
 
@@ -208,16 +232,18 @@ void GenericWindowValidationContent::applySkin()
 ///
 /// @param button clicked button
 ///
-void GenericWindowValidationContent::buttonClicked(Button *button)
+void GenericWindowValidationContent::buttonClicked(
+    Button *button)
+
 {
     // user wants to close the window
-    if (button == &ButtonCancel)
+    if (button == &buttonCancel_)
     {
         // close dialog window
         closeButtonPressed();
     }
     // user wants to select a new audio file for validation
-    else if (button == &ButtonFileSelection)
+    else if (button == &buttonFileSelection_)
     {
         // obtain wildcard string for supported audio files
         AudioFormatManager formatManager;
@@ -226,7 +252,9 @@ void GenericWindowValidationContent::buttonClicked(Button *button)
 
         // create file browser limited to supported audio files
         FileChooser browser("Open audio file for validation",
-                            validationFile, wildcards, false);
+                            validationFile_,
+                            wildcards,
+                            false);
 
         // open file browser
         if (browser.showDialog(FileBrowserComponent::openMode |

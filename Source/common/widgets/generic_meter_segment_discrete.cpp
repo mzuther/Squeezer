@@ -62,12 +62,11 @@
 /// @param isTopmost if set to **true**, the segment has no upper
 ///        level threshold
 ///
-GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete(
-    float lowerThresholdNew, float thresholdRangeNew, bool isTopmostNew)
+GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete()
 {
     // initialise thresholds and whether this segment the topmost
     // segment
-    setThresholds(lowerThresholdNew, thresholdRangeNew, isTopmostNew);
+    setThresholds(-144.0f, 1.0f, false);
 
     // initialise meter segment's brightness (0.0f is dark, 1.0f is
     // fully lit)
@@ -193,8 +192,8 @@ void GenericMeterSegmentDiscrete::resized()
 }
 
 
-/// Set normal (average) levels.  Use this only if you completely
-/// disregard discrete (peak) levels!
+/// Set normal (average) levels.  *Use this only if you completely
+/// disregard discrete (peak) levels!*
 ///
 /// @param normalLevelNew new normal level
 ///
@@ -210,8 +209,8 @@ void GenericMeterSegmentDiscrete::setNormalLevels(float normalLevelNew,
 }
 
 
-/// Set discrete (peak) levels.  Use this only if you completely
-/// disregard normal (average) levels!
+/// Set discrete (peak) levels.  *Use this only if you completely
+/// disregard normal (average) levels!*
 ///
 /// @param discreteLevelNew new discrete level
 ///

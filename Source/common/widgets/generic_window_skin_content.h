@@ -33,28 +33,32 @@
 ///
 /// @see GenericWindowSkinContent
 ///
-class GenericSkinListBoxModel : public ListBoxModel
+class GenericSkinListBoxModel :
+    public ListBoxModel
 {
 public:
     GenericSkinListBoxModel();
 
     void fill(const File &skinDirectory);
 
-    int getNumRows();
+    virtual int getNumRows();
     int getRow(const String &skinNameToLookFor);
     const String getSkinName(int rowNumber);
     void setDefault(int rowNumber);
 
-    void paintListBoxItem(int rowNumber, Graphics &g, int width, int height,
-                          bool isRowSelected);
+    virtual void paintListBoxItem(int rowNumber,
+                                  Graphics &g,
+                                  int rowWidth,
+                                  int rowHeight,
+                                  bool isRowSelected);
 
 private:
-    WildcardFileFilter skinWildcard;
-    TimeSliceThread directoryThread;
+    WildcardFileFilter skinWildcard_;
+    TimeSliceThread directoryThread_;
 
-    File defaultSkinFile;
-    String defaultSkinName;
-    StringArray skinNames;
+    File defaultSkinFile_;
+    String defaultSkinName_;
+    StringArray skinNames_;
 };
 
 
@@ -62,30 +66,33 @@ private:
 ///
 /// @see GenericSkinListBoxModel
 ///
-class GenericWindowSkinContent : public Component, public ButtonListener
+class GenericWindowSkinContent :
+    public Component,
+    public ButtonListener
 {
 public:
     GenericWindowSkinContent();
 
-    static DialogWindow *createDialogWindow(
-        AudioProcessorEditor *pluginEditor, String *skinName,
-        const File &skinDirectory);
+    static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
+                                            String *skinName,
+                                            const File &skinDirectory);
 
     virtual void buttonClicked(Button *button);
 
     virtual void applySkin();
-    virtual void initialize(String *skinName, const File &skinDirectory);
+    virtual void initialize(String *skinName,
+                            const File &skinDirectory);
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
 
-    ListBox SkinList;
-    GenericSkinListBoxModel ListBoxModel;
+    ListBox skinList_;
+    GenericSkinListBoxModel listModel_;
 
-    TextButton ButtonSelect;
-    TextButton ButtonDefault;
+    TextButton buttonSelect_;
+    TextButton buttonDefault_;
 
-    String *currentSkinName;
+    String *currentSkinName_;
 };
 
 

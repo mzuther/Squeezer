@@ -29,24 +29,46 @@
 #include "JuceHeader.h"
 
 
-/// Meter segment component.  This widget consists of a coloured
-/// filled rectangle (meter segment) surrounded by a small coloured
-/// rectangle (peak marker).  Both rectangles react to level changes
-/// with a change in colour or visibility.
+/// Base class for Meter segment components.
 ///
 /// @see GenericMeterBar
 ///
 class GenericMeterSegment : public Component
 {
 public:
+    /// Destructor.
     virtual ~GenericMeterSegment() { } ;
 
+    /// Set normal (average) levels.  *Use this only if you completely
+    /// disregard discrete (peak) levels!*
+    ///
+    /// @param normalLevelNew new normal level
+    ///
+    /// @param normalLevelPeakNew new normal peak level
+    ///
     virtual void setNormalLevels(float normalLevelNew,
                                  float normalLevelPeakNew) { } ;
 
+    /// Set discrete (peak) levels.  *Use this only if you completely
+    /// disregard normal (average) levels!*
+    ///
+    /// @param discreteLevelNew new discrete level
+    ///
+    /// @param discreteLevelPeakNew new discrete peak level
+    ///
     virtual void setDiscreteLevels(float discreteLevelNew,
                                    float discreteLevelPeakNew) { } ;
 
+    /// Set discrete (peak) and normal (average) levels.
+    ///
+    /// @param normalLevelNew new normal level
+    ///
+    /// @param normalLevelPeakNew new normal peak level
+    ///
+    /// @param discreteLevelNew new discrete level
+    ///
+    /// @param discreteLevelPeakNew new discrete peak level
+    ///
     virtual void setLevels(float normalLevelNew,
                            float normalLevelPeakNew,
                            float discreteLevelNew,

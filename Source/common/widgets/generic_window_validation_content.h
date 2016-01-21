@@ -32,18 +32,23 @@
 
 /// Dialog window for validation settings.
 ///
-class GenericWindowValidationContent : public Component, public ButtonListener
+class GenericWindowValidationContent :
+    public Component,
+    public ButtonListener
 {
 public:
     GenericWindowValidationContent();
 
     virtual void buttonClicked(Button *button);
-    void closeButtonPressed();
+    virtual void closeButtonPressed();
     virtual void applySkin();
 
-    virtual void initialise(int width, int height, int numberOfInputChannels,
-                            int sampleRate, int selectedChannel,
-                            const File &validationFileNew);
+    virtual void initialise(int componentWidth,
+                            int componentHeight,
+                            int numberOfInputChannels,
+                            int sampleRate,
+                            int selectedChannel,
+                            const File &validationFile);
 
     /// Select a new audio file for validation.
     ///
@@ -52,18 +57,18 @@ public:
     virtual void selectValidationFile(const File &validationFileNew) = 0;
 
 protected:
-    File validationFile;
+    File validationFile_;
 
-    Label LabelFileSelection;
-    Label LabelSampleRate;
-    Label LabelSampleRateValue;
+    Label labelFileSelection_;
+    Label labelSampleRate_;
+    Label labelSampleRateValue_;
 
-    TextButton ButtonFileSelection;
-    TextButton ButtonValidation;
-    TextButton ButtonCancel;
+    TextButton buttonFileSelection_;
+    TextButton buttonValidation_;
+    TextButton buttonCancel_;
 
-    Label LabelDumpSelectedChannel;
-    GenericChannelSlider SliderDumpSelectedChannel;
+    Label labelSelectedChannel;
+    GenericChannelSlider sliderSelectChannel_;
 
 private:
     JUCE_LEAK_DETECTOR(GenericWindowValidationContent);

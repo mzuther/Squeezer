@@ -46,9 +46,9 @@ GenericWindowAboutContent::GenericWindowAboutContent()
 ///
 /// @param pluginEditor audio plug-in editor
 ///
-/// @param width width of content component
+/// @param componentWidth width of content component
 ///
-/// @param height height of content component
+/// @param componentHeight height of content component
 ///
 /// @param chapters dictionary containing chapter headlines and the
 ///        accompanying text
@@ -56,20 +56,29 @@ GenericWindowAboutContent::GenericWindowAboutContent()
 /// @return created dialog window
 ///
 DialogWindow *GenericWindowAboutContent::createDialogWindow(
-    AudioProcessorEditor *pluginEditor, int width, int height,
+    AudioProcessorEditor *pluginEditor,
+    int componentWidth,
+    int componentHeight,
     const StringPairArray &chapters)
+
 {
     // prepare dialog window
     DialogWindow::LaunchOptions windowAboutLauncher;
 
     // create content component
-    GenericWindowAboutContent *content = new GenericWindowAboutContent();
-    content->initialize(width, height, chapters);
+    GenericWindowAboutContent *contentComponent =
+        new GenericWindowAboutContent();
+
+    contentComponent->initialize(componentWidth,
+                                 componentHeight,
+                                 chapters);
 
     // initialize dialog window settings
-    windowAboutLauncher.dialogTitle = String("About ") + ProjectInfo::projectName;
+    windowAboutLauncher.dialogTitle = String("About ") +
+                                      ProjectInfo::projectName;
+
     windowAboutLauncher.dialogBackgroundColour = Colours::white;
-    windowAboutLauncher.content.setOwned(content);
+    windowAboutLauncher.content.setOwned(contentComponent);
     windowAboutLauncher.componentToCentreAround = pluginEditor;
 
     windowAboutLauncher.escapeKeyTriggersCloseButton = true;
@@ -87,52 +96,64 @@ DialogWindow *GenericWindowAboutContent::createDialogWindow(
 
 /// Initialise dialog window components.
 ///
-/// @param width width of content component
+/// @param componentWidth width of content component
 ///
-/// @param height height of content component
+/// @param componentHeight height of content component
 ///
 /// @param chapters dictionary containing chapter headlines and the
 ///        accompanying text
 ///
-void GenericWindowAboutContent::initialize(int width, int height,
-        const StringPairArray &chapters)
+void GenericWindowAboutContent::initialize(
+    int componentWidth,
+    int componentHeight,
+    const StringPairArray &chapters)
+
 {
     // set dimensions of content component
-    setSize(width, height);
+    setSize(componentWidth, componentHeight);
 
     // initialize text editor component for displaying the plugin's
     // settings (read-only, can display multiple lines)
-    EditorAbout.setMultiLine(true, true);
-    EditorAbout.setReadOnly(true);
-    addAndMakeVisible(EditorAbout);
+    textEditor_.setMultiLine(true, true);
+    textEditor_.setReadOnly(true);
+    addAndMakeVisible(textEditor_);
 
     // display plug-in description
     addChapters(chapters);
 
     // initialize "license" button which opens the license text in a
     // web browser
-    addAndMakeVisible(ButtonGpl);
-    ButtonGpl.addListener(this);
+    addAndMakeVisible(buttonLicense_);
+    buttonLicense_.addListener(this);
 
     // set license button images
-    ButtonGpl.setImages(true, false, true,
-                        ImageCache::getFromMemory(
-                            resources::button_gpl_normal_png,
-                            resources::button_gpl_normal_pngSize),
-                        1.0f, Colour(),
-                        ImageCache::getFromMemory(
-                            resources::button_gpl_down_png,
-                            resources::button_gpl_down_pngSize),
-                        1.0f, Colour(),
-                        ImageCache::getFromMemory(
-                            resources::button_gpl_down_png,
-                            resources::button_gpl_down_pngSize),
-                        1.0f, Colour());
+    buttonLicense_.setImages(
+        true,
+        false,
+        true,
+
+        ImageCache::getFromMemory(
+            resources::button_gpl_normal_png,
+            resources::button_gpl_normal_pngSize),
+        1.0f,
+        Colour(),
+
+        ImageCache::getFromMemory(
+            resources::button_gpl_down_png,
+            resources::button_gpl_down_pngSize),
+        1.0f,
+        Colour(),
+
+        ImageCache::getFromMemory(
+            resources::button_gpl_down_png,
+            resources::button_gpl_down_pngSize),
+        1.0f,
+        Colour());
 
     // initialize "close" button
-    ButtonClose.setButtonText("Close");
-    addAndMakeVisible(ButtonClose);
-    ButtonClose.addListener(this);
+    buttonClose_.setButtonText("Close");
+    addAndMakeVisible(buttonClose_);
+    buttonClose_.addListener(this);
 
     // style and place the dialog window's components
     applySkin();
@@ -144,34 +165,40 @@ void GenericWindowAboutContent::initialize(int width, int height,
 void GenericWindowAboutContent::applySkin()
 {
     // style text editor component
-    EditorAbout.setColour(
+    textEditor_.setColour(
         TextEditor::backgroundColourId,
         Colours::black.withAlpha(0.25f));
-    EditorAbout.setColour(
+
+    textEditor_.setColour(
         TextEditor::textColourId,
         Colours::black);
-    EditorAbout.setColour(
+
+    textEditor_.setColour(
         TextEditor::highlightColourId,
         Colours::black.withAlpha(0.15f));
-    EditorAbout.setColour(
+
+    textEditor_.setColour(
         TextEditor::highlightedTextColourId,
         Colours::black);
 
+
     // style "close" button
-    ButtonClose.setColour(
+    buttonClose_.setColour(
         TextButton::buttonColourId,
         Colours::yellow);
-    ButtonClose.setColour(
+
+    buttonClose_.setColour(
         TextButton::buttonOnColourId,
         Colours::yellow);
+
 
     // place components
     int width = getWidth();
     int height = getHeight();
 
-    EditorAbout.setBounds(0, 0, width, height - 47);
-    ButtonGpl.setBounds(6, height - 41, 64, 32);
-    ButtonClose.setBounds(width - 70, height - 34, 60, 20);
+    textEditor_.setBounds(0, 0, width, height - 47);
+    buttonLicense_.setBounds(6, height - 41, 64, 32);
+    buttonClose_.setBounds(width - 70, height - 34, 60, 20);
 }
 
 
@@ -180,7 +207,9 @@ void GenericWindowAboutContent::applySkin()
 /// @param chapters dictionary containing chapter headlines and the
 ///        accompanying text
 ///
-void GenericWindowAboutContent::addChapters(const StringPairArray &chapters)
+void GenericWindowAboutContent::addChapters(
+    const StringPairArray &chapters)
+
 {
     // set up two fonts, one for headlines and one for regular text
     Font headlineFont(16.0f, Font::bold);
@@ -199,29 +228,29 @@ void GenericWindowAboutContent::addChapters(const StringPairArray &chapters)
         if (!chapters[currentHeadline].isEmpty())
         {
             // display headline
-            EditorAbout.setFont(headlineFont);
-            EditorAbout.insertTextAtCaret(
+            textEditor_.setFont(headlineFont);
+            textEditor_.insertTextAtCaret(
                 currentHeadline + "\n"
             );
 
             // display accompanying text
-            EditorAbout.setFont(regularFont);
-            EditorAbout.insertTextAtCaret(
+            textEditor_.setFont(regularFont);
+            textEditor_.insertTextAtCaret(
                 chapters[currentHeadline]
             );
 
             // no newline after last chapter
             if (n < headlines.size() - 1)
             {
-                EditorAbout.insertTextAtCaret("\n");
+                textEditor_.insertTextAtCaret("\n");
             }
         }
     }
 
     // in case the text has become too long to fit into the text
     // editor component, scroll to the beginning
-    EditorAbout.setCaretPosition(0);
-    EditorAbout.scrollEditorToPositionCaret(0, 0);
+    textEditor_.setCaretPosition(0);
+    textEditor_.scrollEditorToPositionCaret(0, 0);
 }
 
 
@@ -229,10 +258,12 @@ void GenericWindowAboutContent::addChapters(const StringPairArray &chapters)
 ///
 /// @param button clicked button
 ///
-void GenericWindowAboutContent::buttonClicked(Button *button)
+void GenericWindowAboutContent::buttonClicked(
+    Button *button)
+
 {
     // user wants to close the window
-    if (button == &ButtonClose)
+    if (button == &buttonClose_)
     {
         // get parent dialog window
         DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();
@@ -243,12 +274,12 @@ void GenericWindowAboutContent::buttonClicked(Button *button)
             dialogWindow->exitModalState(1);
         }
     }
-    // user wants to read the GPL
-    else if (button == &ButtonGpl)
+    // user wants to read the license
+    else if (button == &buttonLicense_)
     {
         // open license text in default web browser
-        URL urlGpl("http://www.gnu.org/licenses/gpl-3.0.html");
-        urlGpl.launchInDefaultBrowser();
+        URL url("http://www.gnu.org/licenses/gpl-3.0.html");
+        url.launchInDefaultBrowser();
     }
 }
 
