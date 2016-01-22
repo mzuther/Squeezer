@@ -48,6 +48,7 @@ public:
     virtual void buttonClicked(Button *button);
 
     virtual void applySkin();
+
     virtual void initialize(int componentWidth,
                             int componentHeight,
                             const StringPairArray &chapters);

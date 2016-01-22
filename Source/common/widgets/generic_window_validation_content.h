@@ -52,9 +52,9 @@ public:
 
     /// Select a new audio file for validation.
     ///
-    /// @param validationFileNew audio file for validation
+    /// @param validationFile audio file for validation
     ///
-    virtual void selectValidationFile(const File &validationFileNew) = 0;
+    virtual void selectValidationFile(const File &validationFile) = 0;
 
 protected:
     File validationFile_;

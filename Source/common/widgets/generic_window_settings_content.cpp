@@ -173,6 +173,7 @@ void GenericWindowSettingsContent::applySkin()
         TextButton::buttonOnColourId,
         Colours::yellow);
 
+
     // place components
     int width = getWidth();
     int height = getHeight();

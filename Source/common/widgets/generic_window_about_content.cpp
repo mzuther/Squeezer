@@ -229,18 +229,14 @@ void GenericWindowAboutContent::addChapters(
         {
             // display headline
             textEditor_.setFont(headlineFont);
-            textEditor_.insertTextAtCaret(
-                currentHeadline + "\n"
-            );
+            textEditor_.insertTextAtCaret(currentHeadline + "\n");
 
             // display accompanying text
             textEditor_.setFont(regularFont);
-            textEditor_.insertTextAtCaret(
-                chapters[currentHeadline]
-            );
+            textEditor_.insertTextAtCaret(chapters[currentHeadline]);
 
             // no newline after last chapter
-            if (n < headlines.size() - 1)
+            if (n < (headlines.size() - 1))
             {
                 textEditor_.insertTextAtCaret("\n");
             }

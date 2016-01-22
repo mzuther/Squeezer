@@ -47,8 +47,8 @@ GenericWindowSkinContent::GenericWindowSkinContent()
 ///
 /// @param pluginEditor audio plug-in editor
 ///
-/// @param skinName name of the currently used skin (will always be
-///        changed to reflect the current skin name)
+/// @param currentSkinName name of the currently used skin (will
+/// always be changed to reflect the current skin name)
 ///
 /// @param skinDirectory directory containing the skins
 ///
@@ -56,7 +56,7 @@ GenericWindowSkinContent::GenericWindowSkinContent()
 ///
 DialogWindow *GenericWindowSkinContent::createDialogWindow(
     AudioProcessorEditor *pluginEditor,
-    String *skinName,
+    String *currentSkinName,
     const File &skinDirectory)
 
 {
@@ -67,7 +67,7 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(
     GenericWindowSkinContent *contentComponent =
         new GenericWindowSkinContent();
 
-    contentComponent->initialize(skinName,
+    contentComponent->initialize(currentSkinName,
                                  skinDirectory);
 
     // initialize dialog window settings
@@ -91,21 +91,23 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(
 
 /// Initialise dialog window components.
 ///
-/// @param skinName name of the currently used skin (will always be
-///        changed to reflect the current skin name)
+/// @param currentSkinName name of the currently used skin (will
+///        always be changed to reflect the current skin name)
 ///
 /// @param skinDirectory directory containing the skins
 ///
 void GenericWindowSkinContent::initialize(
-    String *skinName,
+    String *currentSkinName,
     const File &skinDirectory)
 
 {
     // store name of the currenty used skin
-    currentSkinName_ = skinName;
+    currentSkinName_ = currentSkinName;
+
+    // fill list box model with skin names
+    listModel_.fill(skinDirectory);
 
     // initialize list box
-    listModel_.fill(skinDirectory);
     skinList_.setModel(&listModel_);
     addAndMakeVisible(skinList_);
 
@@ -167,10 +169,11 @@ void GenericWindowSkinContent::applySkin()
     int width = 150;
     int height = 50;
 
-    // add height of list box to height of content component
+    // calculate optimal height of list box
     int listBoxHeight = listModel_.getNumRows() * skinList_.getRowHeight() +
                         2;
 
+    // add height of list box to height of content component
     height += listBoxHeight;
 
     // set component window dimensions
@@ -418,8 +421,10 @@ void GenericSkinListBoxModel::paintListBoxItem(
 
     // render row text in black
     g.setColour(Colours::black);
-    g.drawText(skinName, 2, 0, rowWidth - 4, rowHeight,
-               Justification::centredLeft, true);
+    g.drawText(skinName,
+               2, 0, rowWidth - 4, rowHeight, 
+               Justification::centredLeft,
+               true);
 }
 
 

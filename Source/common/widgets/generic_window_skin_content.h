@@ -39,10 +39,11 @@ class GenericSkinListBoxModel :
 public:
     GenericSkinListBoxModel();
 
-    void fill(const File &skinDirectory);
-
     virtual int getNumRows();
     int getRow(const String &skinNameToLookFor);
+
+    void fill(const File &skinDirectory);
+
     const String getSkinName(int rowNumber);
     void setDefault(int rowNumber);
 
@@ -74,13 +75,14 @@ public:
     GenericWindowSkinContent();
 
     static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
-                                            String *skinName,
+                                            String *currentSkinName,
                                             const File &skinDirectory);
 
     virtual void buttonClicked(Button *button);
 
     virtual void applySkin();
-    virtual void initialize(String *skinName,
+
+    virtual void initialize(String *currentSkinName,
                             const File &skinDirectory);
 
 private:

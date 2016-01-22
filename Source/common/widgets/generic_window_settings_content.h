@@ -44,9 +44,11 @@ public:
                                             const String &pluginSettings);
 
     virtual void buttonClicked(Button *button);
+
     virtual void closeButtonPressed();
 
     virtual void applySkin();
+
     virtual void initialize(int componentWidth,
                             int componentHeight,
                             const String &pluginSettings);
