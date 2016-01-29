@@ -49,18 +49,19 @@ public:
 
     virtual void applySkin();
 
-    virtual void initialize(int componentWidth,
+    virtual void initialise(int componentWidth,
                             int componentHeight,
                             const StringPairArray &chapters);
 
-private:
-    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
-
-    void addChapters(const StringPairArray &chapters);
+protected:
+    virtual void addChapters(const StringPairArray &chapters);
 
     TextEditor textEditor_;
     TextButton buttonClose_;
     ImageButton buttonLicense_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericWindowAboutContent);
 };
 
 

@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{A382491A-F60D-2BBE-E70E-379F9C710E94}</ProjectGuid>
+		<ProjectGuid>{67BEF821-6D6A-E6CE-A43C-DC02231F104D}</ProjectGuid>
 		<RootNamespace>Squeezer VST (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -234,6 +234,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about_content.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_segment_continuous.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_bar.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_combined.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.h" />
@@ -296,6 +297,8 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_state_label.cpp">
 		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment_continuous.cpp">
+		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_plugin_standalone.cpp">
@@ -305,6 +308,8 @@
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_switch_linear_bar.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment_discrete.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_segment.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_signal_led.cpp">
 		</ClCompile>

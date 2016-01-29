@@ -33,46 +33,56 @@
 ///
 /// @see GenericMeterBar
 ///
-class GenericMeterSegment : public Component
+class GenericMeterSegment :
+    public Component
 {
 public:
-    /// Destructor.
-    virtual ~GenericMeterSegment() { } ;
+    GenericMeterSegment();
+    virtual ~GenericMeterSegment();
 
-    /// Set normal (average) levels.  *Use this only if you completely
-    /// disregard discrete (peak) levels!*
-    ///
-    /// @param normalLevelNew new normal level
-    ///
-    /// @param normalLevelPeakNew new normal peak level
-    ///
-    virtual void setNormalLevels(float normalLevelNew,
-                                 float normalLevelPeakNew) { } ;
+    /// Orientation for the meter segment.
+    enum Orientation  // public namespace!
+    {
+        /// horizontal meter (bottom to top)
+        orientationHorizontal = 0,
 
-    /// Set discrete (peak) levels.  *Use this only if you completely
-    /// disregard normal (average) levels!*
-    ///
-    /// @param discreteLevelNew new discrete level
-    ///
-    /// @param discreteLevelPeakNew new discrete peak level
-    ///
-    virtual void setDiscreteLevels(float discreteLevelNew,
-                                   float discreteLevelPeakNew) { } ;
+        /// inverted horizontal meter (top to bottom)
+        orientationHorizontalInverted,
+
+        /// vertical meter (left to right)
+        orientationVertical,
+
+        /// inverted vertical meter (right to left)
+        orientationVerticalInverted
+    };
+
+    virtual void setNormalLevels(float normalLevel,
+                                 float normalLevelPeak);
+
+    virtual void setDiscreteLevels(float discreteLevel,
+                                   float discreteLevelPeak);
 
     /// Set discrete (peak) and normal (average) levels.
     ///
-    /// @param normalLevelNew new normal level
+    /// @param normalLevel new normal level
     ///
-    /// @param normalLevelPeakNew new normal peak level
+    /// @param normalLevelPeak new normal peak level
     ///
-    /// @param discreteLevelNew new discrete level
+    /// @param discreteLevel new discrete level
     ///
-    /// @param discreteLevelPeakNew new discrete peak level
+    /// @param discreteLevelPeak new discrete peak level
     ///
-    virtual void setLevels(float normalLevelNew,
-                           float normalLevelPeakNew,
-                           float discreteLevelNew,
-                           float discreteLevelPeakNew) { } ;
+    virtual void setLevels(float normalLevel,
+                           float normalLevelPeak,
+                           float discreteLevel,
+                           float discreteLevelPeak) = 0 ;
+
+    virtual GenericMeterSegment::Orientation getOrientation();
+    virtual void setOrientation(GenericMeterSegment::Orientation orientation);
+
+protected:
+    GenericMeterSegment::Orientation orientation_;
+
 };
 
 

@@ -49,15 +49,16 @@ public:
 
     virtual void applySkin();
 
-    virtual void initialize(int componentWidth,
+    virtual void initialise(int componentWidth,
                             int componentHeight,
                             const String &pluginSettings);
 
-private:
-    JUCE_LEAK_DETECTOR(GenericWindowSettingsContent);
-
+protected:
     TextEditor textEditor_;
     TextButton buttonClose_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericWindowSettingsContent);
 };
 
 

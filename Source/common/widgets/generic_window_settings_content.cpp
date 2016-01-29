@@ -67,11 +67,11 @@ DialogWindow *GenericWindowSettingsContent::createDialogWindow(
     GenericWindowSettingsContent *contentComponent =
         new GenericWindowSettingsContent();
 
-    contentComponent->initialize(componentWidth,
+    contentComponent->initialise(componentWidth,
                                  componentHeight,
                                  pluginSettings);
 
-    // initialize dialog window settings
+    // initialise dialog window settings
     windowSettingsLauncher.dialogTitle = String("Plug-in Settings");
     windowSettingsLauncher.dialogBackgroundColour = Colours::white;
     windowSettingsLauncher.content.setOwned(contentComponent);
@@ -99,7 +99,7 @@ DialogWindow *GenericWindowSettingsContent::createDialogWindow(
 /// @param pluginSettings string containing the formatted plug-in
 ///        settings
 ///
-void GenericWindowSettingsContent::initialize(
+void GenericWindowSettingsContent::initialise(
     int componentWidth,
     int componentHeight,
     const String &pluginSettings)
@@ -108,7 +108,7 @@ void GenericWindowSettingsContent::initialize(
     // set dimensions of content component
     setSize(componentWidth, componentHeight);
 
-    // initialize text editor component for displaying the plugin's
+    // initialise text editor component for displaying the plugin's
     // settings (read-only, can display multiple lines)
     textEditor_.setReadOnly(true);
     textEditor_.setMultiLine(true, true);
@@ -129,7 +129,7 @@ void GenericWindowSettingsContent::initialize(
     textEditor_.setCaretPosition(0);
     textEditor_.scrollEditorToPositionCaret(0, 0);
 
-    // initialize "close" button
+    // initialise "close" button
     buttonClose_.setButtonText("Close");
     addAndMakeVisible(buttonClose_);
     buttonClose_.addListener(this);

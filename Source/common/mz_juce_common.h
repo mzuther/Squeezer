@@ -40,7 +40,7 @@ public:
     ///
     static String getVersion()
     {
-        return "1.5.3";
+        return "1.5.4";
     }
 
     /// Round given value to nearest integer.  Will always round

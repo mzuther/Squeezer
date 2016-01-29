@@ -128,11 +128,13 @@ OBJECTS := \
 	$(OBJDIR)/generic_horizontal_meter.o \
 	$(OBJDIR)/generic_meter_bar.o \
 	$(OBJDIR)/generic_state_label.o \
+	$(OBJDIR)/generic_meter_segment_continuous.o \
 	$(OBJDIR)/slider_switch.o \
 	$(OBJDIR)/generic_plugin_standalone.o \
 	$(OBJDIR)/generic_window_validation_content.o \
 	$(OBJDIR)/slider_switch_linear_bar.o \
 	$(OBJDIR)/generic_meter_segment_discrete.o \
+	$(OBJDIR)/generic_meter_segment.o \
 	$(OBJDIR)/generic_signal_led.o \
 	$(OBJDIR)/generic_window_about_content.o \
 	$(OBJDIR)/resources.o \
@@ -282,6 +284,9 @@ $(OBJDIR)/generic_meter_bar.o: ../../../Source/common/widgets/generic_meter_bar.
 $(OBJDIR)/generic_state_label.o: ../../../Source/common/widgets/generic_state_label.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_meter_segment_continuous.o: ../../../Source/common/widgets/generic_meter_segment_continuous.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/slider_switch.o: ../../../Source/common/widgets/slider_switch.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -295,6 +300,9 @@ $(OBJDIR)/slider_switch_linear_bar.o: ../../../Source/common/widgets/slider_swit
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_meter_segment_discrete.o: ../../../Source/common/widgets/generic_meter_segment_discrete.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/generic_meter_segment.o: ../../../Source/common/widgets/generic_meter_segment.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_signal_led.o: ../../../Source/common/widgets/generic_signal_led.cpp

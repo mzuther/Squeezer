@@ -25,24 +25,21 @@
 
 #include "meter_bar_gain_reduction.h"
 
-MeterBarGainReduction::MeterBarGainReduction()
-{
-    arrHues.add(0.00f);  // red
-    arrHues.add(0.18f);  // yellow
-    arrHues.add(0.30f);  // green
-    arrHues.add(0.58f);  // blue
 
-    for (int n = 0; n < arrHues.size(); ++n)
-    {
-        arrPeakColours.add(Colour(arrHues[n], 1.0f, 1.0f, 0.7f));
-    }
-}
+void MeterBarGainReduction::create(Orientation orientation, bool discreteMeter,
+                                   int segmentHeight, int segmentWidth)
 
-
-void MeterBarGainReduction::create(int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation)
 {
     GenericMeterBar::create();
-    setSegmentWidth(nMainSegmentWidth);
+
+    segmentColours_.clear();
+
+    segmentColours_.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
+    segmentColours_.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
+    segmentColours_.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
+    segmentColours_.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // blue
+
+    setSegmentWidth(segmentWidth);
 
     setUpwardExpansion(false);
 
@@ -69,7 +66,28 @@ void MeterBarGainReduction::create(int nMainSegmentWidth, int nMainSegmentHeight
         bool bHasHighestLevel = (n == (nNumberOfBars - 1)) ? true : false;
         int nSpacingBefore = 0;
 
-        addSegment(fTrueLowerThreshold, fRange, bHasHighestLevel, nMainSegmentHeight, nSpacingBefore, arrHues[nColour], arrPeakColours[nColour]);
+        if (discreteMeter)
+        {
+            addDiscreteSegment(
+                fTrueLowerThreshold,
+                fRange,
+                bHasHighestLevel,
+                segmentHeight,
+                nSpacingBefore,
+                segmentColours_[nColour],
+                segmentColours_[nColour].withAlpha(0.7f));
+        }
+        else
+        {
+            addContinuousSegment(
+                fTrueLowerThreshold,
+                fRange,
+                bHasHighestLevel,
+                segmentHeight,
+                nSpacingBefore,
+                segmentColours_[nColour],
+                segmentColours_[nColour].withAlpha(0.7f));
+        }
 
         nTrueLowerThreshold += nRange;
     }
@@ -79,10 +97,10 @@ void MeterBarGainReduction::create(int nMainSegmentWidth, int nMainSegmentHeight
 }
 
 
-void MeterBarGainReduction::setUpwardExpansion(bool upward_expansion)
+void MeterBarGainReduction::setUpwardExpansion(bool upwardExpansion)
 {
-    bUpwardExpansion = upward_expansion;
-    invertMeter(bUpwardExpansion);
+    upwardExpansion_ = upwardExpansion;
+    invertMeter(upwardExpansion_);
 }
 
 

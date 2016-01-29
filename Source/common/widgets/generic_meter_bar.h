@@ -27,6 +27,7 @@
 #define __GENERIC_METER_BAR_H__
 
 #include "JuceHeader.h"
+#include "generic_meter_segment_continuous.h"
 #include "generic_meter_segment_discrete.h"
 
 
@@ -36,71 +37,94 @@
 ///
 /// @see GenericMeterSegment
 ///
-class GenericMeterBar : public Component
+class GenericMeterBar :
+    public Component
 {
 public:
-    GenericMeterBar();
-
     /// Orientation for the meter.
     enum Orientation  // public namespace!
     {
         /// horizontal meter (bottom to top)
-        orientationHorizontal = 0,
+        orientationHorizontal =
+            GenericMeterSegment::orientationHorizontal,
+
         /// inverted horizontal meter (top to bottom)
-        orientationHorizontalInverted,
+        orientationHorizontalInverted =
+            GenericMeterSegment::orientationHorizontalInverted,
+
         /// vertical meter (left to right)
-        orientationVertical,
+        orientationVertical =
+            GenericMeterSegment::orientationVertical,
+
         /// inverted vertical meter (right to left)
-        orientationVerticalInverted
+        orientationVerticalInverted =
+            GenericMeterSegment::orientationVerticalInverted
     };
 
-    void create();
-    void addSegment(float lowerThreshold, float thresholdRange, bool isTopmost,
-                    int segmentHeight, int spacingBefore, float segmentHue,
-                    const Colour &colPeakMarker);
+    virtual void create();
 
-    GenericMeterBar::Orientation getOrientation();
-    void setOrientation(GenericMeterBar::Orientation barOrientationNew);
+    virtual void addSegment(GenericMeterSegment *segment,
+                            int segmentHeight,
+                            int spacingBefore);
 
-    void invertMeter(bool isOrientationInvertedNew);
-    bool isMeterInverted();
+    virtual void addDiscreteSegment(float lowerThreshold,
+                                    float thresholdRange,
+                                    bool isTopmost,
+                                    int segmentHeight,
+                                    int spacingBefore,
+                                    const Colour &segmentColour,
+                                    const Colour &colPeakMarker);
 
-    int getSegmentWidth();
-    void setSegmentWidth(int segmentWidthNew);
+    virtual void addContinuousSegment(float lowerThreshold,
+                                      float thresholdRange,
+                                      bool isTopmost,
+                                      int segmentHeight,
+                                      int spacingBefore,
+                                      const Colour &segmentColour,
+                                      const Colour &colPeakMarker);
 
-    void setNormalLevels(float normalLevelNew,
-                         float normalLevelPeakNew);
+    virtual GenericMeterBar::Orientation getOrientation();
+    virtual void setOrientation(GenericMeterBar::Orientation orientation);
 
-    void setDiscreteLevels(float discreteLevelNew,
-                           float discreteLevelPeakNew);
+    virtual void invertMeter(bool invert);
+    virtual bool isMeterInverted();
 
-    void setLevels(float normalLevelNew,
-                   float normalLevelPeakNew,
-                   float discreteLevelNew,
-                   float discreteLevelPeakNew);
+    virtual int getSegmentWidth();
+    virtual void setSegmentWidth(int segmentWidth);
 
-    void paint(Graphics &g);
-    void resized();
+    virtual void setNormalLevels(float normalLevel,
+                                 float normalLevelPeak);
+
+    virtual void setDiscreteLevels(float discreteLevel,
+                                   float discreteLevelPeak);
+
+    virtual void setLevels(float normalLevel,
+                           float normalLevelPeak,
+                           float discreteLevel,
+                           float discreteLevelPeak);
+
+    virtual void paint(Graphics &g);
+    virtual void resized();
 
 private:
     JUCE_LEAK_DETECTOR(GenericMeterBar);
 
-    float normalLevel;
-    float normalLevelPeak;
+    float normalLevel_;
+    float normalLevelPeak_;
 
-    float discreteLevel;
-    float discreteLevelPeak;
+    float discreteLevel_;
+    float discreteLevelPeak_;
 
-    int barWidth;
-    int barHeight;
-    int segmentWidth;
+    int barWidth_;
+    int barHeight_;
+    int segmentWidth_;
 
-    bool isOrientationVertical;
-    bool isOrientationInverted;
+    bool isVertical_;
+    bool isInverted_;
 
-    GenericMeterBar::Orientation barOrientation;
-    Array<int> arrSegmentSpacing;
-    OwnedArray<GenericMeterSegment> p_arrMeterSegments;
+    GenericMeterBar::Orientation orientation_;
+    Array<int> segmentSpacing_;
+    OwnedArray<GenericMeterSegment> meterSegments_;
 };
 
 

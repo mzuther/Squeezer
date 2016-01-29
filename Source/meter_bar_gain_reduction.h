@@ -30,24 +30,24 @@
 #include "common/widgets/generic_meter_bar.h"
 
 
-//==============================================================================
-/**
-*/
-class MeterBarGainReduction : public GenericMeterBar
+class MeterBarGainReduction :
+    public GenericMeterBar
 {
 public:
-    MeterBarGainReduction();
+    void create(Orientation orientation,
+                bool discreteMeter,
+                int segmentWidth,
+                int segmentHeight);
 
-    void create(int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation);
     void setUpwardExpansion(bool upwardExpansion);
+
+protected:
+    bool upwardExpansion_;
+
+    Array<Colour> segmentColours_;
 
 private:
     JUCE_LEAK_DETECTOR(MeterBarGainReduction);
-
-    bool bUpwardExpansion;
-
-    Array<float> arrHues;
-    Array<Colour> arrPeakColours;
 };
 
 

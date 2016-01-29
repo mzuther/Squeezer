@@ -345,20 +345,37 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
-        MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(new MeterBarLevel());
-        pMeterBarLevelInput->create(20, 12, 5, MeterBarLevel::orientationVertical);
+        bool discreteMeter = true;
+
+        MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(
+                new MeterBarLevel());
+        pMeterBarLevelInput->create(20,
+                                    MeterBarLevel::orientationVertical,
+                                    discreteMeter,
+                                    5,
+                                    12);
 
         pMeterBarLevelInput->setBounds(x, y, width, 0);
         addAndMakeVisible(pMeterBarLevelInput);
 
-        MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(new MeterBarLevel());
-        pMeterBarLevelOutput->create(20, 12, 5, MeterBarLevel::orientationVertical);
+        MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(
+                new MeterBarLevel());
+        pMeterBarLevelOutput->create(20,
+                                     MeterBarLevel::orientationVertical,
+                                     discreteMeter,
+                                     5,
+                                     12);
 
         pMeterBarLevelOutput->setBounds(x + 2 * x_spacing, y, width, 0);
         addAndMakeVisible(pMeterBarLevelOutput);
 
-        MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(new MeterBarGainReduction());
-        pMeterBarGainReduction->create(12, 5, MeterBarLevel::orientationVertical);
+        MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(
+                    new MeterBarGainReduction());
+        pMeterBarGainReduction->create(
+            MeterBarLevel::orientationVertical,
+            discreteMeter,
+            5,
+            12);
 
         pMeterBarGainReduction->setBounds(x + x_spacing, y, width, 0);
         addAndMakeVisible(pMeterBarGainReduction);

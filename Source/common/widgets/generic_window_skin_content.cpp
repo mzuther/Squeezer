@@ -67,10 +67,10 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(
     GenericWindowSkinContent *contentComponent =
         new GenericWindowSkinContent();
 
-    contentComponent->initialize(currentSkinName,
+    contentComponent->initialise(currentSkinName,
                                  skinDirectory);
 
-    // initialize dialog window settings
+    // initialise dialog window settings
     windowSkinLauncher.dialogTitle = "Select skin";
     windowSkinLauncher.dialogBackgroundColour = Colours::white;
     windowSkinLauncher.content.setOwned(contentComponent);
@@ -96,7 +96,7 @@ DialogWindow *GenericWindowSkinContent::createDialogWindow(
 ///
 /// @param skinDirectory directory containing the skins
 ///
-void GenericWindowSkinContent::initialize(
+void GenericWindowSkinContent::initialise(
     String *currentSkinName,
     const File &skinDirectory)
 
@@ -107,7 +107,7 @@ void GenericWindowSkinContent::initialize(
     // fill list box model with skin names
     listModel_.fill(skinDirectory);
 
-    // initialize list box
+    // initialise list box
     skinList_.setModel(&listModel_);
     addAndMakeVisible(skinList_);
 
@@ -118,12 +118,12 @@ void GenericWindowSkinContent::initialize(
     int row = listModel_.getRow(*currentSkinName_);
     skinList_.selectRow(row);
 
-    // initialize "select" button for selecting a new skin
+    // initialise "select" button for selecting a new skin
     buttonSelect_.setButtonText("Select");
     addAndMakeVisible(buttonSelect_);
     buttonSelect_.addListener(this);
 
-    // initialize "default" button for selecting a new default skin
+    // initialise "default" button for selecting a new default skin
     buttonDefault_.setButtonText("Default");
     addAndMakeVisible(buttonDefault_);
     buttonDefault_.addListener(this);
@@ -165,7 +165,7 @@ void GenericWindowSkinContent::applySkin()
         Colours::yellow);
 
 
-    // initialize content component dimensions
+    // initialise content component dimensions
     int width = 150;
     int height = 50;
 
@@ -422,7 +422,7 @@ void GenericSkinListBoxModel::paintListBoxItem(
     // render row text in black
     g.setColour(Colours::black);
     g.drawText(skinName,
-               2, 0, rowWidth - 4, rowHeight, 
+               2, 0, rowWidth - 4, rowHeight,
                Justification::centredLeft,
                true);
 }

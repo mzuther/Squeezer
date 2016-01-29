@@ -30,21 +30,21 @@
 #include "common/widgets/generic_meter_bar.h"
 
 
-//==============================================================================
-/**
-*/
-class MeterBarLevel : public GenericMeterBar
+class MeterBarLevel :
+    public GenericMeterBar
 {
 public:
-    MeterBarLevel();
+    void create(int crestFactor,
+                Orientation orientation,
+                bool discreteMeter,
+                int mainSegmentHeight,
+                int segmentWidth);
 
-    void create(int crestFactor, int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation);
+protected:
+    Array<Colour> segmentColours_;
 
 private:
     JUCE_LEAK_DETECTOR(MeterBarLevel);
-
-    Array<float> arrHues;
-    Array<Colour> arrPeakColours;
 };
 
 

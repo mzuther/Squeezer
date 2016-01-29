@@ -25,24 +25,21 @@
 
 #include "meter_bar_level.h"
 
-MeterBarLevel::MeterBarLevel()
-{
-    arrHues.add(0.00f);  // red
-    arrHues.add(0.18f);  // yellow
-    arrHues.add(0.30f);  // green
-    arrHues.add(0.58f);  // blue
+void MeterBarLevel::create(int crestFactor, Orientation orientation,
+                           bool discreteMeter, int mainSegmentHeight,
+                           int segmentWidth)
 
-    for (int n = 0; n < arrHues.size(); ++n)
-    {
-        arrPeakColours.add(Colour(arrHues[n], 1.0f, 1.0f, 0.7f));
-    }
-}
-
-
-void MeterBarLevel::create(int crestFactor, int nMainSegmentWidth, int nMainSegmentHeight, Orientation orientation)
 {
     GenericMeterBar::create();
-    setSegmentWidth(nMainSegmentWidth);
+
+    segmentColours_.clear();
+
+    segmentColours_.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
+    segmentColours_.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
+    segmentColours_.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
+    segmentColours_.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // blue
+
+    setSegmentWidth(segmentWidth);
 
     int nCrestFactor = crestFactor * 10;
     int nRange = 20;
@@ -54,7 +51,7 @@ void MeterBarLevel::create(int crestFactor, int nMainSegmentWidth, int nMainSegm
     for (int n = 0; n < nNumberOfBars; ++n)
     {
         int nColour;
-        int nSegmentHeight;
+        int segmentHeight;
         int nSpacingBefore;
 
         if (n == 0)
@@ -62,13 +59,13 @@ void MeterBarLevel::create(int crestFactor, int nMainSegmentWidth, int nMainSegm
             nColour = 0;
 
             // overload marker
-            nSegmentHeight = 2 * nMainSegmentHeight - 2;
+            segmentHeight = 2 * mainSegmentHeight - 2;
             nSpacingBefore = 0;
         }
         else if (n == 1)
         {
             nColour = 0;
-            nSegmentHeight = nMainSegmentHeight;
+            segmentHeight = mainSegmentHeight;
 
             // spacing for overload marker
             nSpacingBefore = 2;
@@ -76,26 +73,47 @@ void MeterBarLevel::create(int crestFactor, int nMainSegmentWidth, int nMainSegm
         else if (nTrueLowerThreshold >= -80)
         {
             nColour = 0;
-            nSegmentHeight = nMainSegmentHeight;
+            segmentHeight = mainSegmentHeight;
             nSpacingBefore = 0;
         }
         else if (nTrueLowerThreshold >= -200)
         {
             nColour = 1;
-            nSegmentHeight = nMainSegmentHeight;
+            segmentHeight = mainSegmentHeight;
             nSpacingBefore = 0;
         }
         else
         {
             nColour = 2;
-            nSegmentHeight = nMainSegmentHeight;
+            segmentHeight = mainSegmentHeight;
         }
 
         float fLowerThreshold = nLowerThreshold * 0.1f;
         float fRange = nRange * 0.1f;
-        bool bHasHighestLevel = (n == 0) ? true : false;
+        bool hasHighestLevel = (n == 0) ? true : false;
 
-        addSegment(fLowerThreshold, fRange, bHasHighestLevel, nSegmentHeight, nSpacingBefore, arrHues[nColour], arrPeakColours[nColour]);
+        if (discreteMeter)
+        {
+            addDiscreteSegment(
+                fLowerThreshold,
+                fRange,
+                hasHighestLevel,
+                segmentHeight,
+                nSpacingBefore,
+                segmentColours_[nColour],
+                segmentColours_[nColour].withAlpha(0.7f));
+        }
+        else
+        {
+            addContinuousSegment(
+                fLowerThreshold,
+                fRange,
+                hasHighestLevel,
+                segmentHeight,
+                nSpacingBefore,
+                segmentColours_[nColour],
+                segmentColours_[nColour].withAlpha(0.7f));
+        }
 
         nTrueLowerThreshold -= nRange;
         nLowerThreshold = nTrueLowerThreshold + nCrestFactor;

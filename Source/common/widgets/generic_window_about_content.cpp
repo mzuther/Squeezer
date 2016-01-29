@@ -69,11 +69,11 @@ DialogWindow *GenericWindowAboutContent::createDialogWindow(
     GenericWindowAboutContent *contentComponent =
         new GenericWindowAboutContent();
 
-    contentComponent->initialize(componentWidth,
+    contentComponent->initialise(componentWidth,
                                  componentHeight,
                                  chapters);
 
-    // initialize dialog window settings
+    // initialise dialog window settings
     windowAboutLauncher.dialogTitle = String("About ") +
                                       ProjectInfo::projectName;
 
@@ -103,7 +103,7 @@ DialogWindow *GenericWindowAboutContent::createDialogWindow(
 /// @param chapters dictionary containing chapter headlines and the
 ///        accompanying text
 ///
-void GenericWindowAboutContent::initialize(
+void GenericWindowAboutContent::initialise(
     int componentWidth,
     int componentHeight,
     const StringPairArray &chapters)
@@ -112,7 +112,7 @@ void GenericWindowAboutContent::initialize(
     // set dimensions of content component
     setSize(componentWidth, componentHeight);
 
-    // initialize text editor component for displaying the plugin's
+    // initialise text editor component for displaying the plugin's
     // settings (read-only, can display multiple lines)
     textEditor_.setMultiLine(true, true);
     textEditor_.setReadOnly(true);
@@ -121,7 +121,7 @@ void GenericWindowAboutContent::initialize(
     // display plug-in description
     addChapters(chapters);
 
-    // initialize "license" button which opens the license text in a
+    // initialise "license" button which opens the license text in a
     // web browser
     addAndMakeVisible(buttonLicense_);
     buttonLicense_.addListener(this);
@@ -150,7 +150,7 @@ void GenericWindowAboutContent::initialize(
         1.0f,
         Colour());
 
-    // initialize "close" button
+    // initialise "close" button
     buttonClose_.setButtonText("Close");
     addAndMakeVisible(buttonClose_);
     buttonClose_.addListener(this);

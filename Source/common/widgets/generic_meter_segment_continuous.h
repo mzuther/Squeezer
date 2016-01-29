@@ -23,25 +23,26 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_METER_SEGMENT_DISCRETE_H__
-#define __GENERIC_METER_SEGMENT_DISCRETE_H__
+#ifndef __GENERIC_METER_SEGMENT_CONTINUOUS_H__
+#define __GENERIC_METER_SEGMENT_CONTINUOUS_H__
 
 #include "JuceHeader.h"
+#include "../mz_juce_common.h"
 #include "generic_meter_segment.h"
 
 
-/// Discrete meter segment component.  This widget consists of a
+/// Continuous meter segment component.  This widget consists of a
 /// coloured filled rectangle (meter segment) surrounded by a small
 /// coloured rectangle (peak marker).  Both rectangles react to level
 /// changes with a change in colour or visibility.
 ///
 /// @see GenericMeterBar
 ///
-class GenericMeterSegmentDiscrete :
+class GenericMeterSegmentContinuous :
     public GenericMeterSegment
 {
 public:
-    GenericMeterSegmentDiscrete();
+    GenericMeterSegmentContinuous();
 
     virtual float setThresholdAndRange(float lowerThreshold,
                                        float thresholdRange,
@@ -60,25 +61,38 @@ public:
     virtual void visibilityChanged();
 
 protected:
+    virtual void drawBar(Graphics &g,
+                         float levelPosition);
+
+    virtual void drawMarker(Graphics &g,
+                            const Colour &markerColour,
+                            float levelPosition);
+
     float lowerThreshold_;
     float upperThreshold_;
     float thresholdRange_;
 
     Colour segmentColour_;
+    Colour backgroundColour_;
     Colour peakMarkerColour_;
 
-    float segmentBrightness_;
-    float outlineBrightness_;
+    int maximumX_;
+    int maximumY_;
 
-    bool displayPeakMarker_;
+    float normalLevelPosition_;
+    float normalPeakPosition_;
+
+    float discreteLevelPosition_;
+    float discretePeakPosition_;
+
     bool isTopmost_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericMeterSegmentDiscrete);
+    JUCE_LEAK_DETECTOR(GenericMeterSegmentContinuous);
 };
 
 
-#endif  // __GENERIC_METER_SEGMENT_DISCRETE_H__
+#endif  // __GENERIC_METER_SEGMENT_CONTINUOUS_H__
 
 
 // Local Variables:

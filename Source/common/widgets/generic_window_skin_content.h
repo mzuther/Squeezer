@@ -40,12 +40,12 @@ public:
     GenericSkinListBoxModel();
 
     virtual int getNumRows();
-    int getRow(const String &skinNameToLookFor);
+    virtual int getRow(const String &skinNameToLookFor);
 
-    void fill(const File &skinDirectory);
+    virtual void fill(const File &skinDirectory);
 
-    const String getSkinName(int rowNumber);
-    void setDefault(int rowNumber);
+    virtual const String getSkinName(int rowNumber);
+    virtual void setDefault(int rowNumber);
 
     virtual void paintListBoxItem(int rowNumber,
                                   Graphics &g,
@@ -60,6 +60,9 @@ private:
     File defaultSkinFile_;
     String defaultSkinName_;
     StringArray skinNames_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericSkinListBoxModel);
 };
 
 
@@ -82,12 +85,10 @@ public:
 
     virtual void applySkin();
 
-    virtual void initialize(String *currentSkinName,
+    virtual void initialise(String *currentSkinName,
                             const File &skinDirectory);
 
-private:
-    JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
-
+protected:
     ListBox skinList_;
     GenericSkinListBoxModel listModel_;
 
@@ -95,6 +96,9 @@ private:
     TextButton buttonDefault_;
 
     String *currentSkinName_;
+
+private:
+    JUCE_LEAK_DETECTOR(GenericWindowSkinContent);
 };
 
 
