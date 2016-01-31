@@ -27,20 +27,13 @@
 
 
 void MeterBarGainReduction::create(Orientation orientation, bool discreteMeter,
-                                   int mainSegmentHeight, int mainSegmentWidth)
+                                   int mainSegmentHeight, int mainSegmentWidth,
+                                   const Array<Colour> &segmentColours)
 
 {
     GenericMeterBar::create();
 
-    Array<Colour> segmentColours;
-
-    segmentColours.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
-    segmentColours.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
-    segmentColours.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
-    segmentColours.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // blue
-
     setSegmentWidth(mainSegmentWidth);
-
     setUpwardExpansion(false);
 
     int trueLowerThreshold = 0;
@@ -53,11 +46,11 @@ void MeterBarGainReduction::create(Orientation orientation, bool discreteMeter,
 
         if (n % 6 == 5)
         {
-            colourId = 1;
+            colourId = colourSelector::notify;
         }
         else
         {
-            colourId = 3;
+            colourId = colourSelector::normal;
         }
 
         bool hasHighestLevel = (n == (numberOfBars - 1)) ? true : false;

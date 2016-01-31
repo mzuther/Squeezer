@@ -37,11 +37,22 @@ public:
     void create(Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentWidth,
-                int mainSegmentHeight);
+                int mainSegmentHeight,
+                const Array<Colour> &segmentColours);
 
     void setUpwardExpansion(bool upwardExpansion);
 
 protected:
+    /// Colour ID selector for meter segments.
+    enum colourSelector  // protected namespace
+    {
+        /// normal (usually blue)
+        normal = 0,
+
+        /// notify (usually yellow)
+        notify
+    };
+
     bool upwardExpansion_;
 
 private:

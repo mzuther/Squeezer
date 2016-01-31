@@ -38,7 +38,22 @@ public:
                 Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
-                int mainSegmentWidth);
+                int mainSegmentWidth,
+                const Array<Colour> &segmentColours);
+
+protected:
+    /// Colour ID selector for meter segments.
+    enum colourSelector  // protected namespace
+    {
+        /// overload (usually red)
+        overload = 0,
+
+        /// warning (usually yellow)
+        warning,
+
+        /// fine (usually green)
+        fine,
+    };
 
 private:
     JUCE_LEAK_DETECTOR(MeterBarLevel);

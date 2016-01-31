@@ -345,6 +345,19 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
+        Array<Colour> levelMeterColours;
+
+        levelMeterColours.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // overload
+        levelMeterColours.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // warning
+        levelMeterColours.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // fine
+
+
+        Array<Colour> gainReductionColours;
+
+        gainReductionColours.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // normal
+        gainReductionColours.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // notify
+
+
         bool discreteMeter = true;
 
         MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(
@@ -353,7 +366,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
                                     MeterBarLevel::orientationVertical,
                                     discreteMeter,
                                     5,
-                                    12);
+                                    12,
+                                    levelMeterColours);
 
         pMeterBarLevelInput->setBounds(x, y, width, 0);
         addAndMakeVisible(pMeterBarLevelInput);
@@ -364,7 +378,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
                                      MeterBarLevel::orientationVertical,
                                      discreteMeter,
                                      5,
-                                     12);
+                                     12,
+                                     levelMeterColours);
 
         pMeterBarLevelOutput->setBounds(x + 2 * x_spacing, y, width, 0);
         addAndMakeVisible(pMeterBarLevelOutput);
@@ -375,7 +390,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
             MeterBarLevel::orientationVertical,
             discreteMeter,
             5,
-            12);
+            12,
+            gainReductionColours);
 
         pMeterBarGainReduction->setBounds(x + x_spacing, y, width, 0);
         addAndMakeVisible(pMeterBarGainReduction);

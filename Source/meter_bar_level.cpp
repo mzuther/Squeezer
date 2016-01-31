@@ -25,22 +25,15 @@
 
 #include "meter_bar_level.h"
 
-void MeterBarLevel::create(int crestFactor, Orientation orientation,
-                           bool discreteMeter, int mainSegmentHeight,
-                           int mainSegmentWidth)
+void MeterBarLevel::create(
+    int crestFactor, Orientation orientation, bool discreteMeter,
+    int mainSegmentHeight, int mainSegmentWidth,
+    const Array<Colour> &segmentColours)
 
 {
     GenericMeterBar::create();
 
-    Array<Colour> segmentColours;
-
-    segmentColours.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
-    segmentColours.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
-    segmentColours.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
-    segmentColours.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // blue
-
     setSegmentWidth(mainSegmentWidth);
-
     crestFactor *= 10;
 
     int levelRange = 20;
@@ -57,14 +50,14 @@ void MeterBarLevel::create(int crestFactor, Orientation orientation,
 
         if (n == 0)
         {
-            colourId = 0;
+            colourId = colourSelector::overload;
 
             // overload marker
             segmentHeight = 2 * mainSegmentHeight - 2;
         }
         else if (n == 1)
         {
-            colourId = 0;
+            colourId = colourSelector::overload;
             segmentHeight = mainSegmentHeight;
 
             // spacing for overload marker
@@ -72,17 +65,17 @@ void MeterBarLevel::create(int crestFactor, Orientation orientation,
         }
         else if (trueLowerThreshold >= -80)
         {
-            colourId = 0;
+            colourId = colourSelector::overload;
             segmentHeight = mainSegmentHeight;
         }
         else if (trueLowerThreshold >= -200)
         {
-            colourId = 1;
+            colourId = colourSelector::warning;
             segmentHeight = mainSegmentHeight;
         }
         else
         {
-            colourId = 2;
+            colourId = colourSelector::fine;
             segmentHeight = mainSegmentHeight;
         }
 
