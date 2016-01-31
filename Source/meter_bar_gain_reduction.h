@@ -36,15 +36,13 @@ class MeterBarGainReduction :
 public:
     void create(Orientation orientation,
                 bool discreteMeter,
-                int segmentWidth,
-                int segmentHeight);
+                int mainSegmentWidth,
+                int mainSegmentHeight);
 
     void setUpwardExpansion(bool upwardExpansion);
 
 protected:
     bool upwardExpansion_;
-
-    Array<Colour> segmentColours_;
 
 private:
     JUCE_LEAK_DETECTOR(MeterBarGainReduction);

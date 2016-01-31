@@ -27,96 +27,98 @@
 
 void MeterBarLevel::create(int crestFactor, Orientation orientation,
                            bool discreteMeter, int mainSegmentHeight,
-                           int segmentWidth)
+                           int mainSegmentWidth)
 
 {
     GenericMeterBar::create();
 
-    segmentColours_.clear();
+    Array<Colour> segmentColours;
 
-    segmentColours_.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
-    segmentColours_.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
-    segmentColours_.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
-    segmentColours_.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // blue
+    segmentColours.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // red
+    segmentColours.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // yellow
+    segmentColours.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // green
+    segmentColours.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // blue
 
-    setSegmentWidth(segmentWidth);
+    setSegmentWidth(mainSegmentWidth);
 
-    int nCrestFactor = crestFactor * 10;
-    int nRange = 20;
-    int nTrueLowerThreshold = -nRange;
-    int nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
+    crestFactor *= 10;
 
-    int nNumberOfBars = 23;
+    int levelRange = 20;
+    int trueLowerThreshold = -levelRange;
+    int lowerThreshold = trueLowerThreshold + crestFactor;
 
-    for (int n = 0; n < nNumberOfBars; ++n)
+    int numberOfBars = 23;
+
+    for (int n = 0; n < numberOfBars; ++n)
     {
-        int nColour;
+        int colourId;
         int segmentHeight;
-        int nSpacingBefore;
+        int spacingBefore = 0;
 
         if (n == 0)
         {
-            nColour = 0;
+            colourId = 0;
 
             // overload marker
             segmentHeight = 2 * mainSegmentHeight - 2;
-            nSpacingBefore = 0;
         }
         else if (n == 1)
         {
-            nColour = 0;
+            colourId = 0;
             segmentHeight = mainSegmentHeight;
 
             // spacing for overload marker
-            nSpacingBefore = 2;
+            spacingBefore = 2;
         }
-        else if (nTrueLowerThreshold >= -80)
+        else if (trueLowerThreshold >= -80)
         {
-            nColour = 0;
+            colourId = 0;
             segmentHeight = mainSegmentHeight;
-            nSpacingBefore = 0;
         }
-        else if (nTrueLowerThreshold >= -200)
+        else if (trueLowerThreshold >= -200)
         {
-            nColour = 1;
+            colourId = 1;
             segmentHeight = mainSegmentHeight;
-            nSpacingBefore = 0;
         }
         else
         {
-            nColour = 2;
+            colourId = 2;
             segmentHeight = mainSegmentHeight;
         }
 
-        float fLowerThreshold = nLowerThreshold * 0.1f;
-        float fRange = nRange * 0.1f;
         bool hasHighestLevel = (n == 0) ? true : false;
 
         if (discreteMeter)
         {
+            // meter segment outlines overlap
+            spacingBefore -= 1;
+            segmentHeight += 1;
+
             addDiscreteSegment(
-                fLowerThreshold,
-                fRange,
+                lowerThreshold * 0.1f,
+                levelRange * 0.1f,
                 hasHighestLevel,
                 segmentHeight,
-                nSpacingBefore,
-                segmentColours_[nColour],
-                segmentColours_[nColour].withAlpha(0.7f));
+                spacingBefore,
+                segmentColours[colourId],
+                segmentColours[colourId].withMultipliedBrightness(0.7f));
         }
         else
         {
+            // meter segment outlines must not overlap
+
             addContinuousSegment(
-                fLowerThreshold,
-                fRange,
+                lowerThreshold * 0.1f,
+                levelRange * 0.1f,
                 hasHighestLevel,
                 segmentHeight,
-                nSpacingBefore,
-                segmentColours_[nColour],
-                segmentColours_[nColour].withAlpha(0.7f));
+                spacingBefore,
+                segmentColours[colourId],
+                segmentColours[colourId].withMultipliedBrightness(0.7f));
         }
 
-        nTrueLowerThreshold -= nRange;
-        nLowerThreshold = nTrueLowerThreshold + nCrestFactor;
+        trueLowerThreshold -= levelRange;
+        lowerThreshold = trueLowerThreshold + crestFactor;
     }
 
     // set orientation here to save some processing power

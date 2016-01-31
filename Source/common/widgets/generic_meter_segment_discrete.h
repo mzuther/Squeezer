@@ -67,8 +67,8 @@ protected:
     Colour segmentColour_;
     Colour peakMarkerColour_;
 
-    float segmentBrightness_;
-    float outlineBrightness_;
+    float segmentBrightnessModifier_;
+    float outlineBrightnessModifier_;
 
     bool displayPeakMarker_;
     bool isTopmost_;

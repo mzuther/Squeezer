@@ -93,11 +93,6 @@ void GenericMeterBar::addSegment(
     // set to standard orientation to easily add a new meter segment
     setOrientation(orientationVertical);
 
-    // meter segment outlines overlap (better do it here explicitly
-    // than relying on the user to remember this ...)
-    segmentHeight += 1;
-    spacingBefore -= 1;
-
     // add spacing to meter bar's height (no spacing before first
     // meter segment!)
     if (meterSegments_.size() > 0)

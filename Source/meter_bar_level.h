@@ -38,10 +38,7 @@ public:
                 Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
-                int segmentWidth);
-
-protected:
-    Array<Colour> segmentColours_;
+                int mainSegmentWidth);
 
 private:
     JUCE_LEAK_DETECTOR(MeterBarLevel);

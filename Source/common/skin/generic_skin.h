@@ -38,31 +38,67 @@ class GenericSkin;
 class GenericSkin
 {
 public:
-    GenericSkin();
+    bool loadFromXml(File &skinFile,
+                     const String &rootName);
 
-    bool loadFromXml(File &fileSkin, const String &strXmlRootName);
-    void placeComponent(Component *component, String strXmlTag);
-    void placeMeterBar(GenericMeterBar *meterBar, String strXmlTag);
-    void placeAndSkinButton(ImageButton *button, String strXmlTag);
-    void placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter, String strXmlTag);
-    void placeAndSkinLabel(ImageComponent *label, String strXmlTag);
-    void placeAndSkinSignalLed(GenericSignalLed *label, String strXmlTag);
-    void placeAndSkinStateLabel(GenericStateLabel *label, String strXmlTag);
-    void setBackgroundImage(ImageComponent *background, AudioProcessorEditor *editor);
+    int getIntegerSetting(const String &tagName,
+                          const String &attributeName,
+                          int defaultValue = 0);
+
+    float getFloatSetting(
+        const String &tagName,
+        const String &attributeName,
+        float defaultValue = 0.0f);
+
+    const String getStringSetting(
+        const String &tagName,
+        const String &attributeName,
+        const String &defaultValue = "");
+
+    const Colour getColourSetting(
+        const String &tagName,
+        float defaultHue = 0.0f);
+
+    void placeComponent(Component *component,
+                        const String &tagName);
+
+    void placeMeterBar(GenericMeterBar *meterBar,
+                       const String &tagName);
+
+    void placeAndSkinButton(ImageButton *button,
+                            const String &tagName);
+
+    void placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter,
+                                     const String &tagName);
+
+    void placeAndSkinLabel(ImageComponent *label,
+                           const String &tagName);
+
+    void placeAndSkinSignalLed(GenericSignalLed *label,
+                               const String &tagName);
+
+    void placeAndSkinStateLabel(GenericStateLabel *label,
+                                const String &tagName);
+
+    void setBackgroundImage(ImageComponent *background,
+                            AudioProcessorEditor *editor);
 
 protected:
-    XmlElement *getComponentFromXml(String strXmlTag);
+    XmlElement *getComponentFromXml(const String &tagName);
 
-    ScopedPointer<XmlElement> xml;
-    XmlElement *xmlSkinGroup;
-    XmlElement *xmlSkinFallback_1;
-    XmlElement *xmlSkinFallback_2;
+    XmlElement *getSetting(const String &tagName);
 
-    File fileResourcePath;
+    ScopedPointer<XmlElement> document_;
+    XmlElement *settingsGroup_;
+    XmlElement *skinGroup_;
+    XmlElement *skinFallback_1_;
+    XmlElement *skinFallback_2_;
 
-    String strBackgroundSelector;
-    String strSkinGroup;
-    String strSkinFallback_1;
+    File resourcePath_;
+
+    String currentBackgroundName_;
+    String currentGroupName_;
+    String currentFallbackName_;
 
 private:
     JUCE_LEAK_DETECTOR(GenericSkin);

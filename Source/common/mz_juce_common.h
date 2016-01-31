@@ -40,8 +40,9 @@ public:
     ///
     static String getVersion()
     {
-        return "1.5.4";
+        return "1.5.5";
     }
+
 
     /// Round given value to nearest integer.  Will always round
     /// **away** from zero!
@@ -50,24 +51,80 @@ public:
     ///
     /// @return rounded value
     ///
-    static int round_mz(float x)
+    static int round(float x)
     {
         // value is greater than (or exactly) zero
         if (x >= 0.0f)
         {
-            // round away from zero by adding 0.5
+            // round away from zero
             x += 0.5f;
         }
         // value is below zero
         else
         {
-            // round away from zero by substracting 0.5
+            // round away from zero
             x -= 0.5f;
         }
 
         // remove remainder and return it
-        return (int) x;
+        return static_cast<int>(x);
     }
+
+
+    /// Round given value up.  Will always round **away** from zero!
+    ///
+    /// @param x value to be rounded
+    ///
+    /// @return rounded value
+    ///
+    static int roundUp(float x)
+    {
+        int floor = static_cast<int>(x);
+
+        // value is exactly zero
+        if (x == 0.0f)
+        {
+            // return value
+            return x;
+        }
+        // value is greater than zero
+        else if (x > 0.0f)
+        {
+            // check whether value needs to be rounded
+            if ((x - floor) > 0.0f)
+            {
+                // round away from zero
+                floor += 1;
+            }
+        }
+        // value is below zero
+        else
+        {
+            // check whether value needs to be rounded
+            if ((x - floor) < 0.0f)
+            {
+                // round away from zero
+                floor -= 1;
+            }
+        }
+
+        // return rounded value
+        return floor;
+    }
+
+
+    /// Round given value up.  Will always round **down to** zero!
+    ///
+    /// @param x value to be rounded
+    ///
+    /// @return rounded value
+    ///
+    static int roundDown(float x)
+    {
+        // remove remainder and return it
+        return static_cast<int>(x);
+    }
+
 
 private:
     JUCE_LEAK_DETECTOR(MZ_Juce_Common);

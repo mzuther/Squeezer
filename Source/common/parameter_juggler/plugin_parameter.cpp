@@ -143,7 +143,7 @@ bool PluginParameter::getDefaultBoolean()
 ///
 int PluginParameter::getDefaultRealInteger()
 {
-    return MZ_Juce_Common::round_mz(getDefaultRealFloat());
+    return MZ_Juce_Common::round(getDefaultRealFloat());
 }
 
 
@@ -177,7 +177,7 @@ float PluginParameter::getRealFloat()
 ///
 int PluginParameter::getRealInteger()
 {
-    return MZ_Juce_Common::round_mz(getRealFloat());
+    return MZ_Juce_Common::round(getRealFloat());
 }
 
 

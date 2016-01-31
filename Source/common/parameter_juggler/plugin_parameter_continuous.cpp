@@ -338,7 +338,7 @@ const String PluginParameterContinuous::getTextFromFloat(float newValue)
     else
     {
         // round real parameter value
-        newRealValue = (float) MZ_Juce_Common::round_mz(newRealValue);
+        newRealValue = (float) MZ_Juce_Common::round(newRealValue);
 
         // format parameter value
         textValueNew = String(newRealValue);

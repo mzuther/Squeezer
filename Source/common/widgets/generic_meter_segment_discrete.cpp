@@ -60,10 +60,13 @@
 ///
 GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete()
 {
-    // initialise meter segment's brightness (0.0 is dark, 1.0 is
+    // initialise segment's brightness modifier (0.2 is dark, 1.0 is
     // fully lit)
-    segmentBrightness_ = 0.0f;
-    outlineBrightness_ = 0.0f;
+    segmentBrightnessModifier_ = 0.0f;
+
+    // initialise outline's brightness modifier (0.2 is dark, 1.0 is
+    // fully lit)
+    outlineBrightnessModifier_ = 0.0f;
 
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;
@@ -150,9 +153,13 @@ void GenericMeterSegmentDiscrete::paint(
     int tempWidth = getWidth();
     int tempHeight = getHeight();
 
-    // initialise colours from brightness
-    Colour segmentColour = segmentColour_.withBrightness(segmentBrightness_);
-    Colour outlineColour = segmentColour.withBrightness(outlineBrightness_);
+    // initialise segment colour from brightness modifier
+    Colour segmentColour = segmentColour_.withMultipliedBrightness(
+                               segmentBrightnessModifier_);
+
+    // initialise outline colour from brightness modifier
+    Colour outlineColour = segmentColour_.withMultipliedBrightness(
+                               outlineBrightnessModifier_);
 
     // set segment colour
     g.setColour(segmentColour);
@@ -208,43 +215,43 @@ void GenericMeterSegmentDiscrete::setLevels(
     float discreteLevel, float discreteLevelPeak)
 
 {
-    // store old brightness and peak marker values
-    float segmentBrightnessOld = segmentBrightness_;
+    // store old brightness modifier and peak marker values
+    float segmentBrightnessModifierOld = segmentBrightnessModifier_;
     bool displayPeakMarkerOld = displayPeakMarker_;
 
     // normal level lies on or above upper threshold, so fully light
     // meter segment
     if (normalLevel >= upperThreshold_)
     {
-        segmentBrightness_ = 0.97f;
-        outlineBrightness_ = 0.90f;
+        segmentBrightnessModifier_ = 1.00f;
+        outlineBrightnessModifier_ = 0.95f;
     }
     // discrete level lies within thresholds or on lower threshold, so
     // fully light meter segment
     else if ((discreteLevel >= lowerThreshold_) &&
              (discreteLevel < upperThreshold_))
     {
-        segmentBrightness_ = 0.97f;
-        outlineBrightness_ = 0.90f;
+        segmentBrightnessModifier_ = 1.00f;
+        outlineBrightnessModifier_ = 0.95f;
     }
     // normal level lies below lower threshold, so set meter segment
     // to dark
     else if (normalLevel < lowerThreshold_)
     {
-        segmentBrightness_ = 0.25f;
-        outlineBrightness_ = 0.30f;
+        segmentBrightnessModifier_ = 0.20f;
+        outlineBrightnessModifier_ = 0.25f;
     }
     // normal level lies within thresholds or on lower threshold, so
     // calculate brightness from current level
     else
     {
-        segmentBrightness_ = (normalLevel - lowerThreshold_) / thresholdRange_;
-        outlineBrightness_ = segmentBrightness_;
+        float brightnessModifier = (normalLevel - lowerThreshold_) /
+                                   thresholdRange_;
 
         // to look well, meter segments should be left with some
         // colour and not have maximum brightness
-        segmentBrightness_ = segmentBrightness_ * 0.72f + 0.25f;
-        outlineBrightness_ = outlineBrightness_ * 0.60f + 0.30f;
+        segmentBrightnessModifier_ = brightnessModifier * 0.80f + 0.20f;
+        outlineBrightnessModifier_ = brightnessModifier * 0.70f + 0.25f;
     }
 
     // there is no meter segment beyond this; light peak marker if
@@ -290,9 +297,9 @@ void GenericMeterSegmentDiscrete::setLevels(
         }
     }
 
-    // re-paint meter segment only when brightness or peak marker have
-    // changed
-    if ((segmentBrightness_ != segmentBrightnessOld) ||
+    // re-paint meter segment only when brightness modifier or peak
+    // marker have changed
+    if ((segmentBrightnessModifier_ != segmentBrightnessModifierOld) ||
             (displayPeakMarker_ != displayPeakMarkerOld))
     {
         repaint();

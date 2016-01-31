@@ -103,7 +103,7 @@ void GenericMeterSegmentContinuous::setColours(
     segmentColour_ = segmentColour;
 
     // initialise background colour from segment colour
-    backgroundColour_ = segmentColour_.withAlpha(0.18f);
+    backgroundColour_ = segmentColour_.withMultipliedBrightness(0.20f);
 
     // initialise peak marker's colour
     peakMarkerColour_ = peakMarkerColour;
@@ -148,7 +148,7 @@ void GenericMeterSegmentContinuous::drawBar(
     case orientationVertical:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::round_mz(maximumY_ * levelPosition);
+        pos_1 = MZ_Juce_Common::round(maximumY_ * levelPosition);
         pos_2 = maximumY_ - pos_1;
 
         // make sure there is something to draw
@@ -169,7 +169,7 @@ void GenericMeterSegmentContinuous::drawBar(
             g.fillRect(1,
                        0,
                        maximumX_ - 1,
-                       pos_2);
+                       pos_2 + 1);
         }
 
         // make sure there is something to draw
@@ -190,7 +190,7 @@ void GenericMeterSegmentContinuous::drawBar(
             g.fillRect(1,
                        pos_2,
                        maximumX_ - 1,
-                       pos_1);
+                       pos_1 + 1);
         }
 
         break;
@@ -205,7 +205,7 @@ void GenericMeterSegmentContinuous::drawBar(
     case orientationHorizontalInverted:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::round_mz(maximumX_ * levelPosition);
+        pos_1 = MZ_Juce_Common::round(maximumX_ * levelPosition);
         pos_2 = maximumX_ - pos_1;
 
         // make sure there is something to draw
@@ -225,7 +225,7 @@ void GenericMeterSegmentContinuous::drawBar(
             // draw first rectangle
             g.fillRect(0,
                        1,
-                       pos_2,
+                       pos_2 + 1,
                        maximumY_ - 1);
         }
 
@@ -246,7 +246,7 @@ void GenericMeterSegmentContinuous::drawBar(
             // draw second rectangle
             g.fillRect(pos_2,
                        1,
-                       pos_1,
+                       pos_1 + 1,
                        maximumY_ - 1);
         }
 
@@ -291,7 +291,13 @@ void GenericMeterSegmentContinuous::drawMarker(
     case orientationVertical:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::round_mz(maximumY_ * levelPosition);
+        pos_1 = MZ_Juce_Common::roundDown((maximumY_ + 1) * levelPosition);
+
+        if (pos_1 > maximumY_)
+        {
+            pos_1 = maximumY_;
+        }
+
         pos_2 = maximumY_ - pos_1;
 
         // set line colour
@@ -315,7 +321,13 @@ void GenericMeterSegmentContinuous::drawMarker(
     case orientationHorizontalInverted:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::round_mz(maximumX_ * levelPosition);
+        pos_1 = MZ_Juce_Common::roundDown((maximumX_ + 1) * levelPosition);
+
+        if (pos_1 > maximumX_)
+        {
+            pos_1 = maximumX_;
+        }
+
         pos_2 = maximumX_ - pos_1;
 
         // set line colour
@@ -356,7 +368,7 @@ void GenericMeterSegmentContinuous::paint(
         drawMarker(g, peakMarkerColour_, normalPeakPosition_);
     }
 
-    // draw normal peak marker
+    // draw discrete peak marker
     if (discretePeakPosition_ >= 0.0f)
     {
         drawMarker(g, peakMarkerColour_, discretePeakPosition_);
