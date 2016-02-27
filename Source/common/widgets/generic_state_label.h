@@ -57,7 +57,7 @@ public:
     };
 
 
-    GenericStateLabel(const String &componentName);
+    GenericStateLabel();
 
     virtual void resized();
     void setState(int state,

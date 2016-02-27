@@ -32,13 +32,11 @@
 class PluginParameterSwitch;
 
 
-//==============================================================================
-/**
-*/
-class SliderSwitchLinearBar : public Slider
+class SliderSwitchLinearBar :
+    public Slider
 {
 public:
-    SliderSwitchLinearBar(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
+    SliderSwitchLinearBar(ParameterJuggler *pParameters, int nParameterIndex);
 
     void visibilityChanged();
     void setSliderColour(const Colour &colour);

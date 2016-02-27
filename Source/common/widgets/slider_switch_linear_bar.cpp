@@ -26,7 +26,7 @@
 #include "slider_switch_linear_bar.h"
 
 
-SliderSwitchLinearBar::SliderSwitchLinearBar(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitchLinearBar::SliderSwitchLinearBar(ParameterJuggler *pParameters, int nParameterIndex)
 {
     pSwitch = dynamic_cast<PluginParameterSwitch *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pSwitch != nullptr);

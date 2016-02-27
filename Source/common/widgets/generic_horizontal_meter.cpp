@@ -26,93 +26,91 @@
 #include "generic_horizontal_meter.h"
 
 
-GenericHorizontalMeter::GenericHorizontalMeter(const String &componentName)
+GenericHorizontalMeter::GenericHorizontalMeter()
 {
-    setName(componentName);
-
     // this component does not have any transparent areas (increases
     // performance on redrawing)
     setOpaque(true);
 
-    nNeedlePosition = -1;
-    nNeedleTravelPath = 1;
-    bVerticalMeter = false;
+    needlePosition_ = -1;
+    needleTravelPath_ = 1;
+    isVerticalMeter_ = false;
 
-    nWidth = 0;
-    nHeight = 0;
-    nSpacingLeft = 0;
-    nSpacingTop = 0;
-
-    imageBackground = Image();
-    imageNeedle = Image();
+    width_ = 0;
+    height_ = 0;
+    spacingLeft_ = 0;
+    spacingTop_ = 0;
 }
 
 
-void GenericHorizontalMeter::paint(Graphics &g)
+void GenericHorizontalMeter::paint(
+    Graphics &g)
+
 {
     g.setColour(Colours::black);
-    g.drawImageAt(imageBackground, 0, 0, false);
+    g.drawImageAt(imageBackground_, 0, 0, false);
 
-    if (bVerticalMeter)
+    if (isVerticalMeter_)
     {
-        g.drawImageAt(imageNeedle, nSpacingLeft, nNeedlePosition, false);
+        g.drawImageAt(imageNeedle_, spacingLeft_, needlePosition_, false);
     }
     else
     {
-        g.drawImageAt(imageNeedle, nNeedlePosition, nSpacingTop, false);
+        g.drawImageAt(imageNeedle_, needlePosition_, spacingTop_, false);
     }
 }
 
 
 void GenericHorizontalMeter::resized()
 {
-    initialise();
-}
+    width_ = getWidth();
+    height_ = getHeight();
 
+    isVerticalMeter_ = (height_ > width_);
 
-void GenericHorizontalMeter::initialise()
-{
-    nWidth = getWidth();
-    nHeight = getHeight();
-
-    bVerticalMeter = (nHeight > nWidth);
-
-    if (bVerticalMeter)
+    if (isVerticalMeter_)
     {
-        nNeedleTravelPath = nHeight - 2 * nSpacingTop;
-        nNeedleTravelPath -= imageNeedle.getHeight();
+        needleTravelPath_ = height_ - 2 * spacingTop_;
+        needleTravelPath_ -= imageNeedle_.getHeight();
     }
     else
     {
-        nNeedleTravelPath = nWidth - 2 * nSpacingLeft;
-        nNeedleTravelPath -= imageNeedle.getWidth();
+        needleTravelPath_ = width_ - 2 * spacingLeft_;
+        needleTravelPath_ -= imageNeedle_.getWidth();
     }
 }
 
 
-void GenericHorizontalMeter::setValue(float newValue)
+void GenericHorizontalMeter::setValue(
+    float value)
+
 {
-    int nNeedlePositionOld = nNeedlePosition;
+    int needlePositionOld = needlePosition_;
 
-    nNeedlePosition = int (newValue * nNeedleTravelPath + 0.5f);
-    nNeedlePosition += bVerticalMeter ? nSpacingTop : nSpacingLeft;
+    needlePosition_ = static_cast<int>(value * needleTravelPath_ + 0.5f);
+    needlePosition_ += isVerticalMeter_ ? spacingTop_ : spacingLeft_;
 
-    if (nNeedlePosition != nNeedlePositionOld)
+    if (needlePosition_ != needlePositionOld)
     {
         repaint(getLocalBounds());
     }
 }
 
 
-void GenericHorizontalMeter::setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew)
+void GenericHorizontalMeter::setImages(
+    const Image &imageBackground,
+    const Image &imageNeedle,
+    int spacingLeft,
+    int spacingTop)
+
 {
-    nSpacingLeft = nSpacingLeftNew;
-    nSpacingTop = nSpacingTopNew;
+    spacingLeft_ = spacingLeft;
+    spacingTop_ = spacingTop;
 
-    imageBackground = Image(imageBackgroundNew);
-    imageNeedle = Image(imageNeedleNew);
+    imageBackground_ = Image(imageBackground);
+    imageNeedle_ = Image(imageNeedle);
 
-    initialise();
+    resized();
 }
 
 

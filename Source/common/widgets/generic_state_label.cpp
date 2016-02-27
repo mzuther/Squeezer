@@ -27,15 +27,8 @@
 
 /// Create a state label.
 ///
-/// @param componentName String containing the component's name
-///
-GenericStateLabel::GenericStateLabel(
-    const String &componentName)
-
+GenericStateLabel::GenericStateLabel()
 {
-    // set component name
-    setName(componentName);
-
     // this component blends in with the background
     setOpaque(false);
 

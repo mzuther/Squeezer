@@ -26,7 +26,7 @@
 #include "slider_continuous.h"
 
 
-SliderContinuous::SliderContinuous(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex) : Slider(componentName)
+SliderContinuous::SliderContinuous(ParameterJuggler *pParameters, int nParameterIndex)
 {
     pContinuous = dynamic_cast<PluginParameterContinuous *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pContinuous != nullptr);

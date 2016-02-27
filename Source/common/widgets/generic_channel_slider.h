@@ -29,13 +29,11 @@
 #include "JuceHeader.h"
 
 
-//==============================================================================
-/**
-*/
-class GenericChannelSlider : public Slider
+class GenericChannelSlider :
+    public Slider
 {
 public:
-    GenericChannelSlider(const String &componentName = String::empty);
+    GenericChannelSlider();
 
     int getNumberOfChannels();
     void setNumberOfChannels(int nNumChannels);

@@ -169,8 +169,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     int nIndex = SqueezerPluginParameters::selThreshold;
     int nIndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
-    String strName = parameters->getName(nIndex);
-    SliderThresholdCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderThresholdCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderThresholdCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderThresholdCombined->addListener(this);
@@ -180,8 +179,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selRatio;
     nIndexSwitch = SqueezerPluginParameters::selRatioSwitch;
-    strName = parameters->getName(nIndex);
-    SliderRatioCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderRatioCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderRatioCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderRatioCombined->addListener(this);
@@ -190,8 +188,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selKneeWidth;
     nIndexSwitch = SqueezerPluginParameters::selKneeWidthSwitch;
-    strName = parameters->getName(nIndex);
-    SliderKneeWidthCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderKneeWidthCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderKneeWidthCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderKneeWidthCombined->addListener(this);
@@ -201,8 +198,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selAttackRate;
     nIndexSwitch = SqueezerPluginParameters::selAttackRateSwitch;
-    strName = parameters->getName(nIndex);
-    SliderAttackRateCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderAttackRateCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderAttackRateCombined->setSliderColour(Colours::yellow);
 
     SliderAttackRateCombined->addListener(this);
@@ -212,8 +208,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selReleaseRate;
     nIndexSwitch = SqueezerPluginParameters::selReleaseRateSwitch;
-    strName = parameters->getName(nIndex);
-    SliderReleaseRateCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderReleaseRateCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderReleaseRateCombined->setSliderColour(Colours::yellow);
 
     SliderReleaseRateCombined->addListener(this);
@@ -224,8 +219,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 #ifdef SQUEEZER_STEREO
     nIndex = SqueezerPluginParameters::selStereoLink;
     nIndexSwitch = SqueezerPluginParameters::selStereoLinkSwitch;
-    strName = parameters->getName(nIndex);
-    SliderStereoLinkCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderStereoLinkCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderStereoLinkCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderStereoLinkCombined->addListener(this);
@@ -244,8 +238,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selMakeupGain;
     nIndexSwitch = SqueezerPluginParameters::selMakeupGainSwitch;
-    strName = parameters->getName(nIndex);
-    SliderMakeupGainCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderMakeupGainCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderMakeupGainCombined->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderMakeupGainCombined->addListener(this);
@@ -255,8 +248,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selWetMix;
     nIndexSwitch = SqueezerPluginParameters::selWetMixSwitch;
-    strName = parameters->getName(nIndex);
-    SliderWetMixCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderWetMixCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderWetMixCombined->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderWetMixCombined->addListener(this);
@@ -274,8 +266,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selSidechainFilterCutoff;
     nIndexSwitch = SqueezerPluginParameters::selSidechainFilterCutoffSwitch;
-    strName = parameters->getName(nIndex);
-    SliderSidechainFilterCutoffCombined = new SliderCombined(strName, parameters, nIndex, nIndexSwitch);
+    SliderSidechainFilterCutoffCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderSidechainFilterCutoffCombined->setSliderColour(Colours::green.brighter(0.1f));
 
     SliderSidechainFilterCutoffCombined->addListener(this);
@@ -284,8 +275,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
 
     nIndex = SqueezerPluginParameters::selSidechainFilterGain;
-    strName = parameters->getName(nIndex);
-    SliderSidechainFilterGain = new SliderSwitchLinearBar(strName, parameters, nIndex);
+    SliderSidechainFilterGain = new SliderSwitchLinearBar(parameters, nIndex);
     SliderSidechainFilterGain->setSliderColour(Colours::green.brighter(0.1f));
 
     SliderSidechainFilterGain->addListener(this);

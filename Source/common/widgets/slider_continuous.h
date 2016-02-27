@@ -32,13 +32,11 @@
 class PluginParameterContinuous;
 
 
-//==============================================================================
-/**
-*/
-class SliderContinuous : public Slider
+class SliderContinuous :
+    public Slider
 {
 public:
-    SliderContinuous(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
+    SliderContinuous(ParameterJuggler *pParameters, int nParameterIndex);
 
     void visibilityChanged();
     void resized();

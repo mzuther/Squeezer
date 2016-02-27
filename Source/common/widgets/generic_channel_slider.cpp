@@ -25,8 +25,7 @@
 
 #include "generic_channel_slider.h"
 
-GenericChannelSlider::GenericChannelSlider(const String &componentName) :
-    Slider(componentName)
+GenericChannelSlider::GenericChannelSlider()
 {
     setSliderStyle(Slider::IncDecButtons);
     setTextBoxStyle(Slider::TextBoxLeft, true, 30, 20);

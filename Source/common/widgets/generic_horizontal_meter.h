@@ -29,34 +29,37 @@
 #include "JuceHeader.h"
 
 
-//==============================================================================
-/**
-*/
-class GenericHorizontalMeter : public Component
+class GenericHorizontalMeter :
+    public Component
 {
 public:
-    GenericHorizontalMeter(const String &componentName);
+    GenericHorizontalMeter();
 
-    void setImages(Image &imageBackgroundNew, Image &imageNeedleNew, int nSpacingLeftNew, int nSpacingTopNew);
-    void setValue(float newValue);
-    void paint(Graphics &g);
-    void initialise();
-    void resized();
+    void setImages(const Image &imageBackground,
+                   const Image &imageNeedle,
+                   int spacingLeft,
+                   int spacingTop);
+
+    void setValue(float value);
+
+    virtual void paint(Graphics &g);
+    virtual void resized();
+
+protected:
+    int needlePosition_;
+    int needleTravelPath_;
+    bool isVerticalMeter_;
+
+    int width_;
+    int height_;
+    int spacingLeft_;
+    int spacingTop_;
+
+    Image imageBackground_;
+    Image imageNeedle_;
 
 private:
     JUCE_LEAK_DETECTOR(GenericHorizontalMeter);
-
-    int nNeedlePosition;
-    int nNeedleTravelPath;
-    bool bVerticalMeter;
-
-    int nWidth;
-    int nHeight;
-    int nSpacingLeft;
-    int nSpacingTop;
-
-    Image imageBackground;
-    Image imageNeedle;
 };
 
 

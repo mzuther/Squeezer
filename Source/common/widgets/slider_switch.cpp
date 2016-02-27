@@ -26,7 +26,7 @@
 #include "slider_switch.h"
 
 
-SliderSwitch::SliderSwitch(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex) : Slider(componentName)
+SliderSwitch::SliderSwitch(ParameterJuggler *pParameters, int nParameterIndex)
 {
     pSwitch = dynamic_cast<PluginParameterSwitch *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pSwitch != nullptr);

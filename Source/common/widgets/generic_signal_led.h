@@ -42,7 +42,7 @@ class GenericSignalLed :
     public Component
 {
 public:
-    GenericSignalLed(const String &componentName);
+    GenericSignalLed();
 
     virtual void paint(Graphics &g);
 

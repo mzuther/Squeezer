@@ -32,13 +32,11 @@
 class PluginParameterSwitch;
 
 
-//==============================================================================
-/**
-*/
-class SliderSwitch : public Slider
+class SliderSwitch :
+    public Slider
 {
 public:
-    SliderSwitch(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex);
+    SliderSwitch(ParameterJuggler *pParameters, int nParameterIndex);
 
     void visibilityChanged();
     void resized();

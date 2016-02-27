@@ -26,7 +26,7 @@
 #include "slider_combined.h"
 
 
-SliderCombined::SliderCombined(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch) : Slider(componentName)
+SliderCombined::SliderCombined(ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch)
 {
     pCombined = dynamic_cast<PluginParameterCombined *>(pParameters->getPluginParameter(nParameterIndex));
     jassert(pCombined != nullptr);
@@ -56,7 +56,7 @@ SliderCombined::SliderCombined(const String &componentName, ParameterJuggler *pP
     DrawablePath drawCircleOnOver(drawCircleOff);
     drawCircleOnOver.setFill(FillType(Colours::red.darker(0.8f)));
 
-    toggleButton = new DrawableButton(componentName + " Switch", DrawableButton::ImageFitted);
+    toggleButton = new DrawableButton("Parameter Switch #" + nParameterIndexSwitch, DrawableButton::ImageFitted);
     toggleButton->setClickingTogglesState(true);
     toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
     toggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, nullptr, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, nullptr);

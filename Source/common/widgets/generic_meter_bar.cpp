@@ -25,8 +25,9 @@
 
 #include "generic_meter_bar.h"
 
+
 /// Create a new meter bar (and delete an existing one).  The meter
-/// bar has to be filled using addSegment().
+/// bar can be filled using addSegment() and its cousins.
 ///
 void GenericMeterBar::create()
 {
@@ -483,7 +484,7 @@ int GenericMeterBar::getSegmentWidth()
 /// Set segment width.  Sets segment width for vertical meters and
 /// segment height for horizontal meters.
 ///
-/// @param segmentWidth new segment width
+/// @param segmentWidth new segment width (or height, see above)
 ///
 void GenericMeterBar::setSegmentWidth(
     int segmentWidth)

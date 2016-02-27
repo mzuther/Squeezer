@@ -32,13 +32,11 @@
 class PluginParameterCombined;
 
 
-//==============================================================================
-/**
-*/
-class SliderCombined : public Slider
+class SliderCombined :
+    public Slider
 {
 public:
-    SliderCombined(const String &componentName, ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
+    SliderCombined(ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
 
     void visibilityChanged();
     void resized();

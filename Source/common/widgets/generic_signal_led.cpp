@@ -27,15 +27,8 @@
 
 /// Create a signal LED.
 ///
-/// @param componentName String containing the component's name
-///
-GenericSignalLed::GenericSignalLed(
-    const String &componentName)
-
+GenericSignalLed::GenericSignalLed()
 {
-    // set component name
-    setName(componentName);
-
     // this component blends in with the background
     setOpaque(false);
 
