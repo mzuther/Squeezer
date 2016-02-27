@@ -138,14 +138,14 @@ void GenericMeterSegmentContinuous::drawBar(
     // respect orientation
     switch (orientation_)
     {
-    case orientationVerticalInverted:
+    case GenericMeterOrientation::verticalInverted:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case orientationVertical:
+    case GenericMeterOrientation::vertical:
 
         // initialise drawing points
         pos_1 = MZ_Juce_Common::round(maximumY_ * levelPosition);
@@ -154,7 +154,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_2 > 0)
         {
-            if (orientation_ == orientationVertical)
+            if (orientation_ == GenericMeterOrientation::vertical)
             {
                 // set background colour
                 g.setColour(backgroundColour_);
@@ -175,7 +175,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_1 > 0)
         {
-            if (orientation_ == orientationVertical)
+            if (orientation_ == GenericMeterOrientation::vertical)
             {
                 // set segment colour
                 g.setColour(segmentColour_);
@@ -195,14 +195,14 @@ void GenericMeterSegmentContinuous::drawBar(
 
         break;
 
-    case orientationHorizontal:
+    case GenericMeterOrientation::horizontal:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case orientationHorizontalInverted:
+    case GenericMeterOrientation::horizontalInverted:
 
         // initialise drawing points
         pos_1 = MZ_Juce_Common::round(maximumX_ * levelPosition);
@@ -211,7 +211,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_2 > 0)
         {
-            if (orientation_ == orientationHorizontalInverted)
+            if (orientation_ == GenericMeterOrientation::horizontalInverted)
             {
                 // set background colour
                 g.setColour(backgroundColour_);
@@ -232,7 +232,7 @@ void GenericMeterSegmentContinuous::drawBar(
         // make sure there is something to draw
         if (pos_1 > 0)
         {
-            if (orientation_ == orientationHorizontalInverted)
+            if (orientation_ == GenericMeterOrientation::horizontalInverted)
             {
                 // set segment colour
                 g.setColour(segmentColour_);
@@ -281,14 +281,14 @@ void GenericMeterSegmentContinuous::drawMarker(
     // respect orientation
     switch (orientation_)
     {
-    case orientationVerticalInverted:
+    case GenericMeterOrientation::verticalInverted:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case orientationVertical:
+    case GenericMeterOrientation::vertical:
 
         // initialise drawing points
         pos_1 = MZ_Juce_Common::roundDown((maximumY_ + 1) * levelPosition);
@@ -311,14 +311,14 @@ void GenericMeterSegmentContinuous::drawMarker(
 
         break;
 
-    case orientationHorizontal:
+    case GenericMeterOrientation::horizontal:
 
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
         // keep going ...
 
-    case orientationHorizontalInverted:
+    case GenericMeterOrientation::horizontalInverted:
 
         // initialise drawing points
         pos_1 = MZ_Juce_Common::roundDown((maximumX_ + 1) * levelPosition);

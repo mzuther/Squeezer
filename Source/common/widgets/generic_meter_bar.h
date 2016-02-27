@@ -41,26 +41,6 @@ class GenericMeterBar :
     public Component
 {
 public:
-    /// Orientation for the meter.
-    enum Orientation  // public namespace!
-    {
-        /// horizontal meter (bottom to top)
-        orientationHorizontal =
-            GenericMeterSegment::orientationHorizontal,
-
-        /// inverted horizontal meter (top to bottom)
-        orientationHorizontalInverted =
-            GenericMeterSegment::orientationHorizontalInverted,
-
-        /// vertical meter (left to right)
-        orientationVertical =
-            GenericMeterSegment::orientationVertical,
-
-        /// inverted vertical meter (right to left)
-        orientationVerticalInverted =
-            GenericMeterSegment::orientationVerticalInverted
-    };
-
     virtual void create();
 
     virtual void addSegment(GenericMeterSegment *segment,
@@ -83,8 +63,8 @@ public:
                                       const Colour &segmentColour,
                                       const Colour &colPeakMarker);
 
-    virtual GenericMeterBar::Orientation getOrientation();
-    virtual void setOrientation(GenericMeterBar::Orientation orientation);
+    virtual GenericMeterOrientation getOrientation();
+    virtual void setOrientation(GenericMeterOrientation orientation);
 
     virtual void invertMeter(bool invert);
     virtual bool isMeterInverted();
@@ -122,7 +102,7 @@ private:
     bool isVertical_;
     bool isInverted_;
 
-    GenericMeterBar::Orientation orientation_;
+    GenericMeterOrientation orientation_;
     Array<int> segmentSpacing_;
     OwnedArray<GenericMeterSegment> meterSegments_;
 };

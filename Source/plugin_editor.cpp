@@ -363,7 +363,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(
                 new MeterBarLevel());
         pMeterBarLevelInput->create(20,
-                                    MeterBarLevel::orientationVertical,
+                                    GenericMeterOrientation::vertical,
                                     discreteMeter,
                                     5,
                                     12,
@@ -375,7 +375,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(
                 new MeterBarLevel());
         pMeterBarLevelOutput->create(20,
-                                     MeterBarLevel::orientationVertical,
+                                     GenericMeterOrientation::vertical,
                                      discreteMeter,
                                      5,
                                      12,
@@ -387,7 +387,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(
                     new MeterBarGainReduction());
         pMeterBarGainReduction->create(
-            MeterBarLevel::orientationVertical,
+            GenericMeterOrientation::vertical,
             discreteMeter,
             5,
             12,

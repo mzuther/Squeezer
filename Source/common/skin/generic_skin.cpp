@@ -681,12 +681,12 @@ void GenericSkin::placeMeterBar(
         // vertical bar
         if (isVertical)
         {
-            meterBar->setOrientation(GenericMeterBar::orientationVertical);
+            meterBar->setOrientation(GenericMeterOrientation::vertical);
         }
         // horizontal bar
         else
         {
-            meterBar->setOrientation(GenericMeterBar::orientationHorizontal);
+            meterBar->setOrientation(GenericMeterOrientation::horizontal);
         }
     }
 }

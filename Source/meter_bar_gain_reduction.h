@@ -34,7 +34,7 @@ class MeterBarGainReduction :
     public GenericMeterBar
 {
 public:
-    void create(Orientation orientation,
+    void create(GenericMeterOrientation orientation,
                 bool discreteMeter,
                 int mainSegmentWidth,
                 int mainSegmentHeight,

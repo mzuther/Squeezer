@@ -25,10 +25,12 @@
 
 #include "meter_bar_level.h"
 
-void MeterBarLevel::create(
-    int crestFactor, Orientation orientation, bool discreteMeter,
-    int mainSegmentHeight, int mainSegmentWidth,
-    const Array<Colour> &segmentColours)
+void MeterBarLevel::create(int crestFactor,
+                           GenericMeterOrientation orientation,
+                           bool discreteMeter,
+                           int mainSegmentHeight,
+                           int mainSegmentWidth,
+                           const Array<Colour> &segmentColours)
 
 {
     GenericMeterBar::create();

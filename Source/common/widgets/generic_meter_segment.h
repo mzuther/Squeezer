@@ -27,6 +27,7 @@
 #define __GENERIC_METER_SEGMENT_H__
 
 #include "JuceHeader.h"
+#include "generic_meter_orientation.h"
 
 
 /// Base class for Meter segment components.
@@ -39,22 +40,6 @@ class GenericMeterSegment :
 public:
     GenericMeterSegment();
     virtual ~GenericMeterSegment();
-
-    /// Orientation for the meter segment.
-    enum Orientation  // public namespace!
-    {
-        /// horizontal meter (bottom to top)
-        orientationHorizontal = 0,
-
-        /// inverted horizontal meter (top to bottom)
-        orientationHorizontalInverted,
-
-        /// vertical meter (left to right)
-        orientationVertical,
-
-        /// inverted vertical meter (right to left)
-        orientationVerticalInverted
-    };
 
     virtual void setNormalLevels(float normalLevel,
                                  float normalLevelPeak);
@@ -77,11 +62,11 @@ public:
                            float discreteLevel,
                            float discreteLevelPeak) = 0 ;
 
-    virtual GenericMeterSegment::Orientation getOrientation();
-    virtual void setOrientation(GenericMeterSegment::Orientation orientation);
+    virtual GenericMeterOrientation getOrientation();
+    virtual void setOrientation(GenericMeterOrientation orientation);
 
 protected:
-    GenericMeterSegment::Orientation orientation_;
+    GenericMeterOrientation orientation_;
 
 };
 

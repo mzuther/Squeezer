@@ -42,14 +42,16 @@ void GenericPluginStandalone::initialise(
     PropertiesFile *propertiesFile = new PropertiesFile(settings);
 
     // instantiate GUI
-    filterWindow_ = new StandaloneFilterWindow(getApplicationName(),
-                                               Colours::black,
-                                               propertiesFile,
-                                               true);
+    filterWindow_ = new StandaloneFilterWindow(
+        getApplicationName(),
+        Colours::black,
+        propertiesFile,
+        true);
 
     // add title bar buttons to GUI
-    filterWindow_->setTitleBarButtonsRequired(DocumentWindow::allButtons,
-                                              false);
+    filterWindow_->setTitleBarButtonsRequired(
+        DocumentWindow::allButtons,
+        false);
 
     // display GUI
     filterWindow_->setVisible(true);

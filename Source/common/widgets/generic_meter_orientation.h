@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
-   ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   MZ common JUCE
+   ==============
+   Common classes for use with the JUCE library
 
-   Copyright (c) 2013-2016 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,44 +23,31 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __METER_BAR_LEVEL_H__
-#define __METER_BAR_LEVEL_H__
+#ifndef __GENERIC_METER_ORIENTATION_H__
+#define __GENERIC_METER_ORIENTATION_H__
 
 #include "JuceHeader.h"
-#include "common/widgets/generic_meter_bar.h"
 
 
-class MeterBarLevel :
-    public GenericMeterBar
+/// Orientation for meter bars and meter segments.
+///
+enum GenericMeterOrientation
 {
-public:
-    void create(int crestFactor,
-                GenericMeterOrientation orientation,
-                bool discreteMeter,
-                int mainSegmentHeight,
-                int mainSegmentWidth,
-                const Array<Colour> &segmentColours);
+    /// horizontal meter (bottom to top)
+    horizontal = 0,
 
-protected:
-    /// Colour ID selector for meter segments.
-    enum colourSelector  // protected namespace
-    {
-        /// overload (usually red)
-        overload = 0,
+    /// inverted horizontal meter (top to bottom)
+    horizontalInverted,
 
-        /// warning (usually yellow)
-        warning,
+    /// vertical meter (left to right)
+    vertical,
 
-        /// fine (usually green)
-        fine,
-    };
-
-private:
-    JUCE_LEAK_DETECTOR(MeterBarLevel);
+    /// inverted vertical meter (right to left)
+    verticalInverted
 };
 
 
-#endif  // __METER_BAR_LEVEL_H__
+#endif  // __GENERIC_METER_ORIENTATION_H__
 
 
 // Local Variables:

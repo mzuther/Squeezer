@@ -61,7 +61,7 @@ void GenericMeterBar::create()
     segmentSpacing_.clear();
 
     // set initial orientation
-    orientation_ = orientationVertical;
+    orientation_ = GenericMeterOrientation::vertical;
     isVertical_ = true;
     isInverted_ = false;
 }
@@ -88,10 +88,10 @@ void GenericMeterBar::addSegment(
                        discreteLevel_, discreteLevelPeak_);
 
     // store current orientation
-    GenericMeterBar::Orientation orientationOld = orientation_;
+    GenericMeterOrientation orientationOld = orientation_;
 
     // set to standard orientation to easily add a new meter segment
-    setOrientation(orientationVertical);
+    setOrientation(GenericMeterOrientation::vertical);
 
     // add spacing to meter bar's height (no spacing before first
     // meter segment!)
@@ -245,7 +245,7 @@ void GenericMeterBar::addContinuousSegment(
 ///
 /// @return current orientation
 ///
-GenericMeterBar::Orientation GenericMeterBar::getOrientation()
+GenericMeterOrientation GenericMeterBar::getOrientation()
 {
     return orientation_;
 }
@@ -258,7 +258,7 @@ GenericMeterBar::Orientation GenericMeterBar::getOrientation()
 /// @param orientation new meter orientation
 ///
 void GenericMeterBar::setOrientation(
-    GenericMeterBar::Orientation orientation)
+    GenericMeterOrientation orientation)
 
 {
     // fast-forward ...
@@ -276,7 +276,7 @@ void GenericMeterBar::setOrientation(
 
     switch (orientation_)
     {
-    case orientationVertical:
+    case GenericMeterOrientation::vertical:
 
         // vertical meter
         isVertical_ = true;
@@ -286,7 +286,7 @@ void GenericMeterBar::setOrientation(
 
         break;
 
-    case orientationVerticalInverted:
+    case GenericMeterOrientation::verticalInverted:
 
         // vertical meter
         isVertical_ = true;
@@ -296,7 +296,7 @@ void GenericMeterBar::setOrientation(
 
         break;
 
-    case orientationHorizontal:
+    case GenericMeterOrientation::horizontal:
 
         // horizontal meter
         isVertical_ = false;
@@ -308,7 +308,7 @@ void GenericMeterBar::setOrientation(
 
         break;
 
-    case orientationHorizontalInverted:
+    case GenericMeterOrientation::horizontalInverted:
 
         // horizontal meter
         isVertical_ = false;
@@ -413,15 +413,10 @@ void GenericMeterBar::setOrientation(
         }
     }
 
-    // convert bar orientation to segment orientation
-    GenericMeterSegment::Orientation segmentOrientation =
-        static_cast<GenericMeterSegment::Orientation>(
-            static_cast<int>(orientation_));
-
     // update segment orientation
     for (auto & segment : meterSegments_)
     {
-        segment->setOrientation(segmentOrientation);
+        segment->setOrientation(orientation_);
     }
 }
 
@@ -442,22 +437,22 @@ void GenericMeterBar::invertMeter(
     {
         if (invert)
         {
-            setOrientation(orientationVerticalInverted);
+            setOrientation(GenericMeterOrientation::verticalInverted);
         }
         else
         {
-            setOrientation(orientationVertical);
+            setOrientation(GenericMeterOrientation::vertical);
         }
     }
     else
     {
         if (invert)
         {
-            setOrientation(orientationHorizontalInverted);
+            setOrientation(GenericMeterOrientation::horizontalInverted);
         }
         else
         {
-            setOrientation(orientationHorizontal);
+            setOrientation(GenericMeterOrientation::horizontal);
         }
     }
 }

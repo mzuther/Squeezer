@@ -30,7 +30,7 @@
 GenericMeterSegment::GenericMeterSegment()
 {
     // set initial orientation
-    setOrientation(GenericMeterSegment::orientationVertical);
+    setOrientation(GenericMeterOrientation::vertical);
 }
 
 
@@ -44,7 +44,7 @@ GenericMeterSegment::~GenericMeterSegment()
 ///
 /// @return current orientation
 ///
-GenericMeterSegment::Orientation GenericMeterSegment::getOrientation()
+GenericMeterOrientation GenericMeterSegment::getOrientation()
 {
     return orientation_;
 }
@@ -55,7 +55,7 @@ GenericMeterSegment::Orientation GenericMeterSegment::getOrientation()
 /// @param orientation new orientation
 ///
 void GenericMeterSegment::setOrientation(
-    GenericMeterSegment::Orientation orientation)
+    GenericMeterOrientation orientation)
 
 {
     // update segment's orientation

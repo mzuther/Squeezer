@@ -26,8 +26,10 @@
 #include "meter_bar_gain_reduction.h"
 
 
-void MeterBarGainReduction::create(Orientation orientation, bool discreteMeter,
-                                   int mainSegmentHeight, int mainSegmentWidth,
+void MeterBarGainReduction::create(GenericMeterOrientation orientation,
+                                   bool discreteMeter,
+                                   int mainSegmentHeight,
+                                   int mainSegmentWidth,
                                    const Array<Colour> &segmentColours)
 
 {
