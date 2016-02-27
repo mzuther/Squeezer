@@ -304,8 +304,8 @@ void GenericSkin::placeAndSkinButton(
 }
 
 
-void GenericSkin::placeAndSkinHorizontalMeter(
-    GenericHorizontalMeter *meter,
+void GenericSkin::placeAndSkinNeedleMeter(
+    GenericNeedleMeter *meter,
     const String &tagName)
 
 {

@@ -518,6 +518,8 @@ void GenericMeterBar::setSegmentWidth(
 
 /// Paint meter bar.
 ///
+/// @param g graphics context
+///
 void GenericMeterBar::paint(
     Graphics &g)
 

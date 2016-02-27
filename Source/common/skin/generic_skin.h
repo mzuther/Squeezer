@@ -29,7 +29,7 @@
 class GenericSkin;
 
 #include "JuceHeader.h"
-#include "../widgets/generic_horizontal_meter.h"
+#include "../widgets/generic_needle_meter.h"
 #include "../widgets/generic_meter_bar.h"
 #include "../widgets/generic_signal_led.h"
 #include "../widgets/generic_state_label.h"
@@ -68,8 +68,8 @@ public:
     void placeAndSkinButton(ImageButton *button,
                             const String &tagName);
 
-    void placeAndSkinHorizontalMeter(GenericHorizontalMeter *meter,
-                                     const String &tagName);
+    void placeAndSkinNeedleMeter(GenericNeedleMeter *meter,
+                                 const String &tagName);
 
     void placeAndSkinLabel(ImageComponent *label,
                            const String &tagName);

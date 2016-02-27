@@ -74,7 +74,7 @@ void GenericStateLabel::resized()
 
 /// Set new state.
 ///
-/// @param newState new state (see GenericStateLabel::Parameters)
+/// @param state new state (see GenericStateLabel::Parameters)
 ///
 /// @param forceUpdate update state regardless of current state
 ///

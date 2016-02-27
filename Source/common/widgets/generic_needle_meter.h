@@ -23,22 +23,23 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_HORIZONTAL_METER_H__
-#define __GENERIC_HORIZONTAL_METER_H__
+#ifndef __GENERIC_NEEDLE_METER_H__
+#define __GENERIC_NEEDLE_METER_H__
 
 #include "JuceHeader.h"
+#include "../mz_juce_common.h"
 
 
-class GenericHorizontalMeter :
+class GenericNeedleMeter :
     public Component
 {
 public:
-    GenericHorizontalMeter();
+    GenericNeedleMeter();
 
     void setImages(const Image &imageBackground,
                    const Image &imageNeedle,
-                   int spacingLeft,
-                   int spacingTop);
+                   int needleSpacingLeft,
+                   int needleSpacingTop);
 
     void setValue(float value);
 
@@ -50,20 +51,18 @@ protected:
     int needleTravelPath_;
     bool isVerticalMeter_;
 
-    int width_;
-    int height_;
-    int spacingLeft_;
-    int spacingTop_;
+    int needleSpacingLeft_;
+    int needleSpacingTop_;
 
     Image imageBackground_;
     Image imageNeedle_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericHorizontalMeter);
+    JUCE_LEAK_DETECTOR(GenericNeedleMeter);
 };
 
 
-#endif  // __GENERIC_HORIZONTAL_METER_H__
+#endif  // __GENERIC_NEEDLE_METER_H__
 
 
 // Local Variables:

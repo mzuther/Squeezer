@@ -125,8 +125,8 @@ OBJECTS := \
 	$(OBJDIR)/generic_window_settings_content.o \
 	$(OBJDIR)/generic_window_skin_content.o \
 	$(OBJDIR)/slider_combined.o \
-	$(OBJDIR)/generic_horizontal_meter.o \
 	$(OBJDIR)/generic_meter_bar.o \
+	$(OBJDIR)/generic_needle_meter.o \
 	$(OBJDIR)/generic_state_label.o \
 	$(OBJDIR)/generic_meter_segment_continuous.o \
 	$(OBJDIR)/slider_switch.o \
@@ -275,10 +275,10 @@ $(OBJDIR)/generic_window_skin_content.o: ../../../Source/common/widgets/generic_
 $(OBJDIR)/slider_combined.o: ../../../Source/common/widgets/slider_combined.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_horizontal_meter.o: ../../../Source/common/widgets/generic_horizontal_meter.cpp
+$(OBJDIR)/generic_meter_bar.o: ../../../Source/common/widgets/generic_meter_bar.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/generic_meter_bar.o: ../../../Source/common/widgets/generic_meter_bar.cpp
+$(OBJDIR)/generic_needle_meter.o: ../../../Source/common/widgets/generic_needle_meter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/generic_state_label.o: ../../../Source/common/widgets/generic_state_label.cpp

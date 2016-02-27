@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{AAA606E0-CBF0-C5D7-1147-DCD1FCF79DE4}</ProjectGuid>
+		<ProjectGuid>{99821000-6B0C-956D-778B-F5241D68C000}</ProjectGuid>
 		<RootNamespace>Squeezer (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -225,7 +225,7 @@
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_skin_content.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_signal_led.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_window_about_content.h" />
-		<ClInclude Include="..\..\..\Source\common\widgets\generic_horizontal_meter.h" />
+		<ClInclude Include="..\..\..\Source\common\widgets\generic_needle_meter.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_orientation.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\slider_switch.h" />
 		<ClInclude Include="..\..\..\Source\common\widgets\generic_meter_segment_continuous.h" />
@@ -287,9 +287,9 @@
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\slider_combined.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\widgets\generic_horizontal_meter.cpp">
-		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_meter_bar.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\common\widgets\generic_needle_meter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\widgets\generic_state_label.cpp">
 		</ClCompile>
