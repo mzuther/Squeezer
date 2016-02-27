@@ -38,24 +38,28 @@
 /// | in between | blend of *imageLow* and *imageHigh* |
 /// | >= 1.0     | *imageHigh*                         |
 ///
-class GenericSignalLed : public Component
+class GenericSignalLed :
+    public Component
 {
 public:
     GenericSignalLed(const String &componentName);
 
     void paint(Graphics &g);
 
-    void setLevel(float levelNew);
-    void setImages(Image &imageOffNew, Image &imageLowNew, Image &imageHighNew);
+    void setLevel(float level);
+    void setImages(const Image &imageOff,
+                   const Image &imageLow,
+                   const Image &imageHigh);
+
+protected:
+    float level_;
+
+    Image imageOff_;
+    Image imageLow_;
+    Image imageHigh_;
 
 private:
     JUCE_LEAK_DETECTOR(GenericSignalLed);
-
-    float level;
-
-    Image imageOff;
-    Image imageLow;
-    Image imageHigh;
 };
 
 
