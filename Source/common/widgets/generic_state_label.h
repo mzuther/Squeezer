@@ -59,7 +59,7 @@ public:
 
     GenericStateLabel(const String &componentName);
 
-    void resized();
+    virtual void resized();
     void setState(int state,
                   bool forceUpdate = false);
 

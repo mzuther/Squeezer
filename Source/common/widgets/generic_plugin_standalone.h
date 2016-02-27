@@ -34,27 +34,24 @@
 /// this class is created, the plug-in is instantiated and its GUI
 /// opened.
 ///
-class GenericPluginStandalone : public JUCEApplication
+class GenericPluginStandalone :
+    public JUCEApplication
 {
 public:
-    GenericPluginStandalone();
+    virtual void initialise(const String &commandLineParameters);
+    virtual void shutdown();
 
-    /// Destructor.  If a subclass implements a destructor, it
-    /// shouldn't call any JUCE code in there -- put your shutdown
-    /// code in shutdown() instead.
-    ///
-    ~GenericPluginStandalone() {};
-
-    void initialise(const String &commandLineParameters);
-    void shutdown();
-
-    const String getApplicationName();
-    const String getApplicationVersion();
+    virtual const String getApplicationName();
+    virtual const String getApplicationVersion();
 
 protected:
-    virtual PropertiesFile::Options prepare_properties() = 0;
+    /// Initialise settings of stand-alone.  This includes the
+    /// directory in which the current state is to be stored.
+    ///
+    /// @param settings settings to be initialised
+    virtual void initialiseSettings(PropertiesFile::Options &settings) = 0;
 
-    ScopedPointer<StandaloneFilterWindow> filterWindow;
+    ScopedPointer<StandaloneFilterWindow> filterWindow_;
 
 private:
     JUCE_LEAK_DETECTOR(GenericPluginStandalone);

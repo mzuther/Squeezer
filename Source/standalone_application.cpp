@@ -25,24 +25,24 @@
 
 #include "standalone_application.h"
 
-SqueezerStandalone::SqueezerStandalone()
-{
-}
 
+/// Initialise settings of stand-alone.  This includes the directory
+/// in which the current state is to be stored.
+///
+/// @param settings settings to be initialised
+void SqueezerStandalone::initialiseSettings(
+    PropertiesFile::Options &settings)
 
-PropertiesFile::Options SqueezerStandalone::prepare_properties()
 {
-    PropertiesFile::Options options;
 #ifdef SQUEEZER_MONO
-    options.applicationName     = "squeezer_mono";
+    settings.applicationName     = "squeezer_mono";
 #else
-    options.applicationName     = "squeezer_stereo";
+    settings.applicationName     = "squeezer_stereo";
 #endif
-    options.folderName          = ".config";
-    options.filenameSuffix      = "ini";
-    options.osxLibrarySubFolder = "Application Support";
 
-    return options;
+    settings.filenameSuffix      = "ini";
+    settings.folderName          = ".config";
+    settings.osxLibrarySubFolder = "Application Support";
 }
 
 

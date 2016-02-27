@@ -44,7 +44,7 @@ class GenericSignalLed :
 public:
     GenericSignalLed(const String &componentName);
 
-    void paint(Graphics &g);
+    virtual void paint(Graphics &g);
 
     void setLevel(float level);
     void setImages(const Image &imageOff,
