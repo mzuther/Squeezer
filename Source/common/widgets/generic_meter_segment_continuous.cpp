@@ -25,6 +25,7 @@
 
 #include "generic_meter_segment_continuous.h"
 
+
 /// Create a new continuous meter segment, complete with peak marker.
 ///
 GenericMeterSegmentContinuous::GenericMeterSegmentContinuous()
@@ -44,8 +45,7 @@ GenericMeterSegmentContinuous::GenericMeterSegmentContinuous()
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;
 
-    // initialise thresholds and whether this segment the topmost
-    // segment
+    // initialise thresholds and set this segment to not be topmost
     setThresholdAndRange(initialLevel, 1.0f, false);
 
     // make sure that segment is drawn after initialisation
@@ -380,6 +380,7 @@ void GenericMeterSegmentContinuous::paint(
 ///
 /// If this function did not exist, the meter segment wouldn't be
 /// drawn until the first level change!
+///
 void GenericMeterSegmentContinuous::visibilityChanged()
 {
 }
@@ -392,6 +393,59 @@ void GenericMeterSegmentContinuous::resized()
     // update maximum x and y position of component
     maximumX_ = getWidth() - 1;
     maximumY_ = getHeight() - 1;
+}
+
+
+/// Calculate position on segment from level.
+///
+/// @param level new level (in decibels)
+///
+/// @param isBar segment is a bar (and not a discrete line)
+///
+/// @return new position of marker or bar
+///
+float GenericMeterSegmentContinuous::calculateLevelPosition(
+    float level, bool isBar)
+
+{
+    float levelPosition;
+
+    // discrete level lies below lower threshold
+    if (level < lowerThreshold_)
+    {
+        // hide level marker or bar
+        levelPosition = -1.0f;
+    }
+    // discrete level lies on or above lower threshold and below upper
+    // threshold, so calculate position from current level
+    else if (level < upperThreshold_)
+    {
+        levelPosition = (level - lowerThreshold_) / thresholdRange_;
+    }
+    // discrete level lies on or above upper threshold
+    else
+    {
+        // meter is a bar
+        if (isBar)
+        {
+            // draw level bar!
+            levelPosition = 1.0f;
+        }
+        // there are no meter segments beyond this
+        else if (isTopmost_)
+        {
+            // draw level marker!
+            levelPosition = 1.0f;
+        }
+        // otherwise
+        else
+        {
+            // hide level marker!
+            levelPosition = -1.0f;
+        }
+    }
+
+    return levelPosition;
 }
 
 
@@ -410,122 +464,25 @@ void GenericMeterSegmentContinuous::setLevels(
     float discreteLevel, float discreteLevelPeak)
 
 {
-    // store old brightness and peak marker values
+    // store old level positions
     float normalLevelPositionOld = normalLevelPosition_;
-    float normalPeakPositionOld = normalPeakPosition_;
-
     float discreteLevelPositionOld = discreteLevelPosition_;
+
+    // calculate new level position (is a bar!)
+    normalLevelPosition_ = calculateLevelPosition(normalLevel, true);
+
+    // calculate new discrete level position
+    discreteLevelPosition_ = calculateLevelPosition(discreteLevel, false);
+
+    // store old peak level positions
+    float normalPeakPositionOld = normalPeakPosition_;
     float discretePeakPositionOld = discretePeakPosition_;
 
-    // normal level lies on or above upper threshold, so fully light
-    // meter segment
-    if (normalLevel >= upperThreshold_)
-    {
-        normalLevelPosition_ = 1.0f;
-    }
-    // normal level lies below lower threshold, so set meter segment
-    // to dark
-    else if (normalLevel < lowerThreshold_)
-    {
-        normalLevelPosition_ = -1.0f;
-    }
-    // normal level lies within thresholds or on lower threshold, so
-    // calculate position from current level
-    else
-    {
-        normalLevelPosition_ = (normalLevel - lowerThreshold_) /
-                               thresholdRange_;
-    }
+    // calculate new peak level position
+    normalPeakPosition_ = calculateLevelPosition(normalLevelPeak, false);
 
-    // discrete level lies below lower threshold
-    if (discreteLevel < lowerThreshold_)
-    {
-        // hide level marker
-        discreteLevelPosition_ = -1.0f;
-    }
-    // discrete level lies on or above lower threshold and below upper
-    // threshold, so calculate position from current level
-    else if (discreteLevel < upperThreshold_)
-    {
-        discreteLevelPosition_ = (discreteLevel - lowerThreshold_) /
-                                 thresholdRange_;
-    }
-    // discrete level lies on or above upper threshold
-    else
-    {
-        // there is no meter segment beyond this
-        if (isTopmost_)
-        {
-            // draw level marker!
-            discreteLevelPosition_ = 1.0f;
-        }
-        // otherwise
-        else
-        {
-            // hide level marker!
-            discreteLevelPosition_ = -1.0f;
-        }
-    }
-
-    // normal peak level lies below lower threshold
-    if (normalLevelPeak < lowerThreshold_)
-    {
-        // hide level marker
-        normalPeakPosition_ = -1.0f;
-    }
-    // normal peak level lies on or above lower threshold and below
-    // upper threshold, so calculate position from current level
-    else if (normalLevelPeak < upperThreshold_)
-    {
-        normalPeakPosition_ = (normalLevelPeak - lowerThreshold_) /
-                              thresholdRange_;
-    }
-    // normal peak level lies on or above upper threshold
-    else
-    {
-        // there is no meter segment beyond this
-        if (isTopmost_)
-        {
-            // draw level marker!
-            normalPeakPosition_ = 1.0f;
-        }
-        // otherwise
-        else
-        {
-            // hide marker!
-            normalPeakPosition_ = -1.0f;
-        }
-    }
-
-    // discrete peak level lies below lower threshold
-    if (discreteLevelPeak < lowerThreshold_)
-    {
-        // hide level marker
-        discretePeakPosition_ = -1.0f;
-    }
-    // discrete peak level lies on or above lower threshold and below
-    // upper threshold, so calculate position from current level
-    else if (discreteLevelPeak < upperThreshold_)
-    {
-        discretePeakPosition_ = (discreteLevelPeak - lowerThreshold_) /
-                                thresholdRange_;
-    }
-    // discrete peak level lies on or above upper threshold
-    else
-    {
-        // there is no meter segment beyond this
-        if (isTopmost_)
-        {
-            // draw level marker!
-            discretePeakPosition_ = 1.0f;
-        }
-        // otherwise
-        else
-        {
-            // hide level marker!
-            discretePeakPosition_ = -1.0f;
-        }
-    }
+    // calculate new discrete peak level position
+    discretePeakPosition_ = calculateLevelPosition(discreteLevelPeak, false);
 
     // re-paint meter segment only if something has changed
     if ((normalLevelPosition_ != normalLevelPositionOld) ||

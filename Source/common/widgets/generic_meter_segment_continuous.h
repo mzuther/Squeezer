@@ -68,6 +68,9 @@ protected:
                             const Colour &markerColour,
                             float levelPosition);
 
+    float calculateLevelPosition(float level,
+                                 bool isBar);
+
     float lowerThreshold_;
     float upperThreshold_;
     float thresholdRange_;

@@ -56,7 +56,6 @@ public:
                            float discreteLevelPeak);
 
     virtual void paint(Graphics &g);
-    virtual void resized();
     virtual void visibilityChanged();
 
 protected:

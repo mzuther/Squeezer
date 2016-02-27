@@ -25,6 +25,7 @@
 
 #include "generic_meter_segment_discrete.h"
 
+
 /// Create a new discrete meter segment, complete with peak marker.
 ///
 /// > #### Internals
@@ -60,19 +61,16 @@
 ///
 GenericMeterSegmentDiscrete::GenericMeterSegmentDiscrete()
 {
-    // initialise segment's brightness modifier (0.2 is dark, 1.0 is
-    // fully lit)
+    // initialise segment's brightness modifier
     segmentBrightnessModifier_ = 0.0f;
 
-    // initialise outline's brightness modifier (0.2 is dark, 1.0 is
-    // fully lit)
+    // initialise outline's brightness modifier
     outlineBrightnessModifier_ = 0.0f;
 
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;
 
-    // initialise thresholds and whether this segment the topmost
-    // segment
+    // initialise thresholds and set this segment to not be topmost
     setThresholdAndRange(initialLevel, 1.0f, false);
 
     // make sure that segment is drawn after initialisation
@@ -150,8 +148,8 @@ void GenericMeterSegmentDiscrete::paint(
 
 {
     // get meter segment's dimensions
-    int tempWidth = getWidth();
-    int tempHeight = getHeight();
+    int width = getWidth();
+    int height = getHeight();
 
     // initialise segment colour from brightness modifier
     Colour segmentColour = segmentColour_.withMultipliedBrightness(
@@ -166,20 +164,20 @@ void GenericMeterSegmentDiscrete::paint(
 
     // fill meter segment, but leave a border of two pixels for
     // outline and peak marker
-    g.fillRect(2, 2, tempWidth - 4, tempHeight - 4);
+    g.fillRect(2, 2, width - 4, height - 4);
 
     // set outline colour
     g.setColour(outlineColour);
 
     // draw outline, but leave a border of one pixel for peak marker
-    g.drawRect(1, 1, tempWidth - 2, tempHeight - 2);
+    g.drawRect(1, 1, width - 2, height - 2);
 
     // if peak marker is lit, draw peak marker around meter segment
     // (width: 1 pixel)
     if (displayPeakMarker_)
     {
         g.setColour(peakMarkerColour_);
-        g.drawRect(0, 0, tempWidth, tempHeight);
+        g.drawRect(0, 0, width, height);
     }
 }
 
@@ -188,14 +186,8 @@ void GenericMeterSegmentDiscrete::paint(
 ///
 /// If this function did not exist, the meter segment wouldn't be
 /// drawn until the first level change!
-void GenericMeterSegmentDiscrete::visibilityChanged()
-{
-}
-
-
-/// Called when this component's size has been changed.
 ///
-void GenericMeterSegmentDiscrete::resized()
+void GenericMeterSegmentDiscrete::visibilityChanged()
 {
 }
 
@@ -215,7 +207,7 @@ void GenericMeterSegmentDiscrete::setLevels(
     float discreteLevel, float discreteLevelPeak)
 
 {
-    // store old brightness modifier and peak marker values
+    // store old brightness modifier and peak marker value
     float segmentBrightnessModifierOld = segmentBrightnessModifier_;
     bool displayPeakMarkerOld = displayPeakMarker_;
 

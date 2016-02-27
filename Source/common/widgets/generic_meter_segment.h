@@ -30,7 +30,7 @@
 #include "generic_meter_orientation.h"
 
 
-/// Base class for Meter segment components.
+/// Base class for meter segment components.
 ///
 /// @see GenericMeterBar
 ///
