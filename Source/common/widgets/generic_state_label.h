@@ -39,49 +39,61 @@
 /// | on     | overload(s) detected in the past    |
 /// | active | currently dectecting an overload    |
 ///
-class GenericStateLabel : public Component
+class GenericStateLabel :
+    public Component
 {
 public:
-    enum Parameters  // public namespace!
+
+    enum State  // public namespace!
     {
         /// off, no overload detected yet
-        stateOff = 0,
+        off = 0,
         /// on, overload(s) detected in the past
-        stateOn,
+        on,
         /// active, currently dectecting an overload
-        stateActive,
+        active,
 
         numberOfStates,
     };
 
+
     GenericStateLabel(const String &componentName);
 
     void resized();
-    void setState(int newState, bool forceUpdate = false);
-    void setLabelColour(const Colour &newColour);
-    void setLabelText(const String &newText);
+    void setState(int state,
+                  bool forceUpdate = false);
 
-    void setImages(Image &imageOffNew, Image &imageOnNew, Image &imageActiveNew, String &colourStringOn, String &colourStringActive, int horizontalTextSpacingNew, int verticalTextSpacingNew, float fontSize);
+    void setLabelText(const String &text);
+
+    void setImages(const Image &imageOff,
+                   const Image &imageOn,
+                   const Image &imageActive,
+                   const String &textColourOn,
+                   const String &textColourActive,
+                   int horizontalTextSpacing,
+                   int verticalTextSpacing,
+                   float fontSize);
 
 protected:
     void updateState();
+    void setLabelColour(const Colour &textColour);
+
+    int state_;
+    int horizontalTextSpacing_;
+    int verticalTextSpacing_;
+
+    Label textLabel_;
+    ImageComponent imageComponent_;
+
+    Image imageOff_;
+    Image imageOn_;
+    Image imageActive_;
+
+    Colour textColourOn_;
+    Colour textColourActive_;
 
 private:
     JUCE_LEAK_DETECTOR(GenericStateLabel);
-
-    int currentState;
-    int horizontalTextSpacing;
-    int verticalTextSpacing;
-
-    Label textLabel;
-    ImageComponent imageComponent;
-
-    Image imageOff;
-    Image imageOn;
-    Image imageActive;
-
-    Colour colOn;
-    Colour colActive;
 };
 
 
