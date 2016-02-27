@@ -26,7 +26,7 @@
 #ifndef __GAIN_STAGE_H__
 #define __GAIN_STAGE_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 
 
 //==============================================================================

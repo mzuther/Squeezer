@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -26,8 +26,7 @@
 #ifndef __GENERIC_WINDOW_VALIDATION_CONTENT_H__
 #define __GENERIC_WINDOW_VALIDATION_CONTENT_H__
 
-#include "JuceHeader.h"
-#include "generic_channel_slider.h"
+#include "FrutHeader.h"
 
 
 /// Dialog window for validation settings.

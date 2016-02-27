@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
+   FrutJUCE
    ========
    Flexible general-purpose audio compressor with a touch of lemon.
 
@@ -26,7 +26,7 @@
 #ifndef __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 #define __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 
 
 /// Dialog window for displaying plugin-settings.

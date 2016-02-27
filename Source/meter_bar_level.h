@@ -26,8 +26,7 @@
 #ifndef __METER_BAR_LEVEL_H__
 #define __METER_BAR_LEVEL_H__
 
-#include "JuceHeader.h"
-#include "common/widgets/generic_meter_bar.h"
+#include "FrutHeader.h"
 
 
 class MeterBarLevel :

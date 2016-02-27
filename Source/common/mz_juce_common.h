@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -26,7 +26,7 @@
 #ifndef __MZ_JUCE_COMMON_H__
 #define __MZ_JUCE_COMMON_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 
 
 /// Simple class for version info and common functions.
@@ -40,7 +40,7 @@ public:
     ///
     static String getVersion()
     {
-        return "1.5.5";
+        return "1.6.0";
     }
 
 

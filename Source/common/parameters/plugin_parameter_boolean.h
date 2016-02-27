@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -23,59 +23,44 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETER_CONTINUOUS_H__
-#define __PLUGIN_PARAMETER_CONTINUOUS_H__
+#ifndef __PLUGIN_PARAMETER_BOOLEAN_H__
+#define __PLUGIN_PARAMETER_BOOLEAN_H__
 
-#include "JuceHeader.h"
-#include "../mz_juce_common.h"
+#include "FrutHeader.h"
 #include "plugin_parameter.h"
 
 
-/// Plug-in parameter for storing a floating-point value (continuous
-/// values with a given number of decimal places).
+/// Plug-in parameter for storing a Boolean value.
 ///
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class PluginParameterContinuous : virtual public PluginParameter
+class PluginParameterBoolean : virtual public PluginParameter
 {
 public:
-    PluginParameterContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion = false);
+    PluginParameterBoolean(const String &state_true, const String &state_false, bool save_from_deletion = false);
 
-    int getNumberOfSteps();
-    float getStepSize();
+    void toggleState();
 
     virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+    void setDefaultBoolean(bool newValue, bool updateParameter);
 
     virtual void setFloat(float newValue) override;
     virtual void setRealFloat(float newRealValue) override;
-
-    void setSuffix(const String &newSuffix);
+    void setBoolean(bool newValue);
 
     virtual float getFloatFromText(const String &newValue) override;
     virtual const String getTextFromFloat(float newValue) override;
 
 private:
-    JUCE_LEAK_DETECTOR(PluginParameterContinuous);
+    JUCE_LEAK_DETECTOR(PluginParameterBoolean);
 
-    float toRealFloat(float newValue);
-    float toInternalFloat(float newRealValue);
-
-    float realMinimum;
-    float realMaximum;
-    float realRange;
-
-    int numberOfSteps;
-    int decimalPlaces;
-    String valueSuffix;
-
-    bool isNonlinear;
-    float scalingFactor;
-    float scalingConstantFactor;
+    String labelTrue;
+    String labelFalse;
 };
 
 
-#endif  // __PLUGIN_PARAMETER_CONTINUOUS_H__
+#endif  // __PLUGIN_PARAMETER_BOOLEAN_H__
 
 
 // Local Variables:

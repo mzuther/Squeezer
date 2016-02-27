@@ -26,15 +26,11 @@
 #ifndef __PLUGINEDITOR_SQUEEZER_H__
 #define __PLUGINEDITOR_SQUEEZER_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "compressor.h"
 #include "meter_bar_gain_reduction.h"
 #include "meter_bar_level.h"
 #include "plugin_processor.h"
-#include "common/widgets/slider_combined.h"
-#include "common/widgets/slider_switch_linear_bar.h"
-#include "common/widgets/generic_window_about_content.h"
-#include "common/widgets/generic_window_settings_content.h"
 
 
 //==============================================================================

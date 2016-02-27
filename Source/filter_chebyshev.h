@@ -27,7 +27,7 @@
 #define __FILTER_CHEBYSHEV_H__
 
 #include "filter_chebyshev_stage.h"
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 
 
 //============================================================================

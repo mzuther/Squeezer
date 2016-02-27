@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -26,8 +26,7 @@
 #ifndef __GENERIC_NEEDLE_METER_H__
 #define __GENERIC_NEEDLE_METER_H__
 
-#include "JuceHeader.h"
-#include "../mz_juce_common.h"
+#include "FrutHeader.h"
 
 
 class GenericNeedleMeter :

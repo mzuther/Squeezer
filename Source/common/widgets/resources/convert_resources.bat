@@ -2,8 +2,8 @@
 
 @rem ----------------------------------------------------------------------------
 @rem
-@rem  MZ common JUCE
-@rem  ==============
+@rem  FrutJUCE
+@rem  ========
 @rem  Common classes for use with the JUCE library
 @rem
 @rem  Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)

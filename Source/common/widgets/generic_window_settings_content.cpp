@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
+   FrutJUCE
    ========
    Flexible general-purpose audio compressor with a touch of lemon.
 

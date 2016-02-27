@@ -26,7 +26,7 @@
 #ifndef __FILTER_CHEBYSHEV_STAGE_H__
 #define __FILTER_CHEBYSHEV_STAGE_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include <float.h>
 
 

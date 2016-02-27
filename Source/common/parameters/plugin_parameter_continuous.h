@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -23,44 +23,57 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETER_BOOLEAN_H__
-#define __PLUGIN_PARAMETER_BOOLEAN_H__
+#ifndef __PLUGIN_PARAMETER_CONTINUOUS_H__
+#define __PLUGIN_PARAMETER_CONTINUOUS_H__
 
-#include "JuceHeader.h"
-#include "plugin_parameter.h"
+#include "FrutHeader.h"
 
 
-/// Plug-in parameter for storing a Boolean value.
+/// Plug-in parameter for storing a floating-point value (continuous
+/// values with a given number of decimal places).
 ///
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class PluginParameterBoolean : virtual public PluginParameter
+class PluginParameterContinuous : virtual public PluginParameter
 {
 public:
-    PluginParameterBoolean(const String &state_true, const String &state_false, bool save_from_deletion = false);
+    PluginParameterContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion = false);
 
-    void toggleState();
+    int getNumberOfSteps();
+    float getStepSize();
 
     virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
-    void setDefaultBoolean(bool newValue, bool updateParameter);
 
     virtual void setFloat(float newValue) override;
     virtual void setRealFloat(float newRealValue) override;
-    void setBoolean(bool newValue);
+
+    void setSuffix(const String &newSuffix);
 
     virtual float getFloatFromText(const String &newValue) override;
     virtual const String getTextFromFloat(float newValue) override;
 
 private:
-    JUCE_LEAK_DETECTOR(PluginParameterBoolean);
+    JUCE_LEAK_DETECTOR(PluginParameterContinuous);
 
-    String labelTrue;
-    String labelFalse;
+    float toRealFloat(float newValue);
+    float toInternalFloat(float newRealValue);
+
+    float realMinimum;
+    float realMaximum;
+    float realRange;
+
+    int numberOfSteps;
+    int decimalPlaces;
+    String valueSuffix;
+
+    bool isNonlinear;
+    float scalingFactor;
+    float scalingConstantFactor;
 };
 
 
-#endif  // __PLUGIN_PARAMETER_BOOLEAN_H__
+#endif  // __PLUGIN_PARAMETER_CONTINUOUS_H__
 
 
 // Local Variables:

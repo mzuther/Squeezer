@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -26,7 +26,7 @@
 #ifndef __GENERIC_SIGNAL_LED_H__
 #define __GENERIC_SIGNAL_LED_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 
 
 /// Signal LED component.  This widget loads three images of the same

@@ -26,7 +26,7 @@
 #ifndef __SQUEEZER_PLUGINPROCESSOR_H__
 #define __SQUEEZER_PLUGINPROCESSOR_H__
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "compressor.h"
 #include "plugin_parameters.h"
 

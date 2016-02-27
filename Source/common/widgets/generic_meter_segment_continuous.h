@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -26,9 +26,7 @@
 #ifndef __GENERIC_METER_SEGMENT_CONTINUOUS_H__
 #define __GENERIC_METER_SEGMENT_CONTINUOUS_H__
 
-#include "JuceHeader.h"
-#include "../mz_juce_common.h"
-#include "generic_meter_segment.h"
+#include "FrutHeader.h"
 
 
 /// Continuous meter segment component.  This widget consists of a

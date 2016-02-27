@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -28,13 +28,8 @@
 
 class ParameterJuggler;
 
-#include "JuceHeader.h"
-#include "../mz_juce_common.h"
-#include "plugin_parameter.h"
-#include "plugin_parameter_boolean.h"
+#include "FrutHeader.h"
 #include "plugin_parameter_combined.h"
-#include "plugin_parameter_string.h"
-#include "plugin_parameter_switch.h"
 
 
 /// Container for all parameters of a plug-in.

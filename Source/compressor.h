@@ -28,10 +28,9 @@
 
 class SideChain;
 
-#include "JuceHeader.h"
+#include "FrutHeader.h"
 #include "filter_chebyshev.h"
 #include "side_chain.h"
-#include "common/audio/dither.h"
 
 
 //============================================================================

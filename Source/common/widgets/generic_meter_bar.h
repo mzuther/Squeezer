@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -26,9 +26,8 @@
 #ifndef __GENERIC_METER_BAR_H__
 #define __GENERIC_METER_BAR_H__
 
-#include "JuceHeader.h"
-#include "generic_meter_segment_continuous.h"
-#include "generic_meter_segment_discrete.h"
+#include "FrutHeader.h"
+#include "generic_meter_segment.h"
 
 
 /// Meter bar component.  This widget is an empty container that can

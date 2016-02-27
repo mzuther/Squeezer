@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------
 
-   MZ common JUCE
-   ==============
+   FrutJUCE
+   ========
    Common classes for use with the JUCE library
 
    Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
@@ -28,11 +28,8 @@
 
 class GenericSkin;
 
-#include "JuceHeader.h"
-#include "../widgets/generic_needle_meter.h"
-#include "../widgets/generic_meter_bar.h"
-#include "../widgets/generic_signal_led.h"
-#include "../widgets/generic_state_label.h"
+#include "FrutHeader.h"
+#include "../amalgamated/frut_widgets.h"
 
 
 class GenericSkin
