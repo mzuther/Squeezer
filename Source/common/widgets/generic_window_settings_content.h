@@ -26,8 +26,6 @@
 #ifndef __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 #define __GENERIC_WINDOW_SETTINGS_CONTENT_H__
 
-#include "FrutHeader.h"
-
 
 /// Dialog window for displaying plugin-settings.
 ///

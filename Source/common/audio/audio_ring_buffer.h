@@ -28,8 +28,6 @@
 
 class AudioRingBufferProcessor;
 
-#include "FrutHeader.h"
-
 
 //==============================================================================
 /**

@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_needle_meter.h"
-
 
 /// Create a meter with a needle.
 ///

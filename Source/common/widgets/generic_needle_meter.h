@@ -26,8 +26,6 @@
 #ifndef __GENERIC_NEEDLE_METER_H__
 #define __GENERIC_NEEDLE_METER_H__
 
-#include "FrutHeader.h"
-
 
 class GenericNeedleMeter :
     public Component

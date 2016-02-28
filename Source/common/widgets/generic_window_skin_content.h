@@ -26,8 +26,6 @@
 #ifndef __GENERIC_WINDOW_SKIN_CONTENT_H__
 #define __GENERIC_WINDOW_SKIN_CONTENT_H__
 
-#include "FrutHeader.h"
-
 
 /// List box model that lists all available GUI skins.
 ///

@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_meter_bar.h"
-
 
 /// Create a new meter bar (and delete an existing one).  The meter
 /// bar can be filled using addSegment() and its cousins.

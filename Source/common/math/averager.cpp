@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "averager.h"
-
 
 Averager::Averager(int number_of_samples, float initial_value)
 {

@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "slider_switch_linear_bar.h"
-
 
 SliderSwitchLinearBar::SliderSwitchLinearBar(ParameterJuggler *pParameters, int nParameterIndex)
 {

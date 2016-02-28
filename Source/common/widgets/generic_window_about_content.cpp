@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_window_about_content.h"
-
 
 /// Create content component for dialog window showing version,
 /// copyright, license and so on.

@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_skin.h"
-
 
 bool GenericSkin::loadFromXml(
     File &skinFile,

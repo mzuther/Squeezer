@@ -26,8 +26,6 @@
 #ifndef __MZ_JUCE_COMMON_H__
 #define __MZ_JUCE_COMMON_H__
 
-#include "FrutHeader.h"
-
 
 /// Simple class for version info and common functions.
 ///

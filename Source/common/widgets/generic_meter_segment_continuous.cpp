@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_meter_segment_continuous.h"
-
 
 /// Create a new continuous meter segment, complete with peak marker.
 ///

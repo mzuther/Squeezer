@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_window_skin_content.h"
-
 
 /// Create content component for dialog window that allows selecting a
 /// new GUI skin.

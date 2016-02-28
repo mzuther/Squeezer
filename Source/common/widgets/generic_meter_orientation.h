@@ -26,8 +26,6 @@
 #ifndef __GENERIC_METER_ORIENTATION_H__
 #define __GENERIC_METER_ORIENTATION_H__
 
-#include "FrutHeader.h"
-
 
 /// Orientation for meter bars and meter segments.
 ///

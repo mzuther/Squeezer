@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "slider_continuous.h"
-
 
 SliderContinuous::SliderContinuous(ParameterJuggler *pParameters, int nParameterIndex)
 {

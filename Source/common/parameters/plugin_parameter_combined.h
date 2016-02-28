@@ -26,7 +26,6 @@
 #ifndef __PLUGIN_PARAMETER_COMBINED_H__
 #define __PLUGIN_PARAMETER_COMBINED_H__
 
-#include "FrutHeader.h"
 #include "plugin_parameter_boolean.h"
 #include "plugin_parameter_continuous.h"
 #include "plugin_parameter_switch.h"

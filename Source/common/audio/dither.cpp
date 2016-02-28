@@ -23,11 +23,9 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "dither.h"
 
 // Thanks to Paul Kellet for the code snippet!
 // (http://www.musicdsp.org/showone.php?id=77)
-
 
 Dither::Dither(int number_of_bits, double noise_shaping)
 {

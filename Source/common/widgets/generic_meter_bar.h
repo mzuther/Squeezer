@@ -26,7 +26,6 @@
 #ifndef __GENERIC_METER_BAR_H__
 #define __GENERIC_METER_BAR_H__
 
-#include "FrutHeader.h"
 #include "generic_meter_segment.h"
 
 

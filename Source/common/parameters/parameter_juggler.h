@@ -28,7 +28,6 @@
 
 class ParameterJuggler;
 
-#include "FrutHeader.h"
 #include "plugin_parameter_combined.h"
 
 

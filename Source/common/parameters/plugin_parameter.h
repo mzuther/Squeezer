@@ -26,8 +26,6 @@
 #ifndef __PLUGIN_PARAMETER_H__
 #define __PLUGIN_PARAMETER_H__
 
-#include "FrutHeader.h"
-
 
 /// Common base class for plug-in parameters.
 ///

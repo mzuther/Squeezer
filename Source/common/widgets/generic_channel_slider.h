@@ -26,8 +26,6 @@
 #ifndef __GENERIC_CHANNEL_SLIDER_H__
 #define __GENERIC_CHANNEL_SLIDER_H__
 
-#include "FrutHeader.h"
-
 
 class GenericChannelSlider :
     public Slider

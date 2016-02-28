@@ -23,7 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_meter_segment.h"
 
 /// Create a new base meter segment.
 ///

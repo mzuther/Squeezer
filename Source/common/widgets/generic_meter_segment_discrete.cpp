@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_meter_segment_discrete.h"
-
 
 /// Create a new discrete meter segment, complete with peak marker.
 ///

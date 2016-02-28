@@ -26,7 +26,6 @@
 #ifndef __GENERIC_PLUGIN_STANDALONE_H__
 #define __GENERIC_PLUGIN_STANDALONE_H__
 
-#include "FrutHeader.h"
 #include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
 
 

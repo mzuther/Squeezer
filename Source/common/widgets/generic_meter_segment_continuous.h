@@ -26,8 +26,6 @@
 #ifndef __GENERIC_METER_SEGMENT_CONTINUOUS_H__
 #define __GENERIC_METER_SEGMENT_CONTINUOUS_H__
 
-#include "FrutHeader.h"
-
 
 /// Continuous meter segment component.  This widget consists of a
 /// coloured filled rectangle (meter segment) surrounded by a small

@@ -23,7 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "audio_ring_buffer.h"
 
 AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size) :
     fRingBufferMemTest(255.0f)

@@ -23,7 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_plugin_standalone.h"
 
 /// Called when the application starts.
 ///

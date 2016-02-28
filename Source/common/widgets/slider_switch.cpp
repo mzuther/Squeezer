@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "slider_switch.h"
-
 
 SliderSwitch::SliderSwitch(ParameterJuggler *pParameters, int nParameterIndex)
 {

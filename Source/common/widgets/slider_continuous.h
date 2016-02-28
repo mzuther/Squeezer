@@ -28,8 +28,6 @@
 
 class PluginParameterContinuous;
 
-#include "FrutHeader.h"
-
 
 class SliderContinuous :
     public Slider

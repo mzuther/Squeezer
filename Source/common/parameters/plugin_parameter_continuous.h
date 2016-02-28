@@ -26,8 +26,6 @@
 #ifndef __PLUGIN_PARAMETER_CONTINUOUS_H__
 #define __PLUGIN_PARAMETER_CONTINUOUS_H__
 
-#include "FrutHeader.h"
-
 
 /// Plug-in parameter for storing a floating-point value (continuous
 /// values with a given number of decimal places).

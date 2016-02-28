@@ -28,8 +28,6 @@
 
 class PluginParameterSwitch;
 
-#include "FrutHeader.h"
-
 
 class SliderSwitchLinearBar :
     public Slider

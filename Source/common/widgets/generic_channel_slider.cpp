@@ -23,7 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_channel_slider.h"
 
 GenericChannelSlider::GenericChannelSlider()
 {

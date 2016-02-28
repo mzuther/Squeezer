@@ -26,8 +26,6 @@
 #ifndef __GENERIC_STATE_LABEL_H__
 #define __GENERIC_STATE_LABEL_H__
 
-#include "FrutHeader.h"
-
 
 /// State label component.  This widget loads three images of the same
 /// size which will be displayed according to the label's state.  It

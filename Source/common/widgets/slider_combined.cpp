@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "slider_combined.h"
-
 
 SliderCombined::SliderCombined(ParameterJuggler *pParameters, int nParameterIndex, int nParameterIndexSwitch)
 {

@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "generic_window_validation_content.h"
-
 
 /// Create content component for dialog window with validation settings.
 ///

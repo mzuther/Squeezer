@@ -26,8 +26,6 @@
 #ifndef __AVERAGER_H__
 #define __AVERAGER_H__
 
-#include "FrutHeader.h"
-
 
 class Averager
 {

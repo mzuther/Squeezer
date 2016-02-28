@@ -28,8 +28,6 @@
 
 class PluginParameterCombined;
 
-#include "FrutHeader.h"
-
 
 class SliderCombined :
     public Slider

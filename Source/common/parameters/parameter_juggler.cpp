@@ -23,8 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "parameter_juggler.h"
-
 
 // The methods of this class may be called on the audio thread, so
 // they are absolutely time-critical!

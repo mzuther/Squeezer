@@ -26,8 +26,6 @@
 #ifndef __PLUGIN_PARAMETER_SWITCH_H__
 #define __PLUGIN_PARAMETER_SWITCH_H__
 
-#include "FrutHeader.h"
-
 
 /// Plug-in parameter for storing a floating-point value (filled with
 /// arbitrary preset values).

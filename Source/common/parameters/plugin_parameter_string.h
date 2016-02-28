@@ -26,8 +26,6 @@
 #ifndef __PLUGIN_PARAMETER_STRING_H__
 #define __PLUGIN_PARAMETER_STRING_H__
 
-#include "FrutHeader.h"
-
 
 /// Plug-in parameter for storing a String value.
 ///

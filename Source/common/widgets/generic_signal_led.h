@@ -26,8 +26,6 @@
 #ifndef __GENERIC_SIGNAL_LED_H__
 #define __GENERIC_SIGNAL_LED_H__
 
-#include "FrutHeader.h"
-
 
 /// Signal LED component.  This widget loads three images of the same
 /// size which will be displayed according to the meter's level.
