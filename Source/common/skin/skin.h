@@ -54,22 +54,22 @@ public:
     void placeComponent(Component *component,
                         const String &tagName);
 
-    void placeMeterBar(GenericMeterBar *meterBar,
+    void placeMeterBar(widget::MeterBar *meterBar,
                        const String &tagName);
 
     void placeAndSkinButton(ImageButton *button,
                             const String &tagName);
 
-    void placeAndSkinNeedleMeter(GenericNeedleMeter *meter,
+    void placeAndSkinNeedleMeter(widget::NeedleMeter *meter,
                                  const String &tagName);
 
     void placeAndSkinLabel(ImageComponent *label,
                            const String &tagName);
 
-    void placeAndSkinSignalLed(GenericSignalLed *label,
+    void placeAndSkinSignalLed(widget::SignalLed *label,
                                const String &tagName);
 
-    void placeAndSkinStateLabel(GenericStateLabel *label,
+    void placeAndSkinStateLabel(widget::StateLabel *label,
                                 const String &tagName);
 
     void setBackgroundImage(ImageComponent *background,

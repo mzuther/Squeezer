@@ -32,7 +32,7 @@
 
 //============================================================================
 class SqueezerPluginParameters :
-    public frut::ParameterJuggler
+    public frut::parameter::Juggler
 {
 public:
     //==========================================================================

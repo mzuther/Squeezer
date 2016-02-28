@@ -108,10 +108,10 @@ ifeq ($(config),release64)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/frut_widget.o \
 	$(OBJDIR)/frut_math.o \
-	$(OBJDIR)/frut_parameters.o \
 	$(OBJDIR)/frut_skin.o \
-	$(OBJDIR)/frut_widgets.o \
+	$(OBJDIR)/frut_parameter.o \
 	$(OBJDIR)/frut_audio.o \
 	$(OBJDIR)/compressor.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
@@ -200,16 +200,16 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
-$(OBJDIR)/frut_math.o: ../../../Source/common/amalgamated/frut_math.cpp
+$(OBJDIR)/frut_widget.o: ../../../Source/common/amalgamated/frut_widget.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/frut_parameters.o: ../../../Source/common/amalgamated/frut_parameters.cpp
+$(OBJDIR)/frut_math.o: ../../../Source/common/amalgamated/frut_math.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/frut_skin.o: ../../../Source/common/amalgamated/frut_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/frut_widgets.o: ../../../Source/common/amalgamated/frut_widgets.cpp
+$(OBJDIR)/frut_parameter.o: ../../../Source/common/amalgamated/frut_parameter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp

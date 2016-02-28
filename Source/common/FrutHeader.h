@@ -53,8 +53,8 @@ public:
 // normal includes
 #include "amalgamated/frut_audio.h"
 #include "amalgamated/frut_math.h"
-#include "amalgamated/frut_parameters.h"
-#include "amalgamated/frut_widgets.h"
+#include "amalgamated/frut_parameter.h"
+#include "amalgamated/frut_widget.h"
 
 // post includes
 #include "amalgamated/frut_skin.h"

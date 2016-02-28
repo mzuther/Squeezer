@@ -30,11 +30,11 @@
 
 
 class MeterBarLevel :
-    public frut::GenericMeterBar
+    public frut::widget::MeterBar
 {
 public:
     void create(int crestFactor,
-                frut::GenericMeterOrientation orientation,
+                frut::widget::Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
                 int mainSegmentWidth,

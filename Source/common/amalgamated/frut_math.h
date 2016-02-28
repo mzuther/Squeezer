@@ -34,7 +34,7 @@ namespace math
 
 // normal includes
 #include "../math/averager.h"
-#include "../math/simple.h"
+#include "../math/simple_math.h"
 
 }
 }

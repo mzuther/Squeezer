@@ -30,10 +30,10 @@
 
 
 class MeterBarGainReduction :
-    public frut::GenericMeterBar
+    public frut::widget::MeterBar
 {
 public:
-    void create(frut::GenericMeterOrientation orientation,
+    void create(frut::widget::Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentWidth,
                 int mainSegmentHeight,

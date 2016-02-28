@@ -351,7 +351,7 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
     default:
     {
-        frut::PluginParameterCombined *pCombined = dynamic_cast<frut::PluginParameterCombined *>(pluginParameters.getPluginParameter(nIndex + 1));
+        frut::parameter::ParCombined *pCombined = dynamic_cast<frut::parameter::ParCombined *>(pluginParameters.getPluginParameter(nIndex + 1));
 
         if (pCombined)
         {

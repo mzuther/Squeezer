@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{95748B7C-335A-9014-3D55-7D3E7C4BA40B}</ProjectGuid>
+		<ProjectGuid>{0C0B3F94-C1A6-4DAF-64BF-3B1E03B1C0C3}</ProjectGuid>
 		<RootNamespace>Squeezer VST (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -215,10 +215,10 @@
 	<ItemGroup>
 		<ClInclude Include="..\..\..\Source\common\FrutHeader.h" />
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_skin.h" />
-		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_widgets.h" />
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h" />
-		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameters.h" />
+		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_widget.h" />
 		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h" />
+		<ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameter.h" />
 		<ClInclude Include="..\..\..\Source\meter_bar_gain_reduction.h" />
 		<ClInclude Include="..\..\..\Source\plugin_parameters.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
@@ -233,13 +233,13 @@
 		<ClInclude Include="..\..\..\Source\filter_chebyshev.h" />
 	</ItemGroup>
 	<ItemGroup>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameters.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_skin.cpp">
 		</ClCompile>
-		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widgets.cpp">
+		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameter.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">
 		</ClCompile>

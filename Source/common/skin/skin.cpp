@@ -303,7 +303,7 @@ void Skin::placeAndSkinButton(
 
 
 void Skin::placeAndSkinNeedleMeter(
-    GenericNeedleMeter *meter,
+    widget::NeedleMeter *meter,
     const String &tagName)
 
 {
@@ -411,7 +411,7 @@ void Skin::placeAndSkinLabel(
 
 
 void Skin::placeAndSkinSignalLed(
-    GenericSignalLed *label,
+    widget::SignalLed *label,
     const String &tagName)
 
 {
@@ -507,7 +507,7 @@ void Skin::placeAndSkinSignalLed(
 
 
 void Skin::placeAndSkinStateLabel(
-    GenericStateLabel *label,
+    widget::StateLabel *label,
     const String &tagName)
 
 {
@@ -646,7 +646,7 @@ void Skin::placeComponent(
 
 
 void Skin::placeMeterBar(
-    GenericMeterBar *meterBar,
+    widget::MeterBar *meterBar,
     const String &tagName)
 
 {
@@ -679,12 +679,12 @@ void Skin::placeMeterBar(
         // vertical bar
         if (isVertical)
         {
-            meterBar->setOrientation(GenericMeterOrientation::vertical);
+            meterBar->setOrientation(widget::Orientation::vertical);
         }
         // horizontal bar
         else
         {
-            meterBar->setOrientation(GenericMeterOrientation::horizontal);
+            meterBar->setOrientation(widget::Orientation::horizontal);
         }
     }
 }
