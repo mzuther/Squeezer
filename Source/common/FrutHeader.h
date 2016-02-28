@@ -34,7 +34,9 @@
 namespace frut
 {
 
-class Common
+/// Simple helper class.
+///
+class Frut
 {
 public:
     /// Get version number of Frut common classes.

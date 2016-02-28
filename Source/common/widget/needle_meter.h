@@ -27,6 +27,8 @@
 #define __FRUT_WIDGET_NEEDLE_METER_H__
 
 
+/// Meter component with a needle that moves according to the input.
+///
 class NeedleMeter :
     public Component
 {
