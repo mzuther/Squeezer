@@ -30,6 +30,10 @@
 // external includes
 #include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
 
+
+namespace frut
+{
+
 // pre includes
 #include "../widgets/generic_meter_orientation.h"
 #include "../widgets/resources/resources.h"
@@ -54,6 +58,8 @@
 
 // post includes
 #include "../widgets/generic_meter_bar.h"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_WIDGETS_H__

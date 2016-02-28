@@ -29,6 +29,10 @@
 
 #include "../FrutHeader.h"
 
+
+namespace frut
+{
+
 #include "../widgets/generic_channel_slider.cpp"
 #include "../widgets/generic_meter_bar.cpp"
 #include "../widgets/generic_meter_segment.cpp"
@@ -47,6 +51,8 @@
 #include "../widgets/slider_continuous.cpp"
 #include "../widgets/slider_switch.cpp"
 #include "../widgets/slider_switch_linear_bar.cpp"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_WIDGETS_CPP__

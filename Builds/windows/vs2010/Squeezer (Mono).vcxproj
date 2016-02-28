@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{D904C3E7-3D34-7959-C4D9-9E06403CB631}</ProjectGuid>
+		<ProjectGuid>{469086E2-DA43-4454-0321-970311F6AEC2}</ProjectGuid>
 		<RootNamespace>Squeezer (Mono)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>

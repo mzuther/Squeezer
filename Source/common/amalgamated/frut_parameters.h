@@ -27,6 +27,9 @@
 #define __FRUT_AMALGAMATED_PARAMETERS_H__
 
 
+namespace frut
+{
+
 // pre includes
 #include "../parameters/plugin_parameter.h"
 
@@ -39,6 +42,8 @@
 // post includes
 #include "../parameters/plugin_parameter_combined.h"
 #include "../parameters/parameter_juggler.h"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_PARAMETERS_H__

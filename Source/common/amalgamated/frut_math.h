@@ -27,9 +27,14 @@
 #define __FRUT_AMALGAMATED_MATH_H__
 
 
+namespace frut
+{
+
 // normal includes
 #include "../math/averager.h"
 #include "../math/simple.h"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_MATH_H__

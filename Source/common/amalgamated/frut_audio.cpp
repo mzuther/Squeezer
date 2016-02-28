@@ -29,8 +29,14 @@
 
 #include "../FrutHeader.h"
 
-#include "../audio/audio_ring_buffer.cpp"
+
+namespace frut
+{
+
 #include "../audio/dither.cpp"
+#include "../audio/ring_buffer.cpp"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_AUDIO_CPP__

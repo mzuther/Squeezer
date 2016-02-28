@@ -27,8 +27,13 @@
 #define __FRUT_AMALGAMATED_SKIN_H__
 
 
+namespace frut
+{
+
 // normal includes
 #include "../skin/generic_skin.h"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_SKIN_H__

@@ -27,12 +27,17 @@
 #define __FRUT_AMALGAMATED_AUDIO_H__
 
 
+namespace frut
+{
+
 // pre-defines
 class AudioRingBufferProcessor;
 
 // normal includes
-#include "../audio/audio_ring_buffer.h"
 #include "../audio/dither.h"
+#include "../audio/ring_buffer.h"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_AUDIO_H__

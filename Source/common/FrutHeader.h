@@ -31,10 +31,13 @@
 #include "JuceHeader.h"
 
 
-class Frut
+namespace frut
+{
+
+class Common
 {
 public:
-    /// Get version number of common classes.
+    /// Get version number of Frut common classes.
     ///
     /// @return version number
     ///
@@ -43,6 +46,9 @@ public:
         return "1.6.1";
     }
 };
+
+}
+
 
 // normal includes
 #include "amalgamated/frut_audio.h"

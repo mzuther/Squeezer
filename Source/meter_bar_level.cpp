@@ -26,14 +26,14 @@
 #include "meter_bar_level.h"
 
 void MeterBarLevel::create(int crestFactor,
-                           GenericMeterOrientation orientation,
+                           frut::GenericMeterOrientation orientation,
                            bool discreteMeter,
                            int mainSegmentHeight,
                            int mainSegmentWidth,
                            const Array<Colour> &segmentColours)
 
 {
-    GenericMeterBar::create();
+    frut::GenericMeterBar::create();
 
     setSegmentWidth(mainSegmentWidth);
     crestFactor *= 10;

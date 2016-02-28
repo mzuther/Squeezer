@@ -29,7 +29,13 @@
 
 #include "../FrutHeader.h"
 
+
+namespace frut
+{
+
 #include "../math/averager.cpp"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_MATH_CPP__

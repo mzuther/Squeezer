@@ -4,9 +4,6 @@
 # indent C++ comments beginning in column one
 --indent-col1-comments
 
-# add extra indentation to namespace blocks
---indent-namespaces
-
 # pad empty lines around header blocks ('if', 'for', 'while'...)
 --break-blocks
 

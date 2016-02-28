@@ -42,8 +42,8 @@ Flow of parameter processing:
 
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
+    Logger::outputDebugString(String("FRUT v") + frut::Common::getVersion());
     Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
-    Logger::outputDebugString(String("Comm v") + Frut::getVersion());
     Logger::outputDebugString("");
 
     bSampleRateIsValid = false;
@@ -351,7 +351,7 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
     default:
     {
-        PluginParameterCombined *pCombined = dynamic_cast<PluginParameterCombined *>(pluginParameters.getPluginParameter(nIndex + 1));
+        frut::PluginParameterCombined *pCombined = dynamic_cast<frut::PluginParameterCombined *>(pluginParameters.getPluginParameter(nIndex + 1));
 
         if (pCombined)
         {

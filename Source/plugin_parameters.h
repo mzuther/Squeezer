@@ -31,7 +31,8 @@
 
 
 //============================================================================
-class SqueezerPluginParameters : public ParameterJuggler
+class SqueezerPluginParameters :
+    public frut::ParameterJuggler
 {
 public:
     //==========================================================================

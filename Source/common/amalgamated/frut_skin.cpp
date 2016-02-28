@@ -29,7 +29,13 @@
 
 #include "../FrutHeader.h"
 
+
+namespace frut
+{
+
 #include "../skin/generic_skin.cpp"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_SKIN_CPP__

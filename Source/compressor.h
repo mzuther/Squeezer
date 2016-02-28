@@ -157,7 +157,7 @@ private:
     AudioSampleBuffer MeterInputBuffer;
     AudioSampleBuffer MeterOutputBuffer;
 
-    Dither dither;
+    frut::Dither dither;
     OwnedArray<SideChain> p_arrSideChain;
     OwnedArray<FilterChebyshev> p_arrSidechainFilter;
 

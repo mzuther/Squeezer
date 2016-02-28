@@ -29,6 +29,10 @@
 
 #include "../FrutHeader.h"
 
+
+namespace frut
+{
+
 #include "../parameters/parameter_juggler.cpp"
 #include "../parameters/plugin_parameter_boolean.cpp"
 #include "../parameters/plugin_parameter_combined.cpp"
@@ -36,6 +40,8 @@
 #include "../parameters/plugin_parameter.cpp"
 #include "../parameters/plugin_parameter_string.cpp"
 #include "../parameters/plugin_parameter_switch.cpp"
+
+}
 
 
 #endif  // __FRUT_AMALGAMATED_PARAMETERS_CPP__

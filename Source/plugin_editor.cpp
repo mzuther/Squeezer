@@ -169,7 +169,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     int nIndex = SqueezerPluginParameters::selThreshold;
     int nIndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
-    SliderThresholdCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderThresholdCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderThresholdCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderThresholdCombined->addListener(this);
@@ -179,7 +179,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selRatio;
     nIndexSwitch = SqueezerPluginParameters::selRatioSwitch;
-    SliderRatioCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderRatioCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderRatioCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderRatioCombined->addListener(this);
@@ -188,7 +188,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selKneeWidth;
     nIndexSwitch = SqueezerPluginParameters::selKneeWidthSwitch;
-    SliderKneeWidthCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderKneeWidthCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderKneeWidthCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderKneeWidthCombined->addListener(this);
@@ -198,7 +198,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selAttackRate;
     nIndexSwitch = SqueezerPluginParameters::selAttackRateSwitch;
-    SliderAttackRateCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderAttackRateCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderAttackRateCombined->setSliderColour(Colours::yellow);
 
     SliderAttackRateCombined->addListener(this);
@@ -208,7 +208,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selReleaseRate;
     nIndexSwitch = SqueezerPluginParameters::selReleaseRateSwitch;
-    SliderReleaseRateCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderReleaseRateCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderReleaseRateCombined->setSliderColour(Colours::yellow);
 
     SliderReleaseRateCombined->addListener(this);
@@ -219,7 +219,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 #ifdef SQUEEZER_STEREO
     nIndex = SqueezerPluginParameters::selStereoLink;
     nIndexSwitch = SqueezerPluginParameters::selStereoLinkSwitch;
-    SliderStereoLinkCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderStereoLinkCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderStereoLinkCombined->setSliderColour(Colours::purple.brighter(0.2f));
 
     SliderStereoLinkCombined->addListener(this);
@@ -238,7 +238,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selMakeupGain;
     nIndexSwitch = SqueezerPluginParameters::selMakeupGainSwitch;
-    SliderMakeupGainCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderMakeupGainCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderMakeupGainCombined->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderMakeupGainCombined->addListener(this);
@@ -248,7 +248,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selWetMix;
     nIndexSwitch = SqueezerPluginParameters::selWetMixSwitch;
-    SliderWetMixCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderWetMixCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderWetMixCombined->setSliderColour(Colours::blue.brighter(0.4f));
 
     SliderWetMixCombined->addListener(this);
@@ -266,7 +266,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
     nIndex = SqueezerPluginParameters::selSidechainFilterCutoff;
     nIndexSwitch = SqueezerPluginParameters::selSidechainFilterCutoffSwitch;
-    SliderSidechainFilterCutoffCombined = new SliderCombined(parameters, nIndex, nIndexSwitch);
+    SliderSidechainFilterCutoffCombined = new frut::SliderCombined(parameters, nIndex, nIndexSwitch);
     SliderSidechainFilterCutoffCombined->setSliderColour(Colours::green.brighter(0.1f));
 
     SliderSidechainFilterCutoffCombined->addListener(this);
@@ -275,7 +275,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 
 
     nIndex = SqueezerPluginParameters::selSidechainFilterGain;
-    SliderSidechainFilterGain = new SliderSwitchLinearBar(parameters, nIndex);
+    SliderSidechainFilterGain = new frut::SliderSwitchLinearBar(parameters, nIndex);
     SliderSidechainFilterGain->setSliderColour(Colours::green.brighter(0.1f));
 
     SliderSidechainFilterGain->addListener(this);
@@ -353,7 +353,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(
                 new MeterBarLevel());
         pMeterBarLevelInput->create(20,
-                                    GenericMeterOrientation::vertical,
+                                    frut::GenericMeterOrientation::vertical,
                                     discreteMeter,
                                     5,
                                     12,
@@ -365,7 +365,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(
                 new MeterBarLevel());
         pMeterBarLevelOutput->create(20,
-                                     GenericMeterOrientation::vertical,
+                                     frut::GenericMeterOrientation::vertical,
                                      discreteMeter,
                                      5,
                                      12,
@@ -377,7 +377,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(
                     new MeterBarGainReduction());
         pMeterBarGainReduction->create(
-            GenericMeterOrientation::vertical,
+            frut::GenericMeterOrientation::vertical,
             discreteMeter,
             5,
             12,
@@ -900,7 +900,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         String pluginSettings = pProcessor->getParameters().trim();
 
         // prepare and launch dialog window
-        DialogWindow *windowSettings = GenericWindowSettingsContent::createDialogWindow(
+        DialogWindow *windowSettings = frut::GenericWindowSettingsContent::createDialogWindow(
                                            this, width, height, pluginSettings);
 
         // attach callback to dialog window
@@ -1000,7 +1000,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         int width = 270;
         int height = 540;
 
-        DialogWindow *windowAbout = GenericWindowAboutContent::createDialogWindow(
+        DialogWindow *windowAbout = frut::GenericWindowAboutContent::createDialogWindow(
                                         this, width, height, arrChapters);
 
         // attach callback to dialog window
@@ -1009,7 +1009,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     else
     {
         float fValue = button->getToggleState() ? 1.0f : 0.0f;
-        SliderCombined *slider = dynamic_cast<SliderCombined *>(button->getParentComponent());
+        frut::SliderCombined *slider = dynamic_cast<frut::SliderCombined *>(button->getParentComponent());
 
         if (slider == SliderThresholdCombined)
         {

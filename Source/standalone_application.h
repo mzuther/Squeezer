@@ -30,7 +30,7 @@
 
 
 class SqueezerStandalone :
-    virtual public GenericPluginStandalone
+    virtual public frut::GenericPluginStandalone
 {
 public:
     // it's cold and empty here ...

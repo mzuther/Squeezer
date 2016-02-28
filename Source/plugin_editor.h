@@ -88,25 +88,25 @@ private:
     TextButton ButtonGainStageFET;
     TextButton ButtonGainStageOptical;
 
-    ScopedPointer<SliderCombined> SliderThresholdCombined;
-    ScopedPointer<SliderCombined> SliderRatioCombined;
-    ScopedPointer<SliderCombined> SliderKneeWidthCombined;
+    ScopedPointer<frut::SliderCombined> SliderThresholdCombined;
+    ScopedPointer<frut::SliderCombined> SliderRatioCombined;
+    ScopedPointer<frut::SliderCombined> SliderKneeWidthCombined;
 
-    ScopedPointer<SliderCombined> SliderAttackRateCombined;
-    ScopedPointer<SliderCombined> SliderReleaseRateCombined;
+    ScopedPointer<frut::SliderCombined> SliderAttackRateCombined;
+    ScopedPointer<frut::SliderCombined> SliderReleaseRateCombined;
 
 #ifdef SQUEEZER_STEREO
-    ScopedPointer<SliderCombined> SliderStereoLinkCombined;
+    ScopedPointer<frut::SliderCombined> SliderStereoLinkCombined;
 #endif
 
-    ScopedPointer<SliderCombined> SliderInputGainCombined;
+    ScopedPointer<frut::SliderCombined> SliderInputGainCombined;
     TextButton ButtonAutoMakeupGain;
-    ScopedPointer<SliderCombined> SliderMakeupGainCombined;
-    ScopedPointer<SliderCombined> SliderWetMixCombined;
+    ScopedPointer<frut::SliderCombined> SliderMakeupGainCombined;
+    ScopedPointer<frut::SliderCombined> SliderWetMixCombined;
 
     TextButton ButtonSidechainFilterState;
-    ScopedPointer<SliderCombined> SliderSidechainFilterCutoffCombined;
-    ScopedPointer<SliderSwitchLinearBar> SliderSidechainFilterGain;
+    ScopedPointer<frut::SliderCombined> SliderSidechainFilterCutoffCombined;
+    ScopedPointer<frut::SliderSwitchLinearBar> SliderSidechainFilterGain;
     TextButton ButtonSidechainListen;
 
     TextButton ButtonBypass;
