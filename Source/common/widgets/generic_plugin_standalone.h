@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_PLUGIN_STANDALONE_H__
-#define __GENERIC_PLUGIN_STANDALONE_H__
+#ifndef __JUCE_WIDGET_PLUGIN_STANDALONE_H__
+#define __JUCE_WIDGET_PLUGIN_STANDALONE_H__
 
 
 /// Stand-alone application for audio plug-ins.  When an instance of
@@ -54,7 +54,7 @@ private:
     JUCE_LEAK_DETECTOR(GenericPluginStandalone);
 };
 
-#endif   // __GENERIC_PLUGIN_STANDALONE_H__
+#endif   // __JUCE_WIDGET_PLUGIN_STANDALONE_H__
 
 
 // Local Variables:

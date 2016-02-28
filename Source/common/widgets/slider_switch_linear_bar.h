@@ -23,10 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_SWITCH_LINEAR_BAR_H__
-#define __SLIDER_SWITCH_LINEAR_BAR_H__
-
-class PluginParameterSwitch;
+#ifndef __FRUT_WIDGET_SLIDER_SWITCH_LINEAR_BAR_H__
+#define __FRUT_WIDGET_SLIDER_SWITCH_LINEAR_BAR_H__
 
 
 class SliderSwitchLinearBar :
@@ -52,7 +50,7 @@ private:
 };
 
 
-#endif  // __SLIDER_SWITCH_LINEAR_BAR_H__
+#endif  // __FRUT_WIDGET_SLIDER_SWITCH_LINEAR_BAR_H__
 
 
 // Local Variables:

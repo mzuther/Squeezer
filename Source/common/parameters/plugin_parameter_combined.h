@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETER_COMBINED_H__
-#define __PLUGIN_PARAMETER_COMBINED_H__
+#ifndef __FRUT_PARAMETER_COMBINED_H__
+#define __FRUT_PARAMETER_COMBINED_H__
 
 
 /// Plug-in parameter for storing a floating-point value (can be
@@ -91,7 +91,7 @@ private:
 };
 
 
-#endif  // __PLUGIN_PARAMETER_COMBINED_H__
+#endif  // __FRUT_PARAMETER_COMBINED_H__
 
 
 // Local Variables:

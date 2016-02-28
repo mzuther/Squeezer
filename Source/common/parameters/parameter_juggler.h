@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PARAMETER_JUGGLER_H__
-#define __PARAMETER_JUGGLER_H__
+#ifndef __FRUT_PARAMETER_JUGGLER_H__
+#define __FRUT_PARAMETER_JUGGLER_H__
 
 
 /// Container for all parameters of a plug-in.
@@ -90,7 +90,7 @@ private:
     JUCE_LEAK_DETECTOR(ParameterJuggler);
 };
 
-#endif  // __PARAMETER_JUGGLER_H__
+#endif  // __FRUT_PARAMETER_JUGGLER_H__
 
 
 // Local Variables:

@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_SIGNAL_LED_H__
-#define __GENERIC_SIGNAL_LED_H__
+#ifndef __FRUT_WIDGET_SIGNAL_LED_H__
+#define __FRUT_WIDGET_SIGNAL_LED_H__
 
 
 /// Signal LED component.  This widget loads three images of the same
@@ -61,7 +61,7 @@ private:
 };
 
 
-#endif  // __GENERIC_SIGNAL_LED_H__
+#endif  // __FRUT_WIDGET_SIGNAL_LED_H__
 
 
 // Local Variables:

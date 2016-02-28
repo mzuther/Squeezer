@@ -23,15 +23,16 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_SKIN_CPP__
-#define __FRUT_JUCE_SKIN_CPP__
+#ifndef __FRUT_AMALGAMATED_SKIN_CPP__
+#define __FRUT_AMALGAMATED_SKIN_CPP__
+
 
 #include "../FrutHeader.h"
 
-
 #include "../skin/generic_skin.cpp"
 
-#endif  // __FRUT_JUCE_SKIN_CPP__
+
+#endif  // __FRUT_AMALGAMATED_SKIN_CPP__
 
 
 // Local Variables:

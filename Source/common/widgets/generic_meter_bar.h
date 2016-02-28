@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_METER_BAR_H__
-#define __GENERIC_METER_BAR_H__
+#ifndef __FRUT_WIDGET_METER_BAR_H__
+#define __FRUT_WIDGET_METER_BAR_H__
 
 
 /// Meter bar component.  This widget is an empty container that can
@@ -104,7 +104,7 @@ private:
 };
 
 
-#endif  // __GENERIC_METER_BAR_H__
+#endif  // __FRUT_WIDGET_METER_BAR_H__
 
 
 // Local Variables:

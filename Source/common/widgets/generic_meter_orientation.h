@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_METER_ORIENTATION_H__
-#define __GENERIC_METER_ORIENTATION_H__
+#ifndef __FRUT_WIDGET_METER_ORIENTATION_H__
+#define __FRUT_WIDGET_METER_ORIENTATION_H__
 
 
 /// Orientation for meter bars and meter segments.
@@ -45,7 +45,7 @@ enum GenericMeterOrientation
 };
 
 
-#endif  // __GENERIC_METER_ORIENTATION_H__
+#endif  // __FRUT_WIDGET_METER_ORIENTATION_H__
 
 
 // Local Variables:

@@ -30,8 +30,19 @@
 // external includes
 #include "JuceHeader.h"
 
-// pre includes
-#include "mz_juce_common.h"
+
+class Frut
+{
+public:
+    /// Get version number of common classes.
+    ///
+    /// @return version number
+    ///
+    static const juce::String getVersion()
+    {
+        return "1.6.1";
+    }
+};
 
 // normal includes
 #include "amalgamated/frut_audio.h"

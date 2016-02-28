@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_WINDOW_SKIN_CONTENT_H__
-#define __GENERIC_WINDOW_SKIN_CONTENT_H__
+#ifndef __FRUT_WIDGET_WINDOW_SKIN_CONTENT_H__
+#define __FRUT_WIDGET_WINDOW_SKIN_CONTENT_H__
 
 
 /// List box model that lists all available GUI skins.
@@ -100,7 +100,7 @@ private:
 };
 
 
-#endif  // __GENERIC_WINDOW_SKIN_CONTENT_H__
+#endif  // __FRUT_WIDGET_WINDOW_SKIN_CONTENT_H__
 
 
 // Local Variables:

@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_METER_SEGMENT_DISCRETE_H__
-#define __GENERIC_METER_SEGMENT_DISCRETE_H__
+#ifndef __FRUT_WIDGET_METER_SEGMENT_DISCRETE_H__
+#define __FRUT_WIDGET_METER_SEGMENT_DISCRETE_H__
 
 
 /// Discrete meter segment component.  This widget consists of a
@@ -74,7 +74,7 @@ private:
 };
 
 
-#endif  // __GENERIC_METER_SEGMENT_DISCRETE_H__
+#endif  // __FRUT_WIDGET_METER_SEGMENT_DISCRETE_H__
 
 
 // Local Variables:

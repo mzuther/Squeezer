@@ -23,11 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_PARAMETERS_CPP__
-#define __FRUT_JUCE_PARAMETERS_CPP__
+#ifndef __FRUT_AMALGAMATED_PARAMETERS_CPP__
+#define __FRUT_AMALGAMATED_PARAMETERS_CPP__
+
 
 #include "../FrutHeader.h"
-
 
 #include "../parameters/parameter_juggler.cpp"
 #include "../parameters/plugin_parameter_boolean.cpp"
@@ -37,7 +37,8 @@
 #include "../parameters/plugin_parameter_string.cpp"
 #include "../parameters/plugin_parameter_switch.cpp"
 
-#endif  // __FRUT_JUCE_PARAMETERS_CPP__
+
+#endif  // __FRUT_AMALGAMATED_PARAMETERS_CPP__
 
 
 // Local Variables:

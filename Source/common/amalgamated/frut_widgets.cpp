@@ -23,13 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_WIDGETS_CPP__
-#define __FRUT_JUCE_WIDGETS_CPP__
+#ifndef __FRUT_AMALGAMATED_WIDGETS_CPP__
+#define __FRUT_AMALGAMATED_WIDGETS_CPP__
+
 
 #include "../FrutHeader.h"
-
-
-#include "../widgets/resources/resources.cpp"
 
 #include "../widgets/generic_channel_slider.cpp"
 #include "../widgets/generic_meter_bar.cpp"
@@ -44,12 +42,14 @@
 #include "../widgets/generic_window_settings_content.cpp"
 #include "../widgets/generic_window_skin_content.cpp"
 #include "../widgets/generic_window_validation_content.cpp"
+#include "../widgets/resources/resources.cpp"
 #include "../widgets/slider_combined.cpp"
 #include "../widgets/slider_continuous.cpp"
 #include "../widgets/slider_switch.cpp"
 #include "../widgets/slider_switch_linear_bar.cpp"
 
-#endif  // __FRUT_JUCE_WIDGETS_CPP__
+
+#endif  // __FRUT_AMALGAMATED_WIDGETS_CPP__
 
 
 // Local Variables:

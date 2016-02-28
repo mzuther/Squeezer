@@ -23,25 +23,15 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __MZ_JUCE_COMMON_H__
-#define __MZ_JUCE_COMMON_H__
+#ifndef __FRUT_MATH_SIMPLE_H__
+#define __FRUT_MATH_SIMPLE_H__
 
 
 /// Simple class for version info and common functions.
 ///
-class MZ_Juce_Common
+class SimpleMath
 {
 public:
-    /// Get version number of common classes.
-    ///
-    /// @return version number
-    ///
-    static String getVersion()
-    {
-        return "1.6.0";
-    }
-
-
     /// Round given value to nearest integer.  Will always round
     /// **away** from zero!
     ///
@@ -122,14 +112,10 @@ public:
         // remove remainder and return it
         return static_cast<int>(x);
     }
-
-
-private:
-    JUCE_LEAK_DETECTOR(MZ_Juce_Common);
 };
 
 
-#endif  // __MZ_JUCE_COMMON_H__
+#endif  // __FRUT_MATH_SIMPLE_H__
 
 
 // Local Variables:

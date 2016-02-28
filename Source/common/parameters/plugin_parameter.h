@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETER_H__
-#define __PLUGIN_PARAMETER_H__
+#ifndef __FRUT_PARAMETER_H__
+#define __FRUT_PARAMETER_H__
 
 
 /// Common base class for plug-in parameters.
@@ -132,7 +132,7 @@ private:
 };
 
 
-#endif  // __PLUGIN_PARAMETER_H__
+#endif  // __FRUT_PARAMETER_H__
 
 
 // Local Variables:

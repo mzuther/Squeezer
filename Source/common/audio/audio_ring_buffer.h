@@ -23,10 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AUDIO_RING_BUFFER_H__
-#define __AUDIO_RING_BUFFER_H__
-
-class AudioRingBufferProcessor;
+#ifndef __FRUT_AUDIO_RING_BUFFER_H__
+#define __FRUT_AUDIO_RING_BUFFER_H__
 
 
 //==============================================================================
@@ -87,7 +85,7 @@ public:
 };
 
 
-#endif  // __AUDIO_RING_BUFFER_H__
+#endif  // __FRUT_AUDIO_RING_BUFFER_H__
 
 
 // Local Variables:

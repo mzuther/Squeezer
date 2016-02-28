@@ -146,7 +146,7 @@ void GenericMeterSegmentContinuous::drawBar(
     case GenericMeterOrientation::vertical:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::round(maximumY_ * levelPosition);
+        pos_1 = SimpleMath::round(maximumY_ * levelPosition);
         pos_2 = maximumY_ - pos_1;
 
         // make sure there is something to draw
@@ -203,7 +203,7 @@ void GenericMeterSegmentContinuous::drawBar(
     case GenericMeterOrientation::horizontalInverted:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::round(maximumX_ * levelPosition);
+        pos_1 = SimpleMath::round(maximumX_ * levelPosition);
         pos_2 = maximumX_ - pos_1;
 
         // make sure there is something to draw
@@ -289,7 +289,7 @@ void GenericMeterSegmentContinuous::drawMarker(
     case GenericMeterOrientation::vertical:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::roundDown((maximumY_ + 1) * levelPosition);
+        pos_1 = SimpleMath::roundDown((maximumY_ + 1) * levelPosition);
 
         if (pos_1 > maximumY_)
         {
@@ -319,7 +319,7 @@ void GenericMeterSegmentContinuous::drawMarker(
     case GenericMeterOrientation::horizontalInverted:
 
         // initialise drawing points
-        pos_1 = MZ_Juce_Common::roundDown((maximumX_ + 1) * levelPosition);
+        pos_1 = SimpleMath::roundDown((maximumX_ + 1) * levelPosition);
 
         if (pos_1 > maximumX_)
         {

@@ -23,10 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_SWITCH_H__
-#define __SLIDER_SWITCH_H__
-
-class PluginParameterSwitch;
+#ifndef __FRUT_WIDGET_SLIDER_SWITCH_H__
+#define __FRUT_WIDGET_SLIDER_SWITCH_H__
 
 
 class SliderSwitch :
@@ -53,7 +51,7 @@ private:
 };
 
 
-#endif  // __SLIDER_SWITCH_H__
+#endif  // __FRUT_WIDGET_SLIDER_SWITCH_H__
 
 
 // Local Variables:

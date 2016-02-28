@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETER_CONTINUOUS_H__
-#define __PLUGIN_PARAMETER_CONTINUOUS_H__
+#ifndef __FRUT_PARAMETER_CONTINUOUS_H__
+#define __FRUT_PARAMETER_CONTINUOUS_H__
 
 
 /// Plug-in parameter for storing a floating-point value (continuous
@@ -71,7 +71,7 @@ private:
 };
 
 
-#endif  // __PLUGIN_PARAMETER_CONTINUOUS_H__
+#endif  // __FRUT_PARAMETER_CONTINUOUS_H__
 
 
 // Local Variables:

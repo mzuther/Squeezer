@@ -23,10 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_COMBINED_H__
-#define __SLIDER_COMBINED_H__
-
-class PluginParameterCombined;
+#ifndef __FRUT_WIDGET_SLIDER_COMBINED_H__
+#define __FRUT_WIDGET_SLIDER_COMBINED_H__
 
 
 class SliderCombined :
@@ -61,7 +59,7 @@ private:
 };
 
 
-#endif  // __SLIDER_COMBINED_H__
+#endif  // __FRUT_WIDGET_SLIDER_COMBINED_H__
 
 
 // Local Variables:

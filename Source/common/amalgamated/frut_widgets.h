@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_WIDGETS_H__
-#define __FRUT_JUCE_WIDGETS_H__
+#ifndef __FRUT_AMALGAMATED_WIDGETS_H__
+#define __FRUT_AMALGAMATED_WIDGETS_H__
 
 
 // external includes
@@ -56,7 +56,7 @@
 #include "../widgets/generic_meter_bar.h"
 
 
-#endif  // __FRUT_JUCE_WIDGETS_H__
+#endif  // __FRUT_AMALGAMATED_WIDGETS_H__
 
 
 // Local Variables:

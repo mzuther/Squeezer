@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_PARAMETERS_H__
-#define __FRUT_JUCE_PARAMETERS_H__
+#ifndef __FRUT_AMALGAMATED_PARAMETERS_H__
+#define __FRUT_AMALGAMATED_PARAMETERS_H__
 
 
 // pre includes
@@ -41,7 +41,7 @@
 #include "../parameters/parameter_juggler.h"
 
 
-#endif  // __FRUT_JUCE_PARAMETERS_H__
+#endif  // __FRUT_AMALGAMATED_PARAMETERS_H__
 
 
 // Local Variables:

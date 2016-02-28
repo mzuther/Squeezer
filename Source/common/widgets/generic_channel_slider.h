@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_CHANNEL_SLIDER_H__
-#define __GENERIC_CHANNEL_SLIDER_H__
+#ifndef __FRUT_WIDGET_CHANNEL_SLIDER_H__
+#define __FRUT_WIDGET_CHANNEL_SLIDER_H__
 
 
 class GenericChannelSlider :
@@ -47,7 +47,7 @@ private:
 };
 
 
-#endif  // __GENERIC_CHANNEL_SLIDER_H__
+#endif  // __FRUT_WIDGET_CHANNEL_SLIDER_H__
 
 
 // Local Variables:

@@ -108,7 +108,7 @@ void GenericNeedleMeter::setValue(
     int needlePositionOld = needlePosition_;
 
     // calculate new needle position
-    needlePosition_ = MZ_Juce_Common::round(value * needleTravelPath_);
+    needlePosition_ = SimpleMath::round(value * needleTravelPath_);
 
     if (isVerticalMeter_)
     {

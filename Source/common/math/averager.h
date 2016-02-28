@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __AVERAGER_H__
-#define __AVERAGER_H__
+#ifndef __FRUT_MATH_AVERAGER_H__
+#define __FRUT_MATH_AVERAGER_H__
 
 
 class Averager
@@ -48,7 +48,7 @@ private:
     Array<float> fSamples;
 };
 
-#endif   // __AVERAGER_H__
+#endif   // __FRUT_MATH_AVERAGER_H__
 
 
 // Local Variables:

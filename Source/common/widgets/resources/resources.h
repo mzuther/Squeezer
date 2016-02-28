@@ -1,7 +1,7 @@
 /* (Auto-generated binary data file). */
 
-#ifndef __BINARY_RESOURCES_H__
-#define __BINARY_RESOURCES_H__
+#ifndef __FRUT_WIDGET_BINARY_RESOURCES_H__
+#define __FRUT_WIDGET_BINARY_RESOURCES_H__
 
 namespace resources
 {
@@ -13,4 +13,4 @@ namespace resources
 
 }
 
-#endif  // __BINARY_RESOURCES_H__
+#endif  // __FRUT_WIDGET_BINARY_RESOURCES_H__

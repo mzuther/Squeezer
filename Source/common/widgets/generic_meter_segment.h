@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_METER_SEGMENT_H__
-#define __GENERIC_METER_SEGMENT_H__
+#ifndef __FRUT_WIDGET_METER_SEGMENT_H__
+#define __FRUT_WIDGET_METER_SEGMENT_H__
 
 
 /// Base class for meter segment components.
@@ -68,7 +68,7 @@ protected:
 };
 
 
-#endif  // __GENERIC_METER_SEGMENT_H__
+#endif  // __FRUT_WIDGET_METER_SEGMENT_H__
 
 
 // Local Variables:

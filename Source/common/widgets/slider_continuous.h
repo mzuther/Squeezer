@@ -23,10 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SLIDER_CONTINUOUS_H__
-#define __SLIDER_CONTINUOUS_H__
-
-class PluginParameterContinuous;
+#ifndef __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
+#define __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
 
 
 class SliderContinuous :
@@ -53,7 +51,7 @@ private:
 };
 
 
-#endif  // __SLIDER_CONTINUOUS_H__
+#endif  // __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
 
 
 // Local Variables:

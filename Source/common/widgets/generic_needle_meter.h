@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_NEEDLE_METER_H__
-#define __GENERIC_NEEDLE_METER_H__
+#ifndef __FRUT_WIDGET_NEEDLE_METER_H__
+#define __FRUT_WIDGET_NEEDLE_METER_H__
 
 
 class GenericNeedleMeter :
@@ -59,7 +59,7 @@ private:
 };
 
 
-#endif  // __GENERIC_NEEDLE_METER_H__
+#endif  // __FRUT_WIDGET_NEEDLE_METER_H__
 
 
 // Local Variables:

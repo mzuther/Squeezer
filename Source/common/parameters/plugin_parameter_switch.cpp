@@ -130,7 +130,7 @@ float PluginParameterSwitch::toRealFloat(float newValue)
     }
 
     // find matching index in array with real values
-    int selectedIndex = MZ_Juce_Common::round(newValue / stepSize);
+    int selectedIndex = SimpleMath::round(newValue / stepSize);
 
     // return real value
     return arrRealValues[selectedIndex];
@@ -291,7 +291,7 @@ const String PluginParameterSwitch::getTextFromFloat(float newValue)
     }
 
     // find matching index in array with real values
-    int selectedIndex = MZ_Juce_Common::round(newValue / stepSize);
+    int selectedIndex = SimpleMath::round(newValue / stepSize);
 
     // return label
     return arrLabels[selectedIndex];

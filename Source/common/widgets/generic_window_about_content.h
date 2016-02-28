@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_WINDOW_ABOUT_CONTENT_H__
-#define __GENERIC_WINDOW_ABOUT_CONTENT_H__
+#ifndef __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
+#define __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
 
 
 /// Dialog window for displaying version, copyright, license and so
@@ -62,7 +62,7 @@ private:
 };
 
 
-#endif  // __GENERIC_WINDOW_ABOUT_CONTENT_H__
+#endif  // __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
 
 
 // Local Variables:

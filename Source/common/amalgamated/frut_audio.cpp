@@ -23,16 +23,17 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_AUDIO_CPP__
-#define __FRUT_JUCE_AUDIO_CPP__
+#ifndef __FRUT_AMALGAMATED_AUDIO_CPP__
+#define __FRUT_AMALGAMATED_AUDIO_CPP__
+
 
 #include "../FrutHeader.h"
-
 
 #include "../audio/audio_ring_buffer.cpp"
 #include "../audio/dither.cpp"
 
-#endif  // __FRUT_JUCE_AUDIO_CPP__
+
+#endif  // __FRUT_AMALGAMATED_AUDIO_CPP__
 
 
 // Local Variables:

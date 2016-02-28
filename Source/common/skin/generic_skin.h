@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_SKIN_H__
-#define __GENERIC_SKIN_H__
+#ifndef __FRUT_SKIN_H__
+#define __FRUT_SKIN_H__
 
 
 class GenericSkin
@@ -96,7 +96,7 @@ private:
     JUCE_LEAK_DETECTOR(GenericSkin);
 };
 
-#endif   // __GENERIC_SKIN_H__
+#endif   // __FRUT_SKIN_H__
 
 
 // Local Variables:

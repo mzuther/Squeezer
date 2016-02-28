@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GENERIC_STATE_LABEL_H__
-#define __GENERIC_STATE_LABEL_H__
+#ifndef __FRUT_WIDGET_STATE_LABEL_H__
+#define __FRUT_WIDGET_STATE_LABEL_H__
 
 
 /// State label component.  This widget loads three images of the same
@@ -95,7 +95,7 @@ private:
 };
 
 
-#endif  // __GENERIC_STATE_LABEL_H__
+#endif  // __FRUT_WIDGET_STATE_LABEL_H__
 
 
 // Local Variables:

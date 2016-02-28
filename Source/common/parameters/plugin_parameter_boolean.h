@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETER_BOOLEAN_H__
-#define __PLUGIN_PARAMETER_BOOLEAN_H__
+#ifndef __FRUT_PARAMETER_BOOLEAN_H__
+#define __FRUT_PARAMETER_BOOLEAN_H__
 
 
 /// Plug-in parameter for storing a Boolean value.
@@ -57,7 +57,7 @@ private:
 };
 
 
-#endif  // __PLUGIN_PARAMETER_BOOLEAN_H__
+#endif  // __FRUT_PARAMETER_BOOLEAN_H__
 
 
 // Local Variables:

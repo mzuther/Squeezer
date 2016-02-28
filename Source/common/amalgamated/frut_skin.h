@@ -23,15 +23,15 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_SKIN_H__
-#define __FRUT_JUCE_SKIN_H__
+#ifndef __FRUT_AMALGAMATED_SKIN_H__
+#define __FRUT_AMALGAMATED_SKIN_H__
 
 
 // normal includes
 #include "../skin/generic_skin.h"
 
 
-#endif  // __FRUT_JUCE_SKIN_H__
+#endif  // __FRUT_AMALGAMATED_SKIN_H__
 
 
 // Local Variables:

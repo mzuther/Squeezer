@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __DITHER_H__
-#define __DITHER_H__
+#ifndef __FRUT_AUDIO_DITHER_H__
+#define __FRUT_AUDIO_DITHER_H__
 
 
 //==============================================================================
@@ -55,7 +55,7 @@ private:
 };
 
 
-#endif  // __DITHER_H__
+#endif  // __FRUT_AUDIO_DITHER_H__
 
 
 // Local Variables:

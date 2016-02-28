@@ -23,15 +23,16 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_MATH_H__
-#define __FRUT_JUCE_MATH_H__
+#ifndef __FRUT_AMALGAMATED_MATH_H__
+#define __FRUT_AMALGAMATED_MATH_H__
 
 
 // normal includes
 #include "../math/averager.h"
+#include "../math/simple.h"
 
 
-#endif  // __FRUT_JUCE_MATH_H__
+#endif  // __FRUT_AMALGAMATED_MATH_H__
 
 
 // Local Variables:

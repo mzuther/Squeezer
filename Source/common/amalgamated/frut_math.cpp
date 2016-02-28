@@ -23,15 +23,16 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_JUCE_MATH_CPP__
-#define __FRUT_JUCE_MATH_CPP__
+#ifndef __FRUT_AMALGAMATED_MATH_CPP__
+#define __FRUT_AMALGAMATED_MATH_CPP__
+
 
 #include "../FrutHeader.h"
 
-
 #include "../math/averager.cpp"
 
-#endif  // __FRUT_JUCE_MATH_CPP__
+
+#endif  // __FRUT_AMALGAMATED_MATH_CPP__
 
 
 // Local Variables:
