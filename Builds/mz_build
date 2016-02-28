@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# select platform
 case $1 in
 	1)
 		PLATFORM="debug64"
@@ -40,7 +41,11 @@ esac
 echo
 echo "  Platform: " $PLATFORM_PRINT
 
-case $2 in
+# get next command line option
+shift 1
+
+# select target
+case $1 in
 	a)
 		MAKEFILE="all"
 		MAKEFILE_PRINT="all targets"
@@ -93,21 +98,28 @@ esac
 
 echo "  Target:   " $MAKEFILE_PRINT
 
-if [ -z $3 ]; then
+# get next command line option
+shift 1
+
+# display additional options
+if [ -z $1 ]; then
 	echo "  Options:   none"
+	echo
 else
-	echo "  Options:  " $3 $4 $5 $6 $7 $8 $9
+	echo "  Options:  " $*
+	echo
 fi
 
-echo
+# compile target
+make config=$PLATFORM $MAKEFILE $* 2>&1
 
-case $MAKEFILE in
-	*standalone*)
-		make config=$PLATFORM $MAKEFILE $3 $4 $5 $6 $7 $8 $9 && echo && ../bin/$EXECUTABLE$EXECUTABLE_EXTENSION
-		;;
-	*)
-		make config=$PLATFORM $MAKEFILE $3 $4 $5 $6 $7 $8 $9
-		;;
-esac
+# compilation was successful
+if [ $? -eq 0 ]; then
+	echo $MAKEFILE | grep "_standalone_"
 
-exit
+	# target is standalone, so execute file
+	if [ $? -eq 0 ]; then
+		echo
+		../bin/$EXECUTABLE$EXECUTABLE_EXTENSION
+	fi
+fi
