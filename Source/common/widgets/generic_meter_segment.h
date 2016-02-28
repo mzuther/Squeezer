@@ -26,8 +26,6 @@
 #ifndef __GENERIC_METER_SEGMENT_H__
 #define __GENERIC_METER_SEGMENT_H__
 
-#include "generic_meter_orientation.h"
-
 
 /// Base class for meter segment components.
 ///

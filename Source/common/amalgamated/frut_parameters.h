@@ -26,13 +26,20 @@
 #ifndef __FRUT_JUCE_PARAMETERS_H__
 #define __FRUT_JUCE_PARAMETERS_H__
 
-#include "../parameters/parameter_juggler.h"
-#include "../parameters/plugin_parameter_boolean.h"
-#include "../parameters/plugin_parameter_combined.h"
-#include "../parameters/plugin_parameter_continuous.h"
+
+// pre includes
 #include "../parameters/plugin_parameter.h"
+
+// normal includes
+#include "../parameters/plugin_parameter_boolean.h"
+#include "../parameters/plugin_parameter_continuous.h"
 #include "../parameters/plugin_parameter_string.h"
 #include "../parameters/plugin_parameter_switch.h"
+
+// post includes
+#include "../parameters/plugin_parameter_combined.h"
+#include "../parameters/parameter_juggler.h"
+
 
 #endif  // __FRUT_JUCE_PARAMETERS_H__
 

@@ -26,16 +26,22 @@
 #ifndef __FRUT_HEADER_H__
 #define __FRUT_HEADER_H__
 
+
+// external includes
 #include "JuceHeader.h"
 
-
+// pre includes
 #include "mz_juce_common.h"
 
+// normal includes
 #include "amalgamated/frut_audio.h"
 #include "amalgamated/frut_math.h"
 #include "amalgamated/frut_parameters.h"
-#include "amalgamated/frut_skin.h"
 #include "amalgamated/frut_widgets.h"
+
+// post includes
+#include "amalgamated/frut_skin.h"
+
 
 #endif  // __FRUT_HEADER_H__
 

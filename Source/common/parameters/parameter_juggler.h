@@ -26,10 +26,6 @@
 #ifndef __PARAMETER_JUGGLER_H__
 #define __PARAMETER_JUGGLER_H__
 
-class ParameterJuggler;
-
-#include "plugin_parameter_combined.h"
-
 
 /// Container for all parameters of a plug-in.
 ///

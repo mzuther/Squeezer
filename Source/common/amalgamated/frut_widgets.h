@@ -26,9 +26,16 @@
 #ifndef __FRUT_JUCE_WIDGETS_H__
 #define __FRUT_JUCE_WIDGETS_H__
 
-#include "../widgets/generic_channel_slider.h"
-#include "../widgets/generic_meter_bar.h"
+
+// external includes
+#include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
+
+// pre includes
 #include "../widgets/generic_meter_orientation.h"
+#include "../widgets/resources/resources.h"
+
+// normal includes
+#include "../widgets/generic_channel_slider.h"
 #include "../widgets/generic_meter_segment.h"
 #include "../widgets/generic_meter_segment_continuous.h"
 #include "../widgets/generic_meter_segment_discrete.h"
@@ -45,7 +52,9 @@
 #include "../widgets/slider_switch.h"
 #include "../widgets/slider_switch_linear_bar.h"
 
-#include "../widgets/resources/resources.h"
+// post includes
+#include "../widgets/generic_meter_bar.h"
+
 
 #endif  // __FRUT_JUCE_WIDGETS_H__
 

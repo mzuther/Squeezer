@@ -26,8 +26,6 @@
 #ifndef __PLUGIN_PARAMETER_BOOLEAN_H__
 #define __PLUGIN_PARAMETER_BOOLEAN_H__
 
-#include "plugin_parameter.h"
-
 
 /// Plug-in parameter for storing a Boolean value.
 ///

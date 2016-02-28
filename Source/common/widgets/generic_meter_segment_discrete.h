@@ -26,8 +26,6 @@
 #ifndef __GENERIC_METER_SEGMENT_DISCRETE_H__
 #define __GENERIC_METER_SEGMENT_DISCRETE_H__
 
-#include "generic_meter_segment.h"
-
 
 /// Discrete meter segment component.  This widget consists of a
 /// coloured filled rectangle (meter segment) surrounded by a small

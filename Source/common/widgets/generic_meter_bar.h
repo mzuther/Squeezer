@@ -26,8 +26,6 @@
 #ifndef __GENERIC_METER_BAR_H__
 #define __GENERIC_METER_BAR_H__
 
-#include "generic_meter_segment.h"
-
 
 /// Meter bar component.  This widget is an empty container that can
 /// be filled with meter segment widgets.  These can then be

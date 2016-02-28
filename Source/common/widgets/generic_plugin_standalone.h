@@ -26,8 +26,6 @@
 #ifndef __GENERIC_PLUGIN_STANDALONE_H__
 #define __GENERIC_PLUGIN_STANDALONE_H__
 
-#include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
-
 
 /// Stand-alone application for audio plug-ins.  When an instance of
 /// this class is created, the plug-in is instantiated and its GUI

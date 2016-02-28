@@ -26,8 +26,6 @@
 #ifndef __GENERIC_SKIN_H__
 #define __GENERIC_SKIN_H__
 
-#include "../amalgamated/frut_widgets.h"
-
 
 class GenericSkin
 {

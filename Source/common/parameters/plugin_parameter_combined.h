@@ -26,10 +26,6 @@
 #ifndef __PLUGIN_PARAMETER_COMBINED_H__
 #define __PLUGIN_PARAMETER_COMBINED_H__
 
-#include "plugin_parameter_boolean.h"
-#include "plugin_parameter_continuous.h"
-#include "plugin_parameter_switch.h"
-
 
 /// Plug-in parameter for storing a floating-point value (can be
 /// switched between preset and continuous values).
