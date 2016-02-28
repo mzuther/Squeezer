@@ -27,16 +27,15 @@
 #define __FRUT_AUDIO_RING_BUFFER_H__
 
 
-//==============================================================================
-/**
-*/
-class AudioRingBuffer
+class RingBufferProcessor;
+
+class RingBuffer
 {
 public:
-    AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
+    RingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
 
     void clear();
-    void setCallbackClass(AudioRingBufferProcessor *callback_class);
+    void setCallbackClass(RingBufferProcessor *callback_class);
 
     String getBufferName();
     unsigned int getCurrentPosition();
@@ -53,13 +52,11 @@ public:
     float getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
     float getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
 
-private:
-    JUCE_LEAK_DETECTOR(AudioRingBuffer);
-
+protected:
     void clearCallbackClass();
     void triggerFullBuffer(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
-    AudioRingBufferProcessor *pCallbackClass;
+    RingBufferProcessor *pCallbackClass;
     String strBufferName;
 
     unsigned int uChannels;
@@ -75,10 +72,13 @@ private:
     const float fRingBufferMemTest;
 
     HeapBlock<float> audioData;
+
+private:
+    JUCE_LEAK_DETECTOR(RingBuffer);
 };
 
 
-class AudioRingBufferProcessor
+class RingBufferProcessor
 {
 public:
     virtual void processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples) = 0;

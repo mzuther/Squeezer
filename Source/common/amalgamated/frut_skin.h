@@ -29,10 +29,13 @@
 
 namespace frut
 {
+namespace skin
+{
 
 // normal includes
-#include "../skin/generic_skin.h"
+#include "../skin/skin.h"
 
+}
 }
 
 

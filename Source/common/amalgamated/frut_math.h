@@ -29,11 +29,14 @@
 
 namespace frut
 {
+namespace math
+{
 
 // normal includes
 #include "../math/averager.h"
 #include "../math/simple.h"
 
+}
 }
 
 

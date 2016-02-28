@@ -32,9 +32,12 @@
 
 namespace frut
 {
+namespace math
+{
 
 #include "../math/averager.cpp"
 
+}
 }
 
 

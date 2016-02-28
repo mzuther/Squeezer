@@ -29,7 +29,7 @@
 
 /// Simple class for version info and common functions.
 ///
-class SimpleMath
+class Simple
 {
 public:
     /// Round given value to nearest integer.  Will always round

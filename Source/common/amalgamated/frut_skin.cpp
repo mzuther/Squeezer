@@ -32,9 +32,12 @@
 
 namespace frut
 {
+namespace skin
+{
 
-#include "../skin/generic_skin.cpp"
+#include "../skin/skin.cpp"
 
+}
 }
 
 

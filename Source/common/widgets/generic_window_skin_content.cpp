@@ -241,7 +241,7 @@ void GenericWindowSkinContent::buttonClicked(
 
 /// Create a list box model for a GenericWindowSkinContent.
 ///
-GenericSkinListBoxModel::GenericSkinListBoxModel()
+SkinListBoxModel::SkinListBoxModel()
     : skinWildcard_("*.skin", String::empty, "Skin files"),
       directoryThread_("Skin directory scanner")
 {
@@ -252,7 +252,7 @@ GenericSkinListBoxModel::GenericSkinListBoxModel()
 ///
 /// @param skinDirectory directory containing the skins
 ///
-void GenericSkinListBoxModel::fill(
+void SkinListBoxModel::fill(
     const File &skinDirectory)
 
 {
@@ -305,7 +305,7 @@ void GenericSkinListBoxModel::fill(
 ///
 /// @return number of skin names
 ///
-int GenericSkinListBoxModel::getNumRows()
+int SkinListBoxModel::getNumRows()
 {
     // return size of internal array
     return skinNames_.size();
@@ -318,7 +318,7 @@ int GenericSkinListBoxModel::getNumRows()
 ///
 /// @return index of the first matching element
 ///
-int GenericSkinListBoxModel::getRow(
+int SkinListBoxModel::getRow(
     const String &skinNameToLookFor)
 
 {
@@ -333,7 +333,7 @@ int GenericSkinListBoxModel::getRow(
 ///
 /// @return skin name
 ///
-const String GenericSkinListBoxModel::getSkinName(
+const String SkinListBoxModel::getSkinName(
     int rowNumber)
 
 {
@@ -358,7 +358,7 @@ const String GenericSkinListBoxModel::getSkinName(
 /// @param rowNumber zero-based row number containing default skin
 ///        name
 ///
-void GenericSkinListBoxModel::setDefault(
+void SkinListBoxModel::setDefault(
     int rowNumber)
 
 {
@@ -389,7 +389,7 @@ void GenericSkinListBoxModel::setDefault(
 ///
 /// @param isRowSelected indicates whether row is currently selected
 ///
-void GenericSkinListBoxModel::paintListBoxItem(
+void SkinListBoxModel::paintListBoxItem(
     int rowNumber,
     Graphics &g,
     int rowWidth,

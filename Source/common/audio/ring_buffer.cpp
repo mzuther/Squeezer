@@ -24,7 +24,7 @@
 ---------------------------------------------------------------------------- */
 
 
-AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size) :
+RingBuffer::RingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size) :
     fRingBufferMemTest(255.0f)
 {
     jassert(channels > 0);
@@ -61,7 +61,7 @@ AudioRingBuffer::AudioRingBuffer(const String &buffer_name, const unsigned int c
 }
 
 
-void AudioRingBuffer::clear()
+void RingBuffer::clear()
 {
     uCurrentPosition = 0;
 
@@ -85,43 +85,43 @@ void AudioRingBuffer::clear()
 }
 
 
-String AudioRingBuffer::getBufferName()
+String RingBuffer::getBufferName()
 {
     return strBufferName;
 }
 
 
-unsigned int AudioRingBuffer::getCurrentPosition()
+unsigned int RingBuffer::getCurrentPosition()
 {
     return uCurrentPosition;
 }
 
 
-unsigned int AudioRingBuffer::getSamplesInBuffer()
+unsigned int RingBuffer::getSamplesInBuffer()
 {
     return uSamplesInBuffer;
 }
 
 
-unsigned int AudioRingBuffer::getBufferLength()
+unsigned int RingBuffer::getBufferLength()
 {
     return uLength;
 }
 
 
-unsigned int AudioRingBuffer::getTotalLength()
+unsigned int RingBuffer::getTotalLength()
 {
     return uTotalLength;
 }
 
 
-unsigned int AudioRingBuffer::getPreDelay()
+unsigned int RingBuffer::getPreDelay()
 {
     return uPreDelay;
 }
 
 
-float AudioRingBuffer::getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay)
+float RingBuffer::getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay)
 {
     jassert(channel < uChannels);
     jassert(relative_position <= uLength);
@@ -145,7 +145,7 @@ float AudioRingBuffer::getSample(const unsigned int channel, const unsigned int 
 }
 
 
-unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer &source, const unsigned int sourceStartSample, const unsigned int numSamples)
+unsigned int RingBuffer::addSamples(AudioSampleBuffer &source, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
     if (numSamples <= 0)
     {
@@ -216,7 +216,7 @@ unsigned int AudioRingBuffer::addSamples(AudioSampleBuffer &source, const unsign
 }
 
 
-void AudioRingBuffer::copyToBuffer(AudioSampleBuffer &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
+void RingBuffer::copyToBuffer(AudioSampleBuffer &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
 {
     if (numSamples <= 0)
     {
@@ -264,7 +264,7 @@ void AudioRingBuffer::copyToBuffer(AudioSampleBuffer &destination, const unsigne
 }
 
 
-float AudioRingBuffer::getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
+float RingBuffer::getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
 {
     float fMagnitude = 0.0f;
 
@@ -282,7 +282,7 @@ float AudioRingBuffer::getMagnitude(const unsigned int channel, const unsigned i
 }
 
 
-float AudioRingBuffer::getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
+float RingBuffer::getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
 {
     double dRunningSum = 0.0;
 
@@ -296,19 +296,19 @@ float AudioRingBuffer::getRMSLevel(const unsigned int channel, const unsigned in
 }
 
 
-void AudioRingBuffer::setCallbackClass(AudioRingBufferProcessor *callback_class)
+void RingBuffer::setCallbackClass(RingBufferProcessor *callback_class)
 {
     pCallbackClass = callback_class;
 }
 
 
-void AudioRingBuffer::clearCallbackClass()
+void RingBuffer::clearCallbackClass()
 {
     pCallbackClass = nullptr;
 }
 
 
-void AudioRingBuffer::triggerFullBuffer(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
+void RingBuffer::triggerFullBuffer(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     if (pCallbackClass)
     {

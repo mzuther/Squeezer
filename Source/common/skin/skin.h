@@ -27,7 +27,7 @@
 #define __FRUT_SKIN_H__
 
 
-class GenericSkin
+class Skin
 {
 public:
     bool loadFromXml(File &skinFile,
@@ -93,7 +93,7 @@ protected:
     String currentFallbackName_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericSkin);
+    JUCE_LEAK_DETECTOR(Skin);
 };
 
 #endif   // __FRUT_SKIN_H__

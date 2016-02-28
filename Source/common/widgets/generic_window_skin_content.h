@@ -31,11 +31,11 @@
 ///
 /// @see GenericWindowSkinContent
 ///
-class GenericSkinListBoxModel :
+class SkinListBoxModel :
     public ListBoxModel
 {
 public:
-    GenericSkinListBoxModel();
+    SkinListBoxModel();
 
     virtual int getNumRows();
     virtual int getRow(const String &skinNameToLookFor);
@@ -60,13 +60,13 @@ private:
     StringArray skinNames_;
 
 private:
-    JUCE_LEAK_DETECTOR(GenericSkinListBoxModel);
+    JUCE_LEAK_DETECTOR(SkinListBoxModel);
 };
 
 
 /// Dialog window for selecting a GUI skin.
 ///
-/// @see GenericSkinListBoxModel
+/// @see SkinListBoxModel
 ///
 class GenericWindowSkinContent :
     public Component,
@@ -88,7 +88,7 @@ public:
 
 protected:
     ListBox skinList_;
-    GenericSkinListBoxModel listModel_;
+    SkinListBoxModel listModel_;
 
     TextButton buttonSelect_;
     TextButton buttonDefault_;

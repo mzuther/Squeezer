@@ -29,14 +29,14 @@
 
 namespace frut
 {
-
-// pre-defines
-class AudioRingBufferProcessor;
+namespace audio
+{
 
 // normal includes
 #include "../audio/dither.h"
 #include "../audio/ring_buffer.h"
 
+}
 }
 
 

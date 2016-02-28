@@ -24,7 +24,7 @@
 ---------------------------------------------------------------------------- */
 
 
-bool GenericSkin::loadFromXml(
+bool Skin::loadFromXml(
     File &skinFile,
     const String &rootName)
 
@@ -88,7 +88,7 @@ bool GenericSkin::loadFromXml(
 }
 
 
-XmlElement *GenericSkin::getSetting(
+XmlElement *Skin::getSetting(
     const String &tagName)
 
 {
@@ -116,7 +116,7 @@ XmlElement *GenericSkin::getSetting(
 }
 
 
-int GenericSkin::getIntegerSetting(
+int Skin::getIntegerSetting(
     const String &tagName,
     const String &attributeName,
     int defaultValue)
@@ -135,7 +135,7 @@ int GenericSkin::getIntegerSetting(
 }
 
 
-float GenericSkin::getFloatSetting(
+float Skin::getFloatSetting(
     const String &tagName,
     const String &attributeName,
     float defaultValue)
@@ -157,7 +157,7 @@ float GenericSkin::getFloatSetting(
 }
 
 
-const String GenericSkin::getStringSetting(
+const String Skin::getStringSetting(
     const String &tagName,
     const String &attributeName,
     const String &defaultValue)
@@ -176,7 +176,7 @@ const String GenericSkin::getStringSetting(
 }
 
 
-const Colour GenericSkin::getColourSetting(
+const Colour Skin::getColourSetting(
     const String &tagName,
     float defaultHue)
 
@@ -202,7 +202,7 @@ const Colour GenericSkin::getColourSetting(
 }
 
 
-XmlElement *GenericSkin::getComponentFromXml(
+XmlElement *Skin::getComponentFromXml(
     const String &tagName)
 
 {
@@ -242,7 +242,7 @@ XmlElement *GenericSkin::getComponentFromXml(
 }
 
 
-void GenericSkin::placeAndSkinButton(
+void Skin::placeAndSkinButton(
     ImageButton *button,
     const String &tagName)
 
@@ -302,7 +302,7 @@ void GenericSkin::placeAndSkinButton(
 }
 
 
-void GenericSkin::placeAndSkinNeedleMeter(
+void Skin::placeAndSkinNeedleMeter(
     GenericNeedleMeter *meter,
     const String &tagName)
 
@@ -369,7 +369,7 @@ void GenericSkin::placeAndSkinNeedleMeter(
 }
 
 
-void GenericSkin::placeAndSkinLabel(
+void Skin::placeAndSkinLabel(
     ImageComponent *label,
     const String &tagName)
 
@@ -410,7 +410,7 @@ void GenericSkin::placeAndSkinLabel(
 }
 
 
-void GenericSkin::placeAndSkinSignalLed(
+void Skin::placeAndSkinSignalLed(
     GenericSignalLed *label,
     const String &tagName)
 
@@ -506,7 +506,7 @@ void GenericSkin::placeAndSkinSignalLed(
 }
 
 
-void GenericSkin::placeAndSkinStateLabel(
+void Skin::placeAndSkinStateLabel(
     GenericStateLabel *label,
     const String &tagName)
 
@@ -624,7 +624,7 @@ void GenericSkin::placeAndSkinStateLabel(
 }
 
 
-void GenericSkin::placeComponent(
+void Skin::placeComponent(
     Component *component,
     const String &tagName)
 
@@ -645,7 +645,7 @@ void GenericSkin::placeComponent(
 }
 
 
-void GenericSkin::placeMeterBar(
+void Skin::placeMeterBar(
     GenericMeterBar *meterBar,
     const String &tagName)
 
@@ -690,7 +690,7 @@ void GenericSkin::placeMeterBar(
 }
 
 
-void GenericSkin::setBackgroundImage(
+void Skin::setBackgroundImage(
     ImageComponent *background,
     AudioProcessorEditor *editor)
 

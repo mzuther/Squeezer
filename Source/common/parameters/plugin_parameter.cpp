@@ -141,7 +141,7 @@ bool PluginParameter::getDefaultBoolean()
 ///
 int PluginParameter::getDefaultRealInteger()
 {
-    return SimpleMath::round(getDefaultRealFloat());
+    return math::Simple::round(getDefaultRealFloat());
 }
 
 
@@ -175,7 +175,7 @@ float PluginParameter::getRealFloat()
 ///
 int PluginParameter::getRealInteger()
 {
-    return SimpleMath::round(getRealFloat());
+    return math::Simple::round(getRealFloat());
 }
 
 

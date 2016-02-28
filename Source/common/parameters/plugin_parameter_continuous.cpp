@@ -336,7 +336,7 @@ const String PluginParameterContinuous::getTextFromFloat(float newValue)
     else
     {
         // round real parameter value
-        newRealValue = (float) SimpleMath::round(newRealValue);
+        newRealValue = (float) math::Simple::round(newRealValue);
 
         // format parameter value
         textValueNew = String(newRealValue);
