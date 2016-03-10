@@ -27,6 +27,9 @@
 #define __FRUT_WIDGET_CHANNEL_SLIDER_H__
 
 
+/// Slider component for selecting an audio channel.  This component
+/// can either select a distinct channel or all channels at once.
+///
 class ChannelSlider :
     public Slider
 {
@@ -34,16 +37,19 @@ public:
     ChannelSlider();
 
     int getNumberOfChannels();
-    void setNumberOfChannels(int nNumChannels);
+    void setNumberOfChannels(int numberOfChannels);
 
+    double getDouble();
     float getFloat();
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double fValue);
+
+    virtual double getValueFromText(const String &inputString);
+    virtual String getTextFromValue(double inputValue);
+
+protected:
+    int numberOfChannels_;
 
 private:
     JUCE_LEAK_DETECTOR(ChannelSlider);
-
-    int nNumberOfChannels;
 };
 
 

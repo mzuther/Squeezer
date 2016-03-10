@@ -542,8 +542,6 @@ void Juggler::loadFromXml(XmlElement *xmlDocument)
 
 /// Store all parameter values as XML.
 ///
-/// @param xmlDocument XML document to store in
-///
 XmlElement Juggler::storeAsXml()
 {
     // create XML document

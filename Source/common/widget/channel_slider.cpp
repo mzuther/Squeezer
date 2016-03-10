@@ -24,61 +24,118 @@
 ---------------------------------------------------------------------------- */
 
 
+/// Create a new channel slider.
+///
 ChannelSlider::ChannelSlider()
 {
+    // initialise number of channels
+    setNumberOfChannels(0);
+
+    // format slider
     setSliderStyle(Slider::IncDecButtons);
     setTextBoxStyle(Slider::TextBoxLeft, true, 30, 20);
     setIncDecButtonsMode(Slider::incDecButtonsNotDraggable);
-
-    setNumberOfChannels(0);
 }
 
 
+/// Get number of availabe audio channels.
+///
+/// @return number of audio channels
+///
 int ChannelSlider::getNumberOfChannels()
 {
-    return nNumberOfChannels;
+    return numberOfChannels_;
 }
 
 
-void ChannelSlider::setNumberOfChannels(int nNumChannels)
+/// Set number of availabe audio channels.
+///
+/// @param numberOfChannels number of audio channels
+///
+void ChannelSlider::setNumberOfChannels(
+    int numberOfChannels)
 {
-    nNumberOfChannels = nNumChannels;
+    numberOfChannels_ = numberOfChannels;
 
-    setRange(-1.0, nNumberOfChannels - 1, 1.0);
+    // channels start with index 0, -1 designates "all channels"
+    setRange(-1.0, numberOfChannels_ - 1, 1.0);
     setValue(-1.0, sendNotificationAsync);
 }
 
 
+/// Get selected channel as double.  Channel 1 is 0.0, channel 2 is
+/// 1.0 and so one.  A value of -1.0 designates "all channels".
+///
+/// @return index of selected audio channel
+///
+double ChannelSlider::getDouble()
+{
+    double sliderRange = getMaximum() - getMinimum();
+    double channelIndex = (getValue() - getMinimum()) / sliderRange;
+
+    return channelIndex;
+}
+
+
+/// Get selected channel as float.  Channel 1 is 0.0, channel 2 is 1.0
+/// and so one.  A value of -1.0 designates "all channels".
+///
+/// @return index of selected audio channel
+///
 float ChannelSlider::getFloat()
 {
-    double dRange = getMaximum() - getMinimum();
-    double dValue = (getValue() - getMinimum()) / dRange;
-    return (float) dValue;
+    return static_cast<float>(getDouble());
 }
 
 
-double ChannelSlider::getValueFromText(const String &strText)
+/// When the user enters something into the text-entry box, this
+/// method is called to convert it to a value.  Channel "1" is 0.0,
+/// channel "2" is 1.0 and so one.  "All" channels are converted to
+/// -1.0.
+///
+/// @param inputString string to be converted
+///
+/// @return "name" of selected audio channel
+///
+double ChannelSlider::getValueFromText(
+    const String &inputString)
 {
-    if (strText == "All")
+    // -1 designates "all channels"
+    if (inputString == "All")
     {
-        return -1.0f;
+        return -1.0;
     }
+    // convert string to float
     else
     {
-        return strText.getFloatValue() - 1.0f;
+        return inputString.getDoubleValue() - 1.0;
     }
 }
 
 
-String ChannelSlider::getTextFromValue(double fValue)
+/// Turns the slider's current value into a text string.  If a suffix
+/// string has been set using setTextValueSuffix(), this will be
+/// appended to the text.  Channel "1" is 0.0, channel "2" is 1.0 and
+/// so one.  Values below zero are converted to "All" channels.
+///
+/// @param inputValue value to be converted
+///
+/// @return "name" of selected audio channel
+///
+String ChannelSlider::getTextFromValue(
+    double inputValue)
 {
-    if (fValue < 0)
+    // -1 designates "all channels"
+    if (inputValue < 0)
     {
         return String("All");
     }
+    // convert double to string
     else
     {
-        return String(int(fValue + 0.5f) + 1);
+        int channelIndex = math::SimpleMath::round(inputValue) + 1;
+
+        return String(channelIndex);
     }
 }
 
