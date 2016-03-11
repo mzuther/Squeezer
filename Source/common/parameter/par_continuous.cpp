@@ -57,10 +57,7 @@
 /// @param decimal_places number of decimal places for formatting the
 ///        real value
 ///
-/// @param save_from_deletion should parameter be spared from deletion
-///        in destructor of Juggler?
-///
-ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion)
+ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places)
 {
     // minimum and maximum real parameter value
     realMinimum = real_minimum;
@@ -105,11 +102,8 @@ ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_
         scalingConstantFactor = powf(10.0f, scalingFactor) - 1.0f;
     }
 
-    // may parameter be deleted?
-    doNotDelete = save_from_deletion;
-
     // force update
-    value = -1.0f;
+    value_ = -1.0f;
 
     // set parameter to minimum value (also marks parameter as
     // changed)
@@ -224,15 +218,15 @@ void ParContinuous::setDefaultRealFloat(float newRealValue, bool updateParameter
     }
 
     // update real default value
-    defaultRealValue = newRealValue;
+    defaultRealValue_ = newRealValue;
 
     // update internal default value
-    defaultValue = toInternalFloat(defaultRealValue);
+    defaultValue_ = toInternalFloat(defaultRealValue_);
 
     // optionally, update current parameter value
     if (updateParameter)
     {
-        setFloat(defaultValue);
+        setFloat(defaultValue_);
     }
 }
 
@@ -255,13 +249,13 @@ void ParContinuous::setFloat(float newValue)
     }
 
     // value has changed
-    if (newValue != value)
+    if (newValue != value_)
     {
         // update internal parameter value
-        value = newValue;
+        value_ = newValue;
 
         // update real parameter value
-        realValue = toRealFloat(value);
+        realValue_ = toRealFloat(value_);
 
         // mark parameter as changed
         setChangeFlag();

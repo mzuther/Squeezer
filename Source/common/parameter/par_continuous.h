@@ -36,7 +36,7 @@
 class ParContinuous : virtual public Parameter
 {
 public:
-    ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places, bool save_from_deletion = false);
+    ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places);
 
     int getNumberOfSteps();
     float getStepSize();

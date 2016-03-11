@@ -61,27 +61,22 @@
 ParCombined::ParCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places) :
 
     // initialise parameter for switching between "presets" and
-    // "continuous" mode (parameter is saved from deletion!)
-    modeSwitch("Presets", "Continuous", true),
+    // "continuous" mode
+    modeSwitch("Presets", "Continuous"),
 
-    // initialise parameter for preset values (parameter is saved from
-    // deletion!)
-    presetValues(true),
-
-    // initialise parameter for continuous values (parameter is saved
-    // from deletion!)
-    continuousValues(real_minimum, real_maximum, real_step_size, scaling_factor, decimal_places, true)
+    // initialise parameter for continuous values
+    continuousValues(real_minimum, real_maximum, real_step_size, scaling_factor, decimal_places)
 
 {
     // initialise values (invalid because the parameter itself
     // contains no values)
-    value = -1.0f;
-    realValue = -1.0f;
+    value_ = -1.0f;
+    realValue_ = -1.0f;
 
     // initialise default values (invalid because the parameter itself
     // contains no values)
-    defaultValue = -1.0f;
-    defaultRealValue = -1.0f;
+    defaultValue_ = -1.0f;
+    defaultRealValue_ = -1.0f;
 
     // initially use preset values
     usePresets = true;

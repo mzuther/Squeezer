@@ -32,21 +32,18 @@
 Parameter::Parameter()
 {
     // initialise current value
-    value = 0.0f;
-    realValue = 0.0f;
+    value_ = 0.0f;
+    realValue_ = 0.0f;
 
     // initialise default value
-    defaultValue = 0.0f;
-    defaultRealValue = 0.0f;
+    defaultValue_ = 0.0f;
+    defaultRealValue_ = 0.0f;
 
     // initialise parameter name
-    parameterName = String::empty;
+    parameterName_ = String::empty;
 
     // initialise XML tag name
-    xmlTagName = String::empty;
-
-    // parameter may be deleted
-    doNotDelete = false;
+    tagName_ = String::empty;
 }
 
 
@@ -56,7 +53,7 @@ Parameter::Parameter()
 ///
 String Parameter::getName()
 {
-    return parameterName;
+    return parameterName_;
 }
 
 
@@ -67,26 +64,26 @@ String Parameter::getName()
 void Parameter::setName(const String &newParameterName)
 {
     // set new parameter name
-    parameterName = newParameterName;
+    parameterName_ = newParameterName;
 
     // trim leading and trailing white space
-    parameterName = parameterName.trim();
+    parameterName_ = parameterName_.trim();
 
     // set xml tag name from parameter name
-    xmlTagName = parameterName;
+    tagName_ = parameterName_;
 
     // convert tag name to lower case
-    xmlTagName = xmlTagName.toLowerCase();
+    tagName_ = tagName_.toLowerCase();
 
     // strip all characters except a-z, underscore and space
-    xmlTagName = xmlTagName.retainCharacters(
-                     "abcdefghijklmnopqrstuvwxyz_ ");
+    tagName_ = tagName_.retainCharacters(
+                   "abcdefghijklmnopqrstuvwxyz_ ");
 
     // change all spaces to underscores
-    xmlTagName = xmlTagName.replace(" ", "_");
+    tagName_ = tagName_.replace(" ", "_");
 
     // remove double underscores
-    xmlTagName = xmlTagName.replace("__", "_");
+    tagName_ = tagName_.replace("__", "_");
 }
 
 
@@ -96,7 +93,7 @@ void Parameter::setName(const String &newParameterName)
 ///
 String Parameter::getTagName()
 {
-    return xmlTagName;
+    return tagName_;
 }
 
 
@@ -107,7 +104,7 @@ String Parameter::getTagName()
 ///
 float Parameter::getDefaultFloat()
 {
-    return defaultValue;
+    return defaultValue_;
 }
 
 
@@ -118,7 +115,7 @@ float Parameter::getDefaultFloat()
 ///
 float Parameter::getDefaultRealFloat()
 {
-    return defaultRealValue;
+    return defaultRealValue_;
 }
 
 
@@ -152,7 +149,7 @@ int Parameter::getDefaultRealInteger()
 ///
 float Parameter::getFloat()
 {
-    return value;
+    return value_;
 }
 
 
@@ -163,7 +160,7 @@ float Parameter::getFloat()
 ///
 float Parameter::getRealFloat()
 {
-    return realValue;
+    return realValue_;
 }
 
 
@@ -208,7 +205,7 @@ bool Parameter::getBoolean()
 const String Parameter::getText()
 {
     // transform internal value to string
-    return getTextFromFloat(value);
+    return getTextFromFloat(getFloat());
 }
 
 
@@ -233,7 +230,7 @@ void Parameter::setText(const String &newValue)
 ///
 bool Parameter::hasChanged()
 {
-    return valueHasChanged;
+    return valueHasChanged_;
 }
 
 
@@ -241,7 +238,7 @@ bool Parameter::hasChanged()
 ///
 void Parameter::clearChangeFlag()
 {
-    valueHasChanged = false;
+    valueHasChanged_ = false;
 }
 
 
@@ -249,7 +246,7 @@ void Parameter::clearChangeFlag()
 ///
 void Parameter::setChangeFlag()
 {
-    valueHasChanged = true;
+    valueHasChanged_ = true;
 }
 
 
@@ -305,21 +302,6 @@ void Parameter::storeAsXml(XmlElement *xmlDocument)
         // add new element to XML document
         xmlDocument->addChildElement(xmlParameter);
     }
-}
-
-
-/// Should parameter be spared from deletion in destructor of
-/// Juggler?
-///
-/// Sorry, I know this sort of method is *really* ugly, but I
-/// currently see no other way to implement ParCombined.
-///
-/// @return **true** if parameter should be spared, **false**
-///         otherwise
-///
-bool Parameter::saveFromDeletion()
-{
-    return doNotDelete;
 }
 
 

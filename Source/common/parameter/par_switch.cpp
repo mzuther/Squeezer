@@ -30,27 +30,21 @@
 /// Create a stepped parameter that can be filled with arbitrary
 /// preset values.  **Internal** values simply range from 0.0 to 1.0.
 ///
-/// @param save_from_deletion should parameter be spared from deletion
-///        in destructor of Juggler?
-///
-ParSwitch::ParSwitch(bool save_from_deletion)
+ParSwitch::ParSwitch()
 {
     // initialise values (invalid because parameter contains no
     // values)
-    value = -1.0f;
-    realValue = -1.0f;
+    value_ = -1.0f;
+    realValue_ = -1.0f;
 
     // initialise default values (invalid because parameter contains
     // no values)
-    defaultValue = -1.0f;
-    defaultRealValue = -1.0f;
+    defaultValue_ = -1.0f;
+    defaultRealValue_ = -1.0f;
 
     // internal spacing between values (invalid because parameter
     // contains no values)
     stepSize = -1.0f;
-
-    // may parameter be deleted?
-    doNotDelete = save_from_deletion;
 
     // mark parameter as changed
     setChangeFlag();
@@ -192,15 +186,15 @@ float ParSwitch::toInternalFloat(float newRealValue)
 void ParSwitch::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
     // update internal default value
-    defaultValue = toInternalFloat(newRealValue);
+    defaultValue_ = toInternalFloat(newRealValue);
 
     // update real default value
-    defaultRealValue = toRealFloat(defaultValue);
+    defaultRealValue_ = toRealFloat(defaultValue_);
 
     // optionally, update current parameter value
     if (updateParameter)
     {
-        setFloat(defaultValue);
+        setFloat(defaultValue_);
     }
 }
 
@@ -216,13 +210,13 @@ void ParSwitch::setFloat(float newValue)
     float newRealValue = toRealFloat(newValue);
 
     // value has changed
-    if (newRealValue != realValue)
+    if (newRealValue != realValue_)
     {
         // update real parameter value
-        realValue = newRealValue;
+        realValue_ = newRealValue;
 
         // update internal parameter value
-        value = toInternalFloat(realValue);
+        value_ = toInternalFloat(realValue_);
 
         // mark parameter as changed
         setChangeFlag();

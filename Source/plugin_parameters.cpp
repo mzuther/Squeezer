@@ -457,41 +457,41 @@ String SqueezerPluginParameters::toString()
     }
 
     parameterValues += "\nRMS Filter: ";
-    parameterValues += arrParameters[selDetectorRmsFilter]->getText();
+    parameterValues += getText(selDetectorRmsFilter);
 
     parameterValues += ", Design: ";
-    parameterValues += arrParameters[selDesign]->getText();
+    parameterValues += getText(selDesign);
 
     parameterValues += "\nThresh: ";
-    parameterValues += arrParameters[selThreshold]->getText();
+    parameterValues += getText(selThreshold);
 
     parameterValues += ", Ratio: ";
-    parameterValues += arrParameters[selRatio]->getText();
+    parameterValues += getText(selRatio);
 
     parameterValues += ", Knee: ";
-    parameterValues += arrParameters[selKneeWidth]->getText();
+    parameterValues += getText(selKneeWidth);
 
     parameterValues += "\nAttack: ";
-    parameterValues += arrParameters[selAttackRate]->getText();
+    parameterValues += getText(selAttackRate);
 
     parameterValues += ", Release: ";
-    parameterValues += arrParameters[selReleaseRate]->getText();
+    parameterValues += getText(selReleaseRate);
 
     parameterValues += " (";
-    parameterValues += arrParameters[selDetector]->getText();
+    parameterValues += getText(selDetector);
 
     parameterValues += ", ";
-    parameterValues += arrParameters[selGainStage]->getText();
+    parameterValues += getText(selGainStage);
 
     parameterValues += ")\nSide-Chain: ";
 
-    if (!arrParameters[selSidechainFilterState]->getBoolean())
+    if (!getBoolean(selSidechainFilterState))
     {
         parameterValues += "Filter Bypassed";
     }
     else
     {
-        if (arrParameters[selSidechainFilterCutoff]->getRealInteger() < 2900)
+        if (getRealInteger(selSidechainFilterCutoff) < 2900)
         {
             parameterValues += "HPF, ";
         }
@@ -500,25 +500,25 @@ String SqueezerPluginParameters::toString()
             parameterValues += "LPF, ";
         }
 
-        parameterValues += arrParameters[selSidechainFilterCutoff]->getText();
+        parameterValues += getText(selSidechainFilterCutoff);
 
         parameterValues += ", ";
 
-        parameterValues += arrParameters[selSidechainFilterGain]->getText();
+        parameterValues += getText(selSidechainFilterGain);
     }
 
     parameterValues += "\nMake-Up: ";
-    parameterValues += arrParameters[selMakeupGain]->getText();
+    parameterValues += getText(selMakeupGain);
 
     parameterValues += " (";
-    parameterValues += arrParameters[selAutoMakeupGain]->getText();
+    parameterValues += getText(selAutoMakeupGain);
 
     parameterValues += "), Wet: ";
-    parameterValues += arrParameters[selWetMix]->getText();
+    parameterValues += getText(selWetMix);
 
 #ifdef SQUEEZER_STEREO
     parameterValues += ", Link: ";
-    parameterValues += arrParameters[selStereoLink]->getText();
+    parameterValues += getText(selStereoLink);
 #endif
 
     return parameterValues + "\n";

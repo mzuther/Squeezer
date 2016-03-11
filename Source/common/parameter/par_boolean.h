@@ -35,7 +35,7 @@
 class ParBoolean : virtual public Parameter
 {
 public:
-    ParBoolean(const String &state_true, const String &state_false, bool save_from_deletion = false);
+    ParBoolean(const String &state_true, const String &state_false);
 
     void toggleState();
 

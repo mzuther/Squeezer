@@ -35,10 +35,7 @@
 /// @param state_false string that is returned when the parameter is
 ///        **false**
 ///
-/// @param save_from_deletion should parameter be spared from deletion
-///        in destructor of Juggler?
-///
-ParBoolean::ParBoolean(const String &state_true, const String &state_false, bool save_from_deletion)
+ParBoolean::ParBoolean(const String &state_true, const String &state_false)
 {
     // intialise string that is returned when the parameter is "true"
     labelTrue = state_true;
@@ -46,11 +43,8 @@ ParBoolean::ParBoolean(const String &state_true, const String &state_false, bool
     // intialise string that is returned when the parameter is "false"
     labelFalse = state_false;
 
-    // may parameter be deleted?
-    doNotDelete = save_from_deletion;
-
     // force update
-    value = -1.0f;
+    value_ = -1.0f;
 
     // initialise internal values to "false" (marks parameter as
     // changed)
@@ -63,7 +57,7 @@ ParBoolean::ParBoolean(const String &state_true, const String &state_false, bool
 void ParBoolean::toggleState()
 {
     // value is "false"
-    if (value == 0.0f)
+    if (value_ == 0.0f)
     {
         // set to "true"
         setFloat(1.0f);
@@ -94,13 +88,13 @@ void ParBoolean::setDefaultRealFloat(float newRealValue, bool updateParameter)
     }
 
     // update default values
-    defaultValue = newRealValue;
-    defaultRealValue = newRealValue;
+    defaultValue_ = newRealValue;
+    defaultRealValue_ = newRealValue;
 
     // optionally, update current parameter value
     if (updateParameter)
     {
-        setFloat(defaultValue);
+        setFloat(defaultValue_);
     }
 }
 
@@ -132,11 +126,11 @@ void ParBoolean::setFloat(float newValue)
     }
 
     // value has changed
-    if (newValue != value)
+    if (newValue != value_)
     {
         // update value
-        value = newValue;
-        realValue = newValue;
+        value_ = newValue;
+        realValue_ = newValue;
 
         // mark parameter as changed
         setChangeFlag();

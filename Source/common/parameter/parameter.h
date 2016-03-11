@@ -32,7 +32,8 @@
 /// The methods of this class may be called on the audio thread, so
 /// they are absolutely time-critical!
 ///
-class Parameter
+class Parameter :
+    public SingleThreadedReferenceCountedObject
 {
 public:
     Parameter();
@@ -108,27 +109,22 @@ public:
     virtual bool hasChanged();
     virtual void clearChangeFlag();
 
-    virtual bool saveFromDeletion();
-
     virtual void loadFromXml(XmlElement *xmlDocument);
     virtual void storeAsXml(XmlElement *xmlDocument);
 
 protected:
     virtual void setChangeFlag();
 
-    float value;
-    float realValue;
+    float value_;
+    float realValue_;
 
-    float defaultValue;
-    float defaultRealValue;
+    float defaultValue_;
+    float defaultRealValue_;
 
-    bool doNotDelete;
+    bool valueHasChanged_;
 
-private:
-    String parameterName;
-    String xmlTagName;
-
-    bool valueHasChanged;
+    String parameterName_;
+    String tagName_;
 };
 
 

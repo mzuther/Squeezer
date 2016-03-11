@@ -35,38 +35,18 @@
 ///
 /// @param revealedParameters number of revealed parameters
 ///
-Juggler::Juggler(const String &settingsID, int completeParameters, int revealedParameters)
+Juggler::Juggler(
+    const String &settingsID,
+    int completeParameters,
+    int revealedParameters)
+
 {
     // store parameter file ID
-    jugglerID = settingsID;
+    jugglerId_ = settingsID;
 
     // store number of parameters
-    numberOfParameters = completeParameters;
-    numberOfRevealedParameters = revealedParameters;
-}
-
-
-/// Destructor.
-///
-Juggler::~Juggler()
-{
-    // loop over plug-in parameters
-    while (arrParameters.size())
-    {
-        // pop first parameter
-        Parameter *parameter = arrParameters.remove(0);
-
-        // do not delete elements of combined parameters!
-        if (!parameter->saveFromDeletion())
-        {
-            delete parameter;
-            parameter = nullptr;
-        }
-    }
-
-    // clear arrays
-    arrParameters.clear();
-    arrMayModify.clear();
+    numberOfParameters_ = completeParameters;
+    numberOfRevealedParameters_ = revealedParameters;
 }
 
 
@@ -79,16 +59,19 @@ Juggler::~Juggler()
 ///
 /// @param wantModification check whether the parameter may be modified
 ///
-void Juggler::assertParameter(int index, bool wantModification)
+void Juggler::assertParameter(
+    int index,
+    bool wantModification)
+
 {
     // check parameter index
     jassert(index >= 0);
-    jassert(index < arrParameters.size());
+    jassert(index < virtualParameters_.size());
 
     // check whether the parameter may be modified
     if (wantModification)
     {
-        jassert(arrMayModify[index]);
+        jassert(mayModify_[index]);
     }
 }
 
@@ -99,13 +82,15 @@ void Juggler::assertParameter(int index, bool wantModification)
 ///
 /// @return requested Parameter instance
 ///
-Parameter *Juggler::getPluginParameter(int index)
+Parameter *Juggler::getPluginParameter(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index];
+    return virtualParameters_[index];
 }
 
 
@@ -118,13 +103,13 @@ String Juggler::toString()
     String strParameters;
 
     // loop over plug-in parameters
-    for (int n = 0; n < arrParameters.size(); ++n)
+    for (int n = 0; n < virtualParameters_.size(); ++n)
     {
         // add parameter name
-        strParameters += arrParameters[n]->getName() + ":  ";
+        strParameters += getName(n) + ":  ";
 
         // add parameter value
-        strParameters += arrParameters[n]->getText() + "\n";
+        strParameters += getText(n) + "\n";
     }
 
     return strParameters;
@@ -138,60 +123,71 @@ String Juggler::toString()
 ///
 /// @return number of plug-in parameters
 ///
-int Juggler::getNumParameters(bool includeHiddenParameters)
+int Juggler::getNumParameters(
+    bool includeHiddenParameters)
+
 {
     // check that all intended parameters have been added
-    jassert(numberOfParameters == arrParameters.size());
+    jassert(numberOfParameters_ == virtualParameters_.size());
 
     if (includeHiddenParameters)
     {
-        return numberOfParameters;
+        return numberOfParameters_;
     }
     else
     {
-        return numberOfRevealedParameters;
+        return numberOfRevealedParameters_;
     }
 }
 
 
-/// Add plug-in parameter to container.
+/// Add plug-in parameter to juggler.
 ///
 /// @param parameter plug-in parameter instance
 ///
 /// @param index parameter index (must point to the end of the array
 ///        and is used for sanity checking only)
 ///
-void Juggler::add(Parameter *parameter, int index)
+void Juggler::add(
+    Parameter *parameter,
+    int index)
+
 {
-    // add parameter to container
-    arrParameters.add(parameter);
+    // mark parameter for deletion on class destruction
+    virtualParameters_.add(parameter);
+
+    // add virtual parameter
+    garbageCollector_.add(parameter);
 
     // parameter is writeable
-    arrMayModify.add(true);
+    mayModify_.add(true);
 
     // check whether index of parameter is correct
-    jassert(arrParameters.size() == index + 1);
+    jassert(virtualParameters_.size() == index + 1);
 }
 
 
-/// Add **read-only** plug-in parameter to container.
+/// Add **read-only** plug-in parameter to juggler.
 ///
 /// @param parameter plug-in parameter instance
 ///
 /// @param index parameter index (must point to the end of the array
 ///        and is used for sanity checking only)
 ///
-void Juggler::addProtected(Parameter *parameter, int index)
+void Juggler::addProtected(
+    Parameter *parameter,
+    int index)
+
 {
-    // add parameter to container
+    // add parameter to juggler
     add(parameter, index);
 
     // parameter is read-only
-    arrMayModify.set(index, false);
+    mayModify_.set(index, false);
 }
 
 
-/// Add **combined** plug-in parameter to container.
+/// Add **combined** plug-in parameter to juggler.
 ///
 /// @param parameter plug-in parameter instance
 ///
@@ -201,15 +197,35 @@ void Juggler::addProtected(Parameter *parameter, int index)
 /// @param parameterIndex index of parameter (must be **switchIndex** + 1
 ///        and is used for sanity checking only)
 ///
-void Juggler::addCombined(parameter::ParCombined *parameter, int switchIndex, int parameterIndex)
+void Juggler::addCombined(
+    parameter::ParCombined *parameter,
+    int switchIndex,
+    int parameterIndex)
+
 {
     jassert(parameterIndex == (switchIndex + 1));
 
-    // add parameter switch to container
-    addProtected(parameter->getModeSwitch(), switchIndex);
+    // add parameter switch to juggler
+    virtualParameters_.add(parameter->getModeSwitch());
 
-    // add parameter to container
-    add(parameter, parameterIndex);
+    // parameter switch is read-only
+    mayModify_.set(switchIndex, false);
+
+    // check whether index of parameter switch is correct
+    jassert(virtualParameters_.size() == switchIndex + 1);
+
+    // mark parameter for deletion on class destruction
+    garbageCollector_.add(parameter);
+
+    // add continuous parameter to juggler
+    virtualParameters_.add(parameter);
+
+    // continuous parameter is writeable
+    mayModify_.add(true);
+
+    // check whether index of continuous parameter is correct
+    jassert(virtualParameters_.size() == parameterIndex + 1);
+
 }
 
 
@@ -219,13 +235,15 @@ void Juggler::addCombined(parameter::ParCombined *parameter, int switchIndex, in
 ///
 /// @return parameter name
 ///
-String Juggler::getName(int index)
+String Juggler::getName(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getName();
+    return virtualParameters_[index]->getName();
 }
 
 
@@ -235,13 +253,16 @@ String Juggler::getName(int index)
 ///
 /// @param newParameterName new parameter name
 ///
-void Juggler::setName(int index, const String &newParameterName)
+void Juggler::setName(
+    int index,
+    const String &newParameterName)
+
 {
 #ifdef DEBUG
     assertParameter(index, true);
 #endif
 
-    arrParameters[index]->setName(newParameterName);
+    virtualParameters_[index]->setName(newParameterName);
 }
 
 
@@ -252,13 +273,15 @@ void Juggler::setName(int index, const String &newParameterName)
 ///
 /// @return internal default value (between 0.0 and 1.0)
 ///
-float Juggler::getDefaultFloat(int index)
+float Juggler::getDefaultFloat(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getDefaultFloat();
+    return virtualParameters_[index]->getDefaultFloat();
 }
 
 
@@ -269,13 +292,15 @@ float Juggler::getDefaultFloat(int index)
 ///
 /// @return default value
 ///
-float Juggler::getDefaultRealFloat(int index)
+float Juggler::getDefaultRealFloat(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getDefaultRealFloat();
+    return virtualParameters_[index]->getDefaultRealFloat();
 }
 
 
@@ -286,13 +311,15 @@ float Juggler::getDefaultRealFloat(int index)
 /// @return **false** if the default value is set to the parameter's
 ///         minimum, **true** otherwise
 ///
-bool Juggler::getDefaultBoolean(int index)
+bool Juggler::getDefaultBoolean(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getDefaultBoolean();
+    return virtualParameters_[index]->getDefaultBoolean();
 }
 
 
@@ -304,13 +331,15 @@ bool Juggler::getDefaultBoolean(int index)
 ///
 /// @return default value
 ///
-int Juggler::getDefaultRealInteger(int index)
+int Juggler::getDefaultRealInteger(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getDefaultRealInteger();
+    return virtualParameters_[index]->getDefaultRealInteger();
 }
 
 
@@ -324,13 +353,17 @@ int Juggler::getDefaultRealInteger(int index)
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void Juggler::setDefaultRealFloat(int index, float newRealValue, bool updateParameter)
+void Juggler::setDefaultRealFloat(
+    int index,
+    float newRealValue,
+    bool updateParameter)
+
 {
 #ifdef DEBUG
     assertParameter(index, true);
 #endif
 
-    arrParameters[index]->setDefaultRealFloat(newRealValue, updateParameter);
+    virtualParameters_[index]->setDefaultRealFloat(newRealValue, updateParameter);
 }
 
 
@@ -341,13 +374,15 @@ void Juggler::setDefaultRealFloat(int index, float newRealValue, bool updatePara
 ///
 /// @return current value (between 0.0 and 1.0)
 ///
-float Juggler::getFloat(int index)
+float Juggler::getFloat(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getFloat();
+    return virtualParameters_[index]->getFloat();
 }
 
 
@@ -358,13 +393,16 @@ float Juggler::getFloat(int index)
 ///
 /// @param newValue new value (between 0.0 and 1.0)
 ///
-void Juggler::setFloat(int index, float newValue)
+void Juggler::setFloat(
+    int index,
+    float newValue)
+
 {
 #ifdef DEBUG
     assertParameter(index, true);
 #endif
 
-    arrParameters[index]->setFloat(newValue);
+    virtualParameters_[index]->setFloat(newValue);
 }
 
 
@@ -375,13 +413,15 @@ void Juggler::setFloat(int index, float newValue)
 ///
 /// @return current value
 ///
-float Juggler::getRealFloat(int index)
+float Juggler::getRealFloat(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getRealFloat();
+    return virtualParameters_[index]->getRealFloat();
 }
 
 
@@ -392,13 +432,16 @@ float Juggler::getRealFloat(int index)
 ///
 /// @param newRealValue new value
 ///
-void Juggler::setRealFloat(int index, float newRealValue)
+void Juggler::setRealFloat(
+    int index,
+    float newRealValue)
+
 {
 #ifdef DEBUG
     assertParameter(index, true);
 #endif
 
-    arrParameters[index]->setRealFloat(newRealValue);
+    virtualParameters_[index]->setRealFloat(newRealValue);
 }
 
 
@@ -410,13 +453,15 @@ void Juggler::setRealFloat(int index, float newRealValue)
 ///
 /// @return current value
 ///
-int Juggler::getRealInteger(int index)
+int Juggler::getRealInteger(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getRealInteger();
+    return virtualParameters_[index]->getRealInteger();
 }
 
 
@@ -427,13 +472,16 @@ int Juggler::getRealInteger(int index)
 ///
 /// @param newRealValue new value
 ///
-void Juggler::setRealInteger(int index, int newRealValue)
+void Juggler::setRealInteger(
+    int index,
+    int newRealValue)
+
 {
 #ifdef DEBUG
     assertParameter(index, true);
 #endif
 
-    arrParameters[index]->setRealInteger(newRealValue);
+    virtualParameters_[index]->setRealInteger(newRealValue);
 }
 
 
@@ -444,13 +492,15 @@ void Juggler::setRealInteger(int index, int newRealValue)
 /// @return **false** if current value is at its minimum, **true**
 ///         otherwise
 ///
-bool Juggler::getBoolean(int index)
+bool Juggler::getBoolean(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getBoolean();
+    return virtualParameters_[index]->getBoolean();
 }
 
 
@@ -460,13 +510,15 @@ bool Juggler::getBoolean(int index)
 ///
 /// @return current value
 ///
-String Juggler::getText(int index)
+String Juggler::getText(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->getText();
+    return virtualParameters_[index]->getText();
 }
 
 
@@ -476,13 +528,16 @@ String Juggler::getText(int index)
 ///
 /// @param newValue new value as formatted string
 ///
-void Juggler::setText(int index, const String &newValue)
+void Juggler::setText(
+    int index,
+    const String &newValue)
+
 {
 #ifdef DEBUG
     assertParameter(index, true);
 #endif
 
-    arrParameters[index]->setText(newValue);
+    virtualParameters_[index]->setText(newValue);
 }
 
 
@@ -493,13 +548,15 @@ void Juggler::setText(int index, const String &newValue)
 ///
 /// @return change flag
 ///
-bool Juggler::hasChanged(int index)
+bool Juggler::hasChanged(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->hasChanged();
+    return virtualParameters_[index]->hasChanged();
 }
 
 
@@ -507,13 +564,15 @@ bool Juggler::hasChanged(int index)
 ///
 /// @param index parameter index
 ///
-void Juggler::clearChangeFlag(int index)
+void Juggler::clearChangeFlag(
+    int index)
+
 {
 #ifdef DEBUG
     assertParameter(index, false);
 #endif
 
-    return arrParameters[index]->clearChangeFlag();
+    return virtualParameters_[index]->clearChangeFlag();
 }
 
 
@@ -521,19 +580,21 @@ void Juggler::clearChangeFlag(int index)
 ///
 /// @param xmlDocument XML document to load from
 ///
-void Juggler::loadFromXml(XmlElement *xmlDocument)
+void Juggler::loadFromXml(
+    XmlElement *xmlDocument)
+
 {
     // check ID of XML document
-    if (xmlDocument && xmlDocument->hasTagName(jugglerID))
+    if (xmlDocument && xmlDocument->hasTagName(jugglerId_))
     {
         // loop over plug-in parameters
-        for (int n = 0; n < arrParameters.size(); ++n)
+        for (int n = 0; n < virtualParameters_.size(); ++n)
         {
             // only load values of writeable parameters
-            if (arrMayModify[n])
+            if (mayModify_[n])
             {
                 // load parameter value
-                arrParameters[n]->loadFromXml(xmlDocument);
+                virtualParameters_[n]->loadFromXml(xmlDocument);
             }
         }
     }
@@ -545,19 +606,19 @@ void Juggler::loadFromXml(XmlElement *xmlDocument)
 XmlElement Juggler::storeAsXml()
 {
     // create XML document
-    XmlElement xmlDocument(jugglerID);
+    XmlElement xmlDocument(jugglerId_);
 
     // set plug-in version
     xmlDocument.setAttribute("version", JucePlugin_VersionString);
 
     // loop over plug-in parameters
-    for (int n = 0; n < arrParameters.size(); ++n)
+    for (int n = 0; n < virtualParameters_.size(); ++n)
     {
         // only store writeable parameters
-        if (arrMayModify[n])
+        if (mayModify_[n])
         {
             // store parameter value
-            arrParameters[n]->storeAsXml(&xmlDocument);
+            virtualParameters_[n]->storeAsXml(&xmlDocument);
         }
     }
 

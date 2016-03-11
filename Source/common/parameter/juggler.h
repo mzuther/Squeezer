@@ -35,34 +35,48 @@
 class Juggler
 {
 public:
-    Juggler(const String &settingsID, int completeParameters, int revealedParameters);
-    ~Juggler();
+    Juggler(const String &settingsID,
+            int completeParameters,
+            int revealedParameters);
 
     Parameter *getPluginParameter(int index);
     String toString();
 
-    void add(Parameter *parameter, int index);
-    void addProtected(Parameter *parameter, int index);
-    void addCombined(parameter::ParCombined *parameter, int switchIndex, int parameterIndex);
+    void add(Parameter *parameter,
+             int index);
+
+    void addProtected(Parameter *parameter,
+                      int index);
+
+    void addCombined(parameter::ParCombined *parameter,
+                     int switchIndex,
+                     int parameterIndex);
+
     int getNumParameters(bool includeHiddenParameters);
 
     String getName(int index);
-    void setName(int index, const String &newParameterName);
+    void setName(int index,
+                 const String &newParameterName);
 
     float getDefaultFloat(int index);
     float getDefaultRealFloat(int index);
     bool getDefaultBoolean(int index);
     int getDefaultRealInteger(int index);
-    void setDefaultRealFloat(int index, float newRealValue, bool updateParameter);
+    void setDefaultRealFloat(int index,
+                             float newRealValue,
+                             bool updateParameter);
 
     float getFloat(int index);
-    void setFloat(int index, float newValue);
+    void setFloat(int index,
+                  float newValue);
 
     float getRealFloat(int index);
-    void setRealFloat(int index, float newRealValue);
+    void setRealFloat(int index,
+                      float newRealValue);
 
     int getRealInteger(int index);
-    void setRealInteger(int index, int newRealValue);
+    void setRealInteger(int index,
+                        int newRealValue);
 
     bool getBoolean(int index);
 
@@ -76,15 +90,29 @@ public:
     XmlElement storeAsXml();
 
 protected:
-    void assertParameter(int index, bool wantModification);
+    void assertParameter(int index,
+                         bool wantModification);
 
-    int numberOfParameters;
-    int numberOfRevealedParameters;
+    int numberOfParameters_;
+    int numberOfRevealedParameters_;
 
-    String jugglerID;
+    String jugglerId_;
 
-    Array<Parameter *> arrParameters;
-    Array<bool> arrMayModify;
+    // This array deletes the contained parameters when the class is
+    // destructed.  It holds the *real* parameter that is passed to
+    // the juggler.  *Real* and *virtual* parameters only differ for
+    // the class *CombinedParameter* which creates *two* virtual
+    // parameters (switch and continuous) instead of one.
+    OwnedArray<Parameter> garbageCollector_;
+
+    // This array holds the *virtual* parameters.  See the
+    // documentation of garbageCollector_ for more info.
+    Array<Parameter *> virtualParameters_;
+
+    // This array a Boolean for every *virtual* parameter.  If the
+    // Boolean is *true*, the parameter may be modified, otherwise it
+    // will be handled as a constant.
+    Array<bool> mayModify_;
 
 private:
     JUCE_LEAK_DETECTOR(Juggler);
