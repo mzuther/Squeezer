@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{9C06D5A9-7A89-6CFA-EDF0-55C97D99723A}</ProjectGuid>
+		<ProjectGuid>{32844EF5-C9E8-BB8C-0A68-E20C57A8ACA5}</ProjectGuid>
 		<RootNamespace>Squeezer (Stereo)</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -88,7 +88,7 @@
 		<ClCompile>
 			<AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>Disabled</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -101,7 +101,7 @@
 		</ClCompile>
 		<ResourceCompile>
 			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -117,7 +117,7 @@
 		<ClCompile>
 			<AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>Disabled</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -130,7 +130,7 @@
 		</ClCompile>
 		<ResourceCompile>
 			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -146,7 +146,7 @@
 		<ClCompile>
 			<AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>MaxSpeed</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<StringPooling>true</StringPooling>
@@ -160,7 +160,7 @@
 		</ClCompile>
 		<ResourceCompile>
 			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -177,7 +177,7 @@
 		<ClCompile>
 			<AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>MaxSpeed</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<StringPooling>true</StringPooling>
@@ -191,7 +191,7 @@
 		</ClCompile>
 		<ResourceCompile>
 			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STAND_ALONE=1;SQUEEZER_STEREO=1;JUCE_USE_VSTSDK_2_4=0;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.2\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>

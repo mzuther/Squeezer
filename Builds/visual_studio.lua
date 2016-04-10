@@ -150,7 +150,7 @@ solution "Squeezer"
 		}
 
 		includedirs {
-			"../libraries/asiosdk2.2/common"
+			"../libraries/asiosdk2.3/common"
 		}
 
 		configuration {"windows"}
@@ -183,7 +183,7 @@ solution "Squeezer"
 		}
 
 		includedirs {
-			"../libraries/asiosdk2.2/common"
+			"../libraries/asiosdk2.3/common"
 		}
 
 		configuration {"windows"}
@@ -216,7 +216,7 @@ solution "Squeezer"
 		}
 
 		includedirs {
-			"../libraries/vstsdk2.4"
+			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -259,7 +259,7 @@ solution "Squeezer"
 		}
 
 		includedirs {
-			"../libraries/vstsdk2.4"
+			"../libraries/vstsdk3.6.5"
 		}
 
 		files {

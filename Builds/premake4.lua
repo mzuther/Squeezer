@@ -312,7 +312,7 @@ solution "squeezer"
 		}
 
 		includedirs {
-			"../libraries/vstsdk2.4"
+			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -371,7 +371,7 @@ solution "squeezer"
 		}
 
 		includedirs {
-			"../libraries/vstsdk2.4"
+			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
