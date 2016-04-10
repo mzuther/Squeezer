@@ -154,10 +154,10 @@ void Juggler::add(
 
 {
     // mark parameter for deletion on class destruction
-    virtualParameters_.add(parameter);
+    garbageCollector_.add(parameter);
 
     // add virtual parameter
-    garbageCollector_.add(parameter);
+    virtualParameters_.add(parameter);
 
     // parameter is writeable
     mayModify_.add(true);
