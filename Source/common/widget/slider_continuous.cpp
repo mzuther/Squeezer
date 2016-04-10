@@ -24,16 +24,21 @@
 ---------------------------------------------------------------------------- */
 
 
-SliderContinuous::SliderContinuous(parameter::Juggler *pParameters, int nParameterIndex)
+SliderContinuous::SliderContinuous(
+    parameter::Juggler *parameters,
+    int parameterIndex)
+
 {
-    pContinuous = dynamic_cast<parameter::ParContinuous *>(pParameters->getPluginParameter(nParameterIndex));
-    jassert(pContinuous != nullptr);
+    parameter_ = dynamic_cast<parameter::ParContinuous *>(
+                     parameters->getPluginParameter(parameterIndex));
 
-    setRange(0.0f, 1.0f, pContinuous->getStepSize());
+    jassert(parameter_ != nullptr);
+
+    setRange(0.0f, 1.0f, parameter_->getStepSize());
     setSliderStyle(Slider::RotaryVerticalDrag);
-    colourRotary = Colours::white;
+    colourRotary_ = Colours::white;
 
-    setDoubleClickReturnValue(true, pContinuous->getDefaultFloat());
+    setDoubleClickReturnValue(true, parameter_->getDefaultFloat());
 }
 
 
@@ -41,7 +46,7 @@ void SliderContinuous::visibilityChanged()
 {
     Slider::visibilityChanged();
 
-    setColour(Slider::rotarySliderFillColourId, colourRotary);
+    setColour(Slider::rotarySliderFillColourId, colourRotary_);
     setColour(Slider::textBoxTextColourId, Colours::white);
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
     setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
@@ -57,40 +62,46 @@ void SliderContinuous::resized()
 }
 
 
-void SliderContinuous::setSliderColour(const Colour &colour)
+void SliderContinuous::setSliderColour(
+    const Colour &colour)
+
 {
-    colourRotary = colour;
-    setColour(Slider::rotarySliderFillColourId, colourRotary);
+    colourRotary_ = colour;
+    setColour(Slider::rotarySliderFillColourId, colourRotary_);
 }
 
 
 float SliderContinuous::getRealFloat()
 {
-    return pContinuous->getRealFloat();
+    return parameter_->getRealFloat();
 }
 
 
 bool SliderContinuous::getBoolean()
 {
-    return pContinuous->getBoolean();
+    return parameter_->getBoolean();
 }
 
 
 int SliderContinuous::getRealInteger()
 {
-    return pContinuous->getRealInteger();
+    return parameter_->getRealInteger();
 }
 
 
-double SliderContinuous::getValueFromText(const String &strText)
+double SliderContinuous::getValueFromText(
+    const String &strText)
+
 {
-    return pContinuous->getFloatFromText(strText);
+    return parameter_->getFloatFromText(strText);
 }
 
 
-String SliderContinuous::getTextFromValue(double dValue)
+String SliderContinuous::getTextFromValue(
+    double dValue)
+
 {
-    return pContinuous->getTextFromFloat((float) dValue);
+    return parameter_->getTextFromFloat(static_cast<float>(dValue));
 }
 
 

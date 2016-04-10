@@ -31,23 +31,25 @@ class SliderContinuous :
     public Slider
 {
 public:
-    SliderContinuous(parameter::Juggler *pParameters, int nParameterIndex);
+    SliderContinuous(parameter::Juggler *pParameters, int parameterIndex);
 
-    void visibilityChanged();
-    void resized();
+    virtual void visibilityChanged();
+    virtual void resized();
     void setSliderColour(const Colour &colour);
 
     float getRealFloat();
     bool getBoolean();
     int getRealInteger();
 
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
+    virtual double getValueFromText(const String &strText);
+    virtual String getTextFromValue(double dValue);
+
+protected:
+    Colour colourRotary_;
+    parameter::ParContinuous *parameter_;
+
 private:
     JUCE_LEAK_DETECTOR(SliderContinuous);
-
-    Colour colourRotary;
-    parameter::ParContinuous *pContinuous;
 };
 
 

@@ -54,6 +54,7 @@ int ChannelSlider::getNumberOfChannels()
 ///
 void ChannelSlider::setNumberOfChannels(
     int numberOfChannels)
+
 {
     numberOfChannels_ = numberOfChannels;
 
@@ -99,6 +100,7 @@ float ChannelSlider::getFloat()
 ///
 double ChannelSlider::getValueFromText(
     const String &inputString)
+
 {
     // -1 designates "all channels"
     if (inputString == "All")
@@ -124,6 +126,7 @@ double ChannelSlider::getValueFromText(
 ///
 String ChannelSlider::getTextFromValue(
     double inputValue)
+
 {
     // -1 designates "all channels"
     if (inputValue < 0)
