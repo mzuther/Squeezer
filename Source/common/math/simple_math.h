@@ -73,7 +73,7 @@ public:
         if (x == 0.0f)
         {
             // return value
-            return x;
+            return floor;
         }
         // value is greater than zero
         else if (x > 0.0f)

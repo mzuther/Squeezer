@@ -324,8 +324,11 @@ void MeterBar::setOrientation(
     if (isVertical_ != isVerticalOld)
     {
         // re-arrange meter segments
-        for (auto & segment : meterSegments_)
+        for (int index = 0; index < meterSegments_.size(); ++index)
         {
+            // get current segment
+            widget::MeterSegment *segment = meterSegments_[index];
+
             // swap x <--> y and width <--> height
             segment->setBounds(segment->getY(),
                                segment->getX(),
@@ -413,8 +416,11 @@ void MeterBar::setOrientation(
     }
 
     // update segment orientation
-    for (auto & segment : meterSegments_)
+    for (int index = 0; index < meterSegments_.size(); ++index)
     {
+        // get current segment
+        widget::MeterSegment *segment = meterSegments_[index];
+
         segment->setOrientation(orientation_);
     }
 }
@@ -495,8 +501,11 @@ void MeterBar::setSegmentWidth(
     barWidth_ = segmentWidth_;
 
     // update meter segments
-    for (auto & segment : meterSegments_)
+    for (int index = 0; index < meterSegments_.size(); ++index)
     {
+        // get current segment
+        widget::MeterSegment *segment = meterSegments_[index];
+
         // set dimensions of meter segment
         if (isVertical_)
         {
@@ -565,8 +574,11 @@ void MeterBar::setNormalLevels(
         normalLevelPeak_ = normalLevelPeak;
 
         // update meter segments
-        for (auto & segment : meterSegments_)
+        for (int index = 0; index < meterSegments_.size(); ++index)
         {
+            // get current segment
+            widget::MeterSegment *segment = meterSegments_[index];
+
             segment->setNormalLevels(
                 normalLevel_, normalLevelPeak_);
         }
@@ -594,8 +606,11 @@ void MeterBar::setDiscreteLevels(
         discreteLevelPeak_ = discreteLevelPeak;
 
         // update meter segments
-        for (auto & segment : meterSegments_)
+        for (int index = 0; index < meterSegments_.size(); ++index)
         {
+            // get current segment
+            widget::MeterSegment *segment = meterSegments_[index];
+
             segment->setDiscreteLevels(
                 discreteLevel_, discreteLevelPeak_);
         }
@@ -633,8 +648,11 @@ void MeterBar::setLevels(
         discreteLevelPeak_ = discreteLevelPeak;
 
         // update meter bars
-        for (auto & segment : meterSegments_)
+        for (int index = 0; index < meterSegments_.size(); ++index)
         {
+            // get current segment
+            widget::MeterSegment *segment = meterSegments_[index];
+
             segment->setLevels(
                 normalLevel_, normalLevelPeak_,
                 discreteLevel_, discreteLevelPeak_);

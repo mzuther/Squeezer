@@ -136,7 +136,7 @@ String ChannelSlider::getTextFromValue(
     // convert double to string
     else
     {
-        int channelIndex = math::SimpleMath::round(inputValue) + 1;
+        int channelIndex = math::SimpleMath::round(static_cast<float>(inputValue)) + 1;
 
         return String(channelIndex);
     }
