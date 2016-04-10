@@ -966,14 +966,14 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         // display trademarks (but only when necessary)
         arrChapters.set(
             "Trademarks",
-            L"VST PlugIn Technology by Steinberg\n");
+            L"VST PlugIn Technology by Steinberg Media Technologies\n");
 #endif
 
 #if (JUCE_ASIO != 0)
         // display trademarks (but only when necessary)
         arrChapters.set(
             "Trademarks",
-            L"ASIO Technology by Steinberg Media Technologies GmbH\n");
+            L"ASIO Driver Technology by Steinberg Media Technologies\n");
 #endif
 
         arrChapters.set(
