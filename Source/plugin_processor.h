@@ -84,12 +84,6 @@ public:
     //==========================================================================
     const String getName() const;
 
-    const String getInputChannelName(int channelIndex) const;
-    const String getOutputChannelName(int channelIndex) const;
-
-    bool isInputChannelStereoPair(int nIndex) const;
-    bool isOutputChannelStereoPair(int nIndex) const;
-
     bool acceptsMidi() const;
     bool producesMidi() const;
 

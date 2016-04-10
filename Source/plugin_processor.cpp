@@ -584,30 +584,6 @@ float SqueezerAudioProcessor::getAverageMeterOutputLevel(int nChannel)
 }
 
 
-const String SqueezerAudioProcessor::getInputChannelName(int channelIndex) const
-{
-    return "Input " + String(channelIndex + 1);
-}
-
-
-const String SqueezerAudioProcessor::getOutputChannelName(int channelIndex) const
-{
-    return "Output " + String(channelIndex + 1);
-}
-
-
-bool SqueezerAudioProcessor::isInputChannelStereoPair(int nIndex) const
-{
-    return true;
-}
-
-
-bool SqueezerAudioProcessor::isOutputChannelStereoPair(int nIndex) const
-{
-    return true;
-}
-
-
 bool SqueezerAudioProcessor::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput

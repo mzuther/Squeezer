@@ -412,7 +412,7 @@
  #define JucePlugin_MaxNumOutputChannels   2
 #endif
 #ifndef  JucePlugin_PreferredChannelConfigurations
- #define JucePlugin_PreferredChannelConfigurations  {1, 1}, {2, 2}
+ #define JucePlugin_PreferredChannelConfigurations  {2, 2}
 #endif
 
 #endif  // __JUCE_APPCONFIG_PY2F1I__
