@@ -693,7 +693,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
         bSampleRateIsValid = true;
     }
 
-    nNumInputChannels = getNumInputChannels();
+    nNumInputChannels = getMainBusNumInputChannels();
 
     if (nNumInputChannels <= 0)
     {
@@ -783,7 +783,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer 
 
     if (!bSampleRateIsValid)
     {
-        for (int nChannel = 0; nChannel < getNumOutputChannels(); ++nChannel)
+        for (int nChannel = 0; nChannel < getMainBusNumOutputChannels(); ++nChannel)
         {
             buffer.clear(nChannel, 0, nNumSamples);
         }
@@ -801,7 +801,7 @@ void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer 
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int nChannel = nNumInputChannels; nChannel < getNumOutputChannels(); ++nChannel)
+    for (int nChannel = nNumInputChannels; nChannel < getMainBusNumOutputChannels(); ++nChannel)
     {
         buffer.clear(nChannel, 0, nNumSamples);
     }

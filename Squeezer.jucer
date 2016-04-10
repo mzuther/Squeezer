@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="2.1.2"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="2.1.3"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
@@ -8,10 +8,11 @@
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
               pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
               pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="3.2.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
+              jucerVersion="4.1.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
-              companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategEffect">
+              companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategEffect"
+              pluginIsMidiEffectPlugin="0">
   <MAINGROUP id="BIo7Gh" name="Squeezer">
     <GROUP id="{E9DE54B6-0D51-C2EE-3F76-C28D0D5D5813}" name="common">
       <FILE id="sA5xxG" name="FrutHeader.h" compile="0" resource="0" file="Source/common/FrutHeader.h"/>
