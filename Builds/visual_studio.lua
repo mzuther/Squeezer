@@ -144,9 +144,10 @@ solution "Squeezer"
 		targetprefix ""
 
 		defines {
-			"SQUEEZER_STAND_ALONE=1",
 			"SQUEEZER_MONO=1",
-			"JUCE_USE_VSTSDK_2_4=0"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=1",
+			"JucePlugin_Build_VST=0"
 		}
 
 		includedirs {
@@ -177,9 +178,10 @@ solution "Squeezer"
 		targetprefix ""
 
 		defines {
-			"SQUEEZER_STAND_ALONE=1",
 			"SQUEEZER_STEREO=1",
-			"JUCE_USE_VSTSDK_2_4=0"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=1",
+			"JucePlugin_Build_VST=0"
 		}
 
 		includedirs {
@@ -210,9 +212,10 @@ solution "Squeezer"
 		targetprefix ""
 
 		defines {
-			"SQUEEZER_VST_PLUGIN=1",
 			"SQUEEZER_MONO=1",
-			"JUCE_USE_VSTSDK_2_4=1"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=1"
 		}
 
 		includedirs {
@@ -225,6 +228,7 @@ solution "Squeezer"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}
@@ -253,9 +257,10 @@ solution "Squeezer"
 		targetprefix ""
 
 		defines {
-			"SQUEEZER_VST_PLUGIN=1",
 			"SQUEEZER_STEREO=1",
-			"JUCE_USE_VSTSDK_2_4=1"
+			"JucePlugin_Build_LV2=0",
+			"JucePlugin_Build_Standalone=0",
+			"JucePlugin_Build_VST=1"
 		}
 
 		includedirs {
@@ -268,6 +273,7 @@ solution "Squeezer"
 		}
 
 		excludes {
+			"../Source/main.cpp",
 			"../Source/standalone_application.h",
 			"../Source/standalone_application.cpp"
 		}

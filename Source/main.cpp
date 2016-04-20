@@ -24,18 +24,11 @@
 ---------------------------------------------------------------------------- */
 
 // build stand-alone application for plugin
-#ifdef SQUEEZER_STAND_ALONE
+#ifdef JucePlugin_Build_Standalone
 
 #include "standalone_application.h"
 
 START_JUCE_APPLICATION(SqueezerStandalone)
-
-#endif
-
-// build VST plugin
-#if defined (SQUEEZER_VST_PLUGIN) || defined (SQUEEZER_LV2_PLUGIN)
-
-// do nothing till you hear from me...
 
 #endif
 

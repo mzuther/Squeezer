@@ -952,7 +952,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
             L"JACK\n"
 #endif
             L"JUCE\n"
-#if (KMETER_LV2_PLUGIN != 0)
+#if JucePlugin_Build_LV2
             L"LV2\n"
 #endif
 #ifdef LINUX
@@ -962,14 +962,14 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
 #endif
         );
 
-#if (JUCE_USE_VSTSDK_2_4 != 0)
+#if JucePlugin_Build_VST
         // display trademarks (but only when necessary)
         arrChapters.set(
             "Trademarks",
             L"VST PlugIn Technology by Steinberg Media Technologies\n");
 #endif
 
-#if (JUCE_ASIO != 0)
+#if JUCE_ASIO
         // display trademarks (but only when necessary)
         arrChapters.set(
             "Trademarks",
