@@ -86,6 +86,12 @@
 
 #define JucePlugin_LV2Category "AnalyserPlugin"
 
+#define JucePlugin_WantsLV2FixedBlockSize  0
+#define JucePlugin_WantsLV2State           0
+#define JucePlugin_WantsLV2StateString     0
+#define JucePlugin_WantsLV2Presets         0
+#define JucePlugin_WantsLV2TimePos         0
+
 // [END_USER_CODE_SECTION]
 
 //==============================================================================
