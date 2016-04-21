@@ -26,19 +26,20 @@
 
 bool Skin::loadFromXml(
     File &skinFile,
-    const String &rootName)
+    const String &rootName,
+    const String &assumedVersionNumber)
 
 {
+    settingsGroup_ = nullptr;
+    skinGroup_ = nullptr;
+    skinFallback_1_ = nullptr;
+    skinFallback_2_ = nullptr;
+
     Logger::outputDebugString(
         String("[Skin] loading file \"") +
         skinFile.getFileName() + "\"");
 
     document_ = XmlDocument::parse(skinFile);
-
-    settingsGroup_ = nullptr;
-    skinGroup_ = nullptr;
-    skinFallback_1_ = nullptr;
-    skinFallback_2_ = nullptr;
 
     if (document_ == nullptr)
     {
@@ -48,6 +49,20 @@ bool Skin::loadFromXml(
             "\" not found");
 
         return false;
+    }
+
+    String skinVersion = document_->getStringAttribute("version");
+
+    if (skinVersion.compare(assumedVersionNumber) != 0)
+    {
+        Logger::outputDebugString(
+            String("[Skin] file \"") +
+            skinFile.getFileName() +
+            "\" has incompatible version number \"" +
+            skinVersion +
+            "\"");
+
+        // try to keep running
     }
 
     settingsGroup_ = document_->getChildByName("settings");

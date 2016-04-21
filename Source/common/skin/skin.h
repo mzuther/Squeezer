@@ -31,7 +31,8 @@ class Skin
 {
 public:
     bool loadFromXml(File &skinFile,
-                     const String &rootName);
+                     const String &rootName,
+                     const String &assumedVersionNumber);
 
     int getIntegerSetting(const String &tagName,
                           const String &attributeName,
