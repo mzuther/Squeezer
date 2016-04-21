@@ -921,6 +921,18 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         pluginNameAndVersion += " v";
         pluginNameAndVersion += JucePlugin_VersionString;
 
+#if JucePlugin_Build_AU
+        pluginNameAndVersion += " (Audio Unit)";
+#endif
+
+#if JucePlugin_Build_LV2
+        pluginNameAndVersion += " (LV2)";
+#endif
+
+#if JucePlugin_Build_VST
+        pluginNameAndVersion += " (VST)";
+#endif
+
         arrChapters.set(
             pluginNameAndVersion,
             String(JucePlugin_Desc) + ".\n");
