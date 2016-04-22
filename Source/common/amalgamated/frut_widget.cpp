@@ -41,7 +41,6 @@ namespace widget
 #include "../widget/meter_segment_continuous.cpp"
 #include "../widget/meter_segment_discrete.cpp"
 #include "../widget/needle_meter.cpp"
-#include "../widget/plugin_standalone.cpp"
 #include "../widget/resources/resources.cpp"
 #include "../widget/signal_led.cpp"
 #include "../widget/slider_combined.cpp"

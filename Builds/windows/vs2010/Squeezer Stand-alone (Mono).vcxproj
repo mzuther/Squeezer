@@ -46,6 +46,8 @@
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
+		<PlatformToolset>Windows7.1SDK</PlatformToolset>
+		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

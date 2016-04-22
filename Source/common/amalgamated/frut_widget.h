@@ -27,10 +27,6 @@
 #define __FRUT_AMALGAMATED_WIDGETS_H__
 
 
-// external includes
-#include "juce/modules/juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h"
-
-
 namespace frut
 {
 namespace widget
@@ -46,7 +42,6 @@ namespace widget
 #include "../widget/meter_segment_continuous.h"
 #include "../widget/meter_segment_discrete.h"
 #include "../widget/needle_meter.h"
-#include "../widget/plugin_standalone.h"
 #include "../widget/signal_led.h"
 #include "../widget/slider_combined.h"
 #include "../widget/slider_continuous.h"

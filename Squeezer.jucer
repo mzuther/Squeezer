@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="2.1.3"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="2.2.0"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
@@ -8,11 +8,11 @@
               pluginWantsMidiIn="0" pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1"
               pluginTailLength="0" pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
               pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="4.1.0" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
+              jucerVersion="4.2.1" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategEffect"
-              pluginIsMidiEffectPlugin="0">
+              pluginIsMidiEffectPlugin="0" buildAUv3="0">
   <MAINGROUP id="BIo7Gh" name="Squeezer">
     <GROUP id="{E9DE54B6-0D51-C2EE-3F76-C28D0D5D5813}" name="common">
       <FILE id="sA5xxG" name="FrutHeader.h" compile="0" resource="0" file="Source/common/FrutHeader.h"/>
@@ -71,16 +71,12 @@
           file="Source/plugin_processor.h"/>
     <FILE id="vV8sSo" name="side_chain.cpp" compile="1" resource="0" file="Source/side_chain.cpp"/>
     <FILE id="MPtzX3" name="side_chain.h" compile="0" resource="0" file="Source/side_chain.h"/>
-    <FILE id="jP2suI" name="standalone_application.cpp" compile="1" resource="0"
-          file="Source/standalone_application.cpp"/>
-    <FILE id="s8GnOX" name="standalone_application.h" compile="0" resource="0"
-          file="Source/standalone_application.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/libraries/vstsdk3.6.5"
                 extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
                 extraDefs="JucePlugin_Build_LV2=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Build_VST=1&#10;JucePlugin_Build_VST3=0&#10;SQUEEZER_STEREO=1&#10;LINUX=1"
-                userNotes="Add &quot;Source/main.cpp&quot; when building the stand-alone."
+                userNotes="Add &quot;Source/standalone_application.*&quot; when building the stand-alone."
                 extraLinkerFlags="">
       <CONFIGURATIONS>
         <CONFIGURATION name="Release" libraryPath="/usr/X11R6/lib/" isDebug="0" optimisation="2"

@@ -26,15 +26,12 @@
 #include "standalone_application.h"
 
 
-/// Initialise settings of stand-alone.  This includes the directory
-/// in which the current state is to be stored.
-///
-/// @param settings settings to be initialised
-///
-void SqueezerStandalone::initialiseSettings(
-    PropertiesFile::Options &settings)
-
+StandaloneFilterWindow *SqueezerStandalone::createWindow()
 {
+    // load settings of stand-alone; this includes the directory in
+    // which the current state is to be stored
+    PropertiesFile::Options settings;
+
 #ifdef SQUEEZER_MONO
     settings.applicationName     = "squeezer_mono";
 #else
@@ -44,7 +41,34 @@ void SqueezerStandalone::initialiseSettings(
     settings.filenameSuffix      = "ini";
     settings.folderName          = ".config";
     settings.osxLibrarySubFolder = "Application Support";
+
+    PropertiesFile *propertiesFile = new PropertiesFile(settings);
+
+    // instantiate GUI
+    StandaloneFilterWindow *filterWindow = new StandaloneFilterWindow(
+        getApplicationName(),
+        Colours::black,
+        propertiesFile,
+        true);
+
+    // GUI cannot be resized
+    filterWindow->setResizable(false, true);
+
+    return filterWindow;
 }
+
+
+void SqueezerStandalone::shutdown()
+{
+    // save plug-in settings
+    mainWindow->pluginHolder->savePluginState();
+
+    // kill GUI
+    mainWindow = nullptr;
+}
+
+
+START_JUCE_APPLICATION(SqueezerStandalone);
 
 
 // Local Variables:

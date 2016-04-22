@@ -24,7 +24,7 @@ ifeq ($(config),debug32)
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_lv2_debug.so
   DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
@@ -46,7 +46,7 @@ ifeq ($(config),release32)
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_lv2.so
   DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
@@ -68,7 +68,7 @@ ifeq ($(config),debug64)
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_lv2_debug_x64.so
   DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
@@ -90,7 +90,7 @@ ifeq ($(config),release64)
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_stereo_lv2_x64.so
   DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
@@ -127,6 +127,7 @@ OBJECTS := \
 	$(OBJDIR)/juce_audio_basics.o \
 	$(OBJDIR)/juce_audio_devices.o \
 	$(OBJDIR)/juce_audio_formats.o \
+	$(OBJDIR)/juce_audio_plugin_client_utils.o \
 	$(OBJDIR)/juce_audio_processors.o \
 	$(OBJDIR)/juce_audio_utils.o \
 	$(OBJDIR)/juce_core.o \
@@ -137,8 +138,7 @@ OBJECTS := \
 	$(OBJDIR)/juce_gui_basics.o \
 	$(OBJDIR)/juce_gui_extra.o \
 	$(OBJDIR)/juce_video.o \
-	$(OBJDIR)/juce_PluginUtilities.o \
-	$(OBJDIR)/juce_LV2_Wrapper.o \
+	$(OBJDIR)/juce_audio_plugin_client_LV2.o \
 
 RESOURCES := \
 
@@ -247,49 +247,49 @@ $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 $(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_audio_basics.o: ../../../libraries/juce/modules/juce_audio_basics/juce_audio_basics.cpp
+$(OBJDIR)/juce_audio_basics.o: ../../../JuceLibraryCode/juce_audio_basics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_audio_devices.o: ../../../libraries/juce/modules/juce_audio_devices/juce_audio_devices.cpp
+$(OBJDIR)/juce_audio_devices.o: ../../../JuceLibraryCode/juce_audio_devices.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_audio_formats.o: ../../../libraries/juce/modules/juce_audio_formats/juce_audio_formats.cpp
+$(OBJDIR)/juce_audio_formats.o: ../../../JuceLibraryCode/juce_audio_formats.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_audio_processors.o: ../../../libraries/juce/modules/juce_audio_processors/juce_audio_processors.cpp
+$(OBJDIR)/juce_audio_plugin_client_utils.o: ../../../JuceLibraryCode/juce_audio_plugin_client_utils.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_audio_utils.o: ../../../libraries/juce/modules/juce_audio_utils/juce_audio_utils.cpp
+$(OBJDIR)/juce_audio_processors.o: ../../../JuceLibraryCode/juce_audio_processors.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_core.o: ../../../libraries/juce/modules/juce_core/juce_core.cpp
+$(OBJDIR)/juce_audio_utils.o: ../../../JuceLibraryCode/juce_audio_utils.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_cryptography.o: ../../../libraries/juce/modules/juce_cryptography/juce_cryptography.cpp
+$(OBJDIR)/juce_core.o: ../../../JuceLibraryCode/juce_core.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_data_structures.o: ../../../libraries/juce/modules/juce_data_structures/juce_data_structures.cpp
+$(OBJDIR)/juce_cryptography.o: ../../../JuceLibraryCode/juce_cryptography.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_events.o: ../../../libraries/juce/modules/juce_events/juce_events.cpp
+$(OBJDIR)/juce_data_structures.o: ../../../JuceLibraryCode/juce_data_structures.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_graphics.o: ../../../libraries/juce/modules/juce_graphics/juce_graphics.cpp
+$(OBJDIR)/juce_events.o: ../../../JuceLibraryCode/juce_events.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_gui_basics.o: ../../../libraries/juce/modules/juce_gui_basics/juce_gui_basics.cpp
+$(OBJDIR)/juce_graphics.o: ../../../JuceLibraryCode/juce_graphics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_gui_extra.o: ../../../libraries/juce/modules/juce_gui_extra/juce_gui_extra.cpp
+$(OBJDIR)/juce_gui_basics.o: ../../../JuceLibraryCode/juce_gui_basics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_video.o: ../../../libraries/juce/modules/juce_video/juce_video.cpp
+$(OBJDIR)/juce_gui_extra.o: ../../../JuceLibraryCode/juce_gui_extra.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_PluginUtilities.o: ../../../libraries/juce/modules/juce_audio_plugin_client/utility/juce_PluginUtilities.cpp
+$(OBJDIR)/juce_video.o: ../../../JuceLibraryCode/juce_video.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_LV2_Wrapper.o: ../../../libraries/juce/modules/juce_audio_plugin_client/LV2/juce_LV2_Wrapper.cpp
+$(OBJDIR)/juce_audio_plugin_client_LV2.o: ../../../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
