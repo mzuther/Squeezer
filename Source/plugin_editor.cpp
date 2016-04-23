@@ -778,7 +778,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     int y1 = 10;
     int y2 = 88;
 
-    g.setColour(Colours::grey.darker(0.0f));
+    g.setColour(Colours::grey);
     g.fillRect(x      , y1, 317, 168);
     g.fillRect(x + 320, y1,  82, 168);
 #ifdef SQUEEZER_STEREO

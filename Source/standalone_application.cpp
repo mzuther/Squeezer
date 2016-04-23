@@ -47,7 +47,7 @@ StandaloneFilterWindow *SqueezerStandalone::createWindow()
     // instantiate GUI
     StandaloneFilterWindow *filterWindow = new StandaloneFilterWindow(
         getApplicationName(),
-        Colours::black,
+        Colours::lightgrey,
         propertiesFile,
         true);
 
