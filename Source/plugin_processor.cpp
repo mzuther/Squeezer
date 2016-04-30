@@ -42,9 +42,7 @@ Flow of parameter processing:
 
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
-    Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
-    Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
-    Logger::outputDebugString("");
+    frut::Frut::printVersionNumbers();
 
     bSampleRateIsValid = false;
     nNumInputChannels = 0;

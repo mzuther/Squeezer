@@ -47,6 +47,18 @@ public:
     {
         return "1.6.5";
     }
+
+
+    static void printVersionNumbers()
+    {
+#ifndef DEBUG
+        Logger::outputDebugString(SystemStats::getJUCEVersion());
+#endif
+
+        Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
+        Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
+        Logger::outputDebugString("");
+    }
 };
 
 }
