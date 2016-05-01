@@ -19,7 +19,7 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{0C57F3FA-072A-BC71-8993-F1F2FB7015C0}</ProjectGuid>
+		<ProjectGuid>{5C2D6BE7-80C2-357D-E426-11A90B03B93E}</ProjectGuid>
 		<RootNamespace>squeezer_vst_stereo</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
@@ -67,23 +67,23 @@
 		<_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_debug\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter (Stereo, Debug)</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Squeezer (Stereo, Debug)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\bin\intermediate_windows\vst_stereo_debug\x64\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">K-Meter (Stereo x64, Debug)</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Squeezer (Stereo x64, Debug)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_release\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter (Stereo)</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Squeezer (Stereo)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
 		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\bin\</OutDir>
 		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\bin\intermediate_windows\vst_stereo_release\x64\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">K-Meter (Stereo x64)</TargetName>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Squeezer (Stereo x64)</TargetName>
 		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IgnoreImportLibrary>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
 		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</GenerateManifest>
@@ -108,12 +108,12 @@
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter (Stereo, Debug).dll</OutputFile>
+			<OutputFile>$(OutDir)Squeezer (Stereo, Debug).dll</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<ProgramDataBaseFileName>$(OutDir)K-Meter (Stereo, Debug).pdb</ProgramDataBaseFileName>
-			<ImportLibrary>..\..\..\bin\K-Meter (Stereo, Debug).lib</ImportLibrary>
+			<ProgramDataBaseFileName>$(OutDir)Squeezer (Stereo, Debug).pdb</ProgramDataBaseFileName>
+			<ImportLibrary>..\..\..\bin\Squeezer (Stereo, Debug).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -137,12 +137,12 @@
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter (Stereo x64, Debug).dll</OutputFile>
+			<OutputFile>$(OutDir)Squeezer (Stereo x64, Debug).dll</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<ProgramDataBaseFileName>$(OutDir)K-Meter (Stereo x64, Debug).pdb</ProgramDataBaseFileName>
-			<ImportLibrary>..\..\..\bin\K-Meter (Stereo x64, Debug).lib</ImportLibrary>
+			<ProgramDataBaseFileName>$(OutDir)Squeezer (Stereo x64, Debug).pdb</ProgramDataBaseFileName>
+			<ImportLibrary>..\..\..\bin\Squeezer (Stereo x64, Debug).lib</ImportLibrary>
 			<TargetMachine>MachineX64</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -168,13 +168,13 @@
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter (Stereo).dll</OutputFile>
+			<OutputFile>$(OutDir)Squeezer (Stereo).dll</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<ImportLibrary>..\..\..\bin\K-Meter (Stereo).lib</ImportLibrary>
+			<ImportLibrary>..\..\..\bin\Squeezer (Stereo).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -200,13 +200,13 @@
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)K-Meter (Stereo x64).dll</OutputFile>
+			<OutputFile>$(OutDir)Squeezer (Stereo x64).dll</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<ImportLibrary>..\..\..\bin\K-Meter (Stereo x64).lib</ImportLibrary>
+			<ImportLibrary>..\..\..\bin\Squeezer (Stereo x64).lib</ImportLibrary>
 			<TargetMachine>MachineX64</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>

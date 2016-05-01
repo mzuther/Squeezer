@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{A6DF3AA8-F42E-D85A-D3E1-49E94102CEB2}</UniqueIdentifier>
+			<UniqueIdentifier>{4D47386B-C304-B596-3462-B361F06EE480}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{836D71A9-A4A5-62A4-BA14-945B0B8F9256}</UniqueIdentifier>
+			<UniqueIdentifier>{2DC4D150-4E8B-5E07-9F32-D6606409B397}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\amalgamated">
-			<UniqueIdentifier>{F8C7BAE8-9A11-BEEB-62B3-595AD41BCEBF}</UniqueIdentifier>
+			<UniqueIdentifier>{3F03E29F-843B-D95F-F338-096005AD4C38}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="JuceLibraryCode">
-			<UniqueIdentifier>{8B390485-7FF1-191A-3E04-2292BA73D397}</UniqueIdentifier>
+			<UniqueIdentifier>{CB9C2B33-09A0-38FF-53D2-DD295D9A2631}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>

@@ -1,6 +1,6 @@
 @echo off
 
-@rem ---------------------------------------------------------------------------
+@rem ----------------------------------------------------------------------------
 @rem
 @rem  Squeezer
 @rem  ========
@@ -23,14 +23,14 @@
 @rem
 @rem  Thank you for using free software!
 @rem
-@rem ---------------------------------------------------------------------------
+@rem ----------------------------------------------------------------------------
 
 @set python_path="%PROGRAMFILES%\Python33"
 @set visual_toolkit="Windows7.1SDK"
 
 
 @echo.
-@premake4 --file=visual_studio.lua --os=windows vs2010
+@premake4 --os=windows vs2010
 @"%python_path%\python.exe" visual_studio_fix.py "%visual_toolkit%"
 
 @echo.
