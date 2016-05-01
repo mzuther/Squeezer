@@ -167,10 +167,6 @@ void WindowValidationContent::applySkin()
 
     // style label for displaying the current audio channel
     sliderSelectChannel_.setColour(
-        widget::ChannelSlider::textBoxTextColourId,
-        Colours::black);
-
-    sliderSelectChannel_.setColour(
         widget::ChannelSlider::textBoxBackgroundColourId,
         Colours::white.darker(0.15f));
 
@@ -181,30 +177,22 @@ void WindowValidationContent::applySkin()
 
     // style "validation" button
     buttonValidation_.setColour(
-        TextButton::textColourOffId,
-        Colours::black);
-
-    buttonValidation_.setColour(
         TextButton::buttonColourId,
-        Colours::red);
+        Colours::yellow);
 
     buttonValidation_.setColour(
         TextButton::buttonOnColourId,
-        Colours::grey);
+        Colours::yellow);
 
 
     // style "cancel" button
     buttonCancel_.setColour(
-        TextButton::textColourOffId,
-        Colours::black);
-
-    buttonCancel_.setColour(
         TextButton::buttonColourId,
-        Colours::yellow);
+        Colours::lightgrey);
 
     buttonCancel_.setColour(
         TextButton::buttonOnColourId,
-        Colours::grey);
+        Colours::lightgrey);
 
 
     // place the components

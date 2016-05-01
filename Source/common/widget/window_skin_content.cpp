@@ -143,24 +143,24 @@ void WindowSkinContent::applySkin()
         Colours::grey);
 
 
-    // style "style" button
+    // style "select" button
     buttonSelect_.setColour(
         TextButton::buttonColourId,
-        Colours::red);
+        Colours::yellow);
 
     buttonSelect_.setColour(
         TextButton::buttonOnColourId,
-        Colours::red);
+        Colours::yellow);
 
 
     // style "default" button
     buttonDefault_.setColour(
         TextButton::buttonColourId,
-        Colours::yellow);
+        Colours::lightgrey);
 
     buttonDefault_.setColour(
         TextButton::buttonOnColourId,
-        Colours::yellow);
+        Colours::lightgrey);
 
 
     // initialise content component dimensions
