@@ -307,9 +307,36 @@ void Skin::placeAndSkinButton(
             imageOff = ImageFileFormat::loadFrom(fileImageOff);
         }
 
+        Image imageOver;
+
+        if (xmlButton->hasAttribute("image_over"))
+        {
+            String strImageOver = xmlButton->getStringAttribute("image_over");
+            File fileImageOver = resourcePath_.getChildFile(strImageOver);
+
+            if (!fileImageOver.existsAsFile())
+            {
+                Logger::outputDebugString(
+                    String("[Skin] image file \"") +
+                    fileImageOver.getFullPathName() +
+                    "\" not found");
+
+                imageOver = Image();
+            }
+            else
+            {
+                imageOver = ImageFileFormat::loadFrom(fileImageOver);
+            }
+        }
+        else
+        {
+            imageOver = imageOn.createCopy();
+            imageOver.multiplyAllAlphas(0.5f);
+        }
+
         button->setImages(true, true, true,
                           imageOff, 1.0f, Colour(),
-                          imageOn, 0.5f, Colour(),
+                          imageOver, 1.0f, Colour(),
                           imageOn, 1.0f, Colour(),
                           0.3f);
         button->setTopLeftPosition(x, y);
