@@ -23,8 +23,8 @@ ifeq ($(config),debug32)
   OBJDIR     = ../../../bin/intermediate_linux/vst_mono_debug/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_mono_vst_debug.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I../../../libraries/vstsdk3.6.5 -I/usr/include -I/usr/include/freetype2
+  DEFINES   += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
@@ -45,8 +45,8 @@ ifeq ($(config),release32)
   OBJDIR     = ../../../bin/intermediate_linux/vst_mono_release/x32
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_mono_vst.so
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I../../../libraries/vstsdk3.6.5 -I/usr/include -I/usr/include/freetype2
+  DEFINES   += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
@@ -67,8 +67,8 @@ ifeq ($(config),debug64)
   OBJDIR     = ../../../bin/intermediate_linux/vst_mono_debug/x64
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_mono_vst_debug_x64.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I../../../libraries/vstsdk3.6.5 -I/usr/include -I/usr/include/freetype2
+  DEFINES   += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fPIC -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
@@ -89,8 +89,8 @@ ifeq ($(config),release64)
   OBJDIR     = ../../../bin/intermediate_linux/vst_mono_release/x64
   TARGETDIR  = ../../../bin
   TARGET     = $(TARGETDIR)/squeezer_mono_vst_x64.so
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I../../../libraries/vstsdk3.6.5 -I/usr/include -I/usr/include/freetype2
+  DEFINES   += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vstsdk3.6.5
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
   CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fPIC -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 

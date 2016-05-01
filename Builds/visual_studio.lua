@@ -37,13 +37,14 @@ else
 	print "Action not specified\n"
 end
 
-solution "Squeezer"
-	location ("windows/" .. _ACTION .. "/")
+solution "squeezer"
 	language "C++"
-
 	platforms { "x32", "x64" }
-
 	configurations { "Debug", "Release" }
+
+	location (os.get() .. "/" .. _ACTION .. "/")
+	targetdir "../bin/"
+	targetprefix ""
 
 	files {
 		"../Source/common/FrutHeader.h",
@@ -76,43 +77,19 @@ solution "Squeezer"
 		"../libraries/"
 	}
 
-	targetdir "../bin/"
-
-	flags {
-			"EnableSSE",
-			"EnableSSE2",
-			"NoMinimalRebuild",
-			"StaticRuntime",
-			"Unicode",
-			"WinMain"
-	}
-
-	configuration { "Debug*" }
-		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
-		flags { "Symbols" }
-		buildoptions { "" }
-
-	configuration { "Release*" }
-		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
-		flags { "OptimizeSpeed", "NoFramePointer", "NoManifest" }
-		buildoptions { "/Zi" }
-
-	configuration { "Debug", "x32" }
-		targetsuffix ", Debug)"
-
-	configuration { "Debug", "x64" }
-		targetsuffix " x64, Debug)"
-
-	configuration { "Release", "x32" }
-		targetsuffix ")"
-
-	configuration { "Release", "x64" }
-		targetsuffix " x64)"
-
-	configuration {"windows" }
+	configuration { "windows" }
 		defines {
 			"_WINDOWS=1",
 			"_USE_MATH_DEFINES=1",
+		}
+
+		flags {
+				"EnableSSE",
+				"EnableSSE2",
+				"NoMinimalRebuild",
+				"StaticRuntime",
+				"Unicode",
+				"WinMain"
 		}
 
 		links {
@@ -130,22 +107,44 @@ solution "Squeezer"
 			"odbccp32"
 		 }
 
-	configuration {"windows", "x32" }
+	configuration { "windows", "x32" }
 		defines {
 			"WIN32=1",
 		}
 
-	configuration {"windows", "x64" }
+	configuration { "windows", "x64" }
 		defines {
 			"WIN64=1",
 		}
 
+	configuration { "Debug*" }
+		defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
+		flags { "Symbols" }
+
+	configuration { "windows", "Debug", "x32" }
+		targetsuffix ", Debug)"
+
+	configuration { "windows", "Debug", "x64" }
+		targetsuffix " x64, Debug)"
+
+	configuration { "Release*" }
+		defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
+		flags { "OptimizeSpeed", "NoFramePointer" }
+
+	configuration { "windows", "Release*" }
+		flags { "NoManifest" }
+		buildoptions { "/Zi" }
+
+	configuration { "windows", "Release", "x32" }
+		targetsuffix ")"
+
+	configuration { "windows", "Release", "x64" }
+		targetsuffix " x64)"
+
 --------------------------------------------------------------------------------
 
-	project ("Squeezer (Mono)")
+	project ("squeezer_standalone_mono")
 		kind "WindowedApp"
-		targetname "Squeezer (Mono"
-		targetprefix ""
 
 		defines {
 			"SQUEEZER_MONO=1",
@@ -154,18 +153,19 @@ solution "Squeezer"
 			"JucePlugin_Build_VST=0"
 		}
 
-		includedirs {
-			"../libraries/asiosdk2.3/common"
-		}
+		configuration { "windows" }
+			targetname "K-Meter (Mono"
 
-		configuration {"windows"}
 			defines {
-				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=1",
 				"JUCE_WASAPI=1",
 				"JUCE_DIRECTSOUND=1"
+			}
+
+			includedirs {
+				"../libraries/asiosdk2.3/common"
 			}
 
 		configuration "Debug"
@@ -176,10 +176,8 @@ solution "Squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("Squeezer (Stereo)")
+	project ("squeezer_standalone_stereo")
 		kind "WindowedApp"
-		targetname "Squeezer (Stereo"
-		targetprefix ""
 
 		defines {
 			"SQUEEZER_STEREO=1",
@@ -188,18 +186,19 @@ solution "Squeezer"
 			"JucePlugin_Build_VST=0"
 		}
 
-		includedirs {
-			"../libraries/asiosdk2.3/common"
-		}
+		configuration { "windows" }
+			targetname "K-Meter (Stereo"
 
-		configuration {"windows"}
 			defines {
-				"JUCE_USE_XSHM=0",
 				"JUCE_ALSA=0",
 				"JUCE_JACK=0",
 				"JUCE_ASIO=1",
 				"JUCE_WASAPI=1",
 				"JUCE_DIRECTSOUND=1"
+			}
+
+			includedirs {
+				"../libraries/asiosdk2.3/common"
 			}
 
 		configuration "Debug"
@@ -210,20 +209,17 @@ solution "Squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("Squeezer VST (Mono)")
+	project ("squeezer_vst_mono")
 		kind "SharedLib"
-		targetname "Squeezer (Mono"
-		targetprefix ""
+
+		configuration { "windows" }
+			targetname "K-Meter (Mono"
 
 		defines {
 			"SQUEEZER_MONO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
-		}
-
-		includedirs {
-			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -235,15 +231,17 @@ solution "Squeezer"
 			"../Source/standalone_application.cpp"
 		}
 
-		configuration {"windows"}
-			defines {
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
+
+		includedirs {
+			"../libraries/vstsdk3.6.5"
+		}
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_debug")
@@ -253,20 +251,17 @@ solution "Squeezer"
 
 --------------------------------------------------------------------------------
 
-	project ("Squeezer VST (Stereo)")
+	project ("squeezer_vst_stereo")
 		kind "SharedLib"
-		targetname "Squeezer (Stereo"
-		targetprefix ""
+
+		configuration { "windows" }
+			targetname "K-Meter (Stereo"
 
 		defines {
 			"SQUEEZER_STEREO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
-		}
-
-		includedirs {
-			"../libraries/vstsdk3.6.5"
 		}
 
 		files {
@@ -278,20 +273,20 @@ solution "Squeezer"
 			"../Source/standalone_application.cpp"
 		}
 
-		configuration {"windows"}
-			defines {
-				"JUCE_USE_XSHM=0",
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
+		defines {
+			"JUCE_ALSA=0",
+			"JUCE_JACK=0",
+			"JUCE_ASIO=0",
+			"JUCE_WASAPI=0",
+			"JUCE_DIRECTSOUND=0"
+		}
+
+		includedirs {
+			"../libraries/vstsdk3.6.5"
+		}
 
 		configuration "Debug"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
 
 		configuration "Release"
 			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_release")
-
---------------------------------------------------------------------------------

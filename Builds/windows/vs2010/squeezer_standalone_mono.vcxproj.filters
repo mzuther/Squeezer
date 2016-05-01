@@ -2,16 +2,16 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup>
 		<Filter Include="Source">
-			<UniqueIdentifier>{C5CCAFD8-0DDB-66BE-922C-953FC484DB81}</UniqueIdentifier>
+			<UniqueIdentifier>{A6DF3AA8-F42E-D85A-D3E1-49E94102CEB2}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common">
-			<UniqueIdentifier>{9F90DE80-98C7-662C-8890-C67F74C65B22}</UniqueIdentifier>
+			<UniqueIdentifier>{836D71A9-A4A5-62A4-BA14-945B0B8F9256}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Source\common\amalgamated">
-			<UniqueIdentifier>{3C1DBEC8-86C9-6D9D-3F14-BBA7BBF211F7}</UniqueIdentifier>
+			<UniqueIdentifier>{F8C7BAE8-9A11-BEEB-62B3-595AD41BCEBF}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="JuceLibraryCode">
-			<UniqueIdentifier>{C6AA8757-579F-094B-AD3E-80E8867C8AC8}</UniqueIdentifier>
+			<UniqueIdentifier>{8B390485-7FF1-191A-3E04-2292BA73D397}</UniqueIdentifier>
 		</Filter>
 	</ItemGroup>
 	<ItemGroup>
@@ -69,6 +69,9 @@
 		<ClInclude Include="..\..\..\Source\filter_chebyshev.h">
 			<Filter>Source</Filter>
 		</ClInclude>
+		<ClInclude Include="..\..\..\Source\standalone_application.h">
+			<Filter>Source</Filter>
+		</ClInclude>
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
@@ -99,6 +102,9 @@
 			<Filter>Source</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\side_chain.cpp">
+			<Filter>Source</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
 			<Filter>Source</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
@@ -159,9 +165,6 @@
 			<Filter>JuceLibraryCode</Filter>
 		</ClCompile>
 		<ClCompile Include="..\..\..\JuceLibraryCode\juce_video.cpp">
-			<Filter>JuceLibraryCode</Filter>
-		</ClCompile>
-		<ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_plugin_client_VST2.cpp">
 			<Filter>JuceLibraryCode</Filter>
 		</ClCompile>
 	</ItemGroup>

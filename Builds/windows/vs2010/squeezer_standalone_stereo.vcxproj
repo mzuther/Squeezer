@@ -19,30 +19,30 @@
 		</ProjectConfiguration>
 	</ItemGroup>
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>{9356CCEC-82C9-4319-3A96-C82F22C6DD7A}</ProjectGuid>
-		<RootNamespace>Squeezer VST (Stereo)</RootNamespace>
+		<ProjectGuid>{42316375-6F50-F77E-8D67-4DDD74045684}</ProjectGuid>
+		<RootNamespace>squeezer_standalone_stereo</RootNamespace>
 		<Keyword>Win32Proj</Keyword>
 		<PlatformToolset>Windows7.1SDK</PlatformToolset>
 	</PropertyGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<ConfigurationType>Application</ConfigurationType>
 		<CharacterSet>Unicode</CharacterSet>
 		<UseDebugLibraries>true</UseDebugLibraries>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<ConfigurationType>Application</ConfigurationType>
 		<CharacterSet>Unicode</CharacterSet>
 		<UseDebugLibraries>true</UseDebugLibraries>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<ConfigurationType>Application</ConfigurationType>
 		<CharacterSet>Unicode</CharacterSet>
 		<WholeProgramOptimization>true</WholeProgramOptimization>
 		<UseDebugLibraries>false</UseDebugLibraries>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<ConfigurationType>Application</ConfigurationType>
 		<CharacterSet>Unicode</CharacterSet>
 		<WholeProgramOptimization>true</WholeProgramOptimization>
 		<UseDebugLibraries>false</UseDebugLibraries>
@@ -66,34 +66,29 @@
 	<PropertyGroup>
 		<_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\</OutDir>
-		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_debug\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Squeezer (Stereo, Debug)</TargetName>
-		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IgnoreImportLibrary>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\bin\intermediate_windows\standalone_stereo_debug\x32\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">K-Meter (Stereo, Debug)</TargetName>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\bin\</OutDir>
-		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\bin\intermediate_windows\vst_stereo_debug\x64\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Squeezer (Stereo x64, Debug)</TargetName>
-		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</IgnoreImportLibrary>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\bin\intermediate_windows\standalone_stereo_debug\x64\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">K-Meter (Stereo x64, Debug)</TargetName>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\</OutDir>
-		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\intermediate_windows\vst_stereo_release\x32\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Squeezer (Stereo)</TargetName>
-		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IgnoreImportLibrary>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\bin\intermediate_windows\standalone_stereo_release\x32\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">K-Meter (Stereo)</TargetName>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
 		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
 		<OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\bin\</OutDir>
-		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\bin\intermediate_windows\vst_stereo_release\x64\</IntDir>
-		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Squeezer (Stereo x64)</TargetName>
-		<IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IgnoreImportLibrary>
+		<IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\bin\intermediate_windows\standalone_stereo_release\x64\</IntDir>
+		<TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">K-Meter (Stereo x64)</TargetName>
 		<LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
 		<GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</GenerateManifest>
 	</PropertyGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
 		<ClCompile>
-			<AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>Disabled</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -104,26 +99,24 @@
 			<DebugInformationFormat>EditAndContinue</DebugInformationFormat>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)Squeezer (Stereo, Debug).dll</OutputFile>
+			<OutputFile>$(OutDir)K-Meter (Stereo, Debug).exe</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<ProgramDataBaseFileName>$(OutDir)Squeezer (Stereo, Debug).pdb</ProgramDataBaseFileName>
-			<ImportLibrary>..\..\..\bin\Squeezer (Stereo, Debug).lib</ImportLibrary>
+			<ProgramDataBaseFileName>$(OutDir)K-Meter (Stereo, Debug).pdb</ProgramDataBaseFileName>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 		<ClCompile>
-			<AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>Disabled</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
 			<RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -134,17 +127,16 @@
 			<DebugInformationFormat>OldStyle</DebugInformationFormat>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)Squeezer (Stereo x64, Debug).dll</OutputFile>
+			<OutputFile>$(OutDir)K-Meter (Stereo x64, Debug).exe</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>true</GenerateDebugInformation>
-			<ProgramDataBaseFileName>$(OutDir)Squeezer (Stereo x64, Debug).pdb</ProgramDataBaseFileName>
-			<ImportLibrary>..\..\..\bin\Squeezer (Stereo x64, Debug).lib</ImportLibrary>
+			<ProgramDataBaseFileName>$(OutDir)K-Meter (Stereo x64, Debug).pdb</ProgramDataBaseFileName>
 			<TargetMachine>MachineX64</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -152,8 +144,8 @@
 		<ClCompile>
 			<AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>MaxSpeed</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<StringPooling>true</StringPooling>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -165,18 +157,17 @@
 			<OmitFramePointers>true</OmitFramePointers>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)Squeezer (Stereo).dll</OutputFile>
+			<OutputFile>$(OutDir)K-Meter (Stereo).exe</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<ImportLibrary>..\..\..\bin\Squeezer (Stereo).lib</ImportLibrary>
 			<TargetMachine>MachineX86</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -184,8 +175,8 @@
 		<ClCompile>
 			<AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
 			<Optimization>MaxSpeed</Optimization>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
 			<MinimalRebuild>false</MinimalRebuild>
 			<StringPooling>true</StringPooling>
 			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -197,18 +188,17 @@
 			<OmitFramePointers>true</OmitFramePointers>
 		</ClCompile>
 		<ResourceCompile>
-			<PreprocessorDefinitions>NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JUCE_USE_XSHM=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\vstsdk3.6.5;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asiosdk2.3\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
 		</ResourceCompile>
 		<Link>
 			<AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-			<OutputFile>$(OutDir)Squeezer (Stereo x64).dll</OutputFile>
+			<OutputFile>$(OutDir)K-Meter (Stereo x64).exe</OutputFile>
 			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
 			<SubSystem>Windows</SubSystem>
 			<GenerateDebugInformation>false</GenerateDebugInformation>
 			<OptimizeReferences>true</OptimizeReferences>
 			<EnableCOMDATFolding>true</EnableCOMDATFolding>
-			<ImportLibrary>..\..\..\bin\Squeezer (Stereo x64).lib</ImportLibrary>
 			<TargetMachine>MachineX64</TargetMachine>
 		</Link>
 	</ItemDefinitionGroup>
@@ -231,6 +221,7 @@
 		<ClInclude Include="..\..\..\Source\compressor.h" />
 		<ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
 		<ClInclude Include="..\..\..\Source\filter_chebyshev.h" />
+		<ClInclude Include="..\..\..\Source\standalone_application.h" />
 	</ItemGroup>
 	<ItemGroup>
 		<ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
@@ -252,6 +243,8 @@
 		<ClCompile Include="..\..\..\Source\filter_chebyshev.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\side_chain.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\..\Source\standalone_application.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\Source\plugin_processor.cpp">
 		</ClCompile>
@@ -292,8 +285,6 @@
 		<ClCompile Include="..\..\..\JuceLibraryCode\juce_gui_extra.cpp">
 		</ClCompile>
 		<ClCompile Include="..\..\..\JuceLibraryCode\juce_video.cpp">
-		</ClCompile>
-		<ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_plugin_client_VST2.cpp">
 		</ClCompile>
 	</ItemGroup>
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

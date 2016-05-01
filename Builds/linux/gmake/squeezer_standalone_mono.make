@@ -20,16 +20,16 @@ ifndef AR
 endif
 
 ifeq ($(config),debug32)
-  OBJDIR     = ../../../bin/intermediate_linux/lv2_mono_debug/x32
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_mono_debug/x32
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/squeezer_mono_lv2_debug.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGET     = $(TARGETDIR)/squeezer_mono_debug
+  DEFINES   += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fPIC -fno-inline -ggdb -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m32 -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m32 -L/usr/lib32 -Wl,--no-undefined
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -m32 -L/usr/lib32 -Wl,--no-undefined
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -42,16 +42,16 @@ ifeq ($(config),debug32)
 endif
 
 ifeq ($(config),release32)
-  OBJDIR     = ../../../bin/intermediate_linux/lv2_mono_release/x32
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_mono_release/x32
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/squeezer_mono_lv2.so
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGET     = $(TARGETDIR)/squeezer_mono
+  DEFINES   += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fPIC -fvisibility=hidden -pipe -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m32 -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m32 -L/usr/lib32 -Wl,--no-undefined
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -s -m32 -L/usr/lib32 -Wl,--no-undefined
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -64,16 +64,16 @@ ifeq ($(config),release32)
 endif
 
 ifeq ($(config),debug64)
-  OBJDIR     = ../../../bin/intermediate_linux/lv2_mono_debug/x64
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_mono_debug/x64
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/squeezer_mono_lv2_debug_x64.so
-  DEFINES   += -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGET     = $(TARGETDIR)/squeezer_mono_debug_x64
+  DEFINES   += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fPIC -fno-inline -ggdb -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -m64 -fno-inline -ggdb -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -shared -m64 -L/usr/lib64 -Wl,--no-undefined
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -m64 -L/usr/lib64 -Wl,--no-undefined
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -86,16 +86,16 @@ ifeq ($(config),debug64)
 endif
 
 ifeq ($(config),release64)
-  OBJDIR     = ../../../bin/intermediate_linux/lv2_mono_release/x64
+  OBJDIR     = ../../../bin/intermediate_linux/standalone_mono_release/x64
   TARGETDIR  = ../../../bin
-  TARGET     = $(TARGETDIR)/squeezer_mono_lv2_x64.so
-  DEFINES   += -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DLINUX=1 -DJUCE_USE_XSHM=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  TARGET     = $(TARGETDIR)/squeezer_mono_x64
+  DEFINES   += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES  += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fPIC -fvisibility=hidden -pipe -std=c++11
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O3 -fomit-frame-pointer -Wall -m64 -fvisibility=hidden -pipe -std=c++11
   CXXFLAGS  += $(CFLAGS) 
-  LDFLAGS   += -s -shared -m64 -L/usr/lib64 -Wl,--no-undefined
-  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
+  LDFLAGS   += -s -m64 -L/usr/lib64 -Wl,--no-undefined
+  LIBS      += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   RESFLAGS  += $(DEFINES) $(INCLUDES) 
   LDDEPS    += 
   LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(LDFLAGS) $(RESOURCES) $(ARCH) $(LIBS)
@@ -118,6 +118,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/filter_chebyshev.o \
 	$(OBJDIR)/side_chain.o \
+	$(OBJDIR)/standalone_application.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/gain_stage_optical.o \
 	$(OBJDIR)/filter_chebyshev_stage.o \
@@ -138,7 +139,6 @@ OBJECTS := \
 	$(OBJDIR)/juce_gui_basics.o \
 	$(OBJDIR)/juce_gui_extra.o \
 	$(OBJDIR)/juce_video.o \
-	$(OBJDIR)/juce_audio_plugin_client_LV2.o \
 
 RESOURCES := \
 
@@ -156,7 +156,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking squeezer_lv2_mono
+	@echo Linking squeezer_standalone_mono
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -177,7 +177,7 @@ else
 endif
 
 clean:
-	@echo Cleaning squeezer_lv2_mono
+	@echo Cleaning squeezer_standalone_mono
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -227,6 +227,9 @@ $(OBJDIR)/filter_chebyshev.o: ../../../Source/filter_chebyshev.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
@@ -287,9 +290,6 @@ $(OBJDIR)/juce_gui_extra.o: ../../../JuceLibraryCode/juce_gui_extra.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/juce_video.o: ../../../JuceLibraryCode/juce_video.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/juce_audio_plugin_client_LV2.o: ../../../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
