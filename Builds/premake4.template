@@ -1,11 +1,5 @@
 --------------------------------------------------------------------------------
 --
---  Squeezer
---  ========
---  Flexible general-purpose audio compressor with a touch of lemon.
---
---  Copyright (c) 2013-2016 Martin Zuther (http://www.mzuther.de/)
---
 --  This program is free software: you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
 --  the Free Software Foundation, either version 3 of the License, or
@@ -24,6 +18,7 @@
 --------------------------------------------------------------------------------
 
 
+{% macro solution(name, name_short, addition) %}
 if not _ACTION then
 	-- prevent "attempt to ... (a nil value)" errors
 elseif _ACTION == "gmake" then
@@ -39,7 +34,7 @@ else
 end
 
 
-solution "squeezer"
+solution "{{ name_short }}"
 	language "C++"
 	platforms { "x32", "x64" }
 	configurations { "Debug", "Release" }
@@ -78,7 +73,7 @@ solution "squeezer"
 		"../Source/common/",
 		"../libraries/"
 	}
-
+{{ addition }}
 	configuration { "linux" }
 		defines {
 			"LINUX=1"
@@ -186,21 +181,22 @@ solution "squeezer"
 
 	configuration { "windows", "Release", "x64" }
 		targetsuffix " x64)"
+{%- endmacro %}
 
---------------------------------------------------------------------------------
 
-	project ("squeezer_standalone_mono")
+{% macro standalone(name, name_short, variant, variant_short, addition) %}
+	project ("{{ name_short }}_standalone_{{ variant_short }}")
 		kind "WindowedApp"
 
 		defines {
-			"SQUEEZER_MONO=1",
+			"{{ name_short | upper }}_{{ variant_short | upper }}=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=1",
 			"JucePlugin_Build_VST=0"
 		}
-
+{{ addition }}
 		configuration { "linux" }
-			targetname "squeezer_mono"
+			targetname "{{ name_short }}_{{ variant_short }}"
 
 			defines {
 				"JUCE_ALSA=1",
@@ -215,7 +211,7 @@ solution "squeezer"
 			}
 
 		configuration { "windows" }
-			targetname "Squeezer (Mono"
+			targetname "{{ name }} ({{ variant }}"
 
 			defines {
 				"JUCE_ALSA=0",
@@ -230,66 +226,19 @@ solution "squeezer"
 			}
 
 		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant_short }}_debug")
 
 		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_release")
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant_short }}_release")
+{%- endmacro %}
 
---------------------------------------------------------------------------------
 
-	project ("squeezer_standalone_stereo")
-		kind "WindowedApp"
-
-		defines {
-			"SQUEEZER_STEREO=1",
-			"JucePlugin_Build_LV2=0",
-			"JucePlugin_Build_Standalone=1",
-			"JucePlugin_Build_VST=0"
-		}
-
-		configuration { "linux" }
-			targetname "squeezer_stereo"
-
-			defines {
-				"JUCE_ALSA=1",
-				"JUCE_JACK=1",
-				"JUCE_ASIO=0",
-				"JUCE_WASAPI=0",
-				"JUCE_DIRECTSOUND=0"
-			}
-
-			links {
-				"asound"
-			}
-
-		configuration { "windows" }
-			targetname "Squeezer (Stereo"
-
-			defines {
-				"JUCE_ALSA=0",
-				"JUCE_JACK=0",
-				"JUCE_ASIO=1",
-				"JUCE_WASAPI=1",
-				"JUCE_DIRECTSOUND=1"
-			}
-
-			includedirs {
-				"../libraries/asiosdk2.3/common"
-			}
-
-		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_debug")
-
-		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_release")
-
---------------------------------------------------------------------------------
-
-	project ("squeezer_vst_mono")
+{% macro vst(name, name_short, variant, variant_short, addition) %}
+	project ("{{ name_short }}_vst_{{ variant_short }}")
 		kind "SharedLib"
 
 		defines {
-			"SQUEEZER_MONO=1",
+			"{{ name_short | upper }}_{{ variant_short | upper }}=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
@@ -315,74 +264,30 @@ solution "squeezer"
 		includedirs {
 			"../libraries/vstsdk3.6.5"
 		}
-
+{{ addition }}
 		configuration { "linux" }
-			targetname "squeezer_mono_vst"
+			targetname "{{ name_short }}_{{ variant_short }}_vst"
 
 		configuration { "windows" }
-			targetname "Squeezer (Mono"
+			targetname "{{ name }} ({{ variant }}"
 
 		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant_short }}_debug")
 
 		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_release")
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant_short }}_release")
+{%- endmacro %}
 
---------------------------------------------------------------------------------
 
-	project ("squeezer_vst_stereo")
-		kind "SharedLib"
-
-		defines {
-			"SQUEEZER_STEREO=1",
-			"JucePlugin_Build_LV2=0",
-			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=1"
-		}
-
-		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_VST2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
-		}
-
-		defines {
-			"JUCE_ALSA=0",
-			"JUCE_JACK=0",
-			"JUCE_ASIO=0",
-			"JUCE_WASAPI=0",
-			"JUCE_DIRECTSOUND=0"
-		}
-
-		includedirs {
-			"../libraries/vstsdk3.6.5"
-		}
-
-		configuration { "linux" }
-			targetname "squeezer_stereo_vst"
-
-		configuration { "windows" }
-			targetname "Squeezer (Stereo"
-
-		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
-
-		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_release")
-
---------------------------------------------------------------------------------
-
+{% macro lv2(name, name_short, variant, variant_short, addition) %}
 -- create LV2 projects on Linux only
 if os.get() == "linux" then
 
-	project ("squeezer_lv2_mono")
+	project ("{{ name_short }}_lv2_{{ variant_short }}")
 		kind "SharedLib"
 
 		defines {
-			"SQUEEZER_MONO=1",
+			"{{ name_short | upper }}_{{ variant_short | upper }}=1",
 			"JucePlugin_Build_LV2=1",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=0"
@@ -404,59 +309,16 @@ if os.get() == "linux" then
 			"JUCE_WASAPI=0",
 			"JUCE_DIRECTSOUND=0"
 		}
-
+{{ addition }}
 		configuration { "linux" }
-			targetname "squeezer_mono_lv2"
+			targetname "{{ name_short }}_{{ variant_short }}_lv2"
 
 		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_mono_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant_short }}_debug")
 
 		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_mono_release")
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant_short }}_release")
 
 -- create LV2 projects on Linux only
 end
-
---------------------------------------------------------------------------------
-
--- create LV2 projects on Linux only
-if os.get() == "linux" then
-
-	project ("squeezer_lv2_stereo")
-		kind "SharedLib"
-
-		defines {
-			"SQUEEZER_STEREO=1",
-			"JucePlugin_Build_LV2=1",
-			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=0"
-		}
-
-		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
-		}
-
-		defines {
-			"JUCE_ALSA=0",
-			"JUCE_JACK=0",
-			"JUCE_ASIO=0",
-			"JUCE_WASAPI=0",
-			"JUCE_DIRECTSOUND=0"
-		}
-
-		configuration { "linux" }
-			targetname "squeezer_stereo_lv2"
-
-		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_debug")
-
-		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_release")
-
--- create LV2 projects on Linux only
-end
+{%- endmacro %}
