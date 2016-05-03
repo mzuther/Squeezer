@@ -18,7 +18,7 @@
 --------------------------------------------------------------------------------
 
 
-{% macro solution(name, name_short, addition) %}
+{% macro solution(name, additions) %}
 if not _ACTION then
 	-- prevent "attempt to ... (a nil value)" errors
 elseif _ACTION == "gmake" then
@@ -34,7 +34,7 @@ else
 end
 
 
-solution "{{ name_short }}"
+solution "{{ name.short }}"
 	language "C++"
 	platforms { "x32", "x64" }
 	configurations { "Debug", "Release" }
@@ -73,7 +73,7 @@ solution "{{ name_short }}"
 		"../Source/common/",
 		"../libraries/"
 	}
-{{ addition }}
+{{ additions }}
 	configuration { "linux" }
 		defines {
 			"LINUX=1"
@@ -181,22 +181,23 @@ solution "{{ name_short }}"
 
 	configuration { "windows", "Release", "x64" }
 		targetsuffix " x64)"
-{%- endmacro %}
+{% endmacro %}
 
 
-{% macro standalone(name, name_short, variant, variant_short, addition) %}
-	project ("{{ name_short }}_standalone_{{ variant_short }}")
+
+{% macro standalone(name, variant, additions) %}
+	project ("{{ name.short }}_standalone_{{ variant.short }}")
 		kind "WindowedApp"
 
 		defines {
-			"{{ name_short | upper }}_{{ variant_short | upper }}=1",
+			"{{ name.short | upper }}_{{ variant.short | upper }}=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=1",
 			"JucePlugin_Build_VST=0"
 		}
-{{ addition }}
+{{ additions }}
 		configuration { "linux" }
-			targetname "{{ name_short }}_{{ variant_short }}"
+			targetname "{{ name.short }}_{{ variant.short }}"
 
 			defines {
 				"JUCE_ALSA=1",
@@ -211,7 +212,7 @@ solution "{{ name_short }}"
 			}
 
 		configuration { "windows" }
-			targetname "{{ name }} ({{ variant }}"
+			targetname "{{ name.real }} ({{ variant.real }}"
 
 			defines {
 				"JUCE_ALSA=0",
@@ -226,19 +227,20 @@ solution "{{ name_short }}"
 			}
 
 		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant_short }}_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant.short }}_debug")
 
 		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant_short }}_release")
-{%- endmacro %}
+			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant.short }}_release")
+{% endmacro %}
 
 
-{% macro vst(name, name_short, variant, variant_short, addition) %}
-	project ("{{ name_short }}_vst_{{ variant_short }}")
+
+{% macro vst(name, variant, additions) %}
+	project ("{{ name.short }}_vst_{{ variant.short }}")
 		kind "SharedLib"
 
 		defines {
-			"{{ name_short | upper }}_{{ variant_short | upper }}=1",
+			"{{ name.short | upper }}_{{ variant.short | upper }}=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=1"
@@ -264,30 +266,31 @@ solution "{{ name_short }}"
 		includedirs {
 			"../libraries/vstsdk3.6.5"
 		}
-{{ addition }}
+{{ additions }}
 		configuration { "linux" }
-			targetname "{{ name_short }}_{{ variant_short }}_vst"
+			targetname "{{ name.short }}_{{ variant.short }}_vst"
 
 		configuration { "windows" }
-			targetname "{{ name }} ({{ variant }}"
+			targetname "{{ name.real }} ({{ variant.real }}"
 
 		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant_short }}_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant.short }}_debug")
 
 		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant_short }}_release")
-{%- endmacro %}
+			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant.short }}_release")
+{% endmacro %}
 
 
-{% macro lv2(name, name_short, variant, variant_short, addition) %}
+
+{% macro lv2(name, variant, additions) %}
 -- create LV2 projects on Linux only
 if os.get() == "linux" then
 
-	project ("{{ name_short }}_lv2_{{ variant_short }}")
+	project ("{{ name.short }}_lv2_{{ variant.short }}")
 		kind "SharedLib"
 
 		defines {
-			"{{ name_short | upper }}_{{ variant_short | upper }}=1",
+			"{{ name.short | upper }}_{{ variant.short | upper }}=1",
 			"JucePlugin_Build_LV2=1",
 			"JucePlugin_Build_Standalone=0",
 			"JucePlugin_Build_VST=0"
@@ -309,16 +312,16 @@ if os.get() == "linux" then
 			"JUCE_WASAPI=0",
 			"JUCE_DIRECTSOUND=0"
 		}
-{{ addition }}
+{{ additions }}
 		configuration { "linux" }
-			targetname "{{ name_short }}_{{ variant_short }}_lv2"
+			targetname "{{ name.short }}_{{ variant.short }}_lv2"
 
 		configuration "Debug"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant_short }}_debug")
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant.short }}_debug")
 
 		configuration "Release"
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant_short }}_release")
+			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant.short }}_release")
 
 -- create LV2 projects on Linux only
 end
-{%- endmacro %}
+{% endmacro %}

@@ -25,29 +25,41 @@
 
 {% import 'premake4.template' as render %}
 
-{{ render.solution('Squeezer', 'squeezer') }}
+{% set name = {'real': 'Squeezer', 'short': 'squeezer'} -%}
+
+{% set variants = ({'real': 'Mono', 'short': 'mono'},
+                   {'real': 'Stereo', 'short': 'stereo'}) -%}
+
+
+
+{{ render.solution(name) -}}
+
+
+
+{% for variant in variants %}
 
 --------------------------------------------------------------------------------
 
-{{ render.standalone('Squeezer', 'squeezer', 'Mono', 'mono') }}
+{{ render.standalone(name, variant) -}}
+
+{% endfor -%}
+
+
+
+{% for variant in variants %}
 
 --------------------------------------------------------------------------------
 
-{{ render.standalone('Squeezer', 'squeezer', 'Stereo', 'stereo') }}
+{{ render.vst(name, variant) -}}
+
+{% endfor -%}
+
+
+
+{% for variant in variants %}
 
 --------------------------------------------------------------------------------
 
-{{ render.vst('Squeezer', 'squeezer', 'Mono', 'mono') }}
+{{ render.lv2(name, variant) -}}
 
---------------------------------------------------------------------------------
-
-{{ render.vst('Squeezer', 'squeezer', 'Stereo', 'stereo') }}
-
---------------------------------------------------------------------------------
-
-{{ render.lv2('Squeezer', 'squeezer', 'Mono', 'mono') }}
-
---------------------------------------------------------------------------------
-
-{{ render.lv2('Squeezer', 'squeezer', 'Stereo', 'stereo') }}
-
+{% endfor -%}
