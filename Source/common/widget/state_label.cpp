@@ -111,6 +111,7 @@ void StateLabel::updateState()
     else
     {
         imageComponent_.setImage(imageOff_);
+        setLabelColour(textColourOff_);
     }
 }
 
@@ -122,6 +123,9 @@ void StateLabel::updateState()
 /// @param imageOn image displayed in the "on" state
 ///
 /// @param imageActive image displayed in the "active" state
+///
+/// @param textColourOff HTML text colour for the "off" state
+///        ("ff0000" is red)
 ///
 /// @param textColourOn HTML text colour for the "on" state
 ///        ("ff0000" is red)
@@ -141,6 +145,7 @@ void StateLabel::setImages(
     const Image &imageOff,
     const Image &imageOn,
     const Image &imageActive,
+    const String &textColourOff,
     const String &textColourOn,
     const String &textColourActive,
     int horizontalTextSpacing,
@@ -156,6 +161,7 @@ void StateLabel::setImages(
     textLabel_.setFont(Font(fontSize, Font::bold));
 
     // update colours of text label
+    textColourOff_ = Colour::fromString("ff" + textColourOff);
     textColourOn_ = Colour::fromString("ff" + textColourOn);
     textColourActive_ = Colour::fromString("ff" + textColourActive);
 

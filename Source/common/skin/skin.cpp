@@ -566,6 +566,10 @@ void Skin::placeAndSkinStateLabel(
         int spacing_top = xmlLabel->getIntAttribute("spacing_top", 0);
         int font_size = xmlLabel->getIntAttribute("font_size", 12);
 
+        String strColourOff = xmlLabel->getStringAttribute(
+                                  "colour_off",
+                                  "ffffff");
+
         String strColourOn = xmlLabel->getStringAttribute(
                                  "colour_on",
                                  "ffffff");
@@ -655,6 +659,7 @@ void Skin::placeAndSkinStateLabel(
         label->setImages(imageOff,
                          imageOn,
                          imageActive,
+                         strColourOff,
                          strColourOn,
                          strColourActive,
                          spacing_left,

@@ -66,6 +66,7 @@ public:
     void setImages(const Image &imageOff,
                    const Image &imageOn,
                    const Image &imageActive,
+                   const String &textColourOff,
                    const String &textColourOn,
                    const String &textColourActive,
                    int horizontalTextSpacing,
@@ -87,6 +88,7 @@ protected:
     Image imageOn_;
     Image imageActive_;
 
+    Colour textColourOff_;
     Colour textColourOn_;
     Colour textColourActive_;
 
