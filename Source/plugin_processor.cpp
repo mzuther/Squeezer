@@ -748,7 +748,7 @@ void SqueezerAudioProcessor::releaseResources()
 }
 
 
-void SqueezerAudioProcessor::processBlock(AudioSampleBuffer &buffer, MidiBuffer &midiMessages)
+void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages)
 {
     // This is the place where you'd normally do the guts of your
     // plug-in's audio processing...

@@ -46,15 +46,15 @@ public:
 
     float getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay);
 
-    unsigned int addSamples(AudioSampleBuffer &source, const unsigned int sourceStartSample, const unsigned int numSamples);
-    void copyToBuffer(AudioSampleBuffer &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay);
+    unsigned int addSamples(AudioBuffer<float> &source, const unsigned int sourceStartSample, const unsigned int numSamples);
+    void copyToBuffer(AudioBuffer<float> &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay);
 
     float getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
     float getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
 
 protected:
     void clearCallbackClass();
-    void triggerFullBuffer(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
+    void triggerFullBuffer(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
     RingBufferProcessor *pCallbackClass;
     String strBufferName;
@@ -81,7 +81,7 @@ private:
 class RingBufferProcessor
 {
 public:
-    virtual void processBufferChunk(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples) = 0;
+    virtual void processBufferChunk(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples) = 0;
 };
 
 

@@ -768,7 +768,7 @@ double Compressor::getAverageMeterOutputLevel(int nChannel)
 }
 
 
-void Compressor::processBlock(AudioSampleBuffer &buffer)
+void Compressor::processBlock(AudioBuffer<float> &buffer)
 {
     int nNumSamples = buffer.getNumSamples();
 

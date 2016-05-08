@@ -145,7 +145,7 @@ float RingBuffer::getSample(const unsigned int channel, const unsigned int relat
 }
 
 
-unsigned int RingBuffer::addSamples(AudioSampleBuffer &source, const unsigned int sourceStartSample, const unsigned int numSamples)
+unsigned int RingBuffer::addSamples(AudioBuffer<float> &source, const unsigned int sourceStartSample, const unsigned int numSamples)
 {
     if (numSamples <= 0)
     {
@@ -216,7 +216,7 @@ unsigned int RingBuffer::addSamples(AudioSampleBuffer &source, const unsigned in
 }
 
 
-void RingBuffer::copyToBuffer(AudioSampleBuffer &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
+void RingBuffer::copyToBuffer(AudioBuffer<float> &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
 {
     if (numSamples <= 0)
     {
@@ -308,7 +308,7 @@ void RingBuffer::clearCallbackClass()
 }
 
 
-void RingBuffer::triggerFullBuffer(AudioSampleBuffer &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
+void RingBuffer::triggerFullBuffer(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
 {
     if (pCallbackClass)
     {

@@ -134,7 +134,7 @@ public:
     double getAverageMeterInputLevel(int nChannel);
     double getAverageMeterOutputLevel(int nChannel);
 
-    void processBlock(AudioSampleBuffer &buffer);
+    void processBlock(AudioBuffer<float> &buffer);
 
 private:
     JUCE_LEAK_DETECTOR(Compressor);
@@ -154,8 +154,8 @@ private:
     int nMeterBufferPosition;
     int nMeterBufferSize;
 
-    AudioSampleBuffer MeterInputBuffer;
-    AudioSampleBuffer MeterOutputBuffer;
+    AudioBuffer<float> MeterInputBuffer;
+    AudioBuffer<float> MeterOutputBuffer;
 
     frut::audio::Dither dither;
     OwnedArray<SideChain> p_arrSideChain;
