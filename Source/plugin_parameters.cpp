@@ -47,12 +47,10 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameter::ParSwitch();
     ParameterDetectorRmsFilter->setName("RMS Filter");
 
-    ParameterDetectorRmsFilter->addPreset(0.1f,  "Peak (100 us)");
-    ParameterDetectorRmsFilter->addPreset(2.0f,  "Fast (2 ms)");
-    ParameterDetectorRmsFilter->addPreset(10.0f, "Medium (10 ms)");
-    ParameterDetectorRmsFilter->addPreset(50.0f, "Slow (50 ms)");
+    ParameterDetectorRmsFilter->addPreset(0.0f,  "Peak");
+    ParameterDetectorRmsFilter->addPreset(30.0f, "RMS (30 ms)");
 
-    ParameterDetectorRmsFilter->setDefaultRealFloat(10.0f, true);
+    ParameterDetectorRmsFilter->setDefaultRealFloat(30.0f, true);
     add(ParameterDetectorRmsFilter, selDetectorRmsFilter);
 
 
@@ -63,7 +61,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterDesign->addPreset(Compressor::DesignFeedForward, "Feed-Forward");
     ParameterDesign->addPreset(Compressor::DesignFeedBack,    "Feed-Back");
 
-    ParameterDesign->setDefaultRealFloat(Compressor::DesignFeedForward, true);
+    ParameterDesign->setDefaultRealFloat(Compressor::DesignFeedBack, true);
     add(ParameterDesign, selDesign);
 
 

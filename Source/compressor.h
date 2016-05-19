@@ -41,10 +41,8 @@ public:
 
     enum Parameters  // public namespace!
     {
-        DetectorRmsFilterPeak = 0,
-        DetectorRmsFilterFast,
-        DetectorRmsFilterMedium,
-        DetectorRmsFilterSlow,
+        DetectorPeak = 0,
+        DetectorRms,
         NumberOfDetectorRmsFilters,
 
         DesignFeedForward = 0,

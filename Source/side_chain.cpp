@@ -91,17 +91,27 @@ double SideChain::getDetectorRmsFilter()
 void SideChain::setDetectorRmsFilter(double dDetectorRateMilliSecondsNew)
 /*  Set new detector RMS filter rate.
 
-    dDetectorRateMilliSecondsNew (double): new detector RMS filter rate
+    dDetectorRateMilliSecondsNew (double): new detector RMS filter
+    rate; set to 0.0 to disable RMS sensing
 
     return value: none
 */
 {
-    dDetectorRateMilliSeconds = dDetectorRateMilliSecondsNew;
-    double dDetectorRateSeconds = dDetectorRateMilliSeconds / 1000.0;
+    // bypass RMS sensing
+    if (dDetectorRateMilliSecondsNew <= 0.0)
+    {
+        dDetectorRateMilliSeconds = 0.0;
+        dDetectorCoefficient = 0.0;
+    }
+    else
+    {
+        dDetectorRateMilliSeconds = dDetectorRateMilliSecondsNew;
+        double dDetectorRateSeconds = dDetectorRateMilliSeconds / 1000.0;
 
-    // logarithmic envelope reaches 90% of the final reading
-    // in the given attack time
-    dDetectorCoefficient = exp(log(0.10) / (dDetectorRateSeconds * dSampleRate));
+        // logarithmic envelope reaches 90% of the final reading
+        // in the given attack time
+        dDetectorCoefficient = exp(log(0.10) / (dDetectorRateSeconds * dSampleRate));
+    }
 }
 
 
@@ -478,13 +488,21 @@ void SideChain::processSample(double dInputLevel)
 
 double SideChain::applyLevelDetectionFilter(double dDetectorInputLevel)
 {
-    double dDetectorInputLevelSquared = dDetectorInputLevel * dDetectorInputLevel;
-    double dDetectorOutputLevelSquaredOld = dDetectorOutputLevelSquared;
+    // bypass RMS sensing
+    if (dDetectorRateMilliSeconds <= 0.0)
+    {
+        return dDetectorInputLevel;
+    }
+    else
+    {
+        double dDetectorInputLevelSquared = dDetectorInputLevel * dDetectorInputLevel;
+        double dDetectorOutputLevelSquaredOld = dDetectorOutputLevelSquared;
 
-    dDetectorOutputLevelSquared = (dDetectorCoefficient * dDetectorOutputLevelSquaredOld) + (1.0 - dDetectorCoefficient) * dDetectorInputLevelSquared;
+        dDetectorOutputLevelSquared = (dDetectorCoefficient * dDetectorOutputLevelSquaredOld) + (1.0 - dDetectorCoefficient) * dDetectorInputLevelSquared;
 
-    double dDetectorOutputLevel = sqrt(dDetectorOutputLevelSquared);
-    return dDetectorOutputLevel;
+        double dDetectorOutputLevel = sqrt(dDetectorOutputLevelSquared);
+        return dDetectorOutputLevel;
+    }
 }
 
 

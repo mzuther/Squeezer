@@ -68,103 +68,55 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(&ButtonBypass);
 
 
-    ButtonDetectorRmsPeak.setButtonText("Peak");
-    ButtonDetectorRmsPeak.setRadioGroupId(1);
-    ButtonDetectorRmsPeak.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorRmsPeak.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
+    ButtonDetectorRms.setButtonText("RMS");
+    ButtonDetectorRms.setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonDetectorRms.setColour(TextButton::buttonOnColourId, Colours::yellow);
 
-    ButtonDetectorRmsPeak.addListener(this);
-    addAndMakeVisible(&ButtonDetectorRmsPeak);
-
-
-    ButtonDetectorRmsFast.setButtonText("Fast");
-    ButtonDetectorRmsFast.setRadioGroupId(1);
-    ButtonDetectorRmsFast.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorRmsFast.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonDetectorRmsFast.addListener(this);
-    addAndMakeVisible(&ButtonDetectorRmsFast);
-
-
-    ButtonDetectorRmsMedium.setButtonText("Medium");
-    ButtonDetectorRmsMedium.setRadioGroupId(1);
-    ButtonDetectorRmsMedium.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorRmsMedium.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
-
-    ButtonDetectorRmsMedium.addListener(this);
-    addAndMakeVisible(&ButtonDetectorRmsMedium);
-
-
-    ButtonDetectorRmsSlow.setButtonText("Slow");
-    ButtonDetectorRmsSlow.setRadioGroupId(1);
-    ButtonDetectorRmsSlow.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorRmsSlow.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.16f));
-
-    ButtonDetectorRmsSlow.addListener(this);
-    addAndMakeVisible(&ButtonDetectorRmsSlow);
-
-
-    ButtonDesignFeedForward.setButtonText("F.Forw");
-    ButtonDesignFeedForward.setRadioGroupId(2);
-    ButtonDesignFeedForward.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDesignFeedForward.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonDesignFeedForward.addListener(this);
-    addAndMakeVisible(&ButtonDesignFeedForward);
+    ButtonDetectorRms.addListener(this);
+    addAndMakeVisible(&ButtonDetectorRms);
 
 
     ButtonDesignFeedBack.setButtonText("F.Back");
-    ButtonDesignFeedBack.setRadioGroupId(2);
     ButtonDesignFeedBack.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDesignFeedBack.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
+    ButtonDesignFeedBack.setColour(TextButton::buttonOnColourId, Colours::yellow);
 
     ButtonDesignFeedBack.addListener(this);
     addAndMakeVisible(&ButtonDesignFeedBack);
 
 
+    ButtonGainStageOptical.setButtonText("Opto");
+    ButtonGainStageOptical.setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonGainStageOptical.setColour(TextButton::buttonOnColourId, Colours::yellow);
+
+    ButtonGainStageOptical.addListener(this);
+    addAndMakeVisible(&ButtonGainStageOptical);
+
+
     ButtonDetectorLinear.setButtonText("Linear");
-    ButtonDetectorLinear.setRadioGroupId(3);
+    ButtonDetectorLinear.setRadioGroupId(1);
     ButtonDetectorLinear.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorLinear.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
+    ButtonDetectorLinear.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
 
     ButtonDetectorLinear.addListener(this);
     addAndMakeVisible(&ButtonDetectorLinear);
 
 
     ButtonDetectorSmoothDecoupled.setButtonText("S-Curve");
-    ButtonDetectorSmoothDecoupled.setRadioGroupId(3);
+    ButtonDetectorSmoothDecoupled.setRadioGroupId(1);
     ButtonDetectorSmoothDecoupled.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothDecoupled.setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonDetectorSmoothDecoupled.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
 
     ButtonDetectorSmoothDecoupled.addListener(this);
     addAndMakeVisible(&ButtonDetectorSmoothDecoupled);
 
 
     ButtonDetectorSmoothBranching.setButtonText("Log");
-    ButtonDetectorSmoothBranching.setRadioGroupId(3);
+    ButtonDetectorSmoothBranching.setRadioGroupId(1);
     ButtonDetectorSmoothBranching.setColour(TextButton::buttonColourId, Colours::grey);
     ButtonDetectorSmoothBranching.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
 
     ButtonDetectorSmoothBranching.addListener(this);
     addAndMakeVisible(&ButtonDetectorSmoothBranching);
-
-
-    ButtonGainStageFET.setButtonText("FET");
-    ButtonGainStageFET.setRadioGroupId(4);
-    ButtonGainStageFET.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonGainStageFET.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonGainStageFET.addListener(this);
-    addAndMakeVisible(&ButtonGainStageFET);
-
-
-    ButtonGainStageOptical.setButtonText("Opto");
-    ButtonGainStageOptical.setRadioGroupId(4);
-    ButtonGainStageOptical.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonGainStageOptical.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
-
-    ButtonGainStageOptical.addListener(this);
-    addAndMakeVisible(&ButtonGainStageOptical);
 
 
     int nIndex = SqueezerPluginParameters::selThreshold;
@@ -451,20 +403,13 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     setSize(nWidth, nHeight);
 
-    ButtonDetectorRmsPeak.setBounds(x + 37, y2, 52, 20);
-    ButtonDetectorRmsFast.setBounds(x + 97, y2, 52, 20);
-    ButtonDetectorRmsMedium.setBounds(x + 157, y2, 52, 20);
-    ButtonDetectorRmsSlow.setBounds(x + 217, y2, 52, 20);
+    ButtonDetectorRms.setBounds(x + 10, y2, 52, 20);
+    ButtonDesignFeedBack.setBounds(x + 10, y2 + 25, 52, 20);
+    ButtonGainStageOptical.setBounds(x + 10, y2 + 50, 52, 20);
 
-    ButtonDesignFeedForward.setBounds(x + 22, y2 + 25, 52, 20);
-    ButtonDesignFeedBack.setBounds(x + 82, y2 + 25, 52, 20);
-
-    ButtonGainStageFET.setBounds(x + 172, y2 + 25, 52, 20);
-    ButtonGainStageOptical.setBounds(x + 232, y2 + 25, 52, 20);
-
-    ButtonDetectorLinear.setBounds(x + 67, y2 + 50, 52, 20);
-    ButtonDetectorSmoothDecoupled.setBounds(x + 127, y2 + 50, 52, 20);
-    ButtonDetectorSmoothBranching.setBounds(x + 187, y2 + 50, 52, 20);
+    ButtonDetectorLinear.setBounds(x + 72, y2, 52, 20);
+    ButtonDetectorSmoothDecoupled.setBounds(x + 72, y2 + 25, 52, 20);
+    ButtonDetectorSmoothBranching.setBounds(x + 72, y2 + 50, 52, 20);
 
     SliderThresholdCombined->setBounds(x, y1, 52, 60);
     SliderRatioCombined->setBounds(x + 60, y1, 52, 60);
@@ -597,36 +542,17 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 
     case SqueezerPluginParameters::selDetectorRmsFilter:
 
-        if (fValue == (Compressor::DetectorRmsFilterPeak / float(Compressor::NumberOfDetectorRmsFilters - 1)))
-        {
-            ButtonDetectorRmsPeak.setToggleState(true, dontSendNotification);
-        }
-        else if (fValue == (Compressor::DetectorRmsFilterFast / float(Compressor::NumberOfDetectorRmsFilters - 1)))
-        {
-            ButtonDetectorRmsFast.setToggleState(true, dontSendNotification);
-        }
-        else if (fValue == (Compressor::DetectorRmsFilterMedium / float(Compressor::NumberOfDetectorRmsFilters - 1)))
-        {
-            ButtonDetectorRmsMedium.setToggleState(true, dontSendNotification);
-        }
-        else
-        {
-            ButtonDetectorRmsSlow.setToggleState(true, dontSendNotification);
-        }
-
+        ButtonDetectorRms.setToggleState(fValue != 0.0f, dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selDesign:
 
-        if (fValue == Compressor::DesignFeedForward)
-        {
-            ButtonDesignFeedForward.setToggleState(true, dontSendNotification);
-        }
-        else
-        {
-            ButtonDesignFeedBack.setToggleState(true, dontSendNotification);
-        }
+        ButtonDesignFeedBack.setToggleState(fValue != 0.0f, dontSendNotification);
+        break;
 
+    case SqueezerPluginParameters::selGainStage:
+
+        ButtonGainStageOptical.setToggleState(fValue != 0.0f, dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selDetector:
@@ -642,19 +568,6 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         else
         {
             ButtonDetectorSmoothBranching.setToggleState(true, dontSendNotification);
-        }
-
-        break;
-
-    case SqueezerPluginParameters::selGainStage:
-
-        if (fValue == (Compressor::GainStageFET / float(Compressor::NumberOfGainStages - 1)))
-        {
-            ButtonGainStageFET.setToggleState(true, dontSendNotification);
-        }
-        else
-        {
-            ButtonGainStageOptical.setToggleState(true, dontSendNotification);
         }
 
         break;
@@ -830,29 +743,17 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selBypass, !button->getToggleState());
     }
-    else if (button == &ButtonDetectorRmsPeak)
+    else if (button == &ButtonDetectorRms)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetectorRmsFilter, Compressor::DetectorRmsFilterPeak / float(Compressor::NumberOfDetectorRmsFilters - 1));
-    }
-    else if (button == &ButtonDetectorRmsFast)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetectorRmsFilter, Compressor::DetectorRmsFilterFast / float(Compressor::NumberOfDetectorRmsFilters - 1));
-    }
-    else if (button == &ButtonDetectorRmsMedium)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetectorRmsFilter, Compressor::DetectorRmsFilterMedium / float(Compressor::NumberOfDetectorRmsFilters - 1));
-    }
-    else if (button == &ButtonDetectorRmsSlow)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetectorRmsFilter, Compressor::DetectorRmsFilterSlow / float(Compressor::NumberOfDetectorRmsFilters - 1));
-    }
-    else if (button == &ButtonDesignFeedForward)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, Compressor::DesignFeedForward);
+        pProcessor->changeParameter(SqueezerPluginParameters::selDetectorRmsFilter, !button->getToggleState());
     }
     else if (button == &ButtonDesignFeedBack)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, Compressor::DesignFeedBack);
+        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, !button->getToggleState());
+    }
+    else if (button == &ButtonGainStageOptical)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selGainStage, !button->getToggleState());
     }
     else if (button == &ButtonDetectorLinear)
     {
@@ -865,14 +766,6 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     else if (button == &ButtonDetectorSmoothBranching)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1));
-    }
-    else if (button == &ButtonGainStageFET)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selGainStage, Compressor::GainStageFET / float(Compressor::NumberOfGainStages - 1));
-    }
-    else if (button == &ButtonGainStageOptical)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selGainStage, Compressor::GainStageOptical / float(Compressor::NumberOfGainStages - 1));
     }
     else if (button == &ButtonAutoMakeupGain)
     {

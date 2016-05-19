@@ -73,20 +73,13 @@ private:
     OwnedArray<MeterBarLevel> p_arrOutputLevelMeters;
     OwnedArray<MeterBarGainReduction> p_arrGainReductionMeters;
 
-    TextButton ButtonDetectorRmsPeak;
-    TextButton ButtonDetectorRmsFast;
-    TextButton ButtonDetectorRmsMedium;
-    TextButton ButtonDetectorRmsSlow;
-
-    TextButton ButtonDesignFeedForward;
+    TextButton ButtonDetectorRms;
     TextButton ButtonDesignFeedBack;
+    TextButton ButtonGainStageOptical;
 
     TextButton ButtonDetectorLinear;
     TextButton ButtonDetectorSmoothDecoupled;
     TextButton ButtonDetectorSmoothBranching;
-
-    TextButton ButtonGainStageFET;
-    TextButton ButtonGainStageOptical;
 
     ScopedPointer<frut::widget::SliderCombined> SliderThresholdCombined;
     ScopedPointer<frut::widget::SliderCombined> SliderRatioCombined;
