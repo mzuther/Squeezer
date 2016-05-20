@@ -119,6 +119,30 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(&ButtonDetectorSmoothBranching);
 
 
+    ButtonKneeHard.setButtonText("Hard");
+    ButtonKneeHard.setRadioGroupId(2);
+    ButtonKneeHard.setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonKneeHard.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
+
+    ButtonKneeHard.addListener(this);
+    addAndMakeVisible(&ButtonKneeHard);
+
+    ButtonKneeMedium.setButtonText("Medium");
+    ButtonKneeMedium.setRadioGroupId(2);
+    ButtonKneeMedium.setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonKneeMedium.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
+
+    ButtonKneeMedium.addListener(this);
+    addAndMakeVisible(&ButtonKneeMedium);
+
+    ButtonKneeSoft.setButtonText("Soft");
+    ButtonKneeSoft.setRadioGroupId(2);
+    ButtonKneeSoft.setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonKneeSoft.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
+
+    ButtonKneeSoft.addListener(this);
+    addAndMakeVisible(&ButtonKneeSoft);
+
     int nIndex = SqueezerPluginParameters::selThreshold;
     int nIndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
     SliderThresholdCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
@@ -137,16 +161,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     SliderRatioCombined->addListener(this);
     SliderRatioCombined->addButtonListener(this);
     addAndMakeVisible(SliderRatioCombined);
-
-    nIndex = SqueezerPluginParameters::selKneeWidth;
-    nIndexSwitch = SqueezerPluginParameters::selKneeWidthSwitch;
-    SliderKneeWidthCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderKneeWidthCombined->setSliderColour(Colours::purple.brighter(0.2f));
-
-    SliderKneeWidthCombined->addListener(this);
-    SliderKneeWidthCombined->addButtonListener(this);
-    addAndMakeVisible(SliderKneeWidthCombined);
-
 
     nIndex = SqueezerPluginParameters::selAttackRate;
     nIndexSwitch = SqueezerPluginParameters::selAttackRateSwitch;
@@ -276,11 +290,11 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     int y = 20;
 
 #ifdef SQUEEZER_STEREO
-    int x = 610;
+    int x = 550;
     int x_spacing = 28;
     int width = 12;
 #else
-    int x = 570;
+    int x = 510;
     int x_spacing = 20;
     int width = 16;
 #endif
@@ -308,7 +322,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
                                     frut::widget::Orientation::vertical,
                                     discreteMeter,
                                     5,
-                                    12,
+                                    width,
                                     levelMeterColours);
 
         pMeterBarLevelInput->setBounds(x, y, width, 0);
@@ -320,7 +334,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
                                      frut::widget::Orientation::vertical,
                                      discreteMeter,
                                      5,
-                                     12,
+                                     width,
                                      levelMeterColours);
 
         pMeterBarLevelOutput->setBounds(x + 2 * x_spacing, y, width, 0);
@@ -332,7 +346,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
             frut::widget::Orientation::vertical,
             discreteMeter,
             5,
-            12,
+            width,
             gainReductionColours);
 
         pMeterBarGainReduction->setBounds(x + x_spacing, y, width, 0);
@@ -345,17 +359,17 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     resizeEditor();
 
     updateParameter(SqueezerPluginParameters::selBypass);
+
     updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
     updateParameter(SqueezerPluginParameters::selDesign);
     updateParameter(SqueezerPluginParameters::selDetector);
     updateParameter(SqueezerPluginParameters::selGainStage);
+    updateParameter(SqueezerPluginParameters::selKneeWidth);
 
     updateParameter(SqueezerPluginParameters::selThresholdSwitch);
     updateParameter(SqueezerPluginParameters::selThreshold);
     updateParameter(SqueezerPluginParameters::selRatioSwitch);
     updateParameter(SqueezerPluginParameters::selRatio);
-    updateParameter(SqueezerPluginParameters::selKneeWidthSwitch);
-    updateParameter(SqueezerPluginParameters::selKneeWidth);
 
     updateParameter(SqueezerPluginParameters::selAttackRateSwitch);
     updateParameter(SqueezerPluginParameters::selAttackRate);
@@ -392,9 +406,9 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     nHeight = 188;
 
 #ifdef SQUEEZER_STEREO
-    nWidth = 710;
+    nWidth = 650;
 #else
-    nWidth = 646;
+    nWidth = 586;
 #endif
 
     int x = 15;
@@ -403,54 +417,63 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     setSize(nWidth, nHeight);
 
-    ButtonDetectorRms.setBounds(x + 10, y2, 52, 20);
-    ButtonDesignFeedBack.setBounds(x + 10, y2 + 25, 52, 20);
-    ButtonGainStageOptical.setBounds(x + 10, y2 + 50, 52, 20);
+    ButtonDetectorLinear.setBounds(x + 20, y2, 52, 20);
+    ButtonDetectorSmoothDecoupled.setBounds(x + 20, y2 + 25, 52, 20);
+    ButtonDetectorSmoothBranching.setBounds(x + 20, y2 + 50, 52, 20);
 
-    ButtonDetectorLinear.setBounds(x + 72, y2, 52, 20);
-    ButtonDetectorSmoothDecoupled.setBounds(x + 72, y2 + 25, 52, 20);
-    ButtonDetectorSmoothBranching.setBounds(x + 72, y2 + 50, 52, 20);
+    ButtonDetectorRms.setBounds(x + 97, y2, 52, 20);
+    ButtonDesignFeedBack.setBounds(x + 97, y2 + 25, 52, 20);
+    ButtonGainStageOptical.setBounds(x + 97, y2 + 50, 52, 20);
+
+    ButtonKneeHard.setBounds(x + 172, y2, 52, 20);
+    ButtonKneeMedium.setBounds(x + 172, y2 + 25, 52, 20);
+    ButtonKneeSoft.setBounds(x + 172, y2 + 50, 52, 20);
 
     SliderThresholdCombined->setBounds(x, y1, 52, 60);
     SliderRatioCombined->setBounds(x + 60, y1, 52, 60);
-    SliderKneeWidthCombined->setBounds(x + 120, y1, 52, 60);
 
-    SliderAttackRateCombined->setBounds(x + 195, y1, 52, 60);
-    SliderReleaseRateCombined->setBounds(x + 255, y1, 52, 60);
+    SliderAttackRateCombined->setBounds(x + 135, y1, 52, 60);
+    SliderReleaseRateCombined->setBounds(x + 195, y1, 52, 60);
 
-    SliderSidechainFilterCutoffCombined->setBounds(x + 330, y1, 52, 60);
-    SliderSidechainFilterGain->setBounds(x + 330, y2 + 26, 52, 18);
-    ButtonSidechainFilterState.setBounds(x + 330, y2, 52, 20);
-    ButtonSidechainListen.setBounds(x + 330, y2 + 50, 52, 20);
+    SliderSidechainFilterCutoffCombined->setBounds(x + 270, y1, 52, 60);
+    SliderSidechainFilterGain->setBounds(x + 270, y2 + 26, 52, 18);
+    ButtonSidechainFilterState.setBounds(x + 270, y2, 52, 20);
+    ButtonSidechainListen.setBounds(x + 270, y2 + 50, 52, 20);
 
 #ifdef SQUEEZER_STEREO
-    SliderStereoLinkCombined->setBounds(x + 405, y1, 52, 60);
+    SliderStereoLinkCombined->setBounds(x + 345, y1, 52, 60);
 
-    SliderMakeupGainCombined->setBounds(x + 465, y1, 52, 60);
-    SliderWetMixCombined->setBounds(x + 525, y1, 52, 60);
+    SliderMakeupGainCombined->setBounds(x + 405, y1, 52, 60);
+    SliderWetMixCombined->setBounds(x + 465, y1, 52, 60);
 
-    ButtonAutoMakeupGain.setBounds(x + 465, y2, 52, 20);
-    ButtonAbout.setBounds(x + 435, y2 + 25, 52, 20);
-    ButtonSettings.setBounds(x + 495, y2 + 25, 52, 20);
-    ButtonBypass.setBounds(x + 465, y2 + 50, 52, 20);
+    ButtonAutoMakeupGain.setBounds(x + 405, y2, 52, 20);
+    ButtonAbout.setBounds(x + 375, y2 + 25, 52, 20);
+    ButtonSettings.setBounds(x + 435, y2 + 25, 52, 20);
+    ButtonBypass.setBounds(x + 405, y2 + 50, 52, 20);
 
-    ButtonResetMeters.setBounds(x + 611, y2 + 50, 52, 20);
+    ButtonResetMeters.setBounds(x + 551, y2 + 50, 52, 20);
 
 #else
-    SliderMakeupGainCombined->setBounds(x + 415, y1, 52, 60);
-    SliderWetMixCombined->setBounds(x + 475, y1, 52, 60);
+    SliderMakeupGainCombined->setBounds(x + 355, y1, 52, 60);
+    SliderWetMixCombined->setBounds(x + 415, y1, 52, 60);
 
-    ButtonAutoMakeupGain.setBounds(x + 445, y2, 52, 20);
-    ButtonAbout.setBounds(x + 415, y2 + 25, 52, 20);
-    ButtonSettings.setBounds(x + 475, y2 + 25, 52, 20);
-    ButtonBypass.setBounds(x + 445, y2 + 50, 52, 20);
+    ButtonAutoMakeupGain.setBounds(x + 385, y2, 52, 20);
+    ButtonAbout.setBounds(x + 355, y2 + 25, 52, 20);
+    ButtonSettings.setBounds(x + 415, y2 + 25, 52, 20);
+    ButtonBypass.setBounds(x + 385, y2 + 50, 52, 20);
 
-    ButtonResetMeters.setBounds(x + 557, y2 + 50, 52, 20);
+    ButtonResetMeters.setBounds(x + 497, y2 + 50, 52, 20);
 
 #endif
 
 #ifdef DEBUG
-    LabelDebug.setBounds(x + 127, y2 + 26, 52, 16);
+
+#ifdef SQUEEZER_STEREO
+    LabelDebug.setBounds(x + 472, y2 - 4, 52, 16);
+#else
+    LabelDebug.setBounds(x + 432, y2 - 4, 52, 16);
+#endif
+
 #endif
 }
 
@@ -572,6 +595,23 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 
         break;
 
+    case SqueezerPluginParameters::selKneeWidth:
+
+        if (fValue == (Compressor::KneeHard / float(Compressor::NumberOfKneeSettings - 1)))
+        {
+            ButtonKneeHard.setToggleState(true, dontSendNotification);
+        }
+        else if (fValue == (Compressor::KneeMedium / float(Compressor::NumberOfKneeSettings - 1)))
+        {
+            ButtonKneeMedium.setToggleState(true, dontSendNotification);
+        }
+        else
+        {
+            ButtonKneeSoft.setToggleState(true, dontSendNotification);
+        }
+
+        break;
+
     case SqueezerPluginParameters::selThresholdSwitch:
         SliderThresholdCombined->updateMode();
         break;
@@ -597,14 +637,6 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
             }
         }
 
-        break;
-
-    case SqueezerPluginParameters::selKneeWidthSwitch:
-        SliderKneeWidthCombined->updateMode();
-        break;
-
-    case SqueezerPluginParameters::selKneeWidth:
-        SliderKneeWidthCombined->setValue(fValue, dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selAttackRateSwitch:
@@ -692,47 +724,47 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     int y2 = 88;
 
     g.setColour(Colours::grey);
-    g.fillRect(x      , y1, 317, 168);
-    g.fillRect(x + 320, y1,  82, 168);
+    g.fillRect(x      , y1, 257, 168);
+    g.fillRect(x + 260, y1,  82, 168);
 #ifdef SQUEEZER_STEREO
-    g.fillRect(x + 405, y1, 182, 168);
-    g.fillRect(x + 590, y1, 100, 168);
+    g.fillRect(x + 345, y1, 182, 168);
+    g.fillRect(x + 530, y1, 100, 168);
 #else
-    g.fillRect(x + 405, y1, 142, 168);
-    g.fillRect(x + 550, y1,  76, 168);
+    g.fillRect(x + 345, y1, 142, 168);
+    g.fillRect(x + 490, y1,  76, 168);
 #endif
 
     g.setColour(Colours::darkgrey);
-    g.drawRect(x      , y1, 317, 168);
-    g.drawRect(x + 320, y1,  82, 168);
+    g.drawRect(x      , y1, 257, 168);
+    g.drawRect(x + 260, y1,  82, 168);
 #ifdef SQUEEZER_STEREO
-    g.drawRect(x + 405, y1, 182, 168);
-    g.drawRect(x + 590, y1, 100, 168);
+    g.drawRect(x + 345, y1, 182, 168);
+    g.drawRect(x + 530, y1, 100, 168);
 #else
-    g.drawRect(x + 405, y1, 142, 168);
-    g.drawRect(x + 550, y1,  76, 168);
+    g.drawRect(x + 345, y1, 142, 168);
+    g.drawRect(x + 490, y1,  76, 168);
 #endif
 
     g.setColour(Colours::lightgrey.darker(0.2f));
-    g.fillRect(x +   5, y2, 307,  85);
-    g.fillRect(x + 325, y2,  72,  85);
+    g.fillRect(x +   5, y2, 247,  85);
+    g.fillRect(x + 265, y2,  72,  85);
 #ifdef SQUEEZER_STEREO
-    g.fillRect(x + 410, y2, 172,  85);
-    g.fillRect(x + 595, y1 + 5,  90, 158);
+    g.fillRect(x + 350, y2, 172,  85);
+    g.fillRect(x + 535, y1 + 5,  90, 158);
 #else
-    g.fillRect(x + 410, y2, 132,  85);
-    g.fillRect(x + 555, y1 + 5,  66, 158);
+    g.fillRect(x + 350, y2, 132,  85);
+    g.fillRect(x + 495, y1 + 5,  66, 158);
 #endif
 
     g.setColour(Colours::grey.darker(0.2f));
-    g.drawRect(x +   5, y2, 307,  85);
-    g.drawRect(x + 325, y2,  72,  85);
+    g.drawRect(x +   5, y2, 247,  85);
+    g.drawRect(x + 265, y2,  72,  85);
 #ifdef SQUEEZER_STEREO
-    g.drawRect(x + 410, y2, 172,  85);
-    g.drawRect(x + 595, y1 + 5,  90, 158);
+    g.drawRect(x + 350, y2, 172,  85);
+    g.drawRect(x + 535, y1 + 5,  90, 158);
 #else
-    g.drawRect(x + 410, y2, 132,  85);
-    g.drawRect(x + 555, y1 + 5,  66, 158);
+    g.drawRect(x + 350, y2, 132,  85);
+    g.drawRect(x + 495, y1 + 5,  66, 158);
 #endif
 }
 
@@ -766,6 +798,18 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     else if (button == &ButtonDetectorSmoothBranching)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1));
+    }
+    else if (button == &ButtonKneeHard)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, Compressor::KneeHard / float(Compressor::NumberOfKneeSettings - 1));
+    }
+    else if (button == &ButtonKneeMedium)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, Compressor::KneeMedium / float(Compressor::NumberOfKneeSettings - 1));
+    }
+    else if (button == &ButtonKneeSoft)
+    {
+        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, Compressor::KneeSoft / float(Compressor::NumberOfKneeSettings - 1));
     }
     else if (button == &ButtonAutoMakeupGain)
     {
@@ -924,10 +968,6 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selRatioSwitch, fValue);
         }
-        else if (slider == SliderKneeWidthCombined)
-        {
-            pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidthSwitch, fValue);
-        }
         else if (slider == SliderAttackRateCombined)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateSwitch, fValue);
@@ -975,10 +1015,6 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider *slider)
     else if (slider == SliderRatioCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selRatio, fValue);
-    }
-    else if (slider == SliderKneeWidthCombined)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, fValue);
     }
     else if (slider == SliderAttackRateCombined)
     {

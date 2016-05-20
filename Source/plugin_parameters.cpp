@@ -169,23 +169,16 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     addCombined(ParameterRatio, selRatioSwitch, selRatio);
 
 
-    realMinimum = 0.0f;
-    realMaximum = 48.0f;
-    stepSize = 6.0f;
-    scalingFactor = 0.0f;
-    decimalPlaces = 0;
-
-    frut::parameter::ParCombined *ParameterKneeWidth =
-        new frut::parameter::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
+    frut::parameter::ParSwitch *ParameterKneeWidth =
+        new frut::parameter::ParSwitch();
     ParameterKneeWidth->setName("Knee Width");
 
-    ParameterKneeWidth->addPreset(0.0f,  "Hard");
-    ParameterKneeWidth->addPreset(12.0f, "Medium");
-    ParameterKneeWidth->addPreset(48.0f, "Soft");
+    ParameterKneeWidth->addPreset(0.0f,  "Hard (0 dB)");
+    ParameterKneeWidth->addPreset(24.0f, "Medium (24 dB)");
+    ParameterKneeWidth->addPreset(48.0f, "Soft (48 dB)");
 
-    ParameterKneeWidth->setSuffix(" dB");
     ParameterKneeWidth->setDefaultRealFloat(0.0f, true);
-    addCombined(ParameterKneeWidth, selKneeWidthSwitch, selKneeWidth);
+    add(ParameterKneeWidth, selKneeWidth);
 
 
     realMinimum = 0.0f;

@@ -357,7 +357,6 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
             {
             case SqueezerPluginParameters::selThresholdSwitch:
             case SqueezerPluginParameters::selRatioSwitch:
-            case SqueezerPluginParameters::selKneeWidthSwitch:
 
             case SqueezerPluginParameters::selAttackRateSwitch:
             case SqueezerPluginParameters::selReleaseRateSwitch:

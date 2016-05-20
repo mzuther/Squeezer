@@ -77,13 +77,16 @@ private:
     TextButton ButtonDesignFeedBack;
     TextButton ButtonGainStageOptical;
 
+    TextButton ButtonKneeHard;
+    TextButton ButtonKneeMedium;
+    TextButton ButtonKneeSoft;
+
     TextButton ButtonDetectorLinear;
     TextButton ButtonDetectorSmoothDecoupled;
     TextButton ButtonDetectorSmoothBranching;
 
     ScopedPointer<frut::widget::SliderCombined> SliderThresholdCombined;
     ScopedPointer<frut::widget::SliderCombined> SliderRatioCombined;
-    ScopedPointer<frut::widget::SliderCombined> SliderKneeWidthCombined;
 
     ScopedPointer<frut::widget::SliderCombined> SliderAttackRateCombined;
     ScopedPointer<frut::widget::SliderCombined> SliderReleaseRateCombined;

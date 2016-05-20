@@ -57,6 +57,11 @@ public:
         GainStageFET = 0,
         GainStageOptical,
         NumberOfGainStages,
+
+        KneeHard = 0,
+        KneeMedium,
+        KneeSoft,
+        NumberOfKneeSettings,
     };
 
     Compressor(int channels, int sample_rate);

@@ -53,7 +53,6 @@ public:
         selThreshold,
         selRatioSwitch,
         selRatio,
-        selKneeWidthSwitch,
         selKneeWidth,
 
         selAttackRateSwitch,
