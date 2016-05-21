@@ -182,18 +182,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     addAndMakeVisible(SliderReleaseRateCombined);
 
 
-#ifdef SQUEEZER_STEREO
-    nIndex = SqueezerPluginParameters::selStereoLink;
-    nIndexSwitch = SqueezerPluginParameters::selStereoLinkSwitch;
-    SliderStereoLinkCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderStereoLinkCombined->setSliderColour(Colours::purple.brighter(0.2f));
-
-    SliderStereoLinkCombined->addListener(this);
-    SliderStereoLinkCombined->addButtonListener(this);
-    addAndMakeVisible(SliderStereoLinkCombined);
-#endif
-
-
     ButtonAutoMakeupGain.setButtonText("Auto MU");
     ButtonAutoMakeupGain.setColour(TextButton::buttonColourId, Colours::grey);
     ButtonAutoMakeupGain.setColour(TextButton::buttonOnColourId, Colours::yellow);
@@ -287,14 +275,13 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonAbout.addListener(this);
     addAndMakeVisible(&ButtonAbout);
 
+    int x = 510;
     int y = 20;
 
 #ifdef SQUEEZER_STEREO
-    int x = 550;
     int x_spacing = 28;
     int width = 12;
 #else
-    int x = 510;
     int x_spacing = 20;
     int width = 16;
 #endif
@@ -376,11 +363,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selReleaseRateSwitch);
     updateParameter(SqueezerPluginParameters::selReleaseRate);
 
-#ifdef SQUEEZER_STEREO
-    updateParameter(SqueezerPluginParameters::selStereoLinkSwitch);
-    updateParameter(SqueezerPluginParameters::selStereoLink);
-#endif
-
     updateParameter(SqueezerPluginParameters::selAutoMakeupGain);
     updateParameter(SqueezerPluginParameters::selMakeupGainSwitch);
     updateParameter(SqueezerPluginParameters::selMakeupGain);
@@ -406,7 +388,7 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     nHeight = 188;
 
 #ifdef SQUEEZER_STEREO
-    nWidth = 650;
+    nWidth = 610;
 #else
     nWidth = 586;
 #endif
@@ -440,20 +422,6 @@ void SqueezerAudioProcessorEditor::resizeEditor()
     ButtonSidechainFilterState.setBounds(x + 270, y2, 52, 20);
     ButtonSidechainListen.setBounds(x + 270, y2 + 50, 52, 20);
 
-#ifdef SQUEEZER_STEREO
-    SliderStereoLinkCombined->setBounds(x + 345, y1, 52, 60);
-
-    SliderMakeupGainCombined->setBounds(x + 405, y1, 52, 60);
-    SliderWetMixCombined->setBounds(x + 465, y1, 52, 60);
-
-    ButtonAutoMakeupGain.setBounds(x + 405, y2, 52, 20);
-    ButtonAbout.setBounds(x + 375, y2 + 25, 52, 20);
-    ButtonSettings.setBounds(x + 435, y2 + 25, 52, 20);
-    ButtonBypass.setBounds(x + 405, y2 + 50, 52, 20);
-
-    ButtonResetMeters.setBounds(x + 551, y2 + 50, 52, 20);
-
-#else
     SliderMakeupGainCombined->setBounds(x + 355, y1, 52, 60);
     SliderWetMixCombined->setBounds(x + 415, y1, 52, 60);
 
@@ -464,16 +432,8 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
     ButtonResetMeters.setBounds(x + 497, y2 + 50, 52, 20);
 
-#endif
-
 #ifdef DEBUG
-
-#ifdef SQUEEZER_STEREO
-    LabelDebug.setBounds(x + 472, y2 - 4, 52, 16);
-#else
     LabelDebug.setBounds(x + 432, y2 - 4, 52, 16);
-#endif
-
 #endif
 }
 
@@ -655,17 +615,6 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderReleaseRateCombined->setValue(fValue, dontSendNotification);
         break;
 
-#ifdef SQUEEZER_STEREO
-
-    case SqueezerPluginParameters::selStereoLinkSwitch:
-        SliderStereoLinkCombined->updateMode();
-        break;
-
-    case SqueezerPluginParameters::selStereoLink:
-        SliderStereoLinkCombined->setValue(fValue, dontSendNotification);
-        break;
-#endif
-
     case SqueezerPluginParameters::selAutoMakeupGain:
         ButtonAutoMakeupGain.setToggleState(fValue != 0.0f, dontSendNotification);
         break;
@@ -726,44 +675,40 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.setColour(Colours::grey);
     g.fillRect(x      , y1, 257, 168);
     g.fillRect(x + 260, y1,  82, 168);
-#ifdef SQUEEZER_STEREO
-    g.fillRect(x + 345, y1, 182, 168);
-    g.fillRect(x + 530, y1, 100, 168);
-#else
     g.fillRect(x + 345, y1, 142, 168);
+#ifdef SQUEEZER_STEREO
+    g.fillRect(x + 490, y1, 100, 168);
+#else
     g.fillRect(x + 490, y1,  76, 168);
 #endif
 
     g.setColour(Colours::darkgrey);
     g.drawRect(x      , y1, 257, 168);
     g.drawRect(x + 260, y1,  82, 168);
-#ifdef SQUEEZER_STEREO
-    g.drawRect(x + 345, y1, 182, 168);
-    g.drawRect(x + 530, y1, 100, 168);
-#else
     g.drawRect(x + 345, y1, 142, 168);
+#ifdef SQUEEZER_STEREO
+    g.drawRect(x + 490, y1, 100, 168);
+#else
     g.drawRect(x + 490, y1,  76, 168);
 #endif
 
     g.setColour(Colours::lightgrey.darker(0.2f));
     g.fillRect(x +   5, y2, 247,  85);
     g.fillRect(x + 265, y2,  72,  85);
-#ifdef SQUEEZER_STEREO
-    g.fillRect(x + 350, y2, 172,  85);
-    g.fillRect(x + 535, y1 + 5,  90, 158);
-#else
     g.fillRect(x + 350, y2, 132,  85);
+#ifdef SQUEEZER_STEREO
+    g.fillRect(x + 495, y1 + 5,  90, 158);
+#else
     g.fillRect(x + 495, y1 + 5,  66, 158);
 #endif
 
     g.setColour(Colours::grey.darker(0.2f));
     g.drawRect(x +   5, y2, 247,  85);
     g.drawRect(x + 265, y2,  72,  85);
-#ifdef SQUEEZER_STEREO
-    g.drawRect(x + 350, y2, 172,  85);
-    g.drawRect(x + 535, y1 + 5,  90, 158);
-#else
     g.drawRect(x + 350, y2, 132,  85);
+#ifdef SQUEEZER_STEREO
+    g.drawRect(x + 495, y1 + 5,  90, 158);
+#else
     g.drawRect(x + 495, y1 + 5,  66, 158);
 #endif
 }
@@ -976,14 +921,6 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
         }
-
-#ifdef SQUEEZER_STEREO
-        else if (slider == SliderStereoLinkCombined)
-        {
-            pProcessor->changeParameter(SqueezerPluginParameters::selStereoLinkSwitch, fValue);
-        }
-
-#endif
         else if (slider == SliderMakeupGainCombined)
         {
             pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGainSwitch, fValue);
@@ -1024,14 +961,6 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(Slider *slider)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRate, fValue);
     }
-
-#ifdef SQUEEZER_STEREO
-    else if (slider == SliderStereoLinkCombined)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selStereoLink, fValue);
-    }
-
-#endif
     else if (slider == SliderMakeupGainCombined)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGain, fValue);

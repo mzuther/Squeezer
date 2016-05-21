@@ -244,23 +244,6 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     scalingFactor = 0.0f;
     decimalPlaces = 0;
 
-#ifdef SQUEEZER_STEREO
-    frut::parameter::ParCombined *ParameterStereoLink =
-        new frut::parameter::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
-    ParameterStereoLink->setName("Stereo Link");
-
-    ParameterStereoLink->addPreset(0.0f,     "Off");
-    ParameterStereoLink->addPreset(50.0f,   "50 %");
-    ParameterStereoLink->addPreset(75.0f,   "75 %");
-    ParameterStereoLink->addPreset(90.0f,   "90 %");
-    ParameterStereoLink->addPreset(100.0f, "100 %");
-
-    ParameterStereoLink->setSuffix(" %");
-    ParameterStereoLink->setDefaultRealFloat(100.0f, true);
-    addCombined(ParameterStereoLink, selStereoLinkSwitch, selStereoLink);
-#endif
-
-
     frut::parameter::ParBoolean *ParameterAutoMakeupGain =
         new frut::parameter::ParBoolean("Auto", "Manual");
     ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
@@ -506,11 +489,6 @@ String SqueezerPluginParameters::toString()
 
     parameterValues += "), Wet: ";
     parameterValues += getText(selWetMix);
-
-#ifdef SQUEEZER_STEREO
-    parameterValues += ", Link: ";
-    parameterValues += getText(selStereoLink);
-#endif
 
     return parameterValues + "\n";
 }

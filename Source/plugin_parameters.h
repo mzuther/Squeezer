@@ -60,10 +60,6 @@ public:
         selReleaseRateSwitch,
         selReleaseRate,
 
-#ifdef SQUEEZER_STEREO
-        selStereoLinkSwitch,
-        selStereoLink,
-#endif
         selAutoMakeupGain,
         selMakeupGainSwitch,
         selMakeupGain,

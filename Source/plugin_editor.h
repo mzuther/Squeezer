@@ -91,10 +91,6 @@ private:
     ScopedPointer<frut::widget::SliderCombined> SliderAttackRateCombined;
     ScopedPointer<frut::widget::SliderCombined> SliderReleaseRateCombined;
 
-#ifdef SQUEEZER_STEREO
-    ScopedPointer<frut::widget::SliderCombined> SliderStereoLinkCombined;
-#endif
-
     ScopedPointer<frut::widget::SliderCombined> SliderInputGainCombined;
     TextButton ButtonAutoMakeupGain;
     ScopedPointer<frut::widget::SliderCombined> SliderMakeupGainCombined;

@@ -248,21 +248,6 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
-#ifdef SQUEEZER_STEREO
-
-    case SqueezerPluginParameters::selStereoLink:
-
-        pluginParameters.setFloat(nIndex, fValue);
-
-        if (pCompressor)
-        {
-            int nStereoLink = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setStereoLink(nStereoLink);
-        }
-
-        break;
-#endif
-
     case SqueezerPluginParameters::selAutoMakeupGain:
 
         pluginParameters.setFloat(nIndex, fValue);
@@ -360,10 +345,6 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
             case SqueezerPluginParameters::selAttackRateSwitch:
             case SqueezerPluginParameters::selReleaseRateSwitch:
-
-#ifdef SQUEEZER_STEREO
-            case SqueezerPluginParameters::selStereoLinkSwitch:
-#endif
 
             case SqueezerPluginParameters::selMakeupGainSwitch:
             case SqueezerPluginParameters::selWetMixSwitch:
@@ -694,10 +675,6 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     int nAttackRate = pluginParameters.getRealInteger(SqueezerPluginParameters::selAttackRate);
     int nReleaseRate = pluginParameters.getRealInteger(SqueezerPluginParameters::selReleaseRate);
 
-#ifdef SQUEEZER_STEREO
-    int nStereoLink = pluginParameters.getRealInteger(SqueezerPluginParameters::selStereoLink);
-#endif
-
     bool bAutoMakeupGain = pluginParameters.getBoolean(SqueezerPluginParameters::selAutoMakeupGain);
     float fMakeupGain = pluginParameters.getRealFloat(SqueezerPluginParameters::selMakeupGain);
     int nWetMix = pluginParameters.getRealInteger(SqueezerPluginParameters::selWetMix);
@@ -721,10 +698,6 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     pCompressor->setAttackRate(nAttackRate);
     pCompressor->setReleaseRate(nReleaseRate);
-
-#ifdef SQUEEZER_STEREO
-    pCompressor->setStereoLink(nStereoLink);
-#endif
 
     pCompressor->setAutoMakeupGain(bAutoMakeupGain);
     pCompressor->setMakeupGain(fMakeupGain);
