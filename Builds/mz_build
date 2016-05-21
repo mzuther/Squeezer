@@ -76,7 +76,7 @@ case $1 in
 		MAKEFILE="squeezer_vst_stereo"
 		MAKEFILE_PRINT="VST plug-in (Stereo)"
 		;;
-	5)
+	6)
 		MAKEFILE="squeezer_vst_mono"
 		MAKEFILE_PRINT="VST plug-in (Mono)"
 		;;
