@@ -196,7 +196,8 @@ solution "squeezer"
 			"SQUEEZER_MONO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=1",
-			"JucePlugin_Build_VST=0"
+			"JucePlugin_Build_VST=0",
+			"JucePlugin_Build_VST3=0"
 		}
 
 		configuration { "linux" }
@@ -244,7 +245,8 @@ solution "squeezer"
 			"SQUEEZER_STEREO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=1",
-			"JucePlugin_Build_VST=0"
+			"JucePlugin_Build_VST=0",
+			"JucePlugin_Build_VST3=0"
 		}
 
 		configuration { "linux" }
@@ -292,7 +294,8 @@ solution "squeezer"
 			"SQUEEZER_MONO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=1"
+			"JucePlugin_Build_VST=1",
+			"JucePlugin_Build_VST3=0"
 		}
 
 		files {
@@ -337,7 +340,8 @@ solution "squeezer"
 			"SQUEEZER_STEREO=1",
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=1"
+			"JucePlugin_Build_VST=1",
+			"JucePlugin_Build_VST3=0"
 		}
 
 		files {
@@ -385,7 +389,8 @@ if os.get() == "linux" then
 			"SQUEEZER_MONO=1",
 			"JucePlugin_Build_LV2=1",
 			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=0"
+			"JucePlugin_Build_VST=0",
+			"JucePlugin_Build_VST3=0"
 		}
 
 		files {
@@ -429,7 +434,8 @@ if os.get() == "linux" then
 			"SQUEEZER_STEREO=1",
 			"JucePlugin_Build_LV2=1",
 			"JucePlugin_Build_Standalone=0",
-			"JucePlugin_Build_VST=0"
+			"JucePlugin_Build_VST=0",
+			"JucePlugin_Build_VST3=0"
 		}
 
 		files {
