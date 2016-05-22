@@ -45,7 +45,7 @@
 ---------------------------------------------------------------------------- */
 
 #ifdef SQUEEZER_MONO
-  #define JucePlugin_PluginCode             'sqz1'
+  #define JucePlugin_PluginCode             'sqzM'
 
   #ifdef DEBUG
     #define JucePlugin_Name                 "Squeezer (Mono, Debug)"
@@ -53,7 +53,7 @@
     #define JucePlugin_Name                 "Squeezer (Mono)"
   #endif
 #else
-  #define JucePlugin_PluginCode             'sqz2'
+  #define JucePlugin_PluginCode             'sqzr'
 
   #ifdef DEBUG
     #define JucePlugin_Name                 "Squeezer (Stereo, Debug)"
@@ -333,7 +333,7 @@
  #define JucePlugin_ManufacturerCode       'MZut'
 #endif
 #ifndef  JucePlugin_PluginCode
- #define JucePlugin_PluginCode             'sqz2'
+ #define JucePlugin_PluginCode             'sqzr'
 #endif
 #ifndef  JucePlugin_IsSynth
  #define JucePlugin_IsSynth                0
