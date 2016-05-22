@@ -125,26 +125,18 @@
         lv2:index 7 ;
         lv2:symbol "rms_filter" ;
         lv2:name "RMS Filter" ;
-        lv2:default 0.67 ;
-        lv2:minimum 0.00 ;
-        lv2:maximum 1.00 ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
         lv2:portProperty lv2:enumeration ;
         lv2:portProperty epp:hasStrictBounds;
         lv2:scalePoint [
-            rdf:value 0.00 ;
-            rdfs:label "Peak (100 us)" ;
+            rdf:value 0.0 ;
+            rdfs:label "Peak" ;
         ] ,
         [
-            rdf:value 0.33 ;
-            rdfs:label "Fast (2 ms)" ;
-        ] ,
-        [
-            rdf:value 0.67 ;
-            rdfs:label "Medium (10 ms)" ;
-        ] ,
-        [
-            rdf:value 1.00 ;
-            rdfs:label "Slow (50 ms)" ;
+            rdf:value 1.0 ;
+            rdfs:label "RMS (30 ms)" ;
         ] ;
     ] ,
     [
@@ -152,7 +144,7 @@
         lv2:index 8 ;
         lv2:symbol "design" ;
         lv2:name "Design" ;
-        lv2:default 0.0 ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
         lv2:portProperty lv2:enumeration ;
@@ -267,34 +259,29 @@
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 15 ;
-        lv2:symbol "knee_width_mode" ;
-        lv2:name "Knee Width Mode" ;
-        lv2:default 1.0 ;
+        lv2:symbol "knee_width" ;
+        lv2:name "Knee Width" ;
+        lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
         lv2:portProperty lv2:enumeration ;
         lv2:portProperty epp:hasStrictBounds;
         lv2:scalePoint [
             rdf:value 0.0 ;
-            rdfs:label "Continuous" ;
+            rdfs:label "Hard (0 dB)" ;
+        ] ,
+        [
+            rdf:value 0.5 ;
+            rdfs:label "Medium (24 dB)" ;
         ] ,
         [
             rdf:value 1.0 ;
-            rdfs:label "Discrete" ;
+            rdfs:label "Soft (48 dB)" ;
         ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 16 ;
-        lv2:symbol "knee_width" ;
-        lv2:name "Knee Width" ;
-        lv2:default 0.0 ;
-        lv2:minimum 0.0 ;
-        lv2:maximum 1.0 ;
-    ] ,
-    [
-        a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 17 ;
         lv2:symbol "attack_rate_mode" ;
         lv2:name "Attack Rate Mode" ;
         lv2:default 1.0 ;
@@ -313,7 +300,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 18 ;
+        lv2:index 17 ;
         lv2:symbol "attack_rate" ;
         lv2:name "Attack Rate" ;
         lv2:default 0.5 ;
@@ -322,7 +309,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 19 ;
+        lv2:index 18 ;
         lv2:symbol "release_rate_mode" ;
         lv2:name "Release Rate Mode" ;
         lv2:default 1.0 ;
@@ -341,7 +328,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 20 ;
+        lv2:index 19 ;
         lv2:symbol "release_rate" ;
         lv2:name "Release Rate" ;
         lv2:default 0.266667 ;
@@ -350,35 +337,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 21 ;
-        lv2:symbol "stereo_link_mode" ;
-        lv2:name "Stereo Link Mode" ;
-        lv2:default 1.0 ;
-        lv2:minimum 0.0 ;
-        lv2:maximum 1.0 ;
-        lv2:portProperty lv2:enumeration ;
-        lv2:portProperty epp:hasStrictBounds;
-        lv2:scalePoint [
-            rdf:value 0.0 ;
-            rdfs:label "Continuous" ;
-        ] ,
-        [
-            rdf:value 1.0 ;
-            rdfs:label "Discrete" ;
-        ] ;
-    ] ,
-    [
-        a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 22 ;
-        lv2:symbol "stereo_link" ;
-        lv2:name "Stereo Link" ;
-        lv2:default 1.0 ;
-        lv2:minimum 0.0 ;
-        lv2:maximum 1.0 ;
-    ] ,
-    [
-        a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 23 ;
+        lv2:index 20 ;
         lv2:symbol "auto_make_up_gain" ;
         lv2:name "Auto Make-Up Gain" ;
         lv2:default 1.0 ;
@@ -389,7 +348,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 24 ;
+        lv2:index 21 ;
         lv2:symbol "make_up_gain_mode" ;
         lv2:name "Make-Up Gain Mode" ;
         lv2:default 1.0 ;
@@ -408,7 +367,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 25 ;
+        lv2:index 22 ;
         lv2:symbol "make_up_gain" ;
         lv2:name "Make-Up Gain" ;
         lv2:default 0.5 ;
@@ -417,7 +376,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 26 ;
+        lv2:index 23 ;
         lv2:symbol "wet_mix_mode" ;
         lv2:name "Wet Mix Mode" ;
         lv2:default 1.0 ;
@@ -436,7 +395,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 27 ;
+        lv2:index 24 ;
         lv2:symbol "wet_mix" ;
         lv2:name "Wet Mix" ;
         lv2:default 1.0 ;
@@ -445,7 +404,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 28 ;
+        lv2:index 25 ;
         lv2:symbol "sc_filter_state" ;
         lv2:name "SC Filter State" ;
         lv2:default 0.0 ;
@@ -456,7 +415,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 29 ;
+        lv2:index 26 ;
         lv2:symbol "sc_filter_cutoff_frequency_mode" ;
         lv2:name "SC Filter Cutoff Frequency Mode" ;
         lv2:default 1.0 ;
@@ -475,7 +434,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 30 ;
+        lv2:index 27 ;
         lv2:symbol "sc_filter_cutoff_frequency" ;
         lv2:name "SC Filter Cutoff Frequency" ;
         lv2:default 0.0 ;
@@ -484,7 +443,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 31 ;
+        lv2:index 28 ;
         lv2:symbol "sc_filter_gain" ;
         lv2:name "SC Filter Gain" ;
         lv2:default 0.5 ;
@@ -493,7 +452,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 32 ;
+        lv2:index 29 ;
         lv2:symbol "sc_listen" ;
         lv2:name "SC Listen" ;
         lv2:default 0.0 ;
