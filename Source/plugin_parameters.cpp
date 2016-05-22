@@ -416,10 +416,10 @@ String SqueezerPluginParameters::toString()
     String parameterValues;
 
     parameterValues = String(ProjectInfo::projectName) + " " + String(JucePlugin_VersionString);
-#ifdef SQUEEZER_STEREO
-    parameterValues += " (Stereo)";
-#else
+#ifdef SQUEEZER_MONO
     parameterValues += " (Mono)";
+#else
+    parameterValues += " (Stereo)";
 #endif
 
     int stringLength = parameterValues.length();

@@ -45,7 +45,6 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
     frut::Frut::printVersionNumbers();
 
     bSampleRateIsValid = false;
-    nNumInputChannels = 0;
 
     setLatencySamples(0);
 }
@@ -594,12 +593,6 @@ double SqueezerAudioProcessor::getTailLengthSeconds() const
 }
 
 
-int SqueezerAudioProcessor::getNumChannels()
-{
-    return nNumInputChannels;
-}
-
-
 int SqueezerAudioProcessor::getNumPrograms()
 {
     return 0;
@@ -647,20 +640,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
         bSampleRateIsValid = true;
     }
 
-    nNumInputChannels = getMainBusNumInputChannels();
-
-    if (nNumInputChannels <= 0)
-    {
-        Logger::outputDebugString("[Squeezer] no input channels detected, correcting this");
-        nNumInputChannels = JucePlugin_MaxNumInputChannels;
-    }
-    else if (nNumInputChannels < JucePlugin_MaxNumInputChannels)
-    {
-        Logger::outputDebugString("[Squeezer] only " +  String(nNumInputChannels) + " input channel(s) detected, correcting this");
-        nNumInputChannels = JucePlugin_MaxNumInputChannels;
-    }
-
-    Logger::outputDebugString("[Squeezer] number of input channels: " + String(nNumInputChannels));
+    Logger::outputDebugString("[Squeezer] number of input channels: " + String(getMainBusNumInputChannels()));
+    Logger::outputDebugString("[Squeezer] number of output channels: " + String(getMainBusNumOutputChannels()));
 
     bool bBypassCompressor = pluginParameters.getBoolean(SqueezerPluginParameters::selBypass);
     float fDetectorRateMilliSeconds = pluginParameters.getRealFloat(SqueezerPluginParameters::selDetectorRmsFilter);
@@ -684,7 +665,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fSidechainFilterGain = pluginParameters.getRealFloat(SqueezerPluginParameters::selSidechainFilterGain);
     bool bSidechainListen = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainListen);
 
-    pCompressor = new Compressor(nNumInputChannels, (int) sampleRate);
+    pCompressor = new Compressor(getMainBusNumInputChannels(), (int) sampleRate);
 
     pCompressor->setBypass(bBypassCompressor);
     pCompressor->setDetectorRmsFilter(fDetectorRateMilliSeconds);
@@ -737,9 +718,9 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
         return;
     }
 
-    if (nNumInputChannels < 1)
+    if (getMainBusNumInputChannels() < 1)
     {
-        Logger::outputDebugString("[Squeezer] nNumInputChannels < 1");
+        Logger::outputDebugString("[Squeezer] no input channels!");
         return;
     }
 
@@ -747,7 +728,7 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int nChannel = nNumInputChannels; nChannel < getMainBusNumOutputChannels(); ++nChannel)
+    for (int nChannel = getMainBusNumInputChannels(); nChannel < getMainBusNumOutputChannels(); ++nChannel)
     {
         buffer.clear(nChannel, 0, nNumSamples);
     }
@@ -764,7 +745,7 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
 
 AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
-    return new SqueezerAudioProcessorEditor(this, &pluginParameters, nNumInputChannels);
+    return new SqueezerAudioProcessorEditor(this, &pluginParameters, getMainBusNumInputChannels());
 }
 
 

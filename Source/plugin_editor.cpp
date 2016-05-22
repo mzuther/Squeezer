@@ -278,13 +278,19 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     int x = 510;
     int y = 20;
 
-#ifdef SQUEEZER_STEREO
-    int x_spacing = 28;
-    int width = 12;
-#else
-    int x_spacing = 20;
-    int width = 16;
-#endif
+    int x_spacing;
+    int width;
+
+    if (nChannels == 1)
+    {
+        x_spacing = 20;
+        width = 16;
+    }
+    else
+    {
+        x_spacing = 28;
+        width = 12;
+    }
 
     for (int nChannel = 0; nChannel < nChannels; ++nChannel)
     {
@@ -387,11 +393,14 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 {
     nHeight = 188;
 
-#ifdef SQUEEZER_STEREO
-    nWidth = 610;
-#else
-    nWidth = 586;
-#endif
+    if (nChannels == 1)
+    {
+        nWidth = 586;
+    }
+    else
+    {
+        nWidth = 610;
+    }
 
     int x = 15;
     int y1 = 18;
@@ -676,41 +685,57 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.fillRect(x      , y1, 257, 168);
     g.fillRect(x + 260, y1,  82, 168);
     g.fillRect(x + 345, y1, 142, 168);
-#ifdef SQUEEZER_STEREO
-    g.fillRect(x + 490, y1, 100, 168);
-#else
-    g.fillRect(x + 490, y1,  76, 168);
-#endif
+
+    if (nChannels == 1)
+    {
+        g.fillRect(x + 490, y1,  76, 168);
+    }
+    else
+    {
+        g.fillRect(x + 490, y1, 100, 168);
+    }
 
     g.setColour(Colours::darkgrey);
     g.drawRect(x      , y1, 257, 168);
     g.drawRect(x + 260, y1,  82, 168);
     g.drawRect(x + 345, y1, 142, 168);
-#ifdef SQUEEZER_STEREO
-    g.drawRect(x + 490, y1, 100, 168);
-#else
-    g.drawRect(x + 490, y1,  76, 168);
-#endif
+
+    if (nChannels == 1)
+    {
+        g.drawRect(x + 490, y1,  76, 168);
+    }
+    else
+    {
+        g.drawRect(x + 490, y1, 100, 168);
+    }
 
     g.setColour(Colours::lightgrey.darker(0.2f));
     g.fillRect(x +   5, y2, 247,  85);
     g.fillRect(x + 265, y2,  72,  85);
     g.fillRect(x + 350, y2, 132,  85);
-#ifdef SQUEEZER_STEREO
-    g.fillRect(x + 495, y1 + 5,  90, 158);
-#else
-    g.fillRect(x + 495, y1 + 5,  66, 158);
-#endif
+
+    if (nChannels == 1)
+    {
+        g.fillRect(x + 495, y1 + 5,  66, 158);
+    }
+    else
+    {
+        g.fillRect(x + 495, y1 + 5,  90, 158);
+    }
 
     g.setColour(Colours::grey.darker(0.2f));
     g.drawRect(x +   5, y2, 247,  85);
     g.drawRect(x + 265, y2,  72,  85);
     g.drawRect(x + 350, y2, 132,  85);
-#ifdef SQUEEZER_STEREO
-    g.drawRect(x + 495, y1 + 5,  90, 158);
-#else
-    g.drawRect(x + 495, y1 + 5,  66, 158);
-#endif
+
+    if (nChannels == 1)
+    {
+        g.drawRect(x + 495, y1 + 5,  66, 158);
+    }
+    else
+    {
+        g.drawRect(x + 495, y1 + 5,  90, 158);
+    }
 }
 
 

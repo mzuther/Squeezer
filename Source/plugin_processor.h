@@ -92,7 +92,6 @@ public:
 
     //==========================================================================
     int getNumPrograms();
-    int getNumChannels();
 
     int getCurrentProgram();
     void setCurrentProgram(int nIndex);
@@ -112,7 +111,6 @@ private:
     SqueezerPluginParameters pluginParameters;
     ScopedPointer<Compressor> pCompressor;
 
-    int nNumInputChannels;
     bool bSampleRateIsValid;
 };
 
