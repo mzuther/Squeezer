@@ -75,9 +75,9 @@ void Parameter::setName(const String &newParameterName)
     // convert tag name to lower case
     tagName_ = tagName_.toLowerCase();
 
-    // strip all characters except a-z, underscore and space
+    // strip all characters except a-z, numbers, underscore and space
     tagName_ = tagName_.retainCharacters(
-                   "abcdefghijklmnopqrstuvwxyz_ ");
+                   "abcdefghijklmnopqrstuvwxyz0123456789_ ");
 
     // change all spaces to underscores
     tagName_ = tagName_.replace(" ", "_");
