@@ -32,7 +32,7 @@ templateLoader = jinja2.FileSystemLoader(searchpath='.')
 templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True)
 template = templateEnv.get_template('layout.template')
 
-filename = 'premake4.lua'
+filename = 'premake5.lua'
 output = template.render()
 
 print()

@@ -23,7 +23,7 @@
 --
 --------------------------------------------------------------------------------
 
-{% import 'premake4.template' as render %}
+{% import 'premake5.template' as render %}
 
 {% set name = {'real': 'Squeezer', 'short': 'squeezer'} -%}
 

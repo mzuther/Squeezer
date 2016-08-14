@@ -3,22 +3,22 @@
 # select platform
 case $1 in
 	1)
-		PLATFORM="debug64"
+		PLATFORM="debug_x64"
 		PLATFORM_PRINT="64-bit (Debug)"
 		EXECUTABLE_EXTENSION="_debug_x64"
 		;;
 	2)
-		PLATFORM="release64"
+		PLATFORM="release_x64"
 		PLATFORM_PRINT="64-bit (Release)"
 		EXECUTABLE_EXTENSION="_x64"
 		;;
 	3)
-		PLATFORM="debug32"
+		PLATFORM="debug_x32"
 		PLATFORM_PRINT="32-bit (Debug)"
 		EXECUTABLE_EXTENSION="_debug"
 		;;
 	4)
-		PLATFORM="release32"
+		PLATFORM="release_x32"
 		PLATFORM_PRINT="32-bit (Release)"
 		EXECUTABLE_EXTENSION=""
 		;;
