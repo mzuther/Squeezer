@@ -581,12 +581,6 @@ bool SqueezerAudioProcessor::producesMidi() const
 }
 
 
-bool SqueezerAudioProcessor::silenceInProducesSilenceOut() const
-{
-    return true;
-}
-
-
 double SqueezerAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
