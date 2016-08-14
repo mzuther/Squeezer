@@ -10,7 +10,7 @@
 
 
 # break brackets from their pre-block statements
---brackets=break
+--style=break
 
 # add brackets to one line conditional statements ('if', 'for', 'while'...)
 --add-brackets
