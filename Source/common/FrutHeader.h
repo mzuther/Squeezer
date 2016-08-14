@@ -31,6 +31,13 @@
 #include "JuceHeader.h"
 
 
+// silence warnings about unused variables (found on
+// https://stackoverflow.com/questions/1486904)
+#ifndef UNUSED
+#define UNUSED(x) (void)(x)
+#endif
+
+
 namespace frut
 {
 

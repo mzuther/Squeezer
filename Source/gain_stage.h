@@ -42,7 +42,10 @@ public:
     virtual double processGainReduction(double dGainReductionNew, double dGainReductionIdeal) = 0;
 
 protected:
-    GainStage(int nSampleRate) {};
+    GainStage(int nSampleRate)
+    {
+        UNUSED(nSampleRate);
+    };
 };
 
 

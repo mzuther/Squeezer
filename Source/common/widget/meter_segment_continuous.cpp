@@ -141,7 +141,7 @@ void MeterSegmentContinuous::drawBar(
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
-        // keep going ...
+    // keep going ...
 
     case widget::Orientation::vertical:
 
@@ -198,7 +198,7 @@ void MeterSegmentContinuous::drawBar(
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
-        // keep going ...
+    // keep going ...
 
     case widget::Orientation::horizontalInverted:
 
@@ -284,7 +284,7 @@ void MeterSegmentContinuous::drawMarker(
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
-        // keep going ...
+    // keep going ...
 
     case widget::Orientation::vertical:
 
@@ -314,7 +314,7 @@ void MeterSegmentContinuous::drawMarker(
         // invert level position
         levelPosition = 1.0f - levelPosition;
 
-        // keep going ...
+    // keep going ...
 
     case widget::Orientation::horizontalInverted:
 

@@ -51,6 +51,9 @@ ParString::ParString(const String &newValue)
 ///
 void ParString::setDefaultRealFloat(float newRealValue, bool updateParameter)
 {
+    UNUSED(newRealValue);
+    UNUSED(updateParameter);
+
     // do nothing till you hear from me ...
     jassert(false);
 }
@@ -63,6 +66,8 @@ void ParString::setDefaultRealFloat(float newRealValue, bool updateParameter)
 ///
 void ParString::setFloat(float newValue)
 {
+    UNUSED(newValue);
+
     // do nothing till you hear from me ...
     jassert(false);
 }
@@ -75,6 +80,8 @@ void ParString::setFloat(float newValue)
 ///
 void ParString::setRealFloat(float newRealValue)
 {
+    UNUSED(newRealValue);
+
     // do nothing till you hear from me ...
     jassert(false);
 }
@@ -116,6 +123,8 @@ void ParString::setText(const String &newValue)
 ///
 float ParString::getFloatFromText(const String &newValue)
 {
+    UNUSED(newValue);
+
     // do nothing till you hear from me ...
     jassert(false);
 
@@ -132,6 +141,8 @@ float ParString::getFloatFromText(const String &newValue)
 ///
 const String ParString::getTextFromFloat(float newValue)
 {
+    UNUSED(newValue);
+
     // do nothing till you hear from me ...
     jassert(false);
 

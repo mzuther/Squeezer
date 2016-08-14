@@ -449,6 +449,8 @@ void SqueezerAudioProcessorEditor::resizeEditor()
 
 void SqueezerAudioProcessorEditor::windowAboutCallback(int modalResult)
 {
+    UNUSED(modalResult);
+
     // manually deactivate about button
     ButtonAbout.setToggleState(false, dontSendNotification);
 }
@@ -456,6 +458,8 @@ void SqueezerAudioProcessorEditor::windowAboutCallback(int modalResult)
 
 void SqueezerAudioProcessorEditor::windowSettingsCallback(int modalResult)
 {
+    UNUSED(modalResult);
+
     // manually deactivate about button
     ButtonSettings.setToggleState(false, dontSendNotification);
 }

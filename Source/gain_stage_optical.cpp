@@ -30,13 +30,13 @@ GainStageOptical::GainStageOptical(int nSampleRate) :
     GainStage(nSampleRate),
     nNumberOfDecibels(37),
     nCoefficientsPerDecibel(2),
-    nNumberOfCoefficients(nNumberOfDecibels *nCoefficientsPerDecibel)
-/*  Constructor.
+    nNumberOfCoefficients(nNumberOfDecibels * nCoefficientsPerDecibel)
+    /*  Constructor.
 
-    nSampleRate (integer): internal sample rate
+        nSampleRate (integer): internal sample rate
 
-    return value: none
-*/
+        return value: none
+    */
 {
     dSampleRate = (double) nSampleRate;
 

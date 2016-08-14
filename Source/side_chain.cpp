@@ -29,12 +29,12 @@
 SideChain::SideChain(int nSampleRate) :
     gainStageFET(nSampleRate),
     gainStageOptical(nSampleRate)
-/*  Constructor.
+    /*  Constructor.
 
-    nSampleRate (integer): internal sample rate
+        nSampleRate (integer): internal sample rate
 
-    return value: none
-*/
+        return value: none
+    */
 {
     dSampleRate = (double) nSampleRate;
 

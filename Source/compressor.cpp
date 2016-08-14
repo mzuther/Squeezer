@@ -35,7 +35,7 @@ Compressor::Compressor(int channels, int sample_rate) :
     dBufferLength(0.050),
     nChannels(channels),
     nSampleRate(sample_rate),
-    nMeterBufferSize((int)(nSampleRate *dBufferLength)),
+    nMeterBufferSize((int)(nSampleRate * dBufferLength)),
     MeterInputBuffer(channels, nMeterBufferSize),
     MeterOutputBuffer(channels, nMeterBufferSize),
     dither(24)

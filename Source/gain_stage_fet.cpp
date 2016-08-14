@@ -27,12 +27,12 @@
 
 
 GainStageFET::GainStageFET(int nSampleRate) : GainStage(nSampleRate)
-/*  Constructor.
+    /*  Constructor.
 
-    nSampleRate (integer): internal sample rate
+        nSampleRate (integer): internal sample rate
 
-    return value: none
-*/
+        return value: none
+    */
 {
     // reset (i.e. initialise) all relevant variables
     reset(0.0);
@@ -64,6 +64,8 @@ double GainStageFET::processGainReduction(double dGainReductionNew, double dGain
     decibel
  */
 {
+    UNUSED(dGainReductionIdeal);
+
     dGainReduction = dGainReductionNew;
     return dGainReduction;
 }

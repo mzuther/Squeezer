@@ -607,23 +607,31 @@ int SqueezerAudioProcessor::getCurrentProgram()
 
 void SqueezerAudioProcessor::setCurrentProgram(int nIndex)
 {
+    UNUSED(nIndex);
 }
 
 
 const String SqueezerAudioProcessor::getProgramName(int nIndex)
 {
+    UNUSED(nIndex);
+
     return String::empty;
 }
 
 
 void SqueezerAudioProcessor::changeProgramName(int nIndex, const String &newName)
 {
+    UNUSED(nIndex);
+    UNUSED(newName);
 }
+
 
 //==============================================================================
 
 void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
+    UNUSED(samplesPerBlock);
+
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
@@ -703,6 +711,8 @@ void SqueezerAudioProcessor::releaseResources()
 
 void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages)
 {
+    UNUSED(midiMessages);
+
     // This is the place where you'd normally do the guts of your
     // plug-in's audio processing...
 
