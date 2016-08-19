@@ -234,7 +234,7 @@ workspace "{{ name.short }}"
 			}
 
 			includedirs {
-				"../libraries/asiosdk2.3/common"
+				"../libraries/asio/common"
 			}
 
 		filter { "configurations:Debug" }
@@ -275,7 +275,7 @@ workspace "{{ name.short }}"
 		}
 
 		includedirs {
-			"../libraries/vstsdk3.6.5"
+			"../libraries/vst"
 		}
 {{ additions }}
 		filter { "system:linux" }

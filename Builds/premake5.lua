@@ -237,7 +237,7 @@ workspace "squeezer"
 			}
 
 			includedirs {
-				"../libraries/asiosdk2.3/common"
+				"../libraries/asio/common"
 			}
 
 		filter { "configurations:Debug" }
@@ -285,7 +285,7 @@ workspace "squeezer"
 			}
 
 			includedirs {
-				"../libraries/asiosdk2.3/common"
+				"../libraries/asio/common"
 			}
 
 		filter { "configurations:Debug" }
@@ -324,7 +324,7 @@ workspace "squeezer"
 		}
 
 		includedirs {
-			"../libraries/vstsdk3.6.5"
+			"../libraries/vst"
 		}
 
 		filter { "system:linux" }
@@ -369,7 +369,7 @@ workspace "squeezer"
 		}
 
 		includedirs {
-			"../libraries/vstsdk3.6.5"
+			"../libraries/vst"
 		}
 
 		filter { "system:linux" }
