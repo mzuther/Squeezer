@@ -90,8 +90,10 @@ public:
     XmlElement storeAsXml();
 
 protected:
+#ifdef DEBUG
     void assertParameter(int index,
                          bool wantModification);
+#endif
 
     int numberOfParameters_;
     int numberOfRevealedParameters_;

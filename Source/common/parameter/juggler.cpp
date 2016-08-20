@@ -50,6 +50,7 @@ Juggler::Juggler(
 }
 
 
+#ifdef DEBUG
 /// Check parameter index and whether the parameter may be modified.
 /// Throws an assertion should an assumption not be fulfilled.
 /// Calling this method in RELASE mode is a waste of time as it will
@@ -74,6 +75,7 @@ void Juggler::assertParameter(
         jassert(mayModify_[index]);
     }
 }
+#endif
 
 
 /// Get pointer to plug-in parameter.  **Do not delete this pointer!**
@@ -153,6 +155,10 @@ void Juggler::add(
     int index)
 
 {
+#ifndef DEBUG
+    UNUSED(index);
+#endif
+
     // mark parameter for deletion on class destruction
     garbageCollector_.add(parameter);
 
@@ -203,6 +209,10 @@ void Juggler::addCombined(
     int parameterIndex)
 
 {
+#ifndef DEBUG
+    UNUSED(parameterIndex);
+#endif
+
     jassert(parameterIndex == (switchIndex + 1));
 
     // add parameter switch to juggler
@@ -225,7 +235,6 @@ void Juggler::addCombined(
 
     // check whether index of continuous parameter is correct
     jassert(virtualParameters_.size() == parameterIndex + 1);
-
 }
 
 
