@@ -187,6 +187,9 @@ void MeterBar::addDiscreteSegment(
 /// @param thresholdRange difference between lower and upper level
 ///        threshold (in decibels)
 ///
+/// @param nextPixelRange level that corresponds to exactly one pixel
+///        on the next segment (in decibels)
+///
 /// @param isTopmost if set to **true**, the segment has no upper
 ///        level threshold
 ///
@@ -201,6 +204,7 @@ void MeterBar::addDiscreteSegment(
 void MeterBar::addContinuousSegment(
     float lowerThreshold,
     float thresholdRange,
+    float nextPixelRange,
     bool isTopmost,
     int segmentHeight,
     int spacingBefore,
@@ -217,6 +221,7 @@ void MeterBar::addContinuousSegment(
     // decibels) and whether it is the topmost segment
     segment->setThresholdAndRange(lowerThreshold,
                                   thresholdRange,
+                                  nextPixelRange,
                                   isTopmost);
 
     // set segment colours

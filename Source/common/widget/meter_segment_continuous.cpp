@@ -26,7 +26,9 @@
 
 /// Create a new continuous meter segment, complete with peak marker.
 ///
-MeterSegmentContinuous::MeterSegmentContinuous()
+MeterSegmentContinuous::MeterSegmentContinuous() :
+    attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+
 {
     // initialise maximum x and y position of component
     maximumX_ = -1;
@@ -44,7 +46,7 @@ MeterSegmentContinuous::MeterSegmentContinuous()
     float initialLevel = -144.0f;
 
     // initialise thresholds and set this segment to not be topmost
-    setThresholdAndRange(initialLevel, 1.0f, false);
+    setThresholdAndRange(initialLevel, 1.0f, 0.0f, false);
 
     // make sure that segment is drawn after initialisation
     setLevels(initialLevel, initialLevel, initialLevel, initialLevel);
@@ -59,6 +61,9 @@ MeterSegmentContinuous::MeterSegmentContinuous()
 /// @param thresholdRange difference between lower and upper level
 ///        threshold (in decibels)
 ///
+/// @param nextPixelRange level that corresponds to exactly one pixel
+///        on the next segment (in decibels)
+///
 /// @param isTopmost if set to **true**, the segment has no upper
 ///        level threshold
 ///
@@ -66,7 +71,10 @@ MeterSegmentContinuous::MeterSegmentContinuous()
 ///         creating continuous meters)
 ///
 float MeterSegmentContinuous::setThresholdAndRange(
-    float lowerThreshold, float thresholdRange, bool isTopmost)
+    float lowerThreshold,
+    float thresholdRange,
+    float nextPixelRange,
+    bool isTopmost)
 
 {
     // set lower level threshold (in decibels)
@@ -77,6 +85,10 @@ float MeterSegmentContinuous::setThresholdAndRange(
 
     // set upper level threshold (in decibels)
     upperThreshold_ = lowerThreshold_ + thresholdRange_;
+
+    // set threshold that corresponds to exactly one pixel on the next
+    // segment (in decibels)
+    nextPixelThreshold_ = upperThreshold_ + nextPixelRange;
 
     // is there a meter segment beyond this?
     isTopmost_ = isTopmost;
@@ -254,6 +266,7 @@ void MeterSegmentContinuous::drawBar(
 
 
 /// Draw a level marker (i. e. a line) using the specified colour.
+/// The marker has a height/width of 2 pixels.
 ///
 /// @param g graphics context
 ///
@@ -291,7 +304,14 @@ void MeterSegmentContinuous::drawMarker(
         // initialise drawing points
         pos_1 = math::SimpleMath::roundDown((maximumY_ + 1) * levelPosition);
 
-        if (pos_1 > maximumY_)
+        // level overlaps into the next segment, so we have to draw
+        // the remaining marker in this segment
+        if (levelPosition > 1.0f)
+        {
+            pos_1 = maximumY_ + 1;
+        }
+        // otherwise, limit marker position to this segment
+        else if (pos_1 > maximumY_)
         {
             pos_1 = maximumY_;
         }
@@ -301,11 +321,11 @@ void MeterSegmentContinuous::drawMarker(
         // set line colour
         g.setColour(markerColour);
 
-        // draw marker
+        // draw marker (two pixels high)
         g.drawRect(1,
                    pos_2,
                    maximumX_ - 1,
-                   1);
+                   2);
 
         break;
 
@@ -321,7 +341,14 @@ void MeterSegmentContinuous::drawMarker(
         // initialise drawing points
         pos_1 = math::SimpleMath::roundDown((maximumX_ + 1) * levelPosition);
 
-        if (pos_1 > maximumX_)
+        // level overlaps into the next segment, so we have to draw
+        // the remaining marker in this segment
+        if (levelPosition > 1.0f)
+        {
+            pos_1 = maximumX_ + 1;
+        }
+        // otherwise, limit marker position to this segment
+        else if (pos_1 > maximumX_)
         {
             pos_1 = maximumX_;
         }
@@ -331,10 +358,10 @@ void MeterSegmentContinuous::drawMarker(
         // set line colour
         g.setColour(markerColour);
 
-        // draw marker
+        // draw marker (two pixels wide)
         g.drawRect(pos_2,
                    1,
-                   1,
+                   2,
                    maximumY_ - 1);
 
         break;
@@ -370,6 +397,13 @@ void MeterSegmentContinuous::paint(
     if (discretePeakPosition_ >= 0.0f)
     {
         drawMarker(g, peakMarkerColour_, discretePeakPosition_);
+    }
+
+    // attenuate colours if segment is disabled
+    if (!isEnabled())
+    {
+        g.setColour(attenuatedColour_);
+        g.fillAll();
     }
 }
 
@@ -435,10 +469,14 @@ float MeterSegmentContinuous::calculateLevelPosition(
             // draw level marker!
             levelPosition = 1.0f;
         }
-        // otherwise
+        // level overlaps into the next segment
+        else if (level < nextPixelThreshold_)
+        {
+            levelPosition = 2.0f;
+        }
+        // otherwise, hide level marker!
         else
         {
-            // hide level marker!
             levelPosition = -1.0f;
         }
     }

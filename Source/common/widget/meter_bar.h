@@ -53,6 +53,7 @@ public:
 
     virtual void addContinuousSegment(float lowerThreshold,
                                       float thresholdRange,
+                                      float nextPixelRange,
                                       bool isTopmost,
                                       int segmentHeight,
                                       int spacingBefore,

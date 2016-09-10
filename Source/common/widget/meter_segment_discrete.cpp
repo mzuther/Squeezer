@@ -57,7 +57,9 @@
 /// > segment's peak marker is lit when any level peak reaches or
 /// > exceeds the lower threshold.
 ///
-MeterSegmentDiscrete::MeterSegmentDiscrete()
+MeterSegmentDiscrete::MeterSegmentDiscrete() :
+    attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+
 {
     // initialise segment's brightness modifier
     segmentBrightnessModifier_ = 0.0f;
@@ -176,6 +178,13 @@ void MeterSegmentDiscrete::paint(
     {
         g.setColour(peakMarkerColour_);
         g.drawRect(0, 0, width, height);
+    }
+
+    // attenuate colours if segment is disabled
+    if (!isEnabled())
+    {
+        g.setColour(attenuatedColour_);
+        g.fillAll();
     }
 }
 

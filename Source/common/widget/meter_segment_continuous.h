@@ -42,6 +42,7 @@ public:
 
     virtual float setThresholdAndRange(float lowerThreshold,
                                        float thresholdRange,
+                                       float nextPixelRange,
                                        bool isTopmost);
 
     virtual void setColours(const Colour &segmentColour,
@@ -70,10 +71,12 @@ protected:
     float lowerThreshold_;
     float upperThreshold_;
     float thresholdRange_;
+    float nextPixelThreshold_;
 
     Colour segmentColour_;
     Colour backgroundColour_;
     Colour peakMarkerColour_;
+    Colour attenuatedColour_;
 
     int maximumX_;
     int maximumY_;
