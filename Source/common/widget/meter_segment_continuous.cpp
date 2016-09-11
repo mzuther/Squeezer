@@ -87,8 +87,9 @@ float MeterSegmentContinuous::setThresholdAndRange(
     upperThreshold_ = lowerThreshold_ + thresholdRange_;
 
     // set threshold that corresponds to exactly one pixel on the next
-    // segment (in decibels)
-    nextPixelThreshold_ = upperThreshold_ + nextPixelRange;
+    // segment (in decibels); "nextPixelRange" has to be halfed
+    // because of rounding in the drawing routines!
+    nextPixelThreshold_ = upperThreshold_ + (nextPixelRange / 2.0f);
 
     // is there a meter segment beyond this?
     isTopmost_ = isTopmost;
@@ -302,7 +303,7 @@ void MeterSegmentContinuous::drawMarker(
     case widget::Orientation::vertical:
 
         // initialise drawing points
-        pos_1 = math::SimpleMath::roundDown((maximumY_ + 1) * levelPosition);
+        pos_1 = math::SimpleMath::round(maximumY_ * levelPosition);
 
         // level overlaps into the next segment, so we have to draw
         // the remaining marker in this segment
@@ -339,7 +340,7 @@ void MeterSegmentContinuous::drawMarker(
     case widget::Orientation::horizontalInverted:
 
         // initialise drawing points
-        pos_1 = math::SimpleMath::roundDown((maximumX_ + 1) * levelPosition);
+        pos_1 = math::SimpleMath::round(maximumX_ * levelPosition);
 
         // level overlaps into the next segment, so we have to draw
         // the remaining marker in this segment
