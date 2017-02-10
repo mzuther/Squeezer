@@ -229,8 +229,8 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         if (pCompressor)
         {
-            int nAttackRate = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setAttackRate(nAttackRate);
+            float fAttackRate = pluginParameters.getRealFloat(nIndex);
+            pCompressor->setAttackRate(fAttackRate);
         }
 
         break;
@@ -655,7 +655,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fRatio = pluginParameters.getRealFloat(SqueezerPluginParameters::selRatio);
     float fKneeWidth = pluginParameters.getRealFloat(SqueezerPluginParameters::selKneeWidth);
 
-    int nAttackRate = pluginParameters.getRealInteger(SqueezerPluginParameters::selAttackRate);
+    float fAttackRate = pluginParameters.getRealFloat(SqueezerPluginParameters::selAttackRate);
     int nReleaseRate = pluginParameters.getRealInteger(SqueezerPluginParameters::selReleaseRate);
 
     bool bAutoMakeupGain = pluginParameters.getBoolean(SqueezerPluginParameters::selAutoMakeupGain);
@@ -679,7 +679,7 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setRatio(fRatio);
     pCompressor->setKneeWidth(fKneeWidth);
 
-    pCompressor->setAttackRate(nAttackRate);
+    pCompressor->setAttackRate(fAttackRate);
     pCompressor->setReleaseRate(nReleaseRate);
 
     pCompressor->setAutoMakeupGain(bAutoMakeupGain);

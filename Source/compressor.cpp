@@ -285,10 +285,10 @@ void Compressor::setKneeWidth(double KneeWidthNew)
 }
 
 
-int Compressor::getAttackRate()
+double Compressor::getAttackRate()
 /*  Get current attack rate.
 
-    return value (integer): returns the current attack rate in
+    return value (double): returns the current attack rate in
     milliseconds
  */
 {
@@ -296,10 +296,10 @@ int Compressor::getAttackRate()
 }
 
 
-void Compressor::setAttackRate(int AttackRateNew)
+void Compressor::setAttackRate(double AttackRateNew)
 /*  Set new attack rate.
 
-    AttackRateNew (integer): new attack rate in milliseconds
+    AttackRateNew (double): new attack rate in milliseconds
 
     return value: none
  */

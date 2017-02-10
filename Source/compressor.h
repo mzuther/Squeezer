@@ -86,8 +86,8 @@ public:
     double getKneeWidth();
     void setKneeWidth(double KneeWidthNew);
 
-    int getAttackRate();
-    void setAttackRate(int AttackRateNew);
+    double getAttackRate();
+    void setAttackRate(double AttackRateNew);
 
     int getReleaseRate();
     void setReleaseRate(int ReleaseRateNew);

@@ -165,7 +165,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterRatio->addPreset(10.00f,  "10:1");
 
     ParameterRatio->setSuffix(":1");
-    ParameterRatio->setDefaultRealFloat(2.0f, true);
+    ParameterRatio->setDefaultRealFloat(3.0f, true);
     addCombined(ParameterRatio, selRatioSwitch, selRatio);
 
 
@@ -181,28 +181,33 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterKneeWidth, selKneeWidth);
 
 
-    realMinimum = 0.0f;
+    realMinimum = 0.02f;
     realMaximum = 500.0f;
     stepSize = 1.0f;
-    scalingFactor = 2.0f;
-    decimalPlaces = 0;
+    scalingFactor = 4.3f;
+    decimalPlaces = 2;
 
     frut::parameter::ParCombined *ParameterAttackRate =
         new frut::parameter::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterAttackRate->setName("Attack Rate");
 
-    ParameterAttackRate->addPreset(1.0f,     "1 ms");
-    ParameterAttackRate->addPreset(2.0f,     "2 ms");
-    ParameterAttackRate->addPreset(5.0f,     "5 ms");
-    ParameterAttackRate->addPreset(10.0f,   "10 ms");
-    ParameterAttackRate->addPreset(20.0f,   "20 ms");
-    ParameterAttackRate->addPreset(50.0f,   "50 ms");
-    ParameterAttackRate->addPreset(100.0f, "100 ms");
-    ParameterAttackRate->addPreset(200.0f, "200 ms");
-    ParameterAttackRate->addPreset(500.0f, "500 ms");
+    ParameterAttackRate->addPreset(0.02f,    L"20 µs");
+    ParameterAttackRate->addPreset(0.05f,    L"50 µs");
+    ParameterAttackRate->addPreset(0.10f,   L"100 µs");
+    ParameterAttackRate->addPreset(0.20f,   L"200 µs");
+    ParameterAttackRate->addPreset(0.50f,   L"500 µs");
+    ParameterAttackRate->addPreset(1.0f,      L"1 ms");
+    ParameterAttackRate->addPreset(2.0f,      L"2 ms");
+    ParameterAttackRate->addPreset(5.0f,      L"5 ms");
+    ParameterAttackRate->addPreset(10.0f,    L"10 ms");
+    ParameterAttackRate->addPreset(20.0f,    L"20 ms");
+    ParameterAttackRate->addPreset(50.0f,    L"50 ms");
+    ParameterAttackRate->addPreset(100.0f,  L"100 ms");
+    ParameterAttackRate->addPreset(200.0f,  L"200 ms");
+    ParameterAttackRate->addPreset(500.0f,  L"500 ms");
 
     ParameterAttackRate->setSuffix(" ms");
-    ParameterAttackRate->setDefaultRealFloat(20.0f, true);
+    ParameterAttackRate->setDefaultRealFloat(10.0f, true);
     addCombined(ParameterAttackRate, selAttackRateSwitch, selAttackRate);
 
 
@@ -234,7 +239,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterReleaseRate->addPreset(8000.0f, "8.0 s");
 
     ParameterReleaseRate->setSuffix(" ms");
-    ParameterReleaseRate->setDefaultRealFloat(150.0f, true);
+    ParameterReleaseRate->setDefaultRealFloat(75.0f, true);
     addCombined(ParameterReleaseRate, selReleaseRateSwitch, selReleaseRate);
 
 

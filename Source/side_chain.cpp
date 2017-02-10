@@ -46,7 +46,7 @@ SideChain::SideChain(int nSampleRate) :
     nDetectorType = Compressor::DetectorSmoothBranching;
     nGainStageType = Compressor::GainStageFET;
 
-    setAttackRate(10);
+    setAttackRate(10.0);
     setReleaseRate(100);
     setDetector(nDetectorType);
     setGainStage(nGainStageType);
@@ -136,7 +136,7 @@ void SideChain::setDetector(int nDetectorTypeNew)
     nDetectorType = nDetectorTypeNew;
     dGainReductionIntermediate = 0.0;
 
-    setAttackRate(nAttackRate);
+    setAttackRate(dAttackRate);
     setReleaseRate(nReleaseRate);
 }
 
@@ -247,34 +247,34 @@ void SideChain::setKneeWidth(double dKneeWidthNew)
 }
 
 
-int SideChain::getAttackRate()
+double SideChain::getAttackRate()
 /*  Get current attack rate.
 
-    return value (integer): returns the current attack rate in
+    return value (double): returns the current attack rate in
     milliseconds
  */
 {
-    return nAttackRate;
+    return dAttackRate;
 }
 
 
-void SideChain::setAttackRate(int nAttackRateNew)
+void SideChain::setAttackRate(double dAttackRateNew)
 /*  Set new attack rate.
 
-    nAttackRateNew (integer): new attack rate in milliseconds
+    dAttackRateNew (double): new attack rate in milliseconds
 
     return value: none
  */
 {
-    nAttackRate = nAttackRateNew;
+    dAttackRate = dAttackRateNew;
 
-    if (nAttackRate == 0)
+    if (dAttackRate == 0.0)
     {
         dAttackCoefficient = 0.0;
     }
     else
     {
-        double dAttackRateSeconds = nAttackRate / 1000.0;
+        double dAttackRateSeconds = dAttackRate / 1000.0;
 
         // logarithmic envelope reaches 90% of the final reading in
         // the given attack time

@@ -63,8 +63,8 @@ public:
     double getKneeWidth();
     void setKneeWidth(double dKneeWidthNew);
 
-    int getAttackRate();
-    void setAttackRate(int nAttackRateNew);
+    double getAttackRate();
+    void setAttackRate(double dAttackRateNew);
 
     int getReleaseRate();
     void setReleaseRate(int nReleaseRateNew);
@@ -108,7 +108,7 @@ private:
     double dKneeWidthHalf;
     double dKneeWidthDouble;
 
-    int nAttackRate;
+    double dAttackRate;
     double dAttackCoefficient;
 
     int nReleaseRate;
