@@ -69,151 +69,151 @@ public:
     void resetMeters();
 
     bool getBypass();
-    void setBypass(bool bBypassCompressorNew);
+    void setBypass(bool CompressorIsBypassedNew);
 
     double getDetectorRmsFilter();
-    void setDetectorRmsFilter(double dDetectorRateMilliSecondsNew);
+    void setDetectorRmsFilter(double DetectorRateMilliSecondsNew);
 
     int getDesign();
-    void setDesign(int nDesignNew);
+    void setDesign(int CompressorDesignNew);
 
     double getThreshold();
-    void setThreshold(double dThresholdNew);
+    void setThreshold(double ThresholdNew);
 
     double getRatio();
-    void setRatio(double dRatioNew);
+    void setRatio(double RatioNew);
 
     double getKneeWidth();
-    void setKneeWidth(double dKneeWidthNew);
+    void setKneeWidth(double KneeWidthNew);
 
     int getAttackRate();
-    void setAttackRate(int nAttackRateNew);
+    void setAttackRate(int AttackRateNew);
 
     int getReleaseRate();
-    void setReleaseRate(int nReleaseRateNew);
+    void setReleaseRate(int ReleaseRateNew);
 
     int getDetector();
-    void setDetector(int nDetectorTypeNew);
+    void setDetector(int DetectorTypeNew);
 
     int getGainStage();
-    void setGainStage(int nGainStageTypeNew);
+    void setGainStage(int GainStageTypeNew);
 
     int getStereoLink();
-    void setStereoLink(int nStereoLinkNew);
+    void setStereoLink(int StereoLinkPercentageNew);
 
     bool getAutoMakeupGain();
-    void setAutoMakeupGain(bool bAutoMakeupGainNew);
+    void setAutoMakeupGain(bool UseAutoMakeupGainNew);
 
     double getMakeupGain();
-    void setMakeupGain(double dMakeupGainNew);
+    void setMakeupGain(double MakeupGainNew);
 
     int getWetMix();
-    void setWetMix(int nWetMixNew);
+    void setWetMix(int WetMixPercentageNew);
 
     bool getSidechainFilterState();
-    void setSidechainFilterState(bool bSidechainFilterStateNew);
+    void setSidechainFilterState(bool EnableSidechainFilterNew);
 
     int getSidechainFilterCutoff();
-    void setSidechainFilterCutoff(int nSidechainFilterCutoff);
+    void setSidechainFilterCutoff(int SidechainFilterCutoff);
 
     double getSidechainFilterGain();
-    void setSidechainFilterGain(double dSidechainFilterGain);
+    void setSidechainFilterGain(double SidechainFilterGain);
 
     bool getSidechainListen();
-    void setSidechainListen(bool bSidechainListenNew);
+    void setSidechainListen(bool ListenToSidechainNew);
 
-    double getGainReduction(int nChannel);
-    double getGainReductionPeak(int nChannel);
+    double getGainReduction(int CurrentChannel);
+    double getGainReductionPeak(int CurrentChannel);
 
-    double getPeakMeterInputLevel(int nChannel);
-    double getPeakMeterOutputLevel(int nChannel);
+    double getPeakMeterInputLevel(int CurrentChannel);
+    double getPeakMeterOutputLevel(int CurrentChannel);
 
-    double getPeakMeterPeakInputLevel(int nChannel);
-    double getPeakMeterPeakOutputLevel(int nChannel);
+    double getPeakMeterPeakInputLevel(int CurrentChannel);
+    double getPeakMeterPeakOutputLevel(int CurrentChannel);
 
-    double getMaximumInputLevel(int nChannel);
-    double getMaximumOutputLevel(int nChannel);
+    double getMaximumInputLevel(int CurrentChannel);
+    double getMaximumOutputLevel(int CurrentChannel);
 
-    double getAverageMeterInputLevel(int nChannel);
-    double getAverageMeterOutputLevel(int nChannel);
+    double getAverageMeterInputLevel(int CurrentChannel);
+    double getAverageMeterOutputLevel(int CurrentChannel);
 
     void processBlock(AudioBuffer<float> &buffer);
 
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
-    const float fAntiDenormal;
-    const double dAntiDenormal;
-    const double dBufferLength;
+    const float AntiDenormalFloat;
+    const double AntiDenormalDouble;
+    const double BufferLength;
 
     void updateMeterBallistics();
-    void PeakMeterBallistics(double dPeakLevelCurrent, double &dPeakLevelOld, double &dPeakMarkOld, double &dPeakHoldTime);
-    void AverageMeterBallistics(double dAverageLevelCurrent, double &dAverageLevelOld);
-    void GainReductionMeterPeakBallistics(double dGainReductionPeakCurrent, double &dGainReductionPeakOld, double &dGainReductionHoldTime);
-    void LogMeterBallistics(double dMeterInertia, double dTimePassed, double dLevel, double &dReadout);
+    void peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelOld, double &PeakMarkOld, double &PeakHoldTime);
+    void averageMeterBallistics(double AverageLevelCurrent, double &AverageLevelOld);
+    void gainReductionMeterPeakBallistics(double GainReductionPeakCurrent, double &GainReductionPeakOld, double &GainReductionHoldTime);
+    void logMeterBallistics(double MeterInertia, double TimePassed, double Level, double &Readout);
 
-    int nChannels;
-    int nSampleRate;
-    int nMeterBufferPosition;
-    int nMeterBufferSize;
+    int NumberOfChannels;
+    int SampleRate;
+    int MeterBufferPosition;
+    int MeterBufferSize;
 
     AudioBuffer<float> MeterInputBuffer;
     AudioBuffer<float> MeterOutputBuffer;
 
-    frut::audio::Dither dither;
-    OwnedArray<SideChain> p_arrSideChain;
-    OwnedArray<FilterChebyshev> p_arrSidechainFilter;
+    frut::audio::Dither Dither;
+    OwnedArray<SideChain> SideChainProcessor;
+    OwnedArray<FilterChebyshev> SidechainFilter;
 
-    Array<double> arrInputSamples;
-    Array<double> arrSidechainSamples;
-    Array<double> arrOutputSamples;
+    Array<double> InputSamples;
+    Array<double> SidechainSamples;
+    Array<double> OutputSamples;
 
-    Array<double> arrPeakMeterInputLevels;
-    Array<double> arrPeakMeterOutputLevels;
+    Array<double> PeakMeterInputLevels;
+    Array<double> PeakMeterOutputLevels;
 
-    Array<double> arrPeakMeterPeakInputLevels;
-    Array<double> arrPeakMeterPeakOutputLevels;
+    Array<double> PeakMeterPeakInputLevels;
+    Array<double> PeakMeterPeakOutputLevels;
 
-    Array<double> arrMaximumInputLevels;
-    Array<double> arrMaximumOutputLevels;
+    Array<double> MaximumInputLevels;
+    Array<double> MaximumOutputLevels;
 
-    Array<double> arrAverageMeterInputLevels;
-    Array<double> arrAverageMeterOutputLevels;
+    Array<double> AverageMeterInputLevels;
+    Array<double> AverageMeterOutputLevels;
 
-    Array<double> arrGainReduction;
-    Array<double> arrGainReductionPeak;
+    Array<double> GainReduction;
+    Array<double> GainReductionPeak;
 
-    Array<double> arrPeakMeterPeakInputHoldTime;
-    Array<double> arrPeakMeterPeakOutputHoldTime;
-    Array<double> arrGainReductionHoldTime;
+    Array<double> PeakMeterPeakInputHoldTime;
+    Array<double> PeakMeterPeakOutputHoldTime;
+    Array<double> GainReductionHoldTime;
 
-    double dCrestFactor;
-    int nDesign;
+    double CrestFactor;
+    int CompressorDesign;
 
-    double dReleaseCoefLinear;
+    double ReleaseCoefLinear;
 
-    bool bBypassCompressor;
-    bool bBypassCompressorCombined;
-    bool bDesignFeedForward;
-    bool bUpwardExpansion;
+    bool CompressorIsBypassed;
+    bool CompressorIsBypassedCombined;
+    bool DesignIsFeedForward;
+    bool UseUpwardExpansion;
 
-    int nStereoLink;
-    double dStereoLinkOriginal;
-    double dStereoLinkOther;
+    int StereoLinkPercentage;
+    double StereoLinkWeight;
+    double StereoLinkWeightOther;
 
-    bool bAutoMakeupGain;
-    double dMakeupGain;
-    double dMakeupGainDecibel;
+    bool UseAutoMakeupGain;
+    double MakeupGain;
+    double MakeupGainDecibel;
 
-    int nWetMix;
-    double dWetMix;
-    double dDryMix;
+    int WetMixPercentage;
+    double WetMix;
+    double DryMix;
 
-    bool bSidechainFilterState;
-    int nSidechainFilterCutoff;
-    double dSidechainFilterGain;
-    double dGainNormalise;
-    bool bSidechainListen;
+    bool EnableSidechainFilter;
+    int SidechainFilterCutoff;
+    double SidechainFilterGain;
+    double SidechainFilterGainReal;
+    bool ListenToSidechain;
 };
 
 #endif  // __COMPRESSOR_H__

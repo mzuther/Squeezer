@@ -30,30 +30,30 @@
 
 Compressor::Compressor(int channels, int sample_rate) :
     // the meter's sample buffer holds 50 ms worth of samples
-    fAntiDenormal(FLT_MIN),
-    dAntiDenormal(DBL_MIN),
-    dBufferLength(0.050),
-    nChannels(channels),
-    nSampleRate(sample_rate),
-    nMeterBufferSize((int)(nSampleRate * dBufferLength)),
-    MeterInputBuffer(channels, nMeterBufferSize),
-    MeterOutputBuffer(channels, nMeterBufferSize),
-    dither(24)
+    AntiDenormalFloat(FLT_MIN),
+    AntiDenormalDouble(DBL_MIN),
+    BufferLength(0.050),
+    NumberOfChannels(channels),
+    SampleRate(sample_rate),
+    MeterBufferSize((int)(SampleRate * BufferLength)),
+    MeterInputBuffer(NumberOfChannels, MeterBufferSize),
+    MeterOutputBuffer(NumberOfChannels, MeterBufferSize),
+    Dither(24)
 {
-    jassert((channels == 1) || (channels == 2));
+    jassert((NumberOfChannels == 1) || (NumberOfChannels == 2));
 
-    dCrestFactor = 20.0;
-    bUpwardExpansion = false;
+    CrestFactor = 20.0;
+    UseUpwardExpansion = false;
 
     // fall time: 26 dB in 3 seconds (linear)
-    dReleaseCoefLinear = 26.0 * dBufferLength / 3.0;
+    ReleaseCoefLinear = 26.0 * BufferLength / 3.0;
 
-    nMeterBufferPosition = 0;
+    MeterBufferPosition = 0;
 
     // reset meter and set up array members
     resetMeters();
 
-    nWetMix = 100;
+    WetMixPercentage = 100;
     setBypass(false);
     setDesign(Compressor::DesignFeedForward);
 
@@ -63,16 +63,16 @@ Compressor::Compressor(int channels, int sample_rate) :
     setMakeupGain(0.0);
     setWetMix(100);
 
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain.add(new SideChain(nSampleRate));
+        SideChainProcessor.add(new SideChain(SampleRate));
 
-        arrInputSamples.add(0.0);
-        arrSidechainSamples.add(0.0);
-        arrOutputSamples.add(0.0);
+        InputSamples.add(0.0);
+        SidechainSamples.add(0.0);
+        OutputSamples.add(0.0);
 
         // initialise side-chain filter (HPF, 0.5% ripple, 6 poles)
-        p_arrSidechainFilter.add(new FilterChebyshev(0.001, true, 0.5, 6));
+        SidechainFilter.add(new FilterChebyshev(0.001, true, 0.5, 6));
     }
 
     // disable side-chain filter
@@ -85,35 +85,35 @@ Compressor::Compressor(int channels, int sample_rate) :
 
 void Compressor::resetMeters()
 {
-    double dMeterMinimumDecibel = -(70.01 + dCrestFactor);
+    double MeterMinimumDecibel = -(70.01 + CrestFactor);
 
     // loop through all audio channels
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
         // set peak meter levels to meter minimum
-        arrPeakMeterInputLevels.set(nChannel, dMeterMinimumDecibel);
-        arrPeakMeterOutputLevels.set(nChannel, dMeterMinimumDecibel);
+        PeakMeterInputLevels.set(CurrentChannel, MeterMinimumDecibel);
+        PeakMeterOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
 
         // set peak meter peak levels to meter minimum
-        arrPeakMeterPeakInputLevels.set(nChannel, dMeterMinimumDecibel);
-        arrPeakMeterPeakOutputLevels.set(nChannel, dMeterMinimumDecibel);
+        PeakMeterPeakInputLevels.set(CurrentChannel, MeterMinimumDecibel);
+        PeakMeterPeakOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
 
         // set maximum meter levels to meter minimum
-        arrMaximumInputLevels.set(nChannel, dMeterMinimumDecibel);
-        arrMaximumOutputLevels.set(nChannel, dMeterMinimumDecibel);
+        MaximumInputLevels.set(CurrentChannel, MeterMinimumDecibel);
+        MaximumOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
 
         // set average meter levels to meter minimum
-        arrAverageMeterInputLevels.set(nChannel, dMeterMinimumDecibel);
-        arrAverageMeterOutputLevels.set(nChannel, dMeterMinimumDecibel);
+        AverageMeterInputLevels.set(CurrentChannel, MeterMinimumDecibel);
+        AverageMeterOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
 
         // set gain reduction meter to meter minimum
-        arrGainReduction.set(nChannel, dMeterMinimumDecibel);
-        arrGainReductionPeak.set(nChannel, dMeterMinimumDecibel);
+        GainReduction.set(CurrentChannel, MeterMinimumDecibel);
+        GainReductionPeak.set(CurrentChannel, MeterMinimumDecibel);
 
         // reset variables for meter hold feature
-        arrPeakMeterPeakInputHoldTime.set(nChannel, 0.0);
-        arrPeakMeterPeakOutputHoldTime.set(nChannel, 0.0);
-        arrGainReductionHoldTime.set(nChannel, 0.0);
+        PeakMeterPeakInputHoldTime.set(CurrentChannel, 0.0);
+        PeakMeterPeakOutputHoldTime.set(CurrentChannel, 0.0);
+        GainReductionHoldTime.set(CurrentChannel, 0.0);
     }
 }
 
@@ -124,20 +124,20 @@ bool Compressor::getBypass()
     return value (boolean): returns current bypass state
  */
 {
-    return bBypassCompressor;
+    return CompressorIsBypassed;
 }
 
 
-void Compressor::setBypass(bool bBypassCompressorNew)
+void Compressor::setBypass(bool CompressorIsBypassedNew)
 /*  Set new bypass state.
 
-    bBypassCompressorNew (boolean): new bypass state
+    CompressorIsBypassedNew (boolean): new bypass state
 
     return value: none
  */
 {
-    bBypassCompressor = bBypassCompressorNew;
-    bBypassCompressorCombined = (bBypassCompressor || (nWetMix == 0));
+    CompressorIsBypassed = CompressorIsBypassedNew;
+    CompressorIsBypassedCombined = (CompressorIsBypassed || (WetMixPercentage == 0));
 }
 
 
@@ -148,21 +148,21 @@ double Compressor::getDetectorRmsFilter()
     rate
 */
 {
-    return p_arrSideChain[0]->getDetectorRmsFilter();
+    return SideChainProcessor[0]->getDetectorRmsFilter();
 }
 
 
-void Compressor::setDetectorRmsFilter(double dDetectorRateMilliSecondsNew)
+void Compressor::setDetectorRmsFilter(double DetectorRateMilliSecondsNew)
 /*  Set new detector RMS filter rate.
 
-    dDetectorRateMilliSecondsNew (double): new detector RMS filter rate
+    DetectorRateMilliSecondsNew (double): new detector RMS filter rate
 
     return value: none
 */
 {
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setDetectorRmsFilter(dDetectorRateMilliSecondsNew);
+        SideChainProcessor[CurrentChannel]->setDetectorRmsFilter(DetectorRateMilliSecondsNew);
     }
 }
 
@@ -173,20 +173,20 @@ int Compressor::getDesign()
     return value (integer): returns the current compressor design
  */
 {
-    return nDesign;
+    return CompressorDesign;
 }
 
 
-void Compressor::setDesign(int nDesignNew)
+void Compressor::setDesign(int CompressorDesignNew)
 /*  Set new compressor design.
 
-    nDesignNew (integer): new compressor design
+    CompressorDesignNew (integer): new compressor design
 
     return value: none
  */
 {
-    nDesign = nDesignNew;
-    bDesignFeedForward = (nDesign == Compressor::DesignFeedForward);
+    CompressorDesign = CompressorDesignNew;
+    DesignIsFeedForward = (CompressorDesign == Compressor::DesignFeedForward);
 }
 
 
@@ -196,21 +196,21 @@ double Compressor::getThreshold()
     return value (double): returns the current threshold in decibels
  */
 {
-    return p_arrSideChain[0]->getThreshold();
+    return SideChainProcessor[0]->getThreshold();
 }
 
 
-void Compressor::setThreshold(double dThresholdNew)
+void Compressor::setThreshold(double ThresholdNew)
 /*  Set new threshold.
 
-    dThresholdNew (double): new threshold in decibels
+    ThresholdNew (double): new threshold in decibels
 
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setThreshold(dThresholdNew);
+        SideChainProcessor[CurrentChannel]->setThreshold(ThresholdNew);
     }
 }
 
@@ -221,40 +221,40 @@ double Compressor::getRatio()
     return value (double): returns the current compression ratio
  */
 {
-    double dRatioNew = p_arrSideChain[0]->getRatio();
+    double RatioNew = SideChainProcessor[0]->getRatio();
 
-    if (bUpwardExpansion)
+    if (UseUpwardExpansion)
     {
-        return 1.0 / dRatioNew;
+        return 1.0 / RatioNew;
     }
     else
     {
-        return dRatioNew;
+        return RatioNew;
     }
 }
 
 
-void Compressor::setRatio(double dRatioNew)
+void Compressor::setRatio(double RatioNew)
 /*  Set new compression ratio.
 
-    dRatioNew (double): new compression ratio
+    RatioNew (double): new compression ratio
 
     return value: none
  */
 {
-    if (dRatioNew < 1.0)
+    if (RatioNew < 1.0)
     {
-        bUpwardExpansion = true;
-        dRatioNew = 1.0 / dRatioNew;
+        UseUpwardExpansion = true;
+        RatioNew = 1.0 / RatioNew;
     }
     else
     {
-        bUpwardExpansion = false;
+        UseUpwardExpansion = false;
     }
 
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setRatio(dRatioNew);
+        SideChainProcessor[CurrentChannel]->setRatio(RatioNew);
     }
 }
 
@@ -265,21 +265,21 @@ double Compressor::getKneeWidth()
     return value (double): returns the current knee width in decibels
  */
 {
-    return p_arrSideChain[0]->getKneeWidth();
+    return SideChainProcessor[0]->getKneeWidth();
 }
 
 
-void Compressor::setKneeWidth(double dKneeWidthNew)
+void Compressor::setKneeWidth(double KneeWidthNew)
 /*  Set new knee width.
 
-    dKneeWidthNew (double): new knee width in decibels
+    KneeWidthNew (double): new knee width in decibels
 
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setKneeWidth(dKneeWidthNew);
+        SideChainProcessor[CurrentChannel]->setKneeWidth(KneeWidthNew);
     }
 
 }
@@ -292,21 +292,21 @@ int Compressor::getAttackRate()
     milliseconds
  */
 {
-    return p_arrSideChain[0]->getAttackRate();
+    return SideChainProcessor[0]->getAttackRate();
 }
 
 
-void Compressor::setAttackRate(int nAttackRateNew)
+void Compressor::setAttackRate(int AttackRateNew)
 /*  Set new attack rate.
 
-    nAttackRateNew (integer): new attack rate in milliseconds
+    AttackRateNew (integer): new attack rate in milliseconds
 
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setAttackRate(nAttackRateNew);
+        SideChainProcessor[CurrentChannel]->setAttackRate(AttackRateNew);
     }
 }
 
@@ -318,21 +318,21 @@ int Compressor::getReleaseRate()
     milliseconds
  */
 {
-    return p_arrSideChain[0]->getReleaseRate();
+    return SideChainProcessor[0]->getReleaseRate();
 }
 
 
-void Compressor::setReleaseRate(int nReleaseRateNew)
+void Compressor::setReleaseRate(int ReleaseRateNew)
 /*  Set new release rate.
 
-    nReleaseRateNew (integer): new release rate in milliseconds
+    ReleaseRateNew (integer): new release rate in milliseconds
 
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setReleaseRate(nReleaseRateNew);
+        SideChainProcessor[CurrentChannel]->setReleaseRate(ReleaseRateNew);
     }
 }
 
@@ -343,21 +343,21 @@ int Compressor::getDetector()
     return value (integer): returns compressor detector type
  */
 {
-    return p_arrSideChain[0]->getDetector();
+    return SideChainProcessor[0]->getDetector();
 }
 
 
-void Compressor::setDetector(int nDetectorTypeNew)
+void Compressor::setDetector(int DetectorTypeNew)
 /*  Set new compressor detector type.
 
-    nDetectorTypeNew (integer): new compressor detector type
+    DetectorTypeNew (integer): new compressor detector type
 
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setDetector(nDetectorTypeNew);
+        SideChainProcessor[CurrentChannel]->setDetector(DetectorTypeNew);
     }
 }
 
@@ -368,21 +368,21 @@ int Compressor::getGainStage()
     return value (integer): returns compressor detector type
  */
 {
-    return p_arrSideChain[0]->getGainStage();
+    return SideChainProcessor[0]->getGainStage();
 }
 
 
-void Compressor::setGainStage(int nGainStageTypeNew)
+void Compressor::setGainStage(int GainStageTypeNew)
 /*  Set new compressor gain stage type.
 
-    nGainStageTypeNew (integer): new compressor gain stage type
+    GainStageTypeNew (integer): new compressor gain stage type
 
     return value: none
  */
 {
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSideChain[nChannel]->setGainStage(nGainStageTypeNew);
+        SideChainProcessor[CurrentChannel]->setGainStage(GainStageTypeNew);
     }
 }
 
@@ -394,27 +394,27 @@ int Compressor::getStereoLink()
     (0 to 100)
  */
 {
-    return nStereoLink;
+    return StereoLinkPercentage;
 }
 
 
-void Compressor::setStereoLink(int nStereoLinkNew)
+void Compressor::setStereoLink(int StereoLinkPercentageNew)
 /*  Set new stereo link percentage.
 
-    nStereoLinkNew (integer): new stereo link percentage (0 to 100)
+    StereoLinkPercentageNew (integer): new stereo link percentage (0 to 100)
 
     return value: none
  */
 {
-    nStereoLink = nStereoLinkNew;
+    StereoLinkPercentage = StereoLinkPercentageNew;
 
     // amplification factor for other channel ranging from 0.0 (no
     // stereo linking) to 0.5 (full stereo linking)
-    dStereoLinkOther = nStereoLink / 200.0;
+    StereoLinkWeightOther = StereoLinkPercentage / 200.0;
 
     // amplification factor for original channel ranging from 1.0 (no
     // stereo linking) to 0.5 (full stereo linking)
-    dStereoLinkOriginal = 1.0 - dStereoLinkOther;
+    StereoLinkWeight = 1.0 - StereoLinkWeightOther;
 }
 
 
@@ -424,19 +424,19 @@ bool Compressor::getAutoMakeupGain()
     return value (boolean): returns current auto make-up gain state
  */
 {
-    return bAutoMakeupGain;
+    return UseAutoMakeupGain;
 }
 
 
-void Compressor::setAutoMakeupGain(bool bAutoMakeupGainNew)
+void Compressor::setAutoMakeupGain(bool UseAutoMakeupGainNew)
 /*  Set new auto make-up gain state.
 
-    bAutoMakeupGainNew (boolean): new auto make-up gain state
+    UseAutoMakeupGainNew (boolean): new auto make-up gain state
 
     return value: none
  */
 {
-    bAutoMakeupGain = bAutoMakeupGainNew;
+    UseAutoMakeupGain = UseAutoMakeupGainNew;
 }
 
 
@@ -446,11 +446,11 @@ double Compressor::getMakeupGain()
     return value (double): returns the current make-up gain in decibels
  */
 {
-    return dMakeupGainDecibel;
+    return MakeupGainDecibel;
 }
 
 
-void Compressor::setMakeupGain(double dMakeupGainNew)
+void Compressor::setMakeupGain(double MakeupGainNew)
 /*  Set new make-up gain.
 
     nMakeupGainNew (double): new make-up gain in decibels
@@ -458,8 +458,8 @@ void Compressor::setMakeupGain(double dMakeupGainNew)
     return value: none
  */
 {
-    dMakeupGainDecibel = dMakeupGainNew;
-    dMakeupGain = SideChain::decibel2level(dMakeupGainDecibel);
+    MakeupGainDecibel = MakeupGainNew;
+    MakeupGain = SideChain::decibel2level(MakeupGainDecibel);
 }
 
 
@@ -470,24 +470,24 @@ int Compressor::getWetMix()
     (0 to 100)
  */
 {
-    return nWetMix;
+    return WetMixPercentage;
 }
 
 
-void Compressor::setWetMix(int nWetMixNew)
+void Compressor::setWetMix(int WetMixPercentageNew)
 /*  Set new wet mix percentage.
 
-    nWetMixNew (integer): new wet mix percentage (0 to 100)
+    WetMixPercentageNew (integer): new wet mix percentage (0 to 100)
 
     return value: none
  */
 {
-    nWetMix = nWetMixNew;
+    WetMixPercentage = WetMixPercentageNew;
 
-    dWetMix = nWetMix / 100.0;
-    dDryMix = 1.0 - dWetMix;
+    WetMix = WetMixPercentage / 100.0;
+    DryMix = 1.0 - WetMix;
 
-    bBypassCompressorCombined = (bBypassCompressor || (nWetMix == 0));
+    CompressorIsBypassedCombined = (CompressorIsBypassed || (WetMixPercentage == 0));
 }
 
 
@@ -497,19 +497,19 @@ bool Compressor::getSidechainFilterState()
     return value (boolean): returns current side-chain filter state
  */
 {
-    return bSidechainFilterState;
+    return EnableSidechainFilter;
 }
 
 
-void Compressor::setSidechainFilterState(bool bSidechainFilterStateNew)
+void Compressor::setSidechainFilterState(bool EnableSidechainFilterNew)
 /*  Set new side-chain filter state.
 
-    bSidechainFilterStateNew (boolean): new side-chain filter state
+    EnableSidechainFilterNew (boolean): new side-chain filter state
 
     return value: none
  */
 {
-    bSidechainFilterState = bSidechainFilterStateNew;
+    EnableSidechainFilter = EnableSidechainFilterNew;
 }
 
 
@@ -520,27 +520,27 @@ int Compressor::getSidechainFilterCutoff()
     Hertz)
  */
 {
-    return nSidechainFilterCutoff;
+    return SidechainFilterCutoff;
 }
 
 
-void Compressor::setSidechainFilterCutoff(int nSidechainFilterCutoffNew)
+void Compressor::setSidechainFilterCutoff(int SidechainFilterCutoffNew)
 /*  Set new side-chain filter cutoff frequency.
 
-    nSidechainFilterCutoff (integer): new side-chain filter cutoff
+    SidechainFilterCutoff (integer): new side-chain filter cutoff
     frequency (in Hertz)
 
     return value: none
  */
 {
-    nSidechainFilterCutoff = nSidechainFilterCutoffNew;
+    SidechainFilterCutoff = SidechainFilterCutoffNew;
 
-    double dRelativeCutoffFrequency = double(nSidechainFilterCutoff) / double(nSampleRate);
-    bool bIsHighpass = (nSidechainFilterCutoff < 2900) ? true : false;
+    double RelativeCutoffFrequency = double(SidechainFilterCutoff) / double(SampleRate);
+    bool IsHighpass = (SidechainFilterCutoff < 2900) ? true : false;
 
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        p_arrSidechainFilter[nChannel]->changeParameters(dRelativeCutoffFrequency, bIsHighpass);
+        SidechainFilter[CurrentChannel]->changeParameters(RelativeCutoffFrequency, IsHighpass);
     }
 }
 
@@ -551,20 +551,20 @@ double Compressor::getSidechainFilterGain()
     return value (double): side-chain filter gain (in decibels)
  */
 {
-    return SideChain::level2decibel(dSidechainFilterGain);
+    return SideChain::level2decibel(SidechainFilterGain);
 }
 
 
-void Compressor::setSidechainFilterGain(double dSidechainFilterGainNew)
+void Compressor::setSidechainFilterGain(double SidechainFilterGainNew)
 /*  Set new side-chain filter gain.
 
-    dSidechainFilterGain (double): new side-chain filter gain (in
+    SidechainFilterGain (double): new side-chain filter gain (in
     decibels)
 
     return value: none
  */
 {
-    dSidechainFilterGain = SideChain::decibel2level(dSidechainFilterGainNew);
+    SidechainFilterGain = SideChain::decibel2level(SidechainFilterGainNew);
 
     // normalise filtered output (the values below were found by
     // sending several hundred samples of 1.0 through a high-pass
@@ -577,7 +577,7 @@ void Compressor::setSidechainFilterGain(double dSidechainFilterGainNew)
     //  8 poles:  22.0697314
     // 10 poles:  79.4259655
     // 12 poles:  295.703923
-    dGainNormalise = dSidechainFilterGain / 6.53854690;
+    SidechainFilterGainReal = SidechainFilterGain / 6.53854690;
 }
 
 
@@ -587,184 +587,184 @@ bool Compressor::getSidechainListen()
     return value (boolean): returns current side-chain listen state
  */
 {
-    return bSidechainListen;
+    return ListenToSidechain;
 }
 
 
-void Compressor::setSidechainListen(bool bSidechainListenNew)
+void Compressor::setSidechainListen(bool ListenToSidechainNew)
 /*  Set new side-chain listen state.
 
-    bSidechainListenNew (boolean): new side-chain listen state
+    ListenToSidechainNew (boolean): new side-chain listen state
 
     return value: none
  */
 {
-    bSidechainListen = bSidechainListenNew;
+    ListenToSidechain = ListenToSidechainNew;
 }
 
 
-double Compressor::getGainReduction(int nChannel)
+double Compressor::getGainReduction(int CurrentChannel)
 /*  Get current gain reduction.
 
-    nChannel (integer): queried audio channel
+    CurrentChannel (integer): queried audio channel
 
     return value (double): returns the current gain reduction in
     decibel
  */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    if (bBypassCompressorCombined)
+    if (CompressorIsBypassedCombined)
     {
         return 0.0;
     }
     else
     {
-        return arrGainReduction[nChannel];
+        return GainReduction[CurrentChannel];
     }
 }
 
 
-double Compressor::getGainReductionPeak(int nChannel)
+double Compressor::getGainReductionPeak(int CurrentChannel)
 /*  Get current peak gain reduction.
 
-    nChannel (integer): queried audio channel
+    CurrentChannel (integer): queried audio channel
 
     return value (double): returns the current peak gain reduction in
     decibel
  */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrGainReductionPeak[nChannel];
+    return GainReductionPeak[CurrentChannel];
 }
 
 
-double Compressor::getPeakMeterInputLevel(int nChannel)
+double Compressor::getPeakMeterInputLevel(int CurrentChannel)
 /*  Get current input peak level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current input peak level in decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrPeakMeterInputLevels[nChannel] + dCrestFactor;
+    return PeakMeterInputLevels[CurrentChannel] + CrestFactor;
 }
 
 
-double Compressor::getPeakMeterOutputLevel(int nChannel)
+double Compressor::getPeakMeterOutputLevel(int CurrentChannel)
 /*  Get current output peak level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current output peak level in decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrPeakMeterOutputLevels[nChannel] + dCrestFactor;
+    return PeakMeterOutputLevels[CurrentChannel] + CrestFactor;
 }
 
 
-double Compressor::getPeakMeterPeakInputLevel(int nChannel)
+double Compressor::getPeakMeterPeakInputLevel(int CurrentChannel)
 /*  Get current input peak meter peak level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current input peak meter peak level
     in decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrPeakMeterPeakInputLevels[nChannel] + dCrestFactor;
+    return PeakMeterPeakInputLevels[CurrentChannel] + CrestFactor;
 }
 
 
-double Compressor::getPeakMeterPeakOutputLevel(int nChannel)
+double Compressor::getPeakMeterPeakOutputLevel(int CurrentChannel)
 /*  Get current output peak meter peak level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current output peak meter peak level
     in decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrPeakMeterPeakOutputLevels[nChannel] + dCrestFactor;
+    return PeakMeterPeakOutputLevels[CurrentChannel] + CrestFactor;
 }
 
 
-double Compressor::getMaximumInputLevel(int nChannel)
+double Compressor::getMaximumInputLevel(int CurrentChannel)
 /*  Get current input maximum level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current input maximum level in
     decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrMaximumInputLevels[nChannel] + dCrestFactor;
+    return MaximumInputLevels[CurrentChannel] + CrestFactor;
 }
 
 
-double Compressor::getMaximumOutputLevel(int nChannel)
+double Compressor::getMaximumOutputLevel(int CurrentChannel)
 /*  Get current output maximum level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current output maximum level in
     decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrMaximumOutputLevels[nChannel] + dCrestFactor;
+    return MaximumOutputLevels[CurrentChannel] + CrestFactor;
 }
 
 
-double Compressor::getAverageMeterInputLevel(int nChannel)
+double Compressor::getAverageMeterInputLevel(int CurrentChannel)
 /*  Get current input average level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current input average level in
     decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrAverageMeterInputLevels[nChannel] + dCrestFactor;
+    return AverageMeterInputLevels[CurrentChannel] + CrestFactor;
 }
 
 
-double Compressor::getAverageMeterOutputLevel(int nChannel)
+double Compressor::getAverageMeterOutputLevel(int CurrentChannel)
 /*  Get current output average level.
 
-    nChannel (integer): selected audio channel
+    CurrentChannel (integer): selected audio channel
 
     return value (double): returns current output average level in
     decibel
 */
 {
-    jassert(nChannel >= 0);
-    jassert(nChannel < nChannels);
+    jassert(CurrentChannel >= 0);
+    jassert(CurrentChannel < NumberOfChannels);
 
-    return arrAverageMeterOutputLevels[nChannel] + dCrestFactor;
+    return AverageMeterOutputLevels[CurrentChannel] + CrestFactor;
 }
 
 
@@ -776,173 +776,218 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
     {
         // get and prepare input samples (all channels have to be
         // prepared before any processing can take place!)
-        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+        for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
             // get current input sample
-            float fInputSample = buffer.getSample(nChannel, nSample);
-            double dInputSample = (double) fInputSample;
+            float InputSampleFloat = buffer.getSample(CurrentChannel, nSample);
+            double InputSample = (double) InputSampleFloat;
 
             // de-normalise input sample
-            fInputSample += fAntiDenormal;
-            dInputSample += dAntiDenormal;
+            InputSampleFloat += AntiDenormalFloat;
+            InputSample += AntiDenormalDouble;
 
             // store de-normalised input sample
-            arrInputSamples.set(nChannel, dInputSample);
+            InputSamples.set(CurrentChannel, InputSample);
 
             // store de-normalised input sample in buffer for input
             // meter
-            MeterInputBuffer.setSample(nChannel, nMeterBufferPosition, fInputSample);
+            MeterInputBuffer.setSample(
+                CurrentChannel, MeterBufferPosition, InputSampleFloat);
         }
 
         // compressor is bypassed (or mix is set to 0 percent)
-        if (bBypassCompressorCombined)
+        if (CompressorIsBypassedCombined)
         {
-            for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
             {
                 // store de-normalised (!) input sample in buffer for
                 // output meter
-                MeterOutputBuffer.copyFrom(nChannel, nMeterBufferPosition, MeterInputBuffer, nChannel, nSample, 1);
+                MeterOutputBuffer.copyFrom(
+                    CurrentChannel, MeterBufferPosition, MeterInputBuffer,
+                    CurrentChannel, nSample, 1);
 
                 // store gain reduction now and apply ballistics later
-                arrGainReduction.set(nChannel, 0.0);
+                GainReduction.set(CurrentChannel, 0.0);
             }
 
             // update meter ballistics and increment buffer location
             updateMeterBallistics();
 
-            // skip compressor
+            // get next sample and thus skip compression
             continue;
         }
 
-        // compress channels
-        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+        // compress channels (feed-forward design)
+        if (DesignIsFeedForward)
         {
-            // feed-forward design
-            if (bDesignFeedForward)
+            // process side chain sample
+            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
             {
-                // stereo linking is off (save some processing time)
-                if (dStereoLinkOriginal == 0.0)
+                // side chain is fed from *input* channel
+                double SideChainSample = InputSamples[CurrentChannel];
+
+                // filter side-chain sample (the filter's output is
+                // already de-normalised!)
+                if (EnableSidechainFilter)
                 {
-                    arrSidechainSamples.set(nChannel, arrInputSamples[nChannel]);
+                    // filter sample
+                    SideChainSample = SidechainFilter[CurrentChannel]->filterSample(SideChainSample);
+
+                    // apply filter make-up gain
+                    SideChainSample *= SidechainFilterGainReal;
+                }
+
+                SidechainSamples.set(CurrentChannel, SideChainSample);
+            }
+
+            // all channels have benn processed; now we can calculate
+            // the side chain level
+            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
+            {
+                // calculate level of side-chain sample
+                double SideChainLevel;
+
+                // stereo linking is off (save some processing time)
+                if (StereoLinkPercentage == 0)
+                {
+                    SideChainLevel = fabs(SidechainSamples[CurrentChannel]);
                 }
                 // stereo linking is on
                 else
                 {
-                    // get ID of other channel
-                    int nChannelOther = (nChannel == 0) ? 1 : 0;
+                    // get ID of other stereo channel
+                    int OtherChannel = (CurrentChannel == 0) ? 1 : 0;
 
-                    // mix stereo input samples according to stereo
-                    // link percentage
-                    arrSidechainSamples.set(nChannel, (arrInputSamples[nChannel] * dStereoLinkOriginal) + (arrInputSamples[nChannelOther] * dStereoLinkOther));
+                    // mix side chain according to stereo link
+                    // percentage; getting the absolute value of each
+                    // channel *separately* allows for a certain kind
+                    // of M/S compression
+                    SideChainLevel = fabs(SidechainSamples[CurrentChannel] * StereoLinkWeight) + fabs(SidechainSamples[OtherChannel] * StereoLinkWeightOther);
                 }
 
-                // filter side-chain sample (the filter's output is
-                // already de-normalised!)
-                if (bSidechainFilterState)
-                {
-                    arrSidechainSamples.set(nChannel, p_arrSidechainFilter[nChannel]->filterSample(arrSidechainSamples[nChannel]) * dGainNormalise);
-                }
-
-                // calculate level of side-chain sample
-                double dSidechainInputLevel = SideChain::level2decibel(fabs(arrSidechainSamples[nChannel]));
+                // convert side chain level to decibels
+                SideChainLevel = SideChain::level2decibel(SideChainLevel);
 
                 // apply crest factor
-                dSidechainInputLevel += dCrestFactor;
+                SideChainLevel += CrestFactor;
 
                 // send current input sample to gain reduction unit
-                p_arrSideChain[nChannel]->processSample(dSidechainInputLevel);
+                SideChainProcessor[CurrentChannel]->processSample(SideChainLevel);
             }
+        }
 
+        // apply gain reduction
+        for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
+        {
             // store gain reduction now and apply ballistics later
-            arrGainReduction.set(nChannel, p_arrSideChain[nChannel]->getGainReduction(false));
+            GainReduction.set(CurrentChannel, SideChainProcessor[CurrentChannel]->getGainReduction(false));
 
             // apply gain reduction to current input sample
             //
             //  feed-forward design:  current gain reduction
             //  feed-back design:     "old" gain reduction
-            double dGainReduction = p_arrSideChain[nChannel]->getGainReduction(bAutoMakeupGain);
+            double GainReduction = SideChainProcessor[CurrentChannel]->getGainReduction(UseAutoMakeupGain);
 
             // invert gain reduction for upward expansion
-            if (bUpwardExpansion)
+            if (UseUpwardExpansion)
             {
-                dGainReduction = -dGainReduction;
+                GainReduction = -GainReduction;
             }
 
-            arrOutputSamples.set(nChannel, arrInputSamples[nChannel] / SideChain::decibel2level(dGainReduction));
+            OutputSamples.set(CurrentChannel, InputSamples[CurrentChannel] / SideChain::decibel2level(GainReduction));
 
             // apply make-up gain
-            arrOutputSamples.set(nChannel, arrOutputSamples[nChannel] * dMakeupGain);
+            OutputSamples.set(CurrentChannel, OutputSamples[CurrentChannel] * MakeupGain);
         }
 
-        // post-processing for feed-back design
-        if (!bDesignFeedForward)
+        // compress channels (feed-back design post-processing)
+        if (!DesignIsFeedForward)
         {
-            // loop over channels
-            for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+            // process side chain sample
+            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
             {
-                // stereo linking is off (save some processing time)
-                if (dStereoLinkOriginal == 0.0)
+                // side chain is fed from *output* channel
+                double SideChainSample = OutputSamples[CurrentChannel];
+
+                // filter side-chain sample (the filter's output is
+                // already de-normalised!)
+                if (EnableSidechainFilter)
                 {
-                    arrSidechainSamples.set(nChannel, arrOutputSamples[nChannel]);
+                    // filter sample
+                    SideChainSample = SidechainFilter[CurrentChannel]->filterSample(SideChainSample);
+
+                    // apply filter make-up gain
+                    SideChainSample *= SidechainFilterGainReal;
+                }
+
+                SidechainSamples.set(CurrentChannel, SideChainSample);
+            }
+
+            // all channels have benn processed; now we can calculate
+            // the side chain level
+            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
+            {
+                // calculate level of side-chain sample
+                double SideChainLevel;
+
+                // stereo linking is off (save some processing time)
+                if (StereoLinkPercentage == 0)
+                {
+                    SideChainLevel = fabs(SidechainSamples[CurrentChannel]);
                 }
                 // stereo linking is on
                 else
                 {
-                    // get ID of other channel
-                    int nChannelOther = (nChannel == 0) ? 1 : 0;
+                    // get ID of other stereo channel
+                    int OtherChannel = (CurrentChannel == 0) ? 1 : 0;
 
-                    // mix stereo output samples according to stereo
-                    // link percentage
-                    arrSidechainSamples.set(nChannel, (arrOutputSamples[nChannel] * dStereoLinkOriginal) + (arrOutputSamples[nChannelOther] * dStereoLinkOther));
+                    // mix side chain according to stereo link
+                    // percentage; getting the absolute value of each
+                    // channel *separately* allows for a certain kind
+                    // of M/S compression
+                    SideChainLevel = fabs(SidechainSamples[CurrentChannel] * StereoLinkWeight) + fabs(SidechainSamples[OtherChannel] * StereoLinkWeightOther);
                 }
 
-                // filter side-chain sample (the filter's output is
-                // already de-normalised!)
-                if (bSidechainFilterState)
-                {
-                    arrSidechainSamples.set(nChannel, p_arrSidechainFilter[nChannel]->filterSample(arrSidechainSamples[nChannel]) * dGainNormalise);
-                }
-
-                // calculate level of side-chain sample
-                double dSidechainOutputLevel = SideChain::level2decibel(fabs(arrSidechainSamples[nChannel]));
+                // convert side chain level to decibels
+                SideChainLevel = SideChain::level2decibel(SideChainLevel);
 
                 // apply crest factor
-                dSidechainOutputLevel += dCrestFactor;
+                SideChainLevel += CrestFactor;
 
                 // feed current output sample back to gain reduction unit
-                p_arrSideChain[nChannel]->processSample(dSidechainOutputLevel);
+                SideChainProcessor[CurrentChannel]->processSample(SideChainLevel);
             }
         }
 
         // loop over channels
-        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+        for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
             // listen to side-chain (already de-normalised)
-            if (bSidechainListen)
+            if (ListenToSidechain)
             {
                 // dither output to float
-                float fOutput = dither.dither(arrSidechainSamples[nChannel]);
-                buffer.setSample(nChannel, nSample, fOutput);
+                float OutputSample = Dither.dither(SidechainSamples[CurrentChannel]);
+                buffer.setSample(CurrentChannel, nSample, OutputSample);
             }
             // listen to compressor's output (already de-normalised)
             else
             {
                 // dry shall be mixed in (test to save some processing
                 // time)
-                if (nWetMix < 100)
+                if (WetMixPercentage < 100)
                 {
-                    arrOutputSamples.set(nChannel, (arrOutputSamples[nChannel] * dWetMix) + (arrInputSamples[nChannel] * dDryMix));
+                    OutputSamples.set(CurrentChannel, (OutputSamples[CurrentChannel] * WetMix) + (InputSamples[CurrentChannel] * DryMix));
                 }
 
                 // dither output to float
-                float fOutput = dither.dither(arrOutputSamples[nChannel]);
-                buffer.setSample(nChannel, nSample, fOutput);
+                float OutputSample = Dither.dither(OutputSamples[CurrentChannel]);
+                buffer.setSample(CurrentChannel, nSample, OutputSample);
             }
 
             // store output sample for metering (reflects real output,
             // so when the user listens to the side-chain, the output
             // meter will also display the side-chain's level!)
-            MeterOutputBuffer.copyFrom(nChannel, nMeterBufferPosition, buffer, nChannel, nSample, 1);
+            MeterOutputBuffer.copyFrom(CurrentChannel, MeterBufferPosition, buffer, CurrentChannel, nSample, 1);
         }
 
         // update meter ballistics and increment buffer location
@@ -954,158 +999,158 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
 void Compressor::updateMeterBallistics()
 {
     // update metering buffer position
-    ++nMeterBufferPosition;
+    ++MeterBufferPosition;
 
     // meter will only be updated when buffer is full
-    if (nMeterBufferPosition < nMeterBufferSize)
+    if (MeterBufferPosition < MeterBufferSize)
     {
         return;
     }
 
     // reset buffer location
-    nMeterBufferPosition = 0;
+    MeterBufferPosition = 0;
 
     // loop over channels
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
         // determine peak levels
-        double dInputPeak = MeterInputBuffer.getMagnitude(nChannel, 0, nMeterBufferSize);
-        double dOutputPeak = MeterOutputBuffer.getMagnitude(nChannel, 0, nMeterBufferSize);
+        double InputPeak = MeterInputBuffer.getMagnitude(CurrentChannel, 0, MeterBufferSize);
+        double OutputPeak = MeterOutputBuffer.getMagnitude(CurrentChannel, 0, MeterBufferSize);
 
         // convert peak meter levels from linear scale to decibels
-        dInputPeak = SideChain::level2decibel(dInputPeak);
-        dOutputPeak = SideChain::level2decibel(dOutputPeak);
+        InputPeak = SideChain::level2decibel(InputPeak);
+        OutputPeak = SideChain::level2decibel(OutputPeak);
 
         // update maximum meter levels
-        if (dInputPeak > arrMaximumInputLevels[nChannel])
+        if (InputPeak > MaximumInputLevels[CurrentChannel])
         {
-            arrMaximumInputLevels.set(nChannel, dInputPeak);
+            MaximumInputLevels.set(CurrentChannel, InputPeak);
         }
 
-        if (dOutputPeak > arrMaximumOutputLevels[nChannel])
+        if (OutputPeak > MaximumOutputLevels[CurrentChannel])
         {
-            arrMaximumOutputLevels.set(nChannel, dOutputPeak);
+            MaximumOutputLevels.set(CurrentChannel, OutputPeak);
         }
 
         // apply peak meter ballistics
-        PeakMeterBallistics(dInputPeak, arrPeakMeterInputLevels.getReference(nChannel), arrPeakMeterPeakInputLevels.getReference(nChannel), arrPeakMeterPeakInputHoldTime.getReference(nChannel));
-        PeakMeterBallistics(dOutputPeak, arrPeakMeterOutputLevels.getReference(nChannel), arrPeakMeterPeakOutputLevels.getReference(nChannel), arrPeakMeterPeakOutputHoldTime.getReference(nChannel));
+        peakMeterBallistics(InputPeak, PeakMeterInputLevels.getReference(CurrentChannel), PeakMeterPeakInputLevels.getReference(CurrentChannel), PeakMeterPeakInputHoldTime.getReference(CurrentChannel));
+        peakMeterBallistics(OutputPeak, PeakMeterOutputLevels.getReference(CurrentChannel), PeakMeterPeakOutputLevels.getReference(CurrentChannel), PeakMeterPeakOutputHoldTime.getReference(CurrentChannel));
 
         // apply peak gain reduction ballistics
-        GainReductionMeterPeakBallistics(arrGainReduction[nChannel], arrGainReductionPeak.getReference(nChannel), arrGainReductionHoldTime.getReference(nChannel));
+        gainReductionMeterPeakBallistics(GainReduction[CurrentChannel], GainReductionPeak.getReference(CurrentChannel), GainReductionHoldTime.getReference(CurrentChannel));
 
         // determine average levels
-        double dInputRms = MeterInputBuffer.getRMSLevel(nChannel, 0, nMeterBufferSize);
-        double dOutputRms = MeterOutputBuffer.getRMSLevel(nChannel, 0, nMeterBufferSize);
+        double InputRms = MeterInputBuffer.getRMSLevel(CurrentChannel, 0, MeterBufferSize);
+        double OutputRms = MeterOutputBuffer.getRMSLevel(CurrentChannel, 0, MeterBufferSize);
 
         // convert average meter levels from linear scale to
         // decibels
-        dInputRms = SideChain::level2decibel(dInputRms);
-        dOutputRms = SideChain::level2decibel(dOutputRms);
+        InputRms = SideChain::level2decibel(InputRms);
+        OutputRms = SideChain::level2decibel(OutputRms);
 
         // apply average meter ballistics
-        AverageMeterBallistics(dInputRms, arrAverageMeterInputLevels.getReference(nChannel));
-        AverageMeterBallistics(dOutputRms, arrAverageMeterOutputLevels.getReference(nChannel));
+        averageMeterBallistics(InputRms, AverageMeterInputLevels.getReference(CurrentChannel));
+        averageMeterBallistics(OutputRms, AverageMeterOutputLevels.getReference(CurrentChannel));
     }
 }
 
 
-void Compressor::PeakMeterBallistics(double dPeakLevelCurrent, double &dPeakLevelOld, double &dPeakMarkOld, double &dPeakHoldTime)
+void Compressor::peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelOld, double &PeakMarkOld, double &PeakHoldTime)
 /*  Calculate ballistics for peak meter levels.
 
-    dPeakLevelCurrent (double): current peak meter level in decibel
+    PeakLevelCurrent (double): current peak meter level in decibel
 
-    dPeakLevelOld (double): old peak meter reading in decibel (will be
+    PeakLevelOld (double): old peak meter reading in decibel (will be
     overwritten!)
 
-    dPeakMarkOld (double): old peak mark in decibel (will be
+    PeakMarkOld (double): old peak mark in decibel (will be
     overwritten!)
 
-    dPeakHoldTime (double): time since last meter update (will be
+    PeakHoldTime (double): time since last meter update (will be
     overwritten!)
 
     return value: none
 */
 {
     // limit peak level
-    if (dPeakLevelCurrent >= 0.0)
+    if (PeakLevelCurrent >= 0.0)
     {
         // immediate rise time, but limit current peak to top mark
-        dPeakLevelOld = 0.0;
+        PeakLevelOld = 0.0;
     }
     // apply rise time if peak level is above old level
-    else if (dPeakLevelCurrent >= dPeakLevelOld)
+    else if (PeakLevelCurrent >= PeakLevelOld)
     {
         // immediate rise time, so return current peak level as new
         // peak meter reading
-        dPeakLevelOld = dPeakLevelCurrent;
+        PeakLevelOld = PeakLevelCurrent;
     }
     // otherwise, apply fall time
     else
     {
         // apply fall time and return new peak meter reading (linear
         // fall time: 26 dB in 3 seconds)
-        dPeakLevelOld -= dReleaseCoefLinear;
+        PeakLevelOld -= ReleaseCoefLinear;
 
         // make sure that meter doesn't fall below current level
-        if (dPeakLevelCurrent > dPeakLevelOld)
+        if (PeakLevelCurrent > PeakLevelOld)
         {
-            dPeakLevelOld = dPeakLevelCurrent;
+            PeakLevelOld = PeakLevelCurrent;
         }
     }
 
     // peak marker: limit peak level
-    if (dPeakLevelCurrent >= 0.0)
+    if (PeakLevelCurrent >= 0.0)
     {
         // immediate rise time, but limit current peak to top mark
-        dPeakMarkOld = 0.0;
+        PeakMarkOld = 0.0;
 
         // reset hold time
-        dPeakHoldTime = 0.0;
+        PeakHoldTime = 0.0;
     }
     // peak marker: apply rise time if peak level is above old level
-    else if (dPeakLevelCurrent >= dPeakMarkOld)
+    else if (PeakLevelCurrent >= PeakMarkOld)
     {
         // immediate rise time, so return current peak level as new
         // peak meter reading
-        dPeakMarkOld = dPeakLevelCurrent;
+        PeakMarkOld = PeakLevelCurrent;
 
         // reset hold time
-        dPeakHoldTime = 0.0;
+        PeakHoldTime = 0.0;
     }
     // peak marker: otherwise, apply fall time
     else
     {
         // hold peaks for 10 seconds
-        if (dPeakHoldTime < 10.0)
+        if (PeakHoldTime < 10.0)
         {
             // update hold time
-            dPeakHoldTime += dBufferLength;
+            PeakHoldTime += BufferLength;
         }
         // hold time exceeded
         else
         {
             // apply fall time and return new peak reading (linear
             // fall time: 26 dB in 3 seconds)
-            dPeakMarkOld -= dReleaseCoefLinear;
+            PeakMarkOld -= ReleaseCoefLinear;
 
             // make sure that meter doesn't fall below current level
-            if (dPeakLevelCurrent > dPeakMarkOld)
+            if (PeakLevelCurrent > PeakMarkOld)
             {
-                dPeakMarkOld = dPeakLevelCurrent;
+                PeakMarkOld = PeakLevelCurrent;
             }
         }
     }
 }
 
 
-void Compressor::AverageMeterBallistics(double dAverageLevelCurrent, double &dAverageLevelOld)
+void Compressor::averageMeterBallistics(double AverageLevelCurrent, double &AverageLevelOld)
 /*  Calculate ballistics for average meter levels and update readout.
 
-    dAverageLevelCurrent (double): current average meter level in
+    AverageLevelCurrent (double): current average meter level in
     decibel
 
-    dAverageLevelOld (double): old average meter reading in decibel
+    AverageLevelOld (double): old average meter reading in decibel
     (will be overwritten!)
 
     return value: none
@@ -1113,72 +1158,72 @@ void Compressor::AverageMeterBallistics(double dAverageLevelCurrent, double &dAv
 {
     // the meter reaches 99% of the final reading in 300 ms
     // (logarithmic)
-    LogMeterBallistics(0.300, dBufferLength, dAverageLevelCurrent, dAverageLevelOld);
+    logMeterBallistics(0.300, BufferLength, AverageLevelCurrent, AverageLevelOld);
 }
 
 
-void Compressor::GainReductionMeterPeakBallistics(double dGainReductionPeakCurrent, double &dGainReductionPeakOld, double &dGainReductionHoldTime)
+void Compressor::gainReductionMeterPeakBallistics(double GainReductionPeakCurrent, double &GainReductionPeakOld, double &GainReductionHoldTime)
 /*  Calculate ballistics for peak gain reduction.
 
-    dGainReductionPeakCurrent (double): current peak gain reduction in
+    GainReductionPeakCurrent (double): current peak gain reduction in
     decibel
 
-    dGainReductionPeakOld (double): old peak gain reduction in decibel
+    GainReductionPeakOld (double): old peak gain reduction in decibel
     (will be overwritten!)
 
-    dGainReductionHoldTime (double): time since last meter update
+    GainReductionHoldTime (double): time since last meter update
 
     return value: none
 */
 {
     // apply rise time if peak level is above old level
-    if (dGainReductionPeakCurrent >= dGainReductionPeakOld)
+    if (GainReductionPeakCurrent >= GainReductionPeakOld)
     {
         // immediate rise time, so return current peak level as new
         // gain reduction peak reading
-        dGainReductionPeakOld = dGainReductionPeakCurrent;
+        GainReductionPeakOld = GainReductionPeakCurrent;
 
         // reset hold time
-        dGainReductionHoldTime = 0.0;
+        GainReductionHoldTime = 0.0;
     }
     // otherwise, apply fall time
     else
     {
         // hold gain reduction meter for 10 seconds
-        if (dGainReductionHoldTime < 10.0)
+        if (GainReductionHoldTime < 10.0)
         {
             // update hold time
-            dGainReductionHoldTime += dBufferLength;
+            GainReductionHoldTime += BufferLength;
         }
         // hold time exceeded
         else
         {
             // apply fall time and return new gain reduction peak
             // reading (linear fall time: 26 dB in 3 seconds)
-            dGainReductionPeakOld -= dReleaseCoefLinear;
+            GainReductionPeakOld -= ReleaseCoefLinear;
 
             // make sure that meter doesn't fall below current level
-            if (dGainReductionPeakCurrent > dGainReductionPeakOld)
+            if (GainReductionPeakCurrent > GainReductionPeakOld)
             {
-                dGainReductionPeakOld = dGainReductionPeakCurrent;
+                GainReductionPeakOld = GainReductionPeakCurrent;
             }
         }
     }
 }
 
 
-void Compressor::LogMeterBallistics(double dMeterInertia, double dTimePassed, double dLevel, double &dReadout)
+void Compressor::logMeterBallistics(double MeterInertia, double TimePassed, double Level, double &Readout)
 /*  Calculate logarithmic meter ballistics.
 
-    dMeterInertia (double): time needed to reach 99% of the final
+    MeterInertia (double): time needed to reach 99% of the final
     readout (in fractional seconds)
 
-    dTimePassed (double): time that has passed since last update (in
+    TimePassed (double): time that has passed since last update (in
     fractional seconds)
 
-    dLevel (double): new meter level
+    Level (double): new meter level
 
-    dReadout (reference to double): old meter readout; this variable
+    Readout (reference to double): old meter readout; this variable
     will be updated by this function
 
     return value: none
@@ -1186,14 +1231,14 @@ void Compressor::LogMeterBallistics(double dMeterInertia, double dTimePassed, do
 {
     // we only have to calculate meter ballistics if meter level and
     // meter readout are not equal
-    if (dLevel != dReadout)
+    if (Level != Readout)
     {
         // Thanks to Bram de Jong for the code snippet!
         // (http://www.musicdsp.org/showone.php?id=136)
         //
         // rise and fall: 99% of final reading in "fMeterInertia" seconds
-        double dAttackReleaseCoef = pow(0.01, dTimePassed / dMeterInertia);
-        dReadout = dAttackReleaseCoef * (dReadout - dLevel) + dLevel;
+        double AttackReleaseCoef = pow(0.01, TimePassed / MeterInertia);
+        Readout = AttackReleaseCoef * (Readout - Level) + Level;
     }
 }
 
