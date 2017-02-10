@@ -768,9 +768,11 @@ double Compressor::getAverageMeterOutputLevel(int CurrentChannel)
 }
 
 
-void Compressor::processBlock(AudioBuffer<float> &buffer)
+void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float> &SideChainBuffer)
 {
-    int nNumSamples = buffer.getNumSamples();
+    jassert(MainBuffer.getNumSamples() == SideChainBuffer.getNumSamples());
+
+    int nNumSamples = MainBuffer.getNumSamples();
 
     for (int nSample = 0; nSample < nNumSamples; ++nSample)
     {
@@ -779,7 +781,7 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
         for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
             // get current input sample
-            float InputSampleFloat = buffer.getSample(CurrentChannel, nSample);
+            float InputSampleFloat = MainBuffer.getSample(CurrentChannel, nSample);
             double InputSample = (double) InputSampleFloat;
 
             // de-normalise input sample
@@ -824,7 +826,10 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
             for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
             {
                 // side chain is fed from *input* channel
-                double SideChainSample = InputSamples[CurrentChannel];
+                double SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
+
+                // de-normalise side chain input sample
+                SideChainSample += AntiDenormalDouble;
 
                 // filter side-chain sample (the filter's output is
                 // already de-normalised!)
@@ -903,6 +908,8 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
         // compress channels (feed-back design post-processing)
         if (!DesignIsFeedForward)
         {
+            // TODO: is processing an external side chain possible
+
             // process side chain sample
             for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
             {
@@ -959,7 +966,7 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
             }
         }
 
-        // loop over channels
+        // write compressor output to main input buffer
         for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
             // listen to side-chain (already de-normalised)
@@ -967,7 +974,7 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
             {
                 // dither output to float
                 float OutputSample = Dither.dither(SidechainSamples[CurrentChannel]);
-                buffer.setSample(CurrentChannel, nSample, OutputSample);
+                MainBuffer.setSample(CurrentChannel, nSample, OutputSample);
             }
             // listen to compressor's output (already de-normalised)
             else
@@ -981,13 +988,13 @@ void Compressor::processBlock(AudioBuffer<float> &buffer)
 
                 // dither output to float
                 float OutputSample = Dither.dither(OutputSamples[CurrentChannel]);
-                buffer.setSample(CurrentChannel, nSample, OutputSample);
+                MainBuffer.setSample(CurrentChannel, nSample, OutputSample);
             }
 
             // store output sample for metering (reflects real output,
             // so when the user listens to the side-chain, the output
             // meter will also display the side-chain's level!)
-            MeterOutputBuffer.copyFrom(CurrentChannel, MeterBufferPosition, buffer, CurrentChannel, nSample, 1);
+            MeterOutputBuffer.copyFrom(CurrentChannel, MeterBufferPosition, MainBuffer, CurrentChannel, nSample, 1);
         }
 
         // update meter ballistics and increment buffer location

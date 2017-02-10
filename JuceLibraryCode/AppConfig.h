@@ -62,16 +62,6 @@
   #endif
 #endif
 
-#ifdef SQUEEZER_MONO
-  #define JucePlugin_MaxNumInputChannels   1
-  #define JucePlugin_MaxNumOutputChannels  1
-  #define JucePlugin_PreferredChannelConfigurations   {1, 1}
-#else
-  #define JucePlugin_MaxNumInputChannels   2
-  #define JucePlugin_MaxNumOutputChannels  2
-  #define JucePlugin_PreferredChannelConfigurations   {2, 2}
-#endif
-
 #define JUCE_USE_FLAC  1
 
 #ifdef SQUEEZER_MONO
@@ -156,14 +146,6 @@
  //#define JUCE_USE_ANDROID_OPENSLES
 #endif
 
-#ifndef    JUCE_USE_CDREADER
- //#define JUCE_USE_CDREADER
-#endif
-
-#ifndef    JUCE_USE_CDBURNER
- //#define JUCE_USE_CDBURNER
-#endif
-
 //==============================================================================
 // juce_audio_formats flags:
 
@@ -194,6 +176,10 @@
  //#define JUCE_FORCE_USE_LEGACY_PARAM_IDS
 #endif
 
+#ifndef    JUCE_USE_STUDIO_ONE_COMPATIBLE_PARAMETERS
+ //#define JUCE_USE_STUDIO_ONE_COMPATIBLE_PARAMETERS
+#endif
+
 //==============================================================================
 // juce_audio_processors flags:
 
@@ -207,6 +193,17 @@
 
 #ifndef    JUCE_PLUGINHOST_AU
  //#define JUCE_PLUGINHOST_AU
+#endif
+
+//==============================================================================
+// juce_audio_utils flags:
+
+#ifndef    JUCE_USE_CDREADER
+ //#define JUCE_USE_CDREADER
+#endif
+
+#ifndef    JUCE_USE_CDBURNER
+ //#define JUCE_USE_CDBURNER
 #endif
 
 //==============================================================================
@@ -234,6 +231,14 @@
 
 #ifndef    JUCE_USE_CURL
  //#define JUCE_USE_CURL
+#endif
+
+#ifndef    JUCE_CATCH_UNHANDLED_EXCEPTIONS
+ //#define JUCE_CATCH_UNHANDLED_EXCEPTIONS
+#endif
+
+#ifndef    JUCE_ALLOW_STATIC_NULL_VARIABLES
+ //#define JUCE_ALLOW_STATIC_NULL_VARIABLES
 #endif
 
 //==============================================================================
@@ -358,13 +363,13 @@
  #define JucePlugin_EditorRequiresKeyboardFocus  0
 #endif
 #ifndef  JucePlugin_Version
- #define JucePlugin_Version                2.2.3
+ #define JucePlugin_Version                2.3.0
 #endif
 #ifndef  JucePlugin_VersionCode
- #define JucePlugin_VersionCode            0x20203
+ #define JucePlugin_VersionCode            0x20300
 #endif
 #ifndef  JucePlugin_VersionString
- #define JucePlugin_VersionString          "2.2.3"
+ #define JucePlugin_VersionString          "2.3.0"
 #endif
 #ifndef  JucePlugin_VSTUniqueID
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
@@ -422,15 +427,6 @@
 #endif
 #ifndef  JucePlugin_AAXDisableMultiMono
  #define JucePlugin_AAXDisableMultiMono    0
-#endif
-#ifndef  JucePlugin_MaxNumInputChannels
- #define JucePlugin_MaxNumInputChannels    2
-#endif
-#ifndef  JucePlugin_MaxNumOutputChannels
- #define JucePlugin_MaxNumOutputChannels   2
-#endif
-#ifndef  JucePlugin_PreferredChannelConfigurations
- #define JucePlugin_PreferredChannelConfigurations  {2, 2}
 #endif
 
 #endif  // __JUCE_APPCONFIG_PY2F1I__

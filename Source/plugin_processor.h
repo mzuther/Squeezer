@@ -41,6 +41,8 @@ public:
     ~SqueezerAudioProcessor();
 
     //==========================================================================
+    bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
+
     void prepareToPlay(double sampleRate, int samplesPerBlock);
     void releaseResources();
 
@@ -106,6 +108,11 @@ public:
 
 private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessor);
+
+    AudioBuffer<float> MainInput;
+    AudioBuffer<float> SideChainInput;
+
+    bool hasSideChain;
 
     SqueezerPluginParameters pluginParameters;
     ScopedPointer<Compressor> pCompressor;

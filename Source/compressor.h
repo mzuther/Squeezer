@@ -137,7 +137,7 @@ public:
     double getAverageMeterInputLevel(int CurrentChannel);
     double getAverageMeterOutputLevel(int CurrentChannel);
 
-    void processBlock(AudioBuffer<float> &buffer);
+    void processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float> &SideChainBuffer);
 
 private:
     JUCE_LEAK_DETECTOR(Compressor);

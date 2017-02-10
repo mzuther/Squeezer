@@ -40,11 +40,50 @@ Flow of parameter processing:
 
 ==============================================================================*/
 
-SqueezerAudioProcessor::SqueezerAudioProcessor()
+#ifdef SQUEEZER_MONO
+#if JucePlugin_Build_VST
+
+SqueezerAudioProcessor::SqueezerAudioProcessor() :
+    AudioProcessor(BusesProperties()
+                   .withInput("Main In", AudioChannelSet::discreteChannels(2))
+                   .withOutput("Main Out", AudioChannelSet::discreteChannels(2))
+                   .withInput("Sidechain In", AudioChannelSet::disabled())
+                   .withOutput("Sidechain Out", AudioChannelSet::disabled()))
+#else
+
+SqueezerAudioProcessor::SqueezerAudioProcessor() :
+    AudioProcessor(BusesProperties()
+                   .withInput("Main In", AudioChannelSet::mono())
+                   .withOutput("Main Out", AudioChannelSet::mono())
+                   .withInput("Sidechain In", AudioChannelSet::mono())
+                   .withOutput("Sidechain Out", AudioChannelSet::mono()))
+
+#endif
+#else
+#if JucePlugin_Build_VST
+
+SqueezerAudioProcessor::SqueezerAudioProcessor() :
+    AudioProcessor(BusesProperties()
+                   .withInput("Main In", AudioChannelSet::discreteChannels(4))
+                   .withOutput("Main Out", AudioChannelSet::discreteChannels(4))
+                   .withInput("Sidechain In", AudioChannelSet::disabled())
+                   .withOutput("Sidechain Out", AudioChannelSet::disabled()))
+#else
+
+SqueezerAudioProcessor::SqueezerAudioProcessor() :
+    AudioProcessor(BusesProperties()
+                   .withInput("Main In", AudioChannelSet::stereo())
+                   .withOutput("Main Out", AudioChannelSet::stereo())
+                   .withInput("Sidechain In", AudioChannelSet::stereo())
+                   .withOutput("Sidechain Out", AudioChannelSet::stereo()))
+
+#endif
+#endif
 {
     frut::Frut::printVersionNumbers();
 
     bSampleRateIsValid = false;
+    hasSideChain = false;
 
     setLatencySamples(0);
 }
@@ -57,6 +96,99 @@ SqueezerAudioProcessor::~SqueezerAudioProcessor()
 
 
 //==============================================================================
+
+bool SqueezerAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
+{
+    // main bus: do not allow disabling channels
+    if (layouts.getMainInputChannelSet().isDisabled())
+    {
+        return false;
+    }
+
+#ifdef SQUEEZER_MONO
+
+    // main bus with mono output --> okay
+    if (layouts.getMainOutputChannelSet() == AudioChannelSet::mono())
+    {
+        if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
+        {
+            // main bus and side chain with mono input --> okay
+            if (layouts.getChannelSet(true, 1) == AudioChannelSet::mono())
+            {
+                return true;
+            }
+
+            // main bus with mono input and no side chain --> okay
+            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
+            {
+                return true;
+            }
+        }
+
+        // main bus with two inputs and no side chain --> okay
+        if (layouts.getMainInputChannelSet().size() == 2)
+        {
+            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
+            {
+                return true;
+            }
+        }
+    }
+    // main bus with two outputs --> okay
+    else if (layouts.getMainOutputChannelSet().size() == 2)
+    {
+        // main bus with two inputs --> okay
+        if (layouts.getMainInputChannelSet().size() == 2)
+        {
+            return true;
+        }
+    }
+
+#else
+
+    // main bus with stereo output --> okay
+    if (layouts.getMainOutputChannelSet() == AudioChannelSet::stereo())
+    {
+        if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
+        {
+            // main bus and side chain with stereo input --> okay
+            if (layouts.getChannelSet(true, 1) == AudioChannelSet::stereo())
+            {
+                return true;
+            }
+
+            // main bus with stereo input and no side chain --> okay
+            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
+            {
+                return true;
+            }
+        }
+
+        // main bus with four inputs and no side chain --> okay
+        if (layouts.getMainInputChannelSet().size() == 4)
+        {
+            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
+            {
+                return true;
+            }
+        }
+    }
+    // main bus with four outputs --> okay
+    else if (layouts.getMainOutputChannelSet().size() == 4)
+    {
+        // main bus with four inputs --> okay
+        if (layouts.getMainInputChannelSet().size() == 4)
+        {
+            return true;
+        }
+    }
+
+#endif
+
+    // current channel layout is not allowed
+    return false;
+}
+
 
 const String SqueezerAudioProcessor::getName() const
 {
@@ -642,8 +774,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
         bSampleRateIsValid = true;
     }
 
-    Logger::outputDebugString("[Squeezer] number of input channels: " + String(getMainBusNumInputChannels()));
-    Logger::outputDebugString("[Squeezer] number of output channels: " + String(getMainBusNumOutputChannels()));
+    Logger::outputDebugString("[Squeezer] number of main/aux input channels:  " + String(getMainBusNumInputChannels()) + "/" + String(getTotalNumInputChannels() - getMainBusNumInputChannels()));
+    Logger::outputDebugString("[Squeezer] number of main/aux output channels: " + String(getMainBusNumOutputChannels()) + "/" + String(getTotalNumOutputChannels() - getMainBusNumOutputChannels()));
 
     bool bBypassCompressor = pluginParameters.getBoolean(SqueezerPluginParameters::selBypass);
     float fDetectorRateMilliSeconds = pluginParameters.getRealFloat(SqueezerPluginParameters::selDetectorRmsFilter);
@@ -667,7 +799,11 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     float fSidechainFilterGain = pluginParameters.getRealFloat(SqueezerPluginParameters::selSidechainFilterGain);
     bool bSidechainListen = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainListen);
 
-    pCompressor = new Compressor(getMainBusNumInputChannels(), (int) sampleRate);
+#ifdef SQUEEZER_MONO
+    pCompressor = new Compressor(1, (int) sampleRate);
+#else
+    pCompressor = new Compressor(2, (int) sampleRate);
+#endif
 
     pCompressor->setBypass(bBypassCompressor);
     pCompressor->setDetectorRmsFilter(fDetectorRateMilliSeconds);
@@ -728,7 +864,7 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
         return;
     }
 
-    // In case we have more outputs than inputs, we'll clear any
+    // In case we have more main outputs than inputs, we'll clear any
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
@@ -737,8 +873,102 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
         buffer.clear(nChannel, 0, nNumSamples);
     }
 
+#ifdef SQUEEZER_MONO
+
+    MainInput = AudioBuffer<float>(1, nNumSamples);
+    SideChainInput = AudioBuffer<float>(1, nNumSamples);
+
+    if (getChannelLayoutOfBus(true, 0) == AudioChannelSet::mono())
+    {
+        MainInput = getBusBuffer(buffer, true, 0);
+
+        if (getChannelLayoutOfBus(true, 1) == AudioChannelSet::mono())
+        {
+            hasSideChain = true;
+            SideChainInput = getBusBuffer(buffer, true, 1);
+        }
+        else
+        {
+            hasSideChain = false;
+            SideChainInput = getBusBuffer(buffer, true, 0);
+        }
+    }
+    else if (getChannelLayoutOfBus(true, 0).size() == 2)
+    {
+        hasSideChain = true;
+        MainInput.copyFrom(0, 0, buffer,
+                           0, 0, nNumSamples);
+
+        SideChainInput.copyFrom(0, 0, buffer,
+                                1, 0, nNumSamples);
+    }
+    else
+    {
+        hasSideChain = false;
+        MainInput.clear();
+        SideChainInput.clear();
+    }
+
+#else
+
+    MainInput = AudioBuffer<float>(2, nNumSamples);
+    SideChainInput = AudioBuffer<float>(2, nNumSamples);
+
+    if (getChannelLayoutOfBus(true, 0) == AudioChannelSet::stereo())
+    {
+        MainInput = getBusBuffer(buffer, true, 0);
+
+        if (getChannelLayoutOfBus(true, 1) == AudioChannelSet::stereo())
+        {
+            hasSideChain = true;
+            SideChainInput = getBusBuffer(buffer, true, 1);
+        }
+        else
+        {
+            hasSideChain = false;
+            SideChainInput = getBusBuffer(buffer, true, 0);
+        }
+    }
+    else if (getChannelLayoutOfBus(true, 0).size() == 4)
+    {
+        hasSideChain = true;
+        MainInput.copyFrom(0, 0, buffer,
+                           0, 0, nNumSamples);
+        MainInput.copyFrom(1, 0, buffer,
+                           1, 0, nNumSamples);
+
+        SideChainInput.copyFrom(0, 0, buffer,
+                                2, 0, nNumSamples);
+        SideChainInput.copyFrom(1, 0, buffer,
+                                3, 0, nNumSamples);
+    }
+    else
+    {
+        DBG("clearing main input and side chain");
+
+        hasSideChain = false;
+        MainInput.clear();
+        SideChainInput.clear();
+    }
+
+#endif
+
     // compressor's output is already de-normalised
-    pCompressor->processBlock(buffer);
+    pCompressor->processBlock(MainInput, SideChainInput);
+
+#ifdef SQUEEZER_MONO
+
+    buffer.copyFrom(0, 0, MainInput,
+                    0, 0, nNumSamples);
+
+#else
+
+    buffer.copyFrom(0, 0, MainInput,
+                    0, 0, nNumSamples);
+    buffer.copyFrom(1, 0, MainInput,
+                    1, 0, nNumSamples);
+
+#endif
 
     // "UM" --> update meters
     sendActionMessage("UM");
@@ -749,7 +979,11 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
 
 AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
-    return new SqueezerAudioProcessorEditor(this, &pluginParameters, getMainBusNumInputChannels());
+#ifdef SQUEEZER_MONO
+    return new SqueezerAudioProcessorEditor(this, &pluginParameters, 1);
+#else
+    return new SqueezerAudioProcessorEditor(this, &pluginParameters, 2);
+#endif
 }
 
 
