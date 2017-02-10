@@ -322,18 +322,22 @@ const String ParContinuous::getTextFromFloat(float newValue)
     String textValueNew;
 
     // use decimal places
-    if (decimalPlaces > 0)
-    {
-        // format parameter value using given number of decimal places
-        textValueNew = String(newRealValue, decimalPlaces);
-    }
-    else
+    if ((decimalPlaces < 1) || (newRealValue >= 10.0))
     {
         // round real parameter value
         newRealValue = (float) math::SimpleMath::round(newRealValue);
 
         // format parameter value
         textValueNew = String(newRealValue);
+    }
+    else if (newRealValue >= 1.0)
+    {
+        textValueNew = String(newRealValue, 1);
+    }
+    else
+    {
+        // format parameter value using given number of decimal places
+        textValueNew = String(newRealValue, decimalPlaces);
     }
 
     // add parameter suffix
