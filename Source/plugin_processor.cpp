@@ -45,18 +45,23 @@ Flow of parameter processing:
 
 SqueezerAudioProcessor::SqueezerAudioProcessor() :
     AudioProcessor(BusesProperties()
-                   .withInput("Main In", AudioChannelSet::discreteChannels(2))
-                   .withOutput("Main Out", AudioChannelSet::discreteChannels(2))
-                   .withInput("Sidechain In", AudioChannelSet::disabled())
-                   .withOutput("Sidechain Out", AudioChannelSet::disabled()))
+                   .withInput("Main / SC In",
+                              AudioChannelSet::discreteChannels(2))
+                   .withOutput("Main Out",
+                               AudioChannelSet::discreteChannels(1))
+                   .withInput("Disabled In",
+                              AudioChannelSet::disabled()))
+
 #else
 
 SqueezerAudioProcessor::SqueezerAudioProcessor() :
     AudioProcessor(BusesProperties()
-                   .withInput("Main In", AudioChannelSet::mono())
-                   .withOutput("Main Out", AudioChannelSet::mono())
-                   .withInput("Sidechain In", AudioChannelSet::mono())
-                   .withOutput("Sidechain Out", AudioChannelSet::mono()))
+                   .withInput("Main In",
+                              AudioChannelSet::mono())
+                   .withOutput("Main Out",
+                               AudioChannelSet::mono())
+                   .withInput("Sidechain In",
+                              AudioChannelSet::mono()))
 
 #endif
 #else
@@ -64,18 +69,23 @@ SqueezerAudioProcessor::SqueezerAudioProcessor() :
 
 SqueezerAudioProcessor::SqueezerAudioProcessor() :
     AudioProcessor(BusesProperties()
-                   .withInput("Main In", AudioChannelSet::discreteChannels(4))
-                   .withOutput("Main Out", AudioChannelSet::discreteChannels(4))
-                   .withInput("Sidechain In", AudioChannelSet::disabled())
-                   .withOutput("Sidechain Out", AudioChannelSet::disabled()))
+                   .withInput("Main / SC In",
+                              AudioChannelSet::discreteChannels(4))
+                   .withOutput("Main Out",
+                               AudioChannelSet::discreteChannels(2))
+                   .withInput("Disabled In",
+                              AudioChannelSet::disabled()))
+
 #else
 
 SqueezerAudioProcessor::SqueezerAudioProcessor() :
     AudioProcessor(BusesProperties()
-                   .withInput("Main In", AudioChannelSet::stereo())
-                   .withOutput("Main Out", AudioChannelSet::stereo())
-                   .withInput("Sidechain In", AudioChannelSet::stereo())
-                   .withOutput("Sidechain Out", AudioChannelSet::stereo()))
+                   .withInput("Main In",
+                              AudioChannelSet::stereo())
+                   .withOutput("Main Out",
+                               AudioChannelSet::stereo())
+                   .withInput("Sidechain In",
+                              AudioChannelSet::stereo()))
 
 #endif
 #endif
