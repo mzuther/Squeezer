@@ -821,124 +821,89 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
             continue;
         }
 
-        // compress channels (feed-forward design)
-        if (DesignIsFeedForward)
+        // pre-process side chain
+        for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
-            // process side chain sample
-            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
+            double SideChainSample;
+
+            // compress channels (feed-forward design)
+            if (DesignIsFeedForward)
             {
                 // side chain is fed from *input* channel
-                double SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
+                SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
+
+                // de-normalise side chain input sample
+                SideChainSample += AntiDenormalDouble;
+            }
+            // compress channels (feed-back design)
+            else
+            {
+                // side chain is fed from *output* channel
+                SideChainSample = OutputSamples[CurrentChannel];
+/*
+                // alternative feed-back mode (supports external side
+                // chain)
+                // 
+                // side chain is fed from *input* channel
+                SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
 
                 // de-normalise side chain input sample
                 SideChainSample += AntiDenormalDouble;
 
-                // filter side-chain sample (the filter's output is
-                // already de-normalised!)
-                if (EnableSidechainFilter)
-                {
-                    // filter sample
-                    SideChainSample = SidechainFilter[CurrentChannel]->filterSample(SideChainSample);
+                // retrieve last gain reduction
+                double LastGainReduction = -SideChainProcessor[CurrentChannel]->getGainReduction(true);
 
-                    // apply filter make-up gain
-                    SideChainSample *= SidechainFilterGainReal;
-                }
-
-                SidechainSamples.set(CurrentChannel, SideChainSample);
+                // apply feedback-loop
+                SideChainSample *= SideChain::decibel2level(LastGainReduction);
+*/
             }
 
-            // all channels have been processed; now we can calculate
-            // the side chain level
-            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
+            // filter side-chain sample (the filter's output is
+            // already de-normalised!)
+            if (EnableSidechainFilter)
             {
-                // calculate level of side-chain sample
-                double SideChainLevel;
+                // filter sample
+                SideChainSample = SidechainFilter[CurrentChannel]->filterSample(SideChainSample);
 
-                // stereo linking is off (save some processing time)
-                if (StereoLinkPercentage == 0)
-                {
-                    SideChainLevel = fabs(SidechainSamples[CurrentChannel]);
-                }
-                // stereo linking is on
-                else
-                {
-                    // get ID of other stereo channel
-                    int OtherChannel = (CurrentChannel == 0) ? 1 : 0;
-
-                    // mix side chain according to stereo link
-                    // percentage; getting the absolute value of each
-                    // channel *separately* allows for a certain kind
-                    // of M/S compression
-                    SideChainLevel = fabs(SidechainSamples[CurrentChannel] * StereoLinkWeight) + fabs(SidechainSamples[OtherChannel] * StereoLinkWeightOther);
-                }
-
-                // convert side chain level to decibels
-                SideChainLevel = SideChain::level2decibel(SideChainLevel);
-
-                // apply crest factor
-                SideChainLevel += CrestFactor;
-
-                // send current input sample to gain reduction unit
-                SideChainProcessor[CurrentChannel]->processSample(SideChainLevel);
+                // apply filter make-up gain
+                SideChainSample *= SidechainFilterGainReal;
             }
+
+            SidechainSamples.set(CurrentChannel, SideChainSample);
         }
-        // compress channels (feed-back design)
-        else
+
+        // all channels of side chain have been processed; now we can
+        // calculate the side chain level
+        for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
-            // process side chain sample
-            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
+            double SideChainLevel;
+
+            // stereo linking is off (save some processing time)
+            if (StereoLinkPercentage == 0)
             {
-                // side chain is fed from *output* channel
-                double SideChainSample = OutputSamples[CurrentChannel];
+                SideChainLevel = fabs(SidechainSamples[CurrentChannel]);
+            }
+            // stereo linking is on
+            else
+            {
+                // get ID of other stereo channel
+                int OtherChannel = (CurrentChannel == 0) ? 1 : 0;
 
-                // filter side-chain sample (the filter's output is
-                // already de-normalised!)
-                if (EnableSidechainFilter)
-                {
-                    // filter sample
-                    SideChainSample = SidechainFilter[CurrentChannel]->filterSample(SideChainSample);
-
-                    // apply filter make-up gain
-                    SideChainSample *= SidechainFilterGainReal;
-                }
-
-                SidechainSamples.set(CurrentChannel, SideChainSample);
+                // mix side chain according to stereo link percentage;
+                // getting the absolute value of each channel
+                // *separately* allows for a certain kind of M/S
+                // compression
+                SideChainLevel = fabs(SidechainSamples[CurrentChannel] * StereoLinkWeight) + fabs(SidechainSamples[OtherChannel] * StereoLinkWeightOther);
             }
 
-            // all channels have been processed; now we can calculate
-            // the side chain level
-            for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
-            {
-                // calculate level of side-chain sample
-                double SideChainLevel;
+            // convert side chain level to decibels
+            SideChainLevel = SideChain::level2decibel(SideChainLevel);
 
-                // stereo linking is off (save some processing time)
-                if (StereoLinkPercentage == 0)
-                {
-                    SideChainLevel = fabs(SidechainSamples[CurrentChannel]);
-                }
-                // stereo linking is on
-                else
-                {
-                    // get ID of other stereo channel
-                    int OtherChannel = (CurrentChannel == 0) ? 1 : 0;
+            // apply crest factor
+            SideChainLevel += CrestFactor;
 
-                    // mix side chain according to stereo link
-                    // percentage; getting the absolute value of each
-                    // channel *separately* allows for a certain kind
-                    // of M/S compression
-                    SideChainLevel = fabs(SidechainSamples[CurrentChannel] * StereoLinkWeight) + fabs(SidechainSamples[OtherChannel] * StereoLinkWeightOther);
-                }
-
-                // convert side chain level to decibels
-                SideChainLevel = SideChain::level2decibel(SideChainLevel);
-
-                // apply crest factor
-                SideChainLevel += CrestFactor;
-
-                // send current input sample to gain reduction unit
-                SideChainProcessor[CurrentChannel]->processSample(SideChainLevel);
-            }
+            // send current input sample to gain reduction unit
+            SideChainProcessor[CurrentChannel]->processSample(SideChainLevel);
         }
 
         // apply gain reduction and save output sample
