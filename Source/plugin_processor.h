@@ -69,7 +69,7 @@ public:
     void resetMeters();
 
     float getGainReduction(int nChannel);
-    float getGainReductionPeak(int nChannel);
+    float getGainReductionMeterPeak(int nChannel);
 
     float getPeakMeterInputLevel(int nChannel);
     float getPeakMeterOutputLevel(int nChannel);

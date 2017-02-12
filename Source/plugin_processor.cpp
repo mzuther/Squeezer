@@ -586,11 +586,11 @@ float SqueezerAudioProcessor::getGainReduction(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getGainReductionPeak(int nChannel)
+float SqueezerAudioProcessor::getGainReductionMeterPeak(int nChannel)
 {
     if (pCompressor)
     {
-        return (float) pCompressor->getGainReductionPeak(nChannel);
+        return (float) pCompressor->getGainReductionMeterPeak(nChannel);
     }
     else
     {

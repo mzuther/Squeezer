@@ -123,7 +123,7 @@ public:
     void setSidechainListen(bool ListenToSidechainNew);
 
     double getGainReduction(int CurrentChannel);
-    double getGainReductionPeak(int CurrentChannel);
+    double getGainReductionMeterPeak(int CurrentChannel);
 
     double getPeakMeterInputLevel(int CurrentChannel);
     double getPeakMeterOutputLevel(int CurrentChannel);
@@ -181,11 +181,11 @@ private:
     Array<double> AverageMeterOutputLevels;
 
     Array<double> GainReduction;
-    Array<double> GainReductionPeak;
+    Array<double> GainReductionMeterPeak;
 
     Array<double> PeakMeterPeakInputHoldTime;
     Array<double> PeakMeterPeakOutputHoldTime;
-    Array<double> GainReductionHoldTime;
+    Array<double> GainReductionMeterHoldTime;
 
     double CrestFactor;
     int CompressorDesign;
