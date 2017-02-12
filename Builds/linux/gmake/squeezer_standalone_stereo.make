@@ -20,9 +20,9 @@ ifeq ($(config),debug_x32)
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -fno-inline -ggdb
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CFLAGS) -std=c++11
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -std=c++11 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -Wl,--start-group -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound -Wl,--end-group
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -47,9 +47,9 @@ ifeq ($(config),debug_x64)
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -fno-inline -ggdb
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CFLAGS) -std=c++11
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -std=c++11 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -Wl,--start-group -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound -Wl,--end-group
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -74,9 +74,9 @@ ifeq ($(config),release_x32)
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -fvisibility=hidden -pipe
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CFLAGS) -std=c++11
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++11 -fvisibility=hidden -pipe
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -Wl,--start-group -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound -Wl,--end-group
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -s -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -101,9 +101,9 @@ ifeq ($(config),release_x64)
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -fvisibility=hidden -pipe
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CFLAGS) -std=c++11
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++11 -fvisibility=hidden -pipe
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -Wl,--start-group -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound -Wl,--end-group
+  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)

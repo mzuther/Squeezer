@@ -25,12 +25,16 @@
 @rem
 @rem ----------------------------------------------------------------------------
 
-@set python_path="%PROGRAMFILES%\Python35"
 @set visual_toolkit="Windows7.1SDK"
+@rem set python_path="%PROGRAMFILES%\Python35"
 
 
 @echo.
+@premake5 --os=windows vs2013
+
+@echo.
 @premake5 --os=windows vs2015
+
 @rem "%python_path%\python.exe" visual_studio_fix.py "%visual_toolkit%"
 
 @echo.

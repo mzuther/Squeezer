@@ -31,7 +31,11 @@ visual_toolkit="Windows7.1SDK"
 cd $(dirname $0)
 
 echo
+premake5 --os=windows vs2013
+
+echo
 premake5 --os=windows vs2015
+
 # python3 visual_studio_fix.py "$visual_toolkit"
 
 echo

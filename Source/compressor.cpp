@@ -92,6 +92,7 @@ void Compressor::resetMeters()
     {
         // set gain reduction to zero
         GainReduction.set(CurrentChannel, 0.0);
+        GainReductionWithMakeup.set(CurrentChannel, 0.0);
 
         // set peak meter levels to meter minimum
         PeakMeterInputLevels.set(CurrentChannel, MeterMinimumDecibel);
@@ -812,6 +813,7 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
 
                 // store gain reduction now and apply ballistics later
                 GainReduction.set(CurrentChannel, 0.0);
+                GainReductionWithMakeup.set(CurrentChannel, 0.0);
             }
 
             // update meter ballistics and increment buffer location
@@ -838,24 +840,31 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
             // compress channels (feed-back design)
             else
             {
-                // side chain is fed from *output* channel
-                SideChainSample = OutputSamples[CurrentChannel];
-/*
+                bool UseAlternativeFeedbackMode = true;
+
                 // alternative feed-back mode (supports external side
                 // chain)
-                // 
-                // side chain is fed from *input* channel
-                SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
+                if (UseAlternativeFeedbackMode)
+                {
+                    // side chain is fed from *input* channel
+                    SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
 
-                // de-normalise side chain input sample
-                SideChainSample += AntiDenormalDouble;
+                    // de-normalise side chain input sample
+                    SideChainSample += AntiDenormalDouble;
 
-                // retrieve last gain reduction
-                double LastGainReduction = -SideChainProcessor[CurrentChannel]->getGainReduction(true);
+                    // retrieve last gain reduction
+                    double LastGainReduction = -GainReductionWithMakeup[CurrentChannel];
 
-                // apply feedback-loop
-                SideChainSample *= SideChain::decibel2level(LastGainReduction);
-*/
+                    // apply feedback-loop
+                    SideChainSample *= SideChain::decibel2level(LastGainReduction);
+                }
+                // "normal" feed-back mode (external side
+                // chain not supported)
+                else
+                {
+                    // side chain is fed from *output* channel
+                    SideChainSample = OutputSamples[CurrentChannel];
+                }
             }
 
             // filter side-chain sample (the filter's output is
@@ -911,12 +920,22 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
         {
             // store gain reduction now and apply ballistics later
             GainReduction.set(CurrentChannel, SideChainProcessor[CurrentChannel]->getGainReduction(false));
+            GainReductionWithMakeup.set(CurrentChannel, SideChainProcessor[CurrentChannel]->getGainReduction(true));
 
             // apply gain reduction to current input sample
             //
             //  feed-forward design:  current gain reduction
             //  feed-back design:     "old" gain reduction
-            double CurrentGainReduction = -SideChainProcessor[CurrentChannel]->getGainReduction(UseAutoMakeupGain);
+            double CurrentGainReduction;
+
+            if (UseAutoMakeupGain)
+            {
+                CurrentGainReduction = -GainReductionWithMakeup[CurrentChannel];
+            }
+            else
+            {
+                CurrentGainReduction = -GainReduction[CurrentChannel];
+            }
 
             // invert gain reduction for upward expansion
             if (UseUpwardExpansion)

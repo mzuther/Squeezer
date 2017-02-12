@@ -181,6 +181,7 @@ private:
     Array<double> AverageMeterOutputLevels;
 
     Array<double> GainReduction;
+    Array<double> GainReductionWithMakeup;
     Array<double> GainReductionMeterPeak;
 
     Array<double> PeakMeterPeakInputHoldTime;
