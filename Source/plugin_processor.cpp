@@ -557,7 +557,33 @@ void SqueezerAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
     if (bIncludeHiddenParameters)
     {
         // handle hidden parameters here!
+
+        // the following parameters need no updating:
+        //
+        // * selSkinName
     }
+}
+
+
+String SqueezerAudioProcessor::getParameterSkinName()
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    return pluginParameters.getSkinName();
+}
+
+
+void SqueezerAudioProcessor::setParameterSkinName(const String &strSkinName)
+{
+    // This method will be called by the host, probably on the audio
+    // thread, so it's absolutely time-critical. Don't use critical
+    // sections or anything GUI-related, or anything at all that may
+    // block in any way!
+
+    pluginParameters.setSkinName(strSkinName);
 }
 
 

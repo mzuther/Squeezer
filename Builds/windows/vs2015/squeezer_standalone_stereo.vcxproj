@@ -196,6 +196,7 @@
     <ClInclude Include="..\..\..\Source\plugin_parameters.h" />
     <ClInclude Include="..\..\..\Source\plugin_processor.h" />
     <ClInclude Include="..\..\..\Source\side_chain.h" />
+    <ClInclude Include="..\..\..\Source\skin.h" />
     <ClInclude Include="..\..\..\Source\standalone_application.h" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +230,7 @@
     <ClCompile Include="..\..\..\Source\plugin_parameters.cpp" />
     <ClCompile Include="..\..\..\Source\plugin_processor.cpp" />
     <ClCompile Include="..\..\..\Source\side_chain.cpp" />
+    <ClCompile Include="..\..\..\Source\skin.cpp" />
     <ClCompile Include="..\..\..\Source\standalone_application.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

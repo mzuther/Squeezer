@@ -149,6 +149,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/side_chain.o \
+	$(OBJDIR)/skin.o \
 	$(OBJDIR)/standalone_application.o \
 
 RESOURCES := \
@@ -295,6 +296,9 @@ $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/skin.o: ../../../Source/skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp

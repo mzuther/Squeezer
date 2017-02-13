@@ -31,6 +31,7 @@
 #include "meter_bar_gain_reduction.h"
 #include "meter_bar_level.h"
 #include "plugin_processor.h"
+#include "skin.h"
 
 
 //==============================================================================
@@ -50,6 +51,7 @@ public:
 
     void windowAboutCallback(int modalResult);
     void windowSettingsCallback(int modalResult);
+    void windowSkinCallback(int modalResult);
 
     //==============================================================================
     // This is just a standard Juce paint method...
@@ -59,15 +61,20 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessorEditor);
 
-    void resizeEditor();
+    void applySkin();
+    void loadSkin();
 
-    int nChannels;
+    int NumberOfChannels;
     int nHeight;
     int nWidth;
 
     int nInputChannels;
 
     SqueezerAudioProcessor *pProcessor;
+
+    File skinDirectory;
+    Skin skin;
+    String currentSkinName;
 
     OwnedArray<MeterBarLevel> p_arrInputLevelMeters;
     OwnedArray<MeterBarLevel> p_arrOutputLevelMeters;
@@ -103,6 +110,8 @@ private:
 
     TextButton ButtonBypass;
     TextButton ButtonResetMeters;
+
+    TextButton ButtonSkin;
     TextButton ButtonSettings;
     TextButton ButtonAbout;
 

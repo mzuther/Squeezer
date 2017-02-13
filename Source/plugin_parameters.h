@@ -41,6 +41,10 @@ public:
 
     String toString();
 
+    static const File getSkinDirectory();
+    String getSkinName();
+    void setSkinName(const String &strSkinName);
+
     enum Parameters  // public namespace!
     {
         selBypass = 0,
@@ -74,7 +78,9 @@ public:
 
         numberOfParametersRevealed,
 
-        numberOfParametersComplete = numberOfParametersRevealed,
+        selSkinName = numberOfParametersRevealed,
+
+        numberOfParametersComplete,
     };
 
 private:

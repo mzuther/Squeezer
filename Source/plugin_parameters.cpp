@@ -407,6 +407,31 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterSidechainListen->setName("SC Listen");
     ParameterSidechainListen->setDefaultBoolean(false, true);
     add(ParameterSidechainListen, selSidechainListen);
+
+
+    // locate directory containing the skins
+    File skinDirectory = getSkinDirectory();
+
+    // locate file containing the default skin's name
+    File defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
+
+    // make sure the file exists
+    if (!defaultSkinFile.existsAsFile())
+    {
+        // create file
+        defaultSkinFile.create();
+
+        // set "Default" as default skin (using Unicode encoding)
+        defaultSkinFile.replaceWithText("Default", true, true);
+    }
+
+    // load name of default skin from file
+    String defaultSkinName = defaultSkinFile.loadFileAsString();
+
+    frut::parameter::ParString *ParameterSkinName =
+        new frut::parameter::ParString(defaultSkinName);
+    ParameterSkinName->setName("Skin");
+    add(ParameterSkinName, selSkinName);
 }
 
 
@@ -490,6 +515,47 @@ String SqueezerPluginParameters::toString()
     parameterValues += getText(selWetMix);
 
     return parameterValues + "\n";
+}
+
+
+const File SqueezerPluginParameters::getSkinDirectory()
+{
+    // On all platforms we want the skins folder to be located with
+    // the executable.  On Mac, the executable is *not* the same as
+    // the application folder because what looks like an application
+    // is really a package (i.e. a folder) with the executable being
+    // buried inside.
+    //
+    // When deploying on a Mac, right-click on the build target and
+    // select "Show Package Contents".  Navigate through
+    // Contents/MacOS and you will find the K-Meter executable.  Put
+    // the kmeter folder here.
+    //
+    // Thanks to Tod Gentille!
+
+    File applicationDirectory;
+
+#ifdef __APPLE__
+    applicationDirectory = File::getSpecialLocation(
+                               File::currentExecutableFile).getParentDirectory();
+#else
+    applicationDirectory = File::getSpecialLocation(
+                               File::currentApplicationFile).getParentDirectory();
+#endif
+
+    return applicationDirectory.getChildFile("./squeezer/skins/");
+}
+
+
+String SqueezerPluginParameters::getSkinName()
+{
+    return getText(selSkinName);
+}
+
+
+void SqueezerPluginParameters::setSkinName(const String &strSkinName)
+{
+    setText(selSkinName, strSkinName);
 }
 
 

@@ -44,6 +44,15 @@ static void window_settings_callback(int modalResult, SqueezerAudioProcessorEdit
 }
 
 
+static void window_skin_callback(int modalResult, SqueezerAudioProcessorEditor *pEditor)
+{
+    if (pEditor != nullptr)
+    {
+        pEditor->windowSkinCallback(modalResult);
+    }
+}
+
+
 //==============================================================================
 SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels)
     : AudioProcessorEditor(ownerFilter)
@@ -58,7 +67,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
-    nChannels = channels;
+    NumberOfChannels = channels;
 
     ButtonBypass.setButtonText("Bypass");
     ButtonBypass.setColour(TextButton::buttonColourId, Colours::grey);
@@ -252,6 +261,9 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
 #endif
 
 
+    ButtonSkin.addListener(this);
+    addAndMakeVisible(ButtonSkin);
+
     ButtonResetMeters.setButtonText("Reset");
     ButtonResetMeters.setColour(TextButton::buttonColourId, Colours::grey);
     ButtonResetMeters.setColour(TextButton::buttonOnColourId, Colours::red);
@@ -281,7 +293,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     int x_spacing;
     int width;
 
-    if (nChannels == 1)
+    if (NumberOfChannels == 1)
     {
         x_spacing = 20;
         width = 16;
@@ -292,7 +304,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         width = 12;
     }
 
-    for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+    for (int nChannel = 0; nChannel < NumberOfChannels; ++nChannel)
     {
         Array<Colour> levelMeterColours;
 
@@ -348,9 +360,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         x += width;
     }
 
-    // This is where our plug-in editor's size is set.
-    resizeEditor();
-
     updateParameter(SqueezerPluginParameters::selBypass);
 
     updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
@@ -380,6 +389,13 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selSidechainFilterCutoff);
     updateParameter(SqueezerPluginParameters::selSidechainFilterGain);
     updateParameter(SqueezerPluginParameters::selSidechainListen);
+
+    // locate directory containing the skins
+    skinDirectory = SqueezerPluginParameters::getSkinDirectory();
+
+    // apply skin to plug-in editor
+    currentSkinName = pProcessor->getParameterSkinName();
+    loadSkin();
 }
 
 
@@ -389,11 +405,47 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 }
 
 
-void SqueezerAudioProcessorEditor::resizeEditor()
+void SqueezerAudioProcessorEditor::loadSkin()
 {
+    File fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
+
+    if (!fileSkin.existsAsFile())
+    {
+        Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
+
+        currentSkinName = "Default";
+        fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
+    }
+
+    pProcessor->setParameterSkinName(currentSkinName);
+
+    skin.loadSkin(fileSkin, NumberOfChannels);
+
+    // moves background image to the back of the editor's z-plane
+    applySkin();
+}
+
+
+void SqueezerAudioProcessorEditor::applySkin()
+{
+    // update skin
+    skin.updateSkin(NumberOfChannels);
+/*
+    // moves background image to the back of the editor's z-plane;
+    // will also resize plug-in editor
+    skin.setBackgroundImage(&BackgroundImage, this);
+
+    skin.placeAndSkinButton(&ButtonMeterType, "button_split");
+    skin.placeComponent(SliderGain, "slider_gain");
+
+#ifdef DEBUG
+    skin.placeAndSkinLabel(&LabelDebug, "label_debug");
+#endif
+*/
+
     nHeight = 188;
 
-    if (nChannels == 1)
+    if (NumberOfChannels == 1)
     {
         nWidth = 586;
     }
@@ -465,6 +517,20 @@ void SqueezerAudioProcessorEditor::windowSettingsCallback(int modalResult)
 }
 
 
+void SqueezerAudioProcessorEditor::windowSkinCallback(int modalResult)
+{
+    // manually deactivate skin button
+    ButtonSkin.setToggleState(false, dontSendNotification);
+
+    // user has selected a skin
+    if (modalResult > 0)
+    {
+        // apply skin to plug-in editor
+        loadSkin();
+    }
+}
+
+
 void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessage)
 {
     // "PC" --> parameter changed, followed by a hash and the
@@ -484,7 +550,7 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessa
     // "UM" --> update meters
     else if (!strMessage.compare("UM"))
     {
-        for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+        for (int nChannel = 0; nChannel < NumberOfChannels; ++nChannel)
         {
             float averageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
             float maximumInputLevel = pProcessor->getMaximumInputLevel(nChannel);
@@ -604,7 +670,7 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
             float fRealValue = SliderRatioCombined->getRealFloat();
             bool bUpwardExpansion = (fRealValue < 1.0f);
 
-            for (int nChannel = 0; nChannel < nChannels; ++nChannel)
+            for (int nChannel = 0; nChannel < NumberOfChannels; ++nChannel)
             {
                 p_arrGainReductionMeters[nChannel]->setUpwardExpansion(bUpwardExpansion);
             }
@@ -690,7 +756,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.fillRect(x + 260, y1,  82, 168);
     g.fillRect(x + 345, y1, 142, 168);
 
-    if (nChannels == 1)
+    if (NumberOfChannels == 1)
     {
         g.fillRect(x + 490, y1,  76, 168);
     }
@@ -704,7 +770,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.drawRect(x + 260, y1,  82, 168);
     g.drawRect(x + 345, y1, 142, 168);
 
-    if (nChannels == 1)
+    if (NumberOfChannels == 1)
     {
         g.drawRect(x + 490, y1,  76, 168);
     }
@@ -718,7 +784,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.fillRect(x + 265, y2,  72,  85);
     g.fillRect(x + 350, y2, 132,  85);
 
-    if (nChannels == 1)
+    if (NumberOfChannels == 1)
     {
         g.fillRect(x + 495, y1 + 5,  66, 158);
     }
@@ -732,7 +798,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.drawRect(x + 265, y2,  72,  85);
     g.drawRect(x + 350, y2, 132,  85);
 
-    if (nChannels == 1)
+    if (NumberOfChannels == 1)
     {
         g.drawRect(x + 495, y1 + 5,  66, 158);
     }
@@ -819,6 +885,19 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
 
         // manually deactivate button
         button->setToggleState(false, dontSendNotification);
+    }
+    else if (button == &ButtonSkin)
+    {
+        // manually activate button (will be deactivated in dialog
+        // window callback)
+        button->setToggleState(true, dontSendNotification);
+
+        // prepare and launch dialog window
+        DialogWindow *windowSkin = frut::widget::WindowSkinContent::createDialogWindow(
+                                       this, &currentSkinName, skinDirectory);
+
+        // attach callback to dialog window
+        ModalComponentManager::getInstance()->attachCallback(windowSkin, ModalCallbackFunction::forComponent(window_skin_callback, this));
     }
     else if (button == &ButtonAbout)
     {

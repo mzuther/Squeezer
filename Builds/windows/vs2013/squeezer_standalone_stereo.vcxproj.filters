@@ -69,6 +69,9 @@
     <ClInclude Include="..\..\..\Source\side_chain.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\skin.h">
+      <Filter>Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\standalone_application.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -162,6 +165,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\side_chain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\skin.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\standalone_application.cpp">
