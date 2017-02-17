@@ -26,282 +26,331 @@
 #include "plugin_editor.h"
 
 
-static void window_about_callback(int modalResult, SqueezerAudioProcessorEditor *pEditor)
+static void window_about_callback(
+    int ModalResult,
+    SqueezerAudioProcessorEditor *Editor)
 {
-    if (pEditor != nullptr)
+    if (Editor != nullptr)
     {
-        pEditor->windowAboutCallback(modalResult);
+        Editor->windowAboutCallback(ModalResult);
     }
 }
 
 
-static void window_settings_callback(int modalResult, SqueezerAudioProcessorEditor *pEditor)
+static void window_settings_callback(
+    int ModalResult,
+    SqueezerAudioProcessorEditor *Editor)
 {
-    if (pEditor != nullptr)
+    if (Editor != nullptr)
     {
-        pEditor->windowSettingsCallback(modalResult);
+        Editor->windowSettingsCallback(ModalResult);
     }
 }
 
 
-static void window_skin_callback(int modalResult, SqueezerAudioProcessorEditor *pEditor)
+static void window_skin_callback(
+    int ModalResult,
+    SqueezerAudioProcessorEditor *Editor)
 {
-    if (pEditor != nullptr)
+    if (Editor != nullptr)
     {
-        pEditor->windowSkinCallback(modalResult);
+        Editor->windowSkinCallback(ModalResult);
     }
 }
 
 
-//==============================================================================
-SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels)
-    : AudioProcessorEditor(ownerFilter)
+SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
+    SqueezerAudioProcessor *OwnerFilter,
+    SqueezerPluginParameters *PluginParameters,
+    int NumberOfChannels)
+    : AudioProcessorEditor(OwnerFilter)
 {
     // the editor window does not have any transparent areas
     // (increases performance on redrawing)
     setOpaque(true);
 
     // prevent meter updates during initialisation
-    isInitialising = true;
+    IsInitialising_ = true;
 
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
 
-    pProcessor = ownerFilter;
-    pProcessor->addActionListener(this);
+    PluginProcessor_ = OwnerFilter;
+    PluginProcessor_->addActionListener(this);
 
-    numberOfChannels_ = channels;
+    NumberOfChannels_ = NumberOfChannels;
 
-    ButtonBypass.setButtonText("Bypass");
-    ButtonBypass.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonBypass.setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonBypass_.setButtonText("Bypass");
+    ButtonBypass_.setColour(TextButton::buttonColourId,
+                            Colours::grey);
+    ButtonBypass_.setColour(TextButton::buttonOnColourId,
+                            Colours::red);
 
-    ButtonBypass.addListener(this);
-    addAndMakeVisible(&ButtonBypass);
-
-
-    ButtonDetectorRms.setButtonText("RMS");
-    ButtonDetectorRms.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorRms.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonDetectorRms.addListener(this);
-    addAndMakeVisible(&ButtonDetectorRms);
+    ButtonBypass_.addListener(this);
+    addAndMakeVisible(&ButtonBypass_);
 
 
-    ButtonDesignFeedBack.setButtonText("F.Back");
-    ButtonDesignFeedBack.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDesignFeedBack.setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonDetectorRms_.setButtonText("RMS");
+    ButtonDetectorRms_.setColour(TextButton::buttonColourId,
+                                 Colours::grey);
+    ButtonDetectorRms_.setColour(TextButton::buttonOnColourId,
+                                 Colours::yellow);
 
-    ButtonDesignFeedBack.addListener(this);
-    addAndMakeVisible(&ButtonDesignFeedBack);
-
-
-    ButtonGainStageOptical.setButtonText("Opto");
-    ButtonGainStageOptical.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonGainStageOptical.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonGainStageOptical.addListener(this);
-    addAndMakeVisible(&ButtonGainStageOptical);
+    ButtonDetectorRms_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorRms_);
 
 
-    ButtonDetectorLinear.setButtonText("Linear");
-    ButtonDetectorLinear.setRadioGroupId(1);
-    ButtonDetectorLinear.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorLinear.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
+    ButtonDesignFeedback_.setButtonText("F.Back");
+    ButtonDesignFeedback_.setColour(TextButton::buttonColourId,
+                                    Colours::grey);
+    ButtonDesignFeedback_.setColour(TextButton::buttonOnColourId,
+                                    Colours::yellow);
 
-    ButtonDetectorLinear.addListener(this);
-    addAndMakeVisible(&ButtonDetectorLinear);
-
-
-    ButtonDetectorSmoothDecoupled.setButtonText("S-Curve");
-    ButtonDetectorSmoothDecoupled.setRadioGroupId(1);
-    ButtonDetectorSmoothDecoupled.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothDecoupled.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
-
-    ButtonDetectorSmoothDecoupled.addListener(this);
-    addAndMakeVisible(&ButtonDetectorSmoothDecoupled);
+    ButtonDesignFeedback_.addListener(this);
+    addAndMakeVisible(&ButtonDesignFeedback_);
 
 
-    ButtonDetectorSmoothBranching.setButtonText("Log");
-    ButtonDetectorSmoothBranching.setRadioGroupId(1);
-    ButtonDetectorSmoothBranching.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonDetectorSmoothBranching.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(-0.08f));
+    ButtonGainStageOptical_.setButtonText("Opto");
+    ButtonGainStageOptical_.setColour(TextButton::buttonColourId,
+                                      Colours::grey);
+    ButtonGainStageOptical_.setColour(TextButton::buttonOnColourId,
+                                      Colours::yellow);
 
-    ButtonDetectorSmoothBranching.addListener(this);
-    addAndMakeVisible(&ButtonDetectorSmoothBranching);
-
-
-    ButtonKneeHard.setButtonText("Hard");
-    ButtonKneeHard.setRadioGroupId(2);
-    ButtonKneeHard.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonKneeHard.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
-
-    ButtonKneeHard.addListener(this);
-    addAndMakeVisible(&ButtonKneeHard);
-
-    ButtonKneeMedium.setButtonText("Medium");
-    ButtonKneeMedium.setRadioGroupId(2);
-    ButtonKneeMedium.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonKneeMedium.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
-
-    ButtonKneeMedium.addListener(this);
-    addAndMakeVisible(&ButtonKneeMedium);
-
-    ButtonKneeSoft.setButtonText("Soft");
-    ButtonKneeSoft.setRadioGroupId(2);
-    ButtonKneeSoft.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonKneeSoft.setColour(TextButton::buttonOnColourId, Colours::yellow.withRotatedHue(+0.08f));
-
-    ButtonKneeSoft.addListener(this);
-    addAndMakeVisible(&ButtonKneeSoft);
-
-    int nIndex = SqueezerPluginParameters::selThreshold;
-    int nIndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
-    SliderThresholdCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderThresholdCombined->setSliderColour(Colours::purple.brighter(0.2f));
-
-    SliderThresholdCombined->addListener(this);
-    SliderThresholdCombined->addButtonListener(this);
-    addAndMakeVisible(SliderThresholdCombined);
+    ButtonGainStageOptical_.addListener(this);
+    addAndMakeVisible(&ButtonGainStageOptical_);
 
 
-    nIndex = SqueezerPluginParameters::selRatio;
-    nIndexSwitch = SqueezerPluginParameters::selRatioSwitch;
-    SliderRatioCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderRatioCombined->setSliderColour(Colours::purple.brighter(0.2f));
+    ButtonDetectorLinear_.setButtonText("Linear");
+    ButtonDetectorLinear_.setRadioGroupId(1);
+    ButtonDetectorLinear_.setColour(TextButton::buttonColourId,
+                                    Colours::grey);
+    ButtonDetectorLinear_.setColour(TextButton::buttonOnColourId,
+                                    Colours::yellow.withRotatedHue(-0.08f));
 
-    SliderRatioCombined->addListener(this);
-    SliderRatioCombined->addButtonListener(this);
-    addAndMakeVisible(SliderRatioCombined);
-
-    nIndex = SqueezerPluginParameters::selAttackRate;
-    nIndexSwitch = SqueezerPluginParameters::selAttackRateSwitch;
-    SliderAttackRateCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderAttackRateCombined->setSliderColour(Colours::yellow);
-
-    SliderAttackRateCombined->addListener(this);
-    SliderAttackRateCombined->addButtonListener(this);
-    addAndMakeVisible(SliderAttackRateCombined);
+    ButtonDetectorLinear_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorLinear_);
 
 
-    nIndex = SqueezerPluginParameters::selReleaseRate;
-    nIndexSwitch = SqueezerPluginParameters::selReleaseRateSwitch;
-    SliderReleaseRateCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderReleaseRateCombined->setSliderColour(Colours::yellow);
+    ButtonDetectorSmoothDecoupled_.setButtonText("S-Curve");
+    ButtonDetectorSmoothDecoupled_.setRadioGroupId(1);
+    ButtonDetectorSmoothDecoupled_.setColour(TextButton::buttonColourId,
+            Colours::grey);
+    ButtonDetectorSmoothDecoupled_.setColour(TextButton::buttonOnColourId,
+            Colours::yellow.withRotatedHue(-0.08f));
 
-    SliderReleaseRateCombined->addListener(this);
-    SliderReleaseRateCombined->addButtonListener(this);
-    addAndMakeVisible(SliderReleaseRateCombined);
-
-
-    ButtonAutoMakeupGain.setButtonText("Auto MU");
-    ButtonAutoMakeupGain.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonAutoMakeupGain.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonAutoMakeupGain.addListener(this);
-    addAndMakeVisible(&ButtonAutoMakeupGain);
+    ButtonDetectorSmoothDecoupled_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorSmoothDecoupled_);
 
 
-    nIndex = SqueezerPluginParameters::selMakeupGain;
-    nIndexSwitch = SqueezerPluginParameters::selMakeupGainSwitch;
-    SliderMakeupGainCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderMakeupGainCombined->setSliderColour(Colours::blue.brighter(0.4f));
+    ButtonDetectorSmoothBranching_.setButtonText("Log");
+    ButtonDetectorSmoothBranching_.setRadioGroupId(1);
+    ButtonDetectorSmoothBranching_.setColour(TextButton::buttonColourId,
+            Colours::grey);
+    ButtonDetectorSmoothBranching_.setColour(TextButton::buttonOnColourId,
+            Colours::yellow.withRotatedHue(-0.08f));
 
-    SliderMakeupGainCombined->addListener(this);
-    SliderMakeupGainCombined->addButtonListener(this);
-    addAndMakeVisible(SliderMakeupGainCombined);
-
-
-    nIndex = SqueezerPluginParameters::selWetMix;
-    nIndexSwitch = SqueezerPluginParameters::selWetMixSwitch;
-    SliderWetMixCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderWetMixCombined->setSliderColour(Colours::blue.brighter(0.4f));
-
-    SliderWetMixCombined->addListener(this);
-    SliderWetMixCombined->addButtonListener(this);
-    addAndMakeVisible(SliderWetMixCombined);
+    ButtonDetectorSmoothBranching_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorSmoothBranching_);
 
 
-    ButtonSidechainFilterState.setButtonText("Filter");
-    ButtonSidechainFilterState.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonSidechainFilterState.setColour(TextButton::buttonOnColourId, Colours::green);
+    ButtonKneeHard_.setButtonText("Hard");
+    ButtonKneeHard_.setRadioGroupId(2);
+    ButtonKneeHard_.setColour(TextButton::buttonColourId,
+                              Colours::grey);
+    ButtonKneeHard_.setColour(TextButton::buttonOnColourId,
+                              Colours::yellow.withRotatedHue(+0.08f));
 
-    ButtonSidechainFilterState.addListener(this);
-    addAndMakeVisible(&ButtonSidechainFilterState);
+    ButtonKneeHard_.addListener(this);
+    addAndMakeVisible(&ButtonKneeHard_);
+
+    ButtonKneeMedium_.setButtonText("Medium");
+    ButtonKneeMedium_.setRadioGroupId(2);
+    ButtonKneeMedium_.setColour(TextButton::buttonColourId,
+                                Colours::grey);
+    ButtonKneeMedium_.setColour(TextButton::buttonOnColourId,
+                                Colours::yellow.withRotatedHue(+0.08f));
+
+    ButtonKneeMedium_.addListener(this);
+    addAndMakeVisible(&ButtonKneeMedium_);
+
+    ButtonKneeSoft_.setButtonText("Soft");
+    ButtonKneeSoft_.setRadioGroupId(2);
+    ButtonKneeSoft_.setColour(TextButton::buttonColourId,
+                              Colours::grey);
+    ButtonKneeSoft_.setColour(TextButton::buttonOnColourId,
+                              Colours::yellow.withRotatedHue(+0.08f));
+
+    ButtonKneeSoft_.addListener(this);
+    addAndMakeVisible(&ButtonKneeSoft_);
+
+    int Index = SqueezerPluginParameters::selThreshold;
+    int IndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
+    SliderThreshold_ = new frut::widget::SliderCombined(
+        PluginParameters, Index, IndexSwitch);
+    SliderThreshold_->setSliderColour(Colours::purple.brighter(0.2f));
+
+    SliderThreshold_->addListener(this);
+    SliderThreshold_->addButtonListener(this);
+    addAndMakeVisible(SliderThreshold_);
 
 
-    nIndex = SqueezerPluginParameters::selSidechainFilterCutoff;
-    nIndexSwitch = SqueezerPluginParameters::selSidechainFilterCutoffSwitch;
-    SliderSidechainFilterCutoffCombined = new frut::widget::SliderCombined(parameters, nIndex, nIndexSwitch);
-    SliderSidechainFilterCutoffCombined->setSliderColour(Colours::green.brighter(0.1f));
+    Index = SqueezerPluginParameters::selRatio;
+    IndexSwitch = SqueezerPluginParameters::selRatioSwitch;
+    SliderRatio_ = new frut::widget::SliderCombined(
+        PluginParameters, Index, IndexSwitch);
+    SliderRatio_->setSliderColour(Colours::purple.brighter(0.2f));
 
-    SliderSidechainFilterCutoffCombined->addListener(this);
-    SliderSidechainFilterCutoffCombined->addButtonListener(this);
-    addAndMakeVisible(SliderSidechainFilterCutoffCombined);
+    SliderRatio_->addListener(this);
+    SliderRatio_->addButtonListener(this);
+    addAndMakeVisible(SliderRatio_);
+
+    Index = SqueezerPluginParameters::selAttackRate;
+    IndexSwitch = SqueezerPluginParameters::selAttackRateSwitch;
+    SliderAttackRate_ = new frut::widget::SliderCombined(
+        PluginParameters, Index, IndexSwitch);
+    SliderAttackRate_->setSliderColour(Colours::yellow);
+
+    SliderAttackRate_->addListener(this);
+    SliderAttackRate_->addButtonListener(this);
+    addAndMakeVisible(SliderAttackRate_);
 
 
-    nIndex = SqueezerPluginParameters::selSidechainFilterGain;
-    SliderSidechainFilterGain = new frut::widget::SliderSwitchLinearBar(parameters, nIndex);
-    SliderSidechainFilterGain->setSliderColour(Colours::green.brighter(0.1f));
+    Index = SqueezerPluginParameters::selReleaseRate;
+    IndexSwitch = SqueezerPluginParameters::selReleaseRateSwitch;
+    SliderReleaseRate_ = new frut::widget::SliderCombined(
+        PluginParameters, Index, IndexSwitch);
+    SliderReleaseRate_->setSliderColour(Colours::yellow);
 
-    SliderSidechainFilterGain->addListener(this);
-    addAndMakeVisible(SliderSidechainFilterGain);
+    SliderReleaseRate_->addListener(this);
+    SliderReleaseRate_->addButtonListener(this);
+    addAndMakeVisible(SliderReleaseRate_);
 
 
-    ButtonSidechainListen.setButtonText("Listen");
-    ButtonSidechainListen.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonSidechainListen.setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonAutoMakeupGain_.setButtonText("Auto MU");
+    ButtonAutoMakeupGain_.setColour(TextButton::buttonColourId,
+                                    Colours::grey);
+    ButtonAutoMakeupGain_.setColour(TextButton::buttonOnColourId,
+                                    Colours::yellow);
 
-    ButtonSidechainListen.addListener(this);
-    addAndMakeVisible(&ButtonSidechainListen);
+    ButtonAutoMakeupGain_.addListener(this);
+    addAndMakeVisible(&ButtonAutoMakeupGain_);
+
+
+    Index = SqueezerPluginParameters::selMakeupGain;
+    IndexSwitch = SqueezerPluginParameters::selMakeupGainSwitch;
+    SliderMakeupGain_ = new frut::widget::SliderCombined(
+        PluginParameters, Index, IndexSwitch);
+    SliderMakeupGain_->setSliderColour(Colours::blue.brighter(0.4f));
+
+    SliderMakeupGain_->addListener(this);
+    SliderMakeupGain_->addButtonListener(this);
+    addAndMakeVisible(SliderMakeupGain_);
+
+
+    Index = SqueezerPluginParameters::selWetMix;
+    IndexSwitch = SqueezerPluginParameters::selWetMixSwitch;
+    SliderWetMix_ = new frut::widget::SliderCombined(
+        PluginParameters, Index, IndexSwitch);
+    SliderWetMix_->setSliderColour(Colours::blue.brighter(0.4f));
+
+    SliderWetMix_->addListener(this);
+    SliderWetMix_->addButtonListener(this);
+    addAndMakeVisible(SliderWetMix_);
+
+
+    ButtonSidechainFilterState_.setButtonText("Filter");
+    ButtonSidechainFilterState_.setColour(TextButton::buttonColourId,
+                                          Colours::grey);
+    ButtonSidechainFilterState_.setColour(TextButton::buttonOnColourId,
+                                          Colours::green);
+
+    ButtonSidechainFilterState_.addListener(this);
+    addAndMakeVisible(&ButtonSidechainFilterState_);
+
+
+    Index = SqueezerPluginParameters::selSidechainFilterCutoff;
+    IndexSwitch = SqueezerPluginParameters::selSidechainFilterCutoffSwitch;
+    SliderSidechainLpfCutoff_ = new frut::widget::SliderCombined(
+        PluginParameters, Index, IndexSwitch);
+    SliderSidechainLpfCutoff_->setSliderColour(Colours::green.brighter(0.1f));
+
+    SliderSidechainLpfCutoff_->addListener(this);
+    SliderSidechainLpfCutoff_->addButtonListener(this);
+    addAndMakeVisible(SliderSidechainLpfCutoff_);
+
+
+    Index = SqueezerPluginParameters::selSidechainFilterGain;
+    SliderSidechainFilterGain_ = new frut::widget::SliderSwitchLinearBar(
+        PluginParameters, Index);
+    SliderSidechainFilterGain_->setSliderColour(Colours::green.brighter(0.1f));
+
+    SliderSidechainFilterGain_->addListener(this);
+    addAndMakeVisible(SliderSidechainFilterGain_);
+
+
+    ButtonSidechainListen_.setButtonText("Listen");
+    ButtonSidechainListen_.setColour(TextButton::buttonColourId,
+                                     Colours::grey);
+    ButtonSidechainListen_.setColour(TextButton::buttonOnColourId,
+                                     Colours::red);
+
+    ButtonSidechainListen_.addListener(this);
+    addAndMakeVisible(&ButtonSidechainListen_);
 
 
 #ifdef DEBUG
-    LabelDebug.setText("dbg", dontSendNotification);
-    LabelDebug.setColour(Label::textColourId, Colours::red);
-    LabelDebug.setJustificationType(Justification::centred);
+    LabelDebug_.setText("dbg", dontSendNotification);
+    LabelDebug_.setColour(Label::textColourId,
+                          Colours::red);
+    LabelDebug_.setJustificationType(Justification::centred);
 #endif
 
 
-    ButtonSkin.addListener(this);
-    addAndMakeVisible(ButtonSkin);
+    ButtonSkin_.addListener(this);
+    addAndMakeVisible(ButtonSkin_);
 
-    ButtonReset.setButtonText("Reset");
-    ButtonReset.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonReset.setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonReset_.setButtonText("Reset");
+    ButtonReset_.setColour(TextButton::buttonColourId,
+                           Colours::grey);
+    ButtonReset_.setColour(TextButton::buttonOnColourId,
+                           Colours::red);
 
-    ButtonReset.addListener(this);
-    addAndMakeVisible(&ButtonReset);
-
-
-    ButtonSettings.setButtonText("Settings");
-    ButtonSettings.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonSettings.setColour(TextButton::buttonOnColourId, Colours::yellow);
-
-    ButtonSettings.addListener(this);
-    addAndMakeVisible(&ButtonSettings);
+    ButtonReset_.addListener(this);
+    addAndMakeVisible(&ButtonReset_);
 
 
-    ButtonAbout.setButtonText("About");
-    ButtonAbout.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonAbout.setColour(TextButton::buttonOnColourId, Colours::yellow);
+    ButtonSettings_.setButtonText("Settings");
+    ButtonSettings_.setColour(TextButton::buttonColourId,
+                              Colours::grey);
+    ButtonSettings_.setColour(TextButton::buttonOnColourId,
+                              Colours::yellow);
 
-    ButtonAbout.addListener(this);
-    addAndMakeVisible(&ButtonAbout);
+    ButtonSettings_.addListener(this);
+    addAndMakeVisible(&ButtonSettings_);
+
+
+    ButtonAbout_.setButtonText("About");
+    ButtonAbout_.setColour(TextButton::buttonColourId,
+                           Colours::grey);
+    ButtonAbout_.setColour(TextButton::buttonOnColourId,
+                           Colours::yellow);
+
+    ButtonAbout_.addListener(this);
+    addAndMakeVisible(&ButtonAbout_);
 
 
 #ifdef DEBUG
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(LabelDebug, 0);
+    addAndMakeVisible(LabelDebug_, 0);
 #endif
 
 
     // prevent unnecessary redrawing of plugin editor
-    BackgroundImage.setOpaque(true);
+    BackgroundImage_.setOpaque(true);
     // moves background image to the back of the editor's z-plane to
     // that it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(BackgroundImage, 0);
+    addAndMakeVisible(BackgroundImage_, 0);
 
     updateParameter(SqueezerPluginParameters::selBypass);
 
@@ -334,411 +383,445 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     updateParameter(SqueezerPluginParameters::selSidechainListen);
 
     // locate directory containing the skins
-    skinDirectory = SqueezerPluginParameters::getSkinDirectory();
+    SkinDirectory_ = SqueezerPluginParameters::getSkinDirectory();
 
     // apply skin to plug-in editor
-    currentSkinName = pProcessor->getParameterSkinName();
-    loadSkin();
+    CurrentSkinName_ = PluginProcessor_->getParameterSkinName();
+    loadSkin_();
 }
 
 
 SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 {
-    pProcessor->removeActionListener(this);
+    PluginProcessor_->removeActionListener(this);
 }
 
 
-void SqueezerAudioProcessorEditor::loadSkin()
+void SqueezerAudioProcessorEditor::loadSkin_()
 {
-    File fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
+    File FileSkin = SkinDirectory_.getChildFile(CurrentSkinName_ + ".skin");
 
-    if (!fileSkin.existsAsFile())
+    if (!FileSkin.existsAsFile())
     {
-        Logger::outputDebugString("[Skin] file \"" + fileSkin.getFileName() + "\" not found");
+        Logger::outputDebugString("[Skin] file \"" + FileSkin.getFileName() +
+                                  "\" not found");
 
-        currentSkinName = "Default";
-        fileSkin = skinDirectory.getChildFile(currentSkinName + ".skin");
+        CurrentSkinName_ = "Default";
+        FileSkin = SkinDirectory_.getChildFile(CurrentSkinName_ + ".skin");
     }
 
-    pProcessor->setParameterSkinName(currentSkinName);
+    PluginProcessor_->setParameterSkinName(CurrentSkinName_);
 
-    skin.loadSkin(fileSkin, numberOfChannels_);
+    CurrentSkin_.loadSkin(FileSkin, NumberOfChannels_);
 
     // moves background image to the back of the editor's z-plane
-    applySkin();
+    applySkin_();
 }
 
 
-void SqueezerAudioProcessorEditor::applySkin()
+void SqueezerAudioProcessorEditor::applySkin_()
 {
     // update skin
-    skin.updateSkin(numberOfChannels_);
+    CurrentSkin_.updateSkin(NumberOfChannels_);
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
-    skin.setBackgroundImage(&BackgroundImage, this);
+    CurrentSkin_.setBackgroundImage(&BackgroundImage_, this);
 
-    skin.placeComponent(&ButtonDetectorLinear,
-                        "button_detector_linear");
-    skin.placeComponent(&ButtonDetectorSmoothDecoupled,
-                        "button_detector_smooth_decoupled");
-    skin.placeComponent(&ButtonDetectorSmoothBranching,
-                        "button_detector_smooth_branching");
+    CurrentSkin_.placeComponent(&ButtonDetectorLinear_,
+                                "button_detector_linear");
+    CurrentSkin_.placeComponent(&ButtonDetectorSmoothDecoupled_,
+                                "button_detector_smooth_decoupled");
+    CurrentSkin_.placeComponent(&ButtonDetectorSmoothBranching_,
+                                "button_detector_smooth_branching");
 
-    skin.placeComponent(&ButtonDetectorRms,
-                        "button_detector_rms");
-    skin.placeComponent(&ButtonDesignFeedBack,
-                        "button_design_feedback");
-    skin.placeComponent(&ButtonGainStageOptical,
-                        "button_gainstage_optical");
+    CurrentSkin_.placeComponent(&ButtonDetectorRms_,
+                                "button_detector_rms");
+    CurrentSkin_.placeComponent(&ButtonDesignFeedback_,
+                                "button_design_feedback");
+    CurrentSkin_.placeComponent(&ButtonGainStageOptical_,
+                                "button_gainstage_optical");
 
-    skin.placeComponent(&ButtonKneeHard,
-                        "button_knee_hard");
-    skin.placeComponent(&ButtonKneeMedium,
-                        "button_knee_medium");
-    skin.placeComponent(&ButtonKneeSoft,
-                        "button_knee_soft");
+    CurrentSkin_.placeComponent(&ButtonKneeHard_,
+                                "button_knee_hard");
+    CurrentSkin_.placeComponent(&ButtonKneeMedium_,
+                                "button_knee_medium");
+    CurrentSkin_.placeComponent(&ButtonKneeSoft_,
+                                "button_knee_soft");
 
-    skin.placeComponent(SliderThresholdCombined,
-                        "slider_threshold");
-    skin.placeComponent(SliderRatioCombined,
-                        "slider_ratio");
+    CurrentSkin_.placeComponent(SliderThreshold_,
+                                "slider_threshold");
+    CurrentSkin_.placeComponent(SliderRatio_,
+                                "slider_ratio");
 
-    skin.placeComponent(SliderAttackRateCombined,
-                        "slider_attack_rate");
-    skin.placeComponent(SliderReleaseRateCombined,
-                        "slider_release_rate");
+    CurrentSkin_.placeComponent(SliderAttackRate_,
+                                "slider_attack_rate");
+    CurrentSkin_.placeComponent(SliderReleaseRate_,
+                                "slider_release_rate");
 
-    skin.placeComponent(SliderSidechainFilterCutoffCombined,
-                        "slider_sidechain_filter_cutoff");
-    skin.placeComponent(SliderSidechainFilterGain,
-                        "slider_sidechain_filter_gain");
-    skin.placeComponent(&ButtonSidechainFilterState,
-                        "button_sidechain_filter_state");
-    skin.placeComponent(&ButtonSidechainListen,
-                        "button_sidechain_listen");
+    CurrentSkin_.placeComponent(SliderSidechainLpfCutoff_,
+                                "slider_sidechain_filter_cutoff");
+    CurrentSkin_.placeComponent(SliderSidechainFilterGain_,
+                                "slider_sidechain_filter_gain");
+    CurrentSkin_.placeComponent(&ButtonSidechainFilterState_,
+                                "button_sidechain_filter_state");
+    CurrentSkin_.placeComponent(&ButtonSidechainListen_,
+                                "button_sidechain_listen");
 
-    skin.placeComponent(SliderMakeupGainCombined,
-                        "slider_makeup_gain");
-    skin.placeComponent(SliderWetMixCombined,
-                        "slider_wet_mix");
+    CurrentSkin_.placeComponent(SliderMakeupGain_,
+                                "slider_makeup_gain");
+    CurrentSkin_.placeComponent(SliderWetMix_,
+                                "slider_wet_mix");
 
-    skin.placeComponent(&ButtonAutoMakeupGain,
-                        "button_auto_makeup_gain");
-    skin.placeComponent(&ButtonAbout,
-                        "button_about");
-    skin.placeComponent(&ButtonSettings,
-                        "button_settings");
-    skin.placeComponent(&ButtonBypass,
-                        "button_bypass");
+    CurrentSkin_.placeComponent(&ButtonAutoMakeupGain_,
+                                "button_auto_makeup_gain");
+    CurrentSkin_.placeComponent(&ButtonAbout_,
+                                "button_about");
+    CurrentSkin_.placeComponent(&ButtonSettings_,
+                                "button_settings");
+    CurrentSkin_.placeComponent(&ButtonBypass_,
+                                "button_bypass");
 
-    skin.placeComponent(&ButtonReset,
-                        "button_reset");
+    CurrentSkin_.placeComponent(&ButtonReset_,
+                                "button_reset");
 
 #ifdef DEBUG
-    skin.placeComponent(&LabelDebug,
-                        "label_debug");
+    CurrentSkin_.placeComponent(&LabelDebug_,
+                                "label_debug");
 #endif
 
     // allow meter updates from now on
-    isInitialising = false;
+    IsInitialising_ = false;
 
-    inputLevelMeters_.clear(true);
-    outputLevelMeters_.clear(true);
-    gainReductionMeters_.clear(true);
+    InputLevelMeters_.clear(true);
+    OutputLevelMeters_.clear(true);
+    GainReductionMeters_.clear(true);
 
 
-    Array<Colour> levelMeterColours;
+    Array<Colour> ColoursLevelMeter;
 
-    int segmentHeight = skin.getIntegerSetting(
+    Colour ColourHigh = CurrentSkin_.getColourSetting(
+                            "meter_colour_high",
+                            0.00f);
+
+    Colour ColourMedium = CurrentSkin_.getColourSetting(
+                              "meter_colour_medium",
+                              0.18f);
+
+    Colour ColourLow = CurrentSkin_.getColourSetting(
+                           "meter_colour_low",
+                           0.30f);
+
+    ColoursLevelMeter.add(ColourHigh);    // overload
+    ColoursLevelMeter.add(ColourMedium);  // warning
+    ColoursLevelMeter.add(ColourLow);     // fine
+
+
+    Array<Colour> ColoursGainReduction;
+
+    Colour ColourReductionNormal = CurrentSkin_.getColourSetting(
+                                       "gain_reduction_meter_normal",
+                                       0.58f);
+
+    Colour ColourReductionSpecial = CurrentSkin_.getColourSetting(
+                                        "gain_reduction_meter_special",
+                                        0.18f);
+
+    ColoursGainReduction.add(ColourReductionNormal);   // normal
+    ColoursGainReduction.add(ColourReductionSpecial);  // special
+
+
+    int SegmentHeight = CurrentSkin_.getIntegerSetting(
                             "meter_segment",
                             "height",
                             5);
 
-    Colour colourHigh = skin.getColourSetting(
-                            "meter_colour_high",
-                            0.00f);
+    bool IsDiscreteMeter = true;
+    int CrestFactor = 20;
+    frut::widget::Orientation MeterOrientation =
+        frut::widget::Orientation::vertical;
 
-    Colour colourMedium = skin.getColourSetting(
-                              "meter_colour_medium",
-                              0.18f);
-
-    Colour colourLow = skin.getColourSetting(
-                           "meter_colour_low",
-                           0.30f);
-
-    levelMeterColours.add(colourHigh);    // overload
-    levelMeterColours.add(colourMedium);  // warning
-    levelMeterColours.add(colourLow);     // fine
-
-
-    Array<Colour> gainReductionColours;
-
-    Colour colourReductionNormal = skin.getColourSetting(
-                                       "gain_reduction_meter_normal",
-                                       0.58f);
-
-    Colour colourReductionSpecial = skin.getColourSetting(
-                                        "gain_reduction_meter_special",
-                                        0.18f);
-
-    gainReductionColours.add(colourReductionNormal);   // normal
-    gainReductionColours.add(colourReductionSpecial);  // special
-
-
-    bool discreteMeter = true;
-    int crestFactor = 20;
-    frut::widget::Orientation orientation = frut::widget::Orientation::vertical;
-
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
+    for (int Channel = 0; Channel < NumberOfChannels_; ++Channel)
     {
-        MeterBarLevel *inputLevelMeter = inputLevelMeters_.add(
+        MeterBarLevel *InputLevelMeter = InputLevelMeters_.add(
                                              new MeterBarLevel());
 
-        inputLevelMeter->create(crestFactor,
-                                orientation,
-                                discreteMeter,
-                                segmentHeight,
-                                levelMeterColours);
+        InputLevelMeter->create(CrestFactor,
+                                MeterOrientation,
+                                IsDiscreteMeter,
+                                SegmentHeight,
+                                ColoursLevelMeter);
 
-        addAndMakeVisible(inputLevelMeter);
+        addAndMakeVisible(InputLevelMeter);
 
-        MeterBarLevel *outputLevelMeter = outputLevelMeters_.add(
+        MeterBarLevel *OutputLevelMeter = OutputLevelMeters_.add(
                                               new MeterBarLevel());
 
-        outputLevelMeter->create(crestFactor,
-                                 orientation,
-                                 discreteMeter,
-                                 segmentHeight,
-                                 levelMeterColours);
+        OutputLevelMeter->create(CrestFactor,
+                                 MeterOrientation,
+                                 IsDiscreteMeter,
+                                 SegmentHeight,
+                                 ColoursLevelMeter);
 
-        addAndMakeVisible(outputLevelMeter);
+        addAndMakeVisible(OutputLevelMeter);
 
 
-        MeterBarGainReduction *gainReductionMeter = gainReductionMeters_.add(
+        MeterBarGainReduction *GainReductionMeter = GainReductionMeters_.add(
                     new MeterBarGainReduction());
 
-        gainReductionMeter->create(
-            orientation,
-            discreteMeter,
-            segmentHeight,
-            gainReductionColours);
+        GainReductionMeter->create(
+            MeterOrientation,
+            IsDiscreteMeter,
+            SegmentHeight,
+            ColoursGainReduction);
 
-        addAndMakeVisible(gainReductionMeter);
+        addAndMakeVisible(GainReductionMeter);
     }
 
-    if (numberOfChannels_ == 1)
+    if (NumberOfChannels_ == 1)
     {
-        skin.placeMeterBar(inputLevelMeters_[0],
-                           "input_meter");
+        CurrentSkin_.placeMeterBar(InputLevelMeters_[0],
+                                   "input_meter");
 
-        skin.placeMeterBar(outputLevelMeters_[0],
-                           "output_meter");
+        CurrentSkin_.placeMeterBar(OutputLevelMeters_[0],
+                                   "output_meter");
 
-        skin.placeMeterBar(gainReductionMeters_[0],
-                           "gain_reduction_meter");
+        CurrentSkin_.placeMeterBar(GainReductionMeters_[0],
+                                   "gain_reduction_meter");
     }
     else
     {
-        skin.placeMeterBar(inputLevelMeters_[0],
-                           "input_meter_left");
-        skin.placeMeterBar(inputLevelMeters_[1],
-                           "input_meter_right");
+        CurrentSkin_.placeMeterBar(InputLevelMeters_[0],
+                                   "input_meter_left");
+        CurrentSkin_.placeMeterBar(InputLevelMeters_[1],
+                                   "input_meter_right");
 
-        skin.placeMeterBar(outputLevelMeters_[0],
-                           "output_meter_left");
-        skin.placeMeterBar(outputLevelMeters_[1],
-                           "output_meter_right");
+        CurrentSkin_.placeMeterBar(OutputLevelMeters_[0],
+                                   "output_meter_left");
+        CurrentSkin_.placeMeterBar(OutputLevelMeters_[1],
+                                   "output_meter_right");
 
-        skin.placeMeterBar(gainReductionMeters_[0],
-                           "gain_reduction_meter_left");
-        skin.placeMeterBar(gainReductionMeters_[1],
-                           "gain_reduction_meter_right");
+        CurrentSkin_.placeMeterBar(GainReductionMeters_[0],
+                                   "gain_reduction_meter_left");
+        CurrentSkin_.placeMeterBar(GainReductionMeters_[1],
+                                   "gain_reduction_meter_right");
     }
 }
 
 
-void SqueezerAudioProcessorEditor::windowAboutCallback(int modalResult)
+void SqueezerAudioProcessorEditor::windowAboutCallback(
+    int ModalResult)
 {
-    UNUSED(modalResult);
+    UNUSED(ModalResult);
 
     // manually deactivate about button
-    ButtonAbout.setToggleState(false, dontSendNotification);
+    ButtonAbout_.setToggleState(false, dontSendNotification);
 }
 
 
-void SqueezerAudioProcessorEditor::windowSettingsCallback(int modalResult)
+void SqueezerAudioProcessorEditor::windowSettingsCallback(
+    int ModalResult)
 {
-    UNUSED(modalResult);
+    UNUSED(ModalResult);
 
     // manually deactivate about button
-    ButtonSettings.setToggleState(false, dontSendNotification);
+    ButtonSettings_.setToggleState(false, dontSendNotification);
 }
 
 
-void SqueezerAudioProcessorEditor::windowSkinCallback(int modalResult)
+void SqueezerAudioProcessorEditor::windowSkinCallback(
+    int ModalResult)
 {
     // manually deactivate skin button
-    ButtonSkin.setToggleState(false, dontSendNotification);
+    ButtonSkin_.setToggleState(false, dontSendNotification);
 
     // user has selected a skin
-    if (modalResult > 0)
+    if (ModalResult > 0)
     {
         // apply skin to plug-in editor
-        loadSkin();
+        loadSkin_();
     }
 }
 
 
-void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessage)
+void SqueezerAudioProcessorEditor::actionListenerCallback(
+    const String &Message)
 {
     // "PC" --> parameter changed, followed by a hash and the
     // parameter's ID
-    if (strMessage.startsWith("PC#"))
+    if (Message.startsWith("PC#"))
     {
-        String strIndex = strMessage.substring(3);
-        int nIndex = strIndex.getIntValue();
-        jassert(nIndex >= 0);
-        jassert(nIndex < pProcessor->getNumParameters());
+        String StringIndex = Message.substring(3);
+        int Index = StringIndex.getIntValue();
+        jassert(Index >= 0);
+        jassert(Index < PluginProcessor_->getNumParameters());
 
-        if (pProcessor->hasChanged(nIndex))
+        if (PluginProcessor_->hasChanged(Index))
         {
-            updateParameter(nIndex);
+            updateParameter(Index);
         }
     }
     // "UM" --> update meters
-    else if (!strMessage.compare("UM"))
+    else if (!Message.compare("UM"))
     {
         // prevent meter updates during initialisation
-        if (!isInitialising)
+        if (!IsInitialising_)
         {
-            for (int channel = 0; channel < numberOfChannels_; ++channel)
+            for (int Channel = 0; Channel < NumberOfChannels_; ++Channel)
             {
-                float averageInputLevel = pProcessor->getAverageMeterInputLevel(channel);
-                float maximumInputLevel = pProcessor->getMaximumInputLevel(channel);
+                float AverageInputLevel =
+                    PluginProcessor_->getAverageMeterInputLevel(Channel);
+                float MaximumInputLevel =
+                    PluginProcessor_->getMaximumInputLevel(Channel);
 
-                float peakInputLevel = pProcessor->getPeakMeterInputLevel(channel);
-                float peakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(channel);
+                float PeakInputLevel =
+                    PluginProcessor_->getPeakMeterInputLevel(Channel);
+                float PeakInputPeakLevel =
+                    PluginProcessor_->getPeakMeterPeakInputLevel(Channel);
 
-                inputLevelMeters_[channel]->setLevels(
-                    averageInputLevel, maximumInputLevel,
-                    peakInputLevel, peakInputPeakLevel);
+                InputLevelMeters_[Channel]->setLevels(
+                    AverageInputLevel, MaximumInputLevel,
+                    PeakInputLevel, PeakInputPeakLevel);
 
-                float averageOutputLevel = pProcessor->getAverageMeterOutputLevel(channel);
-                float maximumOutputLevel = pProcessor->getMaximumOutputLevel(channel);
+                float AverageOutputLevel =
+                    PluginProcessor_->getAverageMeterOutputLevel(Channel);
+                float MaximumOutputLevel =
+                    PluginProcessor_->getMaximumOutputLevel(Channel);
 
-                float peakOutputLevel = pProcessor->getPeakMeterOutputLevel(channel);
-                float peakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(channel);
+                float PeakOutputLevel =
+                    PluginProcessor_->getPeakMeterOutputLevel(Channel);
+                float PeakOutputPeakLevel =
+                    PluginProcessor_->getPeakMeterPeakOutputLevel(Channel);
 
-                outputLevelMeters_[channel]->setLevels(
-                    averageOutputLevel, maximumOutputLevel,
-                    peakOutputLevel, peakOutputPeakLevel);
+                OutputLevelMeters_[Channel]->setLevels(
+                    AverageOutputLevel, MaximumOutputLevel,
+                    PeakOutputLevel, PeakOutputPeakLevel);
 
-                float gainReduction = pProcessor->getGainReduction(channel);
-                float gainReductionMeterPeak = pProcessor->getGainReductionMeterPeak(channel);
+                float GainReduction =
+                    PluginProcessor_->getGainReduction(Channel);
+                float GainReductionMeterPeak =
+                    PluginProcessor_->getGainReductionMeterPeak(Channel);
 
                 // make sure gain reduction meter doesn't show anything
                 // while there is no gain reduction
-                gainReduction -= 0.01f;
-                gainReductionMeterPeak -= 0.01f;
+                GainReduction -= 0.01f;
+                GainReductionMeterPeak -= 0.01f;
 
-                gainReductionMeters_[channel]->setNormalLevels(
-                    gainReduction, gainReductionMeterPeak);
+                GainReductionMeters_[Channel]->setNormalLevels(
+                    GainReduction, GainReductionMeterPeak);
             }
         }
     }
     else
     {
-        DBG("[Squeezer] Received unknown action message \"" + strMessage + "\".");
+        DBG("[Squeezer] Received unknown action message \"" + Message + "\".");
     }
 }
 
 
-void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
+void SqueezerAudioProcessorEditor::updateParameter(
+    int Index)
 {
-    float fValue = pProcessor->getParameter(nIndex);
-    pProcessor->clearChangeFlag(nIndex);
+    float FloatValue = PluginProcessor_->getParameter(Index);
+    PluginProcessor_->clearChangeFlag(Index);
 
-    switch (nIndex)
+    switch (Index)
     {
     case SqueezerPluginParameters::selBypass:
-        ButtonBypass.setToggleState(fValue != 0.0f, dontSendNotification);
+        ButtonBypass_.setToggleState(FloatValue != 0.0f,
+                                     dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selDetectorRmsFilter:
 
-        ButtonDetectorRms.setToggleState(fValue != 0.0f, dontSendNotification);
+        ButtonDetectorRms_.setToggleState(FloatValue != 0.0f,
+                                          dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selDesign:
 
-        ButtonDesignFeedBack.setToggleState(fValue != 0.0f, dontSendNotification);
+        ButtonDesignFeedback_.setToggleState(FloatValue != 0.0f,
+                                             dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selGainStage:
 
-        ButtonGainStageOptical.setToggleState(fValue != 0.0f, dontSendNotification);
+        ButtonGainStageOptical_.setToggleState(FloatValue != 0.0f,
+                                               dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selDetector:
 
-        if (fValue == (Compressor::DetectorLinear / float(Compressor::NumberOfDetectors - 1)))
+        if (FloatValue == (Compressor::DetectorLinear /
+                           float(Compressor::NumberOfDetectors - 1)))
         {
-            ButtonDetectorLinear.setToggleState(true, dontSendNotification);
+            ButtonDetectorLinear_.setToggleState(true,
+                                                 dontSendNotification);
         }
-        else if (fValue == (Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1)))
+        else if (FloatValue == (Compressor::DetectorSmoothDecoupled /
+                                float(Compressor::NumberOfDetectors - 1)))
         {
-            ButtonDetectorSmoothDecoupled.setToggleState(true, dontSendNotification);
+            ButtonDetectorSmoothDecoupled_.setToggleState(true,
+                    dontSendNotification);
         }
         else
         {
-            ButtonDetectorSmoothBranching.setToggleState(true, dontSendNotification);
+            ButtonDetectorSmoothBranching_.setToggleState(true,
+                    dontSendNotification);
         }
 
         break;
 
     case SqueezerPluginParameters::selKneeWidth:
 
-        if (fValue == (Compressor::KneeHard / float(Compressor::NumberOfKneeSettings - 1)))
+        if (FloatValue == (Compressor::KneeHard /
+                           float(Compressor::NumberOfKneeSettings - 1)))
         {
-            ButtonKneeHard.setToggleState(true, dontSendNotification);
+            ButtonKneeHard_.setToggleState(true,
+                                           dontSendNotification);
         }
-        else if (fValue == (Compressor::KneeMedium / float(Compressor::NumberOfKneeSettings - 1)))
+        else if (FloatValue == (Compressor::KneeMedium /
+                                float(Compressor::NumberOfKneeSettings - 1)))
         {
-            ButtonKneeMedium.setToggleState(true, dontSendNotification);
+            ButtonKneeMedium_.setToggleState(true,
+                                             dontSendNotification);
         }
         else
         {
-            ButtonKneeSoft.setToggleState(true, dontSendNotification);
+            ButtonKneeSoft_.setToggleState(true,
+                                           dontSendNotification);
         }
 
         break;
 
     case SqueezerPluginParameters::selThresholdSwitch:
-        SliderThresholdCombined->updateMode();
+        SliderThreshold_->updateMode();
         break;
 
     case SqueezerPluginParameters::selThreshold:
-        SliderThresholdCombined->setValue(fValue, dontSendNotification);
+        SliderThreshold_->setValue(FloatValue,
+                                   dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selRatioSwitch:
-        SliderRatioCombined->updateMode();
+        SliderRatio_->updateMode();
         break;
 
     case SqueezerPluginParameters::selRatio:
-        SliderRatioCombined->setValue(fValue, dontSendNotification);
+        SliderRatio_->setValue(FloatValue,
+                               dontSendNotification);
 
         {
             // prevent meter updates during initialisation
-            if (!isInitialising)
+            if (!IsInitialising_)
             {
-                float fRealValue = SliderRatioCombined->getRealFloat();
-                bool bUpwardExpansion = (fRealValue < 1.0f);
+                float RealValue = SliderRatio_->getRealFloat();
+                bool UseUpwardExpansion = (RealValue < 1.0f);
 
-                for (int channel = 0; channel < numberOfChannels_; ++channel)
+                for (int Channel = 0; Channel < NumberOfChannels_; ++Channel)
                 {
-                    gainReductionMeters_[channel]->setUpwardExpansion(bUpwardExpansion);
+                    GainReductionMeters_[Channel]->setUpwardExpansion(
+                        UseUpwardExpansion);
                 }
             }
         }
@@ -746,59 +829,68 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         break;
 
     case SqueezerPluginParameters::selAttackRateSwitch:
-        SliderAttackRateCombined->updateMode();
+        SliderAttackRate_->updateMode();
         break;
 
     case SqueezerPluginParameters::selAttackRate:
-        SliderAttackRateCombined->setValue(fValue, dontSendNotification);
+        SliderAttackRate_->setValue(FloatValue,
+                                    dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selReleaseRateSwitch:
-        SliderReleaseRateCombined->updateMode();
+        SliderReleaseRate_->updateMode();
         break;
 
     case SqueezerPluginParameters::selReleaseRate:
-        SliderReleaseRateCombined->setValue(fValue, dontSendNotification);
+        SliderReleaseRate_->setValue(FloatValue,
+                                     dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selAutoMakeupGain:
-        ButtonAutoMakeupGain.setToggleState(fValue != 0.0f, dontSendNotification);
+        ButtonAutoMakeupGain_.setToggleState(FloatValue != 0.0f,
+                                             dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selMakeupGainSwitch:
-        SliderMakeupGainCombined->updateMode();
+        SliderMakeupGain_->updateMode();
         break;
 
     case SqueezerPluginParameters::selMakeupGain:
-        SliderMakeupGainCombined->setValue(fValue, dontSendNotification);
+        SliderMakeupGain_->setValue(FloatValue,
+                                    dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selWetMixSwitch:
-        SliderWetMixCombined->updateMode();
+        SliderWetMix_->updateMode();
         break;
 
     case SqueezerPluginParameters::selWetMix:
-        SliderWetMixCombined->setValue(fValue, dontSendNotification);
+        SliderWetMix_->setValue(FloatValue,
+                                dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selSidechainFilterState:
-        ButtonSidechainFilterState.setToggleState(fValue != 0.0f, dontSendNotification);
+        ButtonSidechainFilterState_.setToggleState(FloatValue != 0.0f,
+                dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selSidechainFilterCutoffSwitch:
-        SliderSidechainFilterCutoffCombined->updateMode();
+        SliderSidechainLpfCutoff_->updateMode();
         break;
 
     case SqueezerPluginParameters::selSidechainFilterCutoff:
-        SliderSidechainFilterCutoffCombined->setValue(fValue, dontSendNotification);
+        SliderSidechainLpfCutoff_->setValue(FloatValue,
+                                            dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selSidechainFilterGain:
-        SliderSidechainFilterGain->setValue(fValue, dontSendNotification);
+        SliderSidechainFilterGain_->setValue(FloatValue,
+                                             dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selSidechainListen:
-        ButtonSidechainListen.setToggleState(fValue != 0.0f, dontSendNotification);
+        ButtonSidechainListen_.setToggleState(FloatValue != 0.0f,
+                                              dontSendNotification);
         break;
 
     default:
@@ -808,174 +900,146 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
 }
 
 
-//==============================================================================
-void SqueezerAudioProcessorEditor::paint(Graphics &g)
+void SqueezerAudioProcessorEditor::buttonClicked(
+    Button *Button)
 {
-    g.setColour(Colours::lightgrey.darker(0.1f));
-    g.fillAll();
-
-    int x = 10;
-    int y1 = 10;
-    int y2 = 88;
-
-    g.setColour(Colours::grey);
-    g.fillRect(x      , y1, 257, 168);
-    g.fillRect(x + 260, y1,  82, 168);
-    g.fillRect(x + 345, y1, 142, 168);
-
-    if (numberOfChannels_ == 1)
+    if (Button == &ButtonBypass_)
     {
-        g.fillRect(x + 490, y1,  76, 168);
+        PluginProcessor_->changeParameter(SqueezerPluginParameters::selBypass,
+                                          !Button->getToggleState());
     }
-    else
+    else if (Button == &ButtonDetectorRms_)
     {
-        g.fillRect(x + 490, y1, 100, 168);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selDetectorRmsFilter,
+            !Button->getToggleState());
     }
-
-    g.setColour(Colours::darkgrey);
-    g.drawRect(x      , y1, 257, 168);
-    g.drawRect(x + 260, y1,  82, 168);
-    g.drawRect(x + 345, y1, 142, 168);
-
-    if (numberOfChannels_ == 1)
+    else if (Button == &ButtonDesignFeedback_)
     {
-        g.drawRect(x + 490, y1,  76, 168);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selDesign,
+            !Button->getToggleState());
     }
-    else
+    else if (Button == &ButtonGainStageOptical_)
     {
-        g.drawRect(x + 490, y1, 100, 168);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selGainStage,
+            !Button->getToggleState());
     }
-
-    g.setColour(Colours::lightgrey.darker(0.2f));
-    g.fillRect(x +   5, y2, 247,  85);
-    g.fillRect(x + 265, y2,  72,  85);
-    g.fillRect(x + 350, y2, 132,  85);
-
-    if (numberOfChannels_ == 1)
+    else if (Button == &ButtonDetectorLinear_)
     {
-        g.fillRect(x + 495, y1 + 5,  66, 158);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selDetector,
+            Compressor::DetectorLinear /
+            float(Compressor::NumberOfDetectors - 1));
     }
-    else
+    else if (Button == &ButtonDetectorSmoothDecoupled_)
     {
-        g.fillRect(x + 495, y1 + 5,  90, 158);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selDetector,
+            Compressor::DetectorSmoothDecoupled /
+            float(Compressor::NumberOfDetectors - 1));
     }
-
-    g.setColour(Colours::grey.darker(0.2f));
-    g.drawRect(x +   5, y2, 247,  85);
-    g.drawRect(x + 265, y2,  72,  85);
-    g.drawRect(x + 350, y2, 132,  85);
-
-    if (numberOfChannels_ == 1)
+    else if (Button == &ButtonDetectorSmoothBranching_)
     {
-        g.drawRect(x + 495, y1 + 5,  66, 158);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selDetector,
+            Compressor::DetectorSmoothBranching /
+            float(Compressor::NumberOfDetectors - 1));
     }
-    else
+    else if (Button == &ButtonKneeHard_)
     {
-        g.drawRect(x + 495, y1 + 5,  90, 158);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selKneeWidth,
+            Compressor::KneeHard /
+            float(Compressor::NumberOfKneeSettings - 1));
     }
-}
-
-
-void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
-{
-    if (button == &ButtonBypass)
+    else if (Button == &ButtonKneeMedium_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selBypass, !button->getToggleState());
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selKneeWidth,
+            Compressor::KneeMedium /
+            float(Compressor::NumberOfKneeSettings - 1));
     }
-    else if (button == &ButtonDetectorRms)
+    else if (Button == &ButtonKneeSoft_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetectorRmsFilter, !button->getToggleState());
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selKneeWidth,
+            Compressor::KneeSoft /
+            float(Compressor::NumberOfKneeSettings - 1));
     }
-    else if (button == &ButtonDesignFeedBack)
+    else if (Button == &ButtonAutoMakeupGain_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDesign, !button->getToggleState());
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selAutoMakeupGain,
+            !Button->getToggleState());
     }
-    else if (button == &ButtonGainStageOptical)
+    else if (Button == &ButtonSidechainFilterState_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selGainStage, !button->getToggleState());
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selSidechainFilterState,
+            !Button->getToggleState());
     }
-    else if (button == &ButtonDetectorLinear)
+    else if (Button == &ButtonSidechainListen_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorLinear / float(Compressor::NumberOfDetectors - 1));
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selSidechainListen,
+            !Button->getToggleState());
     }
-    else if (button == &ButtonDetectorSmoothDecoupled)
+    else if (Button == &ButtonReset_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothDecoupled / float(Compressor::NumberOfDetectors - 1));
-    }
-    else if (button == &ButtonDetectorSmoothBranching)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selDetector, Compressor::DetectorSmoothBranching / float(Compressor::NumberOfDetectors - 1));
-    }
-    else if (button == &ButtonKneeHard)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, Compressor::KneeHard / float(Compressor::NumberOfKneeSettings - 1));
-    }
-    else if (button == &ButtonKneeMedium)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, Compressor::KneeMedium / float(Compressor::NumberOfKneeSettings - 1));
-    }
-    else if (button == &ButtonKneeSoft)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selKneeWidth, Compressor::KneeSoft / float(Compressor::NumberOfKneeSettings - 1));
-    }
-    else if (button == &ButtonAutoMakeupGain)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAutoMakeupGain, !button->getToggleState());
-    }
-    else if (button == &ButtonSidechainFilterState)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selSidechainFilterState, !button->getToggleState());
-    }
-    else if (button == &ButtonSidechainListen)
-    {
-        pProcessor->changeParameter(SqueezerPluginParameters::selSidechainListen, !button->getToggleState());
-    }
-    else if (button == &ButtonReset)
-    {
-        pProcessor->resetMeters();
+        PluginProcessor_->resetMeters();
 
         // apply skin to plug-in editor
-        loadSkin();
+        loadSkin_();
     }
-    else if (button == &ButtonSettings)
+    else if (Button == &ButtonSettings_)
     {
         // manually activate button
-        button->setToggleState(true, dontSendNotification);
+        Button->setToggleState(true,
+                               dontSendNotification);
 
-        int width = 440;
-        int height = 155;
-        String pluginSettings = pProcessor->getParameters().trim();
+        int Width = 440;
+        int Height = 155;
+        String PluginSettings = PluginProcessor_->getParameters().trim();
 
         // prepare and launch dialog window
-        DialogWindow *windowSettings = frut::widget::WindowSettingsContent::createDialogWindow(
-                                           this, width, height, pluginSettings);
+        DialogWindow *windowSettings =
+            frut::widget::WindowSettingsContent::createDialogWindow(
+                this, Width, Height, PluginSettings);
 
         // attach callback to dialog window
-        ModalComponentManager::getInstance()->attachCallback(windowSettings, ModalCallbackFunction::forComponent(window_settings_callback, this));
+        ModalComponentManager::getInstance()->attachCallback(
+            windowSettings, ModalCallbackFunction::forComponent(
+                window_settings_callback, this));
 
         // manually deactivate button
-        button->setToggleState(false, dontSendNotification);
+        Button->setToggleState(false, dontSendNotification);
     }
-    else if (button == &ButtonSkin)
+    else if (Button == &ButtonSkin_)
     {
         // manually activate button (will be deactivated in dialog
         // window callback)
-        button->setToggleState(true, dontSendNotification);
+        Button->setToggleState(true, dontSendNotification);
 
         // prepare and launch dialog window
-        DialogWindow *windowSkin = frut::widget::WindowSkinContent::createDialogWindow(
-                                       this, &currentSkinName, skinDirectory);
+        DialogWindow *WindowSkin =
+            frut::widget::WindowSkinContent::createDialogWindow(
+                this, &CurrentSkinName_, SkinDirectory_);
 
         // attach callback to dialog window
-        ModalComponentManager::getInstance()->attachCallback(windowSkin, ModalCallbackFunction::forComponent(window_skin_callback, this));
+        ModalComponentManager::getInstance()->attachCallback(
+            WindowSkin, ModalCallbackFunction::forComponent(
+                window_skin_callback, this));
     }
-    else if (button == &ButtonAbout)
+    else if (Button == &ButtonAbout_)
     {
         // manually activate button (will be deactivated in dialog
         // window callback)
-        button->setToggleState(true, dontSendNotification);
+        Button->setToggleState(true,
+                               dontSendNotification);
 
-        StringPairArray arrChapters;
+        StringPairArray Chapters;
 
         String pluginNameAndVersion = String(ProjectInfo::projectName);
         pluginNameAndVersion += " v";
@@ -993,28 +1057,28 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
         pluginNameAndVersion += " (VST)";
 #endif
 
-        arrChapters.set(
+        Chapters.set(
             pluginNameAndVersion,
             String(JucePlugin_Desc) + ".\n");
 
-        arrChapters.set(
+        Chapters.set(
             "Copyright",
             "(c) 2013-2016 Martin Zuther\n");
 
-        arrChapters.set(
+        Chapters.set(
             "Contributors",
             L"Dimitrios Giannoulis et al.\n"
             L"Filipe Coelho\n"
             L"Paul Kellet\n"
             L"Bram de Jong\n");
 
-        arrChapters.set(
+        Chapters.set(
             "Thanks",
             L"I want to thank all contributors and beta testers "
             L"and the open source community at large!\n\n"
             L"Thank you for using free software!\n");
 
-        arrChapters.set(
+        Chapters.set(
             "Libraries",
 #ifdef LINUX
             L"ALSA\n"
@@ -1036,19 +1100,19 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
 
 #if JucePlugin_Build_VST
         // display trademarks (but only when necessary)
-        arrChapters.set(
+        Chapters.set(
             "Trademarks",
             L"VST PlugIn Technology by Steinberg Media Technologies\n");
 #endif
 
 #if JUCE_ASIO
         // display trademarks (but only when necessary)
-        arrChapters.set(
+        Chapters.set(
             "Trademarks",
             L"ASIO Driver Technology by Steinberg Media Technologies\n");
 #endif
 
-        arrChapters.set(
+        Chapters.set(
             "License",
             L"This program is free software: you can redistribute it "
             L"and/or modify it under the terms of the GNU General "
@@ -1069,47 +1133,66 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
             L"Thank you for using free software!");
 
         // prepare and launch dialog window
-        int width = 270;
-        int height = 540;
+        int Width = 270;
+        int Height = 540;
 
-        DialogWindow *windowAbout = frut::widget::WindowAboutContent::createDialogWindow(
-                                        this, width, height, arrChapters);
+        DialogWindow *windowAbout =
+            frut::widget::WindowAboutContent::createDialogWindow(
+                this, Width, Height, Chapters);
 
         // attach callback to dialog window
-        ModalComponentManager::getInstance()->attachCallback(windowAbout, ModalCallbackFunction::forComponent(window_about_callback, this));
+        ModalComponentManager::getInstance()->attachCallback(
+            windowAbout, ModalCallbackFunction::forComponent(
+                window_about_callback, this));
     }
     else
     {
-        float fValue = button->getToggleState() ? 1.0f : 0.0f;
-        frut::widget::SliderCombined *slider = dynamic_cast<frut::widget::SliderCombined *>(button->getParentComponent());
+        float FloatValue = Button->getToggleState() ? 1.0f : 0.0f;
+        frut::widget::SliderCombined *Slider =
+            dynamic_cast<frut::widget::SliderCombined *>(
+                Button->getParentComponent());
 
-        if (slider == SliderThresholdCombined)
+        if (Slider == SliderThreshold_)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selThresholdSwitch, fValue);
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selThresholdSwitch,
+                FloatValue);
         }
-        else if (slider == SliderRatioCombined)
+        else if (Slider == SliderRatio_)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selRatioSwitch, fValue);
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selRatioSwitch,
+                FloatValue);
         }
-        else if (slider == SliderAttackRateCombined)
+        else if (Slider == SliderAttackRate_)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selAttackRateSwitch, fValue);
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selAttackRateSwitch,
+                FloatValue);
         }
-        else if (slider == SliderReleaseRateCombined)
+        else if (Slider == SliderReleaseRate_)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRateSwitch, fValue);
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selReleaseRateSwitch,
+                FloatValue);
         }
-        else if (slider == SliderMakeupGainCombined)
+        else if (Slider == SliderMakeupGain_)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGainSwitch, fValue);
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selMakeupGainSwitch,
+                FloatValue);
         }
-        else if (slider == SliderWetMixCombined)
+        else if (Slider == SliderWetMix_)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selWetMixSwitch, fValue);
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selWetMixSwitch,
+                FloatValue);
         }
-        else if (slider == SliderSidechainFilterCutoffCombined)
+        else if (Slider == SliderSidechainLpfCutoff_)
         {
-            pProcessor->changeParameter(SqueezerPluginParameters::selSidechainFilterCutoffSwitch, fValue);
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selSidechainFilterCutoffSwitch,
+                FloatValue);
         }
         else
         {
@@ -1119,41 +1202,58 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
 }
 
 
-void SqueezerAudioProcessorEditor::sliderValueChanged(Slider *slider)
+void SqueezerAudioProcessorEditor::sliderValueChanged(
+    Slider *Slider)
 {
-    float fValue = (float) slider->getValue();
+    float FloatValue = (float) Slider->getValue();
 
-    if (slider == SliderThresholdCombined)
+    if (Slider == SliderThreshold_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selThreshold, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selThreshold,
+            FloatValue);
     }
-    else if (slider == SliderRatioCombined)
+    else if (Slider == SliderRatio_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selRatio, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selRatio,
+            FloatValue);
     }
-    else if (slider == SliderAttackRateCombined)
+    else if (Slider == SliderAttackRate_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selAttackRate, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selAttackRate,
+            FloatValue);
     }
-    else if (slider == SliderReleaseRateCombined)
+    else if (Slider == SliderReleaseRate_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selReleaseRate, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selReleaseRate,
+            FloatValue);
     }
-    else if (slider == SliderMakeupGainCombined)
+    else if (Slider == SliderMakeupGain_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selMakeupGain, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selMakeupGain,
+            FloatValue);
     }
-    else if (slider == SliderWetMixCombined)
+    else if (Slider == SliderWetMix_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selWetMix, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selWetMix,
+            FloatValue);
     }
-    else if (slider == SliderSidechainFilterCutoffCombined)
+    else if (Slider == SliderSidechainLpfCutoff_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selSidechainFilterCutoff, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selSidechainFilterCutoff,
+            FloatValue);
     }
-    else if (slider == SliderSidechainFilterGain)
+    else if (Slider == SliderSidechainFilterGain_)
     {
-        pProcessor->changeParameter(SqueezerPluginParameters::selSidechainFilterGain, fValue);
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selSidechainFilterGain,
+            FloatValue);
     }
     else
     {

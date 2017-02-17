@@ -34,91 +34,88 @@
 #include "skin.h"
 
 
-//==============================================================================
-/**
-*/
-class SqueezerAudioProcessorEditor : public AudioProcessorEditor, public ButtonListener, public SliderListener, public ActionListener
+class SqueezerAudioProcessorEditor :
+    public AudioProcessorEditor,
+    public ButtonListener,
+    public SliderListener,
+    public ActionListener
 {
 public:
-    SqueezerAudioProcessorEditor(SqueezerAudioProcessor *ownerFilter, SqueezerPluginParameters *parameters, int channels);
+    SqueezerAudioProcessorEditor(
+        SqueezerAudioProcessor *OwnerFilter,
+        SqueezerPluginParameters *PluginParameters,
+        int NumberOfChannels);
+
     ~SqueezerAudioProcessorEditor();
 
-    void buttonClicked(Button *button);
-    void sliderValueChanged(Slider *slider);
+    void buttonClicked(Button *Button);
+    void sliderValueChanged(Slider *Slider);
 
-    void actionListenerCallback(const String &strMessage);
-    void updateParameter(int nIndex);
+    void actionListenerCallback(const String &Message);
+    void updateParameter(int Index);
 
-    void windowAboutCallback(int modalResult);
-    void windowSettingsCallback(int modalResult);
-    void windowSkinCallback(int modalResult);
+    void windowAboutCallback(int ModalResult);
+    void windowSettingsCallback(int ModalResult);
+    void windowSkinCallback(int ModalResult);
 
-    //==============================================================================
-    // This is just a standard Juce paint method...
-    void paint(Graphics &g);
     void resized();
 
 private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessorEditor);
 
-    void applySkin();
-    void loadSkin();
+    void applySkin_();
+    void loadSkin_();
 
-    int numberOfChannels_;
-    int nHeight;
-    int nWidth;
+    bool IsInitialising_;
+    int NumberOfChannels_;
 
-    bool isInitialising;
-    int nInputChannels;
+    SqueezerAudioProcessor *PluginProcessor_;
 
-    SqueezerAudioProcessor *pProcessor;
+    File SkinDirectory_;
+    Skin CurrentSkin_;
+    String CurrentSkinName_;
 
-    File skinDirectory;
-    Skin skin;
-    String currentSkinName;
+    OwnedArray<MeterBarLevel> InputLevelMeters_;
+    OwnedArray<MeterBarLevel> OutputLevelMeters_;
+    OwnedArray<MeterBarGainReduction> GainReductionMeters_;
 
-    OwnedArray<MeterBarLevel> inputLevelMeters_;
-    OwnedArray<MeterBarLevel> outputLevelMeters_;
-    OwnedArray<MeterBarGainReduction> gainReductionMeters_;
+    TextButton ButtonDetectorRms_;
+    TextButton ButtonDesignFeedback_;
+    TextButton ButtonGainStageOptical_;
 
-    TextButton ButtonDetectorRms;
-    TextButton ButtonDesignFeedBack;
-    TextButton ButtonGainStageOptical;
+    TextButton ButtonKneeHard_;
+    TextButton ButtonKneeMedium_;
+    TextButton ButtonKneeSoft_;
 
-    TextButton ButtonKneeHard;
-    TextButton ButtonKneeMedium;
-    TextButton ButtonKneeSoft;
+    TextButton ButtonDetectorLinear_;
+    TextButton ButtonDetectorSmoothDecoupled_;
+    TextButton ButtonDetectorSmoothBranching_;
 
-    TextButton ButtonDetectorLinear;
-    TextButton ButtonDetectorSmoothDecoupled;
-    TextButton ButtonDetectorSmoothBranching;
+    ScopedPointer<frut::widget::SliderCombined> SliderThreshold_;
+    ScopedPointer<frut::widget::SliderCombined> SliderRatio_;
 
-    ScopedPointer<frut::widget::SliderCombined> SliderThresholdCombined;
-    ScopedPointer<frut::widget::SliderCombined> SliderRatioCombined;
+    ScopedPointer<frut::widget::SliderCombined> SliderAttackRate_;
+    ScopedPointer<frut::widget::SliderCombined> SliderReleaseRate_;
 
-    ScopedPointer<frut::widget::SliderCombined> SliderAttackRateCombined;
-    ScopedPointer<frut::widget::SliderCombined> SliderReleaseRateCombined;
+    TextButton ButtonAutoMakeupGain_;
+    ScopedPointer<frut::widget::SliderCombined> SliderMakeupGain_;
+    ScopedPointer<frut::widget::SliderCombined> SliderWetMix_;
 
-    ScopedPointer<frut::widget::SliderCombined> SliderInputGainCombined;
-    TextButton ButtonAutoMakeupGain;
-    ScopedPointer<frut::widget::SliderCombined> SliderMakeupGainCombined;
-    ScopedPointer<frut::widget::SliderCombined> SliderWetMixCombined;
+    TextButton ButtonSidechainFilterState_;
+    ScopedPointer<frut::widget::SliderCombined> SliderSidechainLpfCutoff_;
+    ScopedPointer<frut::widget::SliderSwitchLinearBar> SliderSidechainFilterGain_;
+    TextButton ButtonSidechainListen_;
 
-    TextButton ButtonSidechainFilterState;
-    ScopedPointer<frut::widget::SliderCombined> SliderSidechainFilterCutoffCombined;
-    ScopedPointer<frut::widget::SliderSwitchLinearBar> SliderSidechainFilterGain;
-    TextButton ButtonSidechainListen;
+    TextButton ButtonBypass_;
+    TextButton ButtonReset_;
 
-    TextButton ButtonBypass;
-    TextButton ButtonReset;
+    TextButton ButtonSkin_;
+    TextButton ButtonSettings_;
+    TextButton ButtonAbout_;
 
-    TextButton ButtonSkin;
-    TextButton ButtonSettings;
-    TextButton ButtonAbout;
+    Label LabelDebug_;
 
-    Label LabelDebug;
-
-    ImageComponent BackgroundImage;
+    ImageComponent BackgroundImage_;
 };
 
 
