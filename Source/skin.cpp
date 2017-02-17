@@ -42,6 +42,32 @@ void Skin::updateSkin(
 
 {
     jassert(numberOfChannels > 0);
+
+    currentBackgroundName_ = "image";
+
+    if (numberOfChannels == 1)
+    {
+        currentFallbackName_ = "mono";
+    }
+    else
+    {
+        currentFallbackName_ = "stereo";
+    }
+
+    currentGroupName_ = currentFallbackName_;
+
+    if (document_ != nullptr)
+    {
+        skinGroup_ = document_->getChildByName(currentGroupName_);
+        skinFallback_1_ = document_->getChildByName(currentFallbackName_);
+        skinFallback_2_ = document_->getChildByName("default");
+    }
+    else
+    {
+        skinGroup_ = nullptr;
+        skinFallback_1_ = nullptr;
+        skinFallback_2_ = nullptr;
+    }
 }
 
 

@@ -116,6 +116,8 @@ private:
     TextButton ButtonAbout;
 
     Label LabelDebug;
+
+    ImageComponent BackgroundImage;
 };
 
 

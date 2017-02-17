@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE squeezer-skin SYSTEM "include/dtd/squeezer-skin.dtd">
+<?xml-stylesheet type="text/xsl" href="include/xslt/skin_svg.xslt"?>
+
+<squeezer-skin
+    name="Default"
+    path="Default"
+    version="1.0">
+
+    <default>
+        <button_detector_linear
+            x="35"
+            y="96"
+            height="20"
+            width="52"
+        />
+
+        <button_detector_smooth_decoupled
+            x="35"
+            y="121"
+            height="20"
+            width="52"
+        />
+
+        <button_detector_smooth_branching
+            x="35"
+            y="146"
+            height="20"
+            width="52"
+        />
+
+        <button_detector_rms
+            x="112"
+            y="96"
+            height="20"
+            width="52"
+        />
+
+        <button_design_feedback
+            x="112"
+            y="121"
+            height="20"
+            width="52"
+        />
+
+        <button_gainstage_optical
+            x="112"
+            y="146"
+            height="20"
+            width="52"
+        />
+
+        <button_knee_hard
+            x="187"
+            y="96"
+            height="20"
+            width="52"
+        />
+
+        <button_knee_medium
+            x="187"
+            y="121"
+            height="20"
+            width="52"
+        />
+
+        <button_knee_soft
+            x="187"
+            y="146"
+            height="20"
+            width="52"
+        />
+
+        <slider_threshold
+            x="15"
+            y="18"
+            height="60"
+            width="52"
+        />
+
+        <slider_ratio
+            x="75"
+            y="18"
+            height="60"
+            width="52"
+        />
+
+        <slider_attack_rate
+            x="150"
+            y="18"
+            height="60"
+            width="52"
+        />
+
+        <slider_release_rate
+            x="210"
+            y="18"
+            height="60"
+            width="52"
+        />
+
+        <slider_sidechain_filter_cutoff
+            x="285"
+            y="18"
+            height="60"
+            width="52"
+        />
+
+        <slider_sidechain_filter_gain
+            x="285"
+            y="122"
+            height="18"
+            width="52"
+        />
+
+        <button_sidechain_filter_state
+            x="285"
+            y="96"
+            height="20"
+            width="52"
+        />
+
+        <button_sidechain_listen
+            x="285"
+            y="146"
+            height="20"
+            width="52"
+        />
+
+        <slider_makeup_gain
+            x="370"
+            y="18"
+            height="60"
+            width="52"
+        />
+
+        <slider_wet_mix
+            x="430"
+            y="18"
+            height="60"
+            width="52"
+        />
+
+        <button_auto_makeup_gain
+            x="400"
+            y="96"
+            height="20"
+            width="52"
+        />
+
+        <button_about
+            x="370"
+            y="121"
+            height="20"
+            width="52"
+        />
+
+        <button_settings
+            x="430"
+            y="121"
+            height="20"
+            width="52"
+        />
+
+        <button_bypass
+            x="400"
+            y="146"
+            height="20"
+            width="52"
+        />
+
+        <label_debug
+            x="447"
+            y="92"
+            height="16"
+            width="52"
+        />
+    </default>
+
+    <mono>
+        <background
+            image="backgrounds/background_mono.png" />
+
+            <button_reset
+            x="512"
+            y="146"
+            height="20"
+            width="52"
+        />
+</mono>
+
+    <stereo>
+        <background
+            image="backgrounds/background_stereo.png" />
+
+        <button_reset
+            x="524"
+            y="146"
+            height="20"
+            width="52"
+        />
+    </stereo>
+
+</squeezer-skin>

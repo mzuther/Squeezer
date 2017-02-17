@@ -257,7 +257,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     LabelDebug.setText("dbg", dontSendNotification);
     LabelDebug.setColour(Label::textColourId, Colours::red);
     LabelDebug.setJustificationType(Justification::centred);
-    addAndMakeVisible(&LabelDebug);
 #endif
 
 
@@ -360,6 +359,18 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
         x += width;
     }
 
+#ifdef DEBUG
+    // moves debug label to the back of the editor's z-plane to that
+    // it doesn't overlay (and thus block) any other components
+    addAndMakeVisible(LabelDebug, 0);
+#endif
+
+    // prevent unnecessary redrawing of plugin editor
+    BackgroundImage.setOpaque(true);
+    // moves background image to the back of the editor's z-plane to
+    // that it doesn't overlay (and thus block) any other components
+    addAndMakeVisible(BackgroundImage, 0);
+
     updateParameter(SqueezerPluginParameters::selBypass);
 
     updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
@@ -430,71 +441,71 @@ void SqueezerAudioProcessorEditor::applySkin()
 {
     // update skin
     skin.updateSkin(NumberOfChannels);
-/*
+
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
     skin.setBackgroundImage(&BackgroundImage, this);
 
-    skin.placeAndSkinButton(&ButtonMeterType, "button_split");
-    skin.placeComponent(SliderGain, "slider_gain");
+    skin.placeComponent(&ButtonDetectorLinear,
+                        "button_detector_linear");
+    skin.placeComponent(&ButtonDetectorSmoothDecoupled,
+                        "button_detector_smooth_decoupled");
+    skin.placeComponent(&ButtonDetectorSmoothBranching,
+                        "button_detector_smooth_branching");
+
+    skin.placeComponent(&ButtonDetectorRms,
+                        "button_detector_rms");
+    skin.placeComponent(&ButtonDesignFeedBack,
+                        "button_design_feedback");
+    skin.placeComponent(&ButtonGainStageOptical,
+                        "button_gainstage_optical");
+
+    skin.placeComponent(&ButtonKneeHard,
+                        "button_knee_hard");
+    skin.placeComponent(&ButtonKneeMedium,
+                        "button_knee_medium");
+    skin.placeComponent(&ButtonKneeSoft,
+                        "button_knee_soft");
+
+    skin.placeComponent(SliderThresholdCombined,
+                        "slider_threshold");
+    skin.placeComponent(SliderRatioCombined,
+                        "slider_ratio");
+
+    skin.placeComponent(SliderAttackRateCombined,
+                        "slider_attack_rate");
+    skin.placeComponent(SliderReleaseRateCombined,
+                        "slider_release_rate");
+
+    skin.placeComponent(SliderSidechainFilterCutoffCombined,
+                        "slider_sidechain_filter_cutoff");
+    skin.placeComponent(SliderSidechainFilterGain,
+                        "slider_sidechain_filter_gain");
+    skin.placeComponent(&ButtonSidechainFilterState,
+                        "button_sidechain_filter_state");
+    skin.placeComponent(&ButtonSidechainListen,
+                        "button_sidechain_listen");
+
+    skin.placeComponent(SliderMakeupGainCombined,
+                        "slider_makeup_gain");
+    skin.placeComponent(SliderWetMixCombined,
+                        "slider_wet_mix");
+
+    skin.placeComponent(&ButtonAutoMakeupGain,
+                        "button_auto_makeup_gain");
+    skin.placeComponent(&ButtonAbout,
+                        "button_about");
+    skin.placeComponent(&ButtonSettings,
+                        "button_settings");
+    skin.placeComponent(&ButtonBypass,
+                        "button_bypass");
+
+    skin.placeComponent(&ButtonResetMeters,
+                        "button_reset");
 
 #ifdef DEBUG
-    skin.placeAndSkinLabel(&LabelDebug, "label_debug");
-#endif
-*/
-
-    nHeight = 188;
-
-    if (NumberOfChannels == 1)
-    {
-        nWidth = 586;
-    }
-    else
-    {
-        nWidth = 610;
-    }
-
-    int x = 15;
-    int y1 = 18;
-    int y2 = y1 + 78;
-
-    setSize(nWidth, nHeight);
-
-    ButtonDetectorLinear.setBounds(x + 20, y2, 52, 20);
-    ButtonDetectorSmoothDecoupled.setBounds(x + 20, y2 + 25, 52, 20);
-    ButtonDetectorSmoothBranching.setBounds(x + 20, y2 + 50, 52, 20);
-
-    ButtonDetectorRms.setBounds(x + 97, y2, 52, 20);
-    ButtonDesignFeedBack.setBounds(x + 97, y2 + 25, 52, 20);
-    ButtonGainStageOptical.setBounds(x + 97, y2 + 50, 52, 20);
-
-    ButtonKneeHard.setBounds(x + 172, y2, 52, 20);
-    ButtonKneeMedium.setBounds(x + 172, y2 + 25, 52, 20);
-    ButtonKneeSoft.setBounds(x + 172, y2 + 50, 52, 20);
-
-    SliderThresholdCombined->setBounds(x, y1, 52, 60);
-    SliderRatioCombined->setBounds(x + 60, y1, 52, 60);
-
-    SliderAttackRateCombined->setBounds(x + 135, y1, 52, 60);
-    SliderReleaseRateCombined->setBounds(x + 195, y1, 52, 60);
-
-    SliderSidechainFilterCutoffCombined->setBounds(x + 270, y1, 52, 60);
-    SliderSidechainFilterGain->setBounds(x + 270, y2 + 26, 52, 18);
-    ButtonSidechainFilterState.setBounds(x + 270, y2, 52, 20);
-    ButtonSidechainListen.setBounds(x + 270, y2 + 50, 52, 20);
-
-    SliderMakeupGainCombined->setBounds(x + 355, y1, 52, 60);
-    SliderWetMixCombined->setBounds(x + 415, y1, 52, 60);
-
-    ButtonAutoMakeupGain.setBounds(x + 385, y2, 52, 20);
-    ButtonAbout.setBounds(x + 355, y2 + 25, 52, 20);
-    ButtonSettings.setBounds(x + 415, y2 + 25, 52, 20);
-    ButtonBypass.setBounds(x + 385, y2 + 50, 52, 20);
-
-    ButtonResetMeters.setBounds(x + 497, y2 + 50, 52, 20);
-
-#ifdef DEBUG
-    LabelDebug.setBounds(x + 432, y2 - 4, 52, 16);
+    skin.placeComponent(&LabelDebug,
+                        "label_debug");
 #endif
 }
 
