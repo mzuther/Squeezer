@@ -29,13 +29,11 @@ void MeterBarLevel::create(int crestFactor,
                            frut::widget::Orientation orientation,
                            bool discreteMeter,
                            int mainSegmentHeight,
-                           int mainSegmentWidth,
                            const Array<Colour> &segmentColours)
 
 {
     frut::widget::MeterBar::create();
 
-    setSegmentWidth(mainSegmentWidth);
     crestFactor *= 10;
 
     int levelRange = 20;

@@ -29,13 +29,11 @@
 void MeterBarGainReduction::create(frut::widget::Orientation orientation,
                                    bool discreteMeter,
                                    int mainSegmentHeight,
-                                   int mainSegmentWidth,
                                    const Array<Colour> &segmentColours)
 
 {
     frut::widget::MeterBar::create();
 
-    setSegmentWidth(mainSegmentWidth);
     setUpwardExpansion(false);
 
     int trueLowerThreshold = 0;

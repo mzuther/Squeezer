@@ -64,10 +64,11 @@ private:
     void applySkin();
     void loadSkin();
 
-    int NumberOfChannels;
+    int numberOfChannels_;
     int nHeight;
     int nWidth;
 
+    bool isInitialising;
     int nInputChannels;
 
     SqueezerAudioProcessor *pProcessor;
@@ -76,9 +77,9 @@ private:
     Skin skin;
     String currentSkinName;
 
-    OwnedArray<MeterBarLevel> p_arrInputLevelMeters;
-    OwnedArray<MeterBarLevel> p_arrOutputLevelMeters;
-    OwnedArray<MeterBarGainReduction> p_arrGainReductionMeters;
+    OwnedArray<MeterBarLevel> inputLevelMeters_;
+    OwnedArray<MeterBarLevel> outputLevelMeters_;
+    OwnedArray<MeterBarGainReduction> gainReductionMeters_;
 
     TextButton ButtonDetectorRms;
     TextButton ButtonDesignFeedBack;
@@ -109,7 +110,7 @@ private:
     TextButton ButtonSidechainListen;
 
     TextButton ButtonBypass;
-    TextButton ButtonResetMeters;
+    TextButton ButtonReset;
 
     TextButton ButtonSkin;
     TextButton ButtonSettings;

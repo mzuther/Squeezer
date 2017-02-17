@@ -61,13 +61,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     // (increases performance on redrawing)
     setOpaque(true);
 
+    // prevent meter updates during initialisation
+    isInitialising = true;
+
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
 
     pProcessor = ownerFilter;
     pProcessor->addActionListener(this);
 
-    NumberOfChannels = channels;
+    numberOfChannels_ = channels;
 
     ButtonBypass.setButtonText("Bypass");
     ButtonBypass.setColour(TextButton::buttonColourId, Colours::grey);
@@ -263,12 +266,12 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonSkin.addListener(this);
     addAndMakeVisible(ButtonSkin);
 
-    ButtonResetMeters.setButtonText("Reset");
-    ButtonResetMeters.setColour(TextButton::buttonColourId, Colours::grey);
-    ButtonResetMeters.setColour(TextButton::buttonOnColourId, Colours::red);
+    ButtonReset.setButtonText("Reset");
+    ButtonReset.setColour(TextButton::buttonColourId, Colours::grey);
+    ButtonReset.setColour(TextButton::buttonOnColourId, Colours::red);
 
-    ButtonResetMeters.addListener(this);
-    addAndMakeVisible(&ButtonResetMeters);
+    ButtonReset.addListener(this);
+    addAndMakeVisible(&ButtonReset);
 
 
     ButtonSettings.setButtonText("Settings");
@@ -286,84 +289,13 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(SqueezerAudioProcesso
     ButtonAbout.addListener(this);
     addAndMakeVisible(&ButtonAbout);
 
-    int x = 510;
-    int y = 20;
-
-    int x_spacing;
-    int width;
-
-    if (NumberOfChannels == 1)
-    {
-        x_spacing = 20;
-        width = 16;
-    }
-    else
-    {
-        x_spacing = 28;
-        width = 12;
-    }
-
-    for (int nChannel = 0; nChannel < NumberOfChannels; ++nChannel)
-    {
-        Array<Colour> levelMeterColours;
-
-        levelMeterColours.add(Colour(0.00f, 1.0f, 1.0f, 1.0f));  // overload
-        levelMeterColours.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // warning
-        levelMeterColours.add(Colour(0.30f, 1.0f, 1.0f, 1.0f));  // fine
-
-
-        Array<Colour> gainReductionColours;
-
-        gainReductionColours.add(Colour(0.58f, 1.0f, 1.0f, 1.0f));  // normal
-        gainReductionColours.add(Colour(0.18f, 1.0f, 1.0f, 1.0f));  // notify
-
-
-        bool discreteMeter = true;
-
-        MeterBarLevel *pMeterBarLevelInput = p_arrInputLevelMeters.add(
-                new MeterBarLevel());
-        pMeterBarLevelInput->create(20,
-                                    frut::widget::Orientation::vertical,
-                                    discreteMeter,
-                                    5,
-                                    width,
-                                    levelMeterColours);
-
-        pMeterBarLevelInput->setBounds(x, y, width, 0);
-        addAndMakeVisible(pMeterBarLevelInput);
-
-        MeterBarLevel *pMeterBarLevelOutput = p_arrOutputLevelMeters.add(
-                new MeterBarLevel());
-        pMeterBarLevelOutput->create(20,
-                                     frut::widget::Orientation::vertical,
-                                     discreteMeter,
-                                     5,
-                                     width,
-                                     levelMeterColours);
-
-        pMeterBarLevelOutput->setBounds(x + 2 * x_spacing, y, width, 0);
-        addAndMakeVisible(pMeterBarLevelOutput);
-
-        MeterBarGainReduction *pMeterBarGainReduction = p_arrGainReductionMeters.add(
-                    new MeterBarGainReduction());
-        pMeterBarGainReduction->create(
-            frut::widget::Orientation::vertical,
-            discreteMeter,
-            5,
-            width,
-            gainReductionColours);
-
-        pMeterBarGainReduction->setBounds(x + x_spacing, y, width, 0);
-        addAndMakeVisible(pMeterBarGainReduction);
-
-        x += width;
-    }
 
 #ifdef DEBUG
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
     addAndMakeVisible(LabelDebug, 0);
 #endif
+
 
     // prevent unnecessary redrawing of plugin editor
     BackgroundImage.setOpaque(true);
@@ -430,7 +362,7 @@ void SqueezerAudioProcessorEditor::loadSkin()
 
     pProcessor->setParameterSkinName(currentSkinName);
 
-    skin.loadSkin(fileSkin, NumberOfChannels);
+    skin.loadSkin(fileSkin, numberOfChannels_);
 
     // moves background image to the back of the editor's z-plane
     applySkin();
@@ -440,7 +372,7 @@ void SqueezerAudioProcessorEditor::loadSkin()
 void SqueezerAudioProcessorEditor::applySkin()
 {
     // update skin
-    skin.updateSkin(NumberOfChannels);
+    skin.updateSkin(numberOfChannels_);
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
@@ -500,13 +432,129 @@ void SqueezerAudioProcessorEditor::applySkin()
     skin.placeComponent(&ButtonBypass,
                         "button_bypass");
 
-    skin.placeComponent(&ButtonResetMeters,
+    skin.placeComponent(&ButtonReset,
                         "button_reset");
 
 #ifdef DEBUG
     skin.placeComponent(&LabelDebug,
                         "label_debug");
 #endif
+
+    // allow meter updates from now on
+    isInitialising = false;
+
+    inputLevelMeters_.clear(true);
+    outputLevelMeters_.clear(true);
+    gainReductionMeters_.clear(true);
+
+
+    Array<Colour> levelMeterColours;
+
+    int segmentHeight = skin.getIntegerSetting(
+                            "meter_segment",
+                            "height",
+                            5);
+
+    Colour colourHigh = skin.getColourSetting(
+                            "meter_colour_high",
+                            0.00f);
+
+    Colour colourMedium = skin.getColourSetting(
+                              "meter_colour_medium",
+                              0.18f);
+
+    Colour colourLow = skin.getColourSetting(
+                           "meter_colour_low",
+                           0.30f);
+
+    levelMeterColours.add(colourHigh);    // overload
+    levelMeterColours.add(colourMedium);  // warning
+    levelMeterColours.add(colourLow);     // fine
+
+
+    Array<Colour> gainReductionColours;
+
+    Colour colourReductionNormal = skin.getColourSetting(
+                                       "gain_reduction_meter_normal",
+                                       0.58f);
+
+    Colour colourReductionSpecial = skin.getColourSetting(
+                                        "gain_reduction_meter_special",
+                                        0.18f);
+
+    gainReductionColours.add(colourReductionNormal);   // normal
+    gainReductionColours.add(colourReductionSpecial);  // special
+
+
+    bool discreteMeter = true;
+    int crestFactor = 20;
+    frut::widget::Orientation orientation = frut::widget::Orientation::vertical;
+
+    for (int channel = 0; channel < numberOfChannels_; ++channel)
+    {
+        MeterBarLevel *inputLevelMeter = inputLevelMeters_.add(
+                                             new MeterBarLevel());
+
+        inputLevelMeter->create(crestFactor,
+                                orientation,
+                                discreteMeter,
+                                segmentHeight,
+                                levelMeterColours);
+
+        addAndMakeVisible(inputLevelMeter);
+
+        MeterBarLevel *outputLevelMeter = outputLevelMeters_.add(
+                                              new MeterBarLevel());
+
+        outputLevelMeter->create(crestFactor,
+                                 orientation,
+                                 discreteMeter,
+                                 segmentHeight,
+                                 levelMeterColours);
+
+        addAndMakeVisible(outputLevelMeter);
+
+
+        MeterBarGainReduction *gainReductionMeter = gainReductionMeters_.add(
+                    new MeterBarGainReduction());
+
+        gainReductionMeter->create(
+            orientation,
+            discreteMeter,
+            segmentHeight,
+            gainReductionColours);
+
+        addAndMakeVisible(gainReductionMeter);
+    }
+
+    if (numberOfChannels_ == 1)
+    {
+        skin.placeMeterBar(inputLevelMeters_[0],
+                           "input_meter");
+
+        skin.placeMeterBar(outputLevelMeters_[0],
+                           "output_meter");
+
+        skin.placeMeterBar(gainReductionMeters_[0],
+                           "gain_reduction_meter");
+    }
+    else
+    {
+        skin.placeMeterBar(inputLevelMeters_[0],
+                           "input_meter_left");
+        skin.placeMeterBar(inputLevelMeters_[1],
+                           "input_meter_right");
+
+        skin.placeMeterBar(outputLevelMeters_[0],
+                           "output_meter_left");
+        skin.placeMeterBar(outputLevelMeters_[1],
+                           "output_meter_right");
+
+        skin.placeMeterBar(gainReductionMeters_[0],
+                           "gain_reduction_meter_left");
+        skin.placeMeterBar(gainReductionMeters_[1],
+                           "gain_reduction_meter_right");
+    }
 }
 
 
@@ -561,38 +609,42 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(const String &strMessa
     // "UM" --> update meters
     else if (!strMessage.compare("UM"))
     {
-        for (int nChannel = 0; nChannel < NumberOfChannels; ++nChannel)
+        // prevent meter updates during initialisation
+        if (!isInitialising)
         {
-            float averageInputLevel = pProcessor->getAverageMeterInputLevel(nChannel);
-            float maximumInputLevel = pProcessor->getMaximumInputLevel(nChannel);
+            for (int channel = 0; channel < numberOfChannels_; ++channel)
+            {
+                float averageInputLevel = pProcessor->getAverageMeterInputLevel(channel);
+                float maximumInputLevel = pProcessor->getMaximumInputLevel(channel);
 
-            float peakInputLevel = pProcessor->getPeakMeterInputLevel(nChannel);
-            float peakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(nChannel);
+                float peakInputLevel = pProcessor->getPeakMeterInputLevel(channel);
+                float peakInputPeakLevel = pProcessor->getPeakMeterPeakInputLevel(channel);
 
-            p_arrInputLevelMeters[nChannel]->setLevels(
-                averageInputLevel, maximumInputLevel,
-                peakInputLevel, peakInputPeakLevel);
+                inputLevelMeters_[channel]->setLevels(
+                    averageInputLevel, maximumInputLevel,
+                    peakInputLevel, peakInputPeakLevel);
 
-            float averageOutputLevel = pProcessor->getAverageMeterOutputLevel(nChannel);
-            float maximumOutputLevel = pProcessor->getMaximumOutputLevel(nChannel);
+                float averageOutputLevel = pProcessor->getAverageMeterOutputLevel(channel);
+                float maximumOutputLevel = pProcessor->getMaximumOutputLevel(channel);
 
-            float peakOutputLevel = pProcessor->getPeakMeterOutputLevel(nChannel);
-            float peakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(nChannel);
+                float peakOutputLevel = pProcessor->getPeakMeterOutputLevel(channel);
+                float peakOutputPeakLevel = pProcessor->getPeakMeterPeakOutputLevel(channel);
 
-            p_arrOutputLevelMeters[nChannel]->setLevels(
-                averageOutputLevel, maximumOutputLevel,
-                peakOutputLevel, peakOutputPeakLevel);
+                outputLevelMeters_[channel]->setLevels(
+                    averageOutputLevel, maximumOutputLevel,
+                    peakOutputLevel, peakOutputPeakLevel);
 
-            float gainReduction = pProcessor->getGainReduction(nChannel);
-            float gainReductionMeterPeak = pProcessor->getGainReductionMeterPeak(nChannel);
+                float gainReduction = pProcessor->getGainReduction(channel);
+                float gainReductionMeterPeak = pProcessor->getGainReductionMeterPeak(channel);
 
-            // make sure gain reduction meter doesn't show anything
-            // while there is no gain reduction
-            gainReduction -= 0.01f;
-            gainReductionMeterPeak -= 0.01f;
+                // make sure gain reduction meter doesn't show anything
+                // while there is no gain reduction
+                gainReduction -= 0.01f;
+                gainReductionMeterPeak -= 0.01f;
 
-            p_arrGainReductionMeters[nChannel]->setNormalLevels(
-                gainReduction, gainReductionMeterPeak);
+                gainReductionMeters_[channel]->setNormalLevels(
+                    gainReduction, gainReductionMeterPeak);
+            }
         }
     }
     else
@@ -678,12 +730,16 @@ void SqueezerAudioProcessorEditor::updateParameter(int nIndex)
         SliderRatioCombined->setValue(fValue, dontSendNotification);
 
         {
-            float fRealValue = SliderRatioCombined->getRealFloat();
-            bool bUpwardExpansion = (fRealValue < 1.0f);
-
-            for (int nChannel = 0; nChannel < NumberOfChannels; ++nChannel)
+            // prevent meter updates during initialisation
+            if (!isInitialising)
             {
-                p_arrGainReductionMeters[nChannel]->setUpwardExpansion(bUpwardExpansion);
+                float fRealValue = SliderRatioCombined->getRealFloat();
+                bool bUpwardExpansion = (fRealValue < 1.0f);
+
+                for (int channel = 0; channel < numberOfChannels_; ++channel)
+                {
+                    gainReductionMeters_[channel]->setUpwardExpansion(bUpwardExpansion);
+                }
             }
         }
 
@@ -767,7 +823,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.fillRect(x + 260, y1,  82, 168);
     g.fillRect(x + 345, y1, 142, 168);
 
-    if (NumberOfChannels == 1)
+    if (numberOfChannels_ == 1)
     {
         g.fillRect(x + 490, y1,  76, 168);
     }
@@ -781,7 +837,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.drawRect(x + 260, y1,  82, 168);
     g.drawRect(x + 345, y1, 142, 168);
 
-    if (NumberOfChannels == 1)
+    if (numberOfChannels_ == 1)
     {
         g.drawRect(x + 490, y1,  76, 168);
     }
@@ -795,7 +851,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.fillRect(x + 265, y2,  72,  85);
     g.fillRect(x + 350, y2, 132,  85);
 
-    if (NumberOfChannels == 1)
+    if (numberOfChannels_ == 1)
     {
         g.fillRect(x + 495, y1 + 5,  66, 158);
     }
@@ -809,7 +865,7 @@ void SqueezerAudioProcessorEditor::paint(Graphics &g)
     g.drawRect(x + 265, y2,  72,  85);
     g.drawRect(x + 350, y2, 132,  85);
 
-    if (NumberOfChannels == 1)
+    if (numberOfChannels_ == 1)
     {
         g.drawRect(x + 495, y1 + 5,  66, 158);
     }
@@ -874,9 +930,12 @@ void SqueezerAudioProcessorEditor::buttonClicked(Button *button)
     {
         pProcessor->changeParameter(SqueezerPluginParameters::selSidechainListen, !button->getToggleState());
     }
-    else if (button == &ButtonResetMeters)
+    else if (button == &ButtonReset)
     {
         pProcessor->resetMeters();
+
+        // apply skin to plug-in editor
+        loadSkin();
     }
     else if (button == &ButtonSettings)
     {

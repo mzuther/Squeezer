@@ -35,7 +35,6 @@ class MeterBarGainReduction :
 public:
     void create(frut::widget::Orientation orientation,
                 bool discreteMeter,
-                int mainSegmentWidth,
                 int mainSegmentHeight,
                 const Array<Colour> &segmentColours);
 

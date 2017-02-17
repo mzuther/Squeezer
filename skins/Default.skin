@@ -7,6 +7,42 @@
     path="Default"
     version="1.0">
 
+    <settings>
+        <meter_segment
+            height="5"
+        />
+
+        <meter_colour_high
+            hue="0.00"
+            saturation="1.00"
+            brightness="0.97"
+        />
+
+        <meter_colour_medium
+            hue="0.18"
+            saturation="1.00"
+            brightness="0.97"
+        />
+
+        <meter_colour_low
+            hue="0.30"
+            saturation="1.00"
+            brightness="0.97"
+        />
+
+        <gain_reduction_meter_normal
+            hue="0.58"
+            saturation="1.00"
+            brightness="0.97"
+        />
+
+        <gain_reduction_meter_special
+            hue="0.18"
+            saturation="1.00"
+            brightness="0.97"
+        />
+    </settings>
+
     <default>
         <button_detector_linear
             x="35"
@@ -187,7 +223,28 @@
             height="20"
             width="52"
         />
-</mono>
+
+        <input_meter
+            x="510"
+            y="20"
+            segment_width="16"
+            vertical="true"
+        />
+
+        <output_meter
+            x="550"
+            y="20"
+            segment_width="16"
+            vertical="true"
+        />
+
+        <gain_reduction_meter
+            x="530"
+            y="20"
+            segment_width="16"
+            vertical="true"
+        />
+    </mono>
 
     <stereo>
         <background
@@ -198,6 +255,48 @@
             y="146"
             height="20"
             width="52"
+        />
+
+        <input_meter_left
+            x="510"
+            y="20"
+            segment_width="12"
+            vertical="true"
+        />
+
+        <input_meter_right
+            x="522"
+            y="20"
+            segment_width="12"
+            vertical="true"
+        />
+
+        <output_meter_left
+            x="566"
+            y="20"
+            segment_width="12"
+            vertical="true"
+        />
+
+        <output_meter_right
+            x="578"
+            y="20"
+            segment_width="12"
+            vertical="true"
+        />
+
+        <gain_reduction_meter_left
+            x="538"
+            y="20"
+            segment_width="12"
+            vertical="true"
+        />
+
+        <gain_reduction_meter_right
+            x="550"
+            y="20"
+            segment_width="12"
+            vertical="true"
         />
     </stereo>
 

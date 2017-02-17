@@ -37,7 +37,6 @@ public:
                 frut::widget::Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
-                int mainSegmentWidth,
                 const Array<Colour> &segmentColours);
 
 protected:
