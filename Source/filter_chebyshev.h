@@ -42,7 +42,9 @@ public:
                           bool IsHighPass);
 
     void reset();
+
     double filterSample(double InputCurrent);
+    void testAlgorithm(bool IsHighPass);
 
 private:
     OwnedArray<FilterChebyshevStage> FilterStages_;

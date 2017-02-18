@@ -555,33 +555,21 @@ double Compressor::getSidechainFilterGain()
     return value (double): side-chain filter gain (in decibels)
  */
 {
-    return SideChain::level2decibel(SidechainFilterGain);
+    return SidechainFilterGainDecibel;
 }
 
 
-void Compressor::setSidechainFilterGain(double SidechainFilterGainNew)
+void Compressor::setSidechainFilterGain(double SidechainFilterGainDecibelNew)
 /*  Set new side-chain filter gain.
 
-    SidechainFilterGain (double): new side-chain filter gain (in
-    decibels)
+    SidechainFilterGainDecibel (double): new side-chain filter gain
+    (in decibels)
 
     return value: none
  */
 {
-    SidechainFilterGain = SideChain::decibel2level(SidechainFilterGainNew);
-
-    // normalise filtered output (the values below were found by
-    // sending several hundred samples of 1.0 through a high-pass
-    // filter with a relative cutoff frequency of 0.1 and then reading
-    // the filter's output value)
-    //
-    //  2 poles:  1.09487492
-    //  4 poles:  2.22993454
-    //  6 poles:  6.53854690
-    //  8 poles:  22.0697314
-    // 10 poles:  79.4259655
-    // 12 poles:  295.703923
-    SidechainFilterGainReal = SidechainFilterGain / 6.53854690;
+    SidechainFilterGainDecibel = SidechainFilterGainDecibelNew;
+    SidechainFilterGain = SideChain::decibel2level(SidechainFilterGainDecibel);
 }
 
 
@@ -876,7 +864,7 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
                 SideChainSample = SidechainFilter[CurrentChannel]->filterSample(SideChainSample);
 
                 // apply filter make-up gain
-                SideChainSample *= SidechainFilterGainReal;
+                SideChainSample *= SidechainFilterGain;
             }
 
             SidechainSamples.set(CurrentChannel, SideChainSample);

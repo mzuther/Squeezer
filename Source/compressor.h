@@ -117,7 +117,7 @@ public:
     void setSidechainFilterCutoff(int SidechainFilterCutoff);
 
     double getSidechainFilterGain();
-    void setSidechainFilterGain(double SidechainFilterGain);
+    void setSidechainFilterGain(double SidechainFilterGainDecibel);
 
     bool getSidechainListen();
     void setSidechainListen(bool ListenToSidechainNew);
@@ -212,8 +212,8 @@ private:
 
     bool EnableSidechainFilter;
     int SidechainFilterCutoff;
+    double SidechainFilterGainDecibel;
     double SidechainFilterGain;
-    double SidechainFilterGainReal;
     bool ListenToSidechain;
 };
 
