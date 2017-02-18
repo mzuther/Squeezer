@@ -23,11 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "filter_chebyshev.h"
-#include "math.h"
-
-
-//==============================================================================
 
 FilterChebyshev::FilterChebyshev(
     double RelativeCutoffFrequency,

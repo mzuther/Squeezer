@@ -134,13 +134,12 @@ OBJECTS := \
 	$(OBJDIR)/juce_gui_extra.o \
 	$(OBJDIR)/juce_video.o \
 	$(OBJDIR)/frut_audio.o \
+	$(OBJDIR)/frut_dsp.o \
 	$(OBJDIR)/frut_math.o \
 	$(OBJDIR)/frut_parameter.o \
 	$(OBJDIR)/frut_skin.o \
 	$(OBJDIR)/frut_widget.o \
 	$(OBJDIR)/compressor.o \
-	$(OBJDIR)/filter_chebyshev.o \
-	$(OBJDIR)/filter_chebyshev_stage.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/gain_stage_optical.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
@@ -253,6 +252,9 @@ $(OBJDIR)/juce_video.o: ../../../JuceLibraryCode/juce_video.cpp
 $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/frut_dsp.o: ../../../Source/common/amalgamated/frut_dsp.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/frut_math.o: ../../../Source/common/amalgamated/frut_math.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -266,12 +268,6 @@ $(OBJDIR)/frut_widget.o: ../../../Source/common/amalgamated/frut_widget.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/compressor.o: ../../../Source/compressor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/filter_chebyshev.o: ../../../Source/filter_chebyshev.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/filter_chebyshev_stage.o: ../../../Source/filter_chebyshev_stage.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp

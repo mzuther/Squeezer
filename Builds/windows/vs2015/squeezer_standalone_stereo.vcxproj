@@ -180,13 +180,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\common\FrutHeader.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h" />
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_dsp.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameter.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_skin.h" />
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_widget.h" />
     <ClInclude Include="..\..\..\Source\compressor.h" />
-    <ClInclude Include="..\..\..\Source\filter_chebyshev.h" />
-    <ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h" />
     <ClInclude Include="..\..\..\Source\gain_stage.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
@@ -215,13 +214,12 @@
     <ClCompile Include="..\..\..\JuceLibraryCode\juce_gui_extra.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\juce_video.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp" />
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_dsp.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameter.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_skin.cpp" />
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp" />
     <ClCompile Include="..\..\..\Source\compressor.cpp" />
-    <ClCompile Include="..\..\..\Source\filter_chebyshev.cpp" />
-    <ClCompile Include="..\..\..\Source\filter_chebyshev_stage.cpp" />
     <ClCompile Include="..\..\..\Source\gain_stage_fet.cpp" />
     <ClCompile Include="..\..\..\Source\gain_stage_optical.cpp" />
     <ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp" />

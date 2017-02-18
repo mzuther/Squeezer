@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   FrutJUCE
+   Squeezer
    ========
-   Common classes for use with the JUCE library
+   Flexible general-purpose audio compressor with a touch of lemon.
 
-   Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2013-2016 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,39 +23,34 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AUDIO_DITHER_H__
-#define __FRUT_AUDIO_DITHER_H__
+#ifndef __FRUT_DSP_FILTER_CHEBYSHEV_H__
+#define __FRUT_DSP_FILTER_CHEBYSHEV_H__
 
 
-//==============================================================================
-/**
-*/
-class Dither
+class FilterChebyshev
 {
 public:
-    Dither(int number_of_bits, double noise_shaping = 0.5);
+    FilterChebyshev(double RelativeCutoffFrequency,
+                    bool IsHighPass,
+                    double PercentRipple,
+                    int NumberOfPoles);
 
-    void initialise(int number_of_bits, double noise_shaping = 0.5);
-    float dither(double input);
+    void changeParameters(double RelativeCutoffFrequency,
+                          bool IsHighPass);
+
+    void reset();
+
+    double filterSample(double InputCurrent);
+    void testAlgorithm(bool IsHighPass);
 
 private:
-    JUCE_LEAK_DETECTOR(Dither);
+    OwnedArray<FilterChebyshevStage> FilterStages_;
 
-    int nRandomNumber_1;
-    int nRandomNumber_2;
-
-    double dErrorFeedback_1;
-    double dErrorFeedback_2;
-
-    double dDcOffset;
-    double dDitherAmplitude;
-    double dNoiseShaping;
-    double dWordLength;
-    double dWordLengthInverted;
+    int NumberOfPoles_;
+    double PercentRipple_;
 };
 
-
-#endif  // __FRUT_AUDIO_DITHER_H__
+#endif  // __FRUT_DSP_FILTER_CHEBYSHEV_H__
 
 
 // Local Variables:

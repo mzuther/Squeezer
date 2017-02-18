@@ -21,6 +21,9 @@
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_dsp.h">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
@@ -34,12 +37,6 @@
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\compressor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\filter_chebyshev.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\filter_chebyshev_stage.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\gain_stage.h">
@@ -122,6 +119,9 @@
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_dsp.cpp">
+      <Filter>Source\common\amalgamated</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
@@ -135,12 +135,6 @@
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\compressor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\filter_chebyshev.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\filter_chebyshev_stage.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\gain_stage_fet.cpp">

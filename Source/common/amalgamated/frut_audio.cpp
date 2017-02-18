@@ -35,7 +35,6 @@ namespace frut
 namespace audio
 {
 
-#include "../audio/dither.cpp"
 #include "../audio/ring_buffer.cpp"
 
 }

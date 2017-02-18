@@ -23,9 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#include "filter_chebyshev_stage.h"
-#include "math.h"
-
 
 FilterChebyshevStage::FilterChebyshevStage() :
     AntiDenormalDouble_(DBL_MIN)

@@ -27,68 +27,75 @@
 // Thanks to Paul Kellet for the code snippet!
 // (http://www.musicdsp.org/showone.php?id=77)
 
-Dither::Dither(int number_of_bits, double noise_shaping)
+Dither::Dither(
+    int NumberOfBits,
+    double NoiseShaping)
 {
-    initialise(number_of_bits, noise_shaping);
+    initialise(NumberOfBits, NoiseShaping);
 }
 
 
-void Dither::initialise(int number_of_bits, double noise_shaping)
+void Dither::initialise(
+    int NumberOfBits,
+    double NoiseShaping)
 {
-    jassert(number_of_bits <= 24);
+    jassert(NumberOfBits <= 24);
 
     // rectangular-PDF random numbers
-    nRandomNumber_1 = 0;
-    nRandomNumber_2 = 0;
+    RandomNumber_1_ = 0;
+    RandomNumber_2_ = 0;
 
     // error feedback buffers
-    dErrorFeedback_1 = 0.0;
-    dErrorFeedback_2 = 0.0;
+    ErrorFeedback_1_ = 0.0;
+    ErrorFeedback_2_ = 0.0;
 
     // set to 0.0 for no noise shaping
-    dNoiseShaping = noise_shaping;
+    NoiseShaping_ = NoiseShaping;
 
     // word length (usually 16 bits)
-    dWordLength = pow(2.0, number_of_bits - 1);
-    dWordLengthInverted = 1.0 / dWordLength;
+    WordLength_ = pow(2.0, NumberOfBits - 1);
+    WordLengthInverted_ = 1.0 / WordLength_;
 
     // dither amplitude (2 LSB)
-    dDitherAmplitude = dWordLengthInverted / RAND_MAX;
+    DitherAmplitude_ = WordLengthInverted_ / RAND_MAX;
 
     // remove DC offset
-    dDcOffset = dWordLengthInverted * 0.5;
+    DcOffset_ = WordLengthInverted_ * 0.5;
 }
 
 
 
-float Dither::dither(double dInput)
+float Dither::dither(
+    double Input)
 {
     // can make HP-TRI dither by subtracting previous rand()
-    nRandomNumber_2 = nRandomNumber_1;
-    nRandomNumber_1 = rand();
+    RandomNumber_2_ = RandomNumber_1_;
+    RandomNumber_1_ = rand();
 
     // error feedback
-    double dOutput = dInput + dNoiseShaping * (dErrorFeedback_1 + dErrorFeedback_1 - dErrorFeedback_2);
+    double Output = Input + NoiseShaping_ *
+                    (ErrorFeedback_1_ + ErrorFeedback_1_ - ErrorFeedback_2_);
 
     // DC offset and dither
-    double dTmp = dOutput + dDcOffset + dDitherAmplitude * (double)(nRandomNumber_1 - nRandomNumber_2);
+    double TempOutput = Output + DcOffset_ + DitherAmplitude_ *
+                        (double)(RandomNumber_1_ - RandomNumber_2_);
 
     // truncate downwards
-    int nOutputTruncate = (int)(dWordLength * dTmp);
+    int OutputTruncate = (int)(WordLength_ * TempOutput);
 
-    if (dTmp < 0.0)
+    if (TempOutput < 0.0)
     {
         // this is faster than floor()
-        --nOutputTruncate;
+        --OutputTruncate;
     }
 
     // old error feedback
-    dErrorFeedback_2 = dErrorFeedback_1;
+    ErrorFeedback_2_ = ErrorFeedback_1_;
 
     // new error feedback
-    dErrorFeedback_1 = dOutput - dWordLengthInverted * (double) nOutputTruncate;
+    ErrorFeedback_1_ = Output - WordLengthInverted_ * (double) OutputTruncate;
 
-    return (float) dOutput;
+    return (float) Output;
 }
 
 

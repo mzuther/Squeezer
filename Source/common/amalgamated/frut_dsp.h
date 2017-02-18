@@ -1,10 +1,10 @@
 /* ----------------------------------------------------------------------------
 
-   Squeezer
+   FrutJUCE
    ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Common classes for use with the JUCE library
 
-   Copyright (c) 2013-2016 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2010-2016 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,37 +23,30 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FILTER_CHEBYSHEV_H__
-#define __FILTER_CHEBYSHEV_H__
-
-#include "filter_chebyshev_stage.h"
-#include "FrutHeader.h"
+#ifndef __FRUT_AMALGAMATED_DSP_H__
+#define __FRUT_AMALGAMATED_DSP_H__
 
 
-class FilterChebyshev
+namespace frut
 {
-public:
-    FilterChebyshev(double RelativeCutoffFrequency,
-                    bool IsHighPass,
-                    double PercentRipple,
-                    int NumberOfPoles);
+namespace dsp
+{
 
-    void changeParameters(double RelativeCutoffFrequency,
-                          bool IsHighPass);
+// special includes
+#include <float.h>
 
-    void reset();
+// normal includes
+#include "../dsp/dither.h"
+#include "../dsp/filter_chebyshev_stage.h"
 
-    double filterSample(double InputCurrent);
-    void testAlgorithm(bool IsHighPass);
+// post includes
+#include "../dsp/filter_chebyshev.h"
 
-private:
-    OwnedArray<FilterChebyshevStage> FilterStages_;
+}
+}
 
-    int NumberOfPoles_;
-    double PercentRipple_;
-};
 
-#endif  // __FILTER_CHEBYSHEV_H__
+#endif  // __FRUT_AMALGAMATED_DSP_H__
 
 
 // Local Variables:

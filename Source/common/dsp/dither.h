@@ -23,23 +23,37 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_AUDIO_H__
-#define __FRUT_AMALGAMATED_AUDIO_H__
+#ifndef __FRUT_DSP_DITHER_H__
+#define __FRUT_DSP_DITHER_H__
 
 
-namespace frut
+class Dither
 {
-namespace audio
-{
+public:
+    Dither(int NumberOfBits,
+           double NoiseShaping = 0.5);
 
-// normal includes
-#include "../audio/ring_buffer.h"
+    void initialise(int NumberOfBits,
+                    double NoiseShaping = 0.5);
 
-}
-}
+    float dither(double Input);
+
+private:
+    int RandomNumber_1_;
+    int RandomNumber_2_;
+
+    double ErrorFeedback_1_;
+    double ErrorFeedback_2_;
+
+    double DcOffset_;
+    double DitherAmplitude_;
+    double NoiseShaping_;
+    double WordLength_;
+    double WordLengthInverted_;
+};
 
 
-#endif  // __FRUT_AMALGAMATED_AUDIO_H__
+#endif  // __FRUT_DSP_DITHER_H__
 
 
 // Local Variables:

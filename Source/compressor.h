@@ -29,7 +29,6 @@
 class SideChain;
 
 #include "FrutHeader.h"
-#include "filter_chebyshev.h"
 #include "side_chain.h"
 
 
@@ -160,9 +159,9 @@ private:
     AudioBuffer<float> MeterInputBuffer;
     AudioBuffer<float> MeterOutputBuffer;
 
-    frut::audio::Dither Dither;
+    frut::dsp::Dither Dither;
     OwnedArray<SideChain> SideChainProcessor;
-    OwnedArray<FilterChebyshev> SidechainFilter;
+    OwnedArray<frut::dsp::FilterChebyshev> SidechainFilter;
 
     Array<double> InputSamples;
     Array<double> SidechainSamples;

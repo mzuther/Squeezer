@@ -52,7 +52,7 @@ public:
     ///
     static const juce::String getVersion()
     {
-        return "1.7.2";
+        return "1.7.3";
     }
 
 
@@ -73,6 +73,7 @@ public:
 
 // normal includes
 #include "amalgamated/frut_audio.h"
+#include "amalgamated/frut_dsp.h"
 #include "amalgamated/frut_math.h"
 #include "amalgamated/frut_parameter.h"
 #include "amalgamated/frut_widget.h"

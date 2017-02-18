@@ -23,11 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FILTER_CHEBYSHEV_STAGE_H__
-#define __FILTER_CHEBYSHEV_STAGE_H__
-
-#include "FrutHeader.h"
-#include <float.h>
+#ifndef __FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H__
+#define __FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H__
 
 
 class FilterChebyshevStage
@@ -65,7 +62,7 @@ private:
     double OutputPrevious_2_;
 };
 
-#endif  // __FILTER_CHEBYSHEV_STAGE_H__
+#endif  // __FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H__
 
 
 // Local Variables:
