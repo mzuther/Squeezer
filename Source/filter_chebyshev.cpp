@@ -56,7 +56,6 @@ void FilterChebyshev::changeParameters(
     double RelativeCutoffFrequency,
     bool IsHighPass)
 {
-    // TODO: normalise coefficients
     for (int Stage = 0; Stage < FilterStages_.size(); ++Stage)
     {
         // pole pairs start with index 1!

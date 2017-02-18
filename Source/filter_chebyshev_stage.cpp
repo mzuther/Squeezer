@@ -96,11 +96,11 @@ void FilterChebyshevStage::changeParameters(
     // LP TO LP, or LP TO HP transform
     if (IsHighPass)
     {
-        K = -cos((W + 1.0) / 2.0) / cos((W - 1.0) / 2.0);
+        K = -cos(W / 2.0 + 0.5) / cos(W / 2.0 - 0.5);
     }
     else
     {
-        K = sin((1.0 - W) / 2.0) / sin((1.0 + W) / 2.0);
+        K = sin(0.5 - W / 2.0) / sin(0.5 + W / 2.0);
     }
 
     D = 1.0 + Y1 * K - Y2 * pow(K, 2.0);
@@ -117,6 +117,35 @@ void FilterChebyshevStage::changeParameters(
         Coeff_A1_ = -Coeff_A1_;
         Coeff_B1_ = -Coeff_B1_;
     }
+
+    // normalise coefficients
+    double SA = 0.0;
+    double SB = 0.0;
+
+    if (IsHighPass)
+    {
+        SA +=  Coeff_A0_;
+        SA += -Coeff_A1_;
+        SA +=  Coeff_A2_;
+
+        SB += -Coeff_B1_;
+        SB +=  Coeff_B2_;
+    }
+    else
+    {
+        SA += Coeff_A0_;
+        SA += Coeff_A1_;
+        SA += Coeff_A2_;
+
+        SB += Coeff_B1_;
+        SB += Coeff_B2_;
+    }
+
+    double Gain = SA / (1.0 - SB);
+
+    Coeff_A0_ /= Gain;
+    Coeff_A1_ /= Gain;
+    Coeff_A2_ /= Gain;
 }
 
 
@@ -150,6 +179,43 @@ double FilterChebyshevStage::filterSample(
     OutputPrevious_2_ = OutputPrevious_1_;
 
     return OutputCurrent;
+}
+
+
+void FilterChebyshevStage::testAlgorithm(
+    double RelativeCutoffFrequency,
+    bool IsHighPass,
+    double PercentRipple)
+{
+    double A0 = Coeff_A0_;
+    double A1 = Coeff_A1_;
+    double A2 = Coeff_A2_;
+
+    double B1 = Coeff_B1_;
+    double B2 = Coeff_B2_;
+
+    changeParameters(
+        RelativeCutoffFrequency,
+        IsHighPass,
+        PercentRipple,
+        2,
+        1);
+
+    DBG("fc: " + String::formatted("%1.3f", RelativeCutoffFrequency) + "   " +
+        "A0: " + String::formatted("% E", Coeff_A0_));
+    DBG(String("            ") +
+        "A1: " + String::formatted("% E", Coeff_A1_) + "   " +
+        "B1: " + String::formatted("% E", Coeff_B1_));
+    DBG(String("            ") +
+        "A2: " + String::formatted("% E", Coeff_A2_) + "   " +
+        "B2: " + String::formatted("% E", Coeff_B2_));
+
+    Coeff_A0_ = A0;
+    Coeff_A1_ = A1;
+    Coeff_A2_ = A2;
+
+    Coeff_B1_ = B1;
+    Coeff_B2_ = B2;
 }
 
 

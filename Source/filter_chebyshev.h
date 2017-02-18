@@ -42,7 +42,6 @@ public:
                           bool IsHighPass);
 
     void reset();
-
     double filterSample(double InputCurrent);
 
 private:

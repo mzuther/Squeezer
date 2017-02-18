@@ -44,6 +44,10 @@ public:
     void reset();
     double filterSample(double InputCurrent);
 
+    void testAlgorithm(double RelativeCutoffFrequency,
+                       bool IsHighPass,
+                       double PercentRipple);
+
 private:
     const double AntiDenormalDouble_;
 
