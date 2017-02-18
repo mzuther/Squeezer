@@ -29,62 +29,71 @@
 
 //==============================================================================
 
-FilterChebyshev::FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles)
+FilterChebyshev::FilterChebyshev(
+    double RelativeCutoffFrequency,
+    bool IsHighPass,
+    double PercentRipple,
+    int NumberOfPoles)
 {
-    jassert(nNumberOfPoles % 2 == 0);
+    PercentRipple_ = PercentRipple;
+    NumberOfPoles_ = NumberOfPoles;
 
-    nNumberOfStages = nNumberOfPoles / 2;
-    dRipple = dPercentRipple;
+    // each filter stage consists of a pair of poles
+    jassert(NumberOfPoles_ % 2 == 0);
+    int NumberOfStages = NumberOfPoles_ / 2;
 
-    // TODO: normalise coefficients
-    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
+    for (int Stage = 0; Stage < NumberOfStages; ++Stage)
     {
-        // pole pairs start with index 1!
-        int nPolePair = nStage + 1;
-
-        p_arrFilterStages.add(new FilterChebyshevStage(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair));
+        FilterStages_.add(new FilterChebyshevStage());
     }
 
-    changeParameters(dRelativeCutoffFrequency, isHighPass);
-}
-
-
-double FilterChebyshev::filterSample(double dInputCurrent)
-{
-    double dOutputCurrent = dInputCurrent;
-
-    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
-    {
-        dOutputCurrent = p_arrFilterStages[nStage]->filterSample(dOutputCurrent);
-    }
-
-    // output is already de-normalised
-    return dOutputCurrent;
-}
-
-
-void FilterChebyshev::changeParameters(double dRelativeCutoffFrequency, bool isHighPass)
-{
-    int nNumberOfPoles = nNumberOfStages * 2;
-
-    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
-    {
-        // pole pairs start with index 1!
-        int nPolePair = nStage + 1;
-
-        p_arrFilterStages[nStage]->changeParameters(dRelativeCutoffFrequency, isHighPass, dRipple, nNumberOfPoles, nPolePair);
-    }
-
+    changeParameters(RelativeCutoffFrequency, IsHighPass);
     reset();
+}
+
+
+void FilterChebyshev::changeParameters(
+    double RelativeCutoffFrequency,
+    bool IsHighPass)
+{
+    // TODO: normalise coefficients
+    for (int Stage = 0; Stage < FilterStages_.size(); ++Stage)
+    {
+        // pole pairs start with index 1!
+        int PolePair = Stage + 1;
+
+        FilterStages_[Stage]->changeParameters(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple_,
+            NumberOfPoles_,
+            PolePair);
+    }
 }
 
 
 void FilterChebyshev::reset()
 {
-    for (int nStage = 0; nStage < nNumberOfStages; ++nStage)
+    for (int Stage = 0; Stage < FilterStages_.size(); ++Stage)
     {
-        p_arrFilterStages[nStage]->reset();
+        FilterStages_[Stage]->reset();
     }
+}
+
+
+double FilterChebyshev::filterSample(
+    double InputCurrent)
+{
+    double OutputCurrent = InputCurrent;
+
+    for (int Stage = 0; Stage < FilterStages_.size(); ++Stage)
+    {
+        OutputCurrent = FilterStages_[Stage]->filterSample(
+                            OutputCurrent);
+    }
+
+    // output is already de-normalised
+    return OutputCurrent;
 }
 
 

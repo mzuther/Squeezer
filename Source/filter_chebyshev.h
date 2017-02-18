@@ -30,24 +30,26 @@
 #include "FrutHeader.h"
 
 
-//============================================================================
 class FilterChebyshev
 {
 public:
-    //==========================================================================
+    FilterChebyshev(double RelativeCutoffFrequency,
+                    bool IsHighPass,
+                    double PercentRipple,
+                    int NumberOfPoles);
 
-    FilterChebyshev(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles);
+    void changeParameters(double RelativeCutoffFrequency,
+                          bool IsHighPass);
 
-    double filterSample(double dInputCurrent);
-    void changeParameters(double dRelativeCutoffFrequency, bool isHighPass);
     void reset();
 
-private:
-    JUCE_LEAK_DETECTOR(FilterChebyshev);
+    double filterSample(double InputCurrent);
 
-    OwnedArray<FilterChebyshevStage> p_arrFilterStages;
-    int nNumberOfStages;
-    double dRipple;
+private:
+    OwnedArray<FilterChebyshevStage> FilterStages_;
+
+    int NumberOfPoles_;
+    double PercentRipple_;
 };
 
 #endif  // __FILTER_CHEBYSHEV_H__

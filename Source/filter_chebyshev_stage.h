@@ -30,34 +30,35 @@
 #include <float.h>
 
 
-//============================================================================
 class FilterChebyshevStage
 {
 public:
-    //==========================================================================
+    FilterChebyshevStage();
 
-    FilterChebyshevStage(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair);
+    void changeParameters(double RelativeCutoffFrequency,
+                          bool IsHighPass,
+                          double PercentRipple,
+                          int NumberOfPoles,
+                          int PolePair);
 
-    void changeParameters(double dRelativeCutoffFrequency, bool isHighPass, double dPercentRipple, int nNumberOfPoles, int nPolePair);
-    double filterSample(double dInputCurrent);
     void reset();
+    double filterSample(double InputCurrent);
 
 private:
-    JUCE_LEAK_DETECTOR(FilterChebyshevStage);
+    const double AntiDenormalDouble_;
 
-    const double dAntiDenormal;
+    double Coeff_A0_;
+    double Coeff_A1_;
+    double Coeff_A2_;
 
-    double coeff_A0;
-    double coeff_A1;
-    double coeff_A2;
-    double coeff_B1;
-    double coeff_B2;
+    double Coeff_B1_;
+    double Coeff_B2_;
 
-    double dInputPrevious_1;
-    double dInputPrevious_2;
+    double InputPrevious_1_;
+    double InputPrevious_2_;
 
-    double dOutputPrevious_1;
-    double dOutputPrevious_2;
+    double OutputPrevious_1_;
+    double OutputPrevious_2_;
 };
 
 #endif  // __FILTER_CHEBYSHEV_STAGE_H__

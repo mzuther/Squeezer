@@ -71,8 +71,8 @@ Compressor::Compressor(int channels, int sample_rate) :
         SidechainSamples.add(0.0);
         OutputSamples.add(0.0);
 
-        // initialise side-chain filter (HPF, 0.5% ripple, 6 poles)
-        SidechainFilter.add(new FilterChebyshev(0.001, true, 0.5, 6));
+        // initialise side-chain filter (HPF, 0.5% ripple, 24 dB/octave)
+        SidechainFilter.add(new FilterChebyshev(0.001, true, 0.5, 4));
     }
 
     // disable side-chain filter
@@ -538,8 +538,9 @@ void Compressor::setSidechainFilterCutoff(int SidechainFilterCutoffNew)
 {
     SidechainFilterCutoff = SidechainFilterCutoffNew;
 
-    double RelativeCutoffFrequency = double(SidechainFilterCutoff) / double(SampleRate);
-    bool IsHighpass = (SidechainFilterCutoff < 2900) ? true : false;
+    double RelativeCutoffFrequency = double(SidechainFilterCutoff) /
+                                     double(SampleRate);
+    bool IsHighpass = false;
 
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
