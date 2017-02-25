@@ -815,7 +815,7 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
             continue;
         }
 
-        // pre-process side chain
+        // process side chain
         for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
             double SideChainSample;
@@ -832,7 +832,7 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
             // compress channels (feed-back design)
             else
             {
-                bool UseAlternativeFeedbackMode = true;
+                bool UseAlternativeFeedbackMode = true; // TODO
 
                 // alternative feed-back mode (supports external side
                 // chain)

@@ -43,49 +43,57 @@ Flow of parameter processing:
 #ifdef SQUEEZER_MONO
 #if JucePlugin_Build_VST
 
-SqueezerAudioProcessor::SqueezerAudioProcessor() :
-    AudioProcessor(BusesProperties()
-                   .withInput("Main / SC In",
-                              AudioChannelSet::discreteChannels(2))
-                   .withOutput("Main Out",
-                               AudioChannelSet::discreteChannels(1))
-                   .withInput("Disabled In",
-                              AudioChannelSet::disabled()))
+SqueezerAudioProcessor::SqueezerAudioProcessor()
+#ifndef JucePlugin_PreferredChannelConfigurations
+    : AudioProcessor(BusesProperties()
+                     .withInput("Main / SC In",
+                                AudioChannelSet::discreteChannels(2))
+                     .withOutput("Main Out",
+                                 AudioChannelSet::discreteChannels(1))
+                     .withInput("Disabled In",
+                                AudioChannelSet::disabled()))
+#endif
 
 #else
 
-SqueezerAudioProcessor::SqueezerAudioProcessor() :
-    AudioProcessor(BusesProperties()
-                   .withInput("Main In",
-                              AudioChannelSet::mono())
-                   .withOutput("Main Out",
-                               AudioChannelSet::mono())
-                   .withInput("Sidechain In",
-                              AudioChannelSet::mono()))
+SqueezerAudioProcessor::SqueezerAudioProcessor()
+#ifndef JucePlugin_PreferredChannelConfigurations
+    : AudioProcessor(BusesProperties()
+                     .withInput("Main In",
+                                AudioChannelSet::mono())
+                     .withOutput("Main Out",
+                                 AudioChannelSet::mono())
+                     .withInput("Sidechain In",
+                                AudioChannelSet::mono()))
+#endif
 
 #endif
 #else
 #if JucePlugin_Build_VST
 
-SqueezerAudioProcessor::SqueezerAudioProcessor() :
-    AudioProcessor(BusesProperties()
-                   .withInput("Main / SC In",
-                              AudioChannelSet::discreteChannels(4))
-                   .withOutput("Main Out",
-                               AudioChannelSet::discreteChannels(2))
-                   .withInput("Disabled In",
-                              AudioChannelSet::disabled()))
+SqueezerAudioProcessor::SqueezerAudioProcessor()
+#ifndef JucePlugin_PreferredChannelConfigurations
+    : AudioProcessor(BusesProperties()
+                     .withInput("Main / SC In",
+                                AudioChannelSet::discreteChannels(4))
+                     .withOutput("Main Out",
+                                 AudioChannelSet::discreteChannels(2))
+                     .withInput("Disabled In",
+                                AudioChannelSet::disabled()))
+#endif
 
 #else
 
-SqueezerAudioProcessor::SqueezerAudioProcessor() :
-    AudioProcessor(BusesProperties()
-                   .withInput("Main In",
-                              AudioChannelSet::stereo())
-                   .withOutput("Main Out",
-                               AudioChannelSet::stereo())
-                   .withInput("Sidechain In",
-                              AudioChannelSet::stereo()))
+SqueezerAudioProcessor::SqueezerAudioProcessor()
+#ifndef JucePlugin_PreferredChannelConfigurations
+    : AudioProcessor(BusesProperties()
+                     .withInput("Main In",
+                                AudioChannelSet::stereo())
+                     .withOutput("Main Out",
+                                 AudioChannelSet::stereo())
+                     .withInput("Sidechain In",
+                                AudioChannelSet::stereo()))
+#endif
 
 #endif
 #endif
@@ -107,6 +115,7 @@ SqueezerAudioProcessor::~SqueezerAudioProcessor()
 
 //==============================================================================
 
+#ifndef JucePlugin_PreferredChannelConfigurations
 bool SqueezerAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
 {
     // main bus: do not allow disabling channels
@@ -198,6 +207,7 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) 
     // current channel layout is not allowed
     return false;
 }
+#endif
 
 
 const String SqueezerAudioProcessor::getName() const

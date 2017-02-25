@@ -41,8 +41,8 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "Squeezer";
-    const char* const  versionString  = "2.3.0";
-    const int          versionNumber  = 0x20300;
+    const char* const  versionString  = "2.3.1";
+    const int          versionNumber  = 0x20301;
 }
 #endif
 
