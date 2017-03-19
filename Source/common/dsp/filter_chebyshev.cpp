@@ -118,109 +118,109 @@ void FilterChebyshev::testAlgorithm(
 
     RelativeCutoffFrequency = 0.010;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.025;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.050;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.075;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.100;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.150;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.200;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.250;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.300;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.350;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.400;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 
     RelativeCutoffFrequency = 0.450;
 
-    FilterStages_[0]->testAlgorithm(
-        RelativeCutoffFrequency,
-        IsHighPass,
-        PercentRipple);
+    DBG(FilterStages_[0]->testAlgorithm(
+            RelativeCutoffFrequency,
+            IsHighPass,
+            PercentRipple));
 
     DBG("");
 }

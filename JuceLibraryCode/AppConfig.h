@@ -88,13 +88,13 @@
 
 #if JucePlugin_Build_LV2
   #ifdef SQUEEZER_MONO
-    #define JucePlugin_MaxNumInputChannels   1
-    #define JucePlugin_MaxNumOutputChannels  1
-    #define JucePlugin_PreferredChannelConfigurations   {1, 1}
-  #else
     #define JucePlugin_MaxNumInputChannels   2
+    #define JucePlugin_MaxNumOutputChannels  1
+    #define JucePlugin_PreferredChannelConfigurations   {2, 1}
+  #else
+    #define JucePlugin_MaxNumInputChannels   4
     #define JucePlugin_MaxNumOutputChannels  2
-    #define JucePlugin_PreferredChannelConfigurations   {2, 2}
+    #define JucePlugin_PreferredChannelConfigurations   {4, 2}
   #endif
 #endif
 

@@ -56,6 +56,9 @@ void FilterChebyshevStage::changeParameters(
     // PolePair:                 pole pair (1, 2, ..., NumberOfPoles / 2)
 
     // calculate the pole location on the unit circle
+    RelativeCutoffFrequency_ = RelativeCutoffFrequency;
+    IsHighPass_ = IsHighPass;
+
     double RP = -cos(M_PI / (NumberOfPoles * 2.0) +
                      (PolePair - 1.0) * M_PI / NumberOfPoles);
     double IP = sin(M_PI / (NumberOfPoles * 2.0) +
@@ -77,7 +80,7 @@ void FilterChebyshevStage::changeParameters(
 
     // s-domain to z-domain conversion
     double T = 2.0 * tan(0.5);
-    double W = 2.0 * M_PI * RelativeCutoffFrequency;
+    double W = 2.0 * M_PI * RelativeCutoffFrequency_;
     double M = pow(RP, 2.0) + pow(IP, 2.0);
     double D = 4.0 - (4.0 * RP * T) + (M * pow(T, 2.0));
 
@@ -91,7 +94,7 @@ void FilterChebyshevStage::changeParameters(
     double K;
 
     // LP TO LP, or LP TO HP transform
-    if (IsHighPass)
+    if (IsHighPass_)
     {
         K = -cos(W / 2.0 + 0.5) / cos(W / 2.0 - 0.5);
     }
@@ -109,7 +112,7 @@ void FilterChebyshevStage::changeParameters(
     Coeff_B1_ = (2.0 * K + Y1 + Y1 * pow(K, 2.0) - 2.0 * Y2 * K) / D;
     Coeff_B2_ = (-pow(K, 2.0) - Y1 * K + Y2) / D;
 
-    if (IsHighPass)
+    if (IsHighPass_)
     {
         Coeff_A1_ = -Coeff_A1_;
         Coeff_B1_ = -Coeff_B1_;
@@ -119,7 +122,7 @@ void FilterChebyshevStage::changeParameters(
     double SA = 0.0;
     double SB = 0.0;
 
-    if (IsHighPass)
+    if (IsHighPass_)
     {
         SA +=  Coeff_A0_;
         SA += -Coeff_A1_;
@@ -179,11 +182,15 @@ double FilterChebyshevStage::filterSample(
 }
 
 
-void FilterChebyshevStage::testAlgorithm(
+String FilterChebyshevStage::testAlgorithm(
     double RelativeCutoffFrequency,
     bool IsHighPass,
     double PercentRipple)
 {
+    // store old settings and coefficients
+    double Cutoff = RelativeCutoffFrequency_;
+    bool HighPass = IsHighPass_;
+
     double A0 = Coeff_A0_;
     double A1 = Coeff_A1_;
     double A2 = Coeff_A2_;
@@ -191,6 +198,7 @@ void FilterChebyshevStage::testAlgorithm(
     double B1 = Coeff_B1_;
     double B2 = Coeff_B2_;
 
+    // get coefficients for test
     changeParameters(
         RelativeCutoffFrequency,
         IsHighPass,
@@ -198,14 +206,11 @@ void FilterChebyshevStage::testAlgorithm(
         2,
         1);
 
-    DBG("fc: " + String::formatted("%1.3f", RelativeCutoffFrequency) + "   " +
-        "A0: " + String::formatted("% E", Coeff_A0_));
-    DBG(String("            ") +
-        "A1: " + String::formatted("% E", Coeff_A1_) + "   " +
-        "B1: " + String::formatted("% E", Coeff_B1_));
-    DBG(String("            ") +
-        "A2: " + String::formatted("% E", Coeff_A2_) + "   " +
-        "B2: " + String::formatted("% E", Coeff_B2_));
+    String Result = getCoefficients();
+
+    // restore old settings and coefficients
+    RelativeCutoffFrequency_ = Cutoff;
+    IsHighPass_ = HighPass;
 
     Coeff_A0_ = A0;
     Coeff_A1_ = A1;
@@ -213,6 +218,33 @@ void FilterChebyshevStage::testAlgorithm(
 
     Coeff_B1_ = B1;
     Coeff_B2_ = B2;
+
+    return Result;
+}
+
+
+String FilterChebyshevStage::getCoefficients()
+{
+    String Result;
+
+    Result += "fc: " + String::formatted("%1.3f", RelativeCutoffFrequency_);
+    Result += "   ";
+    Result += "A0: " + String::formatted("% E", Coeff_A0_);
+    Result += "\n";
+
+    Result += "            ";
+    Result += "A1: " + String::formatted("% E", Coeff_A1_);
+    Result += "   ";
+    Result += "B1: " + String::formatted("% E", Coeff_B1_);
+    Result += "\n";
+
+    Result += "            ";
+    Result += "A2: " + String::formatted("% E", Coeff_A2_);
+    Result += "   ";
+    Result += "B2: " + String::formatted("% E", Coeff_B2_);
+    Result += "\n";
+
+    return Result;
 }
 
 

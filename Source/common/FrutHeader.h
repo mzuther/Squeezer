@@ -31,13 +31,6 @@
 #include "JuceHeader.h"
 
 
-// silence warnings about unused variables (found on
-// https://stackoverflow.com/questions/1486904)
-#ifndef UNUSED
-#define UNUSED(x) (void)(x)
-#endif
-
-
 namespace frut
 {
 
@@ -52,7 +45,7 @@ public:
     ///
     static const juce::String getVersion()
     {
-        return "1.7.3";
+        return "1.7.4";
     }
 
 

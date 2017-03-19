@@ -156,7 +156,7 @@ void Juggler::add(
 
 {
 #ifndef DEBUG
-    UNUSED(index);
+    ignoreUnused(index);
 #endif
 
     // mark parameter for deletion on class destruction
@@ -210,7 +210,7 @@ void Juggler::addCombined(
 
 {
 #ifndef DEBUG
-    UNUSED(parameterIndex);
+    ignoreUnused(parameterIndex);
 #endif
 
     jassert(parameterIndex == (switchIndex + 1));

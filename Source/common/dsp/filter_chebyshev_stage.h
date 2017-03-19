@@ -41,12 +41,16 @@ public:
     void reset();
     double filterSample(double InputCurrent);
 
-    void testAlgorithm(double RelativeCutoffFrequency,
-                       bool IsHighPass,
-                       double PercentRipple);
+    String testAlgorithm(double RelativeCutoffFrequency,
+                         bool IsHighPass,
+                         double PercentRipple);
+    String getCoefficients();
 
 private:
     const double AntiDenormalDouble_;
+
+    double RelativeCutoffFrequency_;
+    bool IsHighPass_;
 
     double Coeff_A0_;
     double Coeff_A1_;

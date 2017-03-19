@@ -44,7 +44,7 @@ public:
 protected:
     GainStage(int nSampleRate)
     {
-        UNUSED(nSampleRate);
+        ignoreUnused(nSampleRate);
     };
 };
 

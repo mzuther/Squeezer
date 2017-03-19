@@ -64,7 +64,7 @@ double GainStageFET::processGainReduction(double dGainReductionNew, double dGain
     decibel
  */
 {
-    UNUSED(dGainReductionIdeal);
+    ignoreUnused(dGainReductionIdeal);
 
     dGainReduction = dGainReductionNew;
     return dGainReduction;

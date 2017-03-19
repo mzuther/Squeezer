@@ -612,7 +612,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
 void SqueezerAudioProcessorEditor::windowAboutCallback(
     int ModalResult)
 {
-    UNUSED(ModalResult);
+    ignoreUnused(ModalResult);
 
     // manually deactivate about button
     ButtonAbout_.setToggleState(false, dontSendNotification);
@@ -622,7 +622,7 @@ void SqueezerAudioProcessorEditor::windowAboutCallback(
 void SqueezerAudioProcessorEditor::windowSettingsCallback(
     int ModalResult)
 {
-    UNUSED(ModalResult);
+    ignoreUnused(ModalResult);
 
     // manually deactivate about button
     ButtonSettings_.setToggleState(false, dontSendNotification);
