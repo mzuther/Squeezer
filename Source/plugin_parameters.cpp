@@ -348,6 +348,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterSidechainFilterCutoff->setName("SC Filter Cutoff Frequency");
 
     // high-pass filter
+    ParameterSidechainFilterCutoff->addPreset(50.0f,      "50 Hz");
     ParameterSidechainFilterCutoff->addPreset(100.0f,    "100 Hz");
     ParameterSidechainFilterCutoff->addPreset(250.0f,    "250 Hz");
     ParameterSidechainFilterCutoff->addPreset(500.0f,    "500 Hz");

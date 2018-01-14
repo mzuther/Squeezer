@@ -543,7 +543,7 @@ void Compressor::setSidechainFilterCutoff(int SidechainFilterCutoffNew)
 
     double RelativeCutoffFrequency = double(SidechainFilterCutoff) /
                                      double(SampleRate);
-    bool IsHighpass = false;
+    bool IsHighpass = SidechainFilterCutoff < 3000.0f;
 
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {

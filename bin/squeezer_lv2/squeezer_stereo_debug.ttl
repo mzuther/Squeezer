@@ -66,10 +66,11 @@
     lv2:port [
         a lv2:InputPort, lv2:AudioPort ;
         lv2:index 2 ;
-        lv2:symbol "audio_in_l" ;
-        lv2:name "Audio Input (L)" ;
+        lv2:symbol "main_in_l" ;
+        lv2:name "Main In (L)" ;
         pg:membership [
             pg:group pg:InputGroup ;
+            pg:group pg:mainInput ;
             pg:group pg:StereoGroup ;
             pg:role pg:left ;
         ];
@@ -77,10 +78,36 @@
     [
         a lv2:InputPort, lv2:AudioPort ;
         lv2:index 3 ;
-        lv2:symbol "audio_in_r" ;
-        lv2:name "Audio Input (R)" ;
+        lv2:symbol "main_in_r" ;
+        lv2:name "Main In (R)" ;
         pg:membership [
             pg:group pg:InputGroup ;
+            pg:group pg:mainInput ;
+            pg:group pg:StereoGroup ;
+            pg:role pg:right ;
+        ];
+    ] ;
+
+    lv2:port [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 4 ;
+        lv2:symbol "sidechain_in_l" ;
+        lv2:name "Sidechain In (L)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:sideChainOf ;
+            pg:group pg:StereoGroup ;
+            pg:role pg:left ;
+        ];
+    ] ,
+    [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 5 ;
+        lv2:symbol "sidechain_in_r" ;
+        lv2:name "Sidechain In (R)" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:sideChainOf ;
             pg:group pg:StereoGroup ;
             pg:role pg:right ;
         ];
@@ -88,22 +115,24 @@
 
     lv2:port [
         a lv2:OutputPort, lv2:AudioPort ;
-        lv2:index 4 ;
+        lv2:index 6 ;
         lv2:symbol "audio_out_l" ;
-        lv2:name "Audio Output (L)" ;
+        lv2:name "Audio Out (L)" ;
         pg:membership [
             pg:group pg:OutputGroup ;
+            pg:group pg:mainOutput ;
             pg:group pg:StereoGroup ;
             pg:role pg:left ;
         ];
     ] ,
     [
         a lv2:OutputPort, lv2:AudioPort ;
-        lv2:index 5 ;
+        lv2:index 7 ;
         lv2:symbol "audio_out_r" ;
-        lv2:name "Audio Output (R)" ;
+        lv2:name "Audio Out (R)" ;
         pg:membership [
             pg:group pg:OutputGroup ;
+            pg:group pg:mainOutput ;
             pg:group pg:StereoGroup ;
             pg:role pg:right ;
         ];
@@ -111,7 +140,7 @@
 
     lv2:port [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 6 ;
+        lv2:index 8 ;
         lv2:symbol "bypass" ;
         lv2:name "Bypass" ;
         lv2:default 0.0 ;
@@ -122,7 +151,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 7 ;
+        lv2:index 9 ;
         lv2:symbol "rms_filter" ;
         lv2:name "RMS Filter" ;
         lv2:default 1.0 ;
@@ -141,7 +170,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 8 ;
+        lv2:index 10 ;
         lv2:symbol "design" ;
         lv2:name "Design" ;
         lv2:default 1.0 ;
@@ -160,7 +189,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 9 ;
+        lv2:index 11 ;
         lv2:symbol "detector" ;
         lv2:name "Detector" ;
         lv2:default 1.0 ;
@@ -183,7 +212,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 10 ;
+        lv2:index 12 ;
         lv2:symbol "gain_stage" ;
         lv2:name "Gain Stage" ;
         lv2:default 0.0 ;
@@ -202,7 +231,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 11 ;
+        lv2:index 13 ;
         lv2:symbol "threshold_mode" ;
         lv2:name "Threshold Mode" ;
         lv2:default 1.0 ;
@@ -221,16 +250,16 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 12 ;
+        lv2:index 14 ;
         lv2:symbol "threshold" ;
         lv2:name "Threshold" ;
-        lv2:default 0.545455 ;
+        lv2:default 0.444 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 13 ;
+        lv2:index 15 ;
         lv2:symbol "ratio_mode" ;
         lv2:name "Ratio Mode" ;
         lv2:default 1.0 ;
@@ -249,16 +278,16 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 14 ;
+        lv2:index 16 ;
         lv2:symbol "ratio" ;
         lv2:name "Ratio" ;
-        lv2:default 0.571429 ;
+        lv2:default 0.625 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 15 ;
+        lv2:index 17 ;
         lv2:symbol "knee_width" ;
         lv2:name "Knee Width" ;
         lv2:default 0.0 ;
@@ -281,7 +310,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 16 ;
+        lv2:index 18 ;
         lv2:symbol "attack_rate_mode" ;
         lv2:name "Attack Rate Mode" ;
         lv2:default 1.0 ;
@@ -300,16 +329,16 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 17 ;
+        lv2:index 19 ;
         lv2:symbol "attack_rate" ;
         lv2:name "Attack Rate" ;
-        lv2:default 0.5 ;
+        lv2:default 0.615 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 18 ;
+        lv2:index 20 ;
         lv2:symbol "release_rate_mode" ;
         lv2:name "Release Rate Mode" ;
         lv2:default 1.0 ;
@@ -328,16 +357,16 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 19 ;
+        lv2:index 21 ;
         lv2:symbol "release_rate" ;
         lv2:name "Release Rate" ;
-        lv2:default 0.266667 ;
+        lv2:default 0.077 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 20 ;
+        lv2:index 22 ;
         lv2:symbol "auto_make_up_gain" ;
         lv2:name "Auto Make-Up Gain" ;
         lv2:default 1.0 ;
@@ -348,7 +377,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 21 ;
+        lv2:index 23 ;
         lv2:symbol "make_up_gain_mode" ;
         lv2:name "Make-Up Gain Mode" ;
         lv2:default 1.0 ;
@@ -367,7 +396,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 22 ;
+        lv2:index 24 ;
         lv2:symbol "make_up_gain" ;
         lv2:name "Make-Up Gain" ;
         lv2:default 0.5 ;
@@ -376,7 +405,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 23 ;
+        lv2:index 25 ;
         lv2:symbol "wet_mix_mode" ;
         lv2:name "Wet Mix Mode" ;
         lv2:default 1.0 ;
@@ -395,7 +424,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 24 ;
+        lv2:index 26 ;
         lv2:symbol "wet_mix" ;
         lv2:name "Wet Mix" ;
         lv2:default 1.0 ;
@@ -404,7 +433,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 25 ;
+        lv2:index 27 ;
         lv2:symbol "sc_filter_state" ;
         lv2:name "SC Filter State" ;
         lv2:default 0.0 ;
@@ -415,7 +444,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 26 ;
+        lv2:index 28 ;
         lv2:symbol "sc_filter_cutoff_frequency_mode" ;
         lv2:name "SC Filter Cutoff Frequency Mode" ;
         lv2:default 1.0 ;
@@ -434,16 +463,16 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 27 ;
+        lv2:index 29 ;
         lv2:symbol "sc_filter_cutoff_frequency" ;
         lv2:name "SC Filter Cutoff Frequency" ;
-        lv2:default 0.0 ;
+        lv2:default 0.083 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 28 ;
+        lv2:index 30 ;
         lv2:symbol "sc_filter_gain" ;
         lv2:name "SC Filter Gain" ;
         lv2:default 0.5 ;
@@ -452,7 +481,7 @@
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 29 ;
+        lv2:index 31 ;
         lv2:symbol "sc_listen" ;
         lv2:name "SC Listen" ;
         lv2:default 0.0 ;
