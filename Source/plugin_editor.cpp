@@ -258,6 +258,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderWetMix_);
 
 
+    ButtonSidechainInput_.setButtonText("External");
+    ButtonSidechainInput_.setColour(TextButton::buttonColourId,
+                                    Colours::grey);
+    ButtonSidechainInput_.setColour(TextButton::buttonOnColourId,
+                                    Colours::red);
+
+    ButtonSidechainInput_.addListener(this);
+    addAndMakeVisible(&ButtonSidechainInput_);
+
+
     ButtonSidechainFilterState_.setButtonText("Filter");
     ButtonSidechainFilterState_.setColour(TextButton::buttonColourId,
                                           Colours::grey);
@@ -279,15 +289,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderSidechainLpfCutoff_);
 
 
-    Index = SqueezerPluginParameters::selSidechainFilterGain;
-    SliderSidechainFilterGain_ = new frut::widget::SliderSwitchLinearBar(
-        PluginParameters, Index);
-    SliderSidechainFilterGain_->setSliderColour(Colours::green.brighter(0.1f));
-
-    SliderSidechainFilterGain_->addListener(this);
-    addAndMakeVisible(SliderSidechainFilterGain_);
-
-
     ButtonSidechainListen_.setButtonText("Listen");
     ButtonSidechainListen_.setColour(TextButton::buttonColourId,
                                      Colours::grey);
@@ -306,8 +307,15 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
 #endif
 
 
+    ButtonSkin_.setButtonText("Skin");
+    ButtonSkin_.setColour(TextButton::buttonColourId,
+                          Colours::grey);
+    ButtonSkin_.setColour(TextButton::buttonOnColourId,
+                          Colours::yellow);
+
     ButtonSkin_.addListener(this);
-    addAndMakeVisible(ButtonSkin_);
+    addAndMakeVisible(&ButtonSkin_);
+
 
     ButtonReset_.setButtonText("Reset");
     ButtonReset_.setColour(TextButton::buttonColourId,
@@ -376,10 +384,10 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     updateParameter(SqueezerPluginParameters::selWetMixSwitch);
     updateParameter(SqueezerPluginParameters::selWetMix);
 
+    updateParameter(SqueezerPluginParameters::selSidechainInput);
     updateParameter(SqueezerPluginParameters::selSidechainFilterState);
     updateParameter(SqueezerPluginParameters::selSidechainFilterCutoffSwitch);
     updateParameter(SqueezerPluginParameters::selSidechainFilterCutoff);
-    updateParameter(SqueezerPluginParameters::selSidechainFilterGain);
     updateParameter(SqueezerPluginParameters::selSidechainListen);
 
     // locate directory containing the skins
@@ -461,8 +469,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     CurrentSkin_.placeComponent(SliderSidechainLpfCutoff_,
                                 "slider_sidechain_filter_cutoff");
-    CurrentSkin_.placeComponent(SliderSidechainFilterGain_,
-                                "slider_sidechain_filter_gain");
+    CurrentSkin_.placeComponent(&ButtonSidechainInput_,
+                                "button_sidechain_input");
     CurrentSkin_.placeComponent(&ButtonSidechainFilterState_,
                                 "button_sidechain_filter_state");
     CurrentSkin_.placeComponent(&ButtonSidechainListen_,
@@ -479,6 +487,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
                                 "button_about");
     CurrentSkin_.placeComponent(&ButtonSettings_,
                                 "button_settings");
+    CurrentSkin_.placeComponent(&ButtonSkin_,
+                                "button_skin");
     CurrentSkin_.placeComponent(&ButtonBypass_,
                                 "button_bypass");
 
@@ -869,6 +879,11 @@ void SqueezerAudioProcessorEditor::updateParameter(
                                 dontSendNotification);
         break;
 
+    case SqueezerPluginParameters::selSidechainInput:
+        ButtonSidechainInput_.setToggleState(FloatValue != 0.0f,
+                                             dontSendNotification);
+        break;
+
     case SqueezerPluginParameters::selSidechainFilterState:
         ButtonSidechainFilterState_.setToggleState(FloatValue != 0.0f,
                 dontSendNotification);
@@ -881,11 +896,6 @@ void SqueezerAudioProcessorEditor::updateParameter(
     case SqueezerPluginParameters::selSidechainFilterCutoff:
         SliderSidechainLpfCutoff_->setValue(FloatValue,
                                             dontSendNotification);
-        break;
-
-    case SqueezerPluginParameters::selSidechainFilterGain:
-        SliderSidechainFilterGain_->setValue(FloatValue,
-                                             dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selSidechainListen:
@@ -972,6 +982,12 @@ void SqueezerAudioProcessorEditor::buttonClicked(
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selAutoMakeupGain,
+            !Button->getToggleState());
+    }
+    else if (Button == &ButtonSidechainInput_)
+    {
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selSidechainInput,
             !Button->getToggleState());
     }
     else if (Button == &ButtonSidechainFilterState_)
@@ -1247,12 +1263,6 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selSidechainFilterCutoff,
-            FloatValue);
-    }
-    else if (Slider == SliderSidechainFilterGain_)
-    {
-        PluginProcessor_->changeParameter(
-            SqueezerPluginParameters::selSidechainFilterGain,
             FloatValue);
     }
     else

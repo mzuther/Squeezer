@@ -78,6 +78,8 @@ Compressor::Compressor(int channels, int sample_rate) :
                 0.01, true, 0.5, 4));
     }
 
+    // disable external side-chain
+    setSidechainInput(false);
     // disable side-chain filter
     setSidechainFilterState(false);
     setSidechainFilterCutoff(100);
@@ -497,6 +499,30 @@ void Compressor::setWetMix(int WetMixPercentageNew)
 }
 
 
+bool Compressor::getSidechainInput()
+/*  Get current side-chain input.
+
+    return value (boolean): returns current side-chain input (true ==
+    external input)
+ */
+{
+    return EnableExternalInput;
+}
+
+
+void Compressor::setSidechainInput(bool EnableExternalInputNew)
+/*  Set new side-chain input.
+
+    EnableExternalInputNew (boolean): new side-chain input (true ==
+    external input)
+
+    return value: none
+ */
+{
+    EnableExternalInput = EnableExternalInputNew;
+}
+
+
 bool Compressor::getSidechainFilterState()
 /*  Get current side-chain filter state.
 
@@ -824,7 +850,18 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
             if (DesignIsFeedForward)
             {
                 // side chain is fed from *input* channel
-                SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
+                if (EnableExternalInput)
+                {
+                    // feed side chain from external input
+                    SideChainSample = (double) SideChainBuffer.getSample(
+                                          CurrentChannel, nSample);
+                }
+                else
+                {
+                    // feed side chain from main input
+                    SideChainSample = (double) MainBuffer.getSample(
+                                          CurrentChannel, nSample);
+                }
 
                 // de-normalise side chain input sample
                 SideChainSample += AntiDenormalDouble;
@@ -832,14 +869,25 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
             // compress channels (feed-back design)
             else
             {
-                bool UseAlternativeFeedbackMode = true; // TODO
-
                 // alternative feed-back mode (supports external side
                 // chain)
+                bool UseAlternativeFeedbackMode = EnableExternalInput;
+
                 if (UseAlternativeFeedbackMode)
                 {
                     // side chain is fed from *input* channel
-                    SideChainSample = (double) SideChainBuffer.getSample(CurrentChannel, nSample);
+                    if (EnableExternalInput)
+                    {
+                        // feed side chain from external input
+                        SideChainSample = (double) SideChainBuffer.getSample(
+                                              CurrentChannel, nSample);
+                    }
+                    else
+                    {
+                        // feed side chain from main input
+                        SideChainSample = (double) MainBuffer.getSample(
+                                              CurrentChannel, nSample);
+                    }
 
                     // de-normalise side chain input sample
                     SideChainSample += AntiDenormalDouble;

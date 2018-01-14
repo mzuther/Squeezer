@@ -330,6 +330,13 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     addCombined(ParameterWetMix, selWetMixSwitch, selWetMix);
 
 
+    frut::parameter::ParBoolean *ParameterSidechainInput =
+        new frut::parameter::ParBoolean("Internal", "External");
+    ParameterSidechainInput->setName("SC Input");
+    ParameterSidechainInput->setDefaultBoolean(false, true);
+    add(ParameterSidechainInput, selSidechainInput);
+
+
     frut::parameter::ParBoolean *ParameterSidechainFilterState =
         new frut::parameter::ParBoolean("Enabled", "Disabled");
     ParameterSidechainFilterState->setName("SC Filter State");
@@ -367,40 +374,6 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterSidechainFilterCutoff->setSuffix(" Hz");
     ParameterSidechainFilterCutoff->setDefaultRealFloat(100.0f, true);
     addCombined(ParameterSidechainFilterCutoff, selSidechainFilterCutoffSwitch, selSidechainFilterCutoff);
-
-
-    frut::parameter::ParSwitch *ParameterSidechainFilterGain =
-        new frut::parameter::ParSwitch();
-    ParameterSidechainFilterGain->setName("SC Filter Gain");
-
-    ParameterSidechainFilterGain->addPreset(-12.0f, "-12 dB");
-    ParameterSidechainFilterGain->addPreset(-11.0f, "-11 dB");
-    ParameterSidechainFilterGain->addPreset(-10.0f, "-10 dB");
-    ParameterSidechainFilterGain->addPreset(-9.0f,   "-9 dB");
-    ParameterSidechainFilterGain->addPreset(-8.0f,   "-8 dB");
-    ParameterSidechainFilterGain->addPreset(-7.0f,   "-7 dB");
-    ParameterSidechainFilterGain->addPreset(-6.0f,   "-6 dB");
-    ParameterSidechainFilterGain->addPreset(-5.0f,   "-5 dB");
-    ParameterSidechainFilterGain->addPreset(-4.0f,   "-4 dB");
-    ParameterSidechainFilterGain->addPreset(-3.0f,   "-3 dB");
-    ParameterSidechainFilterGain->addPreset(-2.0f,   "-2 dB");
-    ParameterSidechainFilterGain->addPreset(-1.0f,   "-1 dB");
-    ParameterSidechainFilterGain->addPreset(0.0f,     "0 dB");
-    ParameterSidechainFilterGain->addPreset(+1.0f,   "+1 dB");
-    ParameterSidechainFilterGain->addPreset(+2.0f,   "+2 dB");
-    ParameterSidechainFilterGain->addPreset(+3.0f,   "+3 dB");
-    ParameterSidechainFilterGain->addPreset(+4.0f,   "+4 dB");
-    ParameterSidechainFilterGain->addPreset(+5.0f,   "+5 dB");
-    ParameterSidechainFilterGain->addPreset(+6.0f,   "+6 dB");
-    ParameterSidechainFilterGain->addPreset(+7.0f,   "+7 dB");
-    ParameterSidechainFilterGain->addPreset(+8.0f,   "+8 dB");
-    ParameterSidechainFilterGain->addPreset(+9.0f,   "+9 dB");
-    ParameterSidechainFilterGain->addPreset(+10.0f, "+10 dB");
-    ParameterSidechainFilterGain->addPreset(+11.0f, "+11 dB");
-    ParameterSidechainFilterGain->addPreset(+12.0f, "+12 dB");
-
-    ParameterSidechainFilterGain->setDefaultRealFloat(0.0f, true);
-    add(ParameterSidechainFilterGain, selSidechainFilterGain);
 
 
     frut::parameter::ParBoolean *ParameterSidechainListen =
@@ -484,6 +457,9 @@ String SqueezerPluginParameters::toString()
 
     parameterValues += ")\nSide-Chain: ";
 
+    parameterValues += getText(selSidechainInput);
+    parameterValues += ", ";
+
     if (!getBoolean(selSidechainFilterState))
     {
         parameterValues += "Filter Bypassed";
@@ -500,10 +476,6 @@ String SqueezerPluginParameters::toString()
         }
 
         parameterValues += getText(selSidechainFilterCutoff);
-
-        parameterValues += ", ";
-
-        parameterValues += getText(selSidechainFilterGain);
     }
 
     parameterValues += "\nMake-Up: ";

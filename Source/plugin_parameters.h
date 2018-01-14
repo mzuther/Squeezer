@@ -70,10 +70,10 @@ public:
         selWetMixSwitch,
         selWetMix,
 
+        selSidechainInput,
         selSidechainFilterState,
         selSidechainFilterCutoffSwitch,
         selSidechainFilterCutoff,
-        selSidechainFilterGain,
         selSidechainListen,
 
         numberOfParametersRevealed,

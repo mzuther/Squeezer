@@ -109,6 +109,9 @@ public:
     int getWetMix();
     void setWetMix(int WetMixPercentageNew);
 
+    bool getSidechainInput();
+    void setSidechainInput(bool EnableExternalInputNew);
+
     bool getSidechainFilterState();
     void setSidechainFilterState(bool EnableSidechainFilterNew);
 
@@ -209,6 +212,7 @@ private:
     double WetMix;
     double DryMix;
 
+    bool EnableExternalInput;
     bool EnableSidechainFilter;
     int SidechainFilterCutoff;
     double SidechainFilterGainDecibel;
