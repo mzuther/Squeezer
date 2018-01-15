@@ -142,11 +142,18 @@
             width="52"
         />
 
-        <button_sidechain_input
+        <button_sidechain_listen
             x="285"
             y="96"
             height="20"
-            width="52"
+            width="26"
+        />
+
+        <button_sidechain_input
+            x="311"
+            y="96"
+            height="20"
+            width="26"
         />
 
         <button_sidechain_filter_state
@@ -156,7 +163,7 @@
             width="52"
         />
 
-        <button_sidechain_listen
+        <button_sidechain_filter_type
             x="285"
             y="146"
             height="20"

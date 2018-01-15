@@ -115,6 +115,9 @@ public:
     bool getSidechainFilterState();
     void setSidechainFilterState(bool EnableSidechainFilterNew);
 
+    bool getSidechainFilterType();
+    void setSidechainFilterType(bool SidechainFilterIsHighpassNew);
+
     int getSidechainFilterCutoff();
     void setSidechainFilterCutoff(int SidechainFilterCutoff);
 
@@ -214,6 +217,7 @@ private:
 
     bool EnableExternalInput;
     bool EnableSidechainFilter;
+    bool SidechainFilterIsHighpass;
     int SidechainFilterCutoff;
     double SidechainFilterGainDecibel;
     double SidechainFilterGain;

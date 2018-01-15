@@ -82,6 +82,9 @@ Compressor::Compressor(int channels, int sample_rate) :
     setSidechainInput(false);
     // disable side-chain filter
     setSidechainFilterState(false);
+
+    // high-pass filter
+    setSidechainFilterType(true);
     setSidechainFilterCutoff(100);
     setSidechainFilterGain(0.0);
     setSidechainListen(false);
@@ -545,6 +548,33 @@ void Compressor::setSidechainFilterState(bool EnableSidechainFilterNew)
 }
 
 
+bool Compressor::getSidechainFilterType()
+/*  Get current side-chain filter type.
+
+    return value (boolean): returns current side-chain filter type
+    (true == high-pass filter)
+ */
+{
+    return SidechainFilterIsHighpass;
+}
+
+
+void Compressor::setSidechainFilterType(bool SidechainFilterIsHighpassNew)
+/*  Set new side-chain filter type.
+
+    SidechainFilterIsHighpassNew (boolean): new side-chain filter type
+    (true == high-pass filter)
+
+    return value: none
+ */
+{
+    SidechainFilterIsHighpass = SidechainFilterIsHighpassNew;
+
+    // update filter coefficients
+    setSidechainFilterCutoff(getSidechainFilterCutoff());
+}
+
+
 int Compressor::getSidechainFilterCutoff()
 /*  Get current side-chain filter cutoff frequency.
 
@@ -569,7 +599,7 @@ void Compressor::setSidechainFilterCutoff(int SidechainFilterCutoffNew)
 
     double RelativeCutoffFrequency = double(SidechainFilterCutoff) /
                                      double(SampleRate);
-    bool IsHighpass = SidechainFilterCutoff < 3000.0f;
+    bool IsHighpass = SidechainFilterIsHighpass;
 
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {

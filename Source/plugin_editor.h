@@ -103,6 +103,7 @@ private:
 
     TextButton ButtonSidechainInput_;
     TextButton ButtonSidechainFilterState_;
+    TextButton ButtonSidechainFilterType_;
     ScopedPointer<frut::widget::SliderCombined> SliderSidechainLpfCutoff_;
     TextButton ButtonSidechainListen_;
 

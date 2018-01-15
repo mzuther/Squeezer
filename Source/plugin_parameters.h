@@ -72,6 +72,7 @@ public:
 
         selSidechainInput,
         selSidechainFilterState,
+        selSidechainFilterType,
         selSidechainFilterCutoffSwitch,
         selSidechainFilterCutoff,
         selSidechainListen,

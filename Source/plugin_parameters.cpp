@@ -344,6 +344,13 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterSidechainFilterState, selSidechainFilterState);
 
 
+    frut::parameter::ParBoolean *ParameterSidechainFilterType =
+        new frut::parameter::ParBoolean("HPF", "LPF");
+    ParameterSidechainFilterType->setName("SC Filter Type");
+    ParameterSidechainFilterType->setDefaultBoolean(true, true);
+    add(ParameterSidechainFilterType, selSidechainFilterType);
+
+
     realMinimum = 60.0f;
     realMaximum = 12000.0f;
     stepSize = 10.0f;
@@ -466,7 +473,7 @@ String SqueezerPluginParameters::toString()
     }
     else
     {
-        if (getRealInteger(selSidechainFilterCutoff) < 2900)
+        if (getBoolean(selSidechainFilterType))
         {
             parameterValues += "HPF, ";
         }
