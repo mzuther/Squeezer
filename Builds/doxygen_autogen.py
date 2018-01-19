@@ -66,12 +66,13 @@ class OnWriteHandler(pyinotify.ProcessEvent):
 
     def run_payload(self):
         # run payload
-        proc = subprocess.Popen(self.payload_command,
-                                shell=True,
-                                stdin=subprocess.PIPE,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE,
-                                universal_newlines=True)
+        for payload_command in self.payload_command.split(';'):
+            proc = subprocess.Popen(payload_command,
+                                    shell=True,
+                                    stdin=subprocess.PIPE,
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE,
+                                    universal_newlines=True)
 
         # display output of "stdout" and "stderr" (if any)
         for pipe_output in proc.communicate():
@@ -98,7 +99,7 @@ if __name__ == '__main__':
 
     # command to be run on payload.  "unbuffer" pretends a TTY, thus
     # keeping escape sequences
-    payload_command = 'unbuffer doxygen Doxyfile'
+    payload_command = 'unbuffer rm -rf ../Source/api ; unbuffer doxygen Doxyfile'
 
     # create an instance of "pyinotify"
     watchmanager = pyinotify.WatchManager()
