@@ -45,178 +45,171 @@
 
     <default>
         <button_detector_linear
-            x="35"
-            y="96"
+            x="276"
+            y="176"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_detector_smooth_decoupled
-            x="35"
-            y="121"
+            x="276"
+            y="147"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_detector_smooth_branching
-            x="35"
-            y="146"
+            x="276"
+            y="118"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_detector_rms
-            x="112"
-            y="96"
+            x="346"
+            y="176"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_design_feedback
-            x="112"
-            y="121"
+            x="346"
+            y="147"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_gainstage_optical
-            x="112"
-            y="146"
+            x="346"
+            y="118"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_knee_hard
-            x="187"
-            y="96"
+            x="416"
+            y="176"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_knee_medium
-            x="187"
-            y="121"
+            x="416"
+            y="147"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_knee_soft
-            x="187"
-            y="146"
+            x="416"
+            y="118"
             height="20"
-            width="52"
+            width="60"
         />
 
         <slider_threshold
-            x="15"
-            y="18"
+            x="12"
+            y="116"
             height="60"
             width="52"
         />
 
         <slider_ratio
-            x="75"
-            y="18"
+            x="72"
+            y="116"
             height="60"
             width="52"
         />
 
         <slider_attack_rate
-            x="150"
-            y="18"
+            x="12"
+            y="13"
             height="60"
             width="52"
         />
 
         <slider_release_rate
-            x="210"
-            y="18"
+            x="72"
+            y="13"
             height="60"
             width="52"
         />
 
         <slider_sidechain_hpf_cutoff
-            x="285"
-            y="18"
+            x="143"
+            y="13"
             height="60"
             width="52"
         />
 
         <slider_sidechain_lpf_cutoff
-            x="285"
-            y="84"
+            x="203"
+            y="13"
             height="60"
             width="52"
         />
 
         <button_sidechain_listen
-            x="280"
-            y="151"
+            x="276"
+            y="42"
             height="20"
-            width="30"
+            width="60"
         />
 
         <button_sidechain_input
-            x="312"
-            y="151"
+            x="276"
+            y="14"
             height="20"
-            width="30"
+            width="60"
         />
 
         <slider_makeup_gain
-            x="370"
-            y="18"
+            x="143"
+            y="116"
             height="60"
             width="52"
         />
 
         <slider_wet_mix
-            x="430"
-            y="18"
+            x="203"
+            y="116"
             height="60"
             width="52"
         />
 
         <button_auto_makeup_gain
-            x="400"
-            y="96"
+            x="346"
+            y="42"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_about
-            x="370"
-            y="121"
+            x="416"
+            y="14"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_settings
-            x="430"
-            y="121"
+            x="416"
+            y="42"
             height="20"
-            width="52"
+            width="60"
         />
 
         <button_bypass
-            x="370"
-            y="146"
+            x="346"
+            y="14"
             height="20"
-            width="52"
-        />
-
-        <button_skin
-            x="430"
-            y="146"
-            height="20"
-            width="52"
+            width="60"
         />
 
         <label_debug
-            x="447"
-            y="92"
+            x="437"
+            y="76"
             height="16"
-            width="52"
+            width="60"
         />
     </default>
 
@@ -225,28 +218,35 @@
             image="backgrounds/background_mono.png" />
 
         <button_reset
-            x="512"
-            y="146"
+            x="497"
+            y="42"
             height="20"
-            width="52"
+            width="60"
+        />
+
+        <button_skin
+            x="497"
+            y="14"
+            height="20"
+            width="60"
         />
 
         <input_meter
-            x="510"
+            x="499"
             y="20"
             segment_width="16"
             vertical="true"
         />
 
         <output_meter
-            x="550"
+            x="539"
             y="20"
             segment_width="16"
             vertical="true"
         />
 
         <gain_reduction_meter
-            x="530"
+            x="519"
             y="20"
             segment_width="16"
             vertical="true"
@@ -258,49 +258,56 @@
             image="backgrounds/background_stereo.png" />
 
         <button_reset
-            x="524"
-            y="146"
+            x="509"
+            y="42"
             height="20"
-            width="52"
+            width="60"
+        />
+
+        <button_skin
+            x="509"
+            y="14"
+            height="20"
+            width="60"
         />
 
         <input_meter_left
-            x="510"
+            x="499"
             y="20"
             segment_width="12"
             vertical="true"
         />
 
         <input_meter_right
-            x="522"
+            x="511"
             y="20"
             segment_width="12"
             vertical="true"
         />
 
         <output_meter_left
-            x="566"
+            x="555"
             y="20"
             segment_width="12"
             vertical="true"
         />
 
         <output_meter_right
-            x="578"
+            x="567"
             y="20"
             segment_width="12"
             vertical="true"
         />
 
         <gain_reduction_meter_left
-            x="538"
+            x="527"
             y="20"
             segment_width="12"
             vertical="true"
         />
 
         <gain_reduction_meter_right
-            x="550"
+            x="539"
             y="20"
             segment_width="12"
             vertical="true"

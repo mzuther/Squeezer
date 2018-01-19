@@ -347,7 +347,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameter::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterSidechainHPFCutoff->setName("SC HPF Cutoff Frequency");
 
-    ParameterSidechainHPFCutoff->addPreset(100.0f,  "Bypassed");
+    ParameterSidechainHPFCutoff->addPreset(100.0f,    "Bypass");
     ParameterSidechainHPFCutoff->addPreset(200.0f,    "200 Hz");
     ParameterSidechainHPFCutoff->addPreset(400.0f,    "400 Hz");
     ParameterSidechainHPFCutoff->addPreset(800.0f,    "800 Hz");
@@ -391,7 +391,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterSidechainLPFCutoff->addPreset(7500.0f,  "7.5 kHz");
     ParameterSidechainLPFCutoff->addPreset(9000.0f,  "9.0 kHz");
     ParameterSidechainLPFCutoff->addPreset(11000.0f,  "11 kHz");
-    ParameterSidechainLPFCutoff->addPreset(12000.0f, "Bypassed");
+    ParameterSidechainLPFCutoff->addPreset(12000.0f,  "Bypass");
 
     ParameterSidechainLPFCutoff->setSuffix(" Hz");
     ParameterSidechainLPFCutoff->setDefaultRealFloat(12000.0f, true);
@@ -482,7 +482,7 @@ String SqueezerPluginParameters::toString()
     parameterValues += getText(selSidechainInput);
     parameterValues += ", ";
 
-    if (getRealInteger(selSidechainHPFCutoff) == 0)
+    if (getRealInteger(selSidechainHPFCutoff) <= 100)
     {
         parameterValues += "HPF: Bypassed";
     }
@@ -492,7 +492,7 @@ String SqueezerPluginParameters::toString()
         parameterValues += getText(selSidechainHPFCutoff);
     }
 
-    if (getRealInteger(selSidechainLPFCutoff) == 0)
+    if (getRealInteger(selSidechainLPFCutoff) >= 12000)
     {
         parameterValues += ", LPF: Bypassed";
     }

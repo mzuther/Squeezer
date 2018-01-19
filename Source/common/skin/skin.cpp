@@ -35,6 +35,9 @@ bool Skin::loadFromXml(
     skinFallback_1_ = nullptr;
     skinFallback_2_ = nullptr;
 
+    backgroundWidth_ = 0;
+    backgroundHeight_ = 0;
+
     Logger::outputDebugString(
         String("[Skin] loading file \"") +
         skinFile.getFileName() + "\"");
@@ -682,10 +685,13 @@ void Skin::placeComponent(
 
     if (xmlComponent != nullptr)
     {
-        int x = xmlComponent->getIntAttribute("x", -1);
-        int y = xmlComponent->getIntAttribute("y", -1);
+        jassert(backgroundHeight_ != 0);
+
         int width = xmlComponent->getIntAttribute("width", -1);
         int height = xmlComponent->getIntAttribute("height", -1);
+
+        int x = xmlComponent->getIntAttribute("x", -1);
+        int y = backgroundHeight_ - xmlComponent->getIntAttribute("y", -1) - height;
 
         component->setBounds(x, y, width, height);
     }
@@ -811,18 +817,18 @@ void Skin::setBackgroundImage(
             }
         }
 
-        int nBackgroundWidth = imageBackground.getWidth();
-        int nBackgroundHeight = imageBackground.getHeight();
+        backgroundWidth_ = imageBackground.getWidth();
+        backgroundHeight_ = imageBackground.getHeight();
 
         background->setImage(imageBackground);
-        background->setBounds(0, 0, nBackgroundWidth, nBackgroundHeight);
+        background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
 
         // moves background image to the back of the editor's z-plane
         // so that it doesn't overlay (and thus block) any other
         // components
         background->toBack();
 
-        editor->setSize(nBackgroundWidth, nBackgroundHeight);
+        editor->setSize(backgroundWidth_, backgroundHeight_);
     }
 }
 

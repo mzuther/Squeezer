@@ -93,6 +93,9 @@ protected:
     String currentGroupName_;
     String currentFallbackName_;
 
+    int backgroundWidth_;
+    int backgroundHeight_;
+
 private:
     JUCE_LEAK_DETECTOR(Skin);
 };

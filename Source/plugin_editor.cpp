@@ -100,7 +100,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(&ButtonDetectorRms_);
 
 
-    ButtonDesignFeedback_.setButtonText("F.Back");
+    ButtonDesignFeedback_.setButtonText("F. Back");
     ButtonDesignFeedback_.setColour(TextButton::buttonColourId,
                                     Colours::grey);
     ButtonDesignFeedback_.setColour(TextButton::buttonOnColourId,
@@ -258,7 +258,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderWetMix_);
 
 
-    ButtonSidechainInput_.setButtonText("Ext");
+    ButtonSidechainInput_.setButtonText("External");
     ButtonSidechainInput_.setColour(TextButton::buttonColourId,
                                     Colours::grey);
     ButtonSidechainInput_.setColour(TextButton::buttonOnColourId,
@@ -290,7 +290,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderSidechainLPFCutoff_);
 
 
-    ButtonSidechainListen_.setButtonText("List");
+    ButtonSidechainListen_.setButtonText("Sidechain");
     ButtonSidechainListen_.setColour(TextButton::buttonColourId,
                                      Colours::grey);
     ButtonSidechainListen_.setColour(TextButton::buttonOnColourId,
