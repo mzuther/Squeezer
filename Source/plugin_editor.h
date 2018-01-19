@@ -102,9 +102,8 @@ private:
     ScopedPointer<frut::widget::SliderCombined> SliderWetMix_;
 
     TextButton ButtonSidechainInput_;
-    TextButton ButtonSidechainFilterState_;
-    TextButton ButtonSidechainFilterType_;
-    ScopedPointer<frut::widget::SliderCombined> SliderSidechainLpfCutoff_;
+    ScopedPointer<frut::widget::SliderCombined> SliderSidechainHPFCutoff_;
+    ScopedPointer<frut::widget::SliderCombined> SliderSidechainLPFCutoff_;
     TextButton ButtonSidechainListen_;
 
     TextButton ButtonBypass_;

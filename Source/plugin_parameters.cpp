@@ -337,50 +337,65 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterSidechainInput, selSidechainInput);
 
 
-    frut::parameter::ParBoolean *ParameterSidechainFilterState =
-        new frut::parameter::ParBoolean("Enabled", "Disabled");
-    ParameterSidechainFilterState->setName("SC Filter State");
-    ParameterSidechainFilterState->setDefaultBoolean(false, true);
-    add(ParameterSidechainFilterState, selSidechainFilterState);
-
-
-    frut::parameter::ParBoolean *ParameterSidechainFilterType =
-        new frut::parameter::ParBoolean("HPF", "LPF");
-    ParameterSidechainFilterType->setName("SC Filter Type");
-    ParameterSidechainFilterType->setDefaultBoolean(true, true);
-    add(ParameterSidechainFilterType, selSidechainFilterType);
-
-
-    realMinimum = 60.0f;
+    realMinimum = 100.0f;
     realMaximum = 12000.0f;
     stepSize = 10.0f;
     scalingFactor = 1.0f;
     decimalPlaces = 0;
 
-    frut::parameter::ParCombined *ParameterSidechainFilterCutoff =
+    frut::parameter::ParCombined *ParameterSidechainHPFCutoff =
         new frut::parameter::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
-    ParameterSidechainFilterCutoff->setName("SC Filter Cutoff Frequency");
+    ParameterSidechainHPFCutoff->setName("SC HPF Cutoff Frequency");
 
-    // high-pass filter
-    ParameterSidechainFilterCutoff->addPreset(50.0f,      "50 Hz");
-    ParameterSidechainFilterCutoff->addPreset(100.0f,    "100 Hz");
-    ParameterSidechainFilterCutoff->addPreset(250.0f,    "250 Hz");
-    ParameterSidechainFilterCutoff->addPreset(500.0f,    "500 Hz");
-    ParameterSidechainFilterCutoff->addPreset(1000.0f,  "1.0 kHz");
-    ParameterSidechainFilterCutoff->addPreset(1500.0f,  "1.5 kHz");
-    ParameterSidechainFilterCutoff->addPreset(2500.0f,  "2.5 kHz");
+    ParameterSidechainHPFCutoff->addPreset(100.0f,  "Bypassed");
+    ParameterSidechainHPFCutoff->addPreset(200.0f,    "200 Hz");
+    ParameterSidechainHPFCutoff->addPreset(400.0f,    "400 Hz");
+    ParameterSidechainHPFCutoff->addPreset(800.0f,    "800 Hz");
+    ParameterSidechainHPFCutoff->addPreset(1200.0f,  "1.2 kHz");
+    ParameterSidechainHPFCutoff->addPreset(1800.0f,  "1.8 kHz");
+    ParameterSidechainHPFCutoff->addPreset(2400.0f,  "2.4 kHz");
+    ParameterSidechainHPFCutoff->addPreset(3200.0f,  "3.2 kHz");
+    ParameterSidechainHPFCutoff->addPreset(4000.0f,  "4.0 kHz");
+    ParameterSidechainHPFCutoff->addPreset(5000.0f,  "5.0 kHz");
+    ParameterSidechainHPFCutoff->addPreset(6200.0f,  "6.2 kHz");
+    ParameterSidechainHPFCutoff->addPreset(7500.0f,  "7.5 kHz");
+    ParameterSidechainHPFCutoff->addPreset(9000.0f,  "9.0 kHz");
+    ParameterSidechainHPFCutoff->addPreset(11000.0f,  "11 kHz");
 
-    // low-pass filter
-    ParameterSidechainFilterCutoff->addPreset(3000.0f,  "3.0 kHz");
-    ParameterSidechainFilterCutoff->addPreset(4000.0f,  "4.0 kHz");
-    ParameterSidechainFilterCutoff->addPreset(5000.0f,  "5.0 kHz");
-    ParameterSidechainFilterCutoff->addPreset(6500.0f,  "6.5 kHz");
-    ParameterSidechainFilterCutoff->addPreset(9000.0f,  "9.0 kHz");
-    ParameterSidechainFilterCutoff->addPreset(12000.0f,  "12 kHz");
+    ParameterSidechainHPFCutoff->setSuffix(" Hz");
+    ParameterSidechainHPFCutoff->setDefaultRealFloat(100.0f, true);
+    addCombined(ParameterSidechainHPFCutoff, selSidechainHPFCutoffSwitch, selSidechainHPFCutoff);
 
-    ParameterSidechainFilterCutoff->setSuffix(" Hz");
-    ParameterSidechainFilterCutoff->setDefaultRealFloat(100.0f, true);
-    addCombined(ParameterSidechainFilterCutoff, selSidechainFilterCutoffSwitch, selSidechainFilterCutoff);
+
+    realMinimum = 100.0f;
+    realMaximum = 12000.0f;
+    stepSize = 10.0f;
+    scalingFactor = 1.0f;
+    decimalPlaces = 0;
+
+    frut::parameter::ParCombined *ParameterSidechainLPFCutoff =
+        new frut::parameter::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
+    ParameterSidechainLPFCutoff->setName("SC LPF Cutoff Frequency");
+
+    ParameterSidechainLPFCutoff->addPreset(100.0f,    "100 Hz");
+    ParameterSidechainLPFCutoff->addPreset(200.0f,    "200 Hz");
+    ParameterSidechainLPFCutoff->addPreset(400.0f,    "400 Hz");
+    ParameterSidechainLPFCutoff->addPreset(800.0f,    "800 Hz");
+    ParameterSidechainLPFCutoff->addPreset(1200.0f,  "1.2 kHz");
+    ParameterSidechainLPFCutoff->addPreset(1800.0f,  "1.8 kHz");
+    ParameterSidechainLPFCutoff->addPreset(2400.0f,  "2.4 kHz");
+    ParameterSidechainLPFCutoff->addPreset(3200.0f,  "3.2 kHz");
+    ParameterSidechainLPFCutoff->addPreset(4000.0f,  "4.0 kHz");
+    ParameterSidechainLPFCutoff->addPreset(5000.0f,  "5.0 kHz");
+    ParameterSidechainLPFCutoff->addPreset(6200.0f,  "6.2 kHz");
+    ParameterSidechainLPFCutoff->addPreset(7500.0f,  "7.5 kHz");
+    ParameterSidechainLPFCutoff->addPreset(9000.0f,  "9.0 kHz");
+    ParameterSidechainLPFCutoff->addPreset(11000.0f,  "11 kHz");
+    ParameterSidechainLPFCutoff->addPreset(12000.0f, "Bypassed");
+
+    ParameterSidechainLPFCutoff->setSuffix(" Hz");
+    ParameterSidechainLPFCutoff->setDefaultRealFloat(12000.0f, true);
+    addCombined(ParameterSidechainLPFCutoff, selSidechainLPFCutoffSwitch, selSidechainLPFCutoff);
 
 
     frut::parameter::ParBoolean *ParameterSidechainListen =
@@ -467,22 +482,24 @@ String SqueezerPluginParameters::toString()
     parameterValues += getText(selSidechainInput);
     parameterValues += ", ";
 
-    if (!getBoolean(selSidechainFilterState))
+    if (getRealInteger(selSidechainHPFCutoff) == 0)
     {
-        parameterValues += "Filter Bypassed";
+        parameterValues += "HPF: Bypassed";
     }
     else
     {
-        if (getBoolean(selSidechainFilterType))
-        {
-            parameterValues += "HPF, ";
-        }
-        else
-        {
-            parameterValues += "LPF, ";
-        }
+        parameterValues += "HPF: ";
+        parameterValues += getText(selSidechainHPFCutoff);
+    }
 
-        parameterValues += getText(selSidechainFilterCutoff);
+    if (getRealInteger(selSidechainLPFCutoff) == 0)
+    {
+        parameterValues += ", LPF: Bypassed";
+    }
+    else
+    {
+        parameterValues += ", LPF: ";
+        parameterValues += getText(selSidechainLPFCutoff);
     }
 
     parameterValues += "\nMake-Up: ";

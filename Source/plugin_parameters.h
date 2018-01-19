@@ -71,10 +71,10 @@ public:
         selWetMix,
 
         selSidechainInput,
-        selSidechainFilterState,
-        selSidechainFilterType,
-        selSidechainFilterCutoffSwitch,
-        selSidechainFilterCutoff,
+        selSidechainHPFCutoffSwitch,
+        selSidechainHPFCutoff,
+        selSidechainLPFCutoffSwitch,
+        selSidechainLPFCutoff,
         selSidechainListen,
 
         numberOfParametersRevealed,

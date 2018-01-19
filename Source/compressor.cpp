@@ -73,21 +73,24 @@ Compressor::Compressor(int channels, int sample_rate) :
 
         // initialise side-chain filter (HPF, 0.5% ripple,
         // 24 dB/octave)
-        SidechainFilter.add(
+        SidechainFilter_HPF.add(
             new frut::dsp::FilterChebyshev(
                 0.01, true, 0.5, 4));
+
+        // initialise side-chain filter (LPF, 0.5% ripple,
+        // 24 dB/octave)
+        SidechainFilter_LPF.add(
+            new frut::dsp::FilterChebyshev(
+                0.01, false, 0.5, 4));
     }
 
     // disable external side-chain
     setSidechainInput(false);
-    // disable side-chain filter
-    setSidechainFilterState(false);
-
-    // high-pass filter
-    setSidechainFilterType(true);
-    setSidechainFilterCutoff(100);
-    setSidechainFilterGain(0.0);
     setSidechainListen(false);
+
+    // bypass side-chain filters
+    setSidechainHPFCutoff(0);
+    setSidechainLPFCutoff(0);
 }
 
 
@@ -526,109 +529,69 @@ void Compressor::setSidechainInput(bool EnableExternalInputNew)
 }
 
 
-bool Compressor::getSidechainFilterState()
-/*  Get current side-chain filter state.
+int Compressor::getSidechainHPFCutoff()
+/*  Get current side-chain high-pass filter cutoff frequency.
 
-    return value (boolean): returns current side-chain filter state
- */
-{
-    return EnableSidechainFilter;
-}
-
-
-void Compressor::setSidechainFilterState(bool EnableSidechainFilterNew)
-/*  Set new side-chain filter state.
-
-    EnableSidechainFilterNew (boolean): new side-chain filter state
-
-    return value: none
- */
-{
-    EnableSidechainFilter = EnableSidechainFilterNew;
-}
-
-
-bool Compressor::getSidechainFilterType()
-/*  Get current side-chain filter type.
-
-    return value (boolean): returns current side-chain filter type
-    (true == high-pass filter)
- */
-{
-    return SidechainFilterIsHighpass;
-}
-
-
-void Compressor::setSidechainFilterType(bool SidechainFilterIsHighpassNew)
-/*  Set new side-chain filter type.
-
-    SidechainFilterIsHighpassNew (boolean): new side-chain filter type
-    (true == high-pass filter)
-
-    return value: none
- */
-{
-    SidechainFilterIsHighpass = SidechainFilterIsHighpassNew;
-
-    // update filter coefficients
-    setSidechainFilterCutoff(getSidechainFilterCutoff());
-}
-
-
-int Compressor::getSidechainFilterCutoff()
-/*  Get current side-chain filter cutoff frequency.
-
-    return value (integer): side-chain filter cutoff frequency (in
-    Hertz)
- */
-{
-    return SidechainFilterCutoff;
-}
-
-
-void Compressor::setSidechainFilterCutoff(int SidechainFilterCutoffNew)
-/*  Set new side-chain filter cutoff frequency.
-
-    SidechainFilterCutoff (integer): new side-chain filter cutoff
+    return value (integer): side-chain high-pass filter cutoff
     frequency (in Hertz)
+ */
+{
+    return SidechainHPFCutoff;
+}
+
+
+void Compressor::setSidechainHPFCutoff(int SidechainHPFCutoffNew)
+/*  Set new side-chain high-pass filter cutoff frequency.
+
+    SidechainHPFCutoff (integer): new side-chain high-pass filter
+    cutoff frequency (in Hertz)
 
     return value: none
  */
 {
-    SidechainFilterCutoff = SidechainFilterCutoffNew;
+    SidechainHPFCutoff = SidechainHPFCutoffNew;
+    IsHPFEnabled = (SidechainHPFCutoff > 100);
 
-    double RelativeCutoffFrequency = double(SidechainFilterCutoff) /
+    double RelativeCutoffFrequency = double(SidechainHPFCutoff) /
                                      double(SampleRate);
-    bool IsHighpass = SidechainFilterIsHighpass;
 
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        SidechainFilter[CurrentChannel]->changeParameters(RelativeCutoffFrequency, IsHighpass);
+        SidechainFilter_HPF[CurrentChannel]->changeParameters(RelativeCutoffFrequency, true);
     }
 }
 
 
-double Compressor::getSidechainFilterGain()
-/*  Get current side-chain filter gain.
+int Compressor::getSidechainLPFCutoff()
+/*  Get current side-chain low-pass filter cutoff frequency.
 
-    return value (double): side-chain filter gain (in decibels)
+    return value (integer): side-chain low-pass filter cutoff
+    frequency (in Hertz)
  */
 {
-    return SidechainFilterGainDecibel;
+    return SidechainLPFCutoff;
 }
 
 
-void Compressor::setSidechainFilterGain(double SidechainFilterGainDecibelNew)
-/*  Set new side-chain filter gain.
+void Compressor::setSidechainLPFCutoff(int SidechainLPFCutoffNew)
+/*  Set new side-chain low-pass filter cutoff frequency.
 
-    SidechainFilterGainDecibel (double): new side-chain filter gain
-    (in decibels)
+    SidechainLPFCutoff (integer): new side-chain low-pass filter
+    cutoff frequency (in Hertz)
 
     return value: none
  */
 {
-    SidechainFilterGainDecibel = SidechainFilterGainDecibelNew;
-    SidechainFilterGain = SideChain::decibel2level(SidechainFilterGainDecibel);
+    SidechainLPFCutoff = SidechainLPFCutoffNew;
+    IsLPFEnabled = (SidechainLPFCutoff < 12000);
+
+    double RelativeCutoffFrequency = double(SidechainLPFCutoff) /
+                                     double(SampleRate);
+
+    for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
+    {
+        SidechainFilter_LPF[CurrentChannel]->changeParameters(RelativeCutoffFrequency, false);
+    }
 }
 
 
@@ -939,13 +902,14 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
 
             // filter side-chain sample (the filter's output is
             // already de-normalised!)
-            if (EnableSidechainFilter)
+            if (IsHPFEnabled)
             {
-                // filter sample
-                SideChainSample = SidechainFilter[CurrentChannel]->filterSample(SideChainSample);
+                SideChainSample = SidechainFilter_HPF[CurrentChannel]->filterSample(SideChainSample);
+            }
 
-                // apply filter make-up gain
-                SideChainSample *= SidechainFilterGain;
+            if (IsLPFEnabled)
+            {
+                SideChainSample = SidechainFilter_LPF[CurrentChannel]->filterSample(SideChainSample);
             }
 
             SidechainSamples.set(CurrentChannel, SideChainSample);

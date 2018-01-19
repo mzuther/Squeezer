@@ -447,38 +447,26 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
         break;
 
-    case SqueezerPluginParameters::selSidechainFilterState:
+    case SqueezerPluginParameters::selSidechainHPFCutoff:
 
         pluginParameters.setFloat(nIndex, fValue);
 
         if (pCompressor)
         {
-            bool bSidechainFilterState = pluginParameters.getBoolean(nIndex);
-            pCompressor->setSidechainFilterState(bSidechainFilterState);
+            int nSidechainHPFCutoff = pluginParameters.getRealInteger(nIndex);
+            pCompressor->setSidechainHPFCutoff(nSidechainHPFCutoff);
         }
 
         break;
 
-    case SqueezerPluginParameters::selSidechainFilterType:
+    case SqueezerPluginParameters::selSidechainLPFCutoff:
 
         pluginParameters.setFloat(nIndex, fValue);
 
         if (pCompressor)
         {
-            bool bSidechainFilterType = pluginParameters.getBoolean(nIndex);
-            pCompressor->setSidechainFilterType(bSidechainFilterType);
-        }
-
-        break;
-
-    case SqueezerPluginParameters::selSidechainFilterCutoff:
-
-        pluginParameters.setFloat(nIndex, fValue);
-
-        if (pCompressor)
-        {
-            int nSidechainFilterCutoff = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setSidechainFilterCutoff(nSidechainFilterCutoff);
+            int nSidechainLPFCutoff = pluginParameters.getRealInteger(nIndex);
+            pCompressor->setSidechainLPFCutoff(nSidechainLPFCutoff);
         }
 
         break;
@@ -512,7 +500,8 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
             case SqueezerPluginParameters::selMakeupGainSwitch:
             case SqueezerPluginParameters::selWetMixSwitch:
 
-            case SqueezerPluginParameters::selSidechainFilterCutoffSwitch:
+            case SqueezerPluginParameters::selSidechainHPFCutoffSwitch:
+            case SqueezerPluginParameters::selSidechainLPFCutoffSwitch:
 
                 pCombined->setMode(fValue != 0.0f);
                 break;
@@ -852,9 +841,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     int nWetMix = pluginParameters.getRealInteger(SqueezerPluginParameters::selWetMix);
 
     bool bSidechainInput = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainInput);
-    bool bSidechainFilterState = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainFilterState);
-    bool bSidechainFilterType = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainFilterType);
-    int nSidechainFilterCutoff = pluginParameters.getRealInteger(SqueezerPluginParameters::selSidechainFilterCutoff);
+    int nSidechainHPFCutoff = pluginParameters.getRealInteger(SqueezerPluginParameters::selSidechainHPFCutoff);
+    int nSidechainLPFCutoff = pluginParameters.getRealInteger(SqueezerPluginParameters::selSidechainLPFCutoff);
     bool bSidechainListen = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainListen);
 
 #ifdef SQUEEZER_MONO
@@ -881,9 +869,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     pCompressor->setWetMix(nWetMix);
 
     pCompressor->setSidechainInput(bSidechainInput);
-    pCompressor->setSidechainFilterState(bSidechainFilterState);
-    pCompressor->setSidechainFilterType(bSidechainFilterType);
-    pCompressor->setSidechainFilterCutoff(nSidechainFilterCutoff);
+    pCompressor->setSidechainHPFCutoff(nSidechainHPFCutoff);
+    pCompressor->setSidechainLPFCutoff(nSidechainLPFCutoff);
     pCompressor->setSidechainListen(bSidechainListen);
 }
 
@@ -1056,15 +1043,28 @@ bool SqueezerAudioProcessor::hasEditor() const
 
 void SqueezerAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
-    copyXmlToBinary(pluginParameters.storeAsXml(), destData);
+    XmlElement xmlParameters = pluginParameters.storeAsXml();
+
+    DBG("[Squeezer]");
+    DBG("[Squeezer] storing plug-in parameters:");
+    DBG("[Squeezer]");
+    DBG(String("[Squeezer]   ") + xmlParameters.createDocument("").replace(
+            "\n", "\n[Squeezer]   "));
+
+    copyXmlToBinary(xmlParameters, destData);
 }
 
 
 void SqueezerAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xmlDocument(getXmlFromBinary(data, sizeInBytes));
-    pluginParameters.loadFromXml(xmlDocument);
+    ScopedPointer<XmlElement> xmlParameters(getXmlFromBinary(data, sizeInBytes));
 
+    DBG("[Squeezer] loading plug-in parameters:");
+    DBG("[Squeezer]");
+    DBG(String("[Squeezer]   ") + xmlParameters->createDocument("").replace(
+            "\n", "\n[Squeezer]   "));
+
+    pluginParameters.loadFromXml(xmlParameters);
     updateParameters(true);
 }
 

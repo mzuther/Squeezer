@@ -112,17 +112,11 @@ public:
     bool getSidechainInput();
     void setSidechainInput(bool EnableExternalInputNew);
 
-    bool getSidechainFilterState();
-    void setSidechainFilterState(bool EnableSidechainFilterNew);
+    int getSidechainHPFCutoff();
+    void setSidechainHPFCutoff(int SidechainHPFCutoff);
 
-    bool getSidechainFilterType();
-    void setSidechainFilterType(bool SidechainFilterIsHighpassNew);
-
-    int getSidechainFilterCutoff();
-    void setSidechainFilterCutoff(int SidechainFilterCutoff);
-
-    double getSidechainFilterGain();
-    void setSidechainFilterGain(double SidechainFilterGainDecibel);
+    int getSidechainLPFCutoff();
+    void setSidechainLPFCutoff(int SidechainLPFCutoff);
 
     bool getSidechainListen();
     void setSidechainListen(bool ListenToSidechainNew);
@@ -167,7 +161,8 @@ private:
 
     frut::dsp::Dither Dither;
     OwnedArray<SideChain> SideChainProcessor;
-    OwnedArray<frut::dsp::FilterChebyshev> SidechainFilter;
+    OwnedArray<frut::dsp::FilterChebyshev> SidechainFilter_HPF;
+    OwnedArray<frut::dsp::FilterChebyshev> SidechainFilter_LPF;
 
     Array<double> InputSamples;
     Array<double> SidechainSamples;
@@ -216,12 +211,12 @@ private:
     double DryMix;
 
     bool EnableExternalInput;
-    bool EnableSidechainFilter;
-    bool SidechainFilterIsHighpass;
-    int SidechainFilterCutoff;
-    double SidechainFilterGainDecibel;
-    double SidechainFilterGain;
+    bool IsHPFEnabled;
+    bool IsLPFEnabled;
     bool ListenToSidechain;
+
+    int SidechainHPFCutoff;
+    int SidechainLPFCutoff;
 };
 
 #endif  // __COMPRESSOR_H__
