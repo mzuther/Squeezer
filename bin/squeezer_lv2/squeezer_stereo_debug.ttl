@@ -434,19 +434,27 @@
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 27 ;
-        lv2:symbol "sc_filter_state" ;
-        lv2:name "SC Filter State" ;
+        lv2:symbol "sc_input" ;
+        lv2:name "SC Input" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
-        lv2:portProperty lv2:toggled ;
+        lv2:portProperty lv2:enumeration ;
         lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Internal" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "External" ;
+        ] ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 28 ;
-        lv2:symbol "sc_filter_cutoff_frequency_mode" ;
-        lv2:name "SC Filter Cutoff Frequency Mode" ;
+        lv2:symbol "sc_hpf_cutoff_frequency_mode" ;
+        lv2:name "SC HPF Cutoff Frequency Mode" ;
         lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
@@ -464,29 +472,56 @@
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 29 ;
-        lv2:symbol "sc_filter_cutoff_frequency" ;
-        lv2:name "SC Filter Cutoff Frequency" ;
-        lv2:default 0.083 ;
+        lv2:symbol "sc_hpf_cutoff_frequency" ;
+        lv2:name "SC HPF Cutoff Frequency" ;
+        lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
         lv2:index 30 ;
-        lv2:symbol "sc_filter_gain" ;
-        lv2:name "SC Filter Gain" ;
-        lv2:default 0.5 ;
+        lv2:symbol "sc_lpf_cutoff_frequency_mode" ;
+        lv2:name "SC LPF Cutoff Frequency Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 31 ;
+        lv2:symbol "sc_lpf_cutoff_frequency" ;
+        lv2:name "SC LPF Cutoff Frequency" ;
+        lv2:default 1.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
     [
         a lv2:InputPort, lv2:ControlPort ;
-        lv2:index 31 ;
+        lv2:index 32 ;
         lv2:symbol "sc_listen" ;
         lv2:name "SC Listen" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
-        lv2:portProperty lv2:toggled ;
+        lv2:portProperty lv2:enumeration ;
         lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Compressor" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Side-Chain" ;
+        ] ;
     ] .
