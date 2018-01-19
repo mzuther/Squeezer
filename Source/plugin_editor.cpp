@@ -882,7 +882,7 @@ void SqueezerAudioProcessorEditor::updateParameter(
         break;
 
     case SqueezerPluginParameters::selSidechainInput:
-        ButtonSidechainInput_.setToggleState(FloatValue == 0.0f,
+        ButtonSidechainInput_.setToggleState(FloatValue != 0.0f,
                                              dontSendNotification);
         break;
 
@@ -994,7 +994,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selSidechainInput,
-            Button->getToggleState());
+            !Button->getToggleState());
     }
     else if (Button == &ButtonSidechainListen_)
     {

@@ -331,7 +331,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
 
 
     frut::parameter::ParBoolean *ParameterSidechainInput =
-        new frut::parameter::ParBoolean("Internal", "External");
+        new frut::parameter::ParBoolean("External", "Internal");
     ParameterSidechainInput->setName("SC Input");
     ParameterSidechainInput->setDefaultBoolean(false, true);
     add(ParameterSidechainInput, selSidechainInput);
