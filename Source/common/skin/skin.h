@@ -30,55 +30,77 @@
 class Skin
 {
 public:
-    bool loadFromXml(File &skinFile,
+    bool loadFromXml(const File &skinFile,
                      const String &rootName,
                      const String &assumedVersionNumber);
 
+    bool getBoolean(const XmlElement *xmlComponent,
+                    const String &attributeName,
+                    const bool defaultValue = false);
+
+    bool getBooleanSetting(const String &tagName,
+                           const String &attributeName,
+                           const bool defaultValue = false);
+
+    int getInteger(const XmlElement *xmlComponent,
+                   const String &attributeName,
+                   const int defaultValue = 0);
+
     int getIntegerSetting(const String &tagName,
                           const String &attributeName,
-                          int defaultValue = 0);
+                          const int defaultValue = 0);
 
-    float getFloatSetting(
-        const String &tagName,
-        const String &attributeName,
-        float defaultValue = 0.0f);
+    float getFloat(const XmlElement *xmlComponent,
+                   const String &attributeName,
+                   const float defaultValue = 0.0f);
 
-    const String getStringSetting(
-        const String &tagName,
-        const String &attributeName,
-        const String &defaultValue = "");
+    float getFloatSetting(const String &tagName,
+                          const String &attributeName,
+                          const float defaultValue = 0.0f);
 
-    const Colour getColourSetting(
-        const String &tagName,
-        float defaultHue = 0.0f);
+    const String getString(const XmlElement *xmlComponent,
+                           const String &attributeName,
+                           const String &defaultValue = "");
 
-    void placeComponent(Component *component,
-                        const String &tagName);
+    const String getStringSetting(const String &tagName,
+                                  const String &attributeName,
+                                  const String &defaultValue = "");
 
-    void placeMeterBar(widget::MeterBar *meterBar,
-                       const String &tagName);
+    const Colour getColour(const XmlElement *xmlComponent,
+                           const float defaultHue = 0.0f);
 
-    void placeAndSkinButton(ImageButton *button,
-                            const String &tagName);
-
-    void placeAndSkinNeedleMeter(widget::NeedleMeter *meter,
-                                 const String &tagName);
-
-    void placeAndSkinLabel(ImageComponent *label,
-                           const String &tagName);
-
-    void placeAndSkinSignalLed(widget::SignalLed *label,
-                               const String &tagName);
-
-    void placeAndSkinStateLabel(widget::StateLabel *label,
-                                const String &tagName);
+    const Colour getColourSetting(const String &tagName,
+                                  const float defaultHue = 0.0f);
 
     void setBackgroundImage(ImageComponent *background,
                             AudioProcessorEditor *editor);
 
+    void placeComponent(const XmlElement *xmlComponent,
+                        Component *component);
+
+    void placeMeterBar(const String &tagName,
+                       widget::MeterBar *meterBar);
+
+    void placeAndSkinButton(const String &tagName,
+                            ImageButton *button);
+
+    void placeAndSkinSlider(const String &tagName,
+                            widget::SliderCombined *slider);
+
+    void placeAndSkinNeedleMeter(const String &tagName,
+                                 widget::NeedleMeter *meter);
+
+    void placeAndSkinLabel(const String &tagName,
+                           ImageComponent *label);
+
+    void placeAndSkinSignalLed(const String &tagName,
+                               widget::SignalLed *label);
+
+    void placeAndSkinStateLabel(const String &tagName,
+                                widget::StateLabel *label);
+
 protected:
     XmlElement *getComponentFromXml(const String &tagName);
-
     XmlElement *getSetting(const String &tagName);
 
     ScopedPointer<XmlElement> document_;

@@ -187,6 +187,12 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameter::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterAttackRate->setName("Attack Rate");
 
+    // Equivalent of 20 microseconds
+    // =============================
+    //  44100 Hz:  0.9 samples
+    //  48000 Hz:  1.0 samples
+    //  96000 Hz:  1.9 samples
+    // 192000 Hz:  3.8 samples
     ParameterAttackRate->addPreset(0.02f,    "20 us");
     ParameterAttackRate->addPreset(0.05f,    "50 us");
     ParameterAttackRate->addPreset(0.10f,   "100 us");
@@ -233,7 +239,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterReleaseRate->addPreset(2000.0f, "2.0 s");
 
     ParameterReleaseRate->setSuffix(" ms");
-    ParameterReleaseRate->setDefaultRealFloat(75.0f, true);
+    ParameterReleaseRate->setDefaultRealFloat(175.0f, true);
     addCombined(ParameterReleaseRate, selReleaseRateSwitch, selReleaseRate);
 
 

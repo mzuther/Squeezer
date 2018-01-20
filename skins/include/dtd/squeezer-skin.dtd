@@ -1,0 +1,302 @@
+<!ENTITY % settings
+          "meter_segment,
+           meter_colour_high,
+           meter_colour_medium,
+           meter_colour_low,
+           gain_reduction_meter_normal,
+           gain_reduction_meter_special
+">
+
+<!ENTITY % main_components
+          "slider_threshold,
+           slider_ratio,
+           slider_attack_rate,
+           slider_release_rate,
+           slider_sidechain_hpf_cutoff,
+           slider_sidechain_lpf_cutoff,
+           slider_makeup_gain,
+           slider_wet_mix,
+           button_detector_linear,
+           button_detector_smooth_decoupled,
+           button_detector_smooth_branching,
+           button_detector_rms,
+           button_design_feedback,
+           button_gainstage_optical,
+           button_knee_hard,
+           button_knee_medium,
+           button_knee_soft,
+           button_sidechain_listen,
+           button_sidechain_input,
+           button_auto_makeup_gain,
+           button_bypass,
+           button_settings,
+           button_about,
+           button_reset,
+           button_skin,
+           label_debug
+">
+
+<!ENTITY % main_components_optional
+          "slider_threshold?,
+           slider_ratio?,
+           slider_attack_rate?,
+           slider_release_rate?,
+           slider_sidechain_hpf_cutoff?,
+           slider_sidechain_lpf_cutoff?,
+           slider_makeup_gain?,
+           slider_wet_mix?,
+           button_detector_linear?,
+           button_detector_smooth_decoupled?,
+           button_detector_smooth_branching?,
+           button_detector_rms?,
+           button_design_feedback?,
+           button_gainstage_optical?,
+           button_knee_hard?,
+           button_knee_medium?,
+           button_knee_soft?,
+           button_sidechain_listen?,
+           button_sidechain_input?,
+           button_auto_makeup_gain?,
+           button_bypass?,
+           button_settings?,
+           button_about?,
+           button_reset?,
+           button_skin?,
+           label_debug?
+">
+
+<!ENTITY % squeezer_background
+          "background
+">
+
+<!ENTITY % squeezer_components_mono
+          "input_meter,
+           output_meter,
+           gain_reduction_meter
+">
+
+<!ENTITY % squeezer_components_stereo
+          "input_meter_left,
+           input_meter_right,
+           output_meter_left,
+           output_meter_right,
+           gain_reduction_meter_left,
+           gain_reduction_meter_right
+">
+
+<!ENTITY % attrs_image_size
+          "width CDATA #REQUIRED
+           height CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_image_position
+          "x CDATA #REQUIRED
+           y CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_image_spacing
+          "spacing_left CDATA #REQUIRED
+           spacing_top CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_colour
+          "hue CDATA #REQUIRED
+           saturation CDATA #IMPLIED
+           brightness CDATA #IMPLIED
+">
+
+<!ENTITY % attrs_font
+          "font_size CDATA #IMPLIED
+">
+
+<!ENTITY % attrs_background
+          "image CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_button
+          "%attrs_image_position;
+           image_on CDATA #REQUIRED
+           image_over CDATA #IMPLIED
+           image_off CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_slider
+          "%attrs_image_position;
+           %attrs_image_size;
+           %attrs_colour;
+">
+
+<!ENTITY % attrs_label
+          "%attrs_image_position;
+           image CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_label_signal
+          "%attrs_image_position;
+           image_off CDATA #REQUIRED
+           image_low CDATA #REQUIRED
+           image_high CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_state_label
+          "%attrs_image_position;
+           %attrs_image_spacing;
+           %attrs_font;
+           colour_on CDATA #IMPLIED
+           colour_active CDATA #IMPLIED
+           image_active CDATA #REQUIRED
+           image_on CDATA #REQUIRED
+           image_off CDATA #REQUIRED
+">
+
+<!ENTITY % attrs_meter
+          "%attrs_image_position;
+           segment_width CDATA #REQUIRED
+           vertical (true | false) #REQUIRED
+">
+
+<!ELEMENT squeezer-skin (settings, default, mono, stereo)>
+
+    <!ATTLIST squeezer-skin
+              name CDATA #REQUIRED
+              path CDATA #REQUIRED
+              version CDATA "1.0"
+    >
+
+    <!ELEMENT settings (%settings;)>
+
+    <!ELEMENT default (%main_components;)>
+
+    <!ELEMENT mono (%squeezer_background;,
+              %main_components_optional;,
+              %squeezer_components_mono;)>
+
+    <!ELEMENT stereo (%squeezer_background;,
+              %main_components_optional;,
+              %squeezer_components_stereo;)>
+
+        <!ELEMENT meter_segment (#PCDATA)>
+            <!ATTLIST meter_segment height CDATA #REQUIRED>
+
+        <!ELEMENT meter_colour_high (#PCDATA)>
+            <!ATTLIST meter_colour_high %attrs_colour;>
+
+        <!ELEMENT meter_colour_medium (#PCDATA)>
+            <!ATTLIST meter_colour_medium %attrs_colour;>
+
+        <!ELEMENT meter_colour_low (#PCDATA)>
+            <!ATTLIST meter_colour_low %attrs_colour;>
+
+        <!ELEMENT gain_reduction_meter_normal (#PCDATA)>
+            <!ATTLIST gain_reduction_meter_normal %attrs_colour;>
+
+        <!ELEMENT gain_reduction_meter_special (#PCDATA)>
+            <!ATTLIST gain_reduction_meter_special %attrs_colour;>
+
+        <!ELEMENT background (#PCDATA)>
+            <!ATTLIST background %attrs_background;>
+
+        <!ELEMENT slider_threshold (#PCDATA)>
+            <!ATTLIST slider_threshold %attrs_slider;>
+
+        <!ELEMENT slider_ratio (#PCDATA)>
+            <!ATTLIST slider_ratio %attrs_slider;>
+
+        <!ELEMENT slider_attack_rate (#PCDATA)>
+            <!ATTLIST slider_attack_rate %attrs_slider;>
+
+        <!ELEMENT slider_release_rate (#PCDATA)>
+            <!ATTLIST slider_release_rate %attrs_slider;>
+
+        <!ELEMENT slider_sidechain_hpf_cutoff (#PCDATA)>
+            <!ATTLIST slider_sidechain_hpf_cutoff %attrs_slider;>
+
+        <!ELEMENT slider_sidechain_lpf_cutoff (#PCDATA)>
+            <!ATTLIST slider_sidechain_lpf_cutoff %attrs_slider;>
+
+        <!ELEMENT slider_makeup_gain (#PCDATA)>
+            <!ATTLIST slider_makeup_gain %attrs_slider;>
+
+        <!ELEMENT slider_wet_mix (#PCDATA)>
+            <!ATTLIST slider_wet_mix %attrs_slider;>
+
+        <!ELEMENT button_detector_linear (#PCDATA)>
+            <!ATTLIST button_detector_linear %attrs_button;>
+
+        <!ELEMENT button_detector_smooth_decoupled (#PCDATA)>
+            <!ATTLIST button_detector_smooth_decoupled %attrs_button;>
+
+        <!ELEMENT button_detector_smooth_branching (#PCDATA)>
+            <!ATTLIST button_detector_smooth_branching %attrs_button;>
+
+        <!ELEMENT button_detector_rms (#PCDATA)>
+            <!ATTLIST button_detector_rms %attrs_button;>
+
+        <!ELEMENT button_design_feedback (#PCDATA)>
+            <!ATTLIST button_design_feedback %attrs_button;>
+
+        <!ELEMENT button_gainstage_optical (#PCDATA)>
+            <!ATTLIST button_gainstage_optical %attrs_button;>
+
+        <!ELEMENT button_knee_hard (#PCDATA)>
+            <!ATTLIST button_knee_hard %attrs_button;>
+
+        <!ELEMENT button_knee_medium (#PCDATA)>
+            <!ATTLIST button_knee_medium %attrs_button;>
+
+        <!ELEMENT button_knee_soft (#PCDATA)>
+            <!ATTLIST button_knee_soft %attrs_button;>
+
+        <!ELEMENT button_sidechain_listen (#PCDATA)>
+            <!ATTLIST button_sidechain_listen %attrs_button;>
+
+        <!ELEMENT button_sidechain_input (#PCDATA)>
+            <!ATTLIST button_sidechain_input %attrs_button;>
+
+        <!ELEMENT button_auto_makeup_gain (#PCDATA)>
+            <!ATTLIST button_auto_makeup_gain %attrs_button;>
+
+        <!ELEMENT button_bypass (#PCDATA)>
+            <!ATTLIST button_bypass %attrs_button;>
+
+        <!ELEMENT button_settings (#PCDATA)>
+            <!ATTLIST button_settings %attrs_button;>
+
+        <!ELEMENT button_about (#PCDATA)>
+            <!ATTLIST button_about %attrs_button;>
+
+        <!ELEMENT button_reset (#PCDATA)>
+            <!ATTLIST button_reset %attrs_button;>
+
+        <!ELEMENT button_skin (#PCDATA)>
+            <!ATTLIST button_skin %attrs_button;>
+
+        <!ELEMENT label_debug (#PCDATA)>
+            <!ATTLIST label_debug %attrs_label;>
+
+        <!ELEMENT input_meter (#PCDATA)>
+            <!ATTLIST input_meter %attrs_meter;>
+
+        <!ELEMENT input_meter_left (#PCDATA)>
+            <!ATTLIST input_meter_left %attrs_meter;>
+
+        <!ELEMENT input_meter_right (#PCDATA)>
+            <!ATTLIST input_meter_right %attrs_meter;>
+
+        <!ELEMENT output_meter (#PCDATA)>
+            <!ATTLIST output_meter %attrs_meter;>
+
+        <!ELEMENT output_meter_left (#PCDATA)>
+            <!ATTLIST output_meter_left %attrs_meter;>
+
+        <!ELEMENT output_meter_right (#PCDATA)>
+            <!ATTLIST output_meter_right %attrs_meter;>
+
+        <!ELEMENT gain_reduction_meter (#PCDATA)>
+            <!ATTLIST gain_reduction_meter %attrs_meter;>
+
+        <!ELEMENT gain_reduction_meter_left (#PCDATA)>
+            <!ATTLIST gain_reduction_meter_left %attrs_meter;>
+
+        <!ELEMENT gain_reduction_meter_right (#PCDATA)>
+            <!ATTLIST gain_reduction_meter_right %attrs_meter;>

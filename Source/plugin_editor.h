@@ -79,41 +79,42 @@ private:
     OwnedArray<MeterBarLevel> OutputLevelMeters_;
     OwnedArray<MeterBarGainReduction> GainReductionMeters_;
 
-    TextButton ButtonDetectorRms_;
-    TextButton ButtonDesignFeedback_;
-    TextButton ButtonGainStageOptical_;
-
-    TextButton ButtonKneeHard_;
-    TextButton ButtonKneeMedium_;
-    TextButton ButtonKneeSoft_;
-
-    TextButton ButtonDetectorLinear_;
-    TextButton ButtonDetectorSmoothDecoupled_;
-    TextButton ButtonDetectorSmoothBranching_;
-
     ScopedPointer<frut::widget::SliderCombined> SliderThreshold_;
     ScopedPointer<frut::widget::SliderCombined> SliderRatio_;
 
     ScopedPointer<frut::widget::SliderCombined> SliderAttackRate_;
     ScopedPointer<frut::widget::SliderCombined> SliderReleaseRate_;
 
-    TextButton ButtonAutoMakeupGain_;
     ScopedPointer<frut::widget::SliderCombined> SliderMakeupGain_;
     ScopedPointer<frut::widget::SliderCombined> SliderWetMix_;
 
-    TextButton ButtonSidechainInput_;
     ScopedPointer<frut::widget::SliderCombined> SliderSidechainHPFCutoff_;
     ScopedPointer<frut::widget::SliderCombined> SliderSidechainLPFCutoff_;
-    TextButton ButtonSidechainListen_;
 
-    TextButton ButtonBypass_;
-    TextButton ButtonReset_;
+    ImageButton ButtonDetectorRms_;
+    ImageButton ButtonDesignFeedback_;
+    ImageButton ButtonGainStageOptical_;
 
-    TextButton ButtonSkin_;
-    TextButton ButtonSettings_;
-    TextButton ButtonAbout_;
+    ImageButton ButtonKneeHard_;
+    ImageButton ButtonKneeMedium_;
+    ImageButton ButtonKneeSoft_;
 
-    Label LabelDebug_;
+    ImageButton ButtonDetectorLinear_;
+    ImageButton ButtonDetectorSmoothDecoupled_;
+    ImageButton ButtonDetectorSmoothBranching_;
+
+    ImageButton ButtonAutoMakeupGain_;
+    ImageButton ButtonSidechainInput_;
+    ImageButton ButtonSidechainListen_;
+
+    ImageButton ButtonBypass_;
+    ImageButton ButtonReset_;
+
+    ImageButton ButtonSkin_;
+    ImageButton ButtonSettings_;
+    ImageButton ButtonAbout_;
+
+    ImageComponent LabelDebug_;
 
     ImageComponent BackgroundImage_;
 };

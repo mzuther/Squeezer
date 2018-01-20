@@ -80,280 +80,148 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
 
     NumberOfChannels_ = NumberOfChannels;
 
-    ButtonBypass_.setButtonText("Bypass");
-    ButtonBypass_.setColour(TextButton::buttonColourId,
-                            Colours::grey);
-    ButtonBypass_.setColour(TextButton::buttonOnColourId,
-                            Colours::red);
-
-    ButtonBypass_.addListener(this);
-    addAndMakeVisible(&ButtonBypass_);
-
-
-    ButtonDetectorRms_.setButtonText("RMS");
-    ButtonDetectorRms_.setColour(TextButton::buttonColourId,
-                                 Colours::grey);
-    ButtonDetectorRms_.setColour(TextButton::buttonOnColourId,
-                                 Colours::yellow);
-
-    ButtonDetectorRms_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorRms_);
-
-
-    ButtonDesignFeedback_.setButtonText("F. Back");
-    ButtonDesignFeedback_.setColour(TextButton::buttonColourId,
-                                    Colours::grey);
-    ButtonDesignFeedback_.setColour(TextButton::buttonOnColourId,
-                                    Colours::yellow);
-
-    ButtonDesignFeedback_.addListener(this);
-    addAndMakeVisible(&ButtonDesignFeedback_);
-
-
-    ButtonGainStageOptical_.setButtonText("Opto");
-    ButtonGainStageOptical_.setColour(TextButton::buttonColourId,
-                                      Colours::grey);
-    ButtonGainStageOptical_.setColour(TextButton::buttonOnColourId,
-                                      Colours::yellow);
-
-    ButtonGainStageOptical_.addListener(this);
-    addAndMakeVisible(&ButtonGainStageOptical_);
-
-
-    ButtonDetectorLinear_.setButtonText("Linear");
-    ButtonDetectorLinear_.setRadioGroupId(1);
-    ButtonDetectorLinear_.setColour(TextButton::buttonColourId,
-                                    Colours::grey);
-    ButtonDetectorLinear_.setColour(TextButton::buttonOnColourId,
-                                    Colours::yellow.withRotatedHue(-0.08f));
-
-    ButtonDetectorLinear_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorLinear_);
-
-
-    ButtonDetectorSmoothDecoupled_.setButtonText("S-Curve");
-    ButtonDetectorSmoothDecoupled_.setRadioGroupId(1);
-    ButtonDetectorSmoothDecoupled_.setColour(TextButton::buttonColourId,
-            Colours::grey);
-    ButtonDetectorSmoothDecoupled_.setColour(TextButton::buttonOnColourId,
-            Colours::yellow.withRotatedHue(-0.08f));
-
-    ButtonDetectorSmoothDecoupled_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorSmoothDecoupled_);
-
-
-    ButtonDetectorSmoothBranching_.setButtonText("Log");
-    ButtonDetectorSmoothBranching_.setRadioGroupId(1);
-    ButtonDetectorSmoothBranching_.setColour(TextButton::buttonColourId,
-            Colours::grey);
-    ButtonDetectorSmoothBranching_.setColour(TextButton::buttonOnColourId,
-            Colours::yellow.withRotatedHue(-0.08f));
-
-    ButtonDetectorSmoothBranching_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorSmoothBranching_);
-
-
-    ButtonKneeHard_.setButtonText("Hard");
-    ButtonKneeHard_.setRadioGroupId(2);
-    ButtonKneeHard_.setColour(TextButton::buttonColourId,
-                              Colours::grey);
-    ButtonKneeHard_.setColour(TextButton::buttonOnColourId,
-                              Colours::yellow.withRotatedHue(+0.08f));
-
-    ButtonKneeHard_.addListener(this);
-    addAndMakeVisible(&ButtonKneeHard_);
-
-    ButtonKneeMedium_.setButtonText("Medium");
-    ButtonKneeMedium_.setRadioGroupId(2);
-    ButtonKneeMedium_.setColour(TextButton::buttonColourId,
-                                Colours::grey);
-    ButtonKneeMedium_.setColour(TextButton::buttonOnColourId,
-                                Colours::yellow.withRotatedHue(+0.08f));
-
-    ButtonKneeMedium_.addListener(this);
-    addAndMakeVisible(&ButtonKneeMedium_);
-
-    ButtonKneeSoft_.setButtonText("Soft");
-    ButtonKneeSoft_.setRadioGroupId(2);
-    ButtonKneeSoft_.setColour(TextButton::buttonColourId,
-                              Colours::grey);
-    ButtonKneeSoft_.setColour(TextButton::buttonOnColourId,
-                              Colours::yellow.withRotatedHue(+0.08f));
-
-    ButtonKneeSoft_.addListener(this);
-    addAndMakeVisible(&ButtonKneeSoft_);
-
-    int Index = SqueezerPluginParameters::selThreshold;
-    int IndexSwitch = SqueezerPluginParameters::selThresholdSwitch;
     SliderThreshold_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderThreshold_->setSliderColour(Colours::purple.brighter(0.2f));
+        PluginParameters,
+        SqueezerPluginParameters::selThreshold,
+        SqueezerPluginParameters::selThresholdSwitch);
 
     SliderThreshold_->addListener(this);
     SliderThreshold_->addButtonListener(this);
     addAndMakeVisible(SliderThreshold_);
 
 
-    Index = SqueezerPluginParameters::selRatio;
-    IndexSwitch = SqueezerPluginParameters::selRatioSwitch;
     SliderRatio_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderRatio_->setSliderColour(Colours::purple.brighter(0.2f));
+        PluginParameters,
+        SqueezerPluginParameters::selRatio,
+        SqueezerPluginParameters::selRatioSwitch);
 
     SliderRatio_->addListener(this);
     SliderRatio_->addButtonListener(this);
     addAndMakeVisible(SliderRatio_);
 
-    Index = SqueezerPluginParameters::selAttackRate;
-    IndexSwitch = SqueezerPluginParameters::selAttackRateSwitch;
+
     SliderAttackRate_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderAttackRate_->setSliderColour(Colours::yellow);
+        PluginParameters,
+        SqueezerPluginParameters::selAttackRate,
+        SqueezerPluginParameters::selAttackRateSwitch);
 
     SliderAttackRate_->addListener(this);
     SliderAttackRate_->addButtonListener(this);
     addAndMakeVisible(SliderAttackRate_);
 
 
-    Index = SqueezerPluginParameters::selReleaseRate;
-    IndexSwitch = SqueezerPluginParameters::selReleaseRateSwitch;
     SliderReleaseRate_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderReleaseRate_->setSliderColour(Colours::yellow);
+        PluginParameters,
+        SqueezerPluginParameters::selReleaseRate,
+        SqueezerPluginParameters::selReleaseRateSwitch);
 
     SliderReleaseRate_->addListener(this);
     SliderReleaseRate_->addButtonListener(this);
     addAndMakeVisible(SliderReleaseRate_);
 
 
-    ButtonAutoMakeupGain_.setButtonText("Auto MU");
-    ButtonAutoMakeupGain_.setColour(TextButton::buttonColourId,
-                                    Colours::grey);
-    ButtonAutoMakeupGain_.setColour(TextButton::buttonOnColourId,
-                                    Colours::yellow);
-
-    ButtonAutoMakeupGain_.addListener(this);
-    addAndMakeVisible(&ButtonAutoMakeupGain_);
-
-
-    Index = SqueezerPluginParameters::selMakeupGain;
-    IndexSwitch = SqueezerPluginParameters::selMakeupGainSwitch;
     SliderMakeupGain_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderMakeupGain_->setSliderColour(Colours::blue.brighter(0.4f));
+        PluginParameters,
+        SqueezerPluginParameters::selMakeupGain,
+        SqueezerPluginParameters::selMakeupGainSwitch);
 
     SliderMakeupGain_->addListener(this);
     SliderMakeupGain_->addButtonListener(this);
     addAndMakeVisible(SliderMakeupGain_);
 
 
-    Index = SqueezerPluginParameters::selWetMix;
-    IndexSwitch = SqueezerPluginParameters::selWetMixSwitch;
     SliderWetMix_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderWetMix_->setSliderColour(Colours::blue.brighter(0.4f));
+        PluginParameters,
+        SqueezerPluginParameters::selWetMix,
+        SqueezerPluginParameters::selWetMixSwitch);
 
     SliderWetMix_->addListener(this);
     SliderWetMix_->addButtonListener(this);
     addAndMakeVisible(SliderWetMix_);
 
 
-    ButtonSidechainInput_.setButtonText("External");
-    ButtonSidechainInput_.setColour(TextButton::buttonColourId,
-                                    Colours::grey);
-    ButtonSidechainInput_.setColour(TextButton::buttonOnColourId,
-                                    Colours::red);
-
-    ButtonSidechainInput_.addListener(this);
-    addAndMakeVisible(&ButtonSidechainInput_);
-
-
-    Index = SqueezerPluginParameters::selSidechainHPFCutoff;
-    IndexSwitch = SqueezerPluginParameters::selSidechainHPFCutoffSwitch;
     SliderSidechainHPFCutoff_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderSidechainHPFCutoff_->setSliderColour(Colours::green.brighter(0.1f));
+        PluginParameters,
+        SqueezerPluginParameters::selSidechainHPFCutoff,
+        SqueezerPluginParameters::selSidechainHPFCutoffSwitch);
 
     SliderSidechainHPFCutoff_->addListener(this);
     SliderSidechainHPFCutoff_->addButtonListener(this);
     addAndMakeVisible(SliderSidechainHPFCutoff_);
 
 
-    Index = SqueezerPluginParameters::selSidechainLPFCutoff;
-    IndexSwitch = SqueezerPluginParameters::selSidechainLPFCutoffSwitch;
     SliderSidechainLPFCutoff_ = new frut::widget::SliderCombined(
-        PluginParameters, Index, IndexSwitch);
-    SliderSidechainLPFCutoff_->setSliderColour(Colours::green.brighter(0.1f));
+        PluginParameters,
+        SqueezerPluginParameters::selSidechainLPFCutoff,
+        SqueezerPluginParameters::selSidechainLPFCutoffSwitch);
 
     SliderSidechainLPFCutoff_->addListener(this);
     SliderSidechainLPFCutoff_->addButtonListener(this);
     addAndMakeVisible(SliderSidechainLPFCutoff_);
 
 
-    ButtonSidechainListen_.setButtonText("Sidechain");
-    ButtonSidechainListen_.setColour(TextButton::buttonColourId,
-                                     Colours::grey);
-    ButtonSidechainListen_.setColour(TextButton::buttonOnColourId,
-                                     Colours::red);
+    ButtonBypass_.addListener(this);
+    addAndMakeVisible(&ButtonBypass_);
+
+    ButtonDetectorRms_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorRms_);
+
+    ButtonDesignFeedback_.addListener(this);
+    addAndMakeVisible(&ButtonDesignFeedback_);
+
+    ButtonGainStageOptical_.addListener(this);
+    addAndMakeVisible(&ButtonGainStageOptical_);
+
+    ButtonDetectorLinear_.setRadioGroupId(1);
+    ButtonDetectorLinear_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorLinear_);
+
+    ButtonDetectorSmoothDecoupled_.setRadioGroupId(1);
+    ButtonDetectorSmoothDecoupled_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorSmoothDecoupled_);
+
+    ButtonDetectorSmoothBranching_.setRadioGroupId(1);
+    ButtonDetectorSmoothBranching_.addListener(this);
+    addAndMakeVisible(&ButtonDetectorSmoothBranching_);
+
+    ButtonKneeHard_.setRadioGroupId(2);
+    ButtonKneeHard_.addListener(this);
+    addAndMakeVisible(&ButtonKneeHard_);
+
+    ButtonKneeMedium_.setRadioGroupId(2);
+    ButtonKneeMedium_.addListener(this);
+    addAndMakeVisible(&ButtonKneeMedium_);
+
+    ButtonKneeSoft_.setRadioGroupId(2);
+    ButtonKneeSoft_.addListener(this);
+    addAndMakeVisible(&ButtonKneeSoft_);
+
+    ButtonAutoMakeupGain_.addListener(this);
+    addAndMakeVisible(&ButtonAutoMakeupGain_);
+
+    ButtonSidechainInput_.addListener(this);
+    addAndMakeVisible(&ButtonSidechainInput_);
 
     ButtonSidechainListen_.addListener(this);
     addAndMakeVisible(&ButtonSidechainListen_);
 
-
-#ifdef DEBUG
-    LabelDebug_.setText("dbg", dontSendNotification);
-    LabelDebug_.setColour(Label::textColourId,
-                          Colours::red);
-    LabelDebug_.setJustificationType(Justification::centred);
-#endif
-
-
-    ButtonSkin_.setButtonText("Skin");
-    ButtonSkin_.setColour(TextButton::buttonColourId,
-                          Colours::grey);
-    ButtonSkin_.setColour(TextButton::buttonOnColourId,
-                          Colours::yellow);
-
     ButtonSkin_.addListener(this);
     addAndMakeVisible(&ButtonSkin_);
-
-
-    ButtonReset_.setButtonText("Reset");
-    ButtonReset_.setColour(TextButton::buttonColourId,
-                           Colours::grey);
-    ButtonReset_.setColour(TextButton::buttonOnColourId,
-                           Colours::red);
 
     ButtonReset_.addListener(this);
     addAndMakeVisible(&ButtonReset_);
 
-
-    ButtonSettings_.setButtonText("Settings");
-    ButtonSettings_.setColour(TextButton::buttonColourId,
-                              Colours::grey);
-    ButtonSettings_.setColour(TextButton::buttonOnColourId,
-                              Colours::yellow);
-
     ButtonSettings_.addListener(this);
     addAndMakeVisible(&ButtonSettings_);
 
-
-    ButtonAbout_.setButtonText("About");
-    ButtonAbout_.setColour(TextButton::buttonColourId,
-                           Colours::grey);
-    ButtonAbout_.setColour(TextButton::buttonOnColourId,
-                           Colours::yellow);
-
     ButtonAbout_.addListener(this);
     addAndMakeVisible(&ButtonAbout_);
-
 
 #ifdef DEBUG
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
     addAndMakeVisible(LabelDebug_, 0);
 #endif
-
 
     // prevent unnecessary redrawing of plugin editor
     BackgroundImage_.setOpaque(true);
@@ -362,12 +230,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(BackgroundImage_, 0);
 
     updateParameter(SqueezerPluginParameters::selBypass);
-
-    updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
-    updateParameter(SqueezerPluginParameters::selDesign);
-    updateParameter(SqueezerPluginParameters::selDetector);
-    updateParameter(SqueezerPluginParameters::selGainStage);
-    updateParameter(SqueezerPluginParameters::selKneeWidth);
 
     updateParameter(SqueezerPluginParameters::selThresholdSwitch);
     updateParameter(SqueezerPluginParameters::selThreshold);
@@ -379,17 +241,24 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     updateParameter(SqueezerPluginParameters::selReleaseRateSwitch);
     updateParameter(SqueezerPluginParameters::selReleaseRate);
 
-    updateParameter(SqueezerPluginParameters::selAutoMakeupGain);
     updateParameter(SqueezerPluginParameters::selMakeupGainSwitch);
     updateParameter(SqueezerPluginParameters::selMakeupGain);
     updateParameter(SqueezerPluginParameters::selWetMixSwitch);
     updateParameter(SqueezerPluginParameters::selWetMix);
 
-    updateParameter(SqueezerPluginParameters::selSidechainInput);
     updateParameter(SqueezerPluginParameters::selSidechainHPFCutoffSwitch);
     updateParameter(SqueezerPluginParameters::selSidechainHPFCutoff);
     updateParameter(SqueezerPluginParameters::selSidechainLPFCutoffSwitch);
     updateParameter(SqueezerPluginParameters::selSidechainLPFCutoff);
+
+    updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
+    updateParameter(SqueezerPluginParameters::selDesign);
+    updateParameter(SqueezerPluginParameters::selDetector);
+    updateParameter(SqueezerPluginParameters::selGainStage);
+    updateParameter(SqueezerPluginParameters::selKneeWidth);
+
+    updateParameter(SqueezerPluginParameters::selAutoMakeupGain);
+    updateParameter(SqueezerPluginParameters::selSidechainInput);
     updateParameter(SqueezerPluginParameters::selSidechainListen);
 
     // locate directory containing the skins
@@ -438,68 +307,67 @@ void SqueezerAudioProcessorEditor::applySkin_()
     // will also resize plug-in editor
     CurrentSkin_.setBackgroundImage(&BackgroundImage_, this);
 
-    CurrentSkin_.placeComponent(&ButtonDetectorLinear_,
-                                "button_detector_linear");
-    CurrentSkin_.placeComponent(&ButtonDetectorSmoothDecoupled_,
-                                "button_detector_smooth_decoupled");
-    CurrentSkin_.placeComponent(&ButtonDetectorSmoothBranching_,
-                                "button_detector_smooth_branching");
+    CurrentSkin_.placeAndSkinSlider("slider_threshold",
+                                    SliderThreshold_);
+    CurrentSkin_.placeAndSkinSlider("slider_ratio",
+                                    SliderRatio_);
+    CurrentSkin_.placeAndSkinSlider("slider_attack_rate",
+                                    SliderAttackRate_);
+    CurrentSkin_.placeAndSkinSlider("slider_release_rate",
+                                    SliderReleaseRate_);
+    CurrentSkin_.placeAndSkinSlider("slider_sidechain_hpf_cutoff",
+                                    SliderSidechainHPFCutoff_);
+    CurrentSkin_.placeAndSkinSlider("slider_sidechain_lpf_cutoff",
+                                    SliderSidechainLPFCutoff_);
 
-    CurrentSkin_.placeComponent(&ButtonDetectorRms_,
-                                "button_detector_rms");
-    CurrentSkin_.placeComponent(&ButtonDesignFeedback_,
-                                "button_design_feedback");
-    CurrentSkin_.placeComponent(&ButtonGainStageOptical_,
-                                "button_gainstage_optical");
+    CurrentSkin_.placeAndSkinSlider("slider_makeup_gain",
+                                    SliderMakeupGain_);
+    CurrentSkin_.placeAndSkinSlider("slider_wet_mix",
+                                    SliderWetMix_);
 
-    CurrentSkin_.placeComponent(&ButtonKneeHard_,
-                                "button_knee_hard");
-    CurrentSkin_.placeComponent(&ButtonKneeMedium_,
-                                "button_knee_medium");
-    CurrentSkin_.placeComponent(&ButtonKneeSoft_,
-                                "button_knee_soft");
+    CurrentSkin_.placeAndSkinButton("button_detector_linear",
+                                    &ButtonDetectorLinear_);
+    CurrentSkin_.placeAndSkinButton("button_detector_smooth_decoupled",
+                                    &ButtonDetectorSmoothDecoupled_);
+    CurrentSkin_.placeAndSkinButton("button_detector_smooth_branching",
+                                    &ButtonDetectorSmoothBranching_);
 
-    CurrentSkin_.placeComponent(SliderThreshold_,
-                                "slider_threshold");
-    CurrentSkin_.placeComponent(SliderRatio_,
-                                "slider_ratio");
+    CurrentSkin_.placeAndSkinButton("button_detector_rms",
+                                    &ButtonDetectorRms_);
+    CurrentSkin_.placeAndSkinButton("button_design_feedback",
+                                    &ButtonDesignFeedback_);
+    CurrentSkin_.placeAndSkinButton("button_gainstage_optical",
+                                    &ButtonGainStageOptical_);
 
-    CurrentSkin_.placeComponent(SliderAttackRate_,
-                                "slider_attack_rate");
-    CurrentSkin_.placeComponent(SliderReleaseRate_,
-                                "slider_release_rate");
+    CurrentSkin_.placeAndSkinButton("button_knee_hard",
+                                    &ButtonKneeHard_);
+    CurrentSkin_.placeAndSkinButton("button_knee_medium",
+                                    &ButtonKneeMedium_);
+    CurrentSkin_.placeAndSkinButton("button_knee_soft",
+                                    &ButtonKneeSoft_);
 
-    CurrentSkin_.placeComponent(SliderSidechainHPFCutoff_,
-                                "slider_sidechain_hpf_cutoff");
-    CurrentSkin_.placeComponent(SliderSidechainLPFCutoff_,
-                                "slider_sidechain_lpf_cutoff");
-    CurrentSkin_.placeComponent(&ButtonSidechainInput_,
-                                "button_sidechain_input");
-    CurrentSkin_.placeComponent(&ButtonSidechainListen_,
-                                "button_sidechain_listen");
+    CurrentSkin_.placeAndSkinButton("button_sidechain_input",
+                                    &ButtonSidechainInput_);
+    CurrentSkin_.placeAndSkinButton("button_sidechain_listen",
+                                    &ButtonSidechainListen_);
 
-    CurrentSkin_.placeComponent(SliderMakeupGain_,
-                                "slider_makeup_gain");
-    CurrentSkin_.placeComponent(SliderWetMix_,
-                                "slider_wet_mix");
+    CurrentSkin_.placeAndSkinButton("button_auto_makeup_gain",
+                                    &ButtonAutoMakeupGain_);
+    CurrentSkin_.placeAndSkinButton("button_about",
+                                    &ButtonAbout_);
+    CurrentSkin_.placeAndSkinButton("button_settings",
+                                    &ButtonSettings_);
+    CurrentSkin_.placeAndSkinButton("button_skin",
+                                    &ButtonSkin_);
+    CurrentSkin_.placeAndSkinButton("button_bypass",
+                                    &ButtonBypass_);
 
-    CurrentSkin_.placeComponent(&ButtonAutoMakeupGain_,
-                                "button_auto_makeup_gain");
-    CurrentSkin_.placeComponent(&ButtonAbout_,
-                                "button_about");
-    CurrentSkin_.placeComponent(&ButtonSettings_,
-                                "button_settings");
-    CurrentSkin_.placeComponent(&ButtonSkin_,
-                                "button_skin");
-    CurrentSkin_.placeComponent(&ButtonBypass_,
-                                "button_bypass");
-
-    CurrentSkin_.placeComponent(&ButtonReset_,
-                                "button_reset");
+    CurrentSkin_.placeAndSkinButton("button_reset",
+                                    &ButtonReset_);
 
 #ifdef DEBUG
-    CurrentSkin_.placeComponent(&LabelDebug_,
-                                "label_debug");
+    CurrentSkin_.placeAndSkinLabel("label_debug",
+                                   &LabelDebug_);
 #endif
 
     // allow meter updates from now on
@@ -592,31 +460,31 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     if (NumberOfChannels_ == 1)
     {
-        CurrentSkin_.placeMeterBar(InputLevelMeters_[0],
-                                   "input_meter");
+        CurrentSkin_.placeMeterBar("input_meter",
+                                   InputLevelMeters_[0]);
 
-        CurrentSkin_.placeMeterBar(OutputLevelMeters_[0],
-                                   "output_meter");
+        CurrentSkin_.placeMeterBar("output_meter",
+                                   OutputLevelMeters_[0]);
 
-        CurrentSkin_.placeMeterBar(GainReductionMeters_[0],
-                                   "gain_reduction_meter");
+        CurrentSkin_.placeMeterBar("gain_reduction_meter",
+                                   GainReductionMeters_[0]);
     }
     else
     {
-        CurrentSkin_.placeMeterBar(InputLevelMeters_[0],
-                                   "input_meter_left");
-        CurrentSkin_.placeMeterBar(InputLevelMeters_[1],
-                                   "input_meter_right");
+        CurrentSkin_.placeMeterBar("input_meter_left",
+                                   InputLevelMeters_[0]);
+        CurrentSkin_.placeMeterBar("input_meter_right",
+                                   InputLevelMeters_[1]);
 
-        CurrentSkin_.placeMeterBar(OutputLevelMeters_[0],
-                                   "output_meter_left");
-        CurrentSkin_.placeMeterBar(OutputLevelMeters_[1],
-                                   "output_meter_right");
+        CurrentSkin_.placeMeterBar("output_meter_left",
+                                   OutputLevelMeters_[0]);
+        CurrentSkin_.placeMeterBar("output_meter_right",
+                                   OutputLevelMeters_[1]);
 
-        CurrentSkin_.placeMeterBar(GainReductionMeters_[0],
-                                   "gain_reduction_meter_left");
-        CurrentSkin_.placeMeterBar(GainReductionMeters_[1],
-                                   "gain_reduction_meter_right");
+        CurrentSkin_.placeMeterBar("gain_reduction_meter_left",
+                                   GainReductionMeters_[0]);
+        CurrentSkin_.placeMeterBar("gain_reduction_meter_right",
+                                   GainReductionMeters_[1]);
     }
 }
 
