@@ -5,6 +5,7 @@
 <squeezer-skin
     name="Default"
     path="Default"
+    origin_of_y="bottom"
     version="1.0">
 
     <settings>
@@ -30,13 +31,13 @@
             brightness="0.97"
         />
 
-        <gain_reduction_meter_normal
+        <meter_gain_reduction_normal
             hue="0.58"
             saturation="1.00"
             brightness="0.97"
         />
 
-        <gain_reduction_meter_special
+        <meter_gain_reduction_special
             hue="0.18"
             saturation="1.00"
             brightness="0.97"
@@ -271,23 +272,23 @@
             image_off="buttons/button_skin_off.png"
         />
 
-        <input_meter
+        <meter_input
             x="499"
-            y="20"
+            y="75"
             segment_width="16"
             vertical="true"
         />
 
-        <output_meter
+        <meter_output
             x="539"
-            y="20"
+            y="75"
             segment_width="16"
             vertical="true"
         />
 
-        <gain_reduction_meter
+        <meter_gain_reduction
             x="519"
-            y="20"
+            y="75"
             segment_width="16"
             vertical="true"
         />
@@ -297,44 +298,44 @@
         <background
             image="backgrounds/background_stereo.png" />
 
-        <input_meter_left
+        <meter_input_left
             x="499"
-            y="20"
+            y="75"
             segment_width="12"
             vertical="true"
         />
 
-        <input_meter_right
+        <meter_input_right
             x="511"
-            y="20"
+            y="75"
             segment_width="12"
             vertical="true"
         />
 
-        <output_meter_left
+        <meter_output_left
             x="555"
-            y="20"
+            y="75"
             segment_width="12"
             vertical="true"
         />
 
-        <output_meter_right
+        <meter_output_right
             x="567"
-            y="20"
+            y="75"
             segment_width="12"
             vertical="true"
         />
 
-        <gain_reduction_meter_left
+        <meter_gain_reduction_left
             x="527"
-            y="20"
+            y="75"
             segment_width="12"
             vertical="true"
         />
 
-        <gain_reduction_meter_right
+        <meter_gain_reduction_right
             x="539"
-            y="20"
+            y="75"
             segment_width="12"
             vertical="true"
         />

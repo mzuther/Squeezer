@@ -380,17 +380,17 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     Array<Colour> ColoursLevelMeter;
 
-    Colour ColourHigh = CurrentSkin_.getColourSetting(
-                            "meter_colour_high",
-                            0.00f);
+    XmlElement *xmlSetting = CurrentSkin_.getSetting("meter_colour_high");
+    Colour ColourHigh = CurrentSkin_.getColour(xmlSetting,
+                        0.00f);
 
-    Colour ColourMedium = CurrentSkin_.getColourSetting(
-                              "meter_colour_medium",
-                              0.18f);
+    xmlSetting = CurrentSkin_.getSetting("meter_colour_medium");
+    Colour ColourMedium = CurrentSkin_.getColour(xmlSetting,
+                          0.18f);
 
-    Colour ColourLow = CurrentSkin_.getColourSetting(
-                           "meter_colour_low",
-                           0.30f);
+    xmlSetting = CurrentSkin_.getSetting("meter_colour_low");
+    Colour ColourLow = CurrentSkin_.getColour(xmlSetting,
+                       0.30f);
 
     ColoursLevelMeter.add(ColourHigh);    // overload
     ColoursLevelMeter.add(ColourMedium);  // warning
@@ -399,22 +399,22 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     Array<Colour> ColoursGainReduction;
 
-    Colour ColourReductionNormal = CurrentSkin_.getColourSetting(
-                                       "gain_reduction_meter_normal",
-                                       0.58f);
+    xmlSetting = CurrentSkin_.getSetting("meter_gain_reduction_normal");
+    Colour ColourReductionNormal = CurrentSkin_.getColour(xmlSetting,
+                                   0.58f);
 
-    Colour ColourReductionSpecial = CurrentSkin_.getColourSetting(
-                                        "gain_reduction_meter_special",
-                                        0.18f);
+    xmlSetting = CurrentSkin_.getSetting("meter_gain_reduction_special");
+    Colour ColourReductionSpecial = CurrentSkin_.getColour(xmlSetting,
+                                    0.18f);
 
     ColoursGainReduction.add(ColourReductionNormal);   // normal
     ColoursGainReduction.add(ColourReductionSpecial);  // special
 
 
-    int SegmentHeight = CurrentSkin_.getIntegerSetting(
-                            "meter_segment",
-                            "height",
-                            5);
+    xmlSetting = CurrentSkin_.getSetting("meter_segment");
+    int SegmentHeight = CurrentSkin_.getInteger(xmlSetting,
+                        "height",
+                        5);
 
     bool IsDiscreteMeter = true;
     int CrestFactor = 20;
@@ -460,30 +460,30 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     if (NumberOfChannels_ == 1)
     {
-        CurrentSkin_.placeMeterBar("input_meter",
+        CurrentSkin_.placeMeterBar("meter_input",
                                    InputLevelMeters_[0]);
 
-        CurrentSkin_.placeMeterBar("output_meter",
+        CurrentSkin_.placeMeterBar("meter_output",
                                    OutputLevelMeters_[0]);
 
-        CurrentSkin_.placeMeterBar("gain_reduction_meter",
+        CurrentSkin_.placeMeterBar("meter_gain_reduction",
                                    GainReductionMeters_[0]);
     }
     else
     {
-        CurrentSkin_.placeMeterBar("input_meter_left",
+        CurrentSkin_.placeMeterBar("meter_input_left",
                                    InputLevelMeters_[0]);
-        CurrentSkin_.placeMeterBar("input_meter_right",
+        CurrentSkin_.placeMeterBar("meter_input_right",
                                    InputLevelMeters_[1]);
 
-        CurrentSkin_.placeMeterBar("output_meter_left",
+        CurrentSkin_.placeMeterBar("meter_output_left",
                                    OutputLevelMeters_[0]);
-        CurrentSkin_.placeMeterBar("output_meter_right",
+        CurrentSkin_.placeMeterBar("meter_output_right",
                                    OutputLevelMeters_[1]);
 
-        CurrentSkin_.placeMeterBar("gain_reduction_meter_left",
+        CurrentSkin_.placeMeterBar("meter_gain_reduction_left",
                                    GainReductionMeters_[0]);
-        CurrentSkin_.placeMeterBar("gain_reduction_meter_right",
+        CurrentSkin_.placeMeterBar("meter_gain_reduction_right",
                                    GainReductionMeters_[1]);
     }
 }

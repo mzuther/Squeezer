@@ -34,46 +34,41 @@ public:
                      const String &rootName,
                      const String &assumedVersionNumber);
 
+    XmlElement *getSetting(const String &tagName);
+
+    XmlElement *getComponent(const String &tagName);
+
     bool getBoolean(const XmlElement *xmlComponent,
                     const String &attributeName,
                     const bool defaultValue = false);
-
-    bool getBooleanSetting(const String &tagName,
-                           const String &attributeName,
-                           const bool defaultValue = false);
 
     int getInteger(const XmlElement *xmlComponent,
                    const String &attributeName,
                    const int defaultValue = 0);
 
-    int getIntegerSetting(const String &tagName,
-                          const String &attributeName,
-                          const int defaultValue = 0);
-
     float getFloat(const XmlElement *xmlComponent,
                    const String &attributeName,
                    const float defaultValue = 0.0f);
-
-    float getFloatSetting(const String &tagName,
-                          const String &attributeName,
-                          const float defaultValue = 0.0f);
 
     const String getString(const XmlElement *xmlComponent,
                            const String &attributeName,
                            const String &defaultValue = "");
 
-    const String getStringSetting(const String &tagName,
-                                  const String &attributeName,
-                                  const String &defaultValue = "");
-
     const Colour getColour(const XmlElement *xmlComponent,
                            const float defaultHue = 0.0f);
 
-    const Colour getColourSetting(const String &tagName,
-                                  const float defaultHue = 0.0f);
+    void loadImage(const String &strFilename,
+                   Image &image);
 
     void setBackgroundImage(ImageComponent *background,
                             AudioProcessorEditor *editor);
+
+    Point<int> getPosition(const XmlElement *xmlComponent,
+                           const int componentHeight = 0);
+
+    Rectangle<int> getBounds(const XmlElement *xmlComponent,
+                             int width = -1,
+                             int height = -1);
 
     void placeComponent(const XmlElement *xmlComponent,
                         Component *component);
@@ -100,9 +95,6 @@ public:
                                 widget::StateLabel *label);
 
 protected:
-    XmlElement *getComponentFromXml(const String &tagName);
-    XmlElement *getSetting(const String &tagName);
-
     ScopedPointer<XmlElement> document_;
     XmlElement *settingsGroup_;
     XmlElement *skinGroup_;
@@ -114,6 +106,8 @@ protected:
     String currentBackgroundName_;
     String currentGroupName_;
     String currentFallbackName_;
+
+    bool originOfYIsBottom_;
 
     int backgroundWidth_;
     int backgroundHeight_;

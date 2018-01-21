@@ -3,8 +3,8 @@
            meter_colour_high,
            meter_colour_medium,
            meter_colour_low,
-           gain_reduction_meter_normal,
-           gain_reduction_meter_special
+           meter_gain_reduction_normal,
+           meter_gain_reduction_special
 ">
 
 <!ENTITY % main_components
@@ -70,18 +70,18 @@
 ">
 
 <!ENTITY % squeezer_components_mono
-          "input_meter,
-           output_meter,
-           gain_reduction_meter
+          "meter_input,
+           meter_output,
+           meter_gain_reduction
 ">
 
 <!ENTITY % squeezer_components_stereo
-          "input_meter_left,
-           input_meter_right,
-           output_meter_left,
-           output_meter_right,
-           gain_reduction_meter_left,
-           gain_reduction_meter_right
+          "meter_input_left,
+           meter_input_right,
+           meter_output_left,
+           meter_output_right,
+           meter_gain_reduction_left,
+           meter_gain_reduction_right
 ">
 
 <!ENTITY % attrs_image_size
@@ -160,6 +160,7 @@
     <!ATTLIST squeezer-skin
               name CDATA #REQUIRED
               path CDATA #REQUIRED
+              origin_of_y (top| bottom) #REQUIRED
               version CDATA "1.0"
     >
 
@@ -187,11 +188,11 @@
         <!ELEMENT meter_colour_low (#PCDATA)>
             <!ATTLIST meter_colour_low %attrs_colour;>
 
-        <!ELEMENT gain_reduction_meter_normal (#PCDATA)>
-            <!ATTLIST gain_reduction_meter_normal %attrs_colour;>
+        <!ELEMENT meter_gain_reduction_normal (#PCDATA)>
+            <!ATTLIST meter_gain_reduction_normal %attrs_colour;>
 
-        <!ELEMENT gain_reduction_meter_special (#PCDATA)>
-            <!ATTLIST gain_reduction_meter_special %attrs_colour;>
+        <!ELEMENT meter_gain_reduction_special (#PCDATA)>
+            <!ATTLIST meter_gain_reduction_special %attrs_colour;>
 
         <!ELEMENT background (#PCDATA)>
             <!ATTLIST background %attrs_background;>
@@ -274,29 +275,29 @@
         <!ELEMENT label_debug (#PCDATA)>
             <!ATTLIST label_debug %attrs_label;>
 
-        <!ELEMENT input_meter (#PCDATA)>
-            <!ATTLIST input_meter %attrs_meter;>
+        <!ELEMENT meter_input (#PCDATA)>
+            <!ATTLIST meter_input %attrs_meter;>
 
-        <!ELEMENT input_meter_left (#PCDATA)>
-            <!ATTLIST input_meter_left %attrs_meter;>
+        <!ELEMENT meter_input_left (#PCDATA)>
+            <!ATTLIST meter_input_left %attrs_meter;>
 
-        <!ELEMENT input_meter_right (#PCDATA)>
-            <!ATTLIST input_meter_right %attrs_meter;>
+        <!ELEMENT meter_input_right (#PCDATA)>
+            <!ATTLIST meter_input_right %attrs_meter;>
 
-        <!ELEMENT output_meter (#PCDATA)>
-            <!ATTLIST output_meter %attrs_meter;>
+        <!ELEMENT meter_output (#PCDATA)>
+            <!ATTLIST meter_output %attrs_meter;>
 
-        <!ELEMENT output_meter_left (#PCDATA)>
-            <!ATTLIST output_meter_left %attrs_meter;>
+        <!ELEMENT meter_output_left (#PCDATA)>
+            <!ATTLIST meter_output_left %attrs_meter;>
 
-        <!ELEMENT output_meter_right (#PCDATA)>
-            <!ATTLIST output_meter_right %attrs_meter;>
+        <!ELEMENT meter_output_right (#PCDATA)>
+            <!ATTLIST meter_output_right %attrs_meter;>
 
-        <!ELEMENT gain_reduction_meter (#PCDATA)>
-            <!ATTLIST gain_reduction_meter %attrs_meter;>
+        <!ELEMENT meter_gain_reduction (#PCDATA)>
+            <!ATTLIST meter_gain_reduction %attrs_meter;>
 
-        <!ELEMENT gain_reduction_meter_left (#PCDATA)>
-            <!ATTLIST gain_reduction_meter_left %attrs_meter;>
+        <!ELEMENT meter_gain_reduction_left (#PCDATA)>
+            <!ATTLIST meter_gain_reduction_left %attrs_meter;>
 
-        <!ELEMENT gain_reduction_meter_right (#PCDATA)>
-            <!ATTLIST gain_reduction_meter_right %attrs_meter;>
+        <!ELEMENT meter_gain_reduction_right (#PCDATA)>
+            <!ATTLIST meter_gain_reduction_right %attrs_meter;>
