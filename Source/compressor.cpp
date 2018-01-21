@@ -71,17 +71,15 @@ Compressor::Compressor(int channels, int sample_rate) :
         SidechainSamples.add(0.0);
         OutputSamples.add(0.0);
 
-        // initialise side-chain filter (HPF, 0.5% ripple,
-        // 24 dB/octave)
+        // initialise side-chain high-pass filter
         SidechainFilter_HPF.add(
-            new frut::dsp::FilterChebyshev(
-                0.01, true, 0.5, 4));
+            new frut::dsp::IirFilterBox(
+                NumberOfChannels, SampleRate));
 
-        // initialise side-chain filter (LPF, 0.5% ripple,
-        // 24 dB/octave)
+        // initialise side-chain low-pass filter
         SidechainFilter_LPF.add(
-            new frut::dsp::FilterChebyshev(
-                0.01, false, 0.5, 4));
+            new frut::dsp::IirFilterBox(
+                NumberOfChannels, SampleRate));
     }
 
     // disable external side-chain
@@ -550,14 +548,19 @@ void Compressor::setSidechainHPFCutoff(int SidechainHPFCutoffNew)
  */
 {
     SidechainHPFCutoff = SidechainHPFCutoffNew;
-    IsHPFEnabled = (SidechainHPFCutoff > 100);
 
-    double RelativeCutoffFrequency = double(SidechainHPFCutoff) /
-                                     double(SampleRate);
+    bool IsHPFEnabledOld = IsHPFEnabled;
+    IsHPFEnabled = (SidechainHPFCutoff > 20);
 
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        SidechainFilter_HPF[CurrentChannel]->changeParameters(RelativeCutoffFrequency, true);
+        if (IsHPFEnabled != IsHPFEnabledOld)
+        {
+            SidechainFilter_HPF[CurrentChannel]->resetDelays();
+        }
+
+        SidechainFilter_HPF[CurrentChannel]->passFilterSecondOrder(
+            SidechainHPFCutoff, 0.707, false);
     }
 }
 
@@ -583,14 +586,19 @@ void Compressor::setSidechainLPFCutoff(int SidechainLPFCutoffNew)
  */
 {
     SidechainLPFCutoff = SidechainLPFCutoffNew;
-    IsLPFEnabled = (SidechainLPFCutoff < 12000);
 
-    double RelativeCutoffFrequency = double(SidechainLPFCutoff) /
-                                     double(SampleRate);
+    bool IsLPFEnabledOld = IsLPFEnabled;
+    IsLPFEnabled = (SidechainLPFCutoff < 15000);
 
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        SidechainFilter_LPF[CurrentChannel]->changeParameters(RelativeCutoffFrequency, false);
+        if (IsLPFEnabled != IsLPFEnabledOld)
+        {
+            SidechainFilter_LPF[CurrentChannel]->resetDelays();
+        }
+
+        SidechainFilter_LPF[CurrentChannel]->passFilterSecondOrder(
+            SidechainLPFCutoff, 0.707, true);
     }
 }
 
@@ -904,12 +912,14 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
             // already de-normalised!)
             if (IsHPFEnabled)
             {
-                SideChainSample = SidechainFilter_HPF[CurrentChannel]->filterSample(SideChainSample);
+                SidechainFilter_HPF[CurrentChannel]->processSample(
+                    SideChainSample, CurrentChannel);
             }
 
             if (IsLPFEnabled)
             {
-                SideChainSample = SidechainFilter_LPF[CurrentChannel]->filterSample(SideChainSample);
+                SidechainFilter_LPF[CurrentChannel]->processSample(
+                    SideChainSample, CurrentChannel);
             }
 
             SidechainSamples.set(CurrentChannel, SideChainSample);

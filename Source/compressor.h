@@ -161,8 +161,8 @@ private:
 
     frut::dsp::Dither Dither;
     OwnedArray<SideChain> SideChainProcessor;
-    OwnedArray<frut::dsp::FilterChebyshev> SidechainFilter_HPF;
-    OwnedArray<frut::dsp::FilterChebyshev> SidechainFilter_LPF;
+    OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_HPF;
+    OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_LPF;
 
     Array<double> InputSamples;
     Array<double> SidechainSamples;
