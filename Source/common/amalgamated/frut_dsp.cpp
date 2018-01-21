@@ -35,9 +35,11 @@ namespace frut
 namespace dsp
 {
 
+#include "../dsp/biquad_filter.cpp"
 #include "../dsp/dither.cpp"
 #include "../dsp/filter_chebyshev.cpp"
 #include "../dsp/filter_chebyshev_stage.cpp"
+#include "../dsp/iir_filter_box.cpp"
 
 }
 }

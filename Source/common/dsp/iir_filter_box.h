@@ -23,59 +23,50 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_HEADER_H__
-#define __FRUT_HEADER_H__
+#ifndef __FRUT_DSP_IIR_FILTER_BOX_H__
+#define __FRUT_DSP_IIR_FILTER_BOX_H__
 
 
-// external includes
-#include "JuceHeader.h"
-
-
-namespace frut
-{
-
-/// Simple helper class.
-///
-class Frut
+class IirFilterBox :
+    public BiquadFilter
 {
 public:
-    /// Get version number of Frut common classes.
-    ///
-    /// @return version number
-    ///
-    static const juce::String getVersion()
-    {
-        return "1.8.0";
-    }
+    IirFilterBox(int numberOfChannels, double sampleRate);
 
+    double bandwidthToQualityFactor(double octaveBandwidth);
 
-    static void printVersionNumbers()
-    {
-#ifndef DEBUG
-        Logger::outputDebugString(SystemStats::getJUCEVersion());
-#endif
+    void passFilterFirstOrder(
+        double cutoffFrequencyInHz,
+        bool isLowPass);
 
-        Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
-        Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
-        Logger::outputDebugString("");
-    }
+    void passFilterSecondOrder(
+        double cutoffFrequencyInHz,
+        double qualityFactor,
+        bool isLowPass);
+
+    void shelvingFilterFirstOrder(
+        double cutoffFrequencyInHz,
+        double gainInDecibels,
+        bool isLowShelving);
+
+    void peakingFilterVariableQ(
+        double cutoffFrequencyInHz,
+        double gainInDecibels,
+        double qualityFactor);
+
+    void peakingFilterConstantQ(
+        double cutoffFrequencyInHz,
+        double gainInDecibels,
+        double qualityFactor);
+
+protected:
+    double sampleRate_;
+
+private:
+    JUCE_LEAK_DETECTOR(IirFilterBox);
 };
 
-}
-
-
-// normal includes
-#include "amalgamated/frut_audio.h"
-#include "amalgamated/frut_dsp.h"
-#include "amalgamated/frut_math.h"
-#include "amalgamated/frut_parameter.h"
-#include "amalgamated/frut_widget.h"
-
-// post includes
-#include "amalgamated/frut_skin.h"
-
-
-#endif  // __FRUT_HEADER_H__
+#endif  // __FRUT_DSP_IIR_FILTER_BOX_H__
 
 
 // Local Variables:

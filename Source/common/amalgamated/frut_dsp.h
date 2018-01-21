@@ -34,10 +34,13 @@ namespace dsp
 
 // special includes
 #include <float.h>
+#include <math.h>
 
 // normal includes
+#include "../dsp/biquad_filter.h"
 #include "../dsp/dither.h"
 #include "../dsp/filter_chebyshev_stage.h"
+#include "../dsp/iir_filter_box.h"
 
 // post includes
 #include "../dsp/filter_chebyshev.h"
