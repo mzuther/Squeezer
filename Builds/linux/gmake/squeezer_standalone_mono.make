@@ -16,13 +16,13 @@ ifeq ($(config),debug_x32)
   TARGET = $(TARGETDIR)/squeezer_mono_debug
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_debug/x32
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include/at-spi-2.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/dbus-1.0 -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/gio-unix-2.0 -I/usr/include/glib-2.0 -I/usr/include/gtk-3.0 -I/usr/include/harfbuzz -I/usr/include/libpng12 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/mirclient -I/usr/include/mircookie -I/usr/include/mircore -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/webkitgtk-4.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -std=c++11 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -43,13 +43,13 @@ ifeq ($(config),debug_x64)
   TARGET = $(TARGETDIR)/squeezer_mono_debug_x64
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_debug/x64
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include/at-spi-2.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/dbus-1.0 -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/gio-unix-2.0 -I/usr/include/glib-2.0 -I/usr/include/gtk-3.0 -I/usr/include/harfbuzz -I/usr/include/libpng12 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/mirclient -I/usr/include/mircookie -I/usr/include/mircore -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/webkitgtk-4.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -std=c++11 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -70,13 +70,13 @@ ifeq ($(config),release_x32)
   TARGET = $(TARGETDIR)/squeezer_mono
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_release/x32
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include/at-spi-2.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/dbus-1.0 -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/gio-unix-2.0 -I/usr/include/glib-2.0 -I/usr/include/gtk-3.0 -I/usr/include/harfbuzz -I/usr/include/libpng12 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/mirclient -I/usr/include/mircookie -I/usr/include/mircore -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/webkitgtk-4.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -fvisibility=hidden -pipe
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++11 -fvisibility=hidden -pipe
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -s -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -97,13 +97,13 @@ ifeq ($(config),release_x64)
   TARGET = $(TARGETDIR)/squeezer_mono_x64
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_release/x64
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_MONO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
-  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include -I/usr/include/freetype2
+  INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include/at-spi-2.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/dbus-1.0 -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/gio-unix-2.0 -I/usr/include/glib-2.0 -I/usr/include/gtk-3.0 -I/usr/include/harfbuzz -I/usr/include/libpng12 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/mirclient -I/usr/include/mircookie -I/usr/include/mircore -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/webkitgtk-4.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -fvisibility=hidden -pipe
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++11 -fvisibility=hidden -pipe
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext -lasound
+  LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
   ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
@@ -119,20 +119,21 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/juce_audio_basics.o \
-	$(OBJDIR)/juce_audio_devices.o \
-	$(OBJDIR)/juce_audio_formats.o \
-	$(OBJDIR)/juce_audio_plugin_client_utils.o \
-	$(OBJDIR)/juce_audio_processors.o \
-	$(OBJDIR)/juce_audio_utils.o \
-	$(OBJDIR)/juce_core.o \
-	$(OBJDIR)/juce_cryptography.o \
-	$(OBJDIR)/juce_data_structures.o \
-	$(OBJDIR)/juce_events.o \
-	$(OBJDIR)/juce_graphics.o \
-	$(OBJDIR)/juce_gui_basics.o \
-	$(OBJDIR)/juce_gui_extra.o \
-	$(OBJDIR)/juce_video.o \
+	$(OBJDIR)/include_juce_audio_basics.o \
+	$(OBJDIR)/include_juce_audio_devices.o \
+	$(OBJDIR)/include_juce_audio_formats.o \
+	$(OBJDIR)/include_juce_audio_plugin_client_Standalone.o \
+	$(OBJDIR)/include_juce_audio_plugin_client_utils.o \
+	$(OBJDIR)/include_juce_audio_processors.o \
+	$(OBJDIR)/include_juce_audio_utils.o \
+	$(OBJDIR)/include_juce_core.o \
+	$(OBJDIR)/include_juce_cryptography.o \
+	$(OBJDIR)/include_juce_data_structures.o \
+	$(OBJDIR)/include_juce_events.o \
+	$(OBJDIR)/include_juce_graphics.o \
+	$(OBJDIR)/include_juce_gui_basics.o \
+	$(OBJDIR)/include_juce_gui_extra.o \
+	$(OBJDIR)/include_juce_video.o \
 	$(OBJDIR)/frut_audio.o \
 	$(OBJDIR)/frut_dsp.o \
 	$(OBJDIR)/frut_math.o \
@@ -149,7 +150,6 @@ OBJECTS := \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/side_chain.o \
 	$(OBJDIR)/skin.o \
-	$(OBJDIR)/standalone_application.o \
 
 RESOURCES := \
 
@@ -207,46 +207,49 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/juce_audio_basics.o: ../../../JuceLibraryCode/juce_audio_basics.cpp
+$(OBJDIR)/include_juce_audio_basics.o: ../../../JuceLibraryCode/include_juce_audio_basics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_audio_devices.o: ../../../JuceLibraryCode/juce_audio_devices.cpp
+$(OBJDIR)/include_juce_audio_devices.o: ../../../JuceLibraryCode/include_juce_audio_devices.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_audio_formats.o: ../../../JuceLibraryCode/juce_audio_formats.cpp
+$(OBJDIR)/include_juce_audio_formats.o: ../../../JuceLibraryCode/include_juce_audio_formats.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_audio_plugin_client_utils.o: ../../../JuceLibraryCode/juce_audio_plugin_client_utils.cpp
+$(OBJDIR)/include_juce_audio_plugin_client_Standalone.o: ../../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_audio_processors.o: ../../../JuceLibraryCode/juce_audio_processors.cpp
+$(OBJDIR)/include_juce_audio_plugin_client_utils.o: ../../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_audio_utils.o: ../../../JuceLibraryCode/juce_audio_utils.cpp
+$(OBJDIR)/include_juce_audio_processors.o: ../../../JuceLibraryCode/include_juce_audio_processors.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_core.o: ../../../JuceLibraryCode/juce_core.cpp
+$(OBJDIR)/include_juce_audio_utils.o: ../../../JuceLibraryCode/include_juce_audio_utils.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_cryptography.o: ../../../JuceLibraryCode/juce_cryptography.cpp
+$(OBJDIR)/include_juce_core.o: ../../../JuceLibraryCode/include_juce_core.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_data_structures.o: ../../../JuceLibraryCode/juce_data_structures.cpp
+$(OBJDIR)/include_juce_cryptography.o: ../../../JuceLibraryCode/include_juce_cryptography.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_events.o: ../../../JuceLibraryCode/juce_events.cpp
+$(OBJDIR)/include_juce_data_structures.o: ../../../JuceLibraryCode/include_juce_data_structures.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_graphics.o: ../../../JuceLibraryCode/juce_graphics.cpp
+$(OBJDIR)/include_juce_events.o: ../../../JuceLibraryCode/include_juce_events.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_gui_basics.o: ../../../JuceLibraryCode/juce_gui_basics.cpp
+$(OBJDIR)/include_juce_graphics.o: ../../../JuceLibraryCode/include_juce_graphics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_gui_extra.o: ../../../JuceLibraryCode/juce_gui_extra.cpp
+$(OBJDIR)/include_juce_gui_basics.o: ../../../JuceLibraryCode/include_juce_gui_basics.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/juce_video.o: ../../../JuceLibraryCode/juce_video.cpp
+$(OBJDIR)/include_juce_gui_extra.o: ../../../JuceLibraryCode/include_juce_gui_extra.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/include_juce_video.o: ../../../JuceLibraryCode/include_juce_video.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
@@ -295,9 +298,6 @@ $(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/skin.o: ../../../Source/skin.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/standalone_application.o: ../../../Source/standalone_application.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

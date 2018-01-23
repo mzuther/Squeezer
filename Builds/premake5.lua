@@ -56,20 +56,20 @@ workspace "squeezer"
 		"../Source/*.h",
 		"../Source/*.cpp",
 
-		"../JuceLibraryCode/juce_audio_basics.cpp",
-		"../JuceLibraryCode/juce_audio_devices.cpp",
-		"../JuceLibraryCode/juce_audio_formats.cpp",
-		"../JuceLibraryCode/juce_audio_plugin_client_utils.cpp",
-		"../JuceLibraryCode/juce_audio_processors.cpp",
-		"../JuceLibraryCode/juce_audio_utils.cpp",
-		"../JuceLibraryCode/juce_core.cpp",
-		"../JuceLibraryCode/juce_cryptography.cpp",
-		"../JuceLibraryCode/juce_data_structures.cpp",
-		"../JuceLibraryCode/juce_events.cpp",
-		"../JuceLibraryCode/juce_graphics.cpp",
-		"../JuceLibraryCode/juce_gui_basics.cpp",
-		"../JuceLibraryCode/juce_gui_extra.cpp",
-		"../JuceLibraryCode/juce_video.cpp"
+		"../JuceLibraryCode/include_juce_audio_basics.cpp",
+		"../JuceLibraryCode/include_juce_audio_devices.cpp",
+		"../JuceLibraryCode/include_juce_audio_formats.cpp",
+		"../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp",
+		"../JuceLibraryCode/include_juce_audio_processors.cpp",
+		"../JuceLibraryCode/include_juce_audio_utils.cpp",
+		"../JuceLibraryCode/include_juce_core.cpp",
+		"../JuceLibraryCode/include_juce_cryptography.cpp",
+		"../JuceLibraryCode/include_juce_data_structures.cpp",
+		"../JuceLibraryCode/include_juce_events.cpp",
+		"../JuceLibraryCode/include_juce_graphics.cpp",
+		"../JuceLibraryCode/include_juce_gui_basics.cpp",
+		"../JuceLibraryCode/include_juce_gui_extra.cpp",
+		"../JuceLibraryCode/include_juce_video.cpp"
 	}
 
 	includedirs {
@@ -85,8 +85,34 @@ workspace "squeezer"
 		}
 
 		includedirs {
-			"/usr/include",
-			"/usr/include/freetype2"
+			"/usr/include/at-spi-2.0",
+			"/usr/include/at-spi2-atk/2.0",
+			"/usr/include/atk-1.0",
+			"/usr/include/cairo",
+			"/usr/include/cairo",
+			"/usr/include/dbus-1.0",
+			"/usr/include/freetype2",
+			"/usr/include/gdk-pixbuf-2.0",
+			"/usr/include/gio-unix-2.0/",
+			"/usr/include/glib-2.0",
+			"/usr/include/gtk-3.0",
+			"/usr/include/gtk-3.0",
+			"/usr/include/gtk-3.0",
+			"/usr/include/harfbuzz",
+			"/usr/include/libpng12",
+			"/usr/include/libpng12",
+			"/usr/include/libsoup-2.4",
+			"/usr/include/libxml2",
+			"/usr/include/mirclient",
+			"/usr/include/mircookie",
+			"/usr/include/mircore",
+			"/usr/include/pango-1.0",
+			"/usr/include/pango-1.0",
+			"/usr/include/pixman-1",
+			"/usr/include/webkitgtk-4.0",
+			"/usr/include/webkitgtk-4.0",
+			"/usr/lib/x86_64-linux-gnu/dbus-1.0/include",
+			"/usr/lib/x86_64-linux-gnu/glib-2.0/include"
 		}
 
 		linkoptions {
@@ -95,12 +121,29 @@ workspace "squeezer"
 		}
 
 		links {
+			"X11",
+			"Xext",
+			"Xinerama",
+			"atk-1.0",
+			"cairo",
+			"cairo-gobject",
+			"curl",
 			"dl",
 			"freetype",
+			"gdk-3",
+			"gdk_pixbuf-2.0",
+			"gio-2.0",
+			"glib-2.0",
+			"gobject-2.0",
+			"gtk-3",
+			"gtk-3",
+			"javascriptcoregtk-4.0",
+			"pango-1.0",
+			"pangocairo-1.0",
 			"pthread",
 			"rt",
-			"X11",
-			"Xext"
+			"soup-2.4",
+			"webkit2gtk-4.0"
 		}
 
 	flags {
@@ -210,6 +253,10 @@ workspace "squeezer"
 			"JucePlugin_Build_VST=0"
 		}
 
+		files {
+			  "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
+		}
+
 		filter { "system:linux" }
 			targetname "squeezer_mono"
 
@@ -256,6 +303,10 @@ workspace "squeezer"
 			"JucePlugin_Build_LV2=0",
 			"JucePlugin_Build_Standalone=1",
 			"JucePlugin_Build_VST=0"
+		}
+
+		files {
+			  "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
 		}
 
 		filter { "system:linux" }
@@ -307,12 +358,7 @@ workspace "squeezer"
 		}
 
 		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_VST2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
+			  "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
 		}
 
 		defines {
@@ -352,12 +398,7 @@ workspace "squeezer"
 		}
 
 		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_VST2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
+			  "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
 		}
 
 		defines {
@@ -400,12 +441,7 @@ if os.get() == "linux" then
 		}
 
 		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
+			  "../JuceLibraryCode/include_juce_audio_plugin_client_LV2.cpp"
 		}
 
 		defines {
@@ -444,12 +480,7 @@ if os.get() == "linux" then
 		}
 
 		files {
-			  "../JuceLibraryCode/juce_audio_plugin_client_LV2.cpp"
-		}
-
-		excludes {
-			"../Source/standalone_application.h",
-			"../Source/standalone_application.cpp"
+			  "../JuceLibraryCode/include_juce_audio_plugin_client_LV2.cpp"
 		}
 
 		defines {

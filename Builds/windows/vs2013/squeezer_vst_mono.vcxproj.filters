@@ -71,49 +71,49 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_basics.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_devices.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_devices.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_formats.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_formats.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_plugin_client_VST2.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_plugin_client_VST2.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_plugin_client_utils.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_plugin_client_utils.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_processors.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_processors.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_audio_utils.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_utils.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_core.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_core.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_cryptography.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_cryptography.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_data_structures.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_data_structures.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_events.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_events.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_graphics.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_graphics.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_gui_basics.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_gui_basics.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_gui_extra.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_gui_extra.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\JuceLibraryCode\juce_video.cpp">
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_video.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">

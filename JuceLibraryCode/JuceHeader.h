@@ -10,8 +10,7 @@
 
 */
 
-#ifndef __APPHEADERFILE_PY2F1I__
-#define __APPHEADERFILE_PY2F1I__
+#pragma once
 
 #include "AppConfig.h"
 
@@ -45,5 +44,3 @@ namespace ProjectInfo
     const int          versionNumber  = 0x20303;
 }
 #endif
-
-#endif   // __APPHEADERFILE_PY2F1I__

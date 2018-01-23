@@ -135,7 +135,7 @@ void IirFilterBox::shelvingFilterFirstOrder(
     if (isLowShelving)
     {
         double theta_c = 2.0 * M_PI * cutoffFrequencyInHz / sampleRate_;
-        double mu = exp10(gainInDecibels / 20.0);
+        double mu = pow(10, gainInDecibels / 20.0);
 
         double beta = 4.0 / (1.0 + mu);
         double delta = beta * tan(theta_c / 2.0);
@@ -156,7 +156,7 @@ void IirFilterBox::shelvingFilterFirstOrder(
     else
     {
         double theta_c = 2.0 * M_PI * cutoffFrequencyInHz / sampleRate_;
-        double mu = exp10(gainInDecibels / 20.0);
+        double mu = pow(10, gainInDecibels / 20.0);
 
         double beta = (1.0 + mu) / 4.0;
         double delta = beta * tan(theta_c / 2.0);
@@ -185,7 +185,7 @@ void IirFilterBox::peakingFilterVariableQ(
     double qualityFactor)
 {
     double theta_c = 2.0 * M_PI * cutoffFrequencyInHz / sampleRate_;
-    double mu = exp10(gainInDecibels / 20.0);
+    double mu = pow(10, gainInDecibels / 20.0);
 
     double zeta = 4.0 / (1.0 + mu);
     double theta_c_by_quality = theta_c / (2.0 * qualityFactor);
@@ -229,7 +229,7 @@ void IirFilterBox::peakingFilterConstantQ(
     double qualityFactor)
 {
     double K = tan(M_PI * cutoffFrequencyInHz / sampleRate_);
-    double V0 = exp10(gainInDecibels / 20.0);
+    double V0 = pow(10, gainInDecibels / 20.0);
 
     double K_squared = K * K;
     double K_by_quality = K / qualityFactor;

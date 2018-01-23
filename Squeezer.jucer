@@ -8,11 +8,13 @@
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
               pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="ePlugInCategory_None"
-              jucerVersion="4.3.1" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
+              jucerVersion="5.1.2" companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" includeBinaryInAppConfig="1"
               buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategEffect"
-              pluginIsMidiEffectPlugin="0" buildAUv3="0">
+              pluginIsMidiEffectPlugin="0" buildAUv3="0" displaySplashScreen="0"
+              reportAppUsage="0" splashScreenColour="Dark" buildStandalone="0"
+              enableIAA="0" cppLanguageStandard="11">
   <MAINGROUP id="BIo7Gh" name="Squeezer">
     <GROUP id="{E9DE54B6-0D51-C2EE-3F76-C28D0D5D5813}" name="common">
       <FILE id="sA5xxG" name="FrutHeader.h" compile="0" resource="0" file="Source/common/FrutHeader.h"/>
@@ -33,14 +35,6 @@
     </GROUP>
     <FILE id="hg8t81" name="compressor.cpp" compile="1" resource="0" file="Source/compressor.cpp"/>
     <FILE id="lBceaW" name="compressor.h" compile="0" resource="0" file="Source/compressor.h"/>
-    <FILE id="jmVhbk" name="filter_chebyshev.cpp" compile="1" resource="0"
-          file="Source/filter_chebyshev.cpp"/>
-    <FILE id="U1baj8" name="filter_chebyshev.h" compile="0" resource="0"
-          file="Source/filter_chebyshev.h"/>
-    <FILE id="q7Xd1K" name="filter_chebyshev_stage.cpp" compile="1" resource="0"
-          file="Source/filter_chebyshev_stage.cpp"/>
-    <FILE id="BUdej3" name="filter_chebyshev_stage.h" compile="0" resource="0"
-          file="Source/filter_chebyshev_stage.h"/>
     <FILE id="oL845I" name="gain_stage.h" compile="0" resource="0" file="Source/gain_stage.h"/>
     <FILE id="FjrHq5" name="gain_stage_fet.cpp" compile="1" resource="0"
           file="Source/gain_stage_fet.cpp"/>
