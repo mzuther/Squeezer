@@ -28,14 +28,14 @@
 
 
 class SliderSwitch :
-    public Slider
+    virtual public FrutSlider
 {
 public:
     SliderSwitch(parameter::Juggler *pParameters, int nParameterIndex);
 
     void visibilityChanged();
     void resized();
-    void setSliderColour(const Colour &colour);
+    virtual void setSliderColour(const Colour &colour);
 
     float getRealFloat();
     bool getBoolean();

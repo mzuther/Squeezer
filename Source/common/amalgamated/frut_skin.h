@@ -33,6 +33,7 @@ namespace skin
 {
 
 // normal includes
+#include "../skin/look_and_feel_v3.h"
 #include "../skin/skin.h"
 
 }

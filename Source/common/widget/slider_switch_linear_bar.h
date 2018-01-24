@@ -28,7 +28,7 @@
 
 
 class SliderSwitchLinearBar :
-    public Slider
+    public FrutSlider
 {
 public:
     SliderSwitchLinearBar(parameter::Juggler *pParameters, int nParameterIndex);

@@ -65,6 +65,9 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     int NumberOfChannels)
     : AudioProcessorEditor(OwnerFilter)
 {
+    currentLookAndFeel_ = new frut::skin::LookAndFeel_Frut_V3;
+    setLookAndFeel(currentLookAndFeel_);
+
     // the editor window does not have any transparent areas
     // (increases performance on redrawing)
     setOpaque(true);

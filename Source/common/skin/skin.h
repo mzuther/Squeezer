@@ -80,7 +80,7 @@ public:
                             ImageButton *button);
 
     void placeAndSkinSlider(const String &tagName,
-                            widget::SliderCombined *slider);
+                            widget::FrutSlider *slider);
 
     void placeAndSkinNeedleMeter(const String &tagName,
                                  widget::NeedleMeter *meter);

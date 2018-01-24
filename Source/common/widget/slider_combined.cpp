@@ -33,6 +33,7 @@ SliderCombined::SliderCombined(parameter::Juggler *pParameters, int nParameterIn
     jassert(pModeSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pCombined->getStepSize());
+    setVelocityModeParameters(1.0, 1, 0.0, true);
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
     colourRotary = Colours::white;
 
@@ -69,7 +70,7 @@ void SliderCombined::visibilityChanged()
 {
     Slider::visibilityChanged();
 
-    setSliderStyle(Slider::RotaryVerticalDrag);
+    setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     setColour(Slider::rotarySliderFillColourId, colourRotary);
     setColour(Slider::textBoxTextColourId, Colours::white);
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
@@ -95,15 +96,19 @@ void SliderCombined::resized()
 void SliderCombined::setSliderColour(const Colour &colour)
 {
     colourRotary = colour;
+    setColour(Slider::thumbColourId, colourRotary);
     setColour(Slider::rotarySliderFillColourId, colourRotary);
 }
 
 
 void SliderCombined::updateMode()
 {
-    toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
+    bool inContinuousMode = pModeSwitch->getBoolean();
+    toggleButton->setToggleState(inContinuousMode, dontSendNotification);
 
     setRange(0.0f, 1.0f, pCombined->getStepSize());
+    // disable velocity mode in step mode
+    setVelocityModeParameters(1.0, 1, 0.0, !inContinuousMode);
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
 
     float fNewValue = pCombined->getFloat();

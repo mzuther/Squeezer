@@ -30,7 +30,8 @@ SliderSwitch::SliderSwitch(parameter::Juggler *pParameters, int nParameterIndex)
     jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getStepSize());
-    setSliderStyle(Slider::RotaryVerticalDrag);
+    setVelocityModeParameters(1.0, 1, 0.0, true);
+    setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     colourRotary = Colours::white;
 
     setDoubleClickReturnValue(true, pSwitch->getDefaultFloat());
@@ -60,6 +61,7 @@ void SliderSwitch::resized()
 void SliderSwitch::setSliderColour(const Colour &colour)
 {
     colourRotary = colour;
+    setColour(Slider::thumbColourId, colourRotary);
     setColour(Slider::rotarySliderFillColourId, colourRotary);
 }
 

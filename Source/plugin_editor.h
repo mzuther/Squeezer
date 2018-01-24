@@ -79,6 +79,8 @@ private:
     OwnedArray<MeterBarLevel> OutputLevelMeters_;
     OwnedArray<MeterBarGainReduction> GainReductionMeters_;
 
+    ScopedPointer<juce::LookAndFeel> currentLookAndFeel_;
+
     ScopedPointer<frut::widget::SliderCombined> SliderThreshold_;
     ScopedPointer<frut::widget::SliderCombined> SliderRatio_;
 

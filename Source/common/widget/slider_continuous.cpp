@@ -35,7 +35,8 @@ SliderContinuous::SliderContinuous(
     jassert(parameter_ != nullptr);
 
     setRange(0.0f, 1.0f, parameter_->getStepSize());
-    setSliderStyle(Slider::RotaryVerticalDrag);
+    setVelocityModeParameters(1.0, 1, 0.0, true);
+    setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     colourRotary_ = Colours::white;
 
     setDoubleClickReturnValue(true, parameter_->getDefaultFloat());
@@ -67,6 +68,7 @@ void SliderContinuous::setSliderColour(
 
 {
     colourRotary_ = colour;
+    setColour(Slider::thumbColourId, colourRotary_);
     setColour(Slider::rotarySliderFillColourId, colourRotary_);
 }
 

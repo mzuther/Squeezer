@@ -50,7 +50,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterDetectorRmsFilter->addPreset(0.0f,  "Peak");
     ParameterDetectorRmsFilter->addPreset(30.0f, "RMS (30 ms)");
 
-    ParameterDetectorRmsFilter->setDefaultRealFloat(30.0f, true);
+    ParameterDetectorRmsFilter->setDefaultRealFloat(0.0f, true);
     add(ParameterDetectorRmsFilter, selDetectorRmsFilter);
 
 

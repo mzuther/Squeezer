@@ -512,7 +512,7 @@ void Skin::placeAndSkinButton(
 
 void Skin::placeAndSkinSlider(
     const String &tagName,
-    widget::SliderCombined *slider)
+    widget::FrutSlider *slider)
 {
     XmlElement *xmlComponent = getComponent(tagName);
     Colour sliderColour = getColour(xmlComponent, 0.0f);

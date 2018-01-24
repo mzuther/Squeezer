@@ -23,45 +23,15 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_WIDGETS_H__
-#define __FRUT_AMALGAMATED_WIDGETS_H__
+#pragma once
 
 
-namespace frut
+class FrutSlider :
+    public Slider
 {
-namespace widget
-{
-
-// pre includes
-#include "../widget/orientation.h"
-#include "../widget/resources/resources.h"
-#include "../widget/slider.h"
-
-// normal includes
-#include "../widget/channel_slider.h"
-#include "../widget/meter_segment.h"
-#include "../widget/meter_segment_continuous.h"
-#include "../widget/meter_segment_discrete.h"
-#include "../widget/needle_meter.h"
-#include "../widget/signal_led.h"
-#include "../widget/slider_combined.h"
-#include "../widget/slider_continuous.h"
-#include "../widget/slider_switch.h"
-#include "../widget/slider_switch_linear_bar.h"
-#include "../widget/state_label.h"
-#include "../widget/window_about_content.h"
-#include "../widget/window_settings_content.h"
-#include "../widget/window_skin_content.h"
-#include "../widget/window_validation_content.h"
-
-// post includes
-#include "../widget/meter_bar.h"
-
-}
-}
-
-
-#endif  // __FRUT_AMALGAMATED_WIDGETS_H__
+public:
+    virtual void setSliderColour(const Colour &colour) = 0;
+};
 
 
 // Local Variables:

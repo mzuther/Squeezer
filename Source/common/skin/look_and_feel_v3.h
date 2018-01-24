@@ -23,45 +23,16 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_COMBINED_H__
-#define __FRUT_WIDGET_SLIDER_COMBINED_H__
-
-
-class SliderCombined :
-    virtual public FrutSlider
+class LookAndFeel_Frut_V3 :
+    public LookAndFeel_V3
 {
 public:
-    SliderCombined(parameter::Juggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
+    LookAndFeel_Frut_V3() {};
+    ~LookAndFeel_Frut_V3() {};
 
-    void visibilityChanged();
-    void resized();
-    virtual void setSliderColour(const Colour &colour);
+    void drawRotarySlider(Graphics &g, int x, int y, int width, int height,
+                          float sliderPosProportional, float rotaryStartAngle,
+                          float rotaryEndAngle, Slider &) override;
 
-    void addButtonListener(Button::Listener *newListener);
-    void removeListener(Button::Listener *listener);
-
-    void updateMode();
-
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
-
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
-private:
-    JUCE_LEAK_DETECTOR(SliderCombined);
-
-    ScopedPointer<DrawableButton> toggleButton;
-    Colour colourRotary;
-
-    parameter::ParCombined *pCombined;
-    parameter::ParBoolean *pModeSwitch;
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel_Frut_V3)
 };
-
-
-#endif  // __FRUT_WIDGET_SLIDER_COMBINED_H__
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

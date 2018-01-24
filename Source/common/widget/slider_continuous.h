@@ -28,14 +28,14 @@
 
 
 class SliderContinuous :
-    public Slider
+    virtual public FrutSlider
 {
 public:
     SliderContinuous(parameter::Juggler *pParameters, int parameterIndex);
 
     virtual void visibilityChanged();
     virtual void resized();
-    void setSliderColour(const Colour &colour);
+    virtual void setSliderColour(const Colour &colour);
 
     float getRealFloat();
     bool getBoolean();

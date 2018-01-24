@@ -35,6 +35,7 @@ namespace frut
 namespace skin
 {
 
+#include "../skin/look_and_feel_v3.cpp"
 #include "../skin/skin.cpp"
 
 }
