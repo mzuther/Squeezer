@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_PARAMETERS_H__
-#define __FRUT_AMALGAMATED_PARAMETERS_H__
+#pragma once
 
 
 namespace frut
@@ -47,9 +46,6 @@ namespace parameter
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_PARAMETERS_H__
 
 
 // Local Variables:

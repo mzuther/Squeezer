@@ -23,10 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_DSP_CPP__
-#define __FRUT_AMALGAMATED_DSP_CPP__
-
-
 #include "../FrutHeader.h"
 
 
@@ -43,9 +39,6 @@ namespace dsp
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_DSP_CPP__
 
 
 // Local Variables:

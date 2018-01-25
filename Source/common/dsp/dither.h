@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_DSP_DITHER_H__
-#define __FRUT_DSP_DITHER_H__
+#pragma once
 
 
 class Dither
@@ -51,9 +50,6 @@ private:
     double WordLength_;
     double WordLengthInverted_;
 };
-
-
-#endif  // __FRUT_DSP_DITHER_H__
 
 
 // Local Variables:

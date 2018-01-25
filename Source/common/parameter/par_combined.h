@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_COMBINED_H__
-#define __FRUT_PARAMETER_COMBINED_H__
+#pragma once
 
 
 /// Plug-in parameter for storing a floating-point value (can be
@@ -89,9 +88,6 @@ private:
     parameter::ParSwitch presetValues;
     parameter::ParContinuous continuousValues;
 };
-
-
-#endif  // __FRUT_PARAMETER_COMBINED_H__
 
 
 // Local Variables:

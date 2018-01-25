@@ -113,8 +113,6 @@ SqueezerAudioProcessor::~SqueezerAudioProcessor()
 }
 
 
-//==============================================================================
-
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool SqueezerAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
 {
@@ -798,8 +796,6 @@ void SqueezerAudioProcessor::changeProgramName(int nIndex, const String &newName
 }
 
 
-//==============================================================================
-
 void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     ignoreUnused(samplesPerBlock);
@@ -1021,8 +1017,6 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
 }
 
 
-//==============================================================================
-
 AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
 #ifdef SQUEEZER_MONO
@@ -1038,8 +1032,6 @@ bool SqueezerAudioProcessor::hasEditor() const
     return true;
 }
 
-
-//==============================================================================
 
 void SqueezerAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
@@ -1068,7 +1060,6 @@ void SqueezerAudioProcessor::setStateInformation(const void *data, int sizeInByt
     updateParameters(true);
 }
 
-//==============================================================================
 
 // This creates new instances of the plug-in.
 AudioProcessor *JUCE_CALLTYPE createPluginFilter()

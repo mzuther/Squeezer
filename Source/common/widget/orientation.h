@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_ORIENTATION_H__
-#define __FRUT_WIDGET_ORIENTATION_H__
+#pragma once
 
 
 /// Orientation for widgets.
@@ -43,9 +42,6 @@ enum Orientation
     /// inverted vertical widget (right to left)
     verticalInverted
 };
-
-
-#endif  // __FRUT_WIDGET_ORIENTATION_H__
 
 
 // Local Variables:

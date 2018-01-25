@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_COMBINED_H__
-#define __FRUT_WIDGET_SLIDER_COMBINED_H__
+#pragma once
 
 
 class SliderCombined :
@@ -57,9 +56,6 @@ private:
     parameter::ParCombined *pCombined;
     parameter::ParBoolean *pModeSwitch;
 };
-
-
-#endif  // __FRUT_WIDGET_SLIDER_COMBINED_H__
 
 
 // Local Variables:

@@ -23,10 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_SKIN_CPP__
-#define __FRUT_AMALGAMATED_SKIN_CPP__
-
-
 #include "../FrutHeader.h"
 
 
@@ -40,9 +36,6 @@ namespace skin
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_SKIN_CPP__
 
 
 // Local Variables:

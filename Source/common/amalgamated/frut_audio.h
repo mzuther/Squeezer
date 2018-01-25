@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_AUDIO_H__
-#define __FRUT_AMALGAMATED_AUDIO_H__
+#pragma once
 
 
 namespace frut
@@ -37,9 +36,6 @@ namespace audio
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_AUDIO_H__
 
 
 // Local Variables:

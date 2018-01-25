@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __COMPRESSOR_H__
-#define __COMPRESSOR_H__
+#pragma once
 
 class SideChain;
 
@@ -32,12 +31,9 @@ class SideChain;
 #include "side_chain.h"
 
 
-//============================================================================
 class Compressor
 {
 public:
-    //==========================================================================
-
     enum Parameters  // public namespace!
     {
         DetectorPeak = 0,
@@ -218,8 +214,6 @@ private:
     int SidechainHPFCutoff;
     int SidechainLPFCutoff;
 };
-
-#endif  // __COMPRESSOR_H__
 
 
 // Local Variables:

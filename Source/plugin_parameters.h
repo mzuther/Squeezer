@@ -23,20 +23,16 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGIN_PARAMETERS_SQUEEZER_H__
-#define __PLUGIN_PARAMETERS_SQUEEZER_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "compressor.h"
 
 
-//============================================================================
 class SqueezerPluginParameters :
     public frut::parameter::Juggler
 {
 public:
-    //==========================================================================
-
     SqueezerPluginParameters();
 
     String toString();
@@ -87,8 +83,6 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
 };
-
-#endif  // __PLUGIN_PARAMETERS_SQUEEZER_H__
 
 
 // Local Variables:

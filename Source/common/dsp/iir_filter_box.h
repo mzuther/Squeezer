@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_DSP_IIR_FILTER_BOX_H__
-#define __FRUT_DSP_IIR_FILTER_BOX_H__
+#pragma once
 
 
 class IirFilterBox :
@@ -65,8 +64,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(IirFilterBox);
 };
-
-#endif  // __FRUT_DSP_IIR_FILTER_BOX_H__
 
 
 // Local Variables:

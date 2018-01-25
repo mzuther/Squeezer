@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_SWITCH_H__
-#define __FRUT_WIDGET_SLIDER_SWITCH_H__
+#pragma once
 
 
 class SliderSwitch :
@@ -49,9 +48,6 @@ private:
     Colour colourRotary;
     parameter::ParSwitch *pSwitch;
 };
-
-
-#endif  // __FRUT_WIDGET_SLIDER_SWITCH_H__
 
 
 // Local Variables:

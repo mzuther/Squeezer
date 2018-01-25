@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_MATH_H__
-#define __FRUT_AMALGAMATED_MATH_H__
+#pragma once
 
 
 namespace frut
@@ -38,9 +37,6 @@ namespace math
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_MATH_H__
 
 
 // Local Variables:

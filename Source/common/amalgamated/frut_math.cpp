@@ -23,10 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_MATH_CPP__
-#define __FRUT_AMALGAMATED_MATH_CPP__
-
-
 #include "../FrutHeader.h"
 
 
@@ -39,9 +35,6 @@ namespace math
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_MATH_CPP__
 
 
 // Local Variables:

@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_WINDOW_VALIDATION_CONTENT_H__
-#define __FRUT_WIDGET_WINDOW_VALIDATION_CONTENT_H__
+#pragma once
 
 
 /// Dialog window for validation settings.
@@ -70,9 +69,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(WindowValidationContent);
 };
-
-
-#endif  // __FRUT_WIDGET_WINDOW_VALIDATION_CONTENT_H__
 
 
 // Local Variables:

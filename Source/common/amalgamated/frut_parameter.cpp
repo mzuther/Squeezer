@@ -23,10 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_PARAMETERS_CPP__
-#define __FRUT_AMALGAMATED_PARAMETERS_CPP__
-
-
 #include "../FrutHeader.h"
 
 
@@ -45,9 +41,6 @@ namespace parameter
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_PARAMETERS_CPP__
 
 
 // Local Variables:

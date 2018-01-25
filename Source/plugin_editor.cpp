@@ -65,6 +65,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     int NumberOfChannels)
     : AudioProcessorEditor(OwnerFilter)
 {
+    // load look and feel
     currentLookAndFeel_ = new frut::skin::LookAndFeel_Frut_V3;
     setLookAndFeel(currentLookAndFeel_);
 

@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AUDIO_RING_BUFFER_H__
-#define __FRUT_AUDIO_RING_BUFFER_H__
+#pragma once
 
 
 class RingBufferProcessor;
@@ -83,9 +82,6 @@ class RingBufferProcessor
 public:
     virtual void processBufferChunk(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples) = 0;
 };
-
-
-#endif  // __FRUT_AUDIO_RING_BUFFER_H__
 
 
 // Local Variables:

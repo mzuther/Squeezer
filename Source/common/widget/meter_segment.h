@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_METER_SEGMENT_H__
-#define __FRUT_WIDGET_METER_SEGMENT_H__
+#pragma once
 
 
 /// Base class for meter segment components.
@@ -66,9 +65,6 @@ protected:
     widget::Orientation orientation_;
 
 };
-
-
-#endif  // __FRUT_WIDGET_METER_SEGMENT_H__
 
 
 // Local Variables:

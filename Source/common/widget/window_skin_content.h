@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_WINDOW_SKIN_CONTENT_H__
-#define __FRUT_WIDGET_WINDOW_SKIN_CONTENT_H__
+#pragma once
 
 
 /// List box model that lists all available GUI skins.
@@ -98,9 +97,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(WindowSkinContent);
 };
-
-
-#endif  // __FRUT_WIDGET_WINDOW_SKIN_CONTENT_H__
 
 
 // Local Variables:

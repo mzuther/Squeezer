@@ -23,10 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_AUDIO_CPP__
-#define __FRUT_AMALGAMATED_AUDIO_CPP__
-
-
 #include "../FrutHeader.h"
 
 
@@ -39,9 +35,6 @@ namespace audio
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_AUDIO_CPP__
 
 
 // Local Variables:

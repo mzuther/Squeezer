@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
-#define __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
+#pragma once
 
 
 class SliderContinuous :
@@ -51,9 +50,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(SliderContinuous);
 };
-
-
-#endif  // __FRUT_WIDGET_SLIDER_CONTINUOUS_H__
 
 
 // Local Variables:

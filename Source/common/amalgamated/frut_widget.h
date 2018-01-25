@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_WIDGETS_H__
-#define __FRUT_AMALGAMATED_WIDGETS_H__
+#pragma once
 
 
 namespace frut
@@ -59,9 +58,6 @@ namespace widget
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_WIDGETS_H__
 
 
 // Local Variables:

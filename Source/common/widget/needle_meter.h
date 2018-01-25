@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_NEEDLE_METER_H__
-#define __FRUT_WIDGET_NEEDLE_METER_H__
+#pragma once
 
 
 /// Meter component with a needle that moves according to the input.
@@ -59,9 +58,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(NeedleMeter);
 };
-
-
-#endif  // __FRUT_WIDGET_NEEDLE_METER_H__
 
 
 // Local Variables:

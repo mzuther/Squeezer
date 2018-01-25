@@ -26,8 +26,6 @@
 #include "compressor.h"
 
 
-//==============================================================================
-
 Compressor::Compressor(int channels, int sample_rate) :
     // the meter's sample buffer holds 50 ms worth of samples
     AntiDenormalFloat(FLT_MIN),

@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SIGNAL_LED_H__
-#define __FRUT_WIDGET_SIGNAL_LED_H__
+#pragma once
 
 
 /// Signal LED component.  This widget loads three images of the same
@@ -59,9 +58,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(SignalLed);
 };
-
-
-#endif  // __FRUT_WIDGET_SIGNAL_LED_H__
 
 
 // Local Variables:

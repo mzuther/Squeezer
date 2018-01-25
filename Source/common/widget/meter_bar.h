@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_METER_BAR_H__
-#define __FRUT_WIDGET_METER_BAR_H__
+#pragma once
 
 
 /// Meter bar component.  This widget is an empty container that can
@@ -103,9 +102,6 @@ private:
     Array<int> segmentSpacing_;
     OwnedArray<widget::MeterSegment> meterSegments_;
 };
-
-
-#endif  // __FRUT_WIDGET_METER_BAR_H__
 
 
 // Local Variables:

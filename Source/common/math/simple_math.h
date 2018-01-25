@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_MATH_SIMPLE_MATH_H__
-#define __FRUT_MATH_SIMPLE_MATH_H__
+#pragma once
 
 
 /// Simple class for version info and common functions.
@@ -113,9 +112,6 @@ public:
         return static_cast<int>(x);
     }
 };
-
-
-#endif  // __FRUT_MATH_SIMPLE_MATH_H__
 
 
 // Local Variables:

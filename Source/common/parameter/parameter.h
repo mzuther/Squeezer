@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_H__
-#define __FRUT_PARAMETER_H__
+#pragma once
 
 
 /// Common base class for plug-in parameters.
@@ -126,9 +125,6 @@ protected:
     String parameterName_;
     String tagName_;
 };
-
-
-#endif  // __FRUT_PARAMETER_H__
 
 
 // Local Variables:

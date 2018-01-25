@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_DSP_FILTER_CHEBYSHEV_H__
-#define __FRUT_DSP_FILTER_CHEBYSHEV_H__
+#pragma once
 
 
 class FilterChebyshev
@@ -49,8 +48,6 @@ private:
     int NumberOfPoles_;
     double PercentRipple_;
 };
-
-#endif  // __FRUT_DSP_FILTER_CHEBYSHEV_H__
 
 
 // Local Variables:

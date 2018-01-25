@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_STATE_LABEL_H__
-#define __FRUT_WIDGET_STATE_LABEL_H__
+#pragma once
 
 
 /// State label component.  This widget loads three images of the same
@@ -96,9 +95,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(StateLabel);
 };
-
-
-#endif  // __FRUT_WIDGET_STATE_LABEL_H__
 
 
 // Local Variables:

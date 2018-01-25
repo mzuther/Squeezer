@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_BOOLEAN_H__
-#define __FRUT_PARAMETER_BOOLEAN_H__
+#pragma once
 
 
 /// Plug-in parameter for storing a Boolean value.
@@ -55,9 +54,6 @@ private:
     String labelTrue;
     String labelFalse;
 };
-
-
-#endif  // __FRUT_PARAMETER_BOOLEAN_H__
 
 
 // Local Variables:

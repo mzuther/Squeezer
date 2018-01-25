@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_HEADER_H__
-#define __FRUT_HEADER_H__
+#pragma once
 
 
 // external includes
@@ -73,9 +72,6 @@ public:
 
 // post includes
 #include "amalgamated/frut_skin.h"
-
-
-#endif  // __FRUT_HEADER_H__
 
 
 // Local Variables:

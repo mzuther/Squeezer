@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __PLUGINEDITOR_SQUEEZER_H__
-#define __PLUGINEDITOR_SQUEEZER_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "compressor.h"
@@ -120,9 +119,6 @@ private:
 
     ImageComponent BackgroundImage_;
 };
-
-
-#endif  // __PLUGINEDITOR_SQUEEZER_H__
 
 
 // Local Variables:

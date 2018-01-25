@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_DSP_BIQUAD_FILTER_H__
-#define __FRUT_DSP_BIQUAD_FILTER_H__
+#pragma once
 
 
 class BiquadFilter
@@ -73,9 +72,6 @@ private:
 
     JUCE_LEAK_DETECTOR(BiquadFilter);
 };
-
-#endif  // __FRUT_DSP_BIQUAD_FILTER_H__
-
 
 // Local Variables:
 // ispell-local-dictionary: "british"

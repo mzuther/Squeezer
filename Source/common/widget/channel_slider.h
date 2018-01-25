@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_CHANNEL_SLIDER_H__
-#define __FRUT_WIDGET_CHANNEL_SLIDER_H__
+#pragma once
 
 
 /// Slider component for selecting an audio channel.  This component
@@ -51,9 +50,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(ChannelSlider);
 };
-
-
-#endif  // __FRUT_WIDGET_CHANNEL_SLIDER_H__
 
 
 // Local Variables:

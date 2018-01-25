@@ -23,24 +23,19 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SQUEEZER_PLUGINPROCESSOR_H__
-#define __SQUEEZER_PLUGINPROCESSOR_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "compressor.h"
 #include "plugin_parameters.h"
 
 
-//============================================================================
 class SqueezerAudioProcessor : public AudioProcessor, public ActionBroadcaster
 {
 public:
-    //==========================================================================
-
     SqueezerAudioProcessor();
     ~SqueezerAudioProcessor();
 
-    //==========================================================================
 #ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
 #endif
@@ -50,11 +45,9 @@ public:
 
     void processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages);
 
-    //==========================================================================
     AudioProcessorEditor *createEditor();
     bool hasEditor() const;
 
-    //==========================================================================
     int getNumParameters();
     const String getParameterName(int nIndex);
     const String getParameterText(int nIndex);
@@ -88,7 +81,6 @@ public:
     float getAverageMeterInputLevel(int nChannel);
     float getAverageMeterOutputLevel(int nChannel);
 
-    //==========================================================================
     const String getName() const;
 
     bool acceptsMidi() const;
@@ -96,7 +88,6 @@ public:
 
     double getTailLengthSeconds() const;
 
-    //==========================================================================
     int getNumPrograms();
 
     int getCurrentProgram();
@@ -105,11 +96,8 @@ public:
     const String getProgramName(int nIndex);
     void changeProgramName(int nIndex, const String &newName);
 
-    //==========================================================================
     void getStateInformation(MemoryBlock &destData);
     void setStateInformation(const void *data, int sizeInBytes);
-
-    //==========================================================================
 
 private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessor);
@@ -126,8 +114,6 @@ private:
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();
-
-#endif  // __SQUEEZER_PLUGINPROCESSOR_H__
 
 
 // Local Variables:

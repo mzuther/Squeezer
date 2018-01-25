@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_STRING_H__
-#define __FRUT_PARAMETER_STRING_H__
+#pragma once
 
 
 /// Plug-in parameter for storing a String value.
@@ -55,9 +54,6 @@ private:
 
     String textValue;
 };
-
-
-#endif  // __FRUT_PARAMETER_STRING_H__
 
 
 // Local Variables:

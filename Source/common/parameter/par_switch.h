@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_SWITCH_H__
-#define __FRUT_PARAMETER_SWITCH_H__
+#pragma once
 
 
 /// Plug-in parameter for storing a floating-point value (filled with
@@ -61,9 +60,6 @@ private:
 
     float stepSize;
 };
-
-
-#endif  // __FRUT_PARAMETER_SWITCH_H__
 
 
 // Local Variables:

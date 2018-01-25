@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
-#define __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
+#pragma once
 
 
 /// Dialog window for displaying version, copyright, license and so
@@ -60,9 +59,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(WindowAboutContent);
 };
-
-
-#endif  // __FRUT_WIDGET_WINDOW_ABOUT_CONTENT_H__
 
 
 // Local Variables:

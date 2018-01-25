@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __SIDE_CHAIN_H__
-#define __SIDE_CHAIN_H__
+#pragma once
 
 #define DEBUG_RELEASE_RATE 0
 
@@ -35,9 +34,6 @@
 #include "gain_stage_optical.h"
 
 
-//==============================================================================
-/**
-*/
 class SideChain
 {
 public:
@@ -120,9 +116,6 @@ private:
     void applyDetectorSmoothDecoupled(double dGainReductionNew);
     void applyDetectorSmoothBranching(double dGainReductionNew);
 };
-
-
-#endif  // __SIDE_CHAIN_H__
 
 
 // Local Variables:

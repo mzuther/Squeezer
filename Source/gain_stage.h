@@ -23,15 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GAIN_STAGE_H__
-#define __GAIN_STAGE_H__
+#pragma once
 
 #include "FrutHeader.h"
 
 
-//==============================================================================
-/**
-*/
 class GainStage
 {
 public:
@@ -47,9 +43,6 @@ protected:
         ignoreUnused(nSampleRate);
     };
 };
-
-
-#endif  // __GAIN_STAGE_H__
 
 
 // Local Variables:

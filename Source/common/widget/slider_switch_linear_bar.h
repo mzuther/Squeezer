@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_SLIDER_SWITCH_LINEAR_BAR_H__
-#define __FRUT_WIDGET_SLIDER_SWITCH_LINEAR_BAR_H__
+#pragma once
 
 
 class SliderSwitchLinearBar :
@@ -48,9 +47,6 @@ private:
     Colour colourThumb;
     parameter::ParSwitch *pSwitch;
 };
-
-
-#endif  // __FRUT_WIDGET_SLIDER_SWITCH_LINEAR_BAR_H__
 
 
 // Local Variables:

@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_PARAMETER_CONTINUOUS_H__
-#define __FRUT_PARAMETER_CONTINUOUS_H__
+#pragma once
 
 
 /// Plug-in parameter for storing a floating-point value (continuous
@@ -69,9 +68,6 @@ private:
     float scalingFactor;
     float scalingConstantFactor;
 };
-
-
-#endif  // __FRUT_PARAMETER_CONTINUOUS_H__
 
 
 // Local Variables:

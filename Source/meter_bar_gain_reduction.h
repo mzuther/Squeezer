@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __METER_BAR_GAIN_REDUCTION_H__
-#define __METER_BAR_GAIN_REDUCTION_H__
+#pragma once
 
 #include "FrutHeader.h"
 
@@ -56,9 +55,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(MeterBarGainReduction);
 };
-
-
-#endif  // __METER_BAR_GAIN_REDUCTION_H__
 
 
 // Local Variables:

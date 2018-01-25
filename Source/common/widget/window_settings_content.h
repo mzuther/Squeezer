@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_WINDOW_SETTINGS_CONTENT_H__
-#define __FRUT_WIDGET_WINDOW_SETTINGS_CONTENT_H__
+#pragma once
 
 
 /// Dialog window for displaying plugin-settings.
@@ -58,9 +57,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(WindowSettingsContent);
 };
-
-
-#endif  // __FRUT_WIDGET_WINDOW_SETTINGS_CONTENT_H__
 
 
 // Local Variables:

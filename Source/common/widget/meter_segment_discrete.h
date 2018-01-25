@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_WIDGET_METER_SEGMENT_DISCRETE_H__
-#define __FRUT_WIDGET_METER_SEGMENT_DISCRETE_H__
+#pragma once
 
 
 /// Discrete meter segment component.  This widget consists of a
@@ -73,9 +72,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(MeterSegmentDiscrete);
 };
-
-
-#endif  // __FRUT_WIDGET_METER_SEGMENT_DISCRETE_H__
 
 
 // Local Variables:

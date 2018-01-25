@@ -23,16 +23,12 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GAIN_STAGE_OPTICAL_H__
-#define __GAIN_STAGE_OPTICAL_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "gain_stage.h"
 
 
-//==============================================================================
-/**
-*/
 class GainStageOptical : virtual public GainStage
 {
 public:
@@ -54,9 +50,6 @@ private:
     Array<double> arrAttackCoefficients;
     Array<double> arrReleaseCoefficients;
 };
-
-
-#endif  // __GAIN_STAGE_OPTICAL_H__
 
 
 // Local Variables:

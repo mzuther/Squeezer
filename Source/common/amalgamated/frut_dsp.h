@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_DSP_H__
-#define __FRUT_AMALGAMATED_DSP_H__
+#pragma once
 
 
 namespace frut
@@ -47,9 +46,6 @@ namespace dsp
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_DSP_H__
 
 
 // Local Variables:

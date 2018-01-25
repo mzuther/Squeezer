@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H__
-#define __FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H__
+#pragma once
 
 
 class FilterChebyshevStage
@@ -65,8 +64,6 @@ private:
     double OutputPrevious_1_;
     double OutputPrevious_2_;
 };
-
-#endif  // __FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H__
 
 
 // Local Variables:

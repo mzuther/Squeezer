@@ -23,16 +23,12 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __GAIN_STAGE_FET_H__
-#define __GAIN_STAGE_FET_H__
+#pragma once
 
 #include "FrutHeader.h"
 #include "gain_stage.h"
 
 
-//==============================================================================
-/**
-*/
 class GainStageFET : virtual public GainStage
 {
 public:
@@ -45,9 +41,6 @@ private:
 
     double dGainReduction;
 };
-
-
-#endif  // __GAIN_STAGE_FET_H__
 
 
 // Local Variables:

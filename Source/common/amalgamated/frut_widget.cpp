@@ -23,10 +23,6 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_AMALGAMATED_WIDGETS_CPP__
-#define __FRUT_AMALGAMATED_WIDGETS_CPP__
-
-
 #include "../FrutHeader.h"
 
 
@@ -55,9 +51,6 @@ namespace widget
 
 }
 }
-
-
-#endif  // __FRUT_AMALGAMATED_WIDGETS_CPP__
 
 
 // Local Variables:

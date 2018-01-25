@@ -23,8 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-#ifndef __FRUT_SKIN_H__
-#define __FRUT_SKIN_H__
+#pragma once
 
 
 class Skin
@@ -115,8 +114,6 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(Skin);
 };
-
-#endif   // __FRUT_SKIN_H__
 
 
 // Local Variables:
