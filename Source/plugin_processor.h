@@ -40,22 +40,27 @@ public:
     bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
 #endif
 
-    void prepareToPlay(double sampleRate, int samplesPerBlock);
-    void releaseResources();
+    void prepareToPlay(double sampleRate, int samplesPerBlock) override;
+    void releaseResources() override;
+    void reset() override;
 
-    void processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages);
+    void processBlock(AudioBuffer<float> &buffer,
+                      MidiBuffer &midiMessages) override;
+    void processBlock(AudioBuffer<double> &buffer,
+                      MidiBuffer &midiMessages) override;
+    void process(AudioBuffer<double> &buffer);
 
-    AudioProcessorEditor *createEditor();
-    bool hasEditor() const;
+    AudioProcessorEditor *createEditor() override;
+    bool hasEditor() const override;
 
-    int getNumParameters();
-    const String getParameterName(int nIndex);
-    const String getParameterText(int nIndex);
+    int getNumParameters() override;
+    const String getParameterName(int nIndex) override;
+    const String getParameterText(int nIndex) override;
 
     String getParameters();
-    float getParameter(int nIndex);
+    float getParameter(int nIndex) override;
     void changeParameter(int nIndex, float fValue);
-    void setParameter(int nIndex, float fValue);
+    void setParameter(int nIndex, float fValue) override;
 
     void clearChangeFlag(int nIndex);
     bool hasChanged(int nIndex);
@@ -81,29 +86,33 @@ public:
     float getAverageMeterInputLevel(int nChannel);
     float getAverageMeterOutputLevel(int nChannel);
 
-    const String getName() const;
+    const String getName() const override;
 
-    bool acceptsMidi() const;
-    bool producesMidi() const;
+    bool acceptsMidi() const override;
+    bool producesMidi() const override;
 
-    double getTailLengthSeconds() const;
+    double getTailLengthSeconds() const override;
 
-    int getNumPrograms();
+    int getNumPrograms() override;
 
-    int getCurrentProgram();
-    void setCurrentProgram(int nIndex);
+    int getCurrentProgram() override;
+    void setCurrentProgram(int nIndex) override;
 
-    const String getProgramName(int nIndex);
-    void changeProgramName(int nIndex, const String &newName);
+    const String getProgramName(int nIndex) override;
+    void changeProgramName(int nIndex, const String &newName) override;
 
-    void getStateInformation(MemoryBlock &destData);
-    void setStateInformation(const void *data, int sizeInBytes);
+    void getStateInformation(MemoryBlock &destData) override;
+    void setStateInformation(const void *data, int sizeInBytes) override;
 
 private:
     JUCE_LEAK_DETECTOR(SqueezerAudioProcessor);
 
-    AudioBuffer<float> MainInput;
-    AudioBuffer<float> SideChainInput;
+    static BusesProperties getBusesProperties();
+
+    AudioBuffer<double> MainInput;
+    AudioBuffer<double> SideChainInput;
+
+    frut::dsp::Dither Dither;
 
     bool hasSideChain;
 

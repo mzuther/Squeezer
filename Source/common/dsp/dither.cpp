@@ -24,78 +24,246 @@
 ---------------------------------------------------------------------------- */
 
 
+Dither::Dither() :
+    antiDenormalFloat_(FLT_MIN),
+    antiDenormalDouble_(DBL_MIN)
+{
+}
+
+
 // Thanks to Paul Kellet for the code snippet!
 // (http://www.musicdsp.org/showone.php?id=77)
-
-Dither::Dither(
-    int NumberOfBits,
-    double NoiseShaping)
-{
-    initialise(NumberOfBits, NoiseShaping);
-}
-
-
 void Dither::initialise(
-    int NumberOfBits,
-    double NoiseShaping)
+    const int numberOfChannels,
+    const int numberOfBits,
+    const double noiseShaping)
 {
-    jassert(NumberOfBits <= 24);
+    jassert(numberOfChannels >= 1);
+    jassert(numberOfBits <= 24);
 
-    // rectangular-PDF random numbers
-    RandomNumber_1_ = 0;
-    RandomNumber_2_ = 0;
+    numberOfChannels_ = numberOfChannels;
 
-    // error feedback buffers
-    ErrorFeedback_1_ = 0.0;
-    ErrorFeedback_2_ = 0.0;
+    randomNumber_1_.clear();
+    randomNumber_2_.clear();
+
+    errorFeedback_1_.clear();
+    errorFeedback_2_.clear();
+
+    for (int currentChannel = 0; currentChannel < numberOfChannels_; ++currentChannel)
+    {
+        // rectangular-PDF random numbers
+        randomNumber_1_.add(0);
+        randomNumber_2_.add(0);
+
+        // error feedback buffers
+        errorFeedback_1_.add(0.0);
+        errorFeedback_2_.add(0.0);
+    }
 
     // set to 0.0 for no noise shaping
-    NoiseShaping_ = NoiseShaping;
+    noiseShaping_ = noiseShaping;
 
     // word length (usually 16 bits)
-    WordLength_ = pow(2.0, NumberOfBits - 1);
-    WordLengthInverted_ = 1.0 / WordLength_;
+    wordLength_ = pow(2.0, numberOfBits - 1);
+    wordLengthInverted_ = 1.0 / wordLength_;
 
     // dither amplitude (2 LSB)
-    DitherAmplitude_ = WordLengthInverted_ / RAND_MAX;
+    ditherAmplitude_ = wordLengthInverted_ / RAND_MAX;
 
     // remove DC offset
-    DcOffset_ = WordLengthInverted_ * 0.5;
+    dcOffset_ = wordLengthInverted_ * 0.5;
 }
 
 
 
-float Dither::dither(
-    double Input)
+void Dither::convertToDouble(
+    const AudioBuffer<float> &inputBufferFloat,
+    AudioBuffer<double> &outputBufferDouble)
+{
+    int numberOfChannels = inputBufferFloat.getNumChannels();
+    int numberOfSamples = inputBufferFloat.getNumSamples();
+
+    jassert(outputBufferDouble.getNumChannels() == numberOfChannels);
+    jassert(numberOfChannels <= numberOfChannels_);
+
+    jassert(outputBufferDouble.getNumSamples() == numberOfSamples);
+
+    for (int currentChannel = 0; currentChannel < numberOfChannels; ++currentChannel)
+    {
+        for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
+        {
+            double inputValueFloat = inputBufferFloat.getSample(
+                                         currentChannel, currentSample);
+
+            // convert input sample
+            double outputValueDouble = static_cast<double>(inputValueFloat);
+
+            // store converted input sample
+            outputBufferDouble.setSample(
+                currentChannel, currentSample, outputValueDouble);
+        }
+    }
+}
+
+
+void Dither::denormalize(
+    AudioBuffer<float> &buffer)
+{
+    int numberOfChannels = buffer.getNumChannels();
+    int numberOfSamples = buffer.getNumSamples();
+
+    jassert(numberOfChannels <= numberOfChannels_);
+
+    for (int currentChannel = 0; currentChannel < numberOfChannels; ++currentChannel)
+    {
+        for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
+        {
+            float sampleValue = buffer.getSample(
+                                    currentChannel, currentSample);
+
+            // de-normalise input sample
+            sampleValue += antiDenormalFloat_;
+
+            // store de-normalised input sample
+            buffer.setSample(
+                currentChannel, currentSample, sampleValue);
+        }
+    }
+}
+
+
+void Dither::denormalize(
+    AudioBuffer<double> &buffer)
+{
+    int numberOfChannels = buffer.getNumChannels();
+    int numberOfSamples = buffer.getNumSamples();
+
+    jassert(numberOfChannels <= numberOfChannels_);
+
+    for (int currentChannel = 0; currentChannel < numberOfChannels; ++currentChannel)
+    {
+        for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
+        {
+            double sampleValue = buffer.getSample(
+                                     currentChannel, currentSample);
+
+            // de-normalise input sample
+            sampleValue += antiDenormalDouble_;
+
+            // store de-normalised input sample
+            buffer.setSample(
+                currentChannel, currentSample, sampleValue);
+        }
+    }
+}
+
+
+void Dither::denormalizeToDouble(
+    const AudioBuffer<float> &inputBufferFloat,
+    AudioBuffer<double> &outputBufferDouble)
+{
+    int numberOfChannels = inputBufferFloat.getNumChannels();
+    int numberOfSamples = inputBufferFloat.getNumSamples();
+
+    jassert(outputBufferDouble.getNumChannels() == numberOfChannels);
+    jassert(numberOfChannels <= numberOfChannels_);
+
+    jassert(outputBufferDouble.getNumSamples() == numberOfSamples);
+
+    for (int currentChannel = 0; currentChannel < numberOfChannels; ++currentChannel)
+    {
+        for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
+        {
+            double inputValueFloat = inputBufferFloat.getSample(
+                                         currentChannel, currentSample);
+
+            // convert input sample
+            double outputValueDouble = static_cast<double>(inputValueFloat);
+
+            // de-normalise input sample
+            outputValueDouble += antiDenormalDouble_;
+
+            // store de-normalised input sample
+            outputBufferDouble.setSample(
+                currentChannel, currentSample, outputValueDouble);
+        }
+    }
+}
+
+
+// Thanks to Paul Kellet for the code snippet!
+// (http://www.musicdsp.org/showone.php?id=77)
+float Dither::ditherSample(
+    const int currentChannel,
+    const double &inputValueDouble)
 {
     // can make HP-TRI dither by subtracting previous rand()
-    RandomNumber_2_ = RandomNumber_1_;
-    RandomNumber_1_ = rand();
+    randomNumber_2_.set(currentChannel,
+                        randomNumber_1_[currentChannel]);
+    randomNumber_1_.set(currentChannel,
+                        rand());
 
     // error feedback
-    double Output = Input + NoiseShaping_ *
-                    (ErrorFeedback_1_ + ErrorFeedback_1_ - ErrorFeedback_2_);
+    double outputValue = inputValueDouble + noiseShaping_ *
+                         (errorFeedback_1_[currentChannel] +
+                          errorFeedback_1_[currentChannel] -
+                          errorFeedback_2_[currentChannel]);
 
     // DC offset and dither
-    double TempOutput = Output + DcOffset_ + DitherAmplitude_ *
-                        (double)(RandomNumber_1_ - RandomNumber_2_);
+    double tempOutputValue = outputValue + dcOffset_ + ditherAmplitude_ *
+                             static_cast<double>(
+                                 randomNumber_1_[currentChannel] -
+                                 randomNumber_2_[currentChannel]);
 
     // truncate downwards
-    int OutputTruncate = (int)(WordLength_ * TempOutput);
+    int outputTruncate = static_cast<int>(wordLength_ * tempOutputValue);
 
-    if (TempOutput < 0.0)
+    // this is faster than floor()
+    if (tempOutputValue < 0.0)
     {
-        // this is faster than floor()
-        --OutputTruncate;
+        --outputTruncate;
     }
 
     // old error feedback
-    ErrorFeedback_2_ = ErrorFeedback_1_;
+    errorFeedback_2_.set(currentChannel,
+                         errorFeedback_1_[currentChannel]);
 
     // new error feedback
-    ErrorFeedback_1_ = Output - WordLengthInverted_ * (double) OutputTruncate;
+    errorFeedback_1_.set(currentChannel,
+                         outputValue - wordLengthInverted_ *
+                         static_cast<double>(outputTruncate));
 
-    return (float) Output;
+    // return dithered output sample
+    return static_cast<float>(outputValue);
+}
+
+
+void Dither::ditherToFloat(
+    const AudioBuffer<double> &inputBufferDouble,
+    AudioBuffer<float> &outputBufferFloat)
+{
+    int numberOfChannels = inputBufferDouble.getNumChannels();
+    int numberOfSamples = inputBufferDouble.getNumSamples();
+
+    jassert(outputBufferFloat.getNumChannels() == numberOfChannels);
+    jassert(numberOfChannels <= numberOfChannels_);
+
+    jassert(outputBufferFloat.getNumSamples() == numberOfSamples);
+
+    for (int currentChannel = 0; currentChannel < numberOfChannels; ++currentChannel)
+    {
+        for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
+        {
+            double inputValueDouble = inputBufferDouble.getSample(
+                                          currentChannel, currentSample);
+
+            float outputValueFloat = ditherSample(
+                                         currentChannel, inputValueDouble);
+
+            outputBufferFloat.setSample(
+                currentChannel, currentSample, outputValueFloat);
+        }
+    }
 }
 
 

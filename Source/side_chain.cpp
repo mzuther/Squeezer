@@ -26,7 +26,8 @@
 #include "side_chain.h"
 
 
-SideChain::SideChain(int nSampleRate) :
+SideChain::SideChain(
+    int nSampleRate) :
     gainStageFET(nSampleRate),
     gainStageOptical(nSampleRate)
     /*  Constructor.
@@ -88,7 +89,8 @@ double SideChain::getDetectorRmsFilter()
 }
 
 
-void SideChain::setDetectorRmsFilter(double dDetectorRateMilliSecondsNew)
+void SideChain::setDetectorRmsFilter(
+    double dDetectorRateMilliSecondsNew)
 /*  Set new detector RMS filter rate.
 
     dDetectorRateMilliSecondsNew (double): new detector RMS filter
@@ -125,7 +127,8 @@ int SideChain::getDetector()
 }
 
 
-void SideChain::setDetector(int nDetectorTypeNew)
+void SideChain::setDetector(
+    int nDetectorTypeNew)
 /*  Set new compressor detector type.
 
     nDetectorTypeNew (integer): new compressor detector type
@@ -151,7 +154,8 @@ int SideChain::getGainStage()
 }
 
 
-void SideChain::setGainStage(int nGainStageTypeNew)
+void SideChain::setGainStage(
+    int nGainStageTypeNew)
 /*  Set new compressor gain stage type.
 
     nGainStageTypeNew (integer): new compressor gain stage type
@@ -185,7 +189,8 @@ double SideChain::getThreshold()
 }
 
 
-void SideChain::setThreshold(double dThresholdNew)
+void SideChain::setThreshold(
+    double dThresholdNew)
 /*  Set new threshold.
 
     dThresholdNew (double): new threshold in decibels
@@ -208,7 +213,8 @@ double SideChain::getRatio()
 }
 
 
-void SideChain::setRatio(double dRatioNew)
+void SideChain::setRatio(
+    double dRatioNew)
 /*  Set new compression ratio.
 
     dRatioNew (double): new compression ratio
@@ -231,7 +237,8 @@ double SideChain::getKneeWidth()
 }
 
 
-void SideChain::setKneeWidth(double dKneeWidthNew)
+void SideChain::setKneeWidth(
+    double dKneeWidthNew)
 /*  Set new knee width.
 
     dKneeWidthNew (double): new knee width in decibels
@@ -258,7 +265,8 @@ double SideChain::getAttackRate()
 }
 
 
-void SideChain::setAttackRate(double dAttackRateNew)
+void SideChain::setAttackRate(
+    double dAttackRateNew)
 /*  Set new attack rate.
 
     dAttackRateNew (double): new attack rate in milliseconds
@@ -294,7 +302,8 @@ int SideChain::getReleaseRate()
 }
 
 
-void SideChain::setReleaseRate(int nReleaseRateNew)
+void SideChain::setReleaseRate(
+    int nReleaseRateNew)
 /*  Set new release rate.
 
     nReleaseRateNew (integer): new release rate in milliseconds
@@ -328,7 +337,8 @@ void SideChain::setReleaseRate(int nReleaseRateNew)
 }
 
 
-double SideChain::getGainReduction(bool bAutoMakeupGain)
+double SideChain::getGainReduction(
+    bool bAutoMakeupGain)
 /*  Get current gain reduction.
 
     bAutoMakeupGain (boolean): determines whether the gain reduction
@@ -361,7 +371,8 @@ double SideChain::getGainReduction(bool bAutoMakeupGain)
 }
 
 
-double SideChain::queryGainComputer(double dInputLevel)
+double SideChain::queryGainComputer(
+    double dInputLevel)
 /*  Calculate gain reduction and envelopes from input level.
 
     dInputLevel (double): current input level in decibels
@@ -406,7 +417,8 @@ double SideChain::queryGainComputer(double dInputLevel)
 }
 
 
-void SideChain::processSample(double dInputLevel)
+void SideChain::processSample(
+    double dInputLevel)
 /*  Process a single audio sample value.
 
     dInputLevel (double): current audio sample value in decibels
@@ -486,7 +498,8 @@ void SideChain::processSample(double dInputLevel)
 }
 
 
-double SideChain::applyLevelDetectionFilter(double dDetectorInputLevel)
+double SideChain::applyLevelDetectionFilter(
+    double dDetectorInputLevel)
 {
     // bypass RMS sensing
     if (dDetectorRateMilliSeconds <= 0.0)
@@ -506,7 +519,8 @@ double SideChain::applyLevelDetectionFilter(double dDetectorInputLevel)
 }
 
 
-void SideChain::applyDetectorLinear(double dGainReductionNew)
+void SideChain::applyDetectorLinear(
+    double dGainReductionNew)
 /*  Calculate detector with logarithmic attack and linear release
     ("Linear").
 
@@ -555,7 +569,8 @@ void SideChain::applyDetectorLinear(double dGainReductionNew)
 }
 
 
-void SideChain::applyDetectorSmoothDecoupled(double dGainReductionNew)
+void SideChain::applyDetectorSmoothDecoupled(
+    double dGainReductionNew)
 /*  Calculate smooth decoupled detector ("S-Curve").
 
     dGainReductionNew (double): calculated gain reduction in decibels
@@ -597,7 +612,8 @@ void SideChain::applyDetectorSmoothDecoupled(double dGainReductionNew)
 }
 
 
-void SideChain::applyDetectorSmoothBranching(double dGainReductionNew)
+void SideChain::applyDetectorSmoothBranching(
+    double dGainReductionNew)
 /*  Calculate smooth branching detector ("Logarithmic").
 
     dGainReductionNew (double): calculated gain reduction in decibels
@@ -644,7 +660,8 @@ void SideChain::applyDetectorSmoothBranching(double dGainReductionNew)
 }
 
 
-double SideChain::level2decibel(double dLevel)
+double SideChain::level2decibel(
+    double dLevel)
 /*  Convert level from linear scale to decibels (dB).
 
     dLevel (double): audio level
@@ -682,7 +699,8 @@ double SideChain::level2decibel(double dLevel)
 }
 
 
-double SideChain::decibel2level(double dDecibels)
+double SideChain::decibel2level(
+    double dDecibels)
 /*  Convert level from decibels (dB) to linear scale.
 
     dLevel (double): audio level in decibels (dB)

@@ -134,12 +134,12 @@ OBJECTS := \
 	$(OBJDIR)/include_juce_gui_basics.o \
 	$(OBJDIR)/include_juce_gui_extra.o \
 	$(OBJDIR)/include_juce_video.o \
-	$(OBJDIR)/frut_audio.o \
-	$(OBJDIR)/frut_dsp.o \
-	$(OBJDIR)/frut_math.o \
-	$(OBJDIR)/frut_parameter.o \
-	$(OBJDIR)/frut_skin.o \
-	$(OBJDIR)/frut_widget.o \
+	$(OBJDIR)/include_frut_audio.o \
+	$(OBJDIR)/include_frut_dsp.o \
+	$(OBJDIR)/include_frut_math.o \
+	$(OBJDIR)/include_frut_parameter.o \
+	$(OBJDIR)/include_frut_skin.o \
+	$(OBJDIR)/include_frut_widget.o \
 	$(OBJDIR)/compressor.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/gain_stage_optical.o \
@@ -252,22 +252,22 @@ $(OBJDIR)/include_juce_gui_extra.o: ../../../JuceLibraryCode/include_juce_gui_ex
 $(OBJDIR)/include_juce_video.o: ../../../JuceLibraryCode/include_juce_video.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/frut_audio.o: ../../../Source/common/amalgamated/frut_audio.cpp
+$(OBJDIR)/include_frut_audio.o: ../../../Source/common/amalgamated/include_frut_audio.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/frut_dsp.o: ../../../Source/common/amalgamated/frut_dsp.cpp
+$(OBJDIR)/include_frut_dsp.o: ../../../Source/common/amalgamated/include_frut_dsp.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/frut_math.o: ../../../Source/common/amalgamated/frut_math.cpp
+$(OBJDIR)/include_frut_math.o: ../../../Source/common/amalgamated/include_frut_math.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/frut_parameter.o: ../../../Source/common/amalgamated/frut_parameter.cpp
+$(OBJDIR)/include_frut_parameter.o: ../../../Source/common/amalgamated/include_frut_parameter.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/frut_skin.o: ../../../Source/common/amalgamated/frut_skin.cpp
+$(OBJDIR)/include_frut_skin.o: ../../../Source/common/amalgamated/include_frut_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/frut_widget.o: ../../../Source/common/amalgamated/frut_widget.cpp
+$(OBJDIR)/include_frut_widget.o: ../../../Source/common/amalgamated/include_frut_widget.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/compressor.o: ../../../Source/compressor.cpp

@@ -40,62 +40,9 @@ Flow of parameter processing:
 
 ==============================================================================*/
 
-#ifdef SQUEEZER_MONO
-#if JucePlugin_Build_VST
-
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor(BusesProperties()
-                     .withInput("Main / SC In",
-                                AudioChannelSet::discreteChannels(2))
-                     .withOutput("Main Out",
-                                 AudioChannelSet::discreteChannels(1))
-                     .withInput("Disabled In",
-                                AudioChannelSet::disabled()))
-#endif
-
-#else
-
-SqueezerAudioProcessor::SqueezerAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor(BusesProperties()
-                     .withInput("Main In",
-                                AudioChannelSet::mono())
-                     .withOutput("Main Out",
-                                 AudioChannelSet::mono())
-                     .withInput("Sidechain In",
-                                AudioChannelSet::mono()))
-#endif
-
-#endif
-#else
-#if JucePlugin_Build_VST
-
-SqueezerAudioProcessor::SqueezerAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor(BusesProperties()
-                     .withInput("Main / SC In",
-                                AudioChannelSet::discreteChannels(4))
-                     .withOutput("Main Out",
-                                 AudioChannelSet::discreteChannels(2))
-                     .withInput("Disabled In",
-                                AudioChannelSet::disabled()))
-#endif
-
-#else
-
-SqueezerAudioProcessor::SqueezerAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor(BusesProperties()
-                     .withInput("Main In",
-                                AudioChannelSet::stereo())
-                     .withOutput("Main Out",
-                                 AudioChannelSet::stereo())
-                     .withInput("Sidechain In",
-                                AudioChannelSet::stereo()))
-#endif
-
-#endif
+    : AudioProcessor(getBusesProperties())
 #endif
 {
     frut::Frut::printVersionNumbers();
@@ -113,10 +60,64 @@ SqueezerAudioProcessor::~SqueezerAudioProcessor()
 }
 
 
+AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
+{
+#ifdef SQUEEZER_MONO
+
+#if JucePlugin_Build_VST
+
+    return BusesProperties()
+           .withInput("Main / SC In",
+                      AudioChannelSet::discreteChannels(2))
+           .withOutput("Main Out",
+                       AudioChannelSet::discreteChannels(1))
+           .withInput("Disabled In",
+                      AudioChannelSet::disabled());
+
+#else
+
+    return BusesProperties()
+           .withInput("Main In",
+                      AudioChannelSet::mono())
+           .withOutput("Main Out",
+                       AudioChannelSet::mono())
+           .withInput("Sidechain In",
+                      AudioChannelSet::mono());
+
+#endif
+
+#else
+
+#if JucePlugin_Build_VST
+
+    return BusesProperties()
+           .withInput("Main / SC In",
+                      AudioChannelSet::discreteChannels(4))
+           .withOutput("Main Out",
+                       AudioChannelSet::discreteChannels(2))
+           .withInput("Disabled In",
+                      AudioChannelSet::disabled());
+
+#else
+
+    return BusesProperties()
+           .withInput("Main In",
+                      AudioChannelSet::stereo())
+           .withOutput("Main Out",
+                       AudioChannelSet::stereo())
+           .withInput("Sidechain In",
+                      AudioChannelSet::stereo());
+
+#endif
+
+#endif
+}
+
+
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool SqueezerAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
 {
-    // main bus: do not allow disabling channels
+    // main bus: do not allow disabling of input channels
     if (layouts.getMainInputChannelSet().isDisabled())
     {
         return false;
@@ -842,10 +843,12 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     bool bSidechainListen = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainListen);
 
 #ifdef SQUEEZER_MONO
-    pCompressor = new Compressor(1, (int) sampleRate);
+    int numberOfChannels = 1;
 #else
-    pCompressor = new Compressor(2, (int) sampleRate);
+    int numberOfChannels = 2;
 #endif
+    Dither.initialise(numberOfChannels, 24);
+    pCompressor = new Compressor(numberOfChannels, (int) sampleRate);
 
     pCompressor->setBypass(bBypassCompressor);
     pCompressor->setDetectorRmsFilter(fDetectorRateMilliSeconds);
@@ -881,13 +884,55 @@ void SqueezerAudioProcessor::releaseResources()
 }
 
 
-void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer &midiMessages)
+void SqueezerAudioProcessor::reset()
 {
+    // Use this method as the place to clear any delay lines, buffers,
+    // etc, as it means there's been a break in the audio's
+    // continuity.
+}
+
+
+void SqueezerAudioProcessor::processBlock(
+    AudioBuffer<float> &buffer,
+    MidiBuffer &midiMessages)
+{
+    jassert(!isUsingDoublePrecision());
     ignoreUnused(midiMessages);
 
-    // This is the place where you'd normally do the guts of your
-    // plug-in's audio processing...
+    int NumberOfChannels = buffer.getNumChannels();
+    int NumberOfSamples = buffer.getNumSamples();
 
+    AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
+
+    // convert input to float and de-normalize samples
+    Dither.denormalizeToDouble(buffer, processBuffer);
+
+    // compress input samples
+    process(processBuffer);
+
+    // dither output to float
+    Dither.ditherToFloat(processBuffer, buffer);
+}
+
+
+void SqueezerAudioProcessor::processBlock(
+    AudioBuffer<double> &buffer,
+    MidiBuffer &midiMessages)
+{
+    jassert(isUsingDoublePrecision());
+    ignoreUnused(midiMessages);
+
+    // de-normalize samples
+    Dither.denormalize(buffer);
+
+    // compress input samples
+    process(buffer);
+}
+
+
+void SqueezerAudioProcessor::process(
+    AudioBuffer<double> &buffer)
+{
     int nNumSamples = buffer.getNumSamples();
 
     if (!bSampleRateIsValid)
@@ -917,8 +962,8 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
 
 #ifdef SQUEEZER_MONO
 
-    MainInput = AudioBuffer<float>(1, nNumSamples);
-    SideChainInput = AudioBuffer<float>(1, nNumSamples);
+    MainInput = AudioBuffer<double>(1, nNumSamples);
+    SideChainInput = AudioBuffer<double>(1, nNumSamples);
 
     if (getChannelLayoutOfBus(true, 0) == AudioChannelSet::mono())
     {
@@ -953,8 +998,8 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
 
 #else
 
-    MainInput = AudioBuffer<float>(2, nNumSamples);
-    SideChainInput = AudioBuffer<float>(2, nNumSamples);
+    MainInput = AudioBuffer<double>(2, nNumSamples);
+    SideChainInput = AudioBuffer<double>(2, nNumSamples);
 
     if (getChannelLayoutOfBus(true, 0) == AudioChannelSet::stereo())
     {
@@ -995,8 +1040,7 @@ void SqueezerAudioProcessor::processBlock(AudioBuffer<float> &buffer, MidiBuffer
 
 #endif
 
-    // compressor's output is already de-normalised
-    pCompressor->processBlock(MainInput, SideChainInput);
+    pCompressor->process(MainInput, SideChainInput);
 
 #ifdef SQUEEZER_MONO
 

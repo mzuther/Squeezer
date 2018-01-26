@@ -59,7 +59,8 @@ public:
         NumberOfKneeSettings,
     };
 
-    Compressor(int channels, int sample_rate);
+    Compressor(int channels,
+               int sample_rate);
 
     void resetMeters();
 
@@ -132,30 +133,41 @@ public:
     double getAverageMeterInputLevel(int CurrentChannel);
     double getAverageMeterOutputLevel(int CurrentChannel);
 
-    void processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float> &SideChainBuffer);
+    void process(AudioBuffer<double> &MainBuffer,
+                 AudioBuffer<double> &SideChainBuffer);
 
 private:
     JUCE_LEAK_DETECTOR(Compressor);
 
-    const float AntiDenormalFloat;
-    const double AntiDenormalDouble;
     const double BufferLength;
 
     void updateMeterBallistics();
-    void peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelOld, double &PeakMarkOld, double &PeakHoldTime);
-    void averageMeterBallistics(double AverageLevelCurrent, double &AverageLevelOld);
-    void gainReductionMeterPeakBallistics(double GainReductionPeakCurrent, double &GainReductionPeakOld, double &GainReductionHoldTime);
-    void logMeterBallistics(double MeterInertia, double TimePassed, double Level, double &Readout);
+
+    void peakMeterBallistics(double PeakLevelCurrent,
+                             double &PeakLevelOld,
+                             double &PeakMarkOld,
+                             double &PeakHoldTime);
+
+    void averageMeterBallistics(double AverageLevelCurrent,
+                                double &AverageLevelOld);
+
+    void gainReductionMeterPeakBallistics(double GainReductionPeakCurrent,
+                                          double &GainReductionPeakOld,
+                                          double &GainReductionHoldTime);
+
+    void logMeterBallistics(double MeterInertia,
+                            double TimePassed,
+                            double Level,
+                            double &Readout);
 
     int NumberOfChannels;
     int SampleRate;
     int MeterBufferPosition;
     int MeterBufferSize;
 
-    AudioBuffer<float> MeterInputBuffer;
-    AudioBuffer<float> MeterOutputBuffer;
+    AudioBuffer<double> MeterInputBuffer;
+    AudioBuffer<double> MeterOutputBuffer;
 
-    frut::dsp::Dither Dither;
     OwnedArray<SideChain> SideChainProcessor;
     OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_HPF;
     OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_LPF;

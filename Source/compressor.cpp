@@ -28,15 +28,12 @@
 
 Compressor::Compressor(int channels, int sample_rate) :
     // the meter's sample buffer holds 50 ms worth of samples
-    AntiDenormalFloat(FLT_MIN),
-    AntiDenormalDouble(DBL_MIN),
     BufferLength(0.050),
     NumberOfChannels(channels),
     SampleRate(sample_rate),
     MeterBufferSize((int)(SampleRate * BufferLength)),
     MeterInputBuffer(NumberOfChannels, MeterBufferSize),
-    MeterOutputBuffer(NumberOfChannels, MeterBufferSize),
-    Dither(24)
+    MeterOutputBuffer(NumberOfChannels, MeterBufferSize)
 {
     jassert((NumberOfChannels == 1) || (NumberOfChannels == 2));
 
@@ -788,7 +785,9 @@ double Compressor::getAverageMeterOutputLevel(int CurrentChannel)
 }
 
 
-void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float> &SideChainBuffer)
+void Compressor::process(
+    AudioBuffer<double> &MainBuffer,
+    AudioBuffer<double> &SideChainBuffer)
 {
     jassert(MainBuffer.getNumSamples() == SideChainBuffer.getNumSamples());
 
@@ -801,20 +800,14 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
         for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
             // get current input sample
-            float InputSampleFloat = MainBuffer.getSample(CurrentChannel, nSample);
-            double InputSample = (double) InputSampleFloat;
-
-            // de-normalise input sample
-            InputSampleFloat += AntiDenormalFloat;
-            InputSample += AntiDenormalDouble;
+            double InputSample = MainBuffer.getSample(CurrentChannel, nSample);
 
             // store de-normalised input sample
             InputSamples.set(CurrentChannel, InputSample);
 
-            // store de-normalised input sample in buffer for input
-            // meter
+            // store input sample in buffer for input meter
             MeterInputBuffer.setSample(
-                CurrentChannel, MeterBufferPosition, InputSampleFloat);
+                CurrentChannel, MeterBufferPosition, InputSample);
         }
 
         // compressor is bypassed (or mix is set to 0 percent)
@@ -861,35 +854,20 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
                     SideChainSample = (double) MainBuffer.getSample(
                                           CurrentChannel, nSample);
                 }
-
-                // de-normalise side chain input sample
-                SideChainSample += AntiDenormalDouble;
             }
             // compress channels (feed-back design)
             else
             {
-                // alternative feed-back mode (supports external side
-                // chain)
+                // only the alternative feed-back mode supports
+                // external side chain, so use it when external side
+                // chain is enabled
                 bool UseAlternativeFeedbackMode = EnableExternalInput;
 
                 if (UseAlternativeFeedbackMode)
                 {
-                    // side chain is fed from *input* channel
-                    if (EnableExternalInput)
-                    {
-                        // feed side chain from external input
-                        SideChainSample = (double) SideChainBuffer.getSample(
-                                              CurrentChannel, nSample);
-                    }
-                    else
-                    {
-                        // feed side chain from main input
-                        SideChainSample = (double) MainBuffer.getSample(
-                                              CurrentChannel, nSample);
-                    }
-
-                    // de-normalise side chain input sample
-                    SideChainSample += AntiDenormalDouble;
+                    // feed side chain from external input
+                    SideChainSample = (double) SideChainBuffer.getSample(
+                                          CurrentChannel, nSample);
 
                     // retrieve last gain reduction
                     double LastGainReduction = -GainReductionWithMakeup[CurrentChannel];
@@ -1016,11 +994,8 @@ void Compressor::processBlock(AudioBuffer<float> &MainBuffer, AudioBuffer<float>
                 }
             }
 
-            // dither output sample to float
-            float OutputSampleFloat = Dither.dither(OutputSample);
-
             // write output sample to main buffer
-            MainBuffer.setSample(CurrentChannel, nSample, OutputSampleFloat);
+            MainBuffer.setSample(CurrentChannel, nSample, OutputSample);
 
             // store output sample for metering (reflects real output,
             // so when the user listens to the side-chain, the output

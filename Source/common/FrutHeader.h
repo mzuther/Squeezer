@@ -44,7 +44,7 @@ public:
     ///
     static const juce::String getVersion()
     {
-        return "1.8.1";
+        return "1.8.2";
     }
 
 
@@ -64,14 +64,14 @@ public:
 
 
 // normal includes
-#include "amalgamated/frut_audio.h"
-#include "amalgamated/frut_dsp.h"
-#include "amalgamated/frut_math.h"
-#include "amalgamated/frut_parameter.h"
-#include "amalgamated/frut_widget.h"
+#include "amalgamated/include_frut_audio.h"
+#include "amalgamated/include_frut_dsp.h"
+#include "amalgamated/include_frut_math.h"
+#include "amalgamated/include_frut_parameter.h"
+#include "amalgamated/include_frut_widget.h"
 
 // post includes
-#include "amalgamated/frut_skin.h"
+#include "amalgamated/include_frut_skin.h"
 
 
 // Local Variables:

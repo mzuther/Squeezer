@@ -18,22 +18,22 @@
     <ClInclude Include="..\..\..\Source\common\FrutHeader.h">
       <Filter>Source\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_audio.h">
+    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_audio.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_dsp.h">
+    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_dsp.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_math.h">
+    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_math.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_parameter.h">
+    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_parameter.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_skin.h">
+    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_skin.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\common\amalgamated\frut_widget.h">
+    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_widget.h">
       <Filter>Source\common\amalgamated</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\compressor.h">
@@ -116,22 +116,22 @@
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_video.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_audio.cpp">
+    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_audio.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_dsp.cpp">
+    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_dsp.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_math.cpp">
+    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_math.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_parameter.cpp">
+    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_parameter.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_skin.cpp">
+    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_skin.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\common\amalgamated\frut_widget.cpp">
+    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_widget.cpp">
       <Filter>Source\common\amalgamated</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\compressor.cpp">

@@ -29,26 +29,45 @@
 class Dither
 {
 public:
-    Dither(int NumberOfBits,
-           double NoiseShaping = 0.5);
+    Dither();
 
-    void initialise(int NumberOfBits,
-                    double NoiseShaping = 0.5);
+    void initialise(const int numberOfChannels,
+                    const int numberOfBits,
+                    const double noiseShaping = 0.5);
 
-    float dither(double Input);
+    void convertToDouble(
+        const AudioBuffer<float> &inputBufferFloat,
+        AudioBuffer<double> &outputBufferDouble);
+
+    void denormalize(AudioBuffer<float> &buffer);
+    void denormalize(AudioBuffer<double> &buffer);
+
+    void denormalizeToDouble(const AudioBuffer<float> &inputBufferFloat,
+                             AudioBuffer<double> &outputBufferDouble);
+
+    float ditherSample(const int currentChannel,
+                       const double &inputValueDouble);
+
+    void ditherToFloat(const AudioBuffer<double> &inputBufferDouble,
+                       AudioBuffer<float> &outputBufferFloat);
 
 private:
-    int RandomNumber_1_;
-    int RandomNumber_2_;
+    Array<int> randomNumber_1_;
+    Array<int> randomNumber_2_;
 
-    double ErrorFeedback_1_;
-    double ErrorFeedback_2_;
+    Array<double> errorFeedback_1_;
+    Array<double> errorFeedback_2_;
 
-    double DcOffset_;
-    double DitherAmplitude_;
-    double NoiseShaping_;
-    double WordLength_;
-    double WordLengthInverted_;
+    const float antiDenormalFloat_;
+    const double antiDenormalDouble_;
+
+    int numberOfChannels_;
+
+    double dcOffset_;
+    double ditherAmplitude_;
+    double noiseShaping_;
+    double wordLength_;
+    double wordLengthInverted_;
 };
 
 
