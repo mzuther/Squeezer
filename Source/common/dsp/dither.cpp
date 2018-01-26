@@ -28,6 +28,7 @@ Dither::Dither() :
     antiDenormalFloat_(FLT_MIN),
     antiDenormalDouble_(DBL_MIN)
 {
+    isInitialized = false;
 }
 
 
@@ -72,6 +73,8 @@ void Dither::initialise(
 
     // remove DC offset
     dcOffset_ = wordLengthInverted_ * 0.5;
+
+    isInitialized = true;
 }
 
 
@@ -92,8 +95,8 @@ void Dither::convertToDouble(
     {
         for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
         {
-            double inputValueFloat = inputBufferFloat.getSample(
-                                         currentChannel, currentSample);
+            float inputValueFloat = inputBufferFloat.getSample(
+                                        currentChannel, currentSample);
 
             // convert input sample
             double outputValueDouble = static_cast<double>(inputValueFloat);
@@ -101,6 +104,36 @@ void Dither::convertToDouble(
             // store converted input sample
             outputBufferDouble.setSample(
                 currentChannel, currentSample, outputValueDouble);
+        }
+    }
+}
+
+
+void Dither::truncateToFloat(
+    const AudioBuffer<double> &inputBufferDouble,
+    AudioBuffer<float> &outputBufferFloat)
+{
+    int numberOfChannels = inputBufferDouble.getNumChannels();
+    int numberOfSamples = inputBufferDouble.getNumSamples();
+
+    jassert(outputBufferFloat.getNumChannels() == numberOfChannels);
+    jassert(numberOfChannels <= numberOfChannels_);
+
+    jassert(outputBufferFloat.getNumSamples() == numberOfSamples);
+
+    for (int currentChannel = 0; currentChannel < numberOfChannels; ++currentChannel)
+    {
+        for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
+        {
+            double inputValueDouble = inputBufferDouble.getSample(
+                                          currentChannel, currentSample);
+
+            // truncate input sample
+            float outputValueFloat = static_cast<float>(inputValueDouble);
+
+            // store truncatee input sample
+            outputBufferFloat.setSample(
+                currentChannel, currentSample, outputValueFloat);
         }
     }
 }
@@ -174,8 +207,8 @@ void Dither::denormalizeToDouble(
     {
         for (int currentSample = 0; currentSample < numberOfSamples; ++currentSample)
         {
-            double inputValueFloat = inputBufferFloat.getSample(
-                                         currentChannel, currentSample);
+            float inputValueFloat = inputBufferFloat.getSample(
+                                        currentChannel, currentSample);
 
             // convert input sample
             double outputValueDouble = static_cast<double>(inputValueFloat);
@@ -197,6 +230,8 @@ float Dither::ditherSample(
     const int currentChannel,
     const double &inputValueDouble)
 {
+    jassert(isInitialized);
+
     // can make HP-TRI dither by subtracting previous rand()
     randomNumber_2_.set(currentChannel,
                         randomNumber_1_[currentChannel]);

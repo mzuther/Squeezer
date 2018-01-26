@@ -109,17 +109,17 @@ private:
 
     static BusesProperties getBusesProperties();
 
-    AudioBuffer<double> MainInput;
-    AudioBuffer<double> SideChainInput;
+    AudioBuffer<double> mainInput_;
+    AudioBuffer<double> sideChainInput_;
 
-    frut::dsp::Dither Dither;
+    frut::dsp::Dither dither_;
 
-    bool hasSideChain;
+    bool hasSideChain_;
 
-    SqueezerPluginParameters pluginParameters;
-    ScopedPointer<Compressor> pCompressor;
+    SqueezerPluginParameters pluginParameters_;
+    ScopedPointer<Compressor> compressor_;
 
-    bool bSampleRateIsValid;
+    bool sampleRateIsValid_;
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();

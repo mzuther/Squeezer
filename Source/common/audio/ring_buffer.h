@@ -26,15 +26,22 @@
 #pragma once
 
 
+template <typename Type>
 class RingBufferProcessor;
 
+
+template <typename Type>
 class RingBuffer
 {
 public:
-    RingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size);
+    RingBuffer(const String &buffer_name,
+               const unsigned int channels,
+               const unsigned int length,
+               const unsigned int pre_delay,
+               const unsigned int chunk_size);
 
     void clear();
-    void setCallbackClass(RingBufferProcessor *callback_class);
+    void setCallbackClass(RingBufferProcessor<Type> *callback_class);
 
     String getBufferName();
     unsigned int getCurrentPosition();
@@ -43,19 +50,40 @@ public:
     unsigned int getTotalLength();
     unsigned int getPreDelay();
 
-    float getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay);
+    Type getSample(const unsigned int channel,
+                   const unsigned int relative_position,
+                   const unsigned int pre_delay);
 
-    unsigned int addSamples(AudioBuffer<float> &source, const unsigned int sourceStartSample, const unsigned int numSamples);
-    void copyToBuffer(AudioBuffer<float> &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay);
+    unsigned int addSamples(AudioBuffer<Type> &source,
+                            const unsigned int sourceStartSample,
+                            const unsigned int numSamples);
 
-    float getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
-    float getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay);
+    void copyToBuffer(AudioBuffer<Type> &destination,
+                      const unsigned int destStartSample,
+                      const unsigned int numSamples,
+                      const unsigned int pre_delay);
+
+    Type getMagnitude(const unsigned int channel,
+                      const unsigned int numSamples,
+                      const unsigned int pre_delay);
+
+    Type getRMSLevel(const unsigned int channel,
+                     const unsigned int numSamples,
+                     const unsigned int pre_delay);
 
 protected:
     void clearCallbackClass();
-    void triggerFullBuffer(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples);
 
-    RingBufferProcessor *pCallbackClass;
+    void triggerFullBuffer(AudioBuffer<Type> &buffer,
+                           const unsigned int uChunkSize,
+                           const unsigned int uBufferPosition,
+                           const unsigned int uProcessedSamples);
+
+    RingBufferProcessor<Type> *callbackClass_;
+
+    Array<unsigned int> uChannelOffset;
+    HeapBlock<Type> audioData;
+
     String strBufferName;
 
     unsigned int uChannels;
@@ -66,21 +94,22 @@ protected:
 
     unsigned int uCurrentPosition;
     unsigned int uSamplesInBuffer;
-    Array<unsigned int> uChannelOffset;
-
-    const float fRingBufferMemTest;
-
-    HeapBlock<float> audioData;
 
 private:
     JUCE_LEAK_DETECTOR(RingBuffer);
+
+    const Type ringBufferMemTest_;
 };
 
 
+template <typename Type>
 class RingBufferProcessor
 {
 public:
-    virtual void processBufferChunk(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples) = 0;
+    virtual void processBufferChunk(AudioBuffer<Type> &buffer,
+                                    const unsigned int uChunkSize,
+                                    const unsigned int uBufferPosition,
+                                    const unsigned int uProcessedSamples) = 0;
 };
 
 

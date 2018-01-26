@@ -24,8 +24,14 @@
 ---------------------------------------------------------------------------- */
 
 
-RingBuffer::RingBuffer(const String &buffer_name, const unsigned int channels, const unsigned int length, const unsigned int pre_delay, const unsigned int chunk_size) :
-    fRingBufferMemTest(255.0f)
+template <typename Type>
+RingBuffer<Type>::RingBuffer(
+    const String &buffer_name,
+    const unsigned int channels,
+    const unsigned int length,
+    const unsigned int pre_delay,
+    const unsigned int chunk_size) :
+    ringBufferMemTest_(255)
 {
     jassert(channels > 0);
     jassert(length > 0);
@@ -40,13 +46,13 @@ RingBuffer::RingBuffer(const String &buffer_name, const unsigned int channels, c
     uTotalLength = uLength + uPreDelay;
     uChunkSize = chunk_size;
 
-    // pad memory areas with value of fRingBufferMemTest to allow
+    // pad memory areas with value of ringBufferMemTest_ to allow
     // detection of memory leaks
     audioData.calloc(uChannels * (uTotalLength + 2));
 
     for (unsigned int i = 0; i < (uChannels * (uTotalLength + 2)); ++i)
     {
-        audioData[i] = fRingBufferMemTest;
+        audioData[i] = ringBufferMemTest_;
     }
 
     uCurrentPosition = 0;
@@ -61,14 +67,15 @@ RingBuffer::RingBuffer(const String &buffer_name, const unsigned int channels, c
 }
 
 
-void RingBuffer::clear()
+template <typename Type>
+void RingBuffer<Type>::clear()
 {
     uCurrentPosition = 0;
 
     for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
         for (unsigned int uSample = 0; uSample < uTotalLength; ++uSample)
         {
-            audioData[uSample + uChannelOffset[uChannel]] = 0.0f;
+            audioData[uSample + uChannelOffset[uChannel]] = 0.0;
         }
 
 #ifdef DEBUG
@@ -76,52 +83,65 @@ void RingBuffer::clear()
     // detection of memory leaks
     for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
     {
-        jassert(audioData[uChannelOffset[uChannel] - 1] == fRingBufferMemTest);
-        jassert(audioData[uChannelOffset[uChannel]] != fRingBufferMemTest);
-        jassert(audioData[uChannelOffset[uChannel] + uTotalLength] == fRingBufferMemTest);
+        jassert(audioData[uChannelOffset[uChannel] - 1] ==
+                ringBufferMemTest_);
+        jassert(audioData[uChannelOffset[uChannel]] !=
+                ringBufferMemTest_);
+        jassert(audioData[uChannelOffset[uChannel] + uTotalLength] ==
+                ringBufferMemTest_);
     }
 
 #endif
 }
 
 
-String RingBuffer::getBufferName()
+template <typename Type>
+String RingBuffer<Type>::getBufferName()
 {
     return strBufferName;
 }
 
 
-unsigned int RingBuffer::getCurrentPosition()
+template <typename Type>
+unsigned int RingBuffer<Type>::getCurrentPosition()
 {
     return uCurrentPosition;
 }
 
 
-unsigned int RingBuffer::getSamplesInBuffer()
+template <typename Type>
+unsigned int RingBuffer<Type>::getSamplesInBuffer()
 {
     return uSamplesInBuffer;
 }
 
 
-unsigned int RingBuffer::getBufferLength()
+template <typename Type>
+unsigned int RingBuffer<Type>::getBufferLength()
 {
     return uLength;
 }
 
 
-unsigned int RingBuffer::getTotalLength()
+template <typename Type>
+unsigned int RingBuffer<Type>::getTotalLength()
 {
     return uTotalLength;
 }
 
 
-unsigned int RingBuffer::getPreDelay()
+template <typename Type>
+unsigned int RingBuffer<Type>::getPreDelay()
 {
     return uPreDelay;
 }
 
 
-float RingBuffer::getSample(const unsigned int channel, const unsigned int relative_position, const unsigned int pre_delay)
+template <typename Type>
+Type RingBuffer<Type>::getSample(
+    const unsigned int channel,
+    const unsigned int relative_position,
+    const unsigned int pre_delay)
 {
     jassert(channel < uChannels);
     jassert(relative_position <= uLength);
@@ -136,7 +156,8 @@ float RingBuffer::getSample(const unsigned int channel, const unsigned int relat
 
     while (nPosition < 0)
     {
-        nPosition += uTotalLength;    // make sure "nPosition" is positive
+        // make sure "nPosition" is positive
+        nPosition += uTotalLength;
     }
 
     nPosition %= uTotalLength;
@@ -145,16 +166,21 @@ float RingBuffer::getSample(const unsigned int channel, const unsigned int relat
 }
 
 
-unsigned int RingBuffer::addSamples(AudioBuffer<float> &source, const unsigned int sourceStartSample, const unsigned int numSamples)
+template <typename Type>
+unsigned int RingBuffer<Type>::addSamples(
+    AudioBuffer<Type> &source,
+    const unsigned int sourceStartSample,
+    const unsigned int numSamples)
 {
     if (numSamples <= 0)
     {
         return 0;
     }
 
-    jassert(source.getNumChannels() >= (int) uChannels);
+    jassert(source.getNumChannels() >= static_cast<int>(uChannels));
     jassert(numSamples <= uLength);
-    jassert((sourceStartSample + numSamples) <= (unsigned int) source.getNumSamples());
+    jassert((sourceStartSample + numSamples) <= static_cast<unsigned int>(
+                source.getNumSamples()));
 
     unsigned int uSamplesLeft = numSamples;
     unsigned int uSamplesFinished = 0;
@@ -177,26 +203,33 @@ unsigned int RingBuffer::addSamples(AudioBuffer<float> &source, const unsigned i
 
         for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
         {
-            memcpy(audioData + uCurrentPosition + uChannelOffset[uChannel], source.getReadPointer(uChannel, sourceStartSample + uSamplesFinished), sizeof(float) * uSamplesToCopy);
+            memcpy(audioData + uCurrentPosition + uChannelOffset[uChannel],
+                   source.getReadPointer(
+                       uChannel,
+                       sourceStartSample + uSamplesFinished),
+                   sizeof(Type) * uSamplesToCopy);
         }
 
         uSamplesInBuffer += uSamplesToCopy;
-
         uProcessedSamples += uSamplesToCopy;
-        bool bBufferFull = (uSamplesInBuffer == uChunkSize);
+
+        // buffer is full
+        if (uSamplesInBuffer == uChunkSize)
+        {
+            triggerFullBuffer(source,
+                              uChunkSize,
+                              sourceStartSample + uSamplesFinished,
+                              uProcessedSamples);
+
+            uProcessedSamples = 0;
+        }
+
         uSamplesInBuffer %= uChunkSize;
 
         uCurrentPosition += uSamplesToCopy;
         uCurrentPosition %= uTotalLength;
 
         uSamplesLeft -= uSamplesToCopy;
-
-        if (bBufferFull)
-        {
-            triggerFullBuffer(source, uChunkSize, sourceStartSample + uSamplesFinished, uProcessedSamples);
-            uProcessedSamples = 0;
-        }
-
         uSamplesFinished += uSamplesToCopy;
     }
 
@@ -205,9 +238,12 @@ unsigned int RingBuffer::addSamples(AudioBuffer<float> &source, const unsigned i
     // detection of memory leaks
     for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
     {
-        jassert(audioData[uChannelOffset[uChannel] - 1] == fRingBufferMemTest);
-        jassert(audioData[uChannelOffset[uChannel]] != fRingBufferMemTest);
-        jassert(audioData[uChannelOffset[uChannel] + uTotalLength] == fRingBufferMemTest);
+        jassert(audioData[uChannelOffset[uChannel] - 1] ==
+                ringBufferMemTest_);
+        jassert(audioData[uChannelOffset[uChannel]] !=
+                ringBufferMemTest_);
+        jassert(audioData[uChannelOffset[uChannel] + uTotalLength] ==
+                ringBufferMemTest_);
     }
 
 #endif
@@ -216,17 +252,23 @@ unsigned int RingBuffer::addSamples(AudioBuffer<float> &source, const unsigned i
 }
 
 
-void RingBuffer::copyToBuffer(AudioBuffer<float> &destination, const unsigned int destStartSample, const unsigned int numSamples, const unsigned int pre_delay)
+template <typename Type>
+void RingBuffer<Type>::copyToBuffer(
+    AudioBuffer<Type> &destination,
+    const unsigned int destStartSample,
+    const unsigned int numSamples,
+    const unsigned int pre_delay)
 {
     if (numSamples <= 0)
     {
         return;
     }
 
-    jassert(destination.getNumChannels() >= (int) uChannels);
+    jassert(destination.getNumChannels() >= static_cast<int>(uChannels));
     jassert(numSamples <= uLength);
     jassert(pre_delay <= uPreDelay);
-    jassert((destStartSample + numSamples) <= (unsigned int) destination.getNumSamples());
+    jassert((destStartSample + numSamples) <= static_cast<unsigned int>(
+                destination.getNumSamples()));
 
     unsigned int uSamplesLeft = numSamples;
     unsigned int uSamplesFinished = 0;
@@ -252,7 +294,11 @@ void RingBuffer::copyToBuffer(AudioBuffer<float> &destination, const unsigned in
 
         for (unsigned int uChannel = 0; uChannel < uChannels; ++uChannel)
         {
-            memcpy(destination.getWritePointer(uChannel, destStartSample + uSamplesFinished), audioData + nStartPosition + uChannelOffset[uChannel], sizeof(float) * uSamplesToCopy);
+            memcpy(destination.getWritePointer(
+                       uChannel,
+                       destStartSample + uSamplesFinished),
+                   audioData + nStartPosition + uChannelOffset[uChannel],
+                   sizeof(Type) * uSamplesToCopy);
         }
 
         nStartPosition += uSamplesToCopy;
@@ -264,55 +310,69 @@ void RingBuffer::copyToBuffer(AudioBuffer<float> &destination, const unsigned in
 }
 
 
-float RingBuffer::getMagnitude(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
+template <typename Type>
+Type RingBuffer<Type>::getMagnitude(
+    const unsigned int channel,
+    const unsigned int numSamples,
+    const unsigned int pre_delay)
 {
-    float fMagnitude = 0.0f;
+    Type magnitude = 0;
 
     for (unsigned int uSample = 0; uSample < numSamples; ++uSample)
     {
-        float fSampleValue = fabsf(getSample(channel, uSample, pre_delay));
-
-        if (fSampleValue > fMagnitude)
-        {
-            fMagnitude = fSampleValue;
-        }
+        magnitude = jmax(magnitude, getSample(channel, uSample, pre_delay));
     }
 
-    return fMagnitude;
+    return magnitude;
 }
 
 
-float RingBuffer::getRMSLevel(const unsigned int channel, const unsigned int numSamples, const unsigned int pre_delay)
+template <typename Type>
+Type RingBuffer<Type>::getRMSLevel(
+    const unsigned int channel,
+    const unsigned int numSamples,
+    const unsigned int pre_delay)
 {
-    double dRunningSum = 0.0;
+    Type runningSum = 0;
 
     for (unsigned int uSample = 0; uSample < numSamples; ++uSample)
     {
-        float fSampleValue = getSample(channel, uSample, pre_delay);
-        dRunningSum += fSampleValue * fSampleValue;
+        Type sampleValue = getSample(channel, uSample, pre_delay);
+        runningSum += sampleValue * sampleValue;
     }
 
-    return (float) sqrt(dRunningSum / numSamples);
+    return static_cast<Type>(sqrt(runningSum / numSamples));
 }
 
 
-void RingBuffer::setCallbackClass(RingBufferProcessor *callback_class)
+template <typename Type>
+void RingBuffer<Type>::setCallbackClass(
+    RingBufferProcessor<Type> *callback_class)
 {
-    pCallbackClass = callback_class;
+    callbackClass_ = callback_class;
 }
 
 
-void RingBuffer::clearCallbackClass()
+template <typename Type>
+void RingBuffer<Type>::clearCallbackClass()
 {
-    pCallbackClass = nullptr;
+    callbackClass_ = nullptr;
 }
 
 
-void RingBuffer::triggerFullBuffer(AudioBuffer<float> &buffer, const unsigned int uChunkSize, const unsigned int uBufferPosition, const unsigned int uProcessedSamples)
+template <typename Type>
+void RingBuffer<Type>::triggerFullBuffer(
+    AudioBuffer<Type> &buffer,
+    const unsigned int uChunkSize,
+    const unsigned int uBufferPosition,
+    const unsigned int uProcessedSamples)
 {
-    if (pCallbackClass)
+    if (callbackClass_)
     {
-        pCallbackClass->processBufferChunk(buffer, uChunkSize, uBufferPosition, uProcessedSamples);
+        callbackClass_->processBufferChunk(buffer,
+                                           uChunkSize,
+                                           uBufferPosition,
+                                           uProcessedSamples);
     }
 }
 

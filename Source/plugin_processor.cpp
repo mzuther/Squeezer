@@ -47,8 +47,8 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
     frut::Frut::printVersionNumbers();
 
-    bSampleRateIsValid = false;
-    hasSideChain = false;
+    sampleRateIsValid_ = false;
+    hasSideChain_ = false;
 
     setLatencySamples(0);
 }
@@ -217,25 +217,25 @@ const String SqueezerAudioProcessor::getName() const
 
 int SqueezerAudioProcessor::getNumParameters()
 {
-    return pluginParameters.getNumParameters(false);
+    return pluginParameters_.getNumParameters(false);
 }
 
 
 const String SqueezerAudioProcessor::getParameterName(int nIndex)
 {
-    return pluginParameters.getName(nIndex);
+    return pluginParameters_.getName(nIndex);
 }
 
 
 const String SqueezerAudioProcessor::getParameterText(int nIndex)
 {
-    return pluginParameters.getText(nIndex);
+    return pluginParameters_.getText(nIndex);
 }
 
 
 String SqueezerAudioProcessor::getParameters()
 {
-    return pluginParameters.toString();
+    return pluginParameters_.toString();
 }
 
 
@@ -246,7 +246,7 @@ float SqueezerAudioProcessor::getParameter(int nIndex)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pluginParameters.getFloat(nIndex);
+    return pluginParameters_.getFloat(nIndex);
 }
 
 
@@ -280,211 +280,211 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
     {
     case SqueezerPluginParameters::selBypass:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            bool bBypassCompressor = pluginParameters.getBoolean(nIndex);
-            pCompressor->setBypass(bBypassCompressor);
+            bool bBypassCompressor = pluginParameters_.getBoolean(nIndex);
+            compressor_->setBypass(bBypassCompressor);
         }
 
         break;
 
     case SqueezerPluginParameters::selDetectorRmsFilter:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            float fDetectorRateMilliSeconds = pluginParameters.getRealFloat(nIndex);
-            pCompressor->setDetectorRmsFilter(fDetectorRateMilliSeconds);
+            float fDetectorRateMilliSeconds = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setDetectorRmsFilter(fDetectorRateMilliSeconds);
         }
 
         break;
 
     case SqueezerPluginParameters::selDesign:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            int nDesign = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setDesign(nDesign);
+            int nDesign = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setDesign(nDesign);
         }
 
         break;
 
     case SqueezerPluginParameters::selDetector:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            int nDetector = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setDetector(nDetector);
+            int nDetector = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setDetector(nDetector);
         }
 
         break;
 
     case SqueezerPluginParameters::selGainStage:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            int nGainStage = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setGainStage(nGainStage);
+            int nGainStage = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setGainStage(nGainStage);
         }
 
         break;
 
     case SqueezerPluginParameters::selThreshold:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            float fThreshold = pluginParameters.getRealFloat(nIndex);
-            pCompressor->setThreshold(fThreshold);
+            float fThreshold = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setThreshold(fThreshold);
         }
 
         break;
 
     case SqueezerPluginParameters::selRatio:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            float fRatio = pluginParameters.getRealFloat(nIndex);
-            pCompressor->setRatio(fRatio);
+            float fRatio = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setRatio(fRatio);
         }
 
         break;
 
     case SqueezerPluginParameters::selKneeWidth:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            float fKneeWidth = pluginParameters.getRealFloat(nIndex);
-            pCompressor->setKneeWidth(fKneeWidth);
+            float fKneeWidth = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setKneeWidth(fKneeWidth);
         }
 
         break;
 
     case SqueezerPluginParameters::selAttackRate:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            float fAttackRate = pluginParameters.getRealFloat(nIndex);
-            pCompressor->setAttackRate(fAttackRate);
+            float fAttackRate = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setAttackRate(fAttackRate);
         }
 
         break;
 
     case SqueezerPluginParameters::selReleaseRate:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            int nReleaseRate = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setReleaseRate(nReleaseRate);
+            int nReleaseRate = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setReleaseRate(nReleaseRate);
         }
 
         break;
 
     case SqueezerPluginParameters::selAutoMakeupGain:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            bool bAutoMakeupGain = pluginParameters.getBoolean(nIndex);
-            pCompressor->setAutoMakeupGain(bAutoMakeupGain);
+            bool bAutoMakeupGain = pluginParameters_.getBoolean(nIndex);
+            compressor_->setAutoMakeupGain(bAutoMakeupGain);
         }
 
         break;
 
     case SqueezerPluginParameters::selMakeupGain:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            float fMakeupGain = pluginParameters.getRealFloat(nIndex);
-            pCompressor->setMakeupGain(fMakeupGain);
+            float fMakeupGain = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setMakeupGain(fMakeupGain);
         }
 
         break;
 
     case SqueezerPluginParameters::selWetMix:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            int nWetMix = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setWetMix(nWetMix);
+            int nWetMix = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setWetMix(nWetMix);
         }
 
         break;
 
     case SqueezerPluginParameters::selSidechainInput:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            bool bSidechainInput = pluginParameters.getBoolean(nIndex);
-            pCompressor->setSidechainInput(bSidechainInput);
+            bool bSidechainInput = pluginParameters_.getBoolean(nIndex);
+            compressor_->setSidechainInput(bSidechainInput);
         }
 
         break;
 
     case SqueezerPluginParameters::selSidechainHPFCutoff:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            int nSidechainHPFCutoff = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setSidechainHPFCutoff(nSidechainHPFCutoff);
+            int nSidechainHPFCutoff = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setSidechainHPFCutoff(nSidechainHPFCutoff);
         }
 
         break;
 
     case SqueezerPluginParameters::selSidechainLPFCutoff:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            int nSidechainLPFCutoff = pluginParameters.getRealInteger(nIndex);
-            pCompressor->setSidechainLPFCutoff(nSidechainLPFCutoff);
+            int nSidechainLPFCutoff = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setSidechainLPFCutoff(nSidechainLPFCutoff);
         }
 
         break;
 
     case SqueezerPluginParameters::selSidechainListen:
 
-        pluginParameters.setFloat(nIndex, fValue);
+        pluginParameters_.setFloat(nIndex, fValue);
 
-        if (pCompressor)
+        if (compressor_)
         {
-            bool bSidechainListen = pluginParameters.getBoolean(nIndex);
-            pCompressor->setSidechainListen(bSidechainListen);
+            bool bSidechainListen = pluginParameters_.getBoolean(nIndex);
+            compressor_->setSidechainListen(bSidechainListen);
         }
 
         break;
 
     default:
     {
-        frut::parameter::ParCombined *pCombined = dynamic_cast<frut::parameter::ParCombined *>(pluginParameters.getPluginParameter(nIndex + 1));
+        frut::parameter::ParCombined *pCombined = dynamic_cast<frut::parameter::ParCombined *>(pluginParameters_.getPluginParameter(nIndex + 1));
 
         if (pCombined)
         {
@@ -519,11 +519,11 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
     }
 
     // notify plug-in editor of parameter change
-    if (pluginParameters.hasChanged(nIndex))
+    if (pluginParameters_.hasChanged(nIndex))
     {
         // for visible parameters, notify the editor of changes (this
         // will also clear the change flag)
-        if (nIndex < pluginParameters.getNumParameters(false))
+        if (nIndex < pluginParameters_.getNumParameters(false))
         {
             // "PC" --> parameter changed, followed by a hash and the
             // parameter's ID
@@ -533,7 +533,7 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
         // flag
         else
         {
-            pluginParameters.clearChangeFlag(nIndex);
+            pluginParameters_.clearChangeFlag(nIndex);
         }
     }
 }
@@ -541,25 +541,25 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 
 void SqueezerAudioProcessor::clearChangeFlag(int nIndex)
 {
-    pluginParameters.clearChangeFlag(nIndex);
+    pluginParameters_.clearChangeFlag(nIndex);
 }
 
 
 bool SqueezerAudioProcessor::hasChanged(int nIndex)
 {
-    return pluginParameters.hasChanged(nIndex);
+    return pluginParameters_.hasChanged(nIndex);
 }
 
 
 void SqueezerAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
 {
-    int nNumParameters = pluginParameters.getNumParameters(false);
+    int nNumParameters = pluginParameters_.getNumParameters(false);
 
     for (int nIndex = 0; nIndex < nNumParameters; ++nIndex)
     {
-        if (pluginParameters.hasChanged(nIndex))
+        if (pluginParameters_.hasChanged(nIndex))
         {
-            float fValue = pluginParameters.getFloat(nIndex);
+            float fValue = pluginParameters_.getFloat(nIndex);
             changeParameter(nIndex, fValue);
         }
     }
@@ -582,7 +582,7 @@ String SqueezerAudioProcessor::getParameterSkinName()
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    return pluginParameters.getSkinName();
+    return pluginParameters_.getSkinName();
 }
 
 
@@ -593,15 +593,15 @@ void SqueezerAudioProcessor::setParameterSkinName(const String &strSkinName)
     // sections or anything GUI-related, or anything at all that may
     // block in any way!
 
-    pluginParameters.setSkinName(strSkinName);
+    pluginParameters_.setSkinName(strSkinName);
 }
 
 
 void SqueezerAudioProcessor::resetMeters()
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        pCompressor->resetMeters();
+        compressor_->resetMeters();
     }
 
     // "UM" --> update meters
@@ -611,9 +611,9 @@ void SqueezerAudioProcessor::resetMeters()
 
 float SqueezerAudioProcessor::getGainReduction(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getGainReduction(nChannel);
+        return (float) compressor_->getGainReduction(nChannel);
     }
     else
     {
@@ -624,9 +624,9 @@ float SqueezerAudioProcessor::getGainReduction(int nChannel)
 
 float SqueezerAudioProcessor::getGainReductionMeterPeak(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getGainReductionMeterPeak(nChannel);
+        return (float) compressor_->getGainReductionMeterPeak(nChannel);
     }
     else
     {
@@ -637,9 +637,9 @@ float SqueezerAudioProcessor::getGainReductionMeterPeak(int nChannel)
 
 float SqueezerAudioProcessor::getPeakMeterInputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getPeakMeterInputLevel(nChannel);
+        return (float) compressor_->getPeakMeterInputLevel(nChannel);
     }
     else
     {
@@ -650,9 +650,9 @@ float SqueezerAudioProcessor::getPeakMeterInputLevel(int nChannel)
 
 float SqueezerAudioProcessor::getPeakMeterOutputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getPeakMeterOutputLevel(nChannel);
+        return (float) compressor_->getPeakMeterOutputLevel(nChannel);
     }
     else
     {
@@ -663,9 +663,9 @@ float SqueezerAudioProcessor::getPeakMeterOutputLevel(int nChannel)
 
 float SqueezerAudioProcessor::getPeakMeterPeakInputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getPeakMeterPeakInputLevel(nChannel);
+        return (float) compressor_->getPeakMeterPeakInputLevel(nChannel);
     }
     else
     {
@@ -676,9 +676,9 @@ float SqueezerAudioProcessor::getPeakMeterPeakInputLevel(int nChannel)
 
 float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getPeakMeterPeakOutputLevel(nChannel);
+        return (float) compressor_->getPeakMeterPeakOutputLevel(nChannel);
     }
     else
     {
@@ -689,9 +689,9 @@ float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(int nChannel)
 
 float SqueezerAudioProcessor::getMaximumInputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getMaximumInputLevel(nChannel);
+        return (float) compressor_->getMaximumInputLevel(nChannel);
     }
     else
     {
@@ -702,9 +702,9 @@ float SqueezerAudioProcessor::getMaximumInputLevel(int nChannel)
 
 float SqueezerAudioProcessor::getMaximumOutputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getMaximumOutputLevel(nChannel);
+        return (float) compressor_->getMaximumOutputLevel(nChannel);
     }
     else
     {
@@ -715,9 +715,9 @@ float SqueezerAudioProcessor::getMaximumOutputLevel(int nChannel)
 
 float SqueezerAudioProcessor::getAverageMeterInputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getAverageMeterInputLevel(nChannel);
+        return (float) compressor_->getAverageMeterInputLevel(nChannel);
     }
     else
     {
@@ -728,9 +728,9 @@ float SqueezerAudioProcessor::getAverageMeterInputLevel(int nChannel)
 
 float SqueezerAudioProcessor::getAverageMeterOutputLevel(int nChannel)
 {
-    if (pCompressor)
+    if (compressor_)
     {
-        return (float) pCompressor->getAverageMeterOutputLevel(nChannel);
+        return (float) compressor_->getAverageMeterOutputLevel(nChannel);
     }
     else
     {
@@ -809,68 +809,68 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
         Logger::outputDebugString("[Squeezer] WARNING: sample rate of " + String(sampleRate) + " Hz not supported");
-        bSampleRateIsValid = false;
+        sampleRateIsValid_ = false;
         return;
     }
     else
     {
-        bSampleRateIsValid = true;
+        sampleRateIsValid_ = true;
     }
 
     Logger::outputDebugString("[Squeezer] number of main/aux input channels:  " + String(getMainBusNumInputChannels()) + "/" + String(getTotalNumInputChannels() - getMainBusNumInputChannels()));
     Logger::outputDebugString("[Squeezer] number of main/aux output channels: " + String(getMainBusNumOutputChannels()) + "/" + String(getTotalNumOutputChannels() - getMainBusNumOutputChannels()));
 
-    bool bBypassCompressor = pluginParameters.getBoolean(SqueezerPluginParameters::selBypass);
-    float fDetectorRateMilliSeconds = pluginParameters.getRealFloat(SqueezerPluginParameters::selDetectorRmsFilter);
-    int nDesign = pluginParameters.getRealInteger(SqueezerPluginParameters::selDesign);
-    int nDetector = pluginParameters.getRealInteger(SqueezerPluginParameters::selDetector);
-    int nGainStage = pluginParameters.getRealInteger(SqueezerPluginParameters::selGainStage);
+    bool bBypassCompressor = pluginParameters_.getBoolean(SqueezerPluginParameters::selBypass);
+    float fDetectorRateMilliSeconds = pluginParameters_.getRealFloat(SqueezerPluginParameters::selDetectorRmsFilter);
+    int nDesign = pluginParameters_.getRealInteger(SqueezerPluginParameters::selDesign);
+    int nDetector = pluginParameters_.getRealInteger(SqueezerPluginParameters::selDetector);
+    int nGainStage = pluginParameters_.getRealInteger(SqueezerPluginParameters::selGainStage);
 
-    float fThreshold = pluginParameters.getRealFloat(SqueezerPluginParameters::selThreshold);
-    float fRatio = pluginParameters.getRealFloat(SqueezerPluginParameters::selRatio);
-    float fKneeWidth = pluginParameters.getRealFloat(SqueezerPluginParameters::selKneeWidth);
+    float fThreshold = pluginParameters_.getRealFloat(SqueezerPluginParameters::selThreshold);
+    float fRatio = pluginParameters_.getRealFloat(SqueezerPluginParameters::selRatio);
+    float fKneeWidth = pluginParameters_.getRealFloat(SqueezerPluginParameters::selKneeWidth);
 
-    float fAttackRate = pluginParameters.getRealFloat(SqueezerPluginParameters::selAttackRate);
-    int nReleaseRate = pluginParameters.getRealInteger(SqueezerPluginParameters::selReleaseRate);
+    float fAttackRate = pluginParameters_.getRealFloat(SqueezerPluginParameters::selAttackRate);
+    int nReleaseRate = pluginParameters_.getRealInteger(SqueezerPluginParameters::selReleaseRate);
 
-    bool bAutoMakeupGain = pluginParameters.getBoolean(SqueezerPluginParameters::selAutoMakeupGain);
-    float fMakeupGain = pluginParameters.getRealFloat(SqueezerPluginParameters::selMakeupGain);
-    int nWetMix = pluginParameters.getRealInteger(SqueezerPluginParameters::selWetMix);
+    bool bAutoMakeupGain = pluginParameters_.getBoolean(SqueezerPluginParameters::selAutoMakeupGain);
+    float fMakeupGain = pluginParameters_.getRealFloat(SqueezerPluginParameters::selMakeupGain);
+    int nWetMix = pluginParameters_.getRealInteger(SqueezerPluginParameters::selWetMix);
 
-    bool bSidechainInput = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainInput);
-    int nSidechainHPFCutoff = pluginParameters.getRealInteger(SqueezerPluginParameters::selSidechainHPFCutoff);
-    int nSidechainLPFCutoff = pluginParameters.getRealInteger(SqueezerPluginParameters::selSidechainLPFCutoff);
-    bool bSidechainListen = pluginParameters.getBoolean(SqueezerPluginParameters::selSidechainListen);
+    bool bSidechainInput = pluginParameters_.getBoolean(SqueezerPluginParameters::selSidechainInput);
+    int nSidechainHPFCutoff = pluginParameters_.getRealInteger(SqueezerPluginParameters::selSidechainHPFCutoff);
+    int nSidechainLPFCutoff = pluginParameters_.getRealInteger(SqueezerPluginParameters::selSidechainLPFCutoff);
+    bool bSidechainListen = pluginParameters_.getBoolean(SqueezerPluginParameters::selSidechainListen);
 
 #ifdef SQUEEZER_MONO
     int numberOfChannels = 1;
 #else
     int numberOfChannels = 2;
 #endif
-    Dither.initialise(numberOfChannels, 24);
-    pCompressor = new Compressor(numberOfChannels, (int) sampleRate);
+    dither_.initialise(numberOfChannels, 24);
+    compressor_ = new Compressor(numberOfChannels, (int) sampleRate);
 
-    pCompressor->setBypass(bBypassCompressor);
-    pCompressor->setDetectorRmsFilter(fDetectorRateMilliSeconds);
-    pCompressor->setDesign(nDesign);
-    pCompressor->setDetector(nDetector);
-    pCompressor->setGainStage(nGainStage);
+    compressor_->setBypass(bBypassCompressor);
+    compressor_->setDetectorRmsFilter(fDetectorRateMilliSeconds);
+    compressor_->setDesign(nDesign);
+    compressor_->setDetector(nDetector);
+    compressor_->setGainStage(nGainStage);
 
-    pCompressor->setThreshold(fThreshold);
-    pCompressor->setRatio(fRatio);
-    pCompressor->setKneeWidth(fKneeWidth);
+    compressor_->setThreshold(fThreshold);
+    compressor_->setRatio(fRatio);
+    compressor_->setKneeWidth(fKneeWidth);
 
-    pCompressor->setAttackRate(fAttackRate);
-    pCompressor->setReleaseRate(nReleaseRate);
+    compressor_->setAttackRate(fAttackRate);
+    compressor_->setReleaseRate(nReleaseRate);
 
-    pCompressor->setAutoMakeupGain(bAutoMakeupGain);
-    pCompressor->setMakeupGain(fMakeupGain);
-    pCompressor->setWetMix(nWetMix);
+    compressor_->setAutoMakeupGain(bAutoMakeupGain);
+    compressor_->setMakeupGain(fMakeupGain);
+    compressor_->setWetMix(nWetMix);
 
-    pCompressor->setSidechainInput(bSidechainInput);
-    pCompressor->setSidechainHPFCutoff(nSidechainHPFCutoff);
-    pCompressor->setSidechainLPFCutoff(nSidechainLPFCutoff);
-    pCompressor->setSidechainListen(bSidechainListen);
+    compressor_->setSidechainInput(bSidechainInput);
+    compressor_->setSidechainHPFCutoff(nSidechainHPFCutoff);
+    compressor_->setSidechainLPFCutoff(nSidechainLPFCutoff);
+    compressor_->setSidechainListen(bSidechainListen);
 }
 
 
@@ -905,13 +905,13 @@ void SqueezerAudioProcessor::processBlock(
     AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
 
     // convert input to float and de-normalize samples
-    Dither.denormalizeToDouble(buffer, processBuffer);
+    dither_.denormalizeToDouble(buffer, processBuffer);
 
     // compress input samples
     process(processBuffer);
 
     // dither output to float
-    Dither.ditherToFloat(processBuffer, buffer);
+    dither_.ditherToFloat(processBuffer, buffer);
 }
 
 
@@ -923,7 +923,7 @@ void SqueezerAudioProcessor::processBlock(
     ignoreUnused(midiMessages);
 
     // de-normalize samples
-    Dither.denormalize(buffer);
+    dither_.denormalize(buffer);
 
     // compress input samples
     process(buffer);
@@ -935,7 +935,7 @@ void SqueezerAudioProcessor::process(
 {
     int nNumSamples = buffer.getNumSamples();
 
-    if (!bSampleRateIsValid)
+    if (!sampleRateIsValid_)
     {
         for (int nChannel = 0; nChannel < getMainBusNumOutputChannels(); ++nChannel)
         {
@@ -962,96 +962,96 @@ void SqueezerAudioProcessor::process(
 
 #ifdef SQUEEZER_MONO
 
-    MainInput = AudioBuffer<double>(1, nNumSamples);
-    SideChainInput = AudioBuffer<double>(1, nNumSamples);
+    mainInput_ = AudioBuffer<double>(1, nNumSamples);
+    sideChainInput_ = AudioBuffer<double>(1, nNumSamples);
 
     if (getChannelLayoutOfBus(true, 0) == AudioChannelSet::mono())
     {
-        MainInput = getBusBuffer(buffer, true, 0);
+        mainInput_ = getBusBuffer(buffer, true, 0);
 
         if (getChannelLayoutOfBus(true, 1) == AudioChannelSet::mono())
         {
-            hasSideChain = true;
-            SideChainInput = getBusBuffer(buffer, true, 1);
+            hasSideChain_ = true;
+            sideChainInput_ = getBusBuffer(buffer, true, 1);
         }
         else
         {
-            hasSideChain = false;
-            SideChainInput = getBusBuffer(buffer, true, 0);
+            hasSideChain_ = false;
+            sideChainInput_ = getBusBuffer(buffer, true, 0);
         }
     }
     else if (getChannelLayoutOfBus(true, 0).size() == 2)
     {
-        hasSideChain = true;
-        MainInput.copyFrom(0, 0, buffer,
-                           0, 0, nNumSamples);
+        hasSideChain_ = true;
+        mainInput_.copyFrom(0, 0, buffer,
+                            0, 0, nNumSamples);
 
-        SideChainInput.copyFrom(0, 0, buffer,
-                                1, 0, nNumSamples);
+        sideChainInput_.copyFrom(0, 0, buffer,
+                                 1, 0, nNumSamples);
     }
     else
     {
-        hasSideChain = false;
-        MainInput.clear();
-        SideChainInput.clear();
+        hasSideChain_ = false;
+        mainInput_.clear();
+        sideChainInput_.clear();
     }
 
 #else
 
-    MainInput = AudioBuffer<double>(2, nNumSamples);
-    SideChainInput = AudioBuffer<double>(2, nNumSamples);
+    mainInput_ = AudioBuffer<double>(2, nNumSamples);
+    sideChainInput_ = AudioBuffer<double>(2, nNumSamples);
 
     if (getChannelLayoutOfBus(true, 0) == AudioChannelSet::stereo())
     {
-        MainInput = getBusBuffer(buffer, true, 0);
+        mainInput_ = getBusBuffer(buffer, true, 0);
 
         if (getChannelLayoutOfBus(true, 1) == AudioChannelSet::stereo())
         {
-            hasSideChain = true;
-            SideChainInput = getBusBuffer(buffer, true, 1);
+            hasSideChain_ = true;
+            sideChainInput_ = getBusBuffer(buffer, true, 1);
         }
         else
         {
-            hasSideChain = false;
-            SideChainInput = getBusBuffer(buffer, true, 0);
+            hasSideChain_ = false;
+            sideChainInput_ = getBusBuffer(buffer, true, 0);
         }
     }
     else if (getChannelLayoutOfBus(true, 0).size() == 4)
     {
-        hasSideChain = true;
-        MainInput.copyFrom(0, 0, buffer,
-                           0, 0, nNumSamples);
-        MainInput.copyFrom(1, 0, buffer,
-                           1, 0, nNumSamples);
+        hasSideChain_ = true;
+        mainInput_.copyFrom(0, 0, buffer,
+                            0, 0, nNumSamples);
+        mainInput_.copyFrom(1, 0, buffer,
+                            1, 0, nNumSamples);
 
-        SideChainInput.copyFrom(0, 0, buffer,
-                                2, 0, nNumSamples);
-        SideChainInput.copyFrom(1, 0, buffer,
-                                3, 0, nNumSamples);
+        sideChainInput_.copyFrom(0, 0, buffer,
+                                 2, 0, nNumSamples);
+        sideChainInput_.copyFrom(1, 0, buffer,
+                                 3, 0, nNumSamples);
     }
     else
     {
         DBG("clearing main input and side chain");
 
-        hasSideChain = false;
-        MainInput.clear();
-        SideChainInput.clear();
+        hasSideChain_ = false;
+        mainInput_.clear();
+        sideChainInput_.clear();
     }
 
 #endif
 
-    pCompressor->process(MainInput, SideChainInput);
+    compressor_->process(mainInput_, sideChainInput_);
 
 #ifdef SQUEEZER_MONO
 
-    buffer.copyFrom(0, 0, MainInput,
+    buffer.copyFrom(0, 0, mainInput_,
                     0, 0, nNumSamples);
 
 #else
 
-    buffer.copyFrom(0, 0, MainInput,
+    buffer.copyFrom(0, 0, mainInput_,
                     0, 0, nNumSamples);
-    buffer.copyFrom(1, 0, MainInput,
+    buffer.copyFrom(1, 0, mainInput_,
                     1, 0, nNumSamples);
 
 #endif
@@ -1064,9 +1064,9 @@ void SqueezerAudioProcessor::process(
 AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
 #ifdef SQUEEZER_MONO
-    return new SqueezerAudioProcessorEditor(this, &pluginParameters, 1);
+    return new SqueezerAudioProcessorEditor(this, &pluginParameters_, 1);
 #else
-    return new SqueezerAudioProcessorEditor(this, &pluginParameters, 2);
+    return new SqueezerAudioProcessorEditor(this, &pluginParameters_, 2);
 #endif
 }
 
@@ -1079,7 +1079,7 @@ bool SqueezerAudioProcessor::hasEditor() const
 
 void SqueezerAudioProcessor::getStateInformation(MemoryBlock &destData)
 {
-    XmlElement xmlParameters = pluginParameters.storeAsXml();
+    XmlElement xmlParameters = pluginParameters_.storeAsXml();
 
     DBG("[Squeezer]");
     DBG("[Squeezer] storing plug-in parameters:");
@@ -1100,7 +1100,7 @@ void SqueezerAudioProcessor::setStateInformation(const void *data, int sizeInByt
     DBG(String("[Squeezer]   ") + xmlParameters->createDocument("").replace(
             "\n", "\n[Squeezer]   "));
 
-    pluginParameters.loadFromXml(xmlParameters);
+    pluginParameters_.loadFromXml(xmlParameters);
     updateParameters(true);
 }
 

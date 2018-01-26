@@ -35,9 +35,11 @@ public:
                     const int numberOfBits,
                     const double noiseShaping = 0.5);
 
-    void convertToDouble(
-        const AudioBuffer<float> &inputBufferFloat,
-        AudioBuffer<double> &outputBufferDouble);
+    void convertToDouble(const AudioBuffer<float> &inputBufferFloat,
+                         AudioBuffer<double> &outputBufferDouble);
+
+    void truncateToFloat(const AudioBuffer<double> &inputBufferDouble,
+                         AudioBuffer<float> &outputBufferFloat);
 
     void denormalize(AudioBuffer<float> &buffer);
     void denormalize(AudioBuffer<double> &buffer);
@@ -60,6 +62,8 @@ private:
 
     const float antiDenormalFloat_;
     const double antiDenormalDouble_;
+
+    bool isInitialized;
 
     int numberOfChannels_;
 
