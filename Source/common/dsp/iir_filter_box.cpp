@@ -24,14 +24,17 @@
 ---------------------------------------------------------------------------- */
 
 
-IirFilterBox::IirFilterBox(int numberOfChannels, double sampleRate) :
+IirFilterBox::IirFilterBox(
+    const int numberOfChannels,
+    const double sampleRate) :
     BiquadFilter(numberOfChannels),
     sampleRate_(sampleRate)
 {
 }
 
 
-double IirFilterBox::bandwidthToQualityFactor(double octaveBandwidth)
+double IirFilterBox::bandwidthToQualityFactor(
+    const double octaveBandwidth)
 {
     double bw2 = exp2(octaveBandwidth);
     double qualityFactor = sqrt(bw2) / (bw2 - 1.0);
@@ -43,8 +46,8 @@ double IirFilterBox::bandwidthToQualityFactor(double octaveBandwidth)
 // Pirkle: "Designing Audio Effect Plug-ins in C++" (2013), p. 182
 // 6.6.1 First-Order LPF and HPF
 void IirFilterBox::passFilterFirstOrder(
-    double cutoffFrequencyInHz,
-    bool isLowPass)
+    const double cutoffFrequencyInHz,
+    const bool isLowPass)
 {
     if (isLowPass)
     {
@@ -82,9 +85,9 @@ void IirFilterBox::passFilterFirstOrder(
 // Pirkle: "Designing Audio Effect Plug-ins in C++" (2013), p. 183
 // 6.6.2 Second-Order LPF and HPF
 void IirFilterBox::passFilterSecondOrder(
-    double cutoffFrequencyInHz,
-    double qualityFactor,
-    bool isLowPass)
+    const double cutoffFrequencyInHz,
+    const double qualityFactor,
+    const bool isLowPass)
 {
     if (isLowPass)
     {
@@ -128,9 +131,9 @@ void IirFilterBox::passFilterSecondOrder(
 // Pirkle: "Designing Audio Effect Plug-ins in C++" (2013), p. 189
 // 6.7.2 First-Order Shelving Filters
 void IirFilterBox::shelvingFilterFirstOrder(
-    double cutoffFrequencyInHz,
-    double gainInDecibels,
-    bool isLowShelving)
+    const double cutoffFrequencyInHz,
+    const double gainInDecibels,
+    const bool isLowShelving)
 {
     if (isLowShelving)
     {
@@ -180,9 +183,9 @@ void IirFilterBox::shelvingFilterFirstOrder(
 // Pirkle: "Designing Audio Effect Plug-ins in C++" (2013), p. 191
 // 6.7.3 Second-Order Parametric/Peaking Filter: Non-Constant-Q
 void IirFilterBox::peakingFilterVariableQ(
-    double cutoffFrequencyInHz,
-    double gainInDecibels,
-    double qualityFactor)
+    const double cutoffFrequencyInHz,
+    const double gainInDecibels,
+    const double qualityFactor)
 {
     double theta_c = 2.0 * M_PI * cutoffFrequencyInHz / sampleRate_;
     double mu = pow(10, gainInDecibels / 20.0);
@@ -224,9 +227,9 @@ void IirFilterBox::peakingFilterVariableQ(
 // Pirkle: "Designing Audio Effect Plug-ins in C++" (2013), p. 192
 // 6.7.4 Second-Order Parametric/Peaking Filter: Constant-Q
 void IirFilterBox::peakingFilterConstantQ(
-    double cutoffFrequencyInHz,
-    double gainInDecibels,
-    double qualityFactor)
+    const double cutoffFrequencyInHz,
+    const double gainInDecibels,
+    const double qualityFactor)
 {
     double K = tan(M_PI * cutoffFrequencyInHz / sampleRate_);
     double V0 = pow(10, gainInDecibels / 20.0);
@@ -253,10 +256,7 @@ void IirFilterBox::peakingFilterConstantQ(
         double b1 = a1;
         double b2 = delta / temp_d0;
 
-        double c0 = 1.0;
-        double d0 = 0.0;
-
-        setCoefficients(a0, a1, a2, b1, b2, c0, d0);
+        setCoefficients(a0, a1, a2, b1, b2);
     }
     // attenuation: initialise filter coefficients
     else
@@ -268,10 +268,7 @@ void IirFilterBox::peakingFilterConstantQ(
         double b1 = a1;
         double b2 = eta / temp_e0;
 
-        double c0 = 1.0;
-        double d0 = 0.0;
-
-        setCoefficients(a0, a1, a2, b1, b2, c0, d0);
+        setCoefficients(a0, a1, a2, b1, b2);
     }
 }
 

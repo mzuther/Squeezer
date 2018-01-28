@@ -26,44 +26,27 @@
 #pragma once
 
 
-#ifndef FRUT_DSP_USE_FFTW
-#define FRUT_DSP_USE_FFTW 0
-#endif
-
-
-namespace frut
+class RateConverter :
+    public frut::dsp::FIRFilterBox
 {
-namespace dsp
-{
+public:
+    RateConverter(
+        const int numberOfChannels,
+        const int originalFftBufferSize,
+        const int upsamplingFactor);
 
-// special includes
-#include <float.h>
-#include <math.h>
+protected:
+    void calculateFilterKernel();
+    void upsample();
 
-#if FRUT_DSP_USE_FFTW
-#include "fftw/api/fftw3.h"
-#endif
+    int upsamplingFactor_;
+    int originalFftBufferSize_;
 
-// normal includes
-#include "../dsp/biquad_filter.h"
-#include "../dsp/dither.h"
-#include "../dsp/filter_chebyshev_stage.h"
-#include "../dsp/iir_filter_box.h"
+    AudioBuffer<float> sampleBufferOriginal_;
 
-#if FRUT_DSP_USE_FFTW
-
-#include "../dsp/fftw_runner.h"
-#include "../dsp/fir_filter_box.h"
-#include "../dsp/rate_converter.h"
-#include "../dsp/true_peak_meter.h"
-
-#endif
-
-// post includes
-#include "../dsp/filter_chebyshev.h"
-
-}
-}
+private:
+    JUCE_LEAK_DETECTOR(RateConverter);
+};
 
 
 // Local Variables:

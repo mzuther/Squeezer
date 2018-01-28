@@ -30,33 +30,33 @@ class IirFilterBox :
     public BiquadFilter
 {
 public:
-    IirFilterBox(int numberOfChannels, double sampleRate);
+    IirFilterBox(const int numberOfChannels, const double sampleRate);
 
-    double bandwidthToQualityFactor(double octaveBandwidth);
+    double bandwidthToQualityFactor(const double octaveBandwidth);
 
     void passFilterFirstOrder(
-        double cutoffFrequencyInHz,
-        bool isLowPass);
+        const double cutoffFrequencyInHz,
+        const bool isLowPass);
 
     void passFilterSecondOrder(
-        double cutoffFrequencyInHz,
-        double qualityFactor,
-        bool isLowPass);
+        const double cutoffFrequencyInHz,
+        const double qualityFactor,
+        const bool isLowPass);
 
     void shelvingFilterFirstOrder(
-        double cutoffFrequencyInHz,
-        double gainInDecibels,
-        bool isLowShelving);
+        const double cutoffFrequencyInHz,
+        const double gainInDecibels,
+        const bool isLowShelving);
 
     void peakingFilterVariableQ(
-        double cutoffFrequencyInHz,
-        double gainInDecibels,
-        double qualityFactor);
+        const double cutoffFrequencyInHz,
+        const double gainInDecibels,
+        const double qualityFactor);
 
     void peakingFilterConstantQ(
-        double cutoffFrequencyInHz,
-        double gainInDecibels,
-        double qualityFactor);
+        const double cutoffFrequencyInHz,
+        const double gainInDecibels,
+        const double qualityFactor);
 
 protected:
     double sampleRate_;

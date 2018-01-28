@@ -69,6 +69,28 @@ void BiquadFilter::setCoefficients(
     const double b1,
     const double b2,
 
+    const bool showCoefficients)
+{
+    double c0 = 1.0;
+    double d0 = 0.0;
+
+    setCoefficients(
+        a0, a1, a2,
+        b1, b2,
+        c0, d0,
+        showCoefficients);
+}
+
+
+// set filter coefficients
+void BiquadFilter::setCoefficients(
+    const double a0,
+    const double a1,
+    const double a2,
+
+    const double b1,
+    const double b2,
+
     const double c0,
     const double d0,
 
