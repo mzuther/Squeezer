@@ -30,7 +30,9 @@
 #include "plugin_parameters.h"
 
 
-class SqueezerAudioProcessor : public AudioProcessor, public ActionBroadcaster
+class SqueezerAudioProcessor :
+    public AudioProcessor,
+    public ActionBroadcaster
 {
 public:
     SqueezerAudioProcessor();

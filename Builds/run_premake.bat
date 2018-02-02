@@ -38,7 +38,7 @@
 @rem "%python_path%\python.exe" visual_studio_fix.py "%visual_toolkit%"
 
 @echo.
-@premake5 --cc=gcc --os=linux gmake
+@premake5 --cc=clang --os=linux gmake
 
 @echo.
 @pause

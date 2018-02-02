@@ -115,7 +115,8 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool SqueezerAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const
+bool SqueezerAudioProcessor::isBusesLayoutSupported(
+    const BusesLayout &layouts) const
 {
     // main bus: do not allow disabling of input channels
     if (layouts.getMainInputChannelSet().isDisabled())
@@ -221,13 +222,15 @@ int SqueezerAudioProcessor::getNumParameters()
 }
 
 
-const String SqueezerAudioProcessor::getParameterName(int nIndex)
+const String SqueezerAudioProcessor::getParameterName(
+    int nIndex)
 {
     return pluginParameters_.getName(nIndex);
 }
 
 
-const String SqueezerAudioProcessor::getParameterText(int nIndex)
+const String SqueezerAudioProcessor::getParameterText(
+    int nIndex)
 {
     return pluginParameters_.getText(nIndex);
 }
@@ -239,7 +242,8 @@ String SqueezerAudioProcessor::getParameters()
 }
 
 
-float SqueezerAudioProcessor::getParameter(int nIndex)
+float SqueezerAudioProcessor::getParameter(
+    int nIndex)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -250,7 +254,9 @@ float SqueezerAudioProcessor::getParameter(int nIndex)
 }
 
 
-void SqueezerAudioProcessor::changeParameter(int nIndex, float fValue)
+void SqueezerAudioProcessor::changeParameter(
+    int nIndex,
+    float fValue)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -265,7 +271,9 @@ void SqueezerAudioProcessor::changeParameter(int nIndex, float fValue)
 }
 
 
-void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
+void SqueezerAudioProcessor::setParameter(
+    int nIndex,
+    float fValue)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -539,19 +547,22 @@ void SqueezerAudioProcessor::setParameter(int nIndex, float fValue)
 }
 
 
-void SqueezerAudioProcessor::clearChangeFlag(int nIndex)
+void SqueezerAudioProcessor::clearChangeFlag(
+    int nIndex)
 {
     pluginParameters_.clearChangeFlag(nIndex);
 }
 
 
-bool SqueezerAudioProcessor::hasChanged(int nIndex)
+bool SqueezerAudioProcessor::hasChanged(
+    int nIndex)
 {
     return pluginParameters_.hasChanged(nIndex);
 }
 
 
-void SqueezerAudioProcessor::updateParameters(bool bIncludeHiddenParameters)
+void SqueezerAudioProcessor::updateParameters(
+    bool bIncludeHiddenParameters)
 {
     int nNumParameters = pluginParameters_.getNumParameters(false);
 
@@ -586,7 +597,8 @@ String SqueezerAudioProcessor::getParameterSkinName()
 }
 
 
-void SqueezerAudioProcessor::setParameterSkinName(const String &strSkinName)
+void SqueezerAudioProcessor::setParameterSkinName(
+    const String &strSkinName)
 {
     // This method will be called by the host, probably on the audio
     // thread, so it's absolutely time-critical. Don't use critical
@@ -609,7 +621,8 @@ void SqueezerAudioProcessor::resetMeters()
 }
 
 
-float SqueezerAudioProcessor::getGainReduction(int nChannel)
+float SqueezerAudioProcessor::getGainReduction(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -622,7 +635,8 @@ float SqueezerAudioProcessor::getGainReduction(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getGainReductionMeterPeak(int nChannel)
+float SqueezerAudioProcessor::getGainReductionMeterPeak(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -635,7 +649,8 @@ float SqueezerAudioProcessor::getGainReductionMeterPeak(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getPeakMeterInputLevel(int nChannel)
+float SqueezerAudioProcessor::getPeakMeterInputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -648,7 +663,8 @@ float SqueezerAudioProcessor::getPeakMeterInputLevel(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getPeakMeterOutputLevel(int nChannel)
+float SqueezerAudioProcessor::getPeakMeterOutputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -661,7 +677,8 @@ float SqueezerAudioProcessor::getPeakMeterOutputLevel(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getPeakMeterPeakInputLevel(int nChannel)
+float SqueezerAudioProcessor::getPeakMeterPeakInputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -674,7 +691,8 @@ float SqueezerAudioProcessor::getPeakMeterPeakInputLevel(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(int nChannel)
+float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -687,7 +705,8 @@ float SqueezerAudioProcessor::getPeakMeterPeakOutputLevel(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getMaximumInputLevel(int nChannel)
+float SqueezerAudioProcessor::getMaximumInputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -700,7 +719,8 @@ float SqueezerAudioProcessor::getMaximumInputLevel(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getMaximumOutputLevel(int nChannel)
+float SqueezerAudioProcessor::getMaximumOutputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -713,7 +733,8 @@ float SqueezerAudioProcessor::getMaximumOutputLevel(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getAverageMeterInputLevel(int nChannel)
+float SqueezerAudioProcessor::getAverageMeterInputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -726,7 +747,8 @@ float SqueezerAudioProcessor::getAverageMeterInputLevel(int nChannel)
 }
 
 
-float SqueezerAudioProcessor::getAverageMeterOutputLevel(int nChannel)
+float SqueezerAudioProcessor::getAverageMeterOutputLevel(
+    int nChannel)
 {
     if (compressor_)
     {
@@ -777,13 +799,15 @@ int SqueezerAudioProcessor::getCurrentProgram()
 }
 
 
-void SqueezerAudioProcessor::setCurrentProgram(int nIndex)
+void SqueezerAudioProcessor::setCurrentProgram(
+    int nIndex)
 {
     ignoreUnused(nIndex);
 }
 
 
-const String SqueezerAudioProcessor::getProgramName(int nIndex)
+const String SqueezerAudioProcessor::getProgramName(
+    int nIndex)
 {
     ignoreUnused(nIndex);
 
@@ -791,13 +815,17 @@ const String SqueezerAudioProcessor::getProgramName(int nIndex)
 }
 
 
-void SqueezerAudioProcessor::changeProgramName(int nIndex, const String &newName)
+void SqueezerAudioProcessor::changeProgramName(
+    int nIndex,
+    const String &newName)
 {
     ignoreUnused(nIndex, newName);
 }
 
 
-void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void SqueezerAudioProcessor::prepareToPlay(
+    double sampleRate,
+    int samplesPerBlock)
 {
     ignoreUnused(samplesPerBlock);
 
@@ -808,7 +836,8 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
 
     if ((sampleRate < 44100) || (sampleRate > 192000))
     {
-        Logger::outputDebugString("[Squeezer] WARNING: sample rate of " + String(sampleRate) + " Hz not supported");
+        Logger::outputDebugString("[Squeezer] WARNING: sample rate of " +
+                                  String(sampleRate) + " Hz not supported");
         sampleRateIsValid_ = false;
         return;
     }
@@ -820,34 +849,55 @@ void SqueezerAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBloc
     Logger::outputDebugString("[Squeezer] number of main/aux input channels:  " + String(getMainBusNumInputChannels()) + "/" + String(getTotalNumInputChannels() - getMainBusNumInputChannels()));
     Logger::outputDebugString("[Squeezer] number of main/aux output channels: " + String(getMainBusNumOutputChannels()) + "/" + String(getTotalNumOutputChannels() - getMainBusNumOutputChannels()));
 
-    bool bBypassCompressor = pluginParameters_.getBoolean(SqueezerPluginParameters::selBypass);
-    float fDetectorRateMilliSeconds = pluginParameters_.getRealFloat(SqueezerPluginParameters::selDetectorRmsFilter);
-    int nDesign = pluginParameters_.getRealInteger(SqueezerPluginParameters::selDesign);
-    int nDetector = pluginParameters_.getRealInteger(SqueezerPluginParameters::selDetector);
-    int nGainStage = pluginParameters_.getRealInteger(SqueezerPluginParameters::selGainStage);
+    bool bBypassCompressor = pluginParameters_.getBoolean(
+                                 SqueezerPluginParameters::selBypass);
+    float fDetectorRateMilliSeconds = pluginParameters_.getRealFloat(
+                                          SqueezerPluginParameters::selDetectorRmsFilter);
+    int nDesign = pluginParameters_.getRealInteger(
+                      SqueezerPluginParameters::selDesign);
+    int nDetector = pluginParameters_.getRealInteger(
+                        SqueezerPluginParameters::selDetector);
+    int nGainStage = pluginParameters_.getRealInteger(
+                         SqueezerPluginParameters::selGainStage);
 
-    float fThreshold = pluginParameters_.getRealFloat(SqueezerPluginParameters::selThreshold);
-    float fRatio = pluginParameters_.getRealFloat(SqueezerPluginParameters::selRatio);
-    float fKneeWidth = pluginParameters_.getRealFloat(SqueezerPluginParameters::selKneeWidth);
+    float fThreshold = pluginParameters_.getRealFloat(
+                           SqueezerPluginParameters::selThreshold);
+    float fRatio = pluginParameters_.getRealFloat(
+                       SqueezerPluginParameters::selRatio);
+    float fKneeWidth = pluginParameters_.getRealFloat(
+                           SqueezerPluginParameters::selKneeWidth);
 
-    float fAttackRate = pluginParameters_.getRealFloat(SqueezerPluginParameters::selAttackRate);
-    int nReleaseRate = pluginParameters_.getRealInteger(SqueezerPluginParameters::selReleaseRate);
+    float fAttackRate = pluginParameters_.getRealFloat(
+                            SqueezerPluginParameters::selAttackRate);
+    int nReleaseRate = pluginParameters_.getRealInteger(
+                           SqueezerPluginParameters::selReleaseRate);
 
-    bool bAutoMakeupGain = pluginParameters_.getBoolean(SqueezerPluginParameters::selAutoMakeupGain);
-    float fMakeupGain = pluginParameters_.getRealFloat(SqueezerPluginParameters::selMakeupGain);
-    int nWetMix = pluginParameters_.getRealInteger(SqueezerPluginParameters::selWetMix);
+    bool bAutoMakeupGain = pluginParameters_.getBoolean(
+                               SqueezerPluginParameters::selAutoMakeupGain);
+    float fMakeupGain = pluginParameters_.getRealFloat(
+                            SqueezerPluginParameters::selMakeupGain);
+    int nWetMix = pluginParameters_.getRealInteger(
+                      SqueezerPluginParameters::selWetMix);
 
-    bool bSidechainInput = pluginParameters_.getBoolean(SqueezerPluginParameters::selSidechainInput);
-    int nSidechainHPFCutoff = pluginParameters_.getRealInteger(SqueezerPluginParameters::selSidechainHPFCutoff);
-    int nSidechainLPFCutoff = pluginParameters_.getRealInteger(SqueezerPluginParameters::selSidechainLPFCutoff);
-    bool bSidechainListen = pluginParameters_.getBoolean(SqueezerPluginParameters::selSidechainListen);
+    bool bSidechainInput = pluginParameters_.getBoolean(
+                               SqueezerPluginParameters::selSidechainInput);
+    int nSidechainHPFCutoff = pluginParameters_.getRealInteger(
+                                  SqueezerPluginParameters::selSidechainHPFCutoff);
+    int nSidechainLPFCutoff = pluginParameters_.getRealInteger(
+                                  SqueezerPluginParameters::selSidechainLPFCutoff);
+    bool bSidechainListen = pluginParameters_.getBoolean(
+                                SqueezerPluginParameters::selSidechainListen);
 
 #ifdef SQUEEZER_MONO
     int numberOfChannels = 1;
 #else
     int numberOfChannels = 2;
 #endif
-    dither_.initialise(numberOfChannels, 24);
+
+    dither_.initialise(jmax(getMainBusNumInputChannels(),
+                            getMainBusNumOutputChannels()),
+                       24);
+
     compressor_ = new Compressor(numberOfChannels, (int) sampleRate);
 
     compressor_->setBypass(bBypassCompressor);
@@ -907,7 +957,7 @@ void SqueezerAudioProcessor::processBlock(
     // convert input to float and de-normalize samples
     dither_.denormalizeToDouble(buffer, processBuffer);
 
-    // compress input samples
+    // process input samples
     process(processBuffer);
 
     // dither output to float
@@ -925,7 +975,7 @@ void SqueezerAudioProcessor::processBlock(
     // de-normalize samples
     dither_.denormalize(buffer);
 
-    // compress input samples
+    // process input samples
     process(buffer);
 }
 
@@ -937,11 +987,7 @@ void SqueezerAudioProcessor::process(
 
     if (!sampleRateIsValid_)
     {
-        for (int nChannel = 0; nChannel < getMainBusNumOutputChannels(); ++nChannel)
-        {
-            buffer.clear(nChannel, 0, nNumSamples);
-        }
-
+        buffer.clear();
         return;
     }
 
@@ -1077,7 +1123,8 @@ bool SqueezerAudioProcessor::hasEditor() const
 }
 
 
-void SqueezerAudioProcessor::getStateInformation(MemoryBlock &destData)
+void SqueezerAudioProcessor::getStateInformation(
+    MemoryBlock &destData)
 {
     XmlElement xmlParameters = pluginParameters_.storeAsXml();
 
@@ -1091,7 +1138,9 @@ void SqueezerAudioProcessor::getStateInformation(MemoryBlock &destData)
 }
 
 
-void SqueezerAudioProcessor::setStateInformation(const void *data, int sizeInBytes)
+void SqueezerAudioProcessor::setStateInformation(
+    const void *data,
+    int sizeInBytes)
 {
     ScopedPointer<XmlElement> xmlParameters(getXmlFromBinary(data, sizeInBytes));
 

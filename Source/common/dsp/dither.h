@@ -35,23 +35,23 @@ public:
                     const int numberOfBits,
                     const double noiseShaping = 0.5);
 
-    void convertToDouble(const AudioBuffer<float> &inputBufferFloat,
-                         AudioBuffer<double> &outputBufferDouble);
+    void convertToDouble(const AudioBuffer<float> &sourceBufferFloat,
+                         AudioBuffer<double> &destinationBufferDouble);
 
-    void truncateToFloat(const AudioBuffer<double> &inputBufferDouble,
-                         AudioBuffer<float> &outputBufferFloat);
+    void truncateToFloat(const AudioBuffer<double> &sourceBufferDouble,
+                         AudioBuffer<float> &destinationBufferFloat);
 
     void denormalize(AudioBuffer<float> &buffer);
     void denormalize(AudioBuffer<double> &buffer);
 
-    void denormalizeToDouble(const AudioBuffer<float> &inputBufferFloat,
-                             AudioBuffer<double> &outputBufferDouble);
+    void denormalizeToDouble(const AudioBuffer<float> &sourceBufferFloat,
+                             AudioBuffer<double> &destinationBufferDouble);
 
     float ditherSample(const int currentChannel,
-                       const double &inputValueDouble);
+                       const double &sourceValueDouble);
 
-    void ditherToFloat(const AudioBuffer<double> &inputBufferDouble,
-                       AudioBuffer<float> &outputBufferFloat);
+    void ditherToFloat(const AudioBuffer<double> &sourceBufferDouble,
+                       AudioBuffer<float> &destinationBufferFloat);
 
 private:
     Array<int> randomNumber_1_;

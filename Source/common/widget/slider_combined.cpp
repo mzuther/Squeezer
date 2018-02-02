@@ -55,7 +55,10 @@ SliderCombined::SliderCombined(parameter::Juggler *pParameters, int nParameterIn
     DrawablePath drawCircleOnOver(drawCircleOff);
     drawCircleOnOver.setFill(FillType(Colours::red.darker(0.8f)));
 
-    toggleButton = new DrawableButton("Parameter Switch #" + nParameterIndexSwitch, DrawableButton::ImageFitted);
+    toggleButton = new DrawableButton(
+        "Parameter Switch #" + String(nParameterIndexSwitch),
+        DrawableButton::ImageFitted);
+
     toggleButton->setClickingTogglesState(true);
     toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
     toggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, nullptr, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, nullptr);

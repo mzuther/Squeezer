@@ -33,6 +33,7 @@ TruePeakMeter::TruePeakMeter(
                              originalFftBufferSize,
                              upsamplingFactor)
 {
+    dither_.initialise(numberOfChannels_, 24);
 }
 
 
@@ -46,14 +47,42 @@ float TruePeakMeter::getLevel(
 }
 
 
-void TruePeakMeter::copyFromBuffer(
-    frut::audio::RingBuffer<float> &ringBuffer,
-    const unsigned int preDelay)
+void TruePeakMeter::setSamples(
+    const frut::audio::RingBuffer<float> &source,
+    const int preDelay)
 {
     // copy data from ring buffer to sample buffer
-    ringBuffer.copyToBuffer(sampleBufferOriginal_, 0,
-                            originalFftBufferSize_, preDelay);
+    source.getSamples(sampleBufferOriginal_, 0,
+                      originalFftBufferSize_, preDelay);
 
+    // process input data
+    processInput();
+}
+
+
+void TruePeakMeter::setSamples(
+    const frut::audio::RingBuffer<double> &source,
+    const int preDelay)
+{
+    int NumberOfChannels = source.getNumberOfChannels();
+    int NumberOfSamples = source.getNumberOfSamples();
+
+    AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
+
+    // copy data from ring buffer to audio buffer
+    source.getSamples(processBuffer, 0,
+                      originalFftBufferSize_, preDelay);
+
+    // dither output to float and store in internal buffer
+    dither_.ditherToFloat(processBuffer, sampleBufferOriginal_);
+
+    // process input data
+    processInput();
+}
+
+
+void TruePeakMeter::processInput()
+{
     // upsample buffer (overwrites contents of sample buffer)
     upsample();
 

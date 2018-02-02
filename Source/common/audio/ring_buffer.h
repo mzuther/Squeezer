@@ -34,66 +34,65 @@ template <typename Type>
 class RingBuffer
 {
 public:
-    RingBuffer(const String &buffer_name,
-               const unsigned int channels,
-               const unsigned int length,
-               const unsigned int pre_delay,
-               const unsigned int chunk_size);
+    RingBuffer(const String &bufferName,
+               const int numberOfChannels,
+               const int numberOfSamples,
+               const int preDelay,
+               const int chunkSize);
 
     void clear();
-    void setCallbackClass(RingBufferProcessor<Type> *callback_class);
+    void setCallbackClass(RingBufferProcessor<Type> *callbackClass);
 
-    String getBufferName();
-    unsigned int getCurrentPosition();
-    unsigned int getSamplesInBuffer();
-    unsigned int getBufferLength();
-    unsigned int getTotalLength();
-    unsigned int getPreDelay();
+    String getBufferName() const;
+    int getNumberOfChannels() const;
+    int getCurrentPosition() const;
+    int getSamplesInBuffer() const;
+    int getNumberOfSamples() const;
+    int getPreDelay() const;
 
-    Type getSample(const unsigned int channel,
-                   const unsigned int relative_position,
-                   const unsigned int pre_delay);
+    Type getSample(const int channel,
+                   const int relativePosition,
+                   const int preDelay) const;
 
-    unsigned int addSamples(AudioBuffer<Type> &source,
-                            const unsigned int sourceStartSample,
-                            const unsigned int numSamples);
+    int addSamples(const AudioBuffer<Type> &source,
+                   const int startSample,
+                   const int numberOfSamples);
 
-    void copyToBuffer(AudioBuffer<Type> &destination,
-                      const unsigned int destStartSample,
-                      const unsigned int numSamples,
-                      const unsigned int pre_delay);
+    void getSamples(AudioBuffer<Type> &destination,
+                    const int destStartSample,
+                    const int numberOfSamples,
+                    const int preDelay) const;
 
-    Type getMagnitude(const unsigned int channel,
-                      const unsigned int numSamples,
-                      const unsigned int pre_delay);
+    Type getMagnitude(const int channel,
+                      const int numberOfSamples,
+                      const int preDelay) const;
 
-    Type getRMSLevel(const unsigned int channel,
-                     const unsigned int numSamples,
-                     const unsigned int pre_delay);
+    Type getRMSLevel(const int channel,
+                     const int numberOfSamples,
+                     const int preDelay) const;
 
 protected:
     void clearCallbackClass();
 
-    void triggerFullBuffer(AudioBuffer<Type> &buffer,
-                           const unsigned int uChunkSize,
-                           const unsigned int uBufferPosition,
-                           const unsigned int uProcessedSamples);
+    void triggerFullBuffer(const int chunkSize,
+                           const int bufferPosition,
+                           const int processedSamples);
 
     RingBufferProcessor<Type> *callbackClass_;
 
-    Array<unsigned int> uChannelOffset;
-    HeapBlock<Type> audioData;
+    Array<int> channelOffsets_;
+    HeapBlock<Type> audioData_;
 
-    String strBufferName;
+    String bufferName_;
 
-    unsigned int uChannels;
-    unsigned int uLength;
-    unsigned int uPreDelay;
-    unsigned int uTotalLength;
-    unsigned int uChunkSize;
+    int numberOfChannels_;
+    int numberOfSamples_;
+    int preDelay_;
+    int totalLength_;
+    int chunkSize_;
 
-    unsigned int uCurrentPosition;
-    unsigned int uSamplesInBuffer;
+    int currentPosition_;
+    int samplesInBuffer_;
 
 private:
     JUCE_LEAK_DETECTOR(RingBuffer);
@@ -106,10 +105,9 @@ template <typename Type>
 class RingBufferProcessor
 {
 public:
-    virtual void processBufferChunk(AudioBuffer<Type> &buffer,
-                                    const unsigned int uChunkSize,
-                                    const unsigned int uBufferPosition,
-                                    const unsigned int uProcessedSamples) = 0;
+    virtual void processBufferChunk(const int chunkSize,
+                                    const int bufferPosition,
+                                    const int processedSamples) = 0;
 };
 
 

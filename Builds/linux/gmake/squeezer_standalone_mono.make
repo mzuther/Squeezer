@@ -11,7 +11,15 @@ endif
 .PHONY: clean prebuild prelink
 
 ifeq ($(config),debug_x32)
-  RESCOMP = windres
+  ifeq ($(origin CC), default)
+    CC = clang
+  endif
+  ifeq ($(origin CXX), default)
+    CXX = clang++
+  endif
+  ifeq ($(origin AR), default)
+    AR = ar
+  endif
   TARGETDIR = ../../../bin
   TARGET = $(TARGETDIR)/squeezer_mono_debug
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_debug/x32
@@ -19,8 +27,8 @@ ifeq ($(config),debug_x32)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include/at-spi-2.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/dbus-1.0 -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/gio-unix-2.0 -I/usr/include/glib-2.0 -I/usr/include/gtk-3.0 -I/usr/include/harfbuzz -I/usr/include/libpng12 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/mirclient -I/usr/include/mircookie -I/usr/include/mircore -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/webkitgtk-4.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -fno-inline -ggdb
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -std=c++11 -fno-inline -ggdb
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -fmessage-length=78 -fno-inline -ggdb
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -g -Wall -Wextra -std=c++14 -fmessage-length=78 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
@@ -38,7 +46,15 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 endif
 
 ifeq ($(config),debug_x64)
-  RESCOMP = windres
+  ifeq ($(origin CC), default)
+    CC = clang
+  endif
+  ifeq ($(origin CXX), default)
+    CXX = clang++
+  endif
+  ifeq ($(origin AR), default)
+    AR = ar
+  endif
   TARGETDIR = ../../../bin
   TARGET = $(TARGETDIR)/squeezer_mono_debug_x64
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_debug/x64
@@ -46,8 +62,8 @@ ifeq ($(config),debug_x64)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/common -I../../../libraries -I/usr/include/at-spi-2.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/dbus-1.0 -I/usr/include/freetype2 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/gio-unix-2.0 -I/usr/include/glib-2.0 -I/usr/include/gtk-3.0 -I/usr/include/harfbuzz -I/usr/include/libpng12 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/mirclient -I/usr/include/mircookie -I/usr/include/mircore -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/webkitgtk-4.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -fno-inline -ggdb
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -std=c++11 -fno-inline -ggdb
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -fmessage-length=78 -fno-inline -ggdb
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -Wall -Wextra -std=c++14 -fmessage-length=78 -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
@@ -65,7 +81,15 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 endif
 
 ifeq ($(config),release_x32)
-  RESCOMP = windres
+  ifeq ($(origin CC), default)
+    CC = clang
+  endif
+  ifeq ($(origin CXX), default)
+    CXX = clang++
+  endif
+  ifeq ($(origin AR), default)
+    AR = ar
+  endif
   TARGETDIR = ../../../bin
   TARGET = $(TARGETDIR)/squeezer_mono
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_release/x32
@@ -74,11 +98,11 @@ ifeq ($(config),release_x32)
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -fvisibility=hidden -pipe
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++11 -fvisibility=hidden -pipe
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -fvisibility=hidden -pipe
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -s -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -92,7 +116,15 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 endif
 
 ifeq ($(config),release_x64)
-  RESCOMP = windres
+  ifeq ($(origin CC), default)
+    CC = clang
+  endif
+  ifeq ($(origin CXX), default)
+    CXX = clang++
+  endif
+  ifeq ($(origin AR), default)
+    AR = ar
+  endif
   TARGETDIR = ../../../bin
   TARGET = $(TARGETDIR)/squeezer_mono_x64
   OBJDIR = ../../../bin/intermediate_linux/standalone_mono_release/x64
@@ -101,11 +133,11 @@ ifeq ($(config),release_x64)
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -fvisibility=hidden -pipe
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++11 -fvisibility=hidden -pipe
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -fvisibility=hidden -pipe
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -lX11 -lXext -lXinerama -latk-1.0 -lcairo -lcairo-gobject -lcurl -ldl -lfreetype -lgdk-3 -lgdk_pixbuf-2.0 -lgio-2.0 -lglib-2.0 -lgobject-2.0 -lgtk-3 -ljavascriptcoregtk-4.0 -lpango-1.0 -lpangocairo-1.0 -lpthread -lrt -lsoup-2.4 -lwebkit2gtk-4.0 -lasound
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef

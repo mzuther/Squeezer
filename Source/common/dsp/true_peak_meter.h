@@ -36,11 +36,17 @@ public:
 
     float getLevel(const int channel);
 
-    void copyFromBuffer(frut::audio::RingBuffer<float> &ringBuffer,
-                        const unsigned int preDelay);
+    void setSamples(const frut::audio::RingBuffer<float> &source,
+                    const int preDelay);
+
+    void setSamples(const frut::audio::RingBuffer<double> &source,
+                    const int preDelay);
 
 protected:
+    void processInput();
+
     Array<float> truePeakLevels_;
+    frut::dsp::Dither dither_;
 
 private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
