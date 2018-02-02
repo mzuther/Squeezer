@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 15
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "squeezer_standalone_mono", "squeezer_standalone_mono.vcxproj", "{791FD248-6544-21C9-8E8F-06597A1320E7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "squeezer_standalone_stereo", "squeezer_standalone_stereo.vcxproj", "{D27A2CD4-BE8A-D8A4-2744-3DC31373C73D}"

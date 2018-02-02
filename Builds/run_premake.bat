@@ -1,12 +1,12 @@
 @echo off
 
-@rem ----------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------
 @rem
-@rem  Squeezer
-@rem  ========
-@rem  Flexible general-purpose audio compressor with a touch of lemon.
+@rem  K-Meter
+@rem  =======
+@rem  Implementation of a K-System meter according to Bob Katz' specifications
 @rem
-@rem  Copyright (c) 2013-2018 Martin Zuther (http://www.mzuther.de/)
+@rem  Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 @rem
 @rem  This program is free software: you can redistribute it and/or modify
 @rem  it under the terms of the GNU General Public License as published by
@@ -23,19 +23,13 @@
 @rem
 @rem  Thank you for using free software!
 @rem
-@rem ----------------------------------------------------------------------------
-
-@set visual_toolkit="Windows7.1SDK"
-@rem set python_path="%PROGRAMFILES%\Python35"
-
-
-@echo.
-@premake5 --os=windows vs2013
+@rem ---------------------------------------------------------------------------
 
 @echo.
 @premake5 --os=windows vs2015
 
-@rem "%python_path%\python.exe" visual_studio_fix.py "%visual_toolkit%"
+@echo.
+@premake5 --os=windows vs2017
 
 @echo.
 @premake5 --cc=clang --os=linux gmake

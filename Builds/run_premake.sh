@@ -2,11 +2,11 @@
 
 # ----------------------------------------------------------------------------
 #
-#  Squeezer
-#  ========
-#  Flexible general-purpose audio compressor with a touch of lemon.
+#  K-Meter
+#  =======
+#  Implementation of a K-System meter according to Bob Katz' specifications
 #
-#  Copyright (c) 2013-2018 Martin Zuther (http://www.mzuther.de/)
+#  Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -31,10 +31,10 @@ visual_toolkit="Windows7.1SDK"
 cd $(dirname $0)
 
 echo
-premake5 --os=windows vs2013
+premake5 --os=windows vs2015
 
 echo
-premake5 --os=windows vs2015
+premake5 --os=windows vs2017
 
 # python3 visual_studio_fix.py "$visual_toolkit"
 
