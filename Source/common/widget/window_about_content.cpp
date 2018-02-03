@@ -165,15 +165,14 @@ void WindowAboutContent::applySkin()
     // style text editor component
     textEditor_.setColour(
         TextEditor::backgroundColourId,
-        Colours::black.withAlpha(0.25f));
+        Colours::lightgrey);
 
-    textEditor_.setColour(
-        TextEditor::textColourId,
+    textEditor_.applyColourToAllText(
         Colours::black);
 
     textEditor_.setColour(
         TextEditor::highlightColourId,
-        Colours::black.withAlpha(0.15f));
+        Colours::yellow.withAlpha(0.75f));
 
     textEditor_.setColour(
         TextEditor::highlightedTextColourId,
@@ -186,8 +185,8 @@ void WindowAboutContent::applySkin()
         Colours::yellow);
 
     buttonClose_.setColour(
-        TextButton::buttonOnColourId,
-        Colours::yellow);
+        TextButton::textColourOffId,
+        Colours::black);
 
 
     // place components

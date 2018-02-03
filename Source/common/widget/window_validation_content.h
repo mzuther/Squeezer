@@ -37,6 +37,8 @@ public:
 
     virtual void buttonClicked(Button *button);
     virtual void closeButtonPressed();
+
+    virtual void styleButton(ToggleButton &button);
     virtual void applySkin();
 
     virtual void initialise(int componentWidth,

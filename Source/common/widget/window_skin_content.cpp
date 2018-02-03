@@ -139,6 +139,10 @@ void WindowSkinContent::applySkin()
     skinList_.setOutlineThickness(1);
 
     skinList_.setColour(
+        ListBox::backgroundColourId,
+        Colours::white);
+
+    skinList_.setColour(
         ListBox::outlineColourId,
         Colours::grey);
 
@@ -149,18 +153,8 @@ void WindowSkinContent::applySkin()
         Colours::yellow);
 
     buttonSelect_.setColour(
-        TextButton::buttonOnColourId,
-        Colours::yellow);
-
-
-    // style "default" button
-    buttonDefault_.setColour(
-        TextButton::buttonColourId,
-        Colours::lightgrey);
-
-    buttonDefault_.setColour(
-        TextButton::buttonOnColourId,
-        Colours::lightgrey);
+        TextButton::textColourOffId,
+        Colours::black);
 
 
     // initialise content component dimensions

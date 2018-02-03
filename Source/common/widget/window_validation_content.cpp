@@ -117,6 +117,23 @@ void WindowValidationContent::initialise(
 }
 
 
+void WindowValidationContent::styleButton(
+    ToggleButton &button)
+{
+    button.setColour(
+        ToggleButton::textColourId,
+        Colours::black);
+
+    button.setColour(
+        ToggleButton::tickColourId,
+        Colours::black);
+
+    button.setColour(
+        ToggleButton::tickDisabledColourId,
+        Colours::grey);
+}
+
+
 /// Style and place the dialog window's components.
 ///
 void WindowValidationContent::applySkin()
@@ -127,10 +144,6 @@ void WindowValidationContent::applySkin()
     labelFileSelection_.setColour(
         Label::textColourId,
         Colours::black);
-
-    labelFileSelection_.setColour(
-        Label::backgroundColourId,
-        Colours::white.darker(0.15f));
 
     labelFileSelection_.setColour(
         Label::outlineColourId,
@@ -151,10 +164,6 @@ void WindowValidationContent::applySkin()
         Colours::black);
 
     labelSampleRateValue_.setColour(
-        Label::backgroundColourId,
-        Colours::white.darker(0.15f));
-
-    labelSampleRateValue_.setColour(
         Label::outlineColourId,
         Colours::grey);
 
@@ -167,8 +176,8 @@ void WindowValidationContent::applySkin()
 
     // style label for displaying the current audio channel
     sliderSelectChannel_.setColour(
-        widget::ChannelSlider::textBoxBackgroundColourId,
-        Colours::white.darker(0.15f));
+        widget::ChannelSlider::textBoxTextColourId,
+        Colours::black);
 
     sliderSelectChannel_.setColour(
         widget::ChannelSlider::textBoxOutlineColourId,
@@ -181,18 +190,8 @@ void WindowValidationContent::applySkin()
         Colours::yellow);
 
     buttonValidation_.setColour(
-        TextButton::buttonOnColourId,
-        Colours::yellow);
-
-
-    // style "cancel" button
-    buttonCancel_.setColour(
-        TextButton::buttonColourId,
-        Colours::lightgrey);
-
-    buttonCancel_.setColour(
-        TextButton::buttonOnColourId,
-        Colours::lightgrey);
+        TextButton::textColourOffId,
+        Colours::black);
 
 
     // place the components
