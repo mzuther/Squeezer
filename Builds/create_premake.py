@@ -25,21 +25,24 @@
 #
 # ----------------------------------------------------------------------------
 
+import sys
 import jinja2
 
+
+windows_sdk = sys.argv[1]
 
 templateLoader = jinja2.FileSystemLoader(searchpath='.')
 templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True)
 template = templateEnv.get_template('layout.template')
 
 filename = 'premake5.lua'
-output = template.render()
+output = template.render(windows_sdk=windows_sdk)
 
 print()
-print('  Rendering file "{}"...'.format(filename))
+print('=== Generating premake script ===')
+print('Rendering file \'{}\'...'.format(filename))
 
 with open(filename, 'w') as f:
     f.write(output)
 
-print('  Done.')
-print()
+print('Done.')

@@ -27,7 +27,7 @@
 if not _ACTION then
 	-- prevent "attempt to ... (a nil value)" errors
 elseif _ACTION == "gmake" then
-	print ("=== Generating project files (GNU g++, " .. os.get():upper() .. ") ===")
+	print ("=== Generating project files (GNU g++, " .. os.target():upper() .. ") ===")
 elseif string.startswith(_ACTION, "codeblocks") then
 	print "=== Generating project files (Code::Blocks, Windows) ==="
 elseif string.startswith(_ACTION, "vs") then
@@ -44,7 +44,7 @@ workspace "squeezer"
 	platforms { "x32", "x64" }
 	configurations { "Debug", "Release" }
 
-	location (os.get() .. "/" .. _ACTION .. "/")
+	location (os.target() .. "/" .. _ACTION .. "/")
 	targetdir "../bin/"
 	targetprefix ""
 
@@ -78,6 +78,8 @@ workspace "squeezer"
 		"../Source/common/",
 		"../libraries/"
 	}
+
+	cppdialect "C++14"
 
 	filter { "system:linux" }
 		defines {
@@ -146,20 +148,17 @@ workspace "squeezer"
 			"webkit2gtk-4.0"
 		}
 
-	flags {
-		"C++14"
-	}
-
 	filter { "system:windows" }
 		defines {
 			"_WINDOWS=1",
 			"_USE_MATH_DEFINES=1",
 		}
 
+		systemversion "10.0.16299.0"
+
 		flags {
 			"NoMinimalRebuild",
-			"StaticRuntime",
-			"WinMain"
+			"StaticRuntime"
 		}
 
 		characterset "Unicode"
@@ -257,6 +256,8 @@ workspace "squeezer"
 			"JucePlugin_Build_VST=0"
 		}
 
+		entrypoint "WinMainCRTStartup"
+
 		files {
 			  "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
 		}
@@ -292,10 +293,10 @@ workspace "squeezer"
 			}
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/standalone_mono_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_mono_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/standalone_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -308,6 +309,8 @@ workspace "squeezer"
 			"JucePlugin_Build_Standalone=1",
 			"JucePlugin_Build_VST=0"
 		}
+
+		entrypoint "WinMainCRTStartup"
 
 		files {
 			  "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
@@ -344,10 +347,10 @@ workspace "squeezer"
 			}
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/standalone_stereo_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_stereo_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/standalone_stereo_release")
 
 --------------------------------------------------------------------------------
 
@@ -384,10 +387,10 @@ workspace "squeezer"
 			targetname "Squeezer (Mono"
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/vst_mono_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_mono_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/vst_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -424,15 +427,15 @@ workspace "squeezer"
 			targetname "Squeezer (Stereo"
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/vst_stereo_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_stereo_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/vst_stereo_release")
 
 --------------------------------------------------------------------------------
 
 -- create LV2 projects on Linux only
-if os.get() == "linux" then
+if os.target() == "linux" then
 
 	project ("squeezer_lv2_mono")
 		kind "SharedLib"
@@ -460,10 +463,10 @@ if os.get() == "linux" then
 			targetname "squeezer_mono_lv2"
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_mono_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/lv2_mono_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_mono_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/lv2_mono_release")
 
 -- create LV2 projects on Linux only
 end
@@ -471,7 +474,7 @@ end
 --------------------------------------------------------------------------------
 
 -- create LV2 projects on Linux only
-if os.get() == "linux" then
+if os.target() == "linux" then
 
 	project ("squeezer_lv2_stereo")
 		kind "SharedLib"
@@ -499,10 +502,10 @@ if os.get() == "linux" then
 			targetname "squeezer_stereo_lv2"
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/lv2_stereo_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_stereo_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/lv2_stereo_release")
 
 -- create LV2 projects on Linux only
 end

@@ -18,11 +18,11 @@
 --------------------------------------------------------------------------------
 
 
-{% macro solution(name, additions) %}
+{% macro solution(name, additions, windows_sdk) %}
 if not _ACTION then
 	-- prevent "attempt to ... (a nil value)" errors
 elseif _ACTION == "gmake" then
-	print ("=== Generating project files (GNU g++, " .. os.get():upper() .. ") ===")
+	print ("=== Generating project files (GNU g++, " .. os.target():upper() .. ") ===")
 elseif string.startswith(_ACTION, "codeblocks") then
 	print "=== Generating project files (Code::Blocks, Windows) ==="
 elseif string.startswith(_ACTION, "vs") then
@@ -39,7 +39,7 @@ workspace "{{ name.short }}"
 	platforms { "x32", "x64" }
 	configurations { "Debug", "Release" }
 
-	location (os.get() .. "/" .. _ACTION .. "/")
+	location (os.target() .. "/" .. _ACTION .. "/")
 	targetdir "../bin/"
 	targetprefix ""
 
@@ -73,6 +73,8 @@ workspace "{{ name.short }}"
 		"../Source/common/",
 		"../libraries/"
 	}
+
+	cppdialect "C++14"
 {{ additions }}
 	filter { "system:linux" }
 		defines {
@@ -141,20 +143,17 @@ workspace "{{ name.short }}"
 			"webkit2gtk-4.0"
 		}
 
-	flags {
-		"C++14"
-	}
-
 	filter { "system:windows" }
 		defines {
 			"_WINDOWS=1",
 			"_USE_MATH_DEFINES=1",
 		}
 
+		systemversion "{{ windows_sdk }}"
+
 		flags {
 			"NoMinimalRebuild",
-			"StaticRuntime",
-			"WinMain"
+			"StaticRuntime"
 		}
 
 		characterset "Unicode"
@@ -254,6 +253,8 @@ workspace "{{ name.short }}"
 			"JucePlugin_Build_VST=0"
 		}
 
+		entrypoint "WinMainCRTStartup"
+
 		files {
 			  "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
 		}
@@ -289,10 +290,10 @@ workspace "{{ name.short }}"
 			}
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant.short }}_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/standalone_{{ variant.short }}_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/standalone_{{ variant.short }}_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/standalone_{{ variant.short }}_release")
 {% endmacro %}
 
 
@@ -331,17 +332,17 @@ workspace "{{ name.short }}"
 			targetname "{{ name.real }} ({{ variant.real }}"
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant.short }}_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/vst_{{ variant.short }}_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/vst_{{ variant.short }}_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/vst_{{ variant.short }}_release")
 {% endmacro %}
 
 
 
 {% macro lv2(name, variant, additions) %}
 -- create LV2 projects on Linux only
-if os.get() == "linux" then
+if os.target() == "linux" then
 
 	project ("{{ name.short }}_lv2_{{ variant.short }}")
 		kind "SharedLib"
@@ -369,10 +370,10 @@ if os.get() == "linux" then
 			targetname "{{ name.short }}_{{ variant.short }}_lv2"
 
 		filter { "configurations:Debug" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant.short }}_debug")
+			objdir ("../bin/intermediate_" .. os.target() .. "/lv2_{{ variant.short }}_debug")
 
 		filter { "configurations:Release" }
-			objdir ("../bin/intermediate_" .. os.get() .. "/lv2_{{ variant.short }}_release")
+			objdir ("../bin/intermediate_" .. os.target() .. "/lv2_{{ variant.short }}_release")
 
 -- create LV2 projects on Linux only
 end

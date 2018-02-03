@@ -25,6 +25,11 @@
 @rem
 @rem ---------------------------------------------------------------------------
 
+set windows_sdk=10.0.16299.0
+
+
+python.exe create_premake.py %windows_sdk%
+
 @echo.
 @premake5 --os=windows vs2015
 

@@ -32,7 +32,7 @@
 
 
 
-{{ render.solution(name) -}}
+{{ render.solution(name, "", windows_sdk) -}}
 
 
 
