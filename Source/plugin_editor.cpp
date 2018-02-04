@@ -945,6 +945,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(
         pluginNameAndVersion += " (VST)";
 #endif
 
+#if JucePlugin_Build_VST3
+        pluginNameAndVersion += " (VST3)";
+#endif
+
         Chapters.set(
             pluginNameAndVersion,
             String(JucePlugin_Desc) + ".\n");
@@ -971,6 +975,9 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 #ifdef LINUX
             L"ALSA\n"
 #endif
+#if JUCE_ASIO
+            L"ASIO\n"
+#endif
 #ifdef LINUX
             L"FreeType\n"
             L"JACK\n"
@@ -981,12 +988,17 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 #endif
 #ifdef LINUX
             L"POSIX Threads\n"
+#endif
+#if JucePlugin_Build_VST || JucePlugin_Build_VST3
+            L"VST\n"
+#endif
+#ifdef LINUX
             L"Xlib\n"
             L"Xext\n"
 #endif
         );
 
-#if JucePlugin_Build_VST
+#if JucePlugin_Build_VST || JucePlugin_Build_VST3
         // display trademarks (but only when necessary)
         Chapters.set(
             "Trademarks",

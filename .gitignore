@@ -14,6 +14,7 @@
 bin/*.dll
 bin/*.exe
 bin/*.so
+bin/*.vst3
 bin/squeezer/skins/default_skin.ini
 bin/squeezer_mono_*
 bin/squeezer_stereo_*
