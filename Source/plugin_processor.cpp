@@ -81,7 +81,7 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
                       AudioChannelSet::mono())
            .withOutput("Main Out",
                        AudioChannelSet::mono())
-           .withInput("Sidechain In",
+           .withInput("Side-Chain In",
                       AudioChannelSet::mono());
 
 #endif
@@ -105,7 +105,7 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
                       AudioChannelSet::stereo())
            .withOutput("Main Out",
                        AudioChannelSet::stereo())
-           .withInput("Sidechain In",
+           .withInput("Side-Chain In",
                       AudioChannelSet::stereo());
 
 #endif
@@ -126,38 +126,33 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
 
 #ifdef SQUEEZER_MONO
 
-    // main bus with mono output --> okay
-    if (layouts.getMainOutputChannelSet() == AudioChannelSet::mono())
+    // main output must be mono
+    if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono())
     {
-        if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
-        {
-            // main bus and side chain with mono input --> okay
-            if (layouts.getChannelSet(true, 1) == AudioChannelSet::mono())
-            {
-                return true;
-            }
+        return false;
+    }
 
-            // main bus with mono input and no side chain --> okay
-            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
-            {
-                return true;
-            }
+    // main input is mono
+    if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
+    {
+        // side chain input is mono --> okay
+        if (layouts.getChannelSet(true, 1) == AudioChannelSet::mono())
+        {
+            return true;
         }
 
-        // main bus with two inputs and no side chain --> okay
-        if (layouts.getMainInputChannelSet().size() == 2)
+        // no side chain input --> okay
+        if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
-            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
-            {
-                return true;
-            }
+            return true;
         }
     }
-    // main bus with two outputs --> okay
-    else if (layouts.getMainOutputChannelSet().size() == 2)
+
+    // main input has two channels
+    if (layouts.getMainInputChannelSet().size() == 2)
     {
-        // main bus with two inputs --> okay
-        if (layouts.getMainInputChannelSet().size() == 2)
+        // no side chain input --> okay
+        if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
             return true;
         }
@@ -165,38 +160,33 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
 
 #else
 
-    // main bus with stereo output --> okay
-    if (layouts.getMainOutputChannelSet() == AudioChannelSet::stereo())
+    // main output must be stereo
+    if (layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
     {
-        if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
-        {
-            // main bus and side chain with stereo input --> okay
-            if (layouts.getChannelSet(true, 1) == AudioChannelSet::stereo())
-            {
-                return true;
-            }
+        return false;
+    }
 
-            // main bus with stereo input and no side chain --> okay
-            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
-            {
-                return true;
-            }
+    // main input is stereo
+    if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
+    {
+        // side chain input is stereo --> okay
+        if (layouts.getChannelSet(true, 1) == AudioChannelSet::stereo())
+        {
+            return true;
         }
 
-        // main bus with four inputs and no side chain --> okay
-        if (layouts.getMainInputChannelSet().size() == 4)
+        // no side chain input --> okay
+        if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
-            if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
-            {
-                return true;
-            }
+            return true;
         }
     }
-    // main bus with four outputs --> okay
-    else if (layouts.getMainOutputChannelSet().size() == 4)
+
+    // main input has four channels
+    if (layouts.getMainInputChannelSet().size() == 4)
     {
-        // main bus with four inputs --> okay
-        if (layouts.getMainInputChannelSet().size() == 4)
+        // no side chain input --> okay
+        if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
             return true;
         }
