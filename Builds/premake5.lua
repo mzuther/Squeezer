@@ -445,7 +445,7 @@ workspace "squeezer"
 -- create VST3 projects on Windows only
 if os.target() == "windows" then
 
-   project ("squeezer_vst3_mono")
+    project ("squeezer_vst3_mono")
         kind "SharedLib"
 
         defines {
@@ -490,7 +490,7 @@ end
 -- create VST3 projects on Windows only
 if os.target() == "windows" then
 
-   project ("squeezer_vst3_stereo")
+    project ("squeezer_vst3_stereo")
         kind "SharedLib"
 
         defines {

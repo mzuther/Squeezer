@@ -348,7 +348,7 @@ workspace "{{ name.short }}"
 -- create VST3 projects on Windows only
 if os.target() == "windows" then
 
-   project ("{{ name.short }}_vst3_{{ variant.short }}")
+    project ("{{ name.short }}_vst3_{{ variant.short }}")
         kind "SharedLib"
 
         defines {

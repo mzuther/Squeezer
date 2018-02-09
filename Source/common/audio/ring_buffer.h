@@ -30,12 +30,14 @@ template <typename Type>
 class RingBufferProcessor;
 
 
+/// Audio ring buffer with pre-delay.  Can call a callback function
+/// every time a certain number of samples have been added.
+///
 template <typename Type>
 class RingBuffer
 {
 public:
-    RingBuffer(const String &bufferName,
-               const int numberOfChannels,
+    RingBuffer(const int numberOfChannels,
                const int numberOfSamples,
                const int preDelay,
                const int chunkSize);
@@ -43,71 +45,70 @@ public:
     void clear();
     void setCallbackClass(RingBufferProcessor<Type> *callbackClass);
 
-    String getBufferName() const;
     int getNumberOfChannels() const;
     int getCurrentPosition() const;
-    int getSamplesInBuffer() const;
     int getNumberOfSamples() const;
     int getPreDelay() const;
 
-    Type getSample(const int channel,
-                   const int relativePosition,
-                   const int preDelay) const;
+    void addSamples(const AudioBuffer<Type> &source,
+                    const int startSample,
+                    const int numberOfSamples);
 
-    int addSamples(const AudioBuffer<Type> &source,
-                   const int startSample,
-                   const int numberOfSamples);
+    Type getSample(const int channel,
+                   const int offset,
+                   const bool applyPreDelay) const;
 
     void getSamples(AudioBuffer<Type> &destination,
                     const int destStartSample,
                     const int numberOfSamples,
-                    const int preDelay) const;
+                    const bool applyPreDelay) const;
 
     Type getMagnitude(const int channel,
-                      const int numberOfSamples,
-                      const int preDelay) const;
+                      const int numberOfSamples) const;
 
     Type getRMSLevel(const int channel,
-                     const int numberOfSamples,
-                     const int preDelay) const;
+                     const int numberOfSamples) const;
 
 protected:
-    void clearCallbackClass();
-
-    void triggerFullBuffer(const int chunkSize,
-                           const int bufferPosition,
-                           const int processedSamples);
-
     RingBufferProcessor<Type> *callbackClass_;
 
     Array<int> channelOffsets_;
     HeapBlock<Type> audioData_;
 
-    String bufferName_;
-
     int numberOfChannels_;
     int numberOfSamples_;
-    int preDelay_;
-    int totalLength_;
-    int chunkSize_;
 
     int currentPosition_;
-    int samplesInBuffer_;
+    int totalLength_;
+
+    int chunkSize_;
+    int samplesToFilledChunk_;
+
+    int preDelay_;
 
 private:
     JUCE_LEAK_DETECTOR(RingBuffer);
 
-    const Type ringBufferMemTest_;
+    const Type ringBufferMemTestByte_;
 };
 
 
+/// Used to receive callbacks every time a certain number of samples
+/// have been added to a RingBuffer.
+///
 template <typename Type>
 class RingBufferProcessor
 {
 public:
-    virtual void processBufferChunk(const int chunkSize,
-                                    const int bufferPosition,
-                                    const int processedSamples) = 0;
+    /// Called every time a certain number of samples have been added
+    /// to a RingBuffer.
+    ///
+    /// @param ringBuffer ring buffer with filled "chunk"
+    ///
+    /// @param chunkSize number of samples in the "chunk"
+    ///
+    virtual void processBufferChunk(RingBuffer<Type> *ringBuffer,
+                                    const int chunkSize) = 0;
 };
 
 
