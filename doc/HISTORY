@@ -1,6 +1,31 @@
 Git HEAD
 ========
 
+v2.4.0 (2018-02-10)
+===================
+
+* Squeezer is now fully skinned
+
+* VST3 plug-in
+    
+* support 64-bit signal chains
+    
+* split side-chain filter (HPF and LPF)
+
+* changed handling of inputs and outputs
+
+* re-factored code
+
+* updated JUCE framework to 5.1.2
+
+* updated VST library to 3.6.7
+
+* use Clang on Linux (C++14)
+
+* support Visual Studio 2017
+
+
+
 v2.3.2 (2018-01-14)
 ===================
 
