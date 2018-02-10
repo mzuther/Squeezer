@@ -58,7 +58,7 @@ RingBuffer<Type>::RingBuffer(
     preDelay_ = preDelay;
     totalLength_ = numberOfSamples_ + preDelay_;
 
-    // optionally, everytime chunkSize_ samples have been added, the
+    // optionally, every time chunkSize_ samples have been added, the
     // ring buffer will call the function processBufferChunk of a
     // callback class to allow further processing
     chunkSize_ = chunkSize;
@@ -71,14 +71,14 @@ RingBuffer<Type>::RingBuffer(
 
     for (int channel = 0; channel < numberOfChannels_; ++channel)
     {
-        // intialize the memory offsets of each channel
+        // initialize the memory offsets of each channel
         int channelOffset = (channel * paddedTotalLength) + 1;
         channelOffsets_.insert(channel, channelOffset);
 
         // pad each channel with a "sample" of ringBufferMemTestByte_
         // to allow detection of memory leaks
         int channelPadLeft = channelOffset - 1;
-        int channelPadRight = channelOffset  + totalLength_;
+        int channelPadRight = channelOffset + totalLength_;
 
         audioData_[channelPadLeft] = ringBufferMemTestByte_;
         audioData_[channelPadRight] = ringBufferMemTestByte_;
@@ -205,7 +205,7 @@ void RingBuffer<Type>::addSamples(
     const int sourceStartSample,
     const int numberOfSamples)
 {
-    jassert(source.getNumChannels() >= numberOfChannels_);
+    jassert(source.getNumChannels() == numberOfChannels_);
     jassert(isPositiveAndNotGreaterThan(numberOfSamples, numberOfSamples_));
     jassert(isPositiveAndNotGreaterThan(sourceStartSample + numberOfSamples,
                                         source.getNumSamples()));
@@ -299,7 +299,6 @@ Type RingBuffer<Type>::getSample(
     const bool applyPreDelay) const
 {
     jassert(channel < numberOfChannels_);
-    jassert(offset >= 0);
     jassert(isPositiveAndNotGreaterThan(offset, numberOfSamples_));
 
     // the samples that have already been written lie to the *left* of
@@ -321,7 +320,8 @@ Type RingBuffer<Type>::getSample(
     // wrap "position" to buffer length
     position %= totalLength_;
 
-    return audioData_[channelOffsets_[channel] + position];
+    Type sampleValue = audioData_[channelOffsets_[channel] + position];
+    return sampleValue;
 }
 
 
@@ -343,8 +343,7 @@ void RingBuffer<Type>::getSamples(
     const int numberOfSamples,
     const bool applyPreDelay) const
 {
-    jassert(isPositiveAndNotGreaterThan(destination.getNumChannels(),
-                                        numberOfChannels_));
+    jassert(numberOfChannels_ == destination.getNumChannels());
     jassert(isPositiveAndNotGreaterThan(numberOfSamples, numberOfSamples_));
     jassert(isPositiveAndNotGreaterThan(destStartSample + numberOfSamples,
                                         destination.getNumSamples()));
@@ -409,7 +408,8 @@ void RingBuffer<Type>::getSamples(
 ///
 /// @param channel audio channel to process
 ///
-/// @param numberOfSamples number of samples to process
+/// @param numberOfSamples number of samples to process, starting from
+///        the **beginning** of the buffer
 ///
 /// @return highest absolute sample value
 ///
@@ -418,11 +418,31 @@ Type RingBuffer<Type>::getMagnitude(
     const int channel,
     const int numberOfSamples) const
 {
+    jassert(isPositiveAndBelow(channel, numberOfChannels_));
+    jassert(isPositiveAndNotGreaterThan(numberOfSamples, numberOfSamples_));
+
+    // the samples that have already been written lie to the *left* of
+    // the current write position
+    int bufferStart = currentPosition_ - numberOfSamples_;
+
+    // apply pre-delay
+    bufferStart -= preDelay_;
+
+    // make sure "bufferStart" is positive
+    while (bufferStart < 0)
+    {
+        bufferStart += totalLength_;
+    }
+
     Type magnitude = 0;
+    int channelOffset = channelOffsets_[channel];
 
     for (int sample = 0; sample < numberOfSamples; ++sample)
     {
-        Type amplitude = getSample(channel, sample, true);
+        // wrap "position" to buffer length
+        int position = (bufferStart + sample) % totalLength_;
+
+        Type amplitude = audioData_[channelOffset + position];
 
         if (amplitude < 0)
         {
@@ -449,11 +469,31 @@ Type RingBuffer<Type>::getRMSLevel(
     const int channel,
     const int numberOfSamples) const
 {
+    jassert(isPositiveAndBelow(channel, numberOfChannels_));
+    jassert(isPositiveAndNotGreaterThan(numberOfSamples, numberOfSamples_));
+
+    // the samples that have already been written lie to the *left* of
+    // the current write position
+    int bufferStart = currentPosition_ - numberOfSamples_;
+
+    // apply pre-delay
+    bufferStart -= preDelay_;
+
+    // make sure "bufferStart" is positive
+    while (bufferStart < 0)
+    {
+        bufferStart += totalLength_;
+    }
+
     Type runningSum = 0;
+    int channelOffset = channelOffsets_[channel];
 
     for (int sample = 0; sample < numberOfSamples; ++sample)
     {
-        Type sampleValue = getSample(channel, sample, true);
+        // wrap "position" to buffer length
+        int position = (bufferStart + sample) % totalLength_;
+
+        Type sampleValue = audioData_[channelOffset + position];
         runningSum += sampleValue * sampleValue;
     }
 
