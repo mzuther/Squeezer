@@ -48,10 +48,18 @@ float TruePeakMeter::getLevel(
 
 
 void TruePeakMeter::setSamples(
-    const frut::audio::RingBuffer<float> &source)
+    const frut::audio::RingBuffer<float> &source,
+    const int numberOfSamples)
 {
+    jassert(fftSampleBuffer_.getNumChannels() ==
+            source.getNumberOfChannels());
+    jassert(originalFftBufferSize_ ==
+            numberOfSamples);
+    jassert(source.getNumberOfSamples() >=
+            numberOfSamples);
+
     // copy data from ring buffer to sample buffer
-    source.getSamples(sampleBufferOriginal_, 0, originalFftBufferSize_, true);
+    source.getSamples(sampleBufferOriginal_, 0, numberOfSamples, true);
 
     // process input data
     processInput();
@@ -59,15 +67,21 @@ void TruePeakMeter::setSamples(
 
 
 void TruePeakMeter::setSamples(
-    const frut::audio::RingBuffer<double> &source)
+    const frut::audio::RingBuffer<double> &source,
+    const int numberOfSamples)
 {
-    int NumberOfChannels = source.getNumberOfChannels();
-    int NumberOfSamples = source.getNumberOfSamples();
+    jassert(fftSampleBuffer_.getNumChannels() ==
+            source.getNumberOfChannels());
+    jassert(originalFftBufferSize_ ==
+            numberOfSamples);
+    jassert(source.getNumberOfSamples() >=
+            numberOfSamples);
 
-    AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
+    int numberOfChannels = source.getNumberOfChannels();
+    AudioBuffer<double> processBuffer(numberOfChannels, numberOfSamples);
 
     // copy data from ring buffer to audio buffer
-    source.getSamples(processBuffer, 0, originalFftBufferSize_, true);
+    source.getSamples(processBuffer, 0, numberOfSamples, true);
 
     // dither output to float and store in internal buffer
     dither_.ditherToFloat(processBuffer, sampleBufferOriginal_);

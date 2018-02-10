@@ -69,6 +69,11 @@ public:
     Type getRMSLevel(const int channel,
                      const int numberOfSamples) const;
 
+    int countOverflows(
+        const int channel,
+        const int numberOfSamples,
+        const Type limitOverflow) const;
+
 protected:
     RingBufferProcessor<Type> *callbackClass_;
 

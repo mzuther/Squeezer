@@ -442,13 +442,16 @@ Type RingBuffer<Type>::getMagnitude(
         // wrap "position" to buffer length
         int position = (bufferStart + sample) % totalLength_;
 
+        // get sample value
         Type amplitude = audioData_[channelOffset + position];
 
+        // convert sample value to amplitude
         if (amplitude < 0)
         {
             amplitude = -amplitude;
         }
 
+        // update magnitude
         magnitude = jmax(magnitude, amplitude);
     }
 
@@ -493,11 +496,76 @@ Type RingBuffer<Type>::getRMSLevel(
         // wrap "position" to buffer length
         int position = (bufferStart + sample) % totalLength_;
 
+        // get sample value, square it and add it to the running sum
         Type sampleValue = audioData_[channelOffset + position];
         runningSum += sampleValue * sampleValue;
     }
 
+    // calculate RMS value
     return static_cast<Type>(sqrt(runningSum / numberOfSamples));
+}
+
+
+/// Count the number of overflows within a channel.
+///
+/// @param channel audio channel to process
+///
+/// @param numberOfSamples number of samples to process, starting from
+///        the **beginning** of the buffer
+///
+/// @param limitOverflow sample amplitude that does just *not* count as
+///        an overflow (absolute value)
+///
+/// @return number of overflows
+///
+template <typename Type>
+int RingBuffer<Type>::countOverflows(
+    const int channel,
+    const int numberOfSamples,
+    const Type limitOverflow) const
+{
+    jassert(isPositiveAndBelow(channel, numberOfChannels_));
+    jassert(isPositiveAndNotGreaterThan(numberOfSamples, numberOfSamples_));
+
+    // the samples that have already been written lie to the *left* of
+    // the current write position
+    int bufferStart = currentPosition_ - numberOfSamples_;
+
+    // apply pre-delay
+    bufferStart -= preDelay_;
+
+    // make sure "bufferStart" is positive
+    while (bufferStart < 0)
+    {
+        bufferStart += totalLength_;
+    }
+
+    int overflows = 0;
+    int channelOffset = channelOffsets_[channel];
+
+    for (int sample = 0; sample < numberOfSamples; ++sample)
+    {
+        // wrap "position" to buffer length
+        int position = (bufferStart + sample) % totalLength_;
+
+        // get sample value
+        Type amplitude = audioData_[channelOffset + position];
+
+        // convert sample value to amplitude
+        if (amplitude < 0)
+        {
+            amplitude = -amplitude;
+        }
+
+        // an overflow has occurred if the amplitude lies above the
+        // overflow limit
+        if (amplitude > limitOverflow)
+        {
+            ++overflows;
+        }
+    }
+
+    return overflows;
 }
 
 
