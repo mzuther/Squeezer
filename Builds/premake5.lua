@@ -49,9 +49,9 @@ workspace "squeezer"
     targetprefix ""
 
     files {
-        "../Source/common/FrutHeader.h",
-        "../Source/common/amalgamated/*.h",
-        "../Source/common/amalgamated/*.cpp",
+        "../Source/frut/FrutHeader.h",
+        "../Source/frut/amalgamated/*.h",
+        "../Source/frut/amalgamated/*.cpp",
 
         "../Source/*.h",
         "../Source/*.cpp",
@@ -75,7 +75,7 @@ workspace "squeezer"
     includedirs {
         "../JuceLibraryCode/",
         "../libraries/juce/modules/",
-        "../Source/common/",
+        "../Source/frut/",
         "../libraries/"
     }
 

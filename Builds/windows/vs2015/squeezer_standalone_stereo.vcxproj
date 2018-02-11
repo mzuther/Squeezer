@@ -101,7 +101,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -121,7 +121,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -141,7 +141,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -165,7 +165,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;JucePlugin_Build_LV2=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_ASIO=1;JUCE_WASAPI=1;JUCE_DIRECTSOUND=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\common;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries;..\..\..\libraries\asio\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -185,14 +185,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\common\FrutHeader.h" />
-    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_audio.h" />
-    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_dsp.h" />
-    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_math.h" />
-    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_parameter.h" />
-    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_skin.h" />
-    <ClInclude Include="..\..\..\Source\common\amalgamated\include_frut_widget.h" />
     <ClInclude Include="..\..\..\Source\compressor.h" />
+    <ClInclude Include="..\..\..\Source\frut\FrutHeader.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_audio.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_dsp.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_math.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_parameter.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_skin.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_widget.h" />
     <ClInclude Include="..\..\..\Source\gain_stage.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
@@ -220,13 +220,13 @@
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_gui_basics.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_gui_extra.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_video.cpp" />
-    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_audio.cpp" />
-    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_dsp.cpp" />
-    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_math.cpp" />
-    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_parameter.cpp" />
-    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_skin.cpp" />
-    <ClCompile Include="..\..\..\Source\common\amalgamated\include_frut_widget.cpp" />
     <ClCompile Include="..\..\..\Source\compressor.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_audio.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_dsp.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_math.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_parameter.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_skin.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_widget.cpp" />
     <ClCompile Include="..\..\..\Source\gain_stage_fet.cpp" />
     <ClCompile Include="..\..\..\Source\gain_stage_optical.cpp" />
     <ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp" />
