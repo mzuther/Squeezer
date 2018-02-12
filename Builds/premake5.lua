@@ -213,6 +213,9 @@ workspace "squeezer"
     filter { "system:linux", "configurations:Debug", "platforms:x64" }
         targetsuffix "_debug_x64"
 
+    filter { "system:windows", "configurations:Debug" }
+        symbols "Full"
+
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
         targetsuffix ", Debug)"
 
