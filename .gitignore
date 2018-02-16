@@ -11,7 +11,7 @@
 .vs
 .Rhistory
 
-bin/intermediate_*
+bin/.intermediate_*
 
 bin/lv2/squeezer_*.so
 

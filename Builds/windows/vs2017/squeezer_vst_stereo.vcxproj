@@ -69,28 +69,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bin\vst\</OutDir>
-    <IntDir>..\..\..\bin\intermediate_windows\vst_stereo_debug\x32\</IntDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst_stereo_debug\x32\</IntDir>
     <TargetName>Squeezer (Stereo, Debug)</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bin\vst\</OutDir>
-    <IntDir>..\..\..\bin\intermediate_windows\vst_stereo_debug\x64\</IntDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst_stereo_debug\x64\</IntDir>
     <TargetName>Squeezer (Stereo x64, Debug)</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\vst\</OutDir>
-    <IntDir>..\..\..\bin\intermediate_windows\vst_stereo_release\x32\</IntDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst_stereo_release\x32\</IntDir>
     <TargetName>Squeezer (Stereo)</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\vst\</OutDir>
-    <IntDir>..\..\..\bin\intermediate_windows\vst_stereo_release\x64\</IntDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst_stereo_release\x64\</IntDir>
     <TargetName>Squeezer (Stereo x64)</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>

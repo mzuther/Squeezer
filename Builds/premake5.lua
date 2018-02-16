@@ -194,6 +194,7 @@ workspace "squeezer"
 
     filter { "configurations:Debug" }
         defines { "_DEBUG=1", "DEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=1" }
+        optimize "Off"
         symbols "On"
 
     filter { "system:linux", "configurations:Debug" }
@@ -207,7 +208,7 @@ workspace "squeezer"
         targetsuffix "_debug_x64"
 
     filter { "system:windows", "configurations:Debug" }
-        symbols "Full"
+       symbols "Full"
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
         targetsuffix ", Debug)"
@@ -288,10 +289,10 @@ workspace "squeezer"
             }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/standalone_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/standalone_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -345,10 +346,10 @@ workspace "squeezer"
             }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/standalone_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/standalone_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_stereo_release")
 
 --------------------------------------------------------------------------------
 
@@ -388,10 +389,10 @@ workspace "squeezer"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_mono_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -431,10 +432,10 @@ workspace "squeezer"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_release")
 
 --------------------------------------------------------------------------------
 
@@ -474,10 +475,10 @@ if os.target() == "windows" then
             targetextension (".vst3")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst3_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst3_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_release")
 
 -- create VST3 projects on Windows only
 end
@@ -520,10 +521,10 @@ if os.target() == "windows" then
             targetextension (".vst3")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst3_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/vst3_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_release")
 
 -- create VST3 projects on Windows only
 end
@@ -561,10 +562,10 @@ if os.target() == "linux" then
             targetname "squeezer_mono_lv2"
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/lv2_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/lv2_mono_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/lv2_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/lv2_mono_release")
 
 -- create LV2 projects on Linux only
 end
@@ -602,10 +603,10 @@ if os.target() == "linux" then
             targetname "squeezer_stereo_lv2"
 
         filter { "configurations:Debug" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/lv2_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/lv2_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/intermediate_" .. os.target() .. "/lv2_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/lv2_stereo_release")
 
 -- create LV2 projects on Linux only
 end
