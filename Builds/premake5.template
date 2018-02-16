@@ -40,7 +40,6 @@ workspace "{{ name.short }}"
     configurations { "Debug", "Release" }
 
     location (os.target() .. "/" .. _ACTION .. "/")
-    targetdir "../bin/"
     targetprefix ""
 
     files {
@@ -152,11 +151,9 @@ workspace "{{ name.short }}"
         systemversion "{{ windows_sdk }}"
 
         flags {
-            "NoMinimalRebuild",
             "StaticRuntime"
         }
 
-        characterset "Unicode"
         vectorextensions "AVX"
 
         links {
@@ -196,11 +193,7 @@ workspace "{{ name.short }}"
 
     filter { "system:linux", "configurations:Debug" }
         warnings "Extra"
-        buildoptions { "-fmessage-length=78" }
-
-    filter { "system:linux", "configurations:Debug" }
-        warnings "Extra"
-        buildoptions { "-fno-inline", "-ggdb" }
+        buildoptions { "-fmessage-length=78", "-fno-inline", "-ggdb" }
 
     filter { "system:linux", "configurations:Debug", "platforms:x32" }
         targetsuffix "_debug"
@@ -232,10 +225,6 @@ workspace "{{ name.short }}"
     filter { "system:linux", "configurations:Release", "platforms:x64" }
         targetsuffix "_x64"
 
-    filter { "system:windows", "configurations:Release" }
-        flags { "NoManifest" }
-        buildoptions { "/Zi" }
-
     filter { "system:windows", "configurations:Release", "platforms:x32" }
         targetsuffix ")"
 
@@ -248,6 +237,7 @@ workspace "{{ name.short }}"
 {% macro standalone(name, variant, additions) %}
     project ("{{ name.short }}_standalone_{{ variant.short }}")
         kind "WindowedApp"
+        targetdir "../bin/standalone/"
 
         defines {
             "{{ name.short | upper }}_{{ variant.short | upper }}=1",
@@ -306,6 +296,7 @@ workspace "{{ name.short }}"
 {% macro vst(name, variant, additions) %}
     project ("{{ name.short }}_vst_{{ variant.short }}")
         kind "SharedLib"
+        targetdir "../bin/vst/"
 
         defines {
             "{{ name.short | upper }}_{{ variant.short | upper }}=1",
@@ -353,6 +344,7 @@ if os.target() == "windows" then
 
     project ("{{ name.short }}_vst3_{{ variant.short }}")
         kind "SharedLib"
+        targetdir "../bin/vst3/"
 
         defines {
             "{{ name.short | upper }}_{{ variant.short | upper }}=1",
@@ -400,6 +392,7 @@ if os.target() == "linux" then
 
     project ("{{ name.short }}_lv2_{{ variant.short }}")
         kind "SharedLib"
+        targetdir "../bin/lv2/"
 
         defines {
             "{{ name.short | upper }}_{{ variant.short | upper }}=1",

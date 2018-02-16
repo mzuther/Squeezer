@@ -20,7 +20,7 @@ ifeq ($(config),debug_x32)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin
+  TARGETDIR = ../../../bin/standalone
   TARGET = $(TARGETDIR)/squeezer_stereo_debug
   OBJDIR = ../../../bin/intermediate_linux/standalone_stereo_debug/x32
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
@@ -55,7 +55,7 @@ ifeq ($(config),debug_x64)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin
+  TARGETDIR = ../../../bin/standalone
   TARGET = $(TARGETDIR)/squeezer_stereo_debug_x64
   OBJDIR = ../../../bin/intermediate_linux/standalone_stereo_debug/x64
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
@@ -90,7 +90,7 @@ ifeq ($(config),release_x32)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin
+  TARGETDIR = ../../../bin/standalone
   TARGET = $(TARGETDIR)/squeezer_stereo
   OBJDIR = ../../../bin/intermediate_linux/standalone_stereo_release/x32
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
@@ -125,7 +125,7 @@ ifeq ($(config),release_x64)
   ifeq ($(origin AR), default)
     AR = ar
   endif
-  TARGETDIR = ../../../bin
+  TARGETDIR = ../../../bin/standalone
   TARGET = $(TARGETDIR)/squeezer_stereo_x64
   OBJDIR = ../../../bin/intermediate_linux/standalone_stereo_release/x64
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0

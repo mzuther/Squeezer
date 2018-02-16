@@ -45,7 +45,6 @@ workspace "squeezer"
     configurations { "Debug", "Release" }
 
     location (os.target() .. "/" .. _ACTION .. "/")
-    targetdir "../bin/"
     targetprefix ""
 
     files {
@@ -157,11 +156,9 @@ workspace "squeezer"
         systemversion "10.0.16299.0"
 
         flags {
-            "NoMinimalRebuild",
             "StaticRuntime"
         }
 
-        characterset "Unicode"
         vectorextensions "AVX"
 
         links {
@@ -201,11 +198,7 @@ workspace "squeezer"
 
     filter { "system:linux", "configurations:Debug" }
         warnings "Extra"
-        buildoptions { "-fmessage-length=78" }
-
-    filter { "system:linux", "configurations:Debug" }
-        warnings "Extra"
-        buildoptions { "-fno-inline", "-ggdb" }
+        buildoptions { "-fmessage-length=78", "-fno-inline", "-ggdb" }
 
     filter { "system:linux", "configurations:Debug", "platforms:x32" }
         targetsuffix "_debug"
@@ -237,10 +230,6 @@ workspace "squeezer"
     filter { "system:linux", "configurations:Release", "platforms:x64" }
         targetsuffix "_x64"
 
-    filter { "system:windows", "configurations:Release" }
-        flags { "NoManifest" }
-        buildoptions { "/Zi" }
-
     filter { "system:windows", "configurations:Release", "platforms:x32" }
         targetsuffix ")"
 
@@ -251,6 +240,7 @@ workspace "squeezer"
 
     project ("squeezer_standalone_mono")
         kind "WindowedApp"
+        targetdir "../bin/standalone/"
 
         defines {
             "SQUEEZER_MONO=1",
@@ -307,6 +297,7 @@ workspace "squeezer"
 
     project ("squeezer_standalone_stereo")
         kind "WindowedApp"
+        targetdir "../bin/standalone/"
 
         defines {
             "SQUEEZER_STEREO=1",
@@ -363,6 +354,7 @@ workspace "squeezer"
 
     project ("squeezer_vst_mono")
         kind "SharedLib"
+        targetdir "../bin/vst/"
 
         defines {
             "SQUEEZER_MONO=1",
@@ -405,6 +397,7 @@ workspace "squeezer"
 
     project ("squeezer_vst_stereo")
         kind "SharedLib"
+        targetdir "../bin/vst/"
 
         defines {
             "SQUEEZER_STEREO=1",
@@ -450,6 +443,7 @@ if os.target() == "windows" then
 
     project ("squeezer_vst3_mono")
         kind "SharedLib"
+        targetdir "../bin/vst3/"
 
         defines {
             "SQUEEZER_MONO=1",
@@ -495,6 +489,7 @@ if os.target() == "windows" then
 
     project ("squeezer_vst3_stereo")
         kind "SharedLib"
+        targetdir "../bin/vst3/"
 
         defines {
             "SQUEEZER_STEREO=1",
@@ -540,6 +535,7 @@ if os.target() == "linux" then
 
     project ("squeezer_lv2_mono")
         kind "SharedLib"
+        targetdir "../bin/lv2/"
 
         defines {
             "SQUEEZER_MONO=1",
@@ -580,6 +576,7 @@ if os.target() == "linux" then
 
     project ("squeezer_lv2_stereo")
         kind "SharedLib"
+        targetdir "../bin/lv2/"
 
         defines {
             "SQUEEZER_STEREO=1",

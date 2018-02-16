@@ -120,6 +120,6 @@ if [ $? -eq 0 ]; then
 	# target is standalone, so execute file
 	if [ $? -eq 0 ]; then
 		echo
-		../bin/$EXECUTABLE$EXECUTABLE_EXTENSION
+		../bin/standalone/$EXECUTABLE$EXECUTABLE_EXTENSION
 	fi
 fi

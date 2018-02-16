@@ -11,14 +11,18 @@
 .vs
 .Rhistory
 
-bin/*.dll
-bin/*.exe
-bin/*.so
-bin/*.vst3
-bin/squeezer/skins/default_skin.ini
-bin/squeezer_mono_*
-bin/squeezer_stereo_*
 bin/intermediate_*
+
+bin/lv2/squeezer_*.so
+
+bin/standalone/Squeezer*.exe
+bin/standalone/squeezer_*
+
+bin/vst/Squeezer*.dll
+bin/vst/squeezer_*.so
+
+bin/vst3/Squeezer*.vst3
+bin/vst3/squeezer_*.so
 
 skins/default_skin.ini
 
