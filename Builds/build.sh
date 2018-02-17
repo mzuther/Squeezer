@@ -110,6 +110,15 @@ else
 	echo
 fi
 
+# indent and format code
+if [ "$MAKEFILE" != "clean" ]; then
+	echo "==== Indenting and formatting code ===="
+	cd "../Source"
+	"./format_code.sh"
+	cd "../Builds"
+	echo
+fi
+
 # compile target
 make --directory=linux/gmake/ --no-print-directory config=$PLATFORM $MAKEFILE $* 2>&1
 

@@ -1,4 +1,4 @@
-# indent using given number of spaces 
+# indent using given number of spaces
 --indent=spaces=4
 
 # indent C++ comments beginning in column one
