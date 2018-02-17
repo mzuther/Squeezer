@@ -33,6 +33,7 @@
 				"include_dirs":
 				[
 					"${project_folder}/JuceLibraryCode",
+					"${project_folder}/libraries",
 					"${project_folder}/libraries/juce/modules",
 					"${project_folder}/Source",
 					"${project_folder}/Source/frut",

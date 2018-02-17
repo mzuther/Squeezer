@@ -25,8 +25,6 @@
 
 #pragma once
 
-class SideChain;
-
 #include "FrutHeader.h"
 #include "side_chain.h"
 
@@ -43,15 +41,6 @@ public:
         DesignFeedForward = 0,
         DesignFeedBack,
         NumberOfDesigns,
-
-        DetectorLinear = 0,
-        DetectorSmoothDecoupled,
-        DetectorSmoothBranching,
-        NumberOfDetectors,
-
-        GainStageFET = 0,
-        GainStageOptical,
-        NumberOfGainStages,
 
         KneeHard = 0,
         KneeMedium,

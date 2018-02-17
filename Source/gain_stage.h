@@ -31,6 +31,13 @@
 class GainStage
 {
 public:
+    enum Parameters  // public namespace!
+    {
+        FET = 0,
+        Optical,
+        NumberOfGainStages,
+    };
+
     // Destructor.
     virtual ~GainStage() {};
 

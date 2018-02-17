@@ -1,0 +1,14 @@
+{
+    "@python": 3,
+    "linters":
+    {
+    	"clang": {
+    		"args":
+    		[
+    			"-std=c++14",
+    			"-include",
+    			"${project}/Source/frut/FrutHeader.h"
+    		]
+    	}
+    }
+}

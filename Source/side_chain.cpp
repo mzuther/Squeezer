@@ -44,8 +44,8 @@ SideChain::SideChain(
     setKneeWidth(0.0);
 
     setDetectorRmsFilter(10.0);
-    nDetectorType = Compressor::DetectorSmoothBranching;
-    nGainStageType = Compressor::GainStageFET;
+    nDetectorType = SideChain::DetectorSmoothBranching;
+    nGainStageType = GainStage::FET;
 
     setAttackRate(10.0);
     setReleaseRate(100);
@@ -168,7 +168,7 @@ void SideChain::setGainStage(
     // update gain compensation
     setThreshold(dThreshold);
 
-    if (nGainStageType == Compressor::GainStageFET)
+    if (nGainStageType == GainStage::FET)
     {
         gainStageFET.reset(dGainReduction);
     }
@@ -321,7 +321,7 @@ void SideChain::setReleaseRate(
     {
         double dReleaseRateSeconds = nReleaseRate / 1000.0;
 
-        if (nDetectorType == Compressor::DetectorLinear)
+        if (nDetectorType == SideChain::DetectorLinear)
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
@@ -350,7 +350,7 @@ double SideChain::getGainReduction(
 {
     double dGainReductionTemp;
 
-    if (nGainStageType == Compressor::GainStageFET)
+    if (nGainStageType == GainStage::FET)
     {
         dGainReductionTemp = gainStageFET.processGainReduction(dGainReduction, dGainReductionIdeal);
     }
@@ -435,15 +435,15 @@ void SideChain::processSample(
     // feed output from gain computer to level detector
     switch (nDetectorType)
     {
-    case Compressor::DetectorLinear:
+    case SideChain::DetectorLinear:
         applyDetectorLinear(dGainReductionNew);
         break;
 
-    case Compressor::DetectorSmoothDecoupled:
+    case SideChain::DetectorSmoothDecoupled:
         applyDetectorSmoothDecoupled(dGainReductionNew);
         break;
 
-    case Compressor::DetectorSmoothBranching:
+    case SideChain::DetectorSmoothBranching:
         applyDetectorSmoothBranching(dGainReductionNew);
         break;
 

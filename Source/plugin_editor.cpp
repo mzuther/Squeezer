@@ -636,14 +636,14 @@ void SqueezerAudioProcessorEditor::updateParameter(
 
     case SqueezerPluginParameters::selDetector:
 
-        if (FloatValue == (Compressor::DetectorLinear /
-                           float(Compressor::NumberOfDetectors - 1)))
+        if (FloatValue == (SideChain::DetectorLinear /
+                           float(SideChain::NumberOfDetectors - 1)))
         {
             ButtonDetectorLinear_.setToggleState(true,
                                                  dontSendNotification);
         }
-        else if (FloatValue == (Compressor::DetectorSmoothDecoupled /
-                                float(Compressor::NumberOfDetectors - 1)))
+        else if (FloatValue == (SideChain::DetectorSmoothDecoupled /
+                                float(SideChain::NumberOfDetectors - 1)))
         {
             ButtonDetectorSmoothDecoupled_.setToggleState(true,
                     dontSendNotification);
@@ -818,22 +818,22 @@ void SqueezerAudioProcessorEditor::buttonClicked(
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selDetector,
-            Compressor::DetectorLinear /
-            float(Compressor::NumberOfDetectors - 1));
+            SideChain::DetectorLinear /
+            float(SideChain::NumberOfDetectors - 1));
     }
     else if (Button == &ButtonDetectorSmoothDecoupled_)
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selDetector,
-            Compressor::DetectorSmoothDecoupled /
-            float(Compressor::NumberOfDetectors - 1));
+            SideChain::DetectorSmoothDecoupled /
+            float(SideChain::NumberOfDetectors - 1));
     }
     else if (Button == &ButtonDetectorSmoothBranching_)
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selDetector,
-            Compressor::DetectorSmoothBranching /
-            float(Compressor::NumberOfDetectors - 1));
+            SideChain::DetectorSmoothBranching /
+            float(SideChain::NumberOfDetectors - 1));
     }
     else if (Button == &ButtonKneeHard_)
     {

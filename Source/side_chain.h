@@ -29,7 +29,6 @@
 
 
 #include "FrutHeader.h"
-#include "compressor.h"
 #include "gain_stage_fet.h"
 #include "gain_stage_optical.h"
 
@@ -37,6 +36,14 @@
 class SideChain
 {
 public:
+    enum Parameters  // public namespace!
+    {
+        DetectorLinear = 0,
+        DetectorSmoothDecoupled,
+        DetectorSmoothBranching,
+        NumberOfDetectors,
+    };
+
     SideChain(int nSampleRate);
 
     void reset();

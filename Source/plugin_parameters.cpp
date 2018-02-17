@@ -69,11 +69,11 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameter::ParSwitch();
     ParameterDetector->setName("Detector");
 
-    ParameterDetector->addPreset(Compressor::DetectorLinear,          "Linear");
-    ParameterDetector->addPreset(Compressor::DetectorSmoothDecoupled, "S-Curve");
-    ParameterDetector->addPreset(Compressor::DetectorSmoothBranching, "Logarithmic");
+    ParameterDetector->addPreset(SideChain::DetectorLinear,          "Linear");
+    ParameterDetector->addPreset(SideChain::DetectorSmoothDecoupled, "S-Curve");
+    ParameterDetector->addPreset(SideChain::DetectorSmoothBranching, "Logarithmic");
 
-    ParameterDetector->setDefaultRealFloat(Compressor::DetectorSmoothBranching, true);
+    ParameterDetector->setDefaultRealFloat(SideChain::DetectorSmoothBranching, true);
     add(ParameterDetector, selDetector);
 
 
@@ -81,10 +81,10 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameter::ParSwitch();
     ParameterGainStage->setName("Gain Stage");
 
-    ParameterGainStage->addPreset(Compressor::GainStageFET,     "FET");
-    ParameterGainStage->addPreset(Compressor::GainStageOptical, "Optical");
+    ParameterGainStage->addPreset(GainStage::FET,     "FET");
+    ParameterGainStage->addPreset(GainStage::Optical, "Optical");
 
-    ParameterGainStage->setDefaultRealFloat(Compressor::GainStageFET, true);
+    ParameterGainStage->setDefaultRealFloat(GainStage::FET, true);
     add(ParameterGainStage, selGainStage);
 
 
