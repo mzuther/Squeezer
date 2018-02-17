@@ -50,12 +50,36 @@ public:
 
     static void printVersionNumbers()
     {
+        String cpu = "CPU  " + juce::SystemStats::getCpuModel();
+
+        if (juce::SystemStats::hasSSE())
+        {
+            cpu += " SSE";
+        }
+
+        if (juce::SystemStats::hasSSE2())
+        {
+            cpu += " SSE2";
+        }
+
+        if (juce::SystemStats::hasAVX())
+        {
+            cpu += " AVX";
+        }
+
+        if (juce::SystemStats::hasAVX2())
+        {
+            cpu += " AVX2";
+        }
+
 #ifndef DEBUG
         Logger::outputDebugString(SystemStats::getJUCEVersion());
 #endif
 
+        Logger::outputDebugString(cpu);
         Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
         Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
+
         Logger::outputDebugString("");
     }
 };
@@ -72,8 +96,3 @@ public:
 
 // post includes
 #include "amalgamated/include_frut_skin.h"
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

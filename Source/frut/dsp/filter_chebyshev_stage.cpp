@@ -246,8 +246,3 @@ String FilterChebyshevStage::getCoefficients()
 
     return Result;
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

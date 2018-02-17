@@ -82,8 +82,3 @@ void RateConverter::upsample()
         convolveWithKernel(channel, static_cast<float>(upsamplingFactor_));
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

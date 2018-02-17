@@ -1254,8 +1254,3 @@ void Compressor::logMeterBallistics(double MeterInertia, double TimePassed, doub
         Readout = AttackReleaseCoef * (Readout - Level) + Level;
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

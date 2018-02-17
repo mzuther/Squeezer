@@ -105,8 +105,3 @@ void TruePeakMeter::processInput()
         truePeakLevels_.set(channel, truePeakLevel);
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

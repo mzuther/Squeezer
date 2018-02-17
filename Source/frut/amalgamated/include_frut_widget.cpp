@@ -51,8 +51,3 @@ namespace widget
 
 }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

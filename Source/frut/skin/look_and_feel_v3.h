@@ -39,8 +39,3 @@ public:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel_Frut_V3)
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

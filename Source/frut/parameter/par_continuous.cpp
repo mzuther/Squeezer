@@ -346,8 +346,3 @@ const String ParContinuous::getTextFromFloat(float newValue)
     // return formatted string
     return textValueNew;
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

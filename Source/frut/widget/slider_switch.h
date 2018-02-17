@@ -48,8 +48,3 @@ private:
     Colour colourRotary;
     parameter::ParSwitch *pSwitch;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

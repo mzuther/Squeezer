@@ -197,8 +197,3 @@ const String ParBoolean::getTextFromFloat(float newValue)
         return labelTrue;
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

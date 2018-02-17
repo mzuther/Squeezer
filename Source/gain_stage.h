@@ -43,8 +43,3 @@ protected:
         ignoreUnused(nSampleRate);
     };
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -73,8 +73,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(FftwRunner);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

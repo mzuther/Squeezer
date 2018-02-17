@@ -290,8 +290,3 @@ const String ParSwitch::getTextFromFloat(float newValue)
     // return label
     return arrLabels[selectedIndex];
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

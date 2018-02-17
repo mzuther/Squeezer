@@ -83,8 +83,3 @@ void FIRFilterBox::calculateKernelWindowedSincLPF(
     // calculate DFT of filter kernel
     fftwf_execute(filterKernelPlan_DFT_);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

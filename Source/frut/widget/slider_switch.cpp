@@ -93,8 +93,3 @@ String SliderSwitch::getTextFromValue(double dValue)
 {
     return pSwitch->getTextFromFloat((float) dValue);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

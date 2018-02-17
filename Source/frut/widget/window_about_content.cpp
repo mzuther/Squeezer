@@ -275,8 +275,3 @@ void WindowAboutContent::buttonClicked(
         url.launchInDefaultBrowser();
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

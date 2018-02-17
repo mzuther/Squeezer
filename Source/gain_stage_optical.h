@@ -50,8 +50,3 @@ private:
     Array<double> arrAttackCoefficients;
     Array<double> arrReleaseCoefficients;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

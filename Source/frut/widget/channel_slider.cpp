@@ -141,8 +141,3 @@ String ChannelSlider::getTextFromValue(
         return String(channelIndex);
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -125,8 +125,3 @@ protected:
     String parameterName_;
     String tagName_;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

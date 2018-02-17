@@ -182,8 +182,3 @@ String SliderCombined::getTextFromValue(double dValue)
 {
     return pCombined->getTextFromFloat((float) dValue);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

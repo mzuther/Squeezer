@@ -190,8 +190,3 @@ void ParString::storeAsXml(XmlElement *xmlDocument)
         xmlDocument->addChildElement(xmlParameter);
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

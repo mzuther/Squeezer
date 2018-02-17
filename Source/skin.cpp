@@ -69,8 +69,3 @@ void Skin::updateSkin(
         skinFallback_2_ = nullptr;
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

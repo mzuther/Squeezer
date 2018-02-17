@@ -47,8 +47,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(RateConverter);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

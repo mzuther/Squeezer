@@ -157,8 +157,3 @@ void NeedleMeter::setImages(
     // update dimensions of meter
     resized();
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

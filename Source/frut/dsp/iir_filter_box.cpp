@@ -271,8 +271,3 @@ void IirFilterBox::peakingFilterConstantQ(
         setCoefficients(a0, a1, a2, b1, b2);
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -99,8 +99,3 @@ void MeterSegment::setDiscreteLevels(
 
     setLevels(initialLevel, initialLevel, discreteLevel, discreteLevelPeak);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

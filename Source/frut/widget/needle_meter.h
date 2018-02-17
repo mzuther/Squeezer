@@ -58,8 +58,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(NeedleMeter);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

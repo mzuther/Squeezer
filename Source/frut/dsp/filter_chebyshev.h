@@ -48,8 +48,3 @@ private:
     int NumberOfPoles_;
     double PercentRipple_;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

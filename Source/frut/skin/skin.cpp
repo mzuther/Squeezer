@@ -714,8 +714,3 @@ void Skin::placeAndSkinStateLabel(
         label->setBounds(bounds);
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

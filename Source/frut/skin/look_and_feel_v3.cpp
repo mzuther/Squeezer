@@ -103,8 +103,3 @@ void LookAndFeel_Frut_V3::drawRotarySlider(
         g.fillPath(p, AffineTransform::rotation(angle).translated(centreX, centreY));
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

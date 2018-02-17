@@ -46,8 +46,3 @@ private:
 
     Array<float> fSamples;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

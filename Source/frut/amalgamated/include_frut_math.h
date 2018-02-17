@@ -37,8 +37,3 @@ namespace math
 
 }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

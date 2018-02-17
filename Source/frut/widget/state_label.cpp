@@ -220,8 +220,3 @@ void StateLabel::setLabelText(
 {
     textLabel_.setText(text, dontSendNotification);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

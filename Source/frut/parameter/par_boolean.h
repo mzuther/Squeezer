@@ -54,8 +54,3 @@ private:
     String labelTrue;
     String labelFalse;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

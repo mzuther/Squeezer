@@ -418,8 +418,3 @@ void SkinListBoxModel::paintListBoxItem(
                Justification::centredLeft,
                true);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

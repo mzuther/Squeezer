@@ -272,8 +272,3 @@ void WindowValidationContent::closeButtonPressed()
         dialogWindow->exitModalState(0);
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

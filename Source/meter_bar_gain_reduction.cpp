@@ -100,8 +100,3 @@ void MeterBarGainReduction::setUpwardExpansion(bool upwardExpansion)
     upwardExpansion_ = upwardExpansion;
     invertMeter(upwardExpansion_);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

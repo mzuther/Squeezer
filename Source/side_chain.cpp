@@ -714,8 +714,3 @@ double SideChain::decibel2level(
     double dLevel = pow(10.0, dDecibels / 20.0);
     return dLevel;
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

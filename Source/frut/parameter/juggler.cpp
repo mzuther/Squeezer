@@ -634,8 +634,3 @@ XmlElement Juggler::storeAsXml()
     // return XML document (will be deleted by the caller)
     return xmlDocument;
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -69,8 +69,3 @@ double GainStageFET::processGainReduction(double dGainReductionNew, double dGain
     dGainReduction = dGainReductionNew;
     return dGainReduction;
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

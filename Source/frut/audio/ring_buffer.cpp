@@ -572,8 +572,3 @@ int RingBuffer<Type>::countOverflows(
 // explicit instantiation of all template instances
 template class RingBuffer<float>;
 template class RingBuffer<double>;
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

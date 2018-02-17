@@ -68,8 +68,3 @@ private:
     float scalingFactor;
     float scalingConstantFactor;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

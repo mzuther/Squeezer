@@ -230,8 +230,3 @@ AudioBuffer<double> BiquadFilter::process(
 
     return outputBuffer;
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

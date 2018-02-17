@@ -42,8 +42,3 @@ enum Orientation
     /// inverted vertical widget (right to left)
     verticalInverted
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

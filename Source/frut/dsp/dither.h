@@ -73,8 +73,3 @@ private:
     double wordLength_;
     double wordLengthInverted_;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

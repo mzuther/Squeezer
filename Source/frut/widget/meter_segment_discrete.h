@@ -72,8 +72,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(MeterSegmentDiscrete);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

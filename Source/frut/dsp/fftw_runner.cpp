@@ -188,8 +188,3 @@ void FftwRunner::convolveWithKernel(
     fftOverlapAddSamples_.copyFrom(channel, 0, audioSamples_TD_ + fftBufferSize_,
                                    fftBufferSize_);
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

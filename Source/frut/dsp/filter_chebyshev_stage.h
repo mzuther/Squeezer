@@ -64,8 +64,3 @@ private:
     double OutputPrevious_1_;
     double OutputPrevious_2_;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

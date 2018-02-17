@@ -68,8 +68,3 @@ float Averager::getSimpleMovingAverage()
 {
     return fSum / fNumberOfSamples;
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

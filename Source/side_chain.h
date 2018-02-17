@@ -116,8 +116,3 @@ private:
     void applyDetectorSmoothDecoupled(double dGainReductionNew);
     void applyDetectorSmoothBranching(double dGainReductionNew);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

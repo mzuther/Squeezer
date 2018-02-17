@@ -32,8 +32,3 @@ class FrutSlider :
 public:
     virtual void setSliderColour(const Colour &colour) = 0;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

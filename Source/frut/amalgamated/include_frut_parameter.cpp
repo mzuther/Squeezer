@@ -41,8 +41,3 @@ namespace parameter
 
 }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

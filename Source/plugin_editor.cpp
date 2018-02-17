@@ -1171,8 +1171,3 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
 void SqueezerAudioProcessorEditor::resized()
 {
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

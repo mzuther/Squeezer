@@ -312,8 +312,3 @@ void Dither::ditherToFloat(
         }
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

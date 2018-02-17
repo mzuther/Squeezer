@@ -58,8 +58,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(SignalLed);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

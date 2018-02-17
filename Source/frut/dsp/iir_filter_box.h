@@ -64,8 +64,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(IirFilterBox);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

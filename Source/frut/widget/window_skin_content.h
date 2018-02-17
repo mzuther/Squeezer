@@ -97,8 +97,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(WindowSkinContent);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

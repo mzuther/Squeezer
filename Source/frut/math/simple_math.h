@@ -26,7 +26,7 @@
 #pragma once
 
 
-/// Simple class for version info and common functions.
+/// Simple class for common math functions.
 ///
 class SimpleMath
 {
@@ -112,8 +112,3 @@ public:
         return static_cast<int>(x);
     }
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

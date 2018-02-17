@@ -120,8 +120,3 @@ void SignalLed::setImages(
     // redraw component
     repaint(getLocalBounds());
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

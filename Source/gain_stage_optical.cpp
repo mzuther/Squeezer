@@ -143,8 +143,3 @@ double GainStageOptical::processGainReduction(double dGainReductionNew, double d
         return dGainReduction;
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

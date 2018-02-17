@@ -118,8 +118,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(Juggler);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

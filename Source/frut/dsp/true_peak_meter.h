@@ -51,8 +51,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

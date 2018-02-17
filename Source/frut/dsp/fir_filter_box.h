@@ -41,8 +41,3 @@ public:
 private:
     JUCE_LEAK_DETECTOR(FIRFilterBox);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

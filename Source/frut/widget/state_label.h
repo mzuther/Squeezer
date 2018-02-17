@@ -95,8 +95,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(StateLabel);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

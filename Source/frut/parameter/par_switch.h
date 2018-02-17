@@ -60,8 +60,3 @@ private:
 
     float stepSize;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

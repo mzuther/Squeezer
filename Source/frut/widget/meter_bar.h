@@ -102,8 +102,3 @@ private:
     Array<int> segmentSpacing_;
     OwnedArray<widget::MeterSegment> meterSegments_;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -65,8 +65,3 @@ protected:
     widget::Orientation orientation_;
 
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

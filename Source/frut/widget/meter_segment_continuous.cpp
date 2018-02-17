@@ -530,8 +530,3 @@ void MeterSegmentContinuous::setLevels(
         repaint();
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

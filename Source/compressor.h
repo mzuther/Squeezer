@@ -226,8 +226,3 @@ private:
     int SidechainHPFCutoff;
     int SidechainLPFCutoff;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -125,8 +125,3 @@ private:
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

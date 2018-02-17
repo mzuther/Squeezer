@@ -105,8 +105,3 @@ String SliderContinuous::getTextFromValue(
 {
     return parameter_->getTextFromFloat(static_cast<float>(dValue));
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

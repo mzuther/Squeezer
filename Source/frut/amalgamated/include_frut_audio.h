@@ -36,8 +36,3 @@ namespace audio
 
 }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

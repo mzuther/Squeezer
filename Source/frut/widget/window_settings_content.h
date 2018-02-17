@@ -57,8 +57,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(WindowSettingsContent);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

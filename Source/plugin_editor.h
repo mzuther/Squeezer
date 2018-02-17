@@ -119,8 +119,3 @@ private:
 
     ImageComponent BackgroundImage_;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

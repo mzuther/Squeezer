@@ -115,8 +115,3 @@ public:
     virtual void processBufferChunk(RingBuffer<Type> *ringBuffer,
                                     const int chunkSize) = 0;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -83,8 +83,3 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

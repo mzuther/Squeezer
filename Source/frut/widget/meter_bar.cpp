@@ -664,8 +664,3 @@ void MeterBar::setLevels(
         }
     }
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

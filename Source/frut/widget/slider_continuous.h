@@ -50,8 +50,3 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(SliderContinuous);
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

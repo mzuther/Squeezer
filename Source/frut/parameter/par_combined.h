@@ -88,8 +88,3 @@ private:
     parameter::ParSwitch presetValues;
     parameter::ParContinuous continuousValues;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

@@ -224,8 +224,3 @@ void FilterChebyshev::testAlgorithm(
 
     DBG("");
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

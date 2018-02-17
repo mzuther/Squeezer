@@ -1149,8 +1149,3 @@ AudioProcessor *JUCE_CALLTYPE createPluginFilter()
 {
     return new SqueezerAudioProcessor();
 }
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:

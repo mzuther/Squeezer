@@ -56,8 +56,3 @@ private:
     parameter::ParCombined *pCombined;
     parameter::ParBoolean *pModeSwitch;
 };
-
-
-// Local Variables:
-// ispell-local-dictionary: "british"
-// End:
