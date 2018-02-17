@@ -20,5 +20,24 @@
 				"JuceLibraryCode/include_*", "JuceLibraryCode/ReadMe.txt"
 			]
 		}
-	]
+	],
+	"SublimeLinter":
+	{
+		"linters":
+		{
+			"clang": {
+				"args":
+				[
+					"-std=c++14"
+				],
+				"include_dirs":
+				[
+					"${project_folder}/JuceLibraryCode",
+					"${project_folder}/libraries/juce/modules",
+					"${project_folder}/Source",
+					"${project_folder}/Source/frut",
+				]
+			}
+		}
+	}
 }
