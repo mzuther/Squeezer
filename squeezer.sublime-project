@@ -7,17 +7,21 @@
 			"folder_exclude_patterns":
 			[
 				"bin",
-				"Builds/linux", "Builds/windows",
+				"Builds/linux",
+				"Builds/windows",
+				"doc/auto",
+				"doc/licensing",
 				"ignore",
 				"libraries",
-				"doc/auto", "doc/licensing",
 				"Source/api",
 				"validation"
 			],
 
 			"file_exclude_patterns":
 			[
-				"JuceLibraryCode/include_*", "JuceLibraryCode/ReadMe.txt"
+				"*~",
+				"JuceLibraryCode/include_*",
+				"JuceLibraryCode/ReadMe.txt"
 			]
 		}
 	],
