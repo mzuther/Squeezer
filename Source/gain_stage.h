@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_GAIN_STAGE_H
+#define SQUEEZER_GAIN_STAGE_H
 
 #include "FrutHeader.h"
 
@@ -50,3 +51,5 @@ protected:
         ignoreUnused(nSampleRate);
     };
 };
+
+#endif  // SQUEEZER_GAIN_STAGE_H

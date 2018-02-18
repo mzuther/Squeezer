@@ -23,13 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
+#ifndef FRUT_AMALGAMATED_DSP_CPP
+#define FRUT_AMALGAMATED_DSP_CPP
+
+
 #include "../FrutHeader.h"
-
-
-namespace frut
-{
-namespace dsp
-{
 
 #include "../dsp/biquad_filter.cpp"
 #include "../dsp/dither.cpp"
@@ -44,7 +42,7 @@ namespace dsp
 #include "../dsp/rate_converter.cpp"
 #include "../dsp/true_peak_meter.cpp"
 
-#endif
+#endif  // FRUT_DSP_USE_FFTW
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_DSP_CPP

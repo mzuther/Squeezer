@@ -23,16 +23,12 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_AMALGAMATED_AUDIO_H
+#define FRUT_AMALGAMATED_AUDIO_H
 
-
-namespace frut
-{
-namespace audio
-{
 
 // normal includes
 #include "../audio/ring_buffer.h"
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_AUDIO_H

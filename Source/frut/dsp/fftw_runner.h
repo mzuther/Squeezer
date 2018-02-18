@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_FFTW_RUNNER_H
+#define FRUT_DSP_FFTW_RUNNER_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class FftwRunner
 {
@@ -73,3 +78,8 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(FftwRunner);
 };
+
+}
+}
+
+#endif  // FRUT_DSP_FFTW_RUNNER_H

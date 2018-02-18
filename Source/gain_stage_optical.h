@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_GAIN_STAGE_OPTICAL_H
+#define SQUEEZER_GAIN_STAGE_OPTICAL_H
 
 #include "FrutHeader.h"
 #include "gain_stage.h"
@@ -50,3 +51,5 @@ private:
     Array<double> arrAttackCoefficients;
     Array<double> arrReleaseCoefficients;
 };
+
+#endif  // SQUEEZER_GAIN_STAGE_OPTICAL_H

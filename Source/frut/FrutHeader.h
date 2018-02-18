@@ -23,8 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
-
+#ifndef FRUT_HEADER_H
+#define FRUT_HEADER_H
 
 // external includes
 #include "JuceHeader.h"
@@ -50,36 +50,38 @@ public:
 
     static void printVersionNumbers()
     {
-        String cpu = "CPU  " + juce::SystemStats::getCpuModel();
-
-        if (juce::SystemStats::hasSSE())
-        {
-            cpu += " SSE";
-        }
-
-        if (juce::SystemStats::hasSSE2())
-        {
-            cpu += " SSE2";
-        }
-
-        if (juce::SystemStats::hasAVX())
-        {
-            cpu += " AVX";
-        }
-
-        if (juce::SystemStats::hasAVX2())
-        {
-            cpu += " AVX2";
-        }
-
 #ifndef DEBUG
         Logger::outputDebugString(SystemStats::getJUCEVersion());
 #endif
 
-        Logger::outputDebugString(cpu);
         Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
         Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
+        Logger::outputDebugString("");
 
+        String simd = "SIMD ";
+
+        if (juce::SystemStats::hasSSE())
+        {
+            simd += "SSE ";
+        }
+
+        if (juce::SystemStats::hasSSE2())
+        {
+            simd += "SSE2 ";
+        }
+
+        if (juce::SystemStats::hasAVX())
+        {
+            simd += "AVX ";
+        }
+
+        if (juce::SystemStats::hasAVX2())
+        {
+            simd += "AVX2 ";
+        }
+
+        Logger::outputDebugString("CPU  " + juce::SystemStats::getCpuModel());
+        Logger::outputDebugString(simd);
         Logger::outputDebugString("");
     }
 };
@@ -91,8 +93,10 @@ public:
 #include "amalgamated/include_frut_audio.h"
 #include "amalgamated/include_frut_dsp.h"
 #include "amalgamated/include_frut_math.h"
-#include "amalgamated/include_frut_parameter.h"
-#include "amalgamated/include_frut_widget.h"
+#include "amalgamated/include_frut_parameters.h"
+#include "amalgamated/include_frut_widgets.h"
 
 // post includes
 #include "amalgamated/include_frut_skin.h"
+
+#endif  // FRUT_HEADER_H

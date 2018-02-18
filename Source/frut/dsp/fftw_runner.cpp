@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 FftwRunner::FftwRunner(
     const int numberOfChannels,
@@ -187,4 +191,7 @@ void FftwRunner::convolveWithKernel(
     // store new overlapping samples
     fftOverlapAddSamples_.copyFrom(channel, 0, audioSamples_TD_ + fftBufferSize_,
                                    fftBufferSize_);
+}
+
+}
 }

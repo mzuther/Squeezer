@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 Dither::Dither() :
     antiDenormalFloat_(FLT_MIN),
@@ -311,4 +315,7 @@ void Dither::ditherToFloat(
                 currentChannel, currentSample, destinationValueFloat);
         }
     }
+}
+
+}
 }

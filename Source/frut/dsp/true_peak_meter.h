@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_TRUE_PEAK_METER_H
+#define FRUT_DSP_TRUE_PEAK_METER_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class TruePeakMeter :
     public frut::dsp::RateConverter
@@ -51,3 +56,8 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
 };
+
+}
+}
+
+#endif  // FRUT_DSP_TRUE_PEAK_METER_H

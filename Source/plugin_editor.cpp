@@ -84,7 +84,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
 
     NumberOfChannels_ = NumberOfChannels;
 
-    SliderThreshold_ = new frut::widget::SliderCombined(
+    SliderThreshold_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selThreshold,
         SqueezerPluginParameters::selThresholdSwitch);
@@ -94,7 +94,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderThreshold_);
 
 
-    SliderRatio_ = new frut::widget::SliderCombined(
+    SliderRatio_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selRatio,
         SqueezerPluginParameters::selRatioSwitch);
@@ -104,7 +104,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderRatio_);
 
 
-    SliderAttackRate_ = new frut::widget::SliderCombined(
+    SliderAttackRate_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selAttackRate,
         SqueezerPluginParameters::selAttackRateSwitch);
@@ -114,7 +114,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderAttackRate_);
 
 
-    SliderReleaseRate_ = new frut::widget::SliderCombined(
+    SliderReleaseRate_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selReleaseRate,
         SqueezerPluginParameters::selReleaseRateSwitch);
@@ -124,7 +124,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderReleaseRate_);
 
 
-    SliderMakeupGain_ = new frut::widget::SliderCombined(
+    SliderMakeupGain_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selMakeupGain,
         SqueezerPluginParameters::selMakeupGainSwitch);
@@ -134,7 +134,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderMakeupGain_);
 
 
-    SliderWetMix_ = new frut::widget::SliderCombined(
+    SliderWetMix_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selWetMix,
         SqueezerPluginParameters::selWetMixSwitch);
@@ -144,7 +144,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderWetMix_);
 
 
-    SliderSidechainHPFCutoff_ = new frut::widget::SliderCombined(
+    SliderSidechainHPFCutoff_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selSidechainHPFCutoff,
         SqueezerPluginParameters::selSidechainHPFCutoffSwitch);
@@ -154,7 +154,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderSidechainHPFCutoff_);
 
 
-    SliderSidechainLPFCutoff_ = new frut::widget::SliderCombined(
+    SliderSidechainLPFCutoff_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selSidechainLPFCutoff,
         SqueezerPluginParameters::selSidechainLPFCutoffSwitch);
@@ -422,8 +422,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     bool IsDiscreteMeter = true;
     int CrestFactor = 20;
-    frut::widget::Orientation MeterOrientation =
-        frut::widget::Orientation::vertical;
+    frut::widgets::Orientation MeterOrientation =
+        frut::widgets::Orientation::vertical;
 
     for (int Channel = 0; Channel < NumberOfChannels_; ++Channel)
     {
@@ -893,7 +893,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 
         // prepare and launch dialog window
         DialogWindow *windowSettings =
-            frut::widget::WindowSettingsContent::createDialogWindow(
+            frut::widgets::WindowSettingsContent::createDialogWindow(
                 this, Width, Height, PluginSettings);
 
         // attach callback to dialog window
@@ -912,7 +912,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 
         // prepare and launch dialog window
         DialogWindow *WindowSkin =
-            frut::widget::WindowSkinContent::createDialogWindow(
+            frut::widgets::WindowSkinContent::createDialogWindow(
                 this, &CurrentSkinName_, SkinDirectory_);
 
         // attach callback to dialog window
@@ -1037,7 +1037,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
         int Height = 540;
 
         DialogWindow *windowAbout =
-            frut::widget::WindowAboutContent::createDialogWindow(
+            frut::widgets::WindowAboutContent::createDialogWindow(
                 this, Width, Height, Chapters);
 
         // attach callback to dialog window
@@ -1048,8 +1048,8 @@ void SqueezerAudioProcessorEditor::buttonClicked(
     else
     {
         float FloatValue = Button->getToggleState() ? 1.0f : 0.0f;
-        frut::widget::SliderCombined *Slider =
-            dynamic_cast<frut::widget::SliderCombined *>(
+        frut::widgets::SliderCombined *Slider =
+            dynamic_cast<frut::widgets::SliderCombined *>(
                 Button->getParentComponent());
 
         if (Slider == SliderThreshold_)

@@ -23,6 +23,11 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace skin
+{
+
 // adapted from juce::LookAndFeel_V2
 void LookAndFeel_Frut_V3::drawRotarySlider(
     Graphics &g, int x, int y, int width, int height, float sliderPos,
@@ -102,4 +107,7 @@ void LookAndFeel_Frut_V3::drawRotarySlider(
 
         g.fillPath(p, AffineTransform::rotation(angle).translated(centreX, centreY));
     }
+}
+
+}
 }

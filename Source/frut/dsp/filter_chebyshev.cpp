@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 FilterChebyshev::FilterChebyshev(
     double RelativeCutoffFrequency,
@@ -225,4 +229,7 @@ void FilterChebyshev::testAlgorithm(
             PercentRipple));
 
     DBG("");
+}
+
+}
 }

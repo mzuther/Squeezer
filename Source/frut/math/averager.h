@@ -23,7 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_MATH_AVERAGER_H
+#define FRUT_MATH_AVERAGER_H
+
+namespace frut
+{
+namespace math
+{
 
 
 class Averager
@@ -46,3 +52,8 @@ private:
 
     Array<float> fSamples;
 };
+
+}
+}
+
+#endif  // FRUT_MATH_AVERAGER_H

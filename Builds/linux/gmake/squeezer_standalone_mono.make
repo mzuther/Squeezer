@@ -170,9 +170,9 @@ OBJECTS := \
 	$(OBJDIR)/include_frut_audio.o \
 	$(OBJDIR)/include_frut_dsp.o \
 	$(OBJDIR)/include_frut_math.o \
-	$(OBJDIR)/include_frut_parameter.o \
+	$(OBJDIR)/include_frut_parameters.o \
 	$(OBJDIR)/include_frut_skin.o \
-	$(OBJDIR)/include_frut_widget.o \
+	$(OBJDIR)/include_frut_widgets.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/gain_stage_optical.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
@@ -385,7 +385,7 @@ else
 	$(SILENT) mkdir $(subst /,\\,$(OBJDIR))
 endif
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/include_frut_parameter.o: ../../../Source/frut/amalgamated/include_frut_parameter.cpp
+$(OBJDIR)/include_frut_parameters.o: ../../../Source/frut/amalgamated/include_frut_parameters.cpp
 	@echo $(notdir $<)
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) mkdir -p $(OBJDIR)
@@ -401,7 +401,7 @@ else
 	$(SILENT) mkdir $(subst /,\\,$(OBJDIR))
 endif
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/include_frut_widget.o: ../../../Source/frut/amalgamated/include_frut_widget.cpp
+$(OBJDIR)/include_frut_widgets.o: ../../../Source/frut/amalgamated/include_frut_widgets.cpp
 	@echo $(notdir $<)
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) mkdir -p $(OBJDIR)

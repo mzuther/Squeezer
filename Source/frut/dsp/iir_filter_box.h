@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_IIR_FILTER_BOX_H
+#define FRUT_DSP_IIR_FILTER_BOX_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class IirFilterBox :
     public BiquadFilter
@@ -64,3 +69,8 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(IirFilterBox);
 };
+
+}
+}
+
+#endif  // FRUT_DSP_IIR_FILTER_BOX_H

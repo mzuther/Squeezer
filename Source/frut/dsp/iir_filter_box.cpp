@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 IirFilterBox::IirFilterBox(
     const int numberOfChannels,
@@ -270,4 +274,7 @@ void IirFilterBox::peakingFilterConstantQ(
 
         setCoefficients(a0, a1, a2, b1, b2);
     }
+}
+
+}
 }

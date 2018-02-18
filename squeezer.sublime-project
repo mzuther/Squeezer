@@ -32,8 +32,7 @@
 			"clang": {
 				"args":
 				[
-					"-std=c++14",
-					"-Wno-pragma-once-outside-header",
+					"-std=c++14"
 				],
 				"include_dirs":
 				[

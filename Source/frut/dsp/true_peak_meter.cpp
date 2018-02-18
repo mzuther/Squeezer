@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 TruePeakMeter::TruePeakMeter(
     const int numberOfChannels,
@@ -104,4 +108,7 @@ void TruePeakMeter::processInput()
 
         truePeakLevels_.set(channel, truePeakLevel);
     }
+}
+
+}
 }

@@ -26,13 +26,13 @@
 #include "meter_bar_gain_reduction.h"
 
 
-void MeterBarGainReduction::create(frut::widget::Orientation orientation,
+void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
                                    bool discreteMeter,
                                    int mainSegmentHeight,
                                    const Array<Colour> &segmentColours)
 
 {
-    frut::widget::MeterBar::create();
+    frut::widgets::MeterBar::create();
 
     setUpwardExpansion(false);
 

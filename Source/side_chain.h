@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_SIDE_CHAIN_H
+#define SQUEEZER_SIDE_CHAIN_H
 
 #define DEBUG_RELEASE_RATE 0
 
@@ -123,3 +124,5 @@ private:
     void applyDetectorSmoothDecoupled(double dGainReductionNew);
     void applyDetectorSmoothBranching(double dGainReductionNew);
 };
+
+#endif  // SQUEEZER_SIDE_CHAIN_H

@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_FIR_FILTER_BOX_H
+#define FRUT_DSP_FIR_FILTER_BOX_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class FIRFilterBox :
     public FftwRunner
@@ -41,3 +46,8 @@ public:
 private:
     JUCE_LEAK_DETECTOR(FIRFilterBox);
 };
+
+}
+}
+
+#endif  // FRUT_DSP_FIR_FILTER_BOX_H

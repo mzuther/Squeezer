@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace skin
+{
 
 // The following class members are initialized in the derived class:
 //
@@ -420,7 +424,7 @@ void Skin::placeComponent(
 
 void Skin::placeMeterBar(
     const String &tagName,
-    widget::MeterBar *meterBar)
+    widgets::MeterBar *meterBar)
 {
     jassert(meterBar != nullptr);
 
@@ -451,12 +455,12 @@ void Skin::placeMeterBar(
         // vertical bar
         if (isVertical)
         {
-            meterBar->setOrientation(widget::Orientation::vertical);
+            meterBar->setOrientation(widgets::Orientation::vertical);
         }
         // horizontal bar
         else
         {
-            meterBar->setOrientation(widget::Orientation::horizontal);
+            meterBar->setOrientation(widgets::Orientation::horizontal);
         }
     }
 }
@@ -512,7 +516,7 @@ void Skin::placeAndSkinButton(
 
 void Skin::placeAndSkinSlider(
     const String &tagName,
-    widget::FrutSlider *slider)
+    widgets::FrutSlider *slider)
 {
     XmlElement *xmlComponent = getComponent(tagName);
     Colour sliderColour = getColour(xmlComponent, 0.0f);
@@ -524,7 +528,7 @@ void Skin::placeAndSkinSlider(
 
 void Skin::placeAndSkinNeedleMeter(
     const String &tagName,
-    widget::NeedleMeter *meter)
+    widgets::NeedleMeter *meter)
 {
     jassert(meter != nullptr);
 
@@ -586,7 +590,7 @@ void Skin::placeAndSkinLabel(
 
 void Skin::placeAndSkinSignalLed(
     const String &tagName,
-    widget::SignalLed *label)
+    widgets::SignalLed *label)
 {
     jassert(label != nullptr);
 
@@ -641,7 +645,7 @@ void Skin::placeAndSkinSignalLed(
 
 void Skin::placeAndSkinStateLabel(
     const String &tagName,
-    widget::StateLabel *label)
+    widgets::StateLabel *label)
 {
     jassert(label != nullptr);
 
@@ -713,4 +717,7 @@ void Skin::placeAndSkinStateLabel(
         Rectangle<int> bounds = getBounds(xmlComponent, width, height);
         label->setBounds(bounds);
     }
+}
+
+}
 }

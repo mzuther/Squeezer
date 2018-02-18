@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_PLUGIN_PROCESSOR_H
+#define SQUEEZER_PLUGIN_PROCESSOR_H
 
 #include "FrutHeader.h"
 #include "compressor.h"
@@ -125,3 +126,5 @@ private:
 };
 
 AudioProcessor *JUCE_CALLTYPE createPluginFilter();
+
+#endif  // SQUEEZER_PLUGIN_PROCESSOR_H

@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_COMPRESSOR_H
+#define SQUEEZER_COMPRESSOR_H
 
 #include "FrutHeader.h"
 #include "side_chain.h"
@@ -215,3 +216,5 @@ private:
     int SidechainHPFCutoff;
     int SidechainLPFCutoff;
 };
+
+#endif  // SQUEEZER_COMPRESSOR_H

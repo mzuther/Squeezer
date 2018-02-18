@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_AUDIO_RING_BUFFER_H
+#define FRUT_AUDIO_RING_BUFFER_H
 
+namespace frut
+{
+namespace audio
+{
 
 template <typename Type>
 class RingBufferProcessor;
@@ -115,3 +120,8 @@ public:
     virtual void processBufferChunk(RingBuffer<Type> *ringBuffer,
                                     const int chunkSize) = 0;
 };
+
+}
+}
+
+#endif  // FRUT_AUDIO_RING_BUFFER_H

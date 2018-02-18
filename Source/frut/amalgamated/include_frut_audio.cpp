@@ -23,15 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
+#ifndef FRUT_AMALGAMATED_AUDIO_CPP
+#define FRUT_AMALGAMATED_AUDIO_CPP
+
+
 #include "../FrutHeader.h"
-
-
-namespace frut
-{
-namespace audio
-{
 
 #include "../audio/ring_buffer.cpp"
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_AUDIO_CPP

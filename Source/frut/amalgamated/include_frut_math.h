@@ -23,17 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_AMALGAMATED_MATH_H
+#define FRUT_AMALGAMATED_MATH_H
 
-
-namespace frut
-{
-namespace math
-{
 
 // normal includes
 #include "../math/averager.h"
 #include "../math/simple_math.h"
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_MATH_H

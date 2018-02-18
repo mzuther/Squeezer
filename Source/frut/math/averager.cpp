@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace math
+{
 
 Averager::Averager(int number_of_samples, float initial_value)
 {
@@ -67,4 +71,7 @@ bool Averager::isValid()
 float Averager::getSimpleMovingAverage()
 {
     return fSum / fNumberOfSamples;
+}
+
+}
 }

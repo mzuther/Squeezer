@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_SKIN_LOOK_AND_FEEL_V3_H
+#define FRUT_SKIN_LOOK_AND_FEEL_V3_H
 
+namespace frut
+{
+namespace skin
+{
 
 class LookAndFeel_Frut_V3 :
     public LookAndFeel_V3
@@ -39,3 +44,8 @@ public:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel_Frut_V3)
 };
+
+}
+}
+
+#endif  // FRUT_SKIN_LOOK_AND_FEEL_V3_H

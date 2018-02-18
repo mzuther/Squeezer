@@ -184,9 +184,9 @@
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_audio.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_dsp.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_math.h" />
-    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_parameter.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_parameters.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_skin.h" />
-    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_widget.h" />
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.h" />
     <ClInclude Include="..\..\..\Source\gain_stage.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_optical.h" />
@@ -218,9 +218,9 @@
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_audio.cpp" />
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_dsp.cpp" />
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_math.cpp" />
-    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_parameter.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_parameters.cpp" />
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_skin.cpp" />
-    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_widget.cpp" />
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.cpp" />
     <ClCompile Include="..\..\..\Source\gain_stage_fet.cpp" />
     <ClCompile Include="..\..\..\Source\gain_stage_optical.cpp" />
     <ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp" />

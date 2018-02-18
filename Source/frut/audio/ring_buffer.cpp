@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace audio
+{
 
 /// Create a new audio ring buffer.
 ///
@@ -572,3 +576,6 @@ int RingBuffer<Type>::countOverflows(
 // explicit instantiation of all template instances
 template class RingBuffer<float>;
 template class RingBuffer<double>;
+
+}
+}

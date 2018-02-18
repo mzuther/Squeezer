@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 RateConverter::RateConverter(
     const int numberOfChannels,
@@ -81,4 +85,7 @@ void RateConverter::upsample()
     {
         convolveWithKernel(channel, static_cast<float>(upsamplingFactor_));
     }
+}
+
+}
 }

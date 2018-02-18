@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_DITHER_H
+#define FRUT_DSP_DITHER_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class Dither
 {
@@ -73,3 +78,8 @@ private:
     double wordLength_;
     double wordLengthInverted_;
 };
+
+}
+}
+
+#endif  // FRUT_DSP_DITHER_H

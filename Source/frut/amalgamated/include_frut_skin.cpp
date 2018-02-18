@@ -23,16 +23,14 @@
 
 ---------------------------------------------------------------------------- */
 
+#ifndef FRUT_AMALGAMATED_SKIN_CPP
+#define FRUT_AMALGAMATED_SKIN_CPP
+
+
 #include "../FrutHeader.h"
-
-
-namespace frut
-{
-namespace skin
-{
 
 #include "../skin/look_and_feel_v3.cpp"
 #include "../skin/skin.cpp"
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_SKIN_CPP

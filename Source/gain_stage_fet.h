@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_GAIN_STAGE_FET_H
+#define SQUEEZER_GAIN_STAGE_FET_H
 
 #include "FrutHeader.h"
 #include "gain_stage.h"
@@ -41,3 +42,5 @@ private:
 
     double dGainReduction;
 };
+
+#endif  // SQUEEZER_GAIN_STAGE_FET_H

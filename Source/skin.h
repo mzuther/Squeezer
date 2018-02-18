@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_SKIN_H
+#define SQUEEZER_SKIN_H
 
 #include "FrutHeader.h"
 #include "plugin_parameters.h"
@@ -41,3 +42,5 @@ public:
 private:
     JUCE_LEAK_DETECTOR(Skin);
 };
+
+#endif  // SQUEEZER_SKIN_H

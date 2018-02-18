@@ -23,18 +23,19 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_METER_BAR_LEVEL_H
+#define SQUEEZER_METER_BAR_LEVEL_H
 
 #include "FrutHeader.h"
 
 
 class MeterBarLevel :
-    public frut::widget::MeterBar
+    public frut::widgets::MeterBar
 {
 public:
-    using frut::widget::MeterBar::create;
+    using frut::widgets::MeterBar::create;
     void create(int crestFactor,
-                frut::widget::Orientation orientation,
+                frut::widgets::Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
                 const Array<Colour> &segmentColours);
@@ -56,3 +57,5 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(MeterBarLevel);
 };
+
+#endif  // SQUEEZER_METER_BAR_LEVEL_H

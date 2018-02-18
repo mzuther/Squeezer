@@ -23,17 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_AMALGAMATED_SKIN_H
+#define FRUT_AMALGAMATED_SKIN_H
 
-
-namespace frut
-{
-namespace skin
-{
 
 // normal includes
 #include "../skin/look_and_feel_v3.h"
 #include "../skin/skin.h"
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_SKIN_H

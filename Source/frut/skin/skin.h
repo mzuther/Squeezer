@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_SKIN_SKIN_H
+#define FRUT_SKIN_SKIN_H
 
+namespace frut
+{
+namespace skin
+{
 
 class Skin
 {
@@ -73,25 +78,25 @@ public:
                         Component *component);
 
     void placeMeterBar(const String &tagName,
-                       widget::MeterBar *meterBar);
+                       widgets::MeterBar *meterBar);
 
     void placeAndSkinButton(const String &tagName,
                             ImageButton *button);
 
     void placeAndSkinSlider(const String &tagName,
-                            widget::FrutSlider *slider);
+                            widgets::FrutSlider *slider);
 
     void placeAndSkinNeedleMeter(const String &tagName,
-                                 widget::NeedleMeter *meter);
+                                 widgets::NeedleMeter *meter);
 
     void placeAndSkinLabel(const String &tagName,
                            ImageComponent *label);
 
     void placeAndSkinSignalLed(const String &tagName,
-                               widget::SignalLed *label);
+                               widgets::SignalLed *label);
 
     void placeAndSkinStateLabel(const String &tagName,
-                                widget::StateLabel *label);
+                                widgets::StateLabel *label);
 
 protected:
     ScopedPointer<XmlElement> document_;
@@ -114,3 +119,8 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(Skin);
 };
+
+}
+}
+
+#endif  // FRUT_SKIN_SKIN_H

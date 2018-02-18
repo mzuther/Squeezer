@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_FILTER_CHEBYSHEV_H
+#define FRUT_DSP_FILTER_CHEBYSHEV_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class FilterChebyshev
 {
@@ -48,3 +53,8 @@ private:
     int NumberOfPoles_;
     double PercentRipple_;
 };
+
+}
+}
+
+#endif  // FRUT_DSP_FILTER_CHEBYSHEV_H

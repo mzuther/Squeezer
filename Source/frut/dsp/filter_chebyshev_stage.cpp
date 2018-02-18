@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 FilterChebyshevStage::FilterChebyshevStage() :
     AntiDenormalDouble_(DBL_MIN)
@@ -245,4 +249,7 @@ String FilterChebyshevStage::getCoefficients()
     Result += "\n";
 
     return Result;
+}
+
+}
 }

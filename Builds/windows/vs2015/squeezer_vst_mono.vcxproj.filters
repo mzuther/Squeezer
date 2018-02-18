@@ -30,13 +30,13 @@
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_math.h">
       <Filter>Source\frut\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_parameter.h">
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_parameters.h">
       <Filter>Source\frut\amalgamated</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_skin.h">
       <Filter>Source\frut\amalgamated</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_widget.h">
+    <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.h">
       <Filter>Source\frut\amalgamated</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\gain_stage.h">
@@ -128,13 +128,13 @@
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_math.cpp">
       <Filter>Source\frut\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_parameter.cpp">
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_parameters.cpp">
       <Filter>Source\frut\amalgamated</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_skin.cpp">
       <Filter>Source\frut\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_widget.cpp">
+    <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.cpp">
       <Filter>Source\frut\amalgamated</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\gain_stage_fet.cpp">

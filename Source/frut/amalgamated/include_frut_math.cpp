@@ -23,15 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
+#ifndef FRUT_AMALGAMATED_MATH_CPP
+#define FRUT_AMALGAMATED_MATH_CPP
+
+
 #include "../FrutHeader.h"
-
-
-namespace frut
-{
-namespace math
-{
 
 #include "../math/averager.cpp"
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_MATH_CPP

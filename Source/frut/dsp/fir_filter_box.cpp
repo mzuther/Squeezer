@@ -23,6 +23,10 @@
 
 ---------------------------------------------------------------------------- */
 
+namespace frut
+{
+namespace dsp
+{
 
 FIRFilterBox::FIRFilterBox(
     const int numberOfChannels,
@@ -82,4 +86,7 @@ void FIRFilterBox::calculateKernelWindowedSincLPF(
 
     // calculate DFT of filter kernel
     fftwf_execute(filterKernelPlan_DFT_);
+}
+
+}
 }

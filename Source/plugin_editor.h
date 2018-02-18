@@ -23,7 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef SQUEEZER_PLUGIN_EDITOR_H
+#define SQUEEZER_PLUGIN_EDITOR_H
 
 #include "FrutHeader.h"
 #include "compressor.h"
@@ -80,17 +81,17 @@ private:
 
     ScopedPointer<juce::LookAndFeel> currentLookAndFeel_;
 
-    ScopedPointer<frut::widget::SliderCombined> SliderThreshold_;
-    ScopedPointer<frut::widget::SliderCombined> SliderRatio_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderThreshold_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderRatio_;
 
-    ScopedPointer<frut::widget::SliderCombined> SliderAttackRate_;
-    ScopedPointer<frut::widget::SliderCombined> SliderReleaseRate_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderAttackRate_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderReleaseRate_;
 
-    ScopedPointer<frut::widget::SliderCombined> SliderMakeupGain_;
-    ScopedPointer<frut::widget::SliderCombined> SliderWetMix_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderMakeupGain_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderWetMix_;
 
-    ScopedPointer<frut::widget::SliderCombined> SliderSidechainHPFCutoff_;
-    ScopedPointer<frut::widget::SliderCombined> SliderSidechainLPFCutoff_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderSidechainLPFCutoff_;
 
     ImageButton ButtonDetectorRms_;
     ImageButton ButtonDesignFeedback_;
@@ -119,3 +120,5 @@ private:
 
     ImageComponent BackgroundImage_;
 };
+
+#endif  // SQUEEZER_PLUGIN_EDITOR_H

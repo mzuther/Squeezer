@@ -23,18 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_AMALGAMATED_DSP_H
+#define FRUT_AMALGAMATED_DSP_H
 
 
 #ifndef FRUT_DSP_USE_FFTW
 #define FRUT_DSP_USE_FFTW 0
 #endif
-
-
-namespace frut
-{
-namespace dsp
-{
 
 // special includes
 #include <float.h>
@@ -42,7 +37,7 @@ namespace dsp
 
 #if FRUT_DSP_USE_FFTW
 #include "fftw/api/fftw3.h"
-#endif
+#endif  // FRUT_DSP_USE_FFTW
 
 // normal includes
 #include "../dsp/biquad_filter.h"
@@ -57,10 +52,10 @@ namespace dsp
 #include "../dsp/rate_converter.h"
 #include "../dsp/true_peak_meter.h"
 
-#endif
+#endif  // FRUT_DSP_USE_FFTW
 
 // post includes
 #include "../dsp/filter_chebyshev.h"
 
-}
-}
+
+#endif  // FRUT_AMALGAMATED_DSP_H

@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_RATE_CONVERTER_H
+#define FRUT_DSP_RATE_CONVERTER_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class RateConverter :
     public frut::dsp::FIRFilterBox
@@ -47,3 +52,8 @@ protected:
 private:
     JUCE_LEAK_DETECTOR(RateConverter);
 };
+
+}
+}
+
+#endif  // FRUT_DSP_RATE_CONVERTER_H

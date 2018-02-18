@@ -23,8 +23,13 @@
 
 ---------------------------------------------------------------------------- */
 
-#pragma once
+#ifndef FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H
+#define FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H
 
+namespace frut
+{
+namespace dsp
+{
 
 class FilterChebyshevStage
 {
@@ -64,3 +69,8 @@ private:
     double OutputPrevious_1_;
     double OutputPrevious_2_;
 };
+
+}
+}
+
+#endif  // FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H
