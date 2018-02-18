@@ -7,7 +7,8 @@
     		[
     			"-std=c++14",
     			"-include",
-    			"${project}/Source/frut/FrutHeader.h"
+    			"${project}/Source/frut/FrutHeader.h",
+    			"-Wno-pragma-once-outside-header"
     		]
     	}
     }

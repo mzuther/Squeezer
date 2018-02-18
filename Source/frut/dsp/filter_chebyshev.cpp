@@ -101,6 +101,8 @@ void FilterChebyshev::testAlgorithm(
     double PercentRipple = 0.5;
     double RelativeCutoffFrequency;
 
+    ignoreUnused(PercentRipple);
+
     DBG("");
     DBG("Chebyshev Filter Coefficients");
     DBG("=============================");
