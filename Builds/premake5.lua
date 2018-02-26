@@ -159,7 +159,7 @@ workspace "squeezer"
             "StaticRuntime"
         }
 
-        vectorextensions "AVX"
+        vectorextensions "SSE2"
 
         links {
             "kernel32",
