@@ -197,9 +197,12 @@ workspace "squeezer"
         optimize "Off"
         symbols "On"
 
+    filter { "system:linux" }
+        buildoptions { "-DHAVE_LROUND", "-fmessage-length=78" }
+
     filter { "system:linux", "configurations:Debug" }
         warnings "Extra"
-        buildoptions { "-fmessage-length=78", "-fno-inline", "-ggdb" }
+        buildoptions { "-fno-inline", "-ggdb" }
 
     filter { "system:linux", "configurations:Debug", "platforms:x32" }
         targetsuffix "_debug"
