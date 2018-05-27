@@ -44,10 +44,10 @@ Parameter::Parameter()
     defaultRealValue_ = 0.0f;
 
     // initialise parameter name
-    parameterName_ = String::empty;
+    parameterName_ = String();
 
     // initialise XML tag name
-    tagName_ = String::empty;
+    tagName_ = String();
 }
 
 

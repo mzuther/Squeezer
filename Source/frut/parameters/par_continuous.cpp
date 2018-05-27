@@ -84,7 +84,7 @@ ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_
     decimalPlaces = decimal_places;
 
     // initialise value suffix (for formatting of value only)
-    valueSuffix = String::empty;
+    valueSuffix = String();
 
     // initialise scaling factor (for exponential or logarithmic
     // parameters)

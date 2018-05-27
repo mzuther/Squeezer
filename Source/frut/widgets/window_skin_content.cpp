@@ -240,7 +240,7 @@ void WindowSkinContent::buttonClicked(
 /// Create a list box model for a WindowSkinContent.
 ///
 SkinListBoxModel::SkinListBoxModel()
-    : skinWildcard_("*.skin", String::empty, "Skin files"),
+    : skinWildcard_("*.skin", String(), "Skin files"),
       directoryThread_("Skin directory scanner")
 {
 }
@@ -345,7 +345,7 @@ const String SkinListBoxModel::getSkinName(
     else
     {
         // return empty string
-        return String::empty;
+        return String();
     }
 }
 

@@ -149,7 +149,7 @@ const String ParString::getTextFromFloat(float newValue)
     // do nothing till you hear from me ...
     jassert(false);
 
-    return String::empty;
+    return String();
 }
 
 
@@ -166,7 +166,7 @@ void ParString::loadFromXml(XmlElement *xmlDocument)
     if (xmlParameter)
     {
         // get stored value from attribute "value" (or use empty string)
-        String newValue = xmlParameter->getStringAttribute("value", String::empty);
+        String newValue = xmlParameter->getStringAttribute("value", String());
 
         // update value
         setText(newValue);

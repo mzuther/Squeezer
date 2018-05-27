@@ -35,7 +35,7 @@ namespace widgets
 ///
 class WindowSettingsContent :
     public Component,
-    public ButtonListener
+    public Button::Listener
 {
 public:
     WindowSettingsContent();
