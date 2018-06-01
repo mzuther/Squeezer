@@ -155,10 +155,6 @@ workspace "squeezer"
 
         systemversion "10.0.16299.0"
 
-        flags {
-            "StaticRuntime"
-        }
-
         vectorextensions "SSE2"
 
         links {
@@ -212,6 +208,7 @@ workspace "squeezer"
 
     filter { "system:windows", "configurations:Debug" }
        symbols "Full"
+       buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
         targetsuffix ", Debug)"

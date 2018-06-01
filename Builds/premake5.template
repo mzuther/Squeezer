@@ -150,10 +150,6 @@ workspace "{{ name.short }}"
 
         systemversion "{{ windows_sdk }}"
 
-        flags {
-            "StaticRuntime"
-        }
-
         vectorextensions "SSE2"
 
         links {
@@ -207,6 +203,7 @@ workspace "{{ name.short }}"
 
     filter { "system:windows", "configurations:Debug" }
        symbols "Full"
+       buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
         targetsuffix ", Debug)"
