@@ -801,7 +801,7 @@ const String SqueezerAudioProcessor::getProgramName(
 {
     ignoreUnused(nIndex);
 
-    return String::empty;
+    return String();
 }
 
 

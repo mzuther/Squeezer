@@ -36,8 +36,8 @@
 
 class SqueezerAudioProcessorEditor :
     public AudioProcessorEditor,
-    public ButtonListener,
-    public SliderListener,
+    public Button::Listener,
+    public Slider::Listener,
     public ActionListener
 {
 public:
