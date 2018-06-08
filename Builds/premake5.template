@@ -81,34 +81,8 @@ workspace "{{ name.short }}"
         }
 
         includedirs {
-            "/usr/include/at-spi-2.0",
-            "/usr/include/at-spi2-atk/2.0",
-            "/usr/include/atk-1.0",
-            "/usr/include/cairo",
-            "/usr/include/cairo",
-            "/usr/include/dbus-1.0",
-            "/usr/include/freetype2",
-            "/usr/include/gdk-pixbuf-2.0",
-            "/usr/include/gio-unix-2.0/",
-            "/usr/include/glib-2.0",
-            "/usr/include/gtk-3.0",
-            "/usr/include/gtk-3.0",
-            "/usr/include/gtk-3.0",
-            "/usr/include/harfbuzz",
-            "/usr/include/libpng12",
-            "/usr/include/libpng12",
-            "/usr/include/libsoup-2.4",
-            "/usr/include/libxml2",
-            "/usr/include/mirclient",
-            "/usr/include/mircookie",
-            "/usr/include/mircore",
-            "/usr/include/pango-1.0",
-            "/usr/include/pango-1.0",
-            "/usr/include/pixman-1",
-            "/usr/include/webkitgtk-4.0",
-            "/usr/include/webkitgtk-4.0",
-            "/usr/lib/x86_64-linux-gnu/dbus-1.0/include",
-            "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+            "/usr/include",
+            "/usr/include/freetype2"
         }
 
         linkoptions {
@@ -117,29 +91,12 @@ workspace "{{ name.short }}"
         }
 
         links {
-            "X11",
-            "Xext",
-            "Xinerama",
-            "atk-1.0",
-            "cairo",
-            "cairo-gobject",
-            "curl",
             "dl",
             "freetype",
-            "gdk-3",
-            "gdk_pixbuf-2.0",
-            "gio-2.0",
-            "glib-2.0",
-            "gobject-2.0",
-            "gtk-3",
-            "gtk-3",
-            "javascriptcoregtk-4.0",
-            "pango-1.0",
-            "pangocairo-1.0",
             "pthread",
             "rt",
-            "soup-2.4",
-            "webkit2gtk-4.0"
+            "X11",
+            "Xext"
         }
 
     filter { "system:windows" }
