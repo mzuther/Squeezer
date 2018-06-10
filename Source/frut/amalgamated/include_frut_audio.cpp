@@ -29,6 +29,7 @@
 
 #include "../FrutHeader.h"
 
+#include "../audio/buffer_position.cpp"
 #include "../audio/ring_buffer.cpp"
 
 

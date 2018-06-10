@@ -28,6 +28,7 @@
 
 
 // normal includes
+#include "../audio/buffer_position.h"
 #include "../audio/ring_buffer.h"
 
 

@@ -939,18 +939,20 @@ void SqueezerAudioProcessor::processBlock(
     jassert(!isUsingDoublePrecision());
     ignoreUnused(midiMessages);
 
-    int NumberOfChannels = buffer.getNumChannels();
-    int NumberOfSamples = buffer.getNumSamples();
+    int numberOfChannels = buffer.getNumChannels();
+    int numberOfSamples = buffer.getNumSamples();
 
-    AudioBuffer<double> processBuffer(NumberOfChannels, NumberOfSamples);
+    // create temporary buffer
+    AudioBuffer<double> processBuffer(numberOfChannels, numberOfSamples);
 
-    // convert input to float and de-normalize samples
+    // copy input to temporary buffer and convert to double;
+    // de-normalize samples
     dither_.denormalizeToDouble(buffer, processBuffer);
 
     // process input samples
     process(processBuffer);
 
-    // dither output to float
+    // copy temporary buffer to output and dither to float
     dither_.ditherToFloat(processBuffer, buffer);
 }
 
@@ -962,7 +964,7 @@ void SqueezerAudioProcessor::processBlock(
     jassert(isUsingDoublePrecision());
     ignoreUnused(midiMessages);
 
-    // de-normalize samples
+    // de-normalize input samples
     dither_.denormalize(buffer);
 
     // process input samples
@@ -1027,6 +1029,8 @@ void SqueezerAudioProcessor::process(
     }
     else
     {
+        DBG("clearing main input and side chain");
+
         hasSideChain_ = false;
         mainInput_.clear();
         sideChainInput_.clear();

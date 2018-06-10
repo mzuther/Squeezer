@@ -37,58 +37,37 @@ TruePeakMeter::TruePeakMeter(
                              originalFftBufferSize,
                              upsamplingFactor)
 {
-    dither_.initialise(numberOfChannels_, 24);
 }
 
 
 float TruePeakMeter::getLevel(
     const int channel)
 {
-    jassert(channel >= 0);
-    jassert(channel < numberOfChannels_);
+    jassert(isPositiveAndBelow(channel, numberOfChannels_));
 
     return truePeakLevels_[channel];
 }
 
 
-void TruePeakMeter::setSamples(
-    const frut::audio::RingBuffer<float> &source,
+void TruePeakMeter::copyFrom(
+    const AudioBuffer<float> &source,
     const int numberOfSamples)
 {
-    jassert(fftSampleBuffer_.getNumChannels() ==
-            source.getNumberOfChannels());
+    jassert(source.getNumChannels() ==
+            numberOfChannels_);
+    jassert(source.getNumSamples() >=
+            numberOfSamples);
     jassert(originalFftBufferSize_ ==
             numberOfSamples);
-    jassert(source.getNumberOfSamples() >=
-            numberOfSamples);
 
-    // copy data from ring buffer to sample buffer
-    source.getSamples(sampleBufferOriginal_, 0, numberOfSamples, true);
-
-    // process input data
-    processInput();
-}
-
-
-void TruePeakMeter::setSamples(
-    const frut::audio::RingBuffer<double> &source,
-    const int numberOfSamples)
-{
-    jassert(fftSampleBuffer_.getNumChannels() ==
-            source.getNumberOfChannels());
-    jassert(originalFftBufferSize_ ==
-            numberOfSamples);
-    jassert(source.getNumberOfSamples() >=
-            numberOfSamples);
-
-    int numberOfChannels = source.getNumberOfChannels();
-    AudioBuffer<double> processBuffer(numberOfChannels, numberOfSamples);
-
-    // copy data from ring buffer to audio buffer
-    source.getSamples(processBuffer, 0, numberOfSamples, true);
-
-    // dither output to float and store in internal buffer
-    dither_.ditherToFloat(processBuffer, sampleBufferOriginal_);
+    // copy data from external buffer
+    for (int channel = 0; channel < numberOfChannels_; ++channel)
+    {
+        sampleBufferOriginal_.copyFrom(channel, 0,
+                                       source,
+                                       channel, 0,
+                                       numberOfSamples);
+    }
 
     // process input data
     processInput();

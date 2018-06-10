@@ -41,17 +41,13 @@ public:
 
     float getLevel(const int channel);
 
-    void setSamples(const frut::audio::RingBuffer<float> &source,
-                    const int numberOfSamples);
-
-    void setSamples(const frut::audio::RingBuffer<double> &source,
-                    const int numberOfSamples);
+    void copyFrom(const AudioBuffer<float> &source,
+                  const int numberOfSamples);
 
 protected:
     void processInput();
 
     Array<float> truePeakLevels_;
-    frut::dsp::Dither dither_;
 
 private:
     JUCE_LEAK_DETECTOR(TruePeakMeter);
