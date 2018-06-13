@@ -54,7 +54,6 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
         }
 
         bool hasHighestLevel = (n == (numberOfBars - 1)) ? true : false;
-        int spacingBefore = 0;
 
         if (discreteMeter)
         {
@@ -74,6 +73,7 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
         else
         {
             // meter segment outlines must not overlap
+            int spacingBefore = 0;
             int segmentHeight = mainSegmentHeight;
 
             addContinuousSegment(

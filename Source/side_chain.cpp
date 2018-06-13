@@ -38,6 +38,7 @@ SideChain::SideChain(
     */
 {
     dSampleRate = (double) nSampleRate;
+    dGainReductionIdeal = 0.0;
 
     setThreshold(-12.0);
     setRatio(2.0);

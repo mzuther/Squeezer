@@ -243,12 +243,6 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     addCombined(ParameterReleaseRate, selReleaseRateSwitch, selReleaseRate);
 
 
-    realMinimum = 0.0f;
-    realMaximum = 100.0f;
-    stepSize = 1.0f;
-    scalingFactor = 0.0f;
-    decimalPlaces = 0;
-
     frut::parameters::ParBoolean *ParameterAutoMakeupGain =
         new frut::parameters::ParBoolean("Auto", "Manual");
     ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
