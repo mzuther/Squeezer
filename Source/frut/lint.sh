@@ -20,6 +20,14 @@ function lint_file
         -fno-caret-diagnostics \
         -std=c++14 \
         -Wall
+
+    /usr/bin/cppcheck \
+        --template=gcc \
+        --enable=style \
+        --include=$project_home/Source/frut/FrutHeader.h \
+        --inline-suppr \
+        --quiet \
+        $filename
 }
 
 

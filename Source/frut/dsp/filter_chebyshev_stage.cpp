@@ -31,6 +31,17 @@ namespace dsp
 FilterChebyshevStage::FilterChebyshevStage() :
     AntiDenormalDouble_(DBL_MIN)
 {
+    Coeff_A0_ = 0.0;
+    Coeff_A1_ = 0.0;
+    Coeff_A2_ = 0.0;
+
+    Coeff_B1_ = 0.0;
+    Coeff_B2_ = 0.0;
+
+    RelativeCutoffFrequency_ = 0.0;
+    IsHighPass_ = false;
+
+    reset();
 }
 
 

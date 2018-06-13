@@ -68,7 +68,7 @@ private:
     const float antiDenormalFloat_;
     const double antiDenormalDouble_;
 
-    bool isInitialized;
+    bool isInitialized_;
 
     int numberOfChannels_;
 

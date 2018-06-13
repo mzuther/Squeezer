@@ -41,6 +41,8 @@ class MeterBar :
     public Component
 {
 public:
+    MeterBar();
+
     virtual void create();
 
     virtual void addSegment(widgets::MeterSegment *segment,

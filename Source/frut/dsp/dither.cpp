@@ -32,7 +32,15 @@ Dither::Dither() :
     antiDenormalFloat_(FLT_MIN),
     antiDenormalDouble_(DBL_MIN)
 {
-    isInitialized = false;
+    numberOfChannels_ = -1;
+
+    noiseShaping_ = 0.0;
+    wordLength_ = 0;
+    wordLengthInverted_ = 0.0;
+    ditherAmplitude_ = 0;
+    dcOffset_ = 0.0;
+
+    isInitialized_ = false;
 }
 
 
@@ -78,7 +86,7 @@ void Dither::initialise(
     // remove DC offset
     dcOffset_ = wordLengthInverted_ * 0.5;
 
-    isInitialized = true;
+    isInitialized_ = true;
 }
 
 
@@ -242,7 +250,7 @@ float Dither::ditherSample(
     const int currentChannel,
     const double &sourceValueDouble)
 {
-    jassert(isInitialized);
+    jassert(isInitialized_);
 
     // can make HP-TRI dither by subtracting previous rand()
     randomNumber_2_.set(currentChannel,

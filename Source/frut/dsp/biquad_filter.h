@@ -34,7 +34,7 @@ namespace dsp
 class BiquadFilter
 {
 public:
-    BiquadFilter(const int numberOfChannels);
+    explicit BiquadFilter(const int numberOfChannels);
     ~BiquadFilter();
 
     void neutral();

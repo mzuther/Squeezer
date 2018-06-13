@@ -38,6 +38,7 @@ Parameter::Parameter()
     // initialise current value
     value_ = 0.0f;
     realValue_ = 0.0f;
+    valueHasChanged_ = false;
 
     // initialise default value
     defaultValue_ = 0.0f;

@@ -41,6 +41,7 @@ namespace widgets
 ///
 WindowSkinContent::WindowSkinContent()
 {
+    currentSkinName_ = nullptr;
 }
 
 

@@ -28,6 +28,15 @@ namespace frut
 namespace widgets
 {
 
+/// Default constructor.
+///
+MeterBar::MeterBar()
+{
+    // initialize variables
+    create();
+};
+
+
 /// Create a new meter bar (and delete an existing one).  The meter
 /// bar can be filled using addSegment() and its cousins.
 ///
