@@ -1,5 +1,40 @@
+project_home=$(pwd)/..
+
+
+function lint_file
+{
+    filename="$1"
+    dirname=$(dirname "$1")
+    echo $filename
+
+    cat $filename | /usr/bin/clang -x c++ - \
+        -include $project_home/Source/frut/FrutHeader.h \
+        -I $project_home/JuceLibraryCode \
+        -I $project_home/libraries \
+        -I $project_home/libraries/juce/modules \
+        -I $project_home/Source \
+        -I $project_home/Source/frut \
+        -I $project_home/Source/frut/amalgamated \
+        -I $dirname \
+        -fsyntax-only \
+        -fno-caret-diagnostics \
+        -std=c++14 \
+        -Wall
+}
+
+
 echo
-find ./frut/amalgamated/ -maxdepth 1 -iname "*.cpp" -or -iname "*.h" -print -exec sh -c "cat {} | /usr/bin/clang -fsyntax-only -fno-caret-diagnostics -Wall -x c++ -I ./frut/amalgamated -I ../JuceLibraryCode -I ../libraries -I ../libraries/juce/modules -I . -I ./frut - -std=c++14 -include ./frut/FrutHeader.h -Wno-pragma-once-outside-header " \;
+
+find ./frut/amalgamated -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read filename
+       do
+        lint_file $filename \;
+       done
+
 echo
-find . -maxdepth 1 -iname "*.cpp" -or -iname "*.h" -print -exec sh -c "cat {} | /usr/bin/clang -fsyntax-only -fno-caret-diagnostics -Wall -x c++ -I ./frut/amalgamated -I ../JuceLibraryCode -I ../libraries -I ../libraries/juce/modules -I . -I ./frut - -std=c++14 -include ./frut/FrutHeader.h -Wno-pragma-once-outside-header " \;
+
+find . -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read filename
+       do
+        lint_file $filename \;
+       done
+
 echo

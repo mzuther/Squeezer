@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 #ifndef FRUT_DSP_FFTW_RUNNER_H
 #define FRUT_DSP_FFTW_RUNNER_H
 
@@ -83,3 +85,5 @@ private:
 }
 
 #endif  // FRUT_DSP_FFTW_RUNNER_H
+
+#endif  // FRUT_DSP_USE_FFTW

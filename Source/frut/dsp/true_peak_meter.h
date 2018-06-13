@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 #ifndef FRUT_DSP_TRUE_PEAK_METER_H
 #define FRUT_DSP_TRUE_PEAK_METER_H
 
@@ -57,3 +59,5 @@ private:
 }
 
 #endif  // FRUT_DSP_TRUE_PEAK_METER_H
+
+#endif  // FRUT_DSP_USE_FFTW

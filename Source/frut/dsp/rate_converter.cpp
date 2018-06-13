@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 namespace frut
 {
 namespace dsp
@@ -89,3 +91,5 @@ void RateConverter::upsample()
 
 }
 }
+
+#endif  // FRUT_DSP_USE_FFTW

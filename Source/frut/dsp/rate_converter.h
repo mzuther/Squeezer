@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 #ifndef FRUT_DSP_RATE_CONVERTER_H
 #define FRUT_DSP_RATE_CONVERTER_H
 
@@ -57,3 +59,5 @@ private:
 }
 
 #endif  // FRUT_DSP_RATE_CONVERTER_H
+
+#endif  // FRUT_DSP_USE_FFTW

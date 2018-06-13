@@ -1,7 +1,7 @@
 /* (Auto-generated binary data file). */
 
-#pragma once
-
+#ifndef FRUT_WIDGETS_RESOURCES_H
+#define FRUT_WIDGETS_RESOURCES_H
 
 namespace resources
 {
@@ -12,3 +12,5 @@ namespace resources
     const int           button_gpl_down_pngSize = 2715;
 
 }
+
+#endif  // FRUT_WIDGETS_RESOURCES_H

@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 #ifndef FRUT_DSP_FIR_FILTER_BOX_H
 #define FRUT_DSP_FIR_FILTER_BOX_H
 
@@ -51,3 +53,5 @@ private:
 }
 
 #endif  // FRUT_DSP_FIR_FILTER_BOX_H
+
+#endif  // FRUT_DSP_USE_FFTW

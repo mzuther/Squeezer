@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 namespace frut
 {
 namespace dsp
@@ -90,3 +92,5 @@ void FIRFilterBox::calculateKernelWindowedSincLPF(
 
 }
 }
+
+#endif  // FRUT_DSP_USE_FFTW

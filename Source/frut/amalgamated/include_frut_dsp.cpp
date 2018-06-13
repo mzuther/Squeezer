@@ -31,18 +31,13 @@
 
 #include "../dsp/biquad_filter.cpp"
 #include "../dsp/dither.cpp"
+#include "../dsp/fftw_runner.cpp"
 #include "../dsp/filter_chebyshev.cpp"
 #include "../dsp/filter_chebyshev_stage.cpp"
-#include "../dsp/iir_filter_box.cpp"
-
-#if FRUT_DSP_USE_FFTW
-
-#include "../dsp/fftw_runner.cpp"
 #include "../dsp/fir_filter_box.cpp"
+#include "../dsp/iir_filter_box.cpp"
 #include "../dsp/rate_converter.cpp"
 #include "../dsp/true_peak_meter.cpp"
-
-#endif  // FRUT_DSP_USE_FFTW
 
 
 #endif  // FRUT_AMALGAMATED_DSP_CPP

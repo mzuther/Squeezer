@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 namespace frut
 {
 namespace dsp
@@ -91,3 +93,5 @@ void TruePeakMeter::processInput()
 
 }
 }
+
+#endif  // FRUT_DSP_USE_FFTW

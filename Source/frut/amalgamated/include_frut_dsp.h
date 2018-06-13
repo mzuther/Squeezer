@@ -27,10 +27,6 @@
 #define FRUT_AMALGAMATED_DSP_H
 
 
-#ifndef FRUT_DSP_USE_FFTW
-#define FRUT_DSP_USE_FFTW 0
-#endif
-
 // special includes
 #include <float.h>
 #include <math.h>
@@ -42,17 +38,12 @@
 // normal includes
 #include "../dsp/biquad_filter.h"
 #include "../dsp/dither.h"
-#include "../dsp/filter_chebyshev_stage.h"
-#include "../dsp/iir_filter_box.h"
-
-#if FRUT_DSP_USE_FFTW
-
 #include "../dsp/fftw_runner.h"
+#include "../dsp/filter_chebyshev_stage.h"
 #include "../dsp/fir_filter_box.h"
+#include "../dsp/iir_filter_box.h"
 #include "../dsp/rate_converter.h"
 #include "../dsp/true_peak_meter.h"
-
-#endif  // FRUT_DSP_USE_FFTW
 
 // post includes
 #include "../dsp/filter_chebyshev.h"

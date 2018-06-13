@@ -23,6 +23,8 @@
 
 ---------------------------------------------------------------------------- */
 
+#if FRUT_DSP_USE_FFTW
+
 namespace frut
 {
 namespace dsp
@@ -195,3 +197,5 @@ void FftwRunner::convolveWithKernel(
 
 }
 }
+
+#endif  // FRUT_DSP_USE_FFTW
