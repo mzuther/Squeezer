@@ -32,15 +32,19 @@
 			"clang": {
 				"args":
 				[
-					"-std=c++14"
+					"-std=c++14",
+					"-include",
+					"${project_path}/Source/frut/FrutHeader.h",
+					"-Wno-pragma-once-outside-header",
 				],
 				"include_dirs":
 				[
-					"${project_folder}/JuceLibraryCode",
-					"${project_folder}/libraries",
-					"${project_folder}/libraries/juce/modules",
-					"${project_folder}/Source",
-					"${project_folder}/Source/frut",
+					"${file_path}",
+					"${project_path}/JuceLibraryCode",
+					"${project_path}/libraries",
+					"${project_path}/libraries/juce/modules",
+					"${project_path}/Source",
+					"${project_path}/Source/frut",
 				]
 			}
 		}
