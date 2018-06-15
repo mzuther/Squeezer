@@ -983,19 +983,21 @@ void SqueezerAudioProcessor::process(
         return;
     }
 
-    if (getMainBusNumInputChannels() < 1)
-    {
-        Logger::outputDebugString("[Squeezer] no input channels!");
-        return;
-    }
-
     // In case we have more main outputs than inputs, we'll clear any
     // output channels that didn't contain input data, because these
     // aren't guaranteed to be empty -- they may contain garbage.
 
-    for (int nChannel = getMainBusNumInputChannels(); nChannel < getMainBusNumOutputChannels(); ++nChannel)
+    for (int nChannel = getMainBusNumInputChannels();
+            nChannel < getMainBusNumOutputChannels();
+            ++nChannel)
     {
         buffer.clear(nChannel, 0, nNumSamples);
+    }
+
+    if (getMainBusNumInputChannels() < 1)
+    {
+        Logger::outputDebugString("[Squeezer] no input channels!");
+        return;
     }
 
 #ifdef SQUEEZER_MONO

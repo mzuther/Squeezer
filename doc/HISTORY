@@ -1,6 +1,28 @@
 Git HEAD
 ========
 
+
+
+v2.4.1 (2018-06-15)
+===================
+
+* fixed crash on seemingly random Windows systems (disabled AAX,
+  enabled SSE2)
+
+* optimized dithering
+
+* re-factored and optimized code
+
+* updated JUCE framework to 5.3.2
+
+* updated VST library to 3.6.8
+
+* show CPU information on start-up
+
+* use dynamic runtime linking on Windows
+
+
+
 v2.4.0 (2018-02-10)
 ===================
 
