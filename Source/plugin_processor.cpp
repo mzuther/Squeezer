@@ -135,13 +135,13 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
     // main input is mono
     if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
     {
-        // side chain input is mono --> okay
+        // side chain input is mono ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::mono())
         {
             return true;
         }
 
-        // no side chain input --> okay
+        // no side chain input ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
             return true;
@@ -151,7 +151,7 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
     // main input has two channels
     if (layouts.getMainInputChannelSet().size() == 2)
     {
-        // no side chain input --> okay
+        // no side chain input ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
             return true;
@@ -169,13 +169,13 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
     // main input is stereo
     if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
     {
-        // side chain input is stereo --> okay
+        // side chain input is stereo ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::stereo())
         {
             return true;
         }
 
-        // no side chain input --> okay
+        // no side chain input ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
             return true;
@@ -185,7 +185,7 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
     // main input has four channels
     if (layouts.getMainInputChannelSet().size() == 4)
     {
-        // no side chain input --> okay
+        // no side chain input ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
         {
             return true;
@@ -504,13 +504,13 @@ void SqueezerAudioProcessor::setParameter(
                 break;
 
             default:
-                DBG("[Squeezer] processor::setParameter --> invalid combined index");
+                DBG("[Squeezer] processor::setParameter ==> invalid combined index");
                 break;
             }
         }
         else
         {
-            DBG("[Squeezer] processor::setParameter --> invalid index");
+            DBG("[Squeezer] processor::setParameter ==> invalid index");
         }
     }
     break;
@@ -523,7 +523,7 @@ void SqueezerAudioProcessor::setParameter(
         // will also clear the change flag)
         if (nIndex < pluginParameters_.getNumParameters(false))
         {
-            // "PC" --> parameter changed, followed by a hash and the
+            // "PC" ==> parameter changed, followed by a hash and the
             // parameter's ID
             sendActionMessage("PC#" + String(nIndex));
         }
@@ -606,7 +606,7 @@ void SqueezerAudioProcessor::resetMeters()
         compressor_->resetMeters();
     }
 
-    // "UM" --> update meters
+    // "UM" ==> update meters
     sendActionMessage("UM");
 }
 
@@ -1096,7 +1096,7 @@ void SqueezerAudioProcessor::process(
 
 #endif
 
-    // "UM" --> update meters
+    // "UM" ==> update meters
     sendActionMessage("UM");
 }
 

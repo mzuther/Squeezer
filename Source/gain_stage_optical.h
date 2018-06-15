@@ -33,7 +33,7 @@
 class GainStageOptical : virtual public GainStage
 {
 public:
-    GainStageOptical(int nSampleRate);
+    explicit GainStageOptical(int nSampleRate);
 
     void reset(double dCurrentGainReduction);
     double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);

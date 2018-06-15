@@ -45,7 +45,7 @@ public:
         NumberOfDetectors,
     };
 
-    SideChain(int nSampleRate);
+    explicit SideChain(int nSampleRate);
 
     void reset();
 

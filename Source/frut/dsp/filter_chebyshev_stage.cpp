@@ -59,7 +59,7 @@ void FilterChebyshevStage::changeParameters(
     //
     // RelativeCutoffFrequency:  rel. cutoff frequency (0.0 to 0.5)
     //
-    // IsHighPass:               Boolean, false --> LPF, true --> HPF
+    // IsHighPass:               Boolean, false ==> LPF, true ==> HPF
     //
     // PercentRipple:            percent ripple (0 to 29); when the
     //                           ripple is set to 0%, the filter

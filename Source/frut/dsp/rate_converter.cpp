@@ -52,6 +52,8 @@ void RateConverter::calculateFilterKernel()
     fftSampleBuffer_.clear();
     fftOverlapAddSamples_.clear();
 
+    // FIXME: the filter's cutoff frequency might be a little too high
+    //
     // interpolation filter; removes all frequencies above *original*
     // Nyquist frequency from resampled audio; the approximated filter
     // transition is 22 Hz for a final buffer size of 8192 samples

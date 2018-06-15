@@ -347,7 +347,7 @@ void MeterBar::setOrientation(
             // get current segment
             widgets::MeterSegment *segment = meterSegments_[index];
 
-            // swap x <--> y and width <--> height
+            // swap x <=> y and width <=> height
             segment->setBounds(segment->getY(),
                                segment->getX(),
                                segment->getHeight(),
@@ -418,7 +418,7 @@ void MeterBar::setOrientation(
             {
                 segment->setTopLeftPosition(tempX, tempY);
             }
-            // horizontal meter: swap width <--> height
+            // horizontal meter: swap width <=> height
             else
             {
                 segment->setTopLeftPosition(tempY, tempX);
@@ -566,7 +566,7 @@ void MeterBar::resized()
     }
     else
     {
-        // horizontal meter: swap width <--> height
+        // horizontal meter: swap width <=> height
         setSize(barHeight_, barWidth_);
     }
 }

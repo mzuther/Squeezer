@@ -20,19 +20,42 @@ function lint_file
         -fno-caret-diagnostics \
         -std=c++14 \
         -Wall
+
+    /usr/bin/cppcheck \
+        --template=gcc \
+        --enable=style \
+        --include=$project_home/Source/frut/FrutHeader.h \
+        --inline-suppr \
+        --language=c++ \
+        --quiet \
+        $filename
+
+    # find error-like codetags
+    GREP_COLORS="mt=01;31" \
+    /bin/egrep \
+        --colour \
+        '\<(FIXME|BUG)\>' \
+        $filename
+
+    # find warning-like codetags
+    GREP_COLORS="mt=01;33" \
+    /bin/egrep \
+        --colour \
+        '\<(TODO|@todo)\>' \
+        $filename
 }
 
 
 echo
 
-find ./frut/amalgamated -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read filename
+find . -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read filename
        do
         lint_file $filename \;
        done
 
 echo
 
-find . -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read filename
+find ./frut/amalgamated -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read filename
        do
         lint_file $filename \;
        done

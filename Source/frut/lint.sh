@@ -26,7 +26,22 @@ function lint_file
         --enable=style \
         --include=$project_home/Source/frut/FrutHeader.h \
         --inline-suppr \
+        --language=c++ \
         --quiet \
+        $filename
+
+    # find error-like codetags
+    GREP_COLORS="mt=01;31" \
+    /bin/egrep \
+        --colour \
+        '\<(FIXME|BUG)\>' \
+        $filename
+
+    # find warning-like codetags
+    GREP_COLORS="mt=01;33" \
+    /bin/egrep \
+        --colour \
+        '\<(TODO|@todo)\>' \
         $filename
 }
 

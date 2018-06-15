@@ -449,7 +449,7 @@ void SideChain::processSample(
         break;
 
     default:
-        DBG("[Squeezer] sidechain::processSample --> invalid detector");
+        DBG("[Squeezer] sidechain::processSample ==> invalid detector");
         break;
     }
 

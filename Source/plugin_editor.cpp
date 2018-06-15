@@ -531,7 +531,7 @@ void SqueezerAudioProcessorEditor::windowSkinCallback(
 void SqueezerAudioProcessorEditor::actionListenerCallback(
     const String &Message)
 {
-    // "PC" --> parameter changed, followed by a hash and the
+    // "PC" ==> parameter changed, followed by a hash and the
     // parameter's ID
     if (Message.startsWith("PC#"))
     {
@@ -545,7 +545,7 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(
             updateParameter(Index);
         }
     }
-    // "UM" --> update meters
+    // "UM" ==> update meters
     else if (!Message.compare("UM"))
     {
         // prevent meter updates during initialisation
@@ -782,7 +782,7 @@ void SqueezerAudioProcessorEditor::updateParameter(
         break;
 
     default:
-        DBG("[Squeezer] editor::updateParameter --> invalid index");
+        DBG("[Squeezer] editor::updateParameter ==> invalid index");
         break;
     }
 }
@@ -1102,7 +1102,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
         }
         else
         {
-            DBG("[Squeezer] editor::buttonClicked --> invalid button");
+            DBG("[Squeezer] editor::buttonClicked ==> invalid button");
         }
     }
 }
@@ -1163,7 +1163,7 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
     }
     else
     {
-        DBG("[Squeezer] editor::sliderValueChanged --> invalid slider");
+        DBG("[Squeezer] editor::sliderValueChanged ==> invalid slider");
     }
 }
 
