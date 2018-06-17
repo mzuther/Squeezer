@@ -243,8 +243,9 @@ void MeterSegmentDiscrete::setLevels(
     // normal level lies on or above upper threshold
     if (normalLevel >= upperThreshold_)
     {
-        // auto-fade mode: set meter segment to dark
-        if (autoFadeFactor_ > 0.0f)
+        // auto-fade mode: set meter segment to dark (unless it is
+        // topmost)
+        if ((autoFadeFactor_ > 0.0f) && (!isTopmost_))
         {
             brightness_ = 0.0f;
         }
