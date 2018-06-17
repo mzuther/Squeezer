@@ -90,6 +90,7 @@ void MeterBarLevel::create(int crestFactor,
             addDiscreteSegment(
                 lowerThreshold * 0.1f,
                 levelRange * 0.1f,
+                0.0f,
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,

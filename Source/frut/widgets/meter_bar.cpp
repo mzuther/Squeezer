@@ -148,6 +148,12 @@ void MeterBar::addSegment(
 /// @param thresholdRange difference between lower and upper level
 ///        threshold (in decibels)
 ///
+/// @param autoFadeFactor if set to value other than 0.0, the segment
+///        automatically fades out and all segments with lower
+///        thresholds remain dark.  This factor determines how much of
+///        the original brightness remains between updates (range: 0.0
+///        to 1.0).
+///
 /// @param isTopmost if set to **true**, the segment has no upper
 ///        level threshold
 ///
@@ -162,6 +168,7 @@ void MeterBar::addSegment(
 void MeterBar::addDiscreteSegment(
     float lowerThreshold,
     float thresholdRange,
+    float autoFadeFactor,
     bool isTopmost,
     int segmentHeight,
     int spacingBefore,
@@ -172,7 +179,7 @@ void MeterBar::addDiscreteSegment(
     // create new discrete meter segment (will be deleted
     // automatically)
     widgets::MeterSegmentDiscrete *segment =
-        new widgets::MeterSegmentDiscrete();
+        new widgets::MeterSegmentDiscrete(autoFadeFactor);
 
     // set segment's lower threshold and display range (both in
     // decibels) and whether it is the topmost segment

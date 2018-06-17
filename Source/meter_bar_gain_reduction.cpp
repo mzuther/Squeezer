@@ -64,6 +64,7 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
             addDiscreteSegment(
                 trueLowerThreshold * 0.1f,
                 levelRange * 0.1f,
+                0.0f,
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,

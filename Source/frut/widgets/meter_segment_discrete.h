@@ -42,7 +42,7 @@ class MeterSegmentDiscrete :
     public MeterSegment
 {
 public:
-    MeterSegmentDiscrete();
+    explicit MeterSegmentDiscrete(float autoFadeFactor);
 
     virtual float setThresholdAndRange(float lowerThreshold,
                                        float thresholdRange,
@@ -68,8 +68,8 @@ protected:
     Colour peakMarkerColour_;
     Colour attenuatedColour_;
 
-    float segmentBrightnessModifier_;
-    float outlineBrightnessModifier_;
+    float brightness_;
+    float autoFadeFactor_;
 
     bool displayPeakMarker_;
     bool isTopmost_;
