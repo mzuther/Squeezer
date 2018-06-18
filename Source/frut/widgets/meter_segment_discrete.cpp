@@ -79,7 +79,11 @@ MeterSegmentDiscrete::MeterSegmentDiscrete(
 
     // initialise factor that determines how much of the original
     // brightness remains between updates (range: 0.0 to 1.0)
-    autoFadeFactor_ = autoFadeFactor;
+    retainSignalFactor_ = autoFadeFactor;
+
+    // initialise factor that determines how much of the new
+    // signal is added to the brightness (range: 0.0 to 1.0)
+    newSignalFactor_ = 4.0f * (1.0f - retainSignalFactor_);
 
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;
@@ -245,7 +249,7 @@ void MeterSegmentDiscrete::setLevels(
     {
         // auto-fade mode: set meter segment to dark (unless it is
         // topmost)
-        if ((autoFadeFactor_ > 0.0f) && (!isTopmost_))
+        if ((retainSignalFactor_ > 0.0f) && (!isTopmost_))
         {
             brightness_ = 0.0f;
         }
@@ -272,7 +276,7 @@ void MeterSegmentDiscrete::setLevels(
     else
     {
         // auto-fade mode: fully light meter segment
-        if (autoFadeFactor_ > 0.0f)
+        if (retainSignalFactor_ > 0.0f)
         {
             brightness_ = 1.0f;
         }
@@ -285,16 +289,21 @@ void MeterSegmentDiscrete::setLevels(
     }
 
     // calculate auto-fade; save processing time and de-normalize
-    if ((autoFadeFactor_ > 0.0f) && (brightnessOld >= 0.01f))
+    if ((retainSignalFactor_ > 0.0f) && (brightnessOld > 0.001f))
     {
         // fade out old brightness value
-        float brightnessTemp = brightnessOld * autoFadeFactor_;
+        float retainBrightness = brightnessOld * retainSignalFactor_;
 
-        // use faded brightness value when it is higher than the
-        // value calculated from the new normal level
-        if (brightnessTemp > brightness_)
+        // attenuate new brightness value
+        float newBrightness = newSignalFactor_ * brightness_;
+
+        // combine old and new brightness value
+        brightness_ = retainBrightness + newBrightness;
+
+        // check bounds
+        if (brightness_ > 1.0f)
         {
-            brightness_ = brightnessTemp;
+            brightness_ = 1.0f;
         }
     }
 

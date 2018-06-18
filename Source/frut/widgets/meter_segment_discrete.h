@@ -69,7 +69,8 @@ protected:
     Colour attenuatedColour_;
 
     float brightness_;
-    float autoFadeFactor_;
+    float retainSignalFactor_;
+    float newSignalFactor_;
 
     bool displayPeakMarker_;
     bool isTopmost_;
