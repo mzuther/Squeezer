@@ -165,6 +165,7 @@ workspace "squeezer"
 
     filter { "system:windows", "configurations:Debug" }
        symbols "Full"
+       -- increase the number of sections that an object file can contain
        buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
@@ -180,13 +181,18 @@ workspace "squeezer"
 
     filter { "system:linux", "configurations:Release" }
         warnings "Extra"
-        buildoptions { "-fvisibility=hidden", "-pipe" }
+        buildoptions { "-fvisibility=hidden", "-pipe", "-Wno-deprecated"}
 
     filter { "system:linux", "configurations:Release", "platforms:x32" }
         targetsuffix ""
 
     filter { "system:linux", "configurations:Release", "platforms:x64" }
         targetsuffix "_x64"
+
+    filter { "system:windows", "configurations:Release" }
+       symbols "Full"
+       -- globally disable deprecation warnings
+       buildoptions { "/wd4996" }
 
     filter { "system:windows", "configurations:Release", "platforms:x32" }
         targetsuffix ")"

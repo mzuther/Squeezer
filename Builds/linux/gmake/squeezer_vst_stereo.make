@@ -97,8 +97,8 @@ ifeq ($(config),release_x32)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
@@ -132,8 +132,8 @@ ifeq ($(config),release_x64)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
