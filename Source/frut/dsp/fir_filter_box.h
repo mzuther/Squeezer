@@ -40,8 +40,9 @@ public:
     FIRFilterBox(const int numberOfChannels,
                  const int fftBufferSize);
 
-    ~FIRFilterBox();
+    virtual ~FIRFilterBox();
 
+    virtual void reset();
     void calculateKernelWindowedSincLPF(
         const double relativeCutoffFrequency);
 

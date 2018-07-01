@@ -46,6 +46,18 @@ RateConverter::RateConverter(
 }
 
 
+RateConverter::~RateConverter()
+{
+}
+
+
+void RateConverter::reset()
+{
+    FIRFilterBox::reset();
+    sampleBufferOriginal_.clear();
+}
+
+
 void RateConverter::calculateFilterKernel()
 {
     sampleBufferOriginal_.clear();

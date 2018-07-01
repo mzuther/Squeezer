@@ -130,6 +130,13 @@ FftwRunner::~FftwRunner()
 }
 
 
+void FftwRunner::reset()
+{
+    fftSampleBuffer_.clear();
+    fftOverlapAddSamples_.clear();
+}
+
+
 // "oversamplingRate" is needed for normalising the synthesised audio
 // data during oversampling only and should be left alone in any other
 // case

@@ -42,6 +42,9 @@ public:
         const int originalFftBufferSize,
         const int upsamplingFactor);
 
+    virtual ~RateConverter();
+    virtual void reset();
+
 protected:
     void calculateFilterKernel();
     void upsample();

@@ -39,8 +39,9 @@ public:
     FftwRunner(const int numberOfChannels,
                const int fftBufferSize);
 
-    ~FftwRunner();
+    virtual ~FftwRunner();
 
+    virtual void reset();
     void convolveWithKernel(const int channel,
                             const float oversamplingRate = 1.0f);
 

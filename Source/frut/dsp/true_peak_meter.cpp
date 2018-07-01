@@ -42,6 +42,19 @@ TruePeakMeter::TruePeakMeter(
 }
 
 
+TruePeakMeter::~TruePeakMeter()
+{
+}
+
+
+void TruePeakMeter::reset()
+{
+    RateConverter::reset();
+
+    truePeakLevels_.clear();
+}
+
+
 float TruePeakMeter::getLevel(
     const int channel)
 {

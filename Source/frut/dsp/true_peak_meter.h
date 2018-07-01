@@ -41,6 +41,9 @@ public:
                   const int originalFftBufferSize,
                   const int upsamplingFactor);
 
+    virtual ~TruePeakMeter();
+    virtual void reset();
+
     float getLevel(const int channel);
 
     void copyFrom(const AudioBuffer<float> &source,

@@ -44,6 +44,12 @@ FIRFilterBox::~FIRFilterBox()
 }
 
 
+void FIRFilterBox::reset()
+{
+    FftwRunner::reset();
+}
+
+
 // calculate filter kernel for windowed-sinc low-pass filter
 void FIRFilterBox::calculateKernelWindowedSincLPF(
     const double relativeCutoffFrequency)
