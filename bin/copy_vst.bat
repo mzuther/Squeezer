@@ -1,16 +1,24 @@
 @echo off
 setlocal
 
-set rsync_path=E:\Documents\System\Tools\rsync\bin
-set rsync_cmd=%rsync_path%\rsync.exe --archive
+set rsync_path="E:\Documents\System\Tools\rsync\bin"
+set rsync_cmd="%rsync_path%\rsync.exe" --archive
 
-set vst2_32=/cygdrive/c/Program Files (x86)/Steinberg/VSTPlugins/radix/
-set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
-set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
-set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
+set vst2_32="/cygdrive/c/Program Files (x86)/Steinberg/VSTPlugins/radix/"
+set vst3_32="/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/"
+set vst2_64="/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/"
+set vst3_64="/cygdrive/c/Program Files/Common Files/VST3/radix/"
+
+set categories="/cygdrive/d/Plugins/32-bit/Categories/VST2/Dynamics/Compressor"
 
 call :CopyVst ^
  "%vst2_32%" ^
+ "vst/Squeezer (Mono).dll" ^
+ "vst/Squeezer (Stereo).dll" ^
+ "vst/squeezer"
+
+call :CopyVst ^
+ "%categories%" ^
  "vst/Squeezer (Mono).dll" ^
  "vst/Squeezer (Stereo).dll" ^
  "vst/squeezer"
