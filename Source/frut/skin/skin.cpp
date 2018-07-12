@@ -96,6 +96,15 @@ bool Skin::loadFromXml(
     else
     {
         skinGroup_ = document_->getChildByName(currentGroupName_);
+
+        if (skinGroup_ == nullptr)
+        {
+            Logger::outputDebugString(
+                String("[Skin] XML element \"") +
+                currentGroupName_ +
+                "\" not found in settings");
+        }
+
         skinFallback_1_ = document_->getChildByName(currentFallbackName_);
 
         String resourcePathName = getString(document_, "path");
