@@ -23,7 +23,7 @@ ifeq ($(config),debug_x32)
   TARGETDIR = ../../../bin/lv2
   TARGET = $(TARGETDIR)/squeezer_stereo_lv2_debug.so
   OBJDIR = ../../../bin/.intermediate_linux/lv2_stereo_debug/x32
-  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -58,7 +58,7 @@ ifeq ($(config),debug_x64)
   TARGETDIR = ../../../bin/lv2
   TARGET = $(TARGETDIR)/squeezer_stereo_lv2_debug_x64.so
   OBJDIR = ../../../bin/.intermediate_linux/lv2_stereo_debug/x64
-  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -93,7 +93,7 @@ ifeq ($(config),release_x32)
   TARGETDIR = ../../../bin/lv2
   TARGET = $(TARGETDIR)/squeezer_stereo_lv2.so
   OBJDIR = ../../../bin/.intermediate_linux/lv2_stereo_release/x32
-  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -128,7 +128,7 @@ ifeq ($(config),release_x64)
   TARGETDIR = ../../../bin/lv2
   TARGET = $(TARGETDIR)/squeezer_stereo_lv2_x64.so
   OBJDIR = ../../../bin/.intermediate_linux/lv2_stereo_release/x64
-  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_ASIO=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DJucePlugin_Build_LV2=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries/juce/modules -I../../../Source/frut -I../../../libraries -I/usr/include -I/usr/include/freetype2
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)

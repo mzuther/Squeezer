@@ -975,9 +975,6 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 #ifdef LINUX
             L"ALSA\n"
 #endif
-#if JUCE_ASIO
-            L"ASIO\n"
-#endif
 #ifdef LINUX
             L"FreeType\n"
             L"JACK\n"
@@ -1003,13 +1000,6 @@ void SqueezerAudioProcessorEditor::buttonClicked(
         Chapters.set(
             "Trademarks",
             L"VST PlugIn Technology by Steinberg Media Technologies\n");
-#endif
-
-#if JUCE_ASIO
-        // display trademarks (but only when necessary)
-        Chapters.set(
-            "Trademarks",
-            L"ASIO Driver Technology by Steinberg Media Technologies\n");
 #endif
 
         Chapters.set(
