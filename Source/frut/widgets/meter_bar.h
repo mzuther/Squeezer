@@ -51,7 +51,8 @@ public:
 
     virtual void addDiscreteSegment(float lowerThreshold,
                                     float thresholdRange,
-                                    float autoFadeFactor,
+                                    float retainSignalFactor,
+                                    float newSignalFactor,
                                     bool isTopmost,
                                     int segmentHeight,
                                     int spacingBefore,

@@ -30,12 +30,6 @@ namespace widgets
 
 /// Create a new discrete meter segment, complete with peak marker.
 ///
-/// @param autoFadeFactor if set to value other than 0.0, the segment
-///        automatically fades out and all segments with lower
-///        thresholds remain dark.  This factor determines how much of
-///        the original brightness remains between updates (range: 0.0
-///        to 1.0).
-///
 /// > #### Internals
 /// >
 /// > The meter segment's state depends on two levels, the normal
@@ -69,8 +63,19 @@ namespace widgets
 /// > segment's peak marker is lit when any level peak reaches or
 /// > exceeds the lower threshold.
 ///
+/// @param retainSignalFactor if set to value other than 0.0, the segment
+///        automatically fades out and all segments with lower
+///        thresholds remain dark.  This factor determines how much of
+///        the original brightness remains between updates (range: 0.0
+///        to 1.0).
+///
+/// @param newSignalFactor if retainSignalFactor is set to a value other
+///        than 0.0, this factor determines how much of the new signal
+///        is added to the brightness (range: 0.0 to 1.0).
+///
 MeterSegmentDiscrete::MeterSegmentDiscrete(
-    float autoFadeFactor) :
+    float retainSignalFactor,
+    float newSignalFactor) :
     attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
 
 {
@@ -79,11 +84,11 @@ MeterSegmentDiscrete::MeterSegmentDiscrete(
 
     // initialise factor that determines how much of the original
     // brightness remains between updates (range: 0.0 to 1.0)
-    retainSignalFactor_ = autoFadeFactor;
+    retainSignalFactor_ = retainSignalFactor;
 
     // initialise factor that determines how much of the new
     // signal is added to the brightness (range: 0.0 to 1.0)
-    newSignalFactor_ = 4.0f * (1.0f - retainSignalFactor_);
+    newSignalFactor_ = newSignalFactor;
 
     // lowest level of a 24-bit-signal in decibels
     float initialLevel = -144.0f;

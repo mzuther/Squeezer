@@ -42,7 +42,9 @@ class MeterSegmentDiscrete :
     public MeterSegment
 {
 public:
-    explicit MeterSegmentDiscrete(float autoFadeFactor);
+    explicit MeterSegmentDiscrete(float retainSignalFactor,
+                                  float newSignalFactor);
+
 
     virtual float setThresholdAndRange(float lowerThreshold,
                                        float thresholdRange,
