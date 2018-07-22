@@ -25,28 +25,20 @@
 			]
 		}
 	],
-	"SublimeLinter":
-	{
-		"linters":
-		{
-			"clang": {
-				"args":
-				[
-					"-std=c++14",
-					"-include",
-					"${project_path}/Source/frut/FrutHeader.h",
-					"-Wno-pragma-once-outside-header",
-				],
-				"include_dirs":
-				[
-					"${file_path}",
-					"${project_path}/JuceLibraryCode",
-					"${project_path}/libraries",
-					"${project_path}/libraries/juce/modules",
-					"${project_path}/Source",
-					"${project_path}/Source/frut",
-				]
-			}
-		}
-	}
+    "settings": {
+        "SublimeLinter.linters.clang++.args": [
+            "-std=c++14", 
+            "-include", 
+            "${project_path}/Source/frut/FrutHeader.h", 
+            "-Wno-pragma-once-outside-header"
+        ], 
+        "SublimeLinter.linters.clang++.include_dirs": [
+            "${file_path}", 
+            "${project_path}/JuceLibraryCode", 
+            "${project_path}/libraries", 
+            "${project_path}/libraries/juce/modules", 
+            "${project_path}/Source", 
+            "${project_path}/Source/frut"
+        ]
+    }
 }
