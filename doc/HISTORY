@@ -3,6 +3,15 @@ Git HEAD
 
 
 
+v2.4.2 (2018-07-22)
+===================
+
+* removed ASIO support
+
+* reset meters on start of playback
+
+
+
 v2.4.1 (2018-06-15)
 ===================
 
