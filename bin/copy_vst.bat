@@ -25,9 +25,9 @@ call :CopyVst ^
 
 call :CopyVst ^
  "%vst3_32%" ^
- "vst/Squeezer (Mono).vst3" ^
- "vst/Squeezer (Stereo).vst3" ^
- "vst/squeezer"
+ "vst3/Squeezer (Mono).vst3" ^
+ "vst3/Squeezer (Stereo).vst3" ^
+ "vst3/squeezer"
 
 call :CopyVst ^
  "%vst2_64%" ^
@@ -37,9 +37,9 @@ call :CopyVst ^
 
 call :CopyVst ^
  "%vst3_64%" ^
- "vst/Squeezer (Mono x64).vst3" ^
- "vst/Squeezer (Stereo x64).vst3" ^
- "vst/squeezer"
+ "vst3/Squeezer (Mono x64).vst3" ^
+ "vst3/Squeezer (Stereo x64).vst3" ^
+ "vst3/squeezer"
 
 pause
 exit /b %errorlevel%
