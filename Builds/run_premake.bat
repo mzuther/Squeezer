@@ -2,11 +2,11 @@
 
 @rem ---------------------------------------------------------------------------
 @rem
-@rem  K-Meter
-@rem  =======
-@rem  Implementation of a K-System meter according to Bob Katz' specifications
+@rem  Squeezer
+@rem  ========
+@rem  Flexible general-purpose audio compressor with a touch of lemon.
 @rem
-@rem  Copyright (c) 2010-2018 Martin Zuther (http://www.mzuther.de/)
+@rem  Copyright (c) 2013-2018 Martin Zuther (http://www.mzuther.de/)
 @rem
 @rem  This program is free software: you can redistribute it and/or modify
 @rem  it under the terms of the GNU General Public License as published by
@@ -38,6 +38,9 @@ python.exe create_premake.py %windows_sdk%
 
 @echo.
 @premake5 --cc=clang --os=linux gmake
+
+@rem echo.
+@rem premake5 --cc=gcc --os=linux gmake
 
 @echo.
 @pause

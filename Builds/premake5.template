@@ -23,7 +23,11 @@ if not _ACTION then
     -- prevent "attempt to concatenate a nil value" error
     _ACTION = ""
 elseif _ACTION == "gmake" then
-    print ("=== Generating project files (GNU g++, " .. os.target():upper() .. ") ===")
+    if _OPTIONS["cc"] == "clang" then
+        print ("=== Generating project files (Clang++, " .. os.target():upper() .. ") ===")
+    else
+        print ("=== Generating project files (GNU g++, " .. os.target():upper() .. ") ===")
+    end
 elseif string.startswith(_ACTION, "codeblocks") then
     print "=== Generating project files (Code::Blocks, Windows) ==="
 elseif string.startswith(_ACTION, "vs") then
