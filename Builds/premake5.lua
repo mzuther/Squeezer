@@ -25,7 +25,8 @@
 
 
 if not _ACTION then
-    -- prevent "attempt to ... (a nil value)" errors
+    -- prevent "attempt to concatenate a nil value" error
+    _ACTION = ""
 elseif _ACTION == "gmake" then
     print ("=== Generating project files (GNU g++, " .. os.target():upper() .. ") ===")
 elseif string.startswith(_ACTION, "codeblocks") then
