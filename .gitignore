@@ -3,6 +3,7 @@
 *.db
 *.log
 *.ncb
+*.pdb
 *.sdf
 *.suo
 *.vcproj.*.user

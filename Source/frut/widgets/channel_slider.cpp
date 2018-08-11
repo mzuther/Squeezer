@@ -33,7 +33,7 @@ namespace widgets
 ChannelSlider::ChannelSlider()
 {
     // initialise number of channels
-    setNumberOfChannels(0);
+    setNumberOfChannels(1);
 
     // format slider
     setSliderStyle(Slider::IncDecButtons);
