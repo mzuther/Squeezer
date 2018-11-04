@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Thank you for using free software!
 
-Documentation
+<!-- Documentation
 -------------
 
 For documentation and further information, please see the directory
 [doc][2], especially the file [squeezer.pdf][3].
-
+ -->
 
 [1]: http://www.mzuther.de/
 [2]: https://github.com/mzuther/squeezer/tree/master/doc/
