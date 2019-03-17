@@ -939,6 +939,9 @@ void SqueezerAudioProcessor::processBlock(
     jassert(!isUsingDoublePrecision());
     ignoreUnused(midiMessages);
 
+    // temporarily disable denormals
+    ScopedNoDenormals noDenormals;
+
     int numberOfChannels = buffer.getNumChannels();
     int numberOfSamples = buffer.getNumSamples();
 
@@ -947,7 +950,7 @@ void SqueezerAudioProcessor::processBlock(
 
     // copy input to temporary buffer and convert to double;
     // de-normalize samples
-    dither_.denormalizeToDouble(buffer, processBuffer);
+    dither_.convertToDouble(buffer, processBuffer);
 
     // process input samples
     process(processBuffer);
@@ -963,9 +966,6 @@ void SqueezerAudioProcessor::processBlock(
 {
     jassert(isUsingDoublePrecision());
     ignoreUnused(midiMessages);
-
-    // de-normalize input samples
-    dither_.denormalize(buffer);
 
     // process input samples
     process(buffer);

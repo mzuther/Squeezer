@@ -51,8 +51,6 @@ public:
     String getCoefficients();
 
 private:
-    const double AntiDenormalDouble_;
-
     double RelativeCutoffFrequency_;
     bool IsHighPass_;
 

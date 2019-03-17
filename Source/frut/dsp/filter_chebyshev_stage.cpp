@@ -28,8 +28,7 @@ namespace frut
 namespace dsp
 {
 
-FilterChebyshevStage::FilterChebyshevStage() :
-    AntiDenormalDouble_(DBL_MIN)
+FilterChebyshevStage::FilterChebyshevStage()
 {
     Coeff_A0_ = 0.0;
     Coeff_A1_ = 0.0;
@@ -183,9 +182,6 @@ double FilterChebyshevStage::filterSample(
 
     OutputCurrent += Coeff_B1_ * OutputPrevious_1_;
     OutputCurrent += Coeff_B2_ * OutputPrevious_2_;
-
-    // de-normalise output
-    OutputCurrent += AntiDenormalDouble_;
 
     InputPrevious_1_ = InputCurrent;
     InputPrevious_2_ = InputPrevious_1_;
