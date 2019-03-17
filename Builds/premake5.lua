@@ -181,7 +181,7 @@ workspace "squeezer"
 
     filter { "configurations:Release" }
         defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
-        flags { "NoFramePointer" }
+        omitframepointer "On"
         optimize "Speed"
 
     filter { "system:linux", "configurations:Release" }

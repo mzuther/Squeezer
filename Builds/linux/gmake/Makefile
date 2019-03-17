@@ -110,4 +110,4 @@ help:
 	@echo "   squeezer_lv2_mono"
 	@echo "   squeezer_lv2_stereo"
 	@echo ""
-	@echo "For more information, see http://industriousone.com/premake/quick-start"
+	@echo "For more information, see https://github.com/premake/premake-core/wiki"
