@@ -25,7 +25,7 @@
 #
 # ----------------------------------------------------------------------------
 
-windows_sdk="10.0.16299.0"
+windows_sdk="10.0.17763.0"
 
 
 cd $(dirname $0)
@@ -40,8 +40,6 @@ premake5 --os=windows vs2017
 
 echo
 premake5 --cc=clang --os=linux gmake
-
-# echo
 # premake5 --cc=gcc --os=linux gmake
 
 echo

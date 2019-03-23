@@ -25,7 +25,7 @@
 @rem
 @rem ---------------------------------------------------------------------------
 
-set windows_sdk=10.0.16299.0
+set windows_sdk=10.0.17763.0
 
 
 python.exe create_premake.py %windows_sdk%
@@ -38,8 +38,6 @@ python.exe create_premake.py %windows_sdk%
 
 @echo.
 @premake5 --cc=clang --os=linux gmake
-
-@rem echo.
 @rem premake5 --cc=gcc --os=linux gmake
 
 @echo.
