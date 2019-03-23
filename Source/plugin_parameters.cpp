@@ -4,7 +4,7 @@
    ========
    Flexible general-purpose audio compressor with a touch of lemon.
 
-   Copyright (c) 2013-2018 Martin Zuther (http://www.mzuther.de/)
+   Copyright (c) 2013-2019 Martin Zuther (http://www.mzuther.de/)
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -530,8 +530,8 @@ const File SqueezerPluginParameters::getSkinDirectory()
     //
     // When deploying on a Mac, right-click on the build target and
     // select "Show Package Contents".  Navigate through
-    // Contents/MacOS and you will find the K-Meter executable.  Put
-    // the kmeter folder here.
+    // Contents/MacOS and you will find the Squeezer executable.  Put
+    // the squeezer folder here.
     //
     // Thanks to Tod Gentille!
 
