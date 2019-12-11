@@ -256,40 +256,24 @@
         <background
             image="backgrounds/background_mono.png" />
 
-        <button_reset
-            x="497"
-            y="42"
-            image_on="buttons/button_reset_on.png"
-            image_over="buttons/button_reset_over.png"
-            image_off="buttons/button_reset_off.png"
-        />
-
-        <button_skin
-            x="497"
-            y="14"
-            image_on="buttons/button_skin_on.png"
-            image_over="buttons/button_skin_over.png"
-            image_off="buttons/button_skin_off.png"
-        />
-
         <meter_input
-            x="499"
-            y="75"
-            segment_width="16"
+            x="612"
+            y="67"
+            segment_width="24"
             vertical="true"
         />
 
         <meter_output
-            x="539"
-            y="75"
-            segment_width="16"
+            x="643"
+            y="67"
+            segment_width="24"
             vertical="true"
         />
 
         <meter_gain_reduction
-            x="519"
-            y="75"
-            segment_width="16"
+            x="521"
+            y="67"
+            segment_width="24"
             vertical="true"
         />
     </mono>
