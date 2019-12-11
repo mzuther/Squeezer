@@ -38,21 +38,11 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
 
     int trueLowerThreshold = 0;
     int levelRange = 10;
-    int numberOfBars = 24;
+    int numberOfBars = 18;
 
     for (int n = 0; n < numberOfBars; ++n)
     {
-        int colourId;
-
-        if (n % 6 == 5)
-        {
-            colourId = colourSelector::notify;
-        }
-        else
-        {
-            colourId = colourSelector::normal;
-        }
-
+        int colourId = colourSelector::normal;
         bool hasHighestLevel = (n == (numberOfBars - 1)) ? true : false;
 
         if (discreteMeter)

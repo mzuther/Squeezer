@@ -109,16 +109,9 @@ public:
     void setSidechainListen(bool ListenToSidechainNew);
 
     double getGainReduction(int CurrentChannel);
-    double getGainReductionMeterPeak(int CurrentChannel);
 
     double getPeakMeterInputLevel(int CurrentChannel);
     double getPeakMeterOutputLevel(int CurrentChannel);
-
-    double getPeakMeterPeakInputLevel(int CurrentChannel);
-    double getPeakMeterPeakOutputLevel(int CurrentChannel);
-
-    double getMaximumInputLevel(int CurrentChannel);
-    double getMaximumOutputLevel(int CurrentChannel);
 
     double getAverageMeterInputLevel(int CurrentChannel);
     double getAverageMeterOutputLevel(int CurrentChannel);
@@ -134,16 +127,10 @@ private:
     void updateMeterBallistics();
 
     void peakMeterBallistics(double PeakLevelCurrent,
-                             double &PeakLevelOld,
-                             double &PeakMarkOld,
-                             double &PeakHoldTime);
+                             double &PeakLevelOld);
 
     void averageMeterBallistics(double AverageLevelCurrent,
                                 double &AverageLevelOld);
-
-    void gainReductionMeterPeakBallistics(double GainReductionPeakCurrent,
-                                          double &GainReductionPeakOld,
-                                          double &GainReductionHoldTime);
 
     void logMeterBallistics(double MeterInertia,
                             double TimePassed,
@@ -169,22 +156,11 @@ private:
     Array<double> PeakMeterInputLevels;
     Array<double> PeakMeterOutputLevels;
 
-    Array<double> PeakMeterPeakInputLevels;
-    Array<double> PeakMeterPeakOutputLevels;
-
-    Array<double> MaximumInputLevels;
-    Array<double> MaximumOutputLevels;
-
     Array<double> AverageMeterInputLevels;
     Array<double> AverageMeterOutputLevels;
 
     Array<double> GainReduction;
     Array<double> GainReductionWithMakeup;
-    Array<double> GainReductionMeterPeak;
-
-    Array<double> PeakMeterPeakInputHoldTime;
-    Array<double> PeakMeterPeakOutputHoldTime;
-    Array<double> GainReductionMeterHoldTime;
 
     double CrestFactor;
     int CompressorDesign;

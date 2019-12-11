@@ -102,25 +102,9 @@ void Compressor::resetMeters()
         PeakMeterInputLevels.set(CurrentChannel, MeterMinimumDecibel);
         PeakMeterOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
 
-        // set peak meter peak levels to meter minimum
-        PeakMeterPeakInputLevels.set(CurrentChannel, MeterMinimumDecibel);
-        PeakMeterPeakOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
-
-        // set maximum meter levels to meter minimum
-        MaximumInputLevels.set(CurrentChannel, MeterMinimumDecibel);
-        MaximumOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
-
         // set average meter levels to meter minimum
         AverageMeterInputLevels.set(CurrentChannel, MeterMinimumDecibel);
         AverageMeterOutputLevels.set(CurrentChannel, MeterMinimumDecibel);
-
-        // set gain reduction meter to meter minimum
-        GainReductionMeterPeak.set(CurrentChannel, MeterMinimumDecibel);
-
-        // reset variables for meter hold feature
-        PeakMeterPeakInputHoldTime.set(CurrentChannel, 0.0);
-        PeakMeterPeakOutputHoldTime.set(CurrentChannel, 0.0);
-        GainReductionMeterHoldTime.set(CurrentChannel, 0.0);
     }
 }
 
@@ -643,22 +627,6 @@ double Compressor::getGainReduction(int CurrentChannel)
 }
 
 
-double Compressor::getGainReductionMeterPeak(int CurrentChannel)
-/*  Get current gain reduction meter peak value.
-
-    CurrentChannel (integer): queried audio channel
-
-    return value (double): returns the current peak gain reduction in
-    decibel
- */
-{
-    jassert(CurrentChannel >= 0);
-    jassert(CurrentChannel < NumberOfChannels);
-
-    return GainReductionMeterPeak[CurrentChannel];
-}
-
-
 double Compressor::getPeakMeterInputLevel(int CurrentChannel)
 /*  Get current input peak level.
 
@@ -686,70 +654,6 @@ double Compressor::getPeakMeterOutputLevel(int CurrentChannel)
     jassert(CurrentChannel < NumberOfChannels);
 
     return PeakMeterOutputLevels[CurrentChannel] + CrestFactor;
-}
-
-
-double Compressor::getPeakMeterPeakInputLevel(int CurrentChannel)
-/*  Get current input peak meter peak level.
-
-    CurrentChannel (integer): selected audio channel
-
-    return value (double): returns current input peak meter peak level
-    in decibel
-*/
-{
-    jassert(CurrentChannel >= 0);
-    jassert(CurrentChannel < NumberOfChannels);
-
-    return PeakMeterPeakInputLevels[CurrentChannel] + CrestFactor;
-}
-
-
-double Compressor::getPeakMeterPeakOutputLevel(int CurrentChannel)
-/*  Get current output peak meter peak level.
-
-    CurrentChannel (integer): selected audio channel
-
-    return value (double): returns current output peak meter peak level
-    in decibel
-*/
-{
-    jassert(CurrentChannel >= 0);
-    jassert(CurrentChannel < NumberOfChannels);
-
-    return PeakMeterPeakOutputLevels[CurrentChannel] + CrestFactor;
-}
-
-
-double Compressor::getMaximumInputLevel(int CurrentChannel)
-/*  Get current input maximum level.
-
-    CurrentChannel (integer): selected audio channel
-
-    return value (double): returns current input maximum level in
-    decibel
-*/
-{
-    jassert(CurrentChannel >= 0);
-    jassert(CurrentChannel < NumberOfChannels);
-
-    return MaximumInputLevels[CurrentChannel] + CrestFactor;
-}
-
-
-double Compressor::getMaximumOutputLevel(int CurrentChannel)
-/*  Get current output maximum level.
-
-    CurrentChannel (integer): selected audio channel
-
-    return value (double): returns current output maximum level in
-    decibel
-*/
-{
-    jassert(CurrentChannel >= 0);
-    jassert(CurrentChannel < NumberOfChannels);
-
-    return MaximumOutputLevels[CurrentChannel] + CrestFactor;
 }
 
 
@@ -1034,23 +938,12 @@ void Compressor::updateMeterBallistics()
         InputPeak = SideChain::level2decibel(InputPeak);
         OutputPeak = SideChain::level2decibel(OutputPeak);
 
-        // update maximum meter levels
-        if (InputPeak > MaximumInputLevels[CurrentChannel])
-        {
-            MaximumInputLevels.set(CurrentChannel, InputPeak);
-        }
-
-        if (OutputPeak > MaximumOutputLevels[CurrentChannel])
-        {
-            MaximumOutputLevels.set(CurrentChannel, OutputPeak);
-        }
-
         // apply peak meter ballistics
-        peakMeterBallistics(InputPeak, PeakMeterInputLevels.getReference(CurrentChannel), PeakMeterPeakInputLevels.getReference(CurrentChannel), PeakMeterPeakInputHoldTime.getReference(CurrentChannel));
-        peakMeterBallistics(OutputPeak, PeakMeterOutputLevels.getReference(CurrentChannel), PeakMeterPeakOutputLevels.getReference(CurrentChannel), PeakMeterPeakOutputHoldTime.getReference(CurrentChannel));
+        peakMeterBallistics(InputPeak, PeakMeterInputLevels.getReference(CurrentChannel));
+        peakMeterBallistics(OutputPeak, PeakMeterOutputLevels.getReference(CurrentChannel));
 
-        // apply peak gain reduction ballistics
-        gainReductionMeterPeakBallistics(GainReduction[CurrentChannel], GainReductionMeterPeak.getReference(CurrentChannel), GainReductionMeterHoldTime.getReference(CurrentChannel));
+        // note: due to the compressor's attack and release times,
+        // there is no need to apply peak gain reduction ballistics
 
         // determine average levels
         double InputRms = MeterInputBuffer.getRMSLevel(CurrentChannel, 0, MeterBufferSize);
@@ -1068,7 +961,7 @@ void Compressor::updateMeterBallistics()
 }
 
 
-void Compressor::peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelOld, double &PeakMarkOld, double &PeakHoldTime)
+void Compressor::peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelOld)
 /*  Calculate ballistics for peak meter levels.
 
     PeakLevelCurrent (double): current peak meter level in decibel
@@ -1076,20 +969,14 @@ void Compressor::peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelO
     PeakLevelOld (double): old peak meter reading in decibel (will be
     overwritten!)
 
-    PeakMarkOld (double): old peak mark in decibel (will be
-    overwritten!)
-
-    PeakHoldTime (double): time since last meter update (will be
-    overwritten!)
-
     return value: none
 */
 {
     // limit peak level
-    if (PeakLevelCurrent >= 0.0)
+    if (PeakLevelCurrent >= -0.001)
     {
         // immediate rise time, but limit current peak to top mark
-        PeakLevelOld = 0.0;
+        PeakLevelOld = -0.001;
     }
     // apply rise time if peak level is above old level
     else if (PeakLevelCurrent >= PeakLevelOld)
@@ -1111,49 +998,6 @@ void Compressor::peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelO
             PeakLevelOld = PeakLevelCurrent;
         }
     }
-
-    // peak marker: limit peak level
-    if (PeakLevelCurrent >= 0.0)
-    {
-        // immediate rise time, but limit current peak to top mark
-        PeakMarkOld = 0.0;
-
-        // reset hold time
-        PeakHoldTime = 0.0;
-    }
-    // peak marker: apply rise time if peak level is above old level
-    else if (PeakLevelCurrent >= PeakMarkOld)
-    {
-        // immediate rise time, so return current peak level as new
-        // peak meter reading
-        PeakMarkOld = PeakLevelCurrent;
-
-        // reset hold time
-        PeakHoldTime = 0.0;
-    }
-    // peak marker: otherwise, apply fall time
-    else
-    {
-        // hold peaks for 10 seconds
-        if (PeakHoldTime < 10.0)
-        {
-            // update hold time
-            PeakHoldTime += BufferLength;
-        }
-        // hold time exceeded
-        else
-        {
-            // apply fall time and return new peak reading (linear
-            // fall time: 26 dB in 3 seconds)
-            PeakMarkOld -= ReleaseCoefLinear;
-
-            // make sure that meter doesn't fall below current level
-            if (PeakLevelCurrent > PeakMarkOld)
-            {
-                PeakMarkOld = PeakLevelCurrent;
-            }
-        }
-    }
 }
 
 
@@ -1172,56 +1016,6 @@ void Compressor::averageMeterBallistics(double AverageLevelCurrent, double &Aver
     // the meter reaches 99% of the final reading in 300 ms
     // (logarithmic)
     logMeterBallistics(0.300, BufferLength, AverageLevelCurrent, AverageLevelOld);
-}
-
-
-void Compressor::gainReductionMeterPeakBallistics(double GainReductionPeakCurrent, double &GainReductionPeakOld, double &GainReductionHoldTime)
-/*  Calculate ballistics for peak gain reduction.
-
-    GainReductionPeakCurrent (double): current peak gain reduction in
-    decibel
-
-    GainReductionPeakOld (double): old peak gain reduction in decibel
-    (will be overwritten!)
-
-    GainReductionHoldTime (double): time since last meter update
-
-    return value: none
-*/
-{
-    // apply rise time if peak level is above old level
-    if (GainReductionPeakCurrent >= GainReductionPeakOld)
-    {
-        // immediate rise time, so return current peak level as new
-        // gain reduction peak reading
-        GainReductionPeakOld = GainReductionPeakCurrent;
-
-        // reset hold time
-        GainReductionHoldTime = 0.0;
-    }
-    // otherwise, apply fall time
-    else
-    {
-        // hold gain reduction meter for 10 seconds
-        if (GainReductionHoldTime < 10.0)
-        {
-            // update hold time
-            GainReductionHoldTime += BufferLength;
-        }
-        // hold time exceeded
-        else
-        {
-            // apply fall time and return new gain reduction peak
-            // reading (linear fall time: 26 dB in 3 seconds)
-            GainReductionPeakOld -= ReleaseCoefLinear;
-
-            // make sure that meter doesn't fall below current level
-            if (GainReductionPeakCurrent > GainReductionPeakOld)
-            {
-                GainReductionPeakOld = GainReductionPeakCurrent;
-            }
-        }
-    }
 }
 
 

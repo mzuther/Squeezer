@@ -553,46 +553,35 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(
         {
             for (int Channel = 0; Channel < NumberOfChannels_; ++Channel)
             {
+                float NoPeakDisplay = -100.0;
+
                 float AverageInputLevel =
                     PluginProcessor_->getAverageMeterInputLevel(Channel);
-                float MaximumInputLevel =
-                    PluginProcessor_->getMaximumInputLevel(Channel);
-
                 float PeakInputLevel =
                     PluginProcessor_->getPeakMeterInputLevel(Channel);
-                float PeakInputPeakLevel =
-                    PluginProcessor_->getPeakMeterPeakInputLevel(Channel);
 
                 InputLevelMeters_[Channel]->setLevels(
-                    AverageInputLevel, MaximumInputLevel,
-                    PeakInputLevel, PeakInputPeakLevel);
+                    AverageInputLevel, NoPeakDisplay,
+                    PeakInputLevel, NoPeakDisplay);
 
                 float AverageOutputLevel =
                     PluginProcessor_->getAverageMeterOutputLevel(Channel);
-                float MaximumOutputLevel =
-                    PluginProcessor_->getMaximumOutputLevel(Channel);
-
                 float PeakOutputLevel =
                     PluginProcessor_->getPeakMeterOutputLevel(Channel);
-                float PeakOutputPeakLevel =
-                    PluginProcessor_->getPeakMeterPeakOutputLevel(Channel);
 
                 OutputLevelMeters_[Channel]->setLevels(
-                    AverageOutputLevel, MaximumOutputLevel,
-                    PeakOutputLevel, PeakOutputPeakLevel);
+                    AverageOutputLevel, NoPeakDisplay,
+                    PeakOutputLevel, NoPeakDisplay);
 
                 float GainReduction =
                     PluginProcessor_->getGainReduction(Channel);
-                float GainReductionMeterPeak =
-                    PluginProcessor_->getGainReductionMeterPeak(Channel);
 
                 // make sure gain reduction meter doesn't show anything
                 // while there is no gain reduction
                 GainReduction -= 0.01f;
-                GainReductionMeterPeak -= 0.01f;
 
                 GainReductionMeters_[Channel]->setNormalLevels(
-                    GainReduction, GainReductionMeterPeak);
+                    GainReduction, NoPeakDisplay);
             }
         }
     }
