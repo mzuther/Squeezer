@@ -37,10 +37,10 @@ void MeterBarLevel::create(int crestFactor,
     crestFactor *= 10;
 
     int levelRange = 20;
-    int trueLowerThreshold = -levelRange;
+    int trueLowerThreshold = 0;
     int lowerThreshold = trueLowerThreshold + crestFactor;
 
-    int numberOfBars = 17;
+    int numberOfBars = 18;
 
     for (int n = 0; n < numberOfBars; ++n)
     {
@@ -48,22 +48,7 @@ void MeterBarLevel::create(int crestFactor,
         int segmentHeight;
         int spacingBefore = 0;
 
-        if (n == 0)
-        {
-            colourId = colourSelector::overload;
-
-            // overload marker
-            segmentHeight = 2 * mainSegmentHeight - 2;
-        }
-        else if (n == 1)
-        {
-            colourId = colourSelector::overload;
-            segmentHeight = mainSegmentHeight;
-
-            // spacing for overload marker
-            spacingBefore = 2;
-        }
-        else if (trueLowerThreshold >= -80)
+        if (trueLowerThreshold >= -80)
         {
             colourId = colourSelector::overload;
             segmentHeight = mainSegmentHeight;

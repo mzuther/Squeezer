@@ -973,10 +973,10 @@ void Compressor::peakMeterBallistics(double PeakLevelCurrent, double &PeakLevelO
 */
 {
     // limit peak level
-    if (PeakLevelCurrent >= -0.001)
+    if (PeakLevelCurrent >= 0.0)
     {
         // immediate rise time, but limit current peak to top mark
-        PeakLevelOld = -0.001;
+        PeakLevelOld = 0.0;
     }
     // apply rise time if peak level is above old level
     else if (PeakLevelCurrent >= PeakLevelOld)
