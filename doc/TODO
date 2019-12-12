@@ -1,5 +1,7 @@
 o [mzuther] document code
 
+* implement upward compression
+
 * implement parameter smoothing ("anti-zipper")
 
 * add button to activate side-chain

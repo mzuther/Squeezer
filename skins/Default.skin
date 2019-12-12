@@ -230,7 +230,7 @@
         />
 
         <button_reset
-            x="528"
+            x="619"
             y="19"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
@@ -238,7 +238,7 @@
         />
 
         <button_skin
-            x="599"
+            x="508"
             y="19"
             image_on="buttons/button_skin_on.png"
             image_over="buttons/button_skin_over.png"
