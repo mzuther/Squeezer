@@ -254,7 +254,7 @@
 
     <mono>
         <background
-            image="backgrounds/background_mono.png" />
+            image="backgrounds/background.png" />
 
         <meter_input
             x="612"
@@ -280,7 +280,7 @@
 
     <stereo>
         <background
-            image="backgrounds/background_stereo.png" />
+            image="backgrounds/background.png" />
 
         <meter_input_left
             x="612"
