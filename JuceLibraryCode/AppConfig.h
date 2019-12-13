@@ -22,7 +22,7 @@
 
    Squeezer
    ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Flexible general-purpose audio compressor with a touch of citrus
 
    Copyright (c) 2013-2019 Martin Zuther (http://www.mzuther.de/)
 
@@ -390,7 +390,7 @@
  #define JucePlugin_Name                   "Squeezer"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "Flexible general-purpose audio compressor with a touch of lemon."
+ #define JucePlugin_Desc                   "Flexible general-purpose audio compressor with a touch of citrus"
 #endif
 #ifndef  JucePlugin_Manufacturer
  #define JucePlugin_Manufacturer           "Martin Zuther"

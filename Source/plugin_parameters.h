@@ -2,7 +2,7 @@
 
    Squeezer
    ========
-   Flexible general-purpose audio compressor with a touch of lemon.
+   Flexible general-purpose audio compressor with a touch of citrus
 
    Copyright (c) 2013-2019 Martin Zuther (http://www.mzuther.de/)
 

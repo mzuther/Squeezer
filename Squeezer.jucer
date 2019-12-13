@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="2.4.4"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
-              buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of lemon."
+              buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of citrus"
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
               pluginCode="sqzr" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"

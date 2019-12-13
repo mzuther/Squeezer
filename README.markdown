@@ -1,6 +1,6 @@
 # Squeezer
 
-Flexible general-purpose audio compressor with a touch of lemon.
+Flexible general-purpose audio compressor with a touch of citrus
 
 ![Screenshot](./skins/screenshot.png)
 

@@ -25,7 +25,7 @@
 
     doap:name "Squeezer (Stereo)" ;
     doap:license <http://usefulinc.com/doap/licenses/gpl> ;
-    doap:shortdesc "Flexible general-purpose audio compressor with a touch of lemon." ;
+    doap:shortdesc "Flexible general-purpose audio compressor with a touch of citrus" ;
 
     doap:creator [
         foaf:name "Martin Zuther";

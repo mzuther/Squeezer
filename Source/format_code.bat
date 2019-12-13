@@ -4,7 +4,7 @@
 @rem
 @rem  Squeezer
 @rem  ========
-@rem  Flexible general-purpose audio compressor with a touch of lemon.
+@rem  Flexible general-purpose audio compressor with a touch of citrus
 @rem
 @rem  Copyright (c) 2013-2019 Martin Zuther (http://www.mzuther.de/)
 @rem
