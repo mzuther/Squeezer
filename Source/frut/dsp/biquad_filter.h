@@ -45,11 +45,11 @@ public:
     AudioBuffer<double> process(const AudioBuffer<double> &inputBuffer);
 
     void setCoefficients(const double a0, const double a1, const double a2,
-                         const double b0, const double b1,
+                         const double b1, const double b2,
                          const bool showCoefficients = false);
 
     void setCoefficients(const double a0, const double a1, const double a2,
-                         const double b0, const double b1,
+                         const double b1, const double b2,
                          const double c0, const double d0,
                          const bool showCoefficients = false);
 
