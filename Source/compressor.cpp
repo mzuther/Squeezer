@@ -52,10 +52,11 @@ Compressor::Compressor(int channels, int sample_rate) :
     setBypass(false);
     setDesign(Compressor::DesignFeedForward);
 
-    setStereoLink(100);
-
+    setInputTrim(0.0);
     setAutoMakeupGain(false);
     setMakeupGain(0.0);
+
+    setStereoLink(100);
     setWetMix(100);
 
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
@@ -409,6 +410,30 @@ void Compressor::setStereoLink(int StereoLinkPercentageNew)
 }
 
 
+double Compressor::getInputTrim()
+/*  Get current input trim gain.
+
+    return value (double): returns the current input trim gain in
+    decibels
+ */
+{
+    return InputTrim;
+}
+
+
+void Compressor::setInputTrim(double InputTrimNew)
+/*  Set new input trim gain.
+
+    InputTrimNew (double): new input trim gain in decibels
+
+    return value: none
+ */
+{
+    InputTrim = InputTrimNew;
+    InputTrimLevel = SideChain::decibel2level(InputTrim);
+}
+
+
 bool Compressor::getAutoMakeupGain()
 /*  Get current auto make-up gain state.
 
@@ -706,6 +731,9 @@ void Compressor::process(
             // get current input sample
             double InputSample = MainBuffer.getSample(CurrentChannel, nSample);
 
+            // apply input trim gain
+            InputSample *= InputTrimLevel;
+
             // store de-normalised input sample
             InputSamples.set(CurrentChannel, InputSample);
 
@@ -835,8 +863,8 @@ void Compressor::process(
             // apply crest factor
             SideChainLevel += CrestFactor;
 
-            // send current input sample to gain reduction unit
-            SideChainProcessor[CurrentChannel]->processSample(SideChainLevel);
+            // apply input trim temporarily and send current input sample to gain reduction unit
+            SideChainProcessor[CurrentChannel]->processSample(SideChainLevel * InputTrimLevel);
         }
 
         // apply gain reduction and save output sample
@@ -897,6 +925,9 @@ void Compressor::process(
                                    InputSample * DryMix;
                 }
             }
+
+            // undo input trim gain
+            OutputSample /= InputTrimLevel;
 
             // write output sample to main buffer
             MainBuffer.setSample(CurrentChannel, nSample, OutputSample);

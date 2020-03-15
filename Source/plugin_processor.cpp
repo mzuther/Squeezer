@@ -396,6 +396,18 @@ void SqueezerAudioProcessor::setParameter(
 
         break;
 
+    case SqueezerPluginParameters::selInputTrim:
+
+        pluginParameters_.setFloat(nIndex, fValue);
+
+        if (compressor_)
+        {
+            float fInputTrim = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setInputTrim(fInputTrim);
+        }
+
+        break;
+
     case SqueezerPluginParameters::selAutoMakeupGain:
 
         pluginParameters_.setFloat(nIndex, fValue);
@@ -416,6 +428,18 @@ void SqueezerAudioProcessor::setParameter(
         {
             float fMakeupGain = pluginParameters_.getRealFloat(nIndex);
             compressor_->setMakeupGain(fMakeupGain);
+        }
+
+        break;
+
+    case SqueezerPluginParameters::selStereoLink:
+
+        pluginParameters_.setFloat(nIndex, fValue);
+
+        if (compressor_)
+        {
+            int nStereoLink = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setStereoLink(nStereoLink);
         }
 
         break;
@@ -494,7 +518,9 @@ void SqueezerAudioProcessor::setParameter(
             case SqueezerPluginParameters::selAttackRateSwitch:
             case SqueezerPluginParameters::selReleaseRateSwitch:
 
+            case SqueezerPluginParameters::selInputTrimSwitch:
             case SqueezerPluginParameters::selMakeupGainSwitch:
+            case SqueezerPluginParameters::selStereoLinkSwitch:
             case SqueezerPluginParameters::selWetMixSwitch:
 
             case SqueezerPluginParameters::selSidechainHPFCutoffSwitch:
@@ -792,10 +818,14 @@ void SqueezerAudioProcessor::prepareToPlay(
     int nReleaseRate = pluginParameters_.getRealInteger(
                            SqueezerPluginParameters::selReleaseRate);
 
+    float fInputTrim = pluginParameters_.getRealFloat(
+                           SqueezerPluginParameters::selInputTrim);
     bool bAutoMakeupGain = pluginParameters_.getBoolean(
                                SqueezerPluginParameters::selAutoMakeupGain);
     float fMakeupGain = pluginParameters_.getRealFloat(
                             SqueezerPluginParameters::selMakeupGain);
+    int nStereoLink = pluginParameters_.getRealInteger(
+                          SqueezerPluginParameters::selStereoLink);
     int nWetMix = pluginParameters_.getRealInteger(
                       SqueezerPluginParameters::selWetMix);
 
@@ -833,8 +863,10 @@ void SqueezerAudioProcessor::prepareToPlay(
     compressor_->setAttackRate(fAttackRate);
     compressor_->setReleaseRate(nReleaseRate);
 
+    compressor_->setInputTrim(fInputTrim);
     compressor_->setAutoMakeupGain(bAutoMakeupGain);
     compressor_->setMakeupGain(fMakeupGain);
+    compressor_->setStereoLink(nStereoLink);
     compressor_->setWetMix(nWetMix);
 
     compressor_->setSidechainInput(bSidechainInput);

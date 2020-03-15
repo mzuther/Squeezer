@@ -74,6 +74,11 @@ public:
         selSidechainLPFCutoff,
         selSidechainListen,
 
+        selInputTrimSwitch,
+        selInputTrim,
+        selStereoLinkSwitch,
+        selStereoLink,
+
         numberOfParametersRevealed,
 
         selSkinName = numberOfParametersRevealed,

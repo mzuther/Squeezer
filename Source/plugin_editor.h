@@ -87,7 +87,9 @@ private:
     ScopedPointer<frut::widgets::SliderCombined> SliderAttackRate_;
     ScopedPointer<frut::widgets::SliderCombined> SliderReleaseRate_;
 
+    ScopedPointer<frut::widgets::SliderCombined> SliderInputTrim_;
     ScopedPointer<frut::widgets::SliderCombined> SliderMakeupGain_;
+    ScopedPointer<frut::widgets::SliderCombined> SliderStereoLink_;
     ScopedPointer<frut::widgets::SliderCombined> SliderWetMix_;
 
     ScopedPointer<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;

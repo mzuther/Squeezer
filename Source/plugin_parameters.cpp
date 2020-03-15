@@ -410,6 +410,82 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterSidechainListen, selSidechainListen);
 
 
+    realMinimum = -36.0f;
+    realMaximum = +36.0f;
+    stepSize = 0.5f;
+    scalingFactor = 0.0f;
+    decimalPlaces = 1;
+
+    frut::parameters::ParCombined *ParameterInputTrim =
+        new frut::parameters::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
+    ParameterInputTrim->setName("Input Trim");
+
+    ParameterInputTrim->addPreset(-18.0f, "-18 dB");
+    ParameterInputTrim->addPreset(-17.0f, "-17 dB");
+    ParameterInputTrim->addPreset(-16.0f, "-16 dB");
+    ParameterInputTrim->addPreset(-15.0f, "-15 dB");
+    ParameterInputTrim->addPreset(-14.0f, "-14 dB");
+    ParameterInputTrim->addPreset(-13.0f, "-13 dB");
+    ParameterInputTrim->addPreset(-12.0f, "-12 dB");
+    ParameterInputTrim->addPreset(-11.0f, "-11 dB");
+    ParameterInputTrim->addPreset(-10.0f, "-10 dB");
+    ParameterInputTrim->addPreset(-9.0f, "-9 dB");
+    ParameterInputTrim->addPreset(-8.0f, "-8 dB");
+    ParameterInputTrim->addPreset(-7.0f, "-7 dB");
+    ParameterInputTrim->addPreset(-6.0f, "-6 dB");
+    ParameterInputTrim->addPreset(-5.0f, "-5 dB");
+    ParameterInputTrim->addPreset(-4.0f, "-4 dB");
+    ParameterInputTrim->addPreset(-3.0f, "-3 dB");
+    ParameterInputTrim->addPreset(-2.0f, "-2 dB");
+    ParameterInputTrim->addPreset(-1.0f, "-1 dB");
+    ParameterInputTrim->addPreset(0.0f, "0 dB");
+    ParameterInputTrim->addPreset(+1.0f, "+1 dB");
+    ParameterInputTrim->addPreset(+2.0f, "+2 dB");
+    ParameterInputTrim->addPreset(+3.0f, "+3 dB");
+    ParameterInputTrim->addPreset(+4.0f, "+4 dB");
+    ParameterInputTrim->addPreset(+5.0f, "+5 dB");
+    ParameterInputTrim->addPreset(+6.0f, "+6 dB");
+    ParameterInputTrim->addPreset(+7.0f, "+7 dB");
+    ParameterInputTrim->addPreset(+8.0f, "+8 dB");
+    ParameterInputTrim->addPreset(+9.0f, "+9 dB");
+    ParameterInputTrim->addPreset(+10.0f, "+10 dB");
+    ParameterInputTrim->addPreset(+11.0f, "+11 dB");
+    ParameterInputTrim->addPreset(+12.0f, "+12 dB");
+    ParameterInputTrim->addPreset(+13.0f, "+13 dB");
+    ParameterInputTrim->addPreset(+14.0f, "+14 dB");
+    ParameterInputTrim->addPreset(+15.0f, "+15 dB");
+    ParameterInputTrim->addPreset(+16.0f, "+16 dB");
+    ParameterInputTrim->addPreset(+17.0f, "+17 dB");
+    ParameterInputTrim->addPreset(+18.0f, "+18 dB");
+
+    ParameterInputTrim->setSuffix(" dB");
+    ParameterInputTrim->setDefaultRealFloat(0.0f, true);
+    addCombined(ParameterInputTrim, selInputTrimSwitch, selInputTrim);
+
+
+    realMinimum = 0.0f;
+    realMaximum = 100.0f;
+    stepSize = 1.0f;
+    scalingFactor = -0.5f;
+    decimalPlaces = 0;
+
+    frut::parameters::ParCombined *ParameterStereoLink =
+        new frut::parameters::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
+    ParameterStereoLink->setName("Stereo Link");
+
+    ParameterStereoLink->addPreset(0.0f, "0 %");
+    ParameterStereoLink->addPreset(25.0f, "25 %");
+    ParameterStereoLink->addPreset(50.0f, "50 %");
+    ParameterStereoLink->addPreset(70.0f, "70 %");
+    ParameterStereoLink->addPreset(80.0f, "80 %");
+    ParameterStereoLink->addPreset(90.0f, "90 %");
+    ParameterStereoLink->addPreset(100.0f, "100 %");
+
+    ParameterStereoLink->setSuffix(" %");
+    ParameterStereoLink->setDefaultRealFloat(100.0f, true);
+    addCombined(ParameterStereoLink, selStereoLinkSwitch, selStereoLink);
+
+
     // locate directory containing the skins
     File skinDirectory = getSkinDirectory();
 
@@ -461,6 +537,9 @@ String SqueezerPluginParameters::toString()
     parameterValues += ", Design: ";
     parameterValues += getText(selDesign);
 
+    parameterValues += ", Link: ";
+    parameterValues += getText(selStereoLink);
+
     parameterValues += "\nThresh: ";
     parameterValues += getText(selThreshold);
 
@@ -507,13 +586,16 @@ String SqueezerPluginParameters::toString()
         parameterValues += getText(selSidechainLPFCutoff);
     }
 
-    parameterValues += "\nMake-Up: ";
+    parameterValues += "\nInput: ";
+    parameterValues += getText(selInputTrim);
+
+    parameterValues += ", Output: ";
     parameterValues += getText(selMakeupGain);
 
     parameterValues += " (";
     parameterValues += getText(selAutoMakeupGain);
 
-    parameterValues += "), Wet: ";
+    parameterValues += " MU), Wet: ";
     parameterValues += getText(selWetMix);
 
     return parameterValues + "\n";

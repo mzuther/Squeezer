@@ -6,7 +6,7 @@
     name="Default"
     path="Default"
     origin_of_y="bottom"
-    version="1.0">
+    version="1.1">
 
     <settings>
         <meter_segment
@@ -46,7 +46,7 @@
 
     <default>
         <slider_threshold
-            x="12"
+            x="83"
             y="116"
             height="60"
             width="52"
@@ -54,7 +54,7 @@
         />
 
         <slider_ratio
-            x="72"
+            x="143"
             y="116"
             height="60"
             width="52"
@@ -62,7 +62,7 @@
         />
 
         <slider_attack_rate
-            x="12"
+            x="83"
             y="13"
             height="60"
             width="52"
@@ -70,7 +70,7 @@
         />
 
         <slider_release_rate
-            x="72"
+            x="143"
             y="13"
             height="60"
             width="52"
@@ -78,7 +78,7 @@
         />
 
         <slider_sidechain_hpf_cutoff
-            x="143"
+            x="214"
             y="13"
             height="60"
             width="52"
@@ -86,15 +86,33 @@
         />
 
         <slider_sidechain_lpf_cutoff
-            x="203"
+            x="274"
             y="13"
             height="60"
             width="52"
             hue="0.33"
         />
 
+        <slider_input_trim
+            x="12"
+            y="116"
+            height="60"
+            width="52"
+            hue="0.00"
+            saturation="0.0"
+        />
+
         <slider_makeup_gain
-            x="143"
+            x="12"
+            y="13"
+            height="60"
+            width="52"
+            hue="0.00"
+            saturation="0.0"
+        />
+
+        <slider_stereo_link
+            x="214"
             y="116"
             height="60"
             width="52"
@@ -102,7 +120,7 @@
         />
 
         <slider_wet_mix
-            x="203"
+            x="274"
             y="116"
             height="60"
             width="52"
@@ -110,7 +128,7 @@
         />
 
         <button_detector_linear
-            x="276"
+            x="347"
             y="176"
             image_on="buttons/button_detector_linear_on.png"
             image_over="buttons/button_detector_linear_over.png"
@@ -118,7 +136,7 @@
         />
 
         <button_detector_smooth_decoupled
-            x="276"
+            x="347"
             y="147"
             image_on="buttons/button_detector_smooth_decoupled_on.png"
             image_over="buttons/button_detector_smooth_decoupled_over.png"
@@ -126,7 +144,7 @@
         />
 
         <button_detector_smooth_branching
-            x="276"
+            x="347"
             y="118"
             image_on="buttons/button_detector_smooth_branching_on.png"
             image_over="buttons/button_detector_smooth_branching_over.png"
@@ -134,7 +152,7 @@
         />
 
         <button_detector_rms
-            x="346"
+            x="417"
             y="176"
             image_on="buttons/button_detector_rms_on.png"
             image_over="buttons/button_detector_rms_over.png"
@@ -142,7 +160,7 @@
         />
 
         <button_design_feedback
-            x="346"
+            x="417"
             y="147"
             image_on="buttons/button_design_feedback_on.png"
             image_over="buttons/button_design_feedback_over.png"
@@ -150,7 +168,7 @@
         />
 
         <button_gainstage_optical
-            x="346"
+            x="417"
             y="118"
             image_on="buttons/button_gainstage_optical_on.png"
             image_over="buttons/button_gainstage_optical_over.png"
@@ -158,7 +176,7 @@
         />
 
         <button_knee_hard
-            x="416"
+            x="487"
             y="176"
             image_on="buttons/button_knee_hard_on.png"
             image_over="buttons/button_knee_hard_over.png"
@@ -166,7 +184,7 @@
         />
 
         <button_knee_medium
-            x="416"
+            x="487"
             y="147"
             image_on="buttons/button_knee_medium_on.png"
             image_over="buttons/button_knee_medium_over.png"
@@ -174,7 +192,7 @@
         />
 
         <button_knee_soft
-            x="416"
+            x="487"
             y="118"
             image_on="buttons/button_knee_soft_on.png"
             image_over="buttons/button_knee_soft_over.png"
@@ -182,7 +200,7 @@
         />
 
         <button_sidechain_listen
-            x="276"
+            x="347"
             y="14"
             image_on="buttons/button_sidechain_listen_on.png"
             image_over="buttons/button_sidechain_listen_over.png"
@@ -190,7 +208,7 @@
         />
 
         <button_sidechain_input
-            x="276"
+            x="347"
             y="42"
             image_on="buttons/button_sidechain_input_on.png"
             image_over="buttons/button_sidechain_input_over.png"
@@ -198,7 +216,7 @@
         />
 
         <button_auto_makeup_gain
-            x="346"
+            x="417"
             y="42"
             image_on="buttons/button_auto_makeup_gain_on.png"
             image_over="buttons/button_auto_makeup_gain_over.png"
@@ -206,7 +224,7 @@
         />
 
         <button_bypass
-            x="346"
+            x="417"
             y="14"
             image_on="buttons/button_bypass_on.png"
             image_over="buttons/button_bypass_over.png"
@@ -214,7 +232,7 @@
         />
 
         <button_settings
-            x="416"
+            x="487"
             y="42"
             image_on="buttons/button_settings_on.png"
             image_over="buttons/button_settings_over.png"
@@ -222,7 +240,7 @@
         />
 
         <button_about
-            x="416"
+            x="487"
             y="14"
             image_on="buttons/button_about_on.png"
             image_over="buttons/button_about_over.png"
@@ -230,7 +248,7 @@
         />
 
         <button_reset
-            x="619"
+            x="690"
             y="19"
             image_on="buttons/button_reset_on.png"
             image_over="buttons/button_reset_over.png"
@@ -238,7 +256,7 @@
         />
 
         <button_skin
-            x="508"
+            x="579"
             y="19"
             image_on="buttons/button_skin_on.png"
             image_over="buttons/button_skin_over.png"
@@ -246,7 +264,7 @@
         />
 
         <label_debug
-            x="456"
+            x="527"
             y="75"
             image="labels/label_debug.png"
         />
@@ -257,21 +275,21 @@
             image="backgrounds/background.png" />
 
         <meter_input
-            x="612"
+            x="683"
             y="67"
             segment_width="24"
             vertical="true"
         />
 
         <meter_output
-            x="643"
+            x="714"
             y="67"
             segment_width="24"
             vertical="true"
         />
 
         <meter_gain_reduction
-            x="521"
+            x="592"
             y="67"
             segment_width="24"
             vertical="true"
@@ -283,42 +301,42 @@
             image="backgrounds/background.png" />
 
         <meter_input_left
-            x="612"
+            x="683"
             y="67"
             segment_width="12"
             vertical="true"
         />
 
         <meter_input_right
-            x="624"
+            x="695"
             y="67"
             segment_width="12"
             vertical="true"
         />
 
         <meter_output_left
-            x="643"
+            x="714"
             y="67"
             segment_width="12"
             vertical="true"
         />
 
         <meter_output_right
-            x="655"
+            x="726"
             y="67"
             segment_width="12"
             vertical="true"
         />
 
         <meter_gain_reduction_left
-            x="521"
+            x="592"
             y="67"
             segment_width="12"
             vertical="true"
         />
 
         <meter_gain_reduction_right
-            x="533"
+            x="604"
             y="67"
             segment_width="12"
             vertical="true"

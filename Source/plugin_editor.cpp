@@ -124,6 +124,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(SliderReleaseRate_);
 
 
+    SliderInputTrim_ = new frut::widgets::SliderCombined(
+        PluginParameters,
+        SqueezerPluginParameters::selInputTrim,
+        SqueezerPluginParameters::selInputTrimSwitch);
+
+    SliderInputTrim_->addListener(this);
+    SliderInputTrim_->addButtonListener(this);
+    addAndMakeVisible(SliderInputTrim_);
+
+
     SliderMakeupGain_ = new frut::widgets::SliderCombined(
         PluginParameters,
         SqueezerPluginParameters::selMakeupGain,
@@ -132,6 +142,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     SliderMakeupGain_->addListener(this);
     SliderMakeupGain_->addButtonListener(this);
     addAndMakeVisible(SliderMakeupGain_);
+
+
+    SliderStereoLink_ = new frut::widgets::SliderCombined(
+        PluginParameters,
+        SqueezerPluginParameters::selStereoLink,
+        SqueezerPluginParameters::selStereoLinkSwitch);
+
+    SliderStereoLink_->addListener(this);
+    SliderStereoLink_->addButtonListener(this);
+    addAndMakeVisible(SliderStereoLink_);
 
 
     SliderWetMix_ = new frut::widgets::SliderCombined(
@@ -245,8 +265,13 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     updateParameter(SqueezerPluginParameters::selReleaseRateSwitch);
     updateParameter(SqueezerPluginParameters::selReleaseRate);
 
+    updateParameter(SqueezerPluginParameters::selInputTrimSwitch);
+    updateParameter(SqueezerPluginParameters::selInputTrim);
     updateParameter(SqueezerPluginParameters::selMakeupGainSwitch);
     updateParameter(SqueezerPluginParameters::selMakeupGain);
+
+    updateParameter(SqueezerPluginParameters::selStereoLinkSwitch);
+    updateParameter(SqueezerPluginParameters::selStereoLink);
     updateParameter(SqueezerPluginParameters::selWetMixSwitch);
     updateParameter(SqueezerPluginParameters::selWetMix);
 
@@ -324,8 +349,13 @@ void SqueezerAudioProcessorEditor::applySkin_()
     CurrentSkin_.placeAndSkinSlider("slider_sidechain_lpf_cutoff",
                                     SliderSidechainLPFCutoff_);
 
+    CurrentSkin_.placeAndSkinSlider("slider_input_trim",
+                                    SliderInputTrim_);
     CurrentSkin_.placeAndSkinSlider("slider_makeup_gain",
                                     SliderMakeupGain_);
+
+    CurrentSkin_.placeAndSkinSlider("slider_stereo_link",
+                                    SliderStereoLink_);
     CurrentSkin_.placeAndSkinSlider("slider_wet_mix",
                                     SliderWetMix_);
 
@@ -472,6 +502,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
         CurrentSkin_.placeMeterBar("meter_gain_reduction",
                                    GainReductionMeters_[0]);
+
+        SliderStereoLink_->setEnabled(false);
     }
     else
     {
@@ -719,6 +751,15 @@ void SqueezerAudioProcessorEditor::updateParameter(
                                      dontSendNotification);
         break;
 
+    case SqueezerPluginParameters::selInputTrimSwitch:
+        SliderInputTrim_->updateMode();
+        break;
+
+    case SqueezerPluginParameters::selInputTrim:
+        SliderInputTrim_->setValue(FloatValue,
+                                   dontSendNotification);
+        break;
+
     case SqueezerPluginParameters::selAutoMakeupGain:
         ButtonAutoMakeupGain_.setToggleState(FloatValue != 0.0f,
                                              dontSendNotification);
@@ -730,6 +771,15 @@ void SqueezerAudioProcessorEditor::updateParameter(
 
     case SqueezerPluginParameters::selMakeupGain:
         SliderMakeupGain_->setValue(FloatValue,
+                                    dontSendNotification);
+        break;
+
+    case SqueezerPluginParameters::selStereoLinkSwitch:
+        SliderStereoLink_->updateMode();
+        break;
+
+    case SqueezerPluginParameters::selStereoLink:
+        SliderStereoLink_->setValue(FloatValue,
                                     dontSendNotification);
         break;
 
@@ -1056,10 +1106,22 @@ void SqueezerAudioProcessorEditor::buttonClicked(
                 SqueezerPluginParameters::selReleaseRateSwitch,
                 FloatValue);
         }
+        else if (Slider == SliderInputTrim_)
+        {
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selInputTrimSwitch,
+                FloatValue);
+        }
         else if (Slider == SliderMakeupGain_)
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selMakeupGainSwitch,
+                FloatValue);
+        }
+        else if (Slider == SliderStereoLink_)
+        {
+            PluginProcessor_->changeParameter(
+                SqueezerPluginParameters::selStereoLinkSwitch,
                 FloatValue);
         }
         else if (Slider == SliderWetMix_)
@@ -1117,10 +1179,22 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
             SqueezerPluginParameters::selReleaseRate,
             FloatValue);
     }
+    else if (Slider == SliderInputTrim_)
+    {
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selInputTrim,
+            FloatValue);
+    }
     else if (Slider == SliderMakeupGain_)
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selMakeupGain,
+            FloatValue);
+    }
+    else if (Slider == SliderStereoLink_)
+    {
+        PluginProcessor_->changeParameter(
+            SqueezerPluginParameters::selStereoLink,
             FloatValue);
     }
     else if (Slider == SliderWetMix_)

@@ -63,6 +63,9 @@ public:
     int getDesign();
     void setDesign(int CompressorDesignNew);
 
+    double getInputTrim();
+    void setInputTrim(double InputTrimNew);
+
     double getThreshold();
     void setThreshold(double ThresholdNew);
 
@@ -175,6 +178,9 @@ private:
     int StereoLinkPercentage;
     double StereoLinkWeight;
     double StereoLinkWeightOther;
+
+    double InputTrim;
+    double InputTrimLevel;
 
     bool UseAutoMakeupGain;
     double MakeupGain;

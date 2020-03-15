@@ -14,7 +14,9 @@
            slider_release_rate,
            slider_sidechain_hpf_cutoff,
            slider_sidechain_lpf_cutoff,
+           slider_input_trim,
            slider_makeup_gain,
+           slider_stereo_link,
            slider_wet_mix,
            button_detector_linear,
            button_detector_smooth_decoupled,
@@ -43,7 +45,9 @@
            slider_release_rate?,
            slider_sidechain_hpf_cutoff?,
            slider_sidechain_lpf_cutoff?,
+           slider_input_trim?,
            slider_makeup_gain?,
+           slider_stereo_link?,
            slider_wet_mix?,
            button_detector_linear?,
            button_detector_smooth_decoupled?,
@@ -161,7 +165,7 @@
               name CDATA #REQUIRED
               path CDATA #REQUIRED
               origin_of_y (top| bottom) #REQUIRED
-              version CDATA "1.0"
+              version CDATA "1.1"
     >
 
     <!ELEMENT settings (%settings;)>
@@ -215,8 +219,14 @@
         <!ELEMENT slider_sidechain_lpf_cutoff (#PCDATA)>
             <!ATTLIST slider_sidechain_lpf_cutoff %attrs_slider;>
 
+        <!ELEMENT slider_input_trim (#PCDATA)>
+            <!ATTLIST slider_input_trim %attrs_slider;>
+
         <!ELEMENT slider_makeup_gain (#PCDATA)>
             <!ATTLIST slider_makeup_gain %attrs_slider;>
+
+        <!ELEMENT slider_stereo_link (#PCDATA)>
+            <!ATTLIST slider_stereo_link %attrs_slider;>
 
         <!ELEMENT slider_wet_mix (#PCDATA)>
             <!ATTLIST slider_wet_mix %attrs_slider;>
