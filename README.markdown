@@ -7,14 +7,14 @@ Flexible general-purpose audio compressor with a touch of citrus
 ## About
 
 I wrote this compressor to learn all I could about audio compression.
-It took me about half a year to gather all the specs and papers I
-needed and convert this vast amount of information into code.
+It took me several months to gather all the specs and papers I needed
+and convert this vast amount of information into code.
 
-What makes **Squeezer** different from the compressors I know is that
-all the knobs are stepped to preset values (it took a loooong time to
+What makes **Squeezer** different from the compressors I know is the
+stepping of all knobs to preset values (it took a loooong time to
 fine-tune them).  On clicking a small red light, however, the knobs
 become continuous.  That allows you to find good-sounding settings
-very fast while not preventing you from fine-tuning them.
+very fast while not preventing fine-tuning.
 
 **Squeezer** is also very flexible.  Its internal layout can be
 changed in many ways: feed-forward / feed-back, linear / S-curve /
@@ -22,7 +22,8 @@ log, optical / transistor, RMS / almost peak, three different knees.
 
 By writing and fine-tuning this compressor I have gained deep insight
 into audio compressors and really learned how to use them musically.
-But not only that, **Squeezer** has become my go-to compressor.
+But not only that, **Squeezer** has quickly become my go-to generic
+compressor.
 
 I have not yet released a binary, because I expected **Squeezer**'s
 internals to still change and have not yet found the time to write a
