@@ -1,0 +1,147 @@
+\documentclass[paper=a5,pagesize=auto,twoside=false,fontsize=12pt,DIV=classic,BCOR=0mm,headinclude=true,footinclude=false]{scrbook}
+
+%% font selection
+\usepackage{utopia}
+\usepackage{avant}
+
+%% redefine headers
+\usepackage[headsepline]{scrpage2}
+\pagestyle{scrheadings}
+
+\setkomafont{author}{%
+  \normalfont\normalsize
+}
+
+\setkomafont{date}{%
+  \normalfont\normalsize
+}
+
+\setkomafont{dedication}{%
+  \raggedright\normalfont\small\itshape
+}
+
+\setkomafont{pageheadfoot}{%
+  \normalfont\itshape
+}
+
+\automark[chapter]{chapter}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+%\renewcommand{\sectionmark}[1]{\markright{#1}}
+
+%% additional KOMA script options
+\KOMAoptions{parskip=half,headsepline=true,numbers=noendperiod,captions=tableheading}
+\recalctypearea{} % recalculate type area after selecting fonts
+
+\usepackage{array}
+\usepackage[british]{babel}
+\usepackage{bbding}
+\usepackage{fancyvrb}
+\usepackage{float}  % direct positioning of floats
+\usepackage{graphicx}
+\usepackage{ifpdf}
+\usepackage[utf8x]{inputenc}
+\usepackage{paralist}
+\usepackage{ucs}
+\usepackage[obeyall]{siunitx}
+\usepackage[hyphens,obeyspaces]{url}
+\usepackage{varioref}
+\usepackage{wrapfig}  % must be included after package "float"
+\usepackage[dvipsnames]{xcolor}
+
+%% Make sure "hyperref" comes last of your loaded packages, to give it
+%% a fighting chance of not being over-written, since its job is to
+%% redefine many LATEX commands.
+\ifpdf
+	\usepackage[unicode,pdftex]{hyperref}
+\else
+	\usepackage[unicode,hypertex]{hyperref}
+\fi
+
+\hypersetup{
+  unicode=true,                % non-Latin characters in Acrobat’s bookmarks
+  pdftitle=Squeezer,           % title
+  pdfauthor=Martin Zuther,     % author
+  pdfsubject=Squeezer,         % subject of the document
+  pdfcreator=Martin Zuther,    % creator of the document
+  colorlinks=true,             % false: boxed links; true: colored links
+  linkcolor=blue,              % color of internal links
+  citecolor=blue,              % color of links to bibliography
+  filecolor=blue,              % color of file links
+  urlcolor=blue                % color of external links
+}
+
+%% KOMA script captions
+\addtokomafont{caption}{\small}
+\addtokomafont{captionlabel}{\bfseries}
+\setcapindent{0em}
+
+%% taken from package "l2tabu"
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz
+\hfuzz
+\raggedbottom
+
+%% package "fancyvrb"
+\DefineVerbatimEnvironment{VerbatimBoth}{Verbatim}{gobble=2,samepage=true,frame=single,framerule=0.4mm,framesep=2mm,xleftmargin=4mm,xrightmargin=4mm,rulecolor=\color{BurntOrange},label=32 and 64 bit}
+
+\DefineVerbatimEnvironment{Verbatim32}{Verbatim}{gobble=2,samepage=true,frame=single,framerule=0.4mm,framesep=2mm,xleftmargin=4mm,xrightmargin=4mm,rulecolor=\color{OrangeRed},label=32 bit}
+
+\DefineVerbatimEnvironment{Verbatim64}{Verbatim}{gobble=2,samepage=true,frame=single,framerule=0.4mm,framesep=2mm,xleftmargin=4mm,xrightmargin=4mm,rulecolor=\color{Cerulean},label=64 bit}
+
+%% package "varioref"
+\labelformat{chapter}{chapter~#1}
+\labelformat{section}{section~#1}
+\labelformat{subsection}{section~#1}
+\labelformat{subsubsection}{section~#1}
+
+\labelformat{figure}{figure~#1}
+\labelformat{table}{table~#1}
+
+%% package "paralist"
+\setdefaultitem{\textbullet}{$\circ$}{}{}
+
+%% package "url"
+\urlstyle{rm}
+
+%% package "wrapfig"
+\setlength{\intextsep}{0.2\baselineskip}
+
+%% package "siunitx"
+\sisetup{per=slash,trapambigfrac,locale=UK}
+
+\newunit[unitspace=space]{\bits}{bits}
+\newunit[unitspace=space]{\dB}{dB}
+\newunit[unitspace=space]{\dBFS}{dB\,FS}
+\newunit[unitspace=space]{\dBSPL}{dB\,SPL}
+\newunit[unitspace=space]{\dBu}{dBu}
+\newunit[unitspace=space]{\LK}{LK}
+\newunit[unitspace=space]{\LKFS}{LKFS}
+\newunit[unitspace=space]{\VRMS}{V\textsubscript{RMS}}
+\newunit[unitspace=space]{\VU}{VU}
+
+%% scaling of screenshots
+\newcommand{\screenshotscale}{0.7}
+
+%% layout
+\usepackage[inner=18mm,outer=18mm,top=26mm,bottom=27mm,headsep=6.5mm,headheight=5mm]{geometry}
+
+% %% start new page for every section
+% \let\stdsection\section  
+% \renewcommand\section{\newpage\stdsection}
+
+%% command "application"
+\DeclareRobustCommand*{\application}[1]{\texttt{#1}}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: outline-minor
+%%% TeX-command-default: "Rubber"
+%%% TeX-master: "../squeezer"
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "british"
+%%% End:

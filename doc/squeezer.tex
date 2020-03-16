@@ -1,0 +1,418 @@
+\input{include/settings.sty}
+\input{include/hyphenation.sty}
+
+\title{Squeezer}
+\author{Martin Zuther}
+
+\begin{document}
+
+\title{Squeezer}
+
+\subtitle{
+  \normalsize{\textrm{\textmd{
+        \vfill
+        Flexible general-purpose audio compressor \\
+        with a touch of citrus
+        \vfill
+        \vspace{1.5em}
+        \includegraphics[scale=0.30,clip]{include/images/squeezer.png}
+        \vfill
+      }}}
+}
+
+\author{}
+
+\date{\emph{Last edited on \today}}
+
+\dedication{
+  \includegraphics[scale=0.65,clip]{include/images/cc-by-sa.png}
+  \vspace{0.25em}
+
+  This documentation by \href{http://www.mzuther.de/}{Martin Zuther}
+  is licensed under a
+  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative
+    Commons Attribution-ShareAlike 4.0 International License} with the
+  exception of trademark logos.
+
+  \vspace{2.5em}
+
+  \includegraphics[scale=0.55,clip]{include/images/VST_Compatible_Logo_Steinberg_negative.png}
+
+  VST is a trademark of Steinberg Media Technologies GmbH,
+  registered in Europe and other countries.
+}
+
+\maketitle
+
+\tableofcontents
+
+\clearpage  % layout
+
+\chapter{About Squeezer}
+\label{chap:about_squeezer}
+
+\emph{I wrote this compressor to learn all I could about audio
+  compression.  It took me several months to gather all the specs and
+  papers I needed and convert this vast amount of information into
+  code.}
+
+What makes Squeezer different from the compressors I know is the
+stepping of all knobs to \emph{preset values} (it took a loooong time
+to fine-tune them).  On clicking a small red light located right next
+to them, however, the knobs become \emph{continuous}.  That allows you
+to find good-sounding settings very fast while not preventing
+fine-tuning.
+
+Squeezer is also very flexible.  Its internal layout can be changed in
+many ways: feed-forward / feed-back, linear / S-curve / log, optical /
+transistor, RMS / almost peak, three different knees.
+
+By writing and fine-tuning this compressor I have gained deep insight
+into audio compressors and really learned how to use them musically.
+But not only that, Squeezer has quickly become my go-to generic
+compressor.
+
+\chapter{Installation}
+\label{chap:installation}
+
+In order to use the pre-compiled binaries, simply extract the Squeezer
+files from the downloaded archive.  For the plug-ins, you'll then have
+to move the extracted files to your respective plug-in folder.
+
+Squeezer requires a processor which supports the SSE2 instruction set.
+On Windows, you might also have to install the
+\href{https://www.visualstudio.com/downloads/}{Visual C++
+  Redistributable for Visual Studio 2017}.
+
+Should the stand-alone version ever fail to start, you can reset its
+settings by deleting the file \path{squeezer_stereo.ini} or
+\path{squeezer_mono.ini}.  These files are located in \path{~/.config}
+(GNU/Linux) or \path{%appdata%\.config\} (Windows).
+
+\chapter{Final words}
+\label{chap:final_words}
+
+I want to express my gratitude to the \textbf{Audio Engineering
+  Society} for their wonderful E-Library.  This includes everybody who
+wrote the fine papers within the library, especially Dimitrios
+Giannoulis, Michael Massberg and Joshua D. Reiss.
+
+I must also thank the \textbf{beta testers} and \textbf{users of
+  Squeezer} for sending kind words, suggestions and bug reports.
+Finally, I want to thank the \textbf{open source community} for making
+all of this possible.
+
+Although coding Squeezer has been a lot of fun, it has also been a lot
+of work.  So if you like Squeezer, why not send me a short email and
+tell me so?  Write a few words about yourself, send suggestions for
+future updates or volunteer to create a nice skin.  I also really
+enjoy listening to music that you have produced using my software
+\dots
+
+Here is my email address (please remove ``\texttt{-nospam}''):
+
+\begin{center}
+  \texttt{"Martin Zuther" <code-nospam@mzuther.de>}
+\end{center}
+
+Thanks for using free software.  I hope you'll enjoy it!
+
+\appendix
+
+\chapter{Build Squeezer}
+\label{chap:build_squeezer}
+
+\section{Dependencies}
+\label{sec:dependencies}
+
+\subsection{premake}
+\label{sec:dependencies_premake}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> required \\
+  Version:     \> 5.0.0 (alpha13) \\
+  License:     \> BSD \\
+  Homepage:    \> \href{https://premake.github.io/}{premake.github.io}
+\end{tabbing}
+
+\subsubsection{Installation}
+
+Place the binary somewhere in your \path{PATH}.  Depending on your
+platform, you should run \path{premake} using the scripts
+\path{Builds/run_premake.sh} or \path{Builds/run_premake.bat}.
+
+To change the premake file using the provided Jinja templates, you'll
+also have to install the necessary dependencies.
+
+\subsection{JUCE library}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> required \\
+  Version:     \> 5.3.2 \\
+  License:     \> ISC and GPL v3 (among others) \\
+  Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
+\end{tabbing}
+
+\subsubsection{Installation}
+
+Extract the archive into the directory \path{libraries/juce}.
+
+If you want to build the LV2 plug-in, please extract the archive
+\path{distrho_lv2-xxxxxxxx.tar.gz} into the same directory.
+
+\subsection{Virtual Studio Technology SDK}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 2.4 / 3.6.8 \\
+  License:     \> proprietary / GPL v3 \\
+  Homepage:    \> \href{http://www.steinberg.net/en/company/developer.html}{www.steinberg.net}
+\end{tabbing}
+
+\subsubsection{Installation}
+
+Just extract the archive into the directory \path{libraries/vst}.
+
+\subsection{Python}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 3.5 (or higher) \\
+  License:     \> Python Software Foundation License \\
+  Homepage:    \> \href{http://www.python.org/}{www.python.org}
+\end{tabbing}
+
+You'll only need Python if you want to change the premake file (see
+\ref{sec:dependencies_premake}) using Jinja templates.
+
+\subsubsection{Installation (Windows)}
+
+You can download an installer from the website.
+
+\subsection{Jinja}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 2.8 (or higher) \\
+  License:     \> BSD \\
+  Homepage:    \> \href{http://jinja.pocoo.org/}{jinja.pocoo.org}
+\end{tabbing}
+
+You'll only need Jinja if you want to change the premake file using
+templates (see \ref{sec:dependencies_premake}).
+
+\subsection{Artistic Style}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 2.05.1 \\
+  License:     \> LGPL v3 \\
+  Homepage:    \> \href{http://astyle.sourceforge.net/}{astyle.sourceforge.net}
+\end{tabbing}
+
+This application formats the code so it looks more beautiful and
+consistent.  Thus, you only have to install it if you plan to help me
+with coding Squeezer.
+
+\subsubsection{Installation}
+
+Place the binary somewhere in your \path{PATH}.  Depending on your
+platform, you should run \path{astyle} using the scripts
+\path{Source/format_code.sh} or \path{Source/format_code.bat}.
+
+\newpage %% layout
+
+\section{GNU/Linux}
+
+\subsection{Environment}
+
+To build Squeezer yourself, I recommend setting up a \texttt{chroot}
+environment.  This is fast and easy to do on Debian-based systems and
+might save you a \textbf{lot} of trouble.  At the time of writing, I'm
+using Linux Mint 19, but the procedure should be similar on your
+distribution of choice.
+
+Start by installing the necessary packages:
+
+\begin{VerbatimBoth}
+  sudo apt-get install debootstrap schroot
+\end{VerbatimBoth}
+
+Then install the \texttt{chroot} base system by executing the
+following statements:
+
+\begin{Verbatim32}
+  sudo debootstrap --variant=buildd \
+    --arch i386 bionic \
+    /srv/chroot/bionic_i386 \
+    http://archive.ubuntu.com/ubuntu
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  sudo debootstrap --variant=buildd \
+    --arch amd64 bionic \
+    /srv/chroot/bionic_amd64 \
+    http://archive.ubuntu.com/ubuntu
+\end{Verbatim64}
+
+Running \path{debootstrap} will take some time.  Meanwhile, add the
+following lines to \path{/etc/schroot/schroot.conf} (make sure you
+remove all preceding white space so that each line begins in the first
+column):
+
+\begin{VerbatimBoth}
+  [bionic-i386]
+  description=Ubuntu bionic (i386)
+  directory=/srv/chroot/bionic_i386
+  profile=default
+  personality=linux32
+  type=directory
+  users=username
+
+  [bionic-amd64]
+  description=Ubuntu bionic (amd64)
+  directory=/srv/chroot/bionic_amd64
+  profile=default
+  personality=linux
+  type=directory
+  users=username
+\end{VerbatimBoth}
+
+Please make the necessary changes to \texttt{username}.  If you
+experience problems, you can try to change \texttt{bionic} to a
+release name such as \texttt{wheezy}.
+
+When \path{debootstrap} is done, log in as superuser:
+
+\begin{Verbatim32}
+  sudo schroot -c bionic-i386
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  sudo schroot -c bionic-amd64
+\end{Verbatim64}
+
+You'll have to change the file \path{/etc/apt/sources.list} first
+(ignore the line break, it should be a single line):
+
+\begin{VerbatimBoth}
+  deb http://archive.ubuntu.com/ubuntu bionic
+  main restricted universe
+\end{VerbatimBoth}
+
+Now install a few packages -- \path{less} and \path{vim} are optional,
+but might come in handy:
+
+\begin{VerbatimBoth}
+  apt-get update
+  apt-get -y install bash-completion clang \
+    libasound2-dev libjack-jackd2-dev \
+    mesa-common-dev xorg-dev less vim
+  apt-get clean
+\end{VerbatimBoth}
+
+If you like \path{bash} completion, you might also want to open the
+file \path{/etc/bash.bashrc} and unquote these lines:
+
+\begin{VerbatimBoth}
+  # enable bash completion in interactive shells
+  if [...]
+    [a couple of lines...]
+  fi
+\end{VerbatimBoth}
+
+Finally, log out and log in as normal user:
+
+\begin{Verbatim32}
+  schroot -c bionic-i386
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  schroot -c bionic-amd64
+\end{Verbatim64}
+
+In this \path{chroot} shell, install the dependencies
+(\ref{sec:dependencies}).  Congratulations -- you are now ready to
+build Squeezer!
+
+\subsection{Build}
+
+After preparing the dependencies, start your \texttt{chroot}
+environment
+
+\begin{Verbatim32}
+  schroot -c bionic-i386
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  schroot -c bionic-amd64
+\end{Verbatim64}
+
+change into the directory \path{build} and execute
+
+\begin{VerbatimBoth}
+  ./run_premake.sh
+  make config=CFG TARGET
+\end{VerbatimBoth}
+
+where \application{CFG} is one of \application{debug\_x32},
+\application{debug\_x64}, \application{release\_x32} and
+\application{release\_x64}, and \application{TARGET} is the version
+you want to compile, such as \application{linux\_standalone\_stereo}.
+
+In case you run into problems, you can try to switch compilers by
+opening the file \texttt{run\_premake.sh} and using the premake
+options \texttt{--cc=clang} or \texttt{--cc=gcc}.
+
+The compiled binaries will end up in the directory \path{bin}.
+
+\section{Microsoft Windows}
+
+\subsection{Build}
+
+After preparing the dependencies, change into the directory
+\path{build} and execute
+
+\begin{VerbatimBoth}
+  ./run_premake.bat
+\end{VerbatimBoth}
+
+Then change into the directory \path{Builds/windows/vs20xx}, open the
+project file with the corresponding version of Visual C++ and build
+the project.
+
+The compiled binaries will end up in the directory \path{bin}.
+
+\chapter{Licenses}
+
+\scriptsize
+\input{include/gpl_v3.tex}
+\normalsize
+
+\scriptsize
+\input{include/cc-by-sa-4.0.tex}
+\normalsize
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: outline-minor
+%%% TeX-command-default: "Rubber"
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "british"
+%%% End:
