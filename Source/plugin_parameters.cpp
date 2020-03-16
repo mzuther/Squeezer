@@ -586,7 +586,7 @@ String SqueezerPluginParameters::toString()
         parameterValues += getText(selSidechainLPFCutoff);
     }
 
-    parameterValues += "\nInput: ";
+    parameterValues += "\nTrim: ";
     parameterValues += getText(selInputTrim);
 
     parameterValues += ", Output: ";
