@@ -132,7 +132,7 @@ public:
     {
         jassert(decimal_places >= 0);
 
-        float decimal_factor = powf(10, decimal_places);
+        float decimal_factor = powf(10, (float) decimal_places);
         x = (float) math::SimpleMath::round(x * decimal_factor);
         return x / decimal_factor;
     }
@@ -152,7 +152,7 @@ public:
     {
         jassert(decimal_places >= 0);
 
-        float decimal_factor = powf(10, decimal_places);
+        float decimal_factor = powf(10, (float) decimal_places);
         x = (float) math::SimpleMath::roundUp(x * decimal_factor);
         return x / decimal_factor;
     }
@@ -172,7 +172,7 @@ public:
     {
         jassert(decimal_places >= 0);
 
-        float decimal_factor = powf(10, decimal_places);
+        float decimal_factor = powf(10, (float) decimal_places);
         x = (float) math::SimpleMath::roundDown(x * decimal_factor);
         return x / decimal_factor;
     }
