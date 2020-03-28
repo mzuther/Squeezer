@@ -60,7 +60,8 @@ namespace parameters
 ///        value of 0 evokes linear scaling.
 ///
 /// @param decimal_places number of decimal places for formatting the
-///        real value
+///        real value; negative values will adapt decimal places to
+///        the value's size
 ///
 ParCombined::ParCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places) :
 

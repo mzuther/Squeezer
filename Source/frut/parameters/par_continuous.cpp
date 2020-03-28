@@ -59,7 +59,8 @@ namespace parameters
 ///        value of 0 evokes linear scaling.
 ///
 /// @param decimal_places number of decimal places for formatting the
-///        real value
+///        real value; negative values will adapt decimal places to
+///        the value's size
 ///
 ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places)
 {
@@ -81,7 +82,16 @@ ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_
     numberOfSteps = int(realRange / real_step_size) + 1;
 
     // number of decimal places (for formatting of value only)
-    decimalPlaces = decimal_places;
+    if (decimal_places < 0)
+    {
+        decimalPlaces = -decimal_places;
+        adaptDecimalPlaces = true;
+    }
+    else
+    {
+        decimalPlaces = decimal_places;
+        adaptDecimalPlaces = false;
+    }
 
     // initialise value suffix (for formatting of value only)
     valueSuffix = String();
@@ -142,7 +152,23 @@ float ParContinuous::toRealFloat(float newValue)
     // transform to real parameter range
     float newRealValue = (newValue * realRange) + realMinimum;
 
-    // TODO: quantise to step size here!
+    // use decimal places
+    int realDecimalPlaces = decimalPlaces;
+    float absoluteNewRealValue = fabs(newRealValue);
+
+    if (adaptDecimalPlaces)
+    {
+        if (absoluteNewRealValue >= 10.0)
+        {
+            realDecimalPlaces = 0;
+        }
+        else if (absoluteNewRealValue >= 1.0)
+        {
+            realDecimalPlaces = 1;
+        }
+    }
+
+    newRealValue = math::SimpleMath::roundFloat(newRealValue, realDecimalPlaces);
 
     return newRealValue;
 }
@@ -168,8 +194,6 @@ float ParContinuous::toInternalFloat(float newRealValue)
 
     // transform to internal parameter range
     float newValue = (newRealValue - realMinimum) / realRange;
-
-    // TODO: quantise to step size here!
 
     // transform exponential and logarithmic parameters
     if (isNonlinear)
@@ -320,28 +344,36 @@ float ParContinuous::getFloatFromText(const String &newValue)
 ///
 const String ParContinuous::getTextFromFloat(float newValue)
 {
-    // transform internal value to real value
-    float newRealValue = toRealFloat(newValue);
-
     String textValueNew;
 
-    // use decimal places
-    if ((decimalPlaces < 1) || (newRealValue >= 10.0))
-    {
-        // round real parameter value
-        newRealValue = (float) math::SimpleMath::round(newRealValue);
+    // transform internal value to real value
+    float newRealValue = toRealFloat(newValue);
+    float absoluteNewRealValue = fabs(newRealValue);
 
-        // format parameter value
-        textValueNew = String(newRealValue);
-    }
-    else if (newRealValue >= 1.0)
+    // use decimal places
+    int realDecimalPlaces = decimalPlaces;
+
+    if (adaptDecimalPlaces)
     {
-        textValueNew = String(newRealValue, 1);
+        if (absoluteNewRealValue >= 10.0)
+        {
+            realDecimalPlaces = 0;
+        }
+        else if (absoluteNewRealValue >= 1.0)
+        {
+            realDecimalPlaces = 1;
+        }
+    }
+
+    if (realDecimalPlaces == 0)
+    {
+        // round and format real parameter value
+        textValueNew = String(math::SimpleMath::round(newRealValue));
     }
     else
     {
         // format parameter value using given number of decimal places
-        textValueNew = String(newRealValue, decimalPlaces);
+        textValueNew = String(newRealValue, realDecimalPlaces);
     }
 
     // add parameter suffix

@@ -67,6 +67,7 @@ private:
 
     int numberOfSteps;
     int decimalPlaces;
+    bool adaptDecimalPlaces;
     String valueSuffix;
 
     bool isNonlinear;

@@ -136,7 +136,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     realMaximum = 20.0f;
     stepSize = 0.05f;
     scalingFactor = 2.0f;
-    decimalPlaces = 2;
+    decimalPlaces = -2;
 
     frut::parameters::ParCombined *ParameterRatio =
         new frut::parameters::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
@@ -181,7 +181,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     realMaximum = 500.0f;
     stepSize = 0.01f;
     scalingFactor = 5.0f;
-    decimalPlaces = 2;
+    decimalPlaces = -2;
 
     frut::parameters::ParCombined *ParameterAttackRate =
         new frut::parameters::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
