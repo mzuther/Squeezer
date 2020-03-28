@@ -246,7 +246,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     frut::parameters::ParBoolean *ParameterAutoMakeupGain =
         new frut::parameters::ParBoolean("Auto", "Manual");
     ParameterAutoMakeupGain->setName("Auto Make-Up Gain");
-    ParameterAutoMakeupGain->setDefaultBoolean(true, true);
+    ParameterAutoMakeupGain->setDefaultBoolean(false, true);
     add(ParameterAutoMakeupGain, selAutoMakeupGain);
 
 
