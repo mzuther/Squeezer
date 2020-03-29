@@ -53,24 +53,27 @@
 
 \emph{I wrote this compressor to learn all I could about audio
   compression.  It took me several months to gather all the specs and
-  papers I needed and convert this vast amount of information into
-  code.}
+  papers I needed and convert them into code.}
 
-What makes Squeezer different from the compressors I know is the
-stepping of all knobs to \emph{preset values} (it took a loooong time
-to fine-tune them).  On clicking a small red light located right next
-to them, however, the knobs become \emph{continuous}.  That allows you
-to find good-sounding settings very fast while not preventing
-fine-tuning.
+Squeezer is different from all the compressors I know: its knobs are
+stepped to fine-tuned \emph{preset} values, but can be changed to
+\emph{continuous} values by clicking a small red light located next to
+them.  This allows you to find nice settings fast while not preventing
+to optimise these settings.
 
-Squeezer is also very flexible.  Its internal layout can be changed in
-many ways: feed-forward / feed-back, linear / S-curve / log, optical /
-transistor, RMS / almost peak, three different knees.
+Squeezer is also very flexible.  Its internals can be changed in many
+ways:
 
-By writing and fine-tuning this compressor I have gained deep insight
-into audio compressors and really learned how to use them musically.
-But not only that, Squeezer has quickly become my go-to generic
-compressor.
+\begin{itemize}
+\item feed-forward \& feed-back design
+\item linear, S-curve \& logarithmic reaction
+\item optical \& FET detectors
+\item (almost) peak \& RMS sensing
+\item hard, medium \& soft knee
+\end{itemize}
+
+Squeezer has given me a deep insight into audio compressors.  But it
+has also quickly became my go-to generic compressor!
 
 \chapter{What is compression?}
 \label{chap:what_is_compression}
@@ -106,11 +109,13 @@ DJ:
 This worked quite well and he could finally afford to buy a shiny new
 bar counter.  Upon which the DJ gave notice (he had always dreamt of
 getting a \emph{stereo} mixer, so the new counter didn't go down too
-well with him).  After an initial shock, the bar keeper was quite
-content.  The DJ really \emph{had} been lousy.  But how to keep the
-high number of drinks?
+well with him).
 
-Being an entrepreneur, the bar keeper took the challenge and connected
+After an initial shock, the bar keeper was quite content.  The DJ
+really \emph{had} been lousy.  But how to keep the high number of
+drinks?
+
+Being an entrepreneur, the bar keeper took his challenge and connected
 the mixer's output to a simple amplifier.  The amplifier's input gain
 was regulated by a level sensor which in turn was connected to the
 amplifier's output -- a classic negative feed-back loop.
@@ -148,6 +153,11 @@ Should the stand-alone version ever fail to start, you can reset its
 settings by deleting the file \path{squeezer_stereo.ini} or
 \path{squeezer_mono.ini}.  These files are located in \path{~/.config}
 (GNU/Linux) or \path{%appdata%\.config\} (Windows).
+
+\chapter{Controls}
+\label{chap:controls}
+
+\emph{Sorry, I have yet to find enough time to write this manual.}
 
 \chapter{Final words}
 \label{chap:final_words}
