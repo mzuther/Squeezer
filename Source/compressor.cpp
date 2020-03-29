@@ -430,7 +430,6 @@ void Compressor::setInputTrim(double InputTrimNew)
  */
 {
     InputTrim = InputTrimNew;
-    InputTrimLevel = SideChain::decibel2level(InputTrim);
 }
 
 
@@ -731,9 +730,6 @@ void Compressor::process(
             // get current input sample
             double InputSample = MainBuffer.getSample(CurrentChannel, nSample);
 
-            // apply input trim gain
-            InputSample *= InputTrimLevel;
-
             // store de-normalised input sample
             InputSamples.set(CurrentChannel, InputSample);
 
@@ -863,8 +859,9 @@ void Compressor::process(
             // apply crest factor
             SideChainLevel += CrestFactor;
 
-            // apply input trim temporarily and send current input sample to gain reduction unit
-            SideChainProcessor[CurrentChannel]->processSample(SideChainLevel * InputTrimLevel);
+            // send current trim-adjusted input sample to gain
+            // reduction unit
+            SideChainProcessor[CurrentChannel]->processSample(SideChainLevel + InputTrim);
         }
 
         // apply gain reduction and save output sample
@@ -925,9 +922,6 @@ void Compressor::process(
                                    InputSample * DryMix;
                 }
             }
-
-            // undo input trim gain
-            OutputSample /= InputTrimLevel;
 
             // write output sample to main buffer
             MainBuffer.setSample(CurrentChannel, nSample, OutputSample);

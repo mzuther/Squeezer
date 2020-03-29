@@ -180,8 +180,6 @@ private:
     double StereoLinkWeightOther;
 
     double InputTrim;
-    double InputTrimLevel;
-
     bool UseAutoMakeupGain;
     double MakeupGain;
     double MakeupGainDecibel;
