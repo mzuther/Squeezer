@@ -76,9 +76,8 @@ ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_
     // minimum value of 0 and a maximum value of 6 will lead to
     // (unscaled) parameter values of 0, 2, 4, and 6.
     //
-    // So far, this is only reflected in the function
-    // getNumberOfSteps().  Intermediate parameter values are accepted
-    // and left alone.
+    // This is only reflected in the function getNumberOfSteps().
+    // Please see the NOTE in "toRealFloat" for an explanation.
     numberOfSteps = int(realRange / real_step_size) + 1;
 
     // number of decimal places (for formatting of value only)
@@ -116,6 +115,20 @@ ParContinuous::ParContinuous(float real_minimum, float real_maximum, float real_
         scalingConstantFactor = powf(10.0f, scalingFactor) - 1.0f;
     }
 
+    // is parameter bi-polar?
+    if ((real_minimum < 0) && (real_maximum > 0))
+    {
+        isBipolar = true;
+    }
+    else if ((real_maximum < 0) && (real_minimum > 0))
+    {
+        isBipolar = true;
+    }
+    else
+    {
+        isBipolar = false;
+    }
+
     // force update
     value_ = -1.0f;
 
@@ -148,6 +161,10 @@ float ParContinuous::toRealFloat(float newValue)
     {
         newValue = (powf(10.0f, newValue * scalingFactor) - 1.0f) / scalingConstantFactor;
     }
+
+    // NOTE: stepping of values doesn't work well with non-linear
+    // parameters, so we'll just correctly round values and leave
+    // stepping alone.
 
     // transform to real parameter range
     float newRealValue = (newValue * realRange) + realMinimum;
@@ -350,6 +367,11 @@ const String ParContinuous::getTextFromFloat(float newValue)
     float newRealValue = toRealFloat(newValue);
     float absoluteNewRealValue = fabs(newRealValue);
 
+    if (isBipolar && newRealValue > 0)
+    {
+        textValueNew = "+";
+    }
+
     // use decimal places
     int realDecimalPlaces = decimalPlaces;
 
@@ -368,12 +390,12 @@ const String ParContinuous::getTextFromFloat(float newValue)
     if (realDecimalPlaces == 0)
     {
         // round and format real parameter value
-        textValueNew = String(math::SimpleMath::round(newRealValue));
+        textValueNew += String(math::SimpleMath::round(newRealValue));
     }
     else
     {
         // format parameter value using given number of decimal places
-        textValueNew = String(newRealValue, realDecimalPlaces);
+        textValueNew += String(newRealValue, realDecimalPlaces);
     }
 
     // add parameter suffix

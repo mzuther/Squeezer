@@ -71,6 +71,7 @@ private:
     String valueSuffix;
 
     bool isNonlinear;
+    bool isBipolar;
     float scalingFactor;
     float scalingConstantFactor;
 };

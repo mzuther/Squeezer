@@ -48,7 +48,7 @@ public:
     ///
     static const juce::String getVersion()
     {
-        return "1.9.8";
+        return "1.9.9";
     }
 
 
