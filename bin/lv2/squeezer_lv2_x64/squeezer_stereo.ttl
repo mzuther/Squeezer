@@ -154,7 +154,7 @@
         lv2:index 9 ;
         lv2:symbol "rms_filter" ;
         lv2:name "RMS Filter" ;
-        lv2:default 1.0 ;
+        lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
         lv2:portProperty lv2:enumeration ;
@@ -360,7 +360,7 @@
         lv2:index 21 ;
         lv2:symbol "release_rate" ;
         lv2:name "Release Rate" ;
-        lv2:default 0.077 ;
+        lv2:default 0.385 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
     ] ,
@@ -369,7 +369,7 @@
         lv2:index 22 ;
         lv2:symbol "auto_make_up_gain" ;
         lv2:name "Auto Make-Up Gain" ;
-        lv2:default 1.0 ;
+        lv2:default 0.0 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
         lv2:portProperty lv2:toggled ;
@@ -524,4 +524,60 @@
             rdf:value 1.0 ;
             rdfs:label "Side-Chain" ;
         ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 33 ;
+        lv2:symbol "input_trim_mode" ;
+        lv2:name "Input Trim Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 34 ;
+        lv2:symbol "input_trim" ;
+        lv2:name "Input Trim" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 35 ;
+        lv2:symbol "stereo_link_mode" ;
+        lv2:name "Stereo Link Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 36 ;
+        lv2:symbol "stereo_link" ;
+        lv2:name "Stereo Link" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
     ] .
