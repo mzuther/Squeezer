@@ -158,7 +158,7 @@ material.  In its most basic form, it consists of four modules:
 \begin{tabular}{p{0.3 \textwidth}p{0.625 \textwidth}}
 
   \textbf{level detector} &
-  measures level of audio input and sends result (\SI{-27.3957}{\dB})
+  measures level of audio input and sends result (\SI{-27.3957}{\dBFS})
   to gain computer \\
 
   \textbf{gain computer} &
@@ -192,6 +192,36 @@ detect the gain stage's output level (feed-back design), leading to a
 very distinct ``bouncing'' sound.  The modern way is to detect the
 compressor's input signal directly (feed-forward design), yielding a
 more natural sound.
+
+\subsection{Gain computer}
+\label{sec:gain_computer}
+
+The gain computer\footnote{in the sense of ``calculator'', can consist
+  entirely of analogue circuitry} is fed by the level detector and
+converts a given input level to an output level by means of a transfer
+curve.  It then uses these levels to calculate a corresponding gain
+reduction (``attenuate the current input signal by \SI{2.5}{\dB}'').
+This gain reduction changes \emph{constantly} and in tune with the
+input signal.
+
+The most common gain computer design is a threshold control.  It sets
+a level below which all input passes the gain computer unchanged.
+Levels passing the threshold are attenuated by a compression ratio,
+set through a second control.  Higher compression ratios effect more
+compression when compared to lower ratios.  Note that a compression
+ratio of 1:1 effectively bypasses the compressor.
+
+Looking for an example?  A threshold of \SI{-20}{\dBFS} yields a gain
+reduction of \SI{0}{\dB} (no compression) for any level below
+\SI{-20}{\dBFS}.  A signal of \SI{-19}{\dBFS} will produce a gain
+reduction of \SI{-0.5}{\dB} for a compression ratio of 2:1 and
+\SI{-0.25}{\dB} for a ratio of 4:1.
+
+There may be a third control called knee width.  It defines a
+transition zone around the threshold where the compression ratio
+gradually changes from 1:1 to the selected ratio.  Quiet signals will
+receive less compression than loud signals, effectively reducing the
+audible artefacts caused by compression.
 
 \chapter{Installation}
 \label{chap:installation}
