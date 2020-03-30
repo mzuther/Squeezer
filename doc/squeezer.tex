@@ -51,9 +51,13 @@
 \chapter{About Squeezer}
 \label{chap:about_squeezer}
 
-\emph{I wrote this compressor to learn all I could about audio
-  compression.  It took me several months to gather all the specs and
-  papers I needed and convert them into code.}
+\emph{I wrote this compressor\footnote{In this manual, I will use
+    \emph{compression} synonymous with \emph{downward compression}.
+    There are other ways to reduce dynamic range, but in professional
+    audio, downward compression is used almost exclusively.} to learn
+  all I could about audio compression.  It took me several months to
+  gather all the specs and papers I needed and convert them into
+  code.}
 
 Squeezer is different from all the compressors I know: its knobs are
 stepped to fine-tuned \emph{preset} values, but can be changed to
@@ -72,17 +76,17 @@ ways:
 \item hard, medium \& soft knee
 \end{itemize}
 
-Squeezer has given me a deep insight into audio compressors.  But it
-has also quickly became my go-to generic compressor!
+Squeezer has given me a deep insight into compression.  But above
+that, it has quickly became my go-to generic compressor!
 
 \chapter{What is compression?}
 \label{chap:what_is_compression}
 
-\section{The tale of the bar keeper}
-\label{sec:compression_tale_of_bar_keeper}
+\section{The Tale of the Barkeeper}
+\label{sec:compression_tale_of_barkeeper}
 
 Once upon a time there was a bar.  Customers enjoyed their drinks and
-music played in the background.  After a while, the bar keeper noticed
+music played in the background.  After a while, the barkeeper noticed
 that his drinks sold best when the music had a certain loudness.
 Unfortunately, almost every record they played had a different
 loudness.
@@ -111,31 +115,65 @@ bar counter.  Upon which the DJ gave notice (he had always dreamt of
 getting a \emph{stereo} mixer, so the new counter didn't go down too
 well with him).
 
-After an initial shock, the bar keeper was quite content.  The DJ
+After an initial shock, the barkeeper was quite content.  The DJ
 really \emph{had} been lousy.  But how to keep the high number of
 drinks?
 
-Being an entrepreneur, the bar keeper took his challenge and connected
+Being an entrepreneur, the barkeeper took his challenge and connected
 the mixer's output to a simple amplifier.  The amplifier's input gain
 was regulated by a level sensor which in turn was connected to the
 amplifier's output -- a classic negative feed-back loop.
 
 Although the new device exactly followed the DJ's instructions (and
 didn't smell as bad), customers complained about its bad sound.  The
-bar keeper had invented a \emph{wave shaping} device -- gain changes
+barkeeper had invented a \emph{wave shaping} device -- gain changes
 were applied instantly which \emph{distorted} its output signal.
 
-Fortunately, the bar keeper remembered a very important thing: the DJ
+Fortunately, the barkeeper remembered a very important thing: the DJ
 had often been drunk and taken his time to apply gain changes.  So the
-bar keeper improved his device by smoothing the level sensor's output.
+barkeeper improved his device by smoothing the level sensor's output.
 
 He could have become very rich.  But he didn't realise the magnitude
-of his invention and continued being a happy bar keeper.  Which is not
+of his invention and continued being a happy barkeeper.  Which is not
 the worst thing, when you come to think of it.
 
 To this day, however, sound engineers fall silent in awe when they
-hear his name -- the name of the bar keeper who \textbf{invented the
+hear his name -- the name of the barkeeper who \textbf{invented the
   compressor}.
+
+\section{How does a compressor work?}
+\label{sec:how_does_a_compressor_work}
+
+\emph{Compressors are inherently complex sound processors.  The
+  technology of compressors is quite simple -- their complexity arises
+  from the fact that most controls interact with many other controls.
+  While this is definitely a downside when you try to understand
+  compression, it is also the very thing that makes compressors such
+  creative devices!}
+
+A compressor is a device for reducing the dynamic
+range\footnote{difference between loudest and quietest level} of audio
+material.  In its most basic form, it consists of four modules:
+
+\begin{tabular}{p{0.3 \textwidth}p{0.625 \textwidth}}
+
+  \textbf{level detector} &
+  measures level of audio input and sends result (\SI{-27.3957}{\dB})
+  to gain computer \\
+
+  \textbf{gain computer} &
+  compares input level to desired output level and sends calculated
+  gain reduction (\SI{-3.1412}{\dB}) to smoothing filter \\
+
+  \textbf{smoothing filter} &
+  smoothly adjusts current gain reduction in the direction of
+  calculated gain reduction; uses two different speeds (attack and
+  release) depending on direction \\
+
+  \textbf{gain stage} &
+  attenuates audio input by current gain reduction \\
+
+\end{tabular}
 
 \chapter{Installation}
 \label{chap:installation}
