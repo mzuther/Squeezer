@@ -175,6 +175,24 @@ material.  In its most basic form, it consists of four modules:
 
 \end{tabular}
 
+\subsection{Level detector}
+\label{sec:level_detector}
+
+As its name implies, the level detector identifies an audio signal's
+level.  It can either detect the input wave form directly (peak
+sensing) or average the input signal (usually by passing the input
+signal through a RMS\footnote{root mean square} filter).
+
+Peak sensing allows a compressor to react fast to sudden changes in
+level, whereas RMS sensing detects changes in the audio material's
+\emph{loudness} which often yields very even-sounding results.
+
+There are two ways of connecting a level detector: the old way is to
+detect the gain stage's output level (feed-back design), leading to a
+very distinct ``bouncing'' sound.  The modern way is to detect the
+compressor's input signal directly (feed-forward design), yielding a
+more natural sound.
+
 \chapter{Installation}
 \label{chap:installation}
 
