@@ -31,7 +31,7 @@ executable_dir="final"
 function finalise_executable
 {
 	filepath=$1
-	filename=`basename "$1"`
+	filename=$(basename "$1")
 
 	if [ -f "./$filepath" ]; then
 		echo "  Finalising:  $filepath -->"
@@ -47,13 +47,13 @@ function finalise_executable
 function finalise_symbols
 {
 	filepath=$1
-	filename=`basename "$1"`
+	filename=$(basename "$1")
 
 	if [ -f "./$filepath" ]; then
 		echo "  Finalising:  $filepath -->"
 		echo "               $executable_dir/debug_symbols/$filepath"
 
-        mkdir -p `dirname "./$executable_dir/debug_symbols/$filepath"`
+        mkdir -p "$(dirname "./$executable_dir/debug_symbols/$filepath")"
 		mv "./$filepath" "./$executable_dir/debug_symbols/$filepath"
 
         echo
