@@ -1,11 +1,19 @@
 Git HEAD
 ========
 
-* added button for input trim gain
+* first official release
 
-* added button for stereo linking
+* add buttons for input gain and stereo link
 
-* updated skin
+* correctly round continuous parameters
+
+* disable automatic make-up gain by default
+
+* add plus sign to bi-polar continuous values
+
+* update skin
+
+* add documentation
 
 
 
