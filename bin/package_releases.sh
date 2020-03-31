@@ -25,195 +25,391 @@
 #
 # ----------------------------------------------------------------------------
 
-SQUEEZER_VERSION="1.0"
+version="2.5.1"
 
-SQUEEZER_EXECUTABLE_DIR="final"
-SQUEEZER_RELEASE_DIR="releases"
-SQUEEZER_DOCUMENTATION_DIR="../doc"
+executable_dir="./final"
+release_dir="releases"
 
-function copy_new_executable
+
+function archive_create
 {
-	if [ -f "$1" ]; then
-		echo "  Finalising file $1..."
-		cp "$1" "$SQUEEZER_EXECUTABLE_DIR"/
-	fi
-}
+	rm -rf "/tmp/$archive_dir"
 
-function move_new_executable
-{
-	if [ -f "$1" ]; then
-		echo "  Finalising file $1..."
-		mv "$1" "$SQUEEZER_EXECUTABLE_DIR"/
-	fi
-}
-
-function fill_archive
-{
-	if [ ! -d "$2" ]; then
-		mkdir -p "$2"
-	fi
-
-	if [ -f "$1" ]; then
-		echo "    $1"
-		cp "$1" "$2"
-	fi
-}
-
-function delete_old_archive
-{
-	if [ -f "$1" ]; then
-		echo "  Deleting old archive \"$1\"..."
-		rm "$1"
-	fi
-}
-
-function create_new_archive
-{
-	echo "  Creating folder \"$1\"..."
-	echo "  Copying files to \"$1\"..."
-	mkdir -p "$1"
+	echo "  Creating archive in \"/tmp/$archive_dir\":"
+	mkdir -p "/tmp/$archive_dir"
 	echo
 }
 
-function compress_new_archive
-{
-	echo
-	echo "  Creating archive \"$1\"..."
-	echo
 
-	if [ "$3" = "bzip2" ]; then
-		tar --create --bzip2 --verbose --file "$1" "$2"/* | gawk ' { print "    adding: " $1 } '
-	elif [ "$3" = "zip" ]; then
-		zip --recurse-paths "$1" "$2"/* | gawk ' { print "  " $0 } '
+function archive_add
+{
+	filename="$1"
+	source_dir="$2"
+	target_dir=$(dirname "/tmp/$archive_dir/$1")
+
+	if [ ! -d "$target_dir" ]; then
+		mkdir -p "$target_dir"
 	fi
 
-	echo
-	echo "  Removing folder \"$2\"..."
+	if [ -f "$source_dir/$filename" ]; then
+		echo "  [+] $filename"
+		cp --dereference "$source_dir/$filename" "/tmp/$archive_dir/$1"
+	elif [ -d "$source_dir/$filename" ]; then
+		echo "  [+] $filename/*"
+		cp --dereference --recursive "$source_dir/$filename/" "/tmp/$archive_dir/$1"
+	else
+		echo "  [ ] $filename  --> not added"
+	fi
+}
 
-	rm -r "$2"/
+
+function archive_del
+{
+	filename="$1"
+
+	if [ -f "/tmp/$archive_dir/$filename" ]; then
+		echo "  [-] $filename"
+		rm "/tmp/$archive_dir/$filename"
+	elif [ -d "/tmp/$archive_dir/$filename" ]; then
+		echo "  [-] $filename/*"
+		rm -rf "/tmp/$archive_dir/$filename/"
+	else
+		echo "  [ ] $filename  --> not deleted"
+	fi
+}
+
+
+function archive_compress
+{
+	archive_type=$1
+	old_dir=$(pwd)
+
+	echo
+	echo "  Compressing archive..."
+
+	cd /tmp || exit
+
+	if [ "$archive_type" = "bzip2" ]; then
+		archive_name="$archive_dir.tar.bz2"
+		rm -f "$archive_name"
+		tar --create --bzip2 --verbose --file "$archive_name" "$archive_dir" > /dev/null
+	elif [ "$archive_type" = "gzip" ]; then
+		archive_name="$archive_dir.tar.gz"
+		rm -f "$archive_name"
+		tar --create --gzip --verbose --file "$archive_name" "$archive_dir" > /dev/null
+	elif [ "$archive_type" = "zip" ]; then
+		archive_name="$archive_dir.zip"
+		rm -f "$archive_name"
+		zip --recurse-paths "$archive_name" "$archive_dir" > /dev/null
+	fi
+
+	cd "$old_dir" || exit
+}
+
+
+function archive_store
+{
+	archive_type=$1
+	destination_dir=$2
+
+	if [ "$archive_type" = "bzip2" ]; then
+		archive_name="$archive_dir.tar.bz2"
+	elif [ "$archive_type" = "gzip" ]; then
+		archive_name="$archive_dir.tar.gz"
+	elif [ "$archive_type" = "zip" ]; then
+		archive_name="$archive_dir.zip"
+	fi
+
+	rm -rf "/tmp/$archive_dir/"
+
+	if [ -f "$destination_dir/$archive_name" ]; then
+		echo "  Overwriting \"$destination_dir/$archive_name\"..."
+	else
+		echo "  Storing at \"$destination_dir/$archive_name\"..."
+	fi
+
+	mv "/tmp/$archive_name" "$destination_dir/$archive_name"
 
 	echo "  Done."
 	echo
+	echo
 }
 
-echo
+
+# ----- General -----
+
+./finalise_executables.sh
+
+mkdir -p "./releases/linux/i386"
+mkdir -p "./releases/linux/amd64"
+
+mkdir -p "./releases/windows/i386"
+mkdir -p "./releases/windows/amd64"
+mkdir -p "./releases/windows/debug_symbols"
 
 
 # ----- GNU/Linux Standalone (32 bit) -----
 
-echo "  === GNU/Linux Standalone v$SQUEEZER_VERSION (32 bit) ==="
+echo "  === GNU/Linux Standalone $version (32 bit) ==="
 echo
 
-move_new_executable "squeezer_stereo"
+archive_dir="squeezer-linux32-standalone_$version"
 
-delete_old_archive "$SQUEEZER_RELEASE_DIR/linux32/squeezer-standalone.tar.bz2"
+archive_create
 
-SQUEEZER_ARCHIVE_DIR="squeezer-standalone_$SQUEEZER_VERSION"
+archive_add "squeezer_stereo" "$executable_dir"
+archive_add "squeezer_mono" "$executable_dir"
 
-create_new_archive "$SQUEEZER_ARCHIVE_DIR"
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
-
-compress_new_archive "$SQUEEZER_RELEASE_DIR/linux32/$SQUEEZER_ARCHIVE_DIR.tar.bz2" "$SQUEEZER_ARCHIVE_DIR" "bzip2"
+archive_compress "gzip"
+archive_store "gzip" "$release_dir/linux"
 
 
-# ----- GNU/Linux VST (32 bit) -----
+# ----- GNU/Linux LV2 (32 bit) -----
 
-echo "  === GNU/Linux VST v$SQUEEZER_VERSION (32 bit) ==="
+echo "  === GNU/Linux LV2 $version (32 bit) ==="
 echo
 
-move_new_executable "squeezer_stereo_vst.so"
+archive_dir="squeezer-linux32-lv2_$version"
+lv2_dir="./lv2/squeezer_lv2"
 
-delete_old_archive "$SQUEEZER_RELEASE_DIR/linux32/squeezer-vst.tar.bz2"
+archive_create
 
-SQUEEZER_ARCHIVE_DIR="squeezer-vst_$SQUEEZER_VERSION"
+archive_add "squeezer_stereo_lv2.so" "$executable_dir"
+archive_add "squeezer_mono_lv2.so" "$executable_dir"
 
-create_new_archive "$SQUEEZER_ARCHIVE_DIR"
+archive_add "manifest.ttl" "$lv2_dir"
+archive_add "squeezer_stereo.ttl" "$lv2_dir"
+archive_add "squeezer_mono.ttl" "$lv2_dir"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo_vst.so" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
 
-compress_new_archive "$SQUEEZER_RELEASE_DIR/linux32/$SQUEEZER_ARCHIVE_DIR.tar.bz2" "$SQUEEZER_ARCHIVE_DIR" "bzip2"
+archive_compress "gzip"
+archive_store "gzip" "$release_dir/linux"
+
+
+# ----- GNU/Linux VST2 (32 bit) -----
+
+echo "  === GNU/Linux VST2 $version (32 bit) ==="
+echo
+
+archive_dir="squeezer-linux32-vst2_$version"
+
+archive_create
+
+archive_add "squeezer_stereo_vst.so" "$executable_dir"
+archive_add "squeezer_mono_vst.so" "$executable_dir"
+
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
+
+archive_compress "gzip"
+archive_store "gzip" "$release_dir/linux"
 
 
 # ----- GNU/Linux Standalone (64 bit) -----
 
-echo "  === GNU/Linux Standalone v$SQUEEZER_VERSION (64 bit) ==="
+echo "  === GNU/Linux Standalone $version (64 bit) ==="
 echo
 
-move_new_executable "squeezer_stereo_x64"
+archive_dir="squeezer-linux64-standalone_$version"
 
-delete_old_archive "$SQUEEZER_RELEASE_DIR/linux64/squeezer-standalone.tar.bz2"
+archive_create
 
-SQUEEZER_ARCHIVE_DIR="squeezer-standalone_$SQUEEZER_VERSION"
+archive_add "squeezer_stereo_x64" "$executable_dir"
+archive_add "squeezer_mono_x64" "$executable_dir"
 
-create_new_archive "$SQUEEZER_ARCHIVE_DIR"
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo_x64" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
-
-compress_new_archive "$SQUEEZER_RELEASE_DIR/linux64/$SQUEEZER_ARCHIVE_DIR.tar.bz2" "$SQUEEZER_ARCHIVE_DIR" "bzip2"
+archive_compress "gzip"
+archive_store "gzip" "$release_dir/linux"
 
 
-# ----- GNU/Linux VST (64 bit) -----
+# ----- GNU/Linux LV2 (64 bit) -----
 
-echo "  === GNU/Linux VST v$SQUEEZER_VERSION (64 bit) ==="
+echo "  === GNU/Linux LV2 $version (64 bit) ==="
 echo
 
-move_new_executable "squeezer_stereo_vst_x64.so"
+archive_dir="squeezer-linux64-lv2_$version"
+lv2_dir="./lv2/squeezer_lv2_x64"
 
-delete_old_archive "$SQUEEZER_RELEASE_DIR/linux64/squeezer-vst.tar.bz2"
+archive_create
 
-SQUEEZER_ARCHIVE_DIR="squeezer-vst_$SQUEEZER_VERSION"
+archive_add "squeezer_stereo_lv2_x64.so" "$executable_dir"
+archive_add "squeezer_mono_lv2_x64.so" "$executable_dir"
 
-create_new_archive "$SQUEEZER_ARCHIVE_DIR"
+archive_add "manifest.ttl" "$lv2_dir"
+archive_add "squeezer_stereo.ttl" "$lv2_dir"
+archive_add "squeezer_mono.ttl" "$lv2_dir"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/squeezer_stereo_vst_x64.so" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
 
-compress_new_archive "$SQUEEZER_RELEASE_DIR/linux64/$SQUEEZER_ARCHIVE_DIR.tar.bz2" "$SQUEEZER_ARCHIVE_DIR" "bzip2"
+archive_compress "gzip"
+archive_store "gzip" "$release_dir/linux"
+
+
+# ----- GNU/Linux VST2 (64 bit) -----
+
+echo "  === GNU/Linux VST2 $version (64 bit) ==="
+echo
+
+archive_dir="squeezer-linux64-vst2_$version"
+
+archive_create
+
+archive_add "squeezer_stereo_vst_x64.so" "$executable_dir"
+archive_add "squeezer_mono_vst_x64.so" "$executable_dir"
+
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
+
+archive_compress "gzip"
+archive_store "gzip" "$release_dir/linux"
 
 
 # ----- Windows Standalone (32 bit) -----
 
-echo "  === Windows Standalone v$SQUEEZER_VERSION (32 bit) ==="
+echo "  === Windows Standalone $version (32 bit) ==="
 echo
 
-move_new_executable "Squeezer (Stereo).exe"
+archive_dir="squeezer-w32-standalone_$version"
 
-delete_old_archive "$SQUEEZER_RELEASE_DIR/w32/squeezer-standalone.zip"
+archive_create
 
-SQUEEZER_ARCHIVE_DIR="squeezer-standalone_$SQUEEZER_VERSION"
+archive_add "Squeezer (Stereo).exe" "$executable_dir"
+archive_add "Squeezer (Mono).exe" "$executable_dir"
 
-create_new_archive "$SQUEEZER_ARCHIVE_DIR"
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/Squeezer (Stereo).exe" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
-
-compress_new_archive "$SQUEEZER_RELEASE_DIR/w32/$SQUEEZER_ARCHIVE_DIR.zip" "$SQUEEZER_ARCHIVE_DIR" "zip"
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
 
 
-# ----- Windows VST (32 bit) -----
+# ----- Windows VST2 (32 bit) -----
 
-echo "  === Windows VST v$SQUEEZER_VERSION (32 bit) ==="
+echo "  === Windows VST2 $version (32 bit) ==="
 echo
 
-move_new_executable "Squeezer (Stereo).dll"
+archive_dir="squeezer-w32-vst2_$version"
 
-delete_old_archive "$SQUEEZER_RELEASE_DIR/w32/squeezer-vst.zip"
+archive_create
 
-SQUEEZER_ARCHIVE_DIR="squeezer-vst_$SQUEEZER_VERSION"
+archive_add "Squeezer (Stereo).dll" "$executable_dir"
+archive_add "Squeezer (Mono).dll" "$executable_dir"
 
-create_new_archive "$SQUEEZER_ARCHIVE_DIR"
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
 
-fill_archive "$SQUEEZER_EXECUTABLE_DIR/Squeezer (Stereo).dll" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/LICENSE" "$SQUEEZER_ARCHIVE_DIR"
-fill_archive "$SQUEEZER_DOCUMENTATION_DIR/squeezer.pdf" "$SQUEEZER_ARCHIVE_DIR"
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
 
-compress_new_archive "$SQUEEZER_RELEASE_DIR/w32/$SQUEEZER_ARCHIVE_DIR.zip" "$SQUEEZER_ARCHIVE_DIR" "zip"
+
+# ----- Windows VST3 (32 bit) -----
+
+echo "  === Windows VST3 $version (32 bit) ==="
+echo
+
+archive_dir="squeezer-w32-vst3_$version"
+
+archive_create
+
+archive_add "Squeezer (Stereo).vst3" "$executable_dir"
+archive_add "Squeezer (Mono).vst3" "$executable_dir"
+
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
+
+
+# ----- Windows Standalone (64 bit) -----
+
+echo "  === Windows Standalone $version (64 bit) ==="
+echo
+
+archive_dir="squeezer-w64-standalone_$version"
+
+archive_create
+
+archive_add "Squeezer (Stereo x64).exe" "$executable_dir"
+archive_add "Squeezer (Mono x64).exe" "$executable_dir"
+
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
+
+
+# ----- Windows VST2 (64 bit) -----
+
+echo "  === Windows VST2 $version (64 bit) ==="
+echo
+
+archive_dir="squeezer-w64-vst2_$version"
+
+archive_create
+
+archive_add "Squeezer (Stereo x64).dll" "$executable_dir"
+archive_add "Squeezer (Mono x64).dll" "$executable_dir"
+
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
+
+
+# ----- Windows VST3 (64 bit) -----
+
+echo "  === Windows VST3 $version (64 bit) ==="
+echo
+
+archive_dir="squeezer-w64-vst3_$version"
+
+archive_create
+
+archive_add "Squeezer (Stereo x64).vst3" "$executable_dir"
+archive_add "Squeezer (Mono x64).vst3" "$executable_dir"
+
+archive_add "squeezer/doc" "$executable_dir"
+archive_add "squeezer/skins/Default" "$executable_dir"
+archive_add "squeezer/skins/Default.skin" "$executable_dir"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
+
+
+# ----- Windows debug symbols -----
+
+echo "  === Windows debug symbols ==="
+echo
+
+archive_dir="debug-symbols_$version"
+
+archive_create
+
+archive_add "standalone" "$executable_dir/debug_symbols"
+archive_add "vst" "$executable_dir/debug_symbols"
+archive_add "vst3" "$executable_dir/debug_symbols"
+
+archive_compress "zip"
+archive_store "zip" "$release_dir/windows"
