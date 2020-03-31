@@ -144,12 +144,11 @@ hear his name -- the name of the barkeeper who \textbf{invented the
 \section{How does a compressor work?}
 \label{sec:how_does_a_compressor_work}
 
-\emph{Compressors are inherently complex sound processors.  The
-  technology of compressors is quite simple -- their complexity arises
-  from the fact that most controls interact with many other controls.
-  While this is definitely a downside when you try to understand
-  compression, it is also the very thing that makes compressors such
-  creative devices!}
+\emph{Compressors are inherently complex sound processors.  Their
+  technology is quite simple -- complexity arises from the dynamic
+  interaction of some controls.  While this is definitely a downside
+  when you try to understand compression, it is also what allows you
+  to use compression creatively!}
 
 A compressor is a device for reducing the dynamic
 range\footnote{difference between loudest and quietest level} of audio
@@ -158,17 +157,18 @@ material.  In its most basic form, it consists of four modules:
 \begin{tabular}{p{0.3 \textwidth}p{0.625 \textwidth}}
 
   \textbf{level detector} &
-  measures level of audio input and sends result (\SI{-27.3957}{\dBFS})
-  to gain computer \\
+  measures level of audio at input and sends result to gain computer
+  (for instance \SI{-27.39}{\dBFS}) \\
 
   \textbf{gain computer} &
-  compares input level to desired output level and sends calculated
-  gain reduction (\SI{-3.1412}{\dB}) to smoothing filter \\
+  calculates difference between input level and desired output level
+  and sends result to smoothing filter (gain reduction, for example
+  \SI{-3.14}{\dB}) \\
 
   \textbf{smoothing filter} &
-  smoothly adjusts current gain reduction in the direction of
-  calculated gain reduction; uses two different speeds (attack and
-  release) depending on direction \\
+  smoothly adjusts \emph{current} gain reduction in direction of
+  \emph{calculated} gain reduction; uses two different speeds
+  (attack and release rate) depending on direction of change \\
 
   \textbf{gain stage} &
   attenuates audio input by current gain reduction \\
@@ -178,50 +178,50 @@ material.  In its most basic form, it consists of four modules:
 \subsection{Level detector}
 \label{sec:level_detector}
 
-As its name implies, the level detector identifies an audio signal's
-level.  It can either detect the input wave form directly (peak
-sensing) or average the input signal (usually by passing the input
-signal through a RMS\footnote{root mean square} filter).
+As its name implies, a level detector senses the level of an audio
+signal.  It can either detect the input wave form directly (peak
+sensing) or average the input signal (usually with a RMS\footnote{root
+  mean square} filter).
 
-Peak sensing allows a compressor to react fast to sudden changes in
-level, whereas RMS sensing detects changes in the audio material's
-\emph{loudness} which often yields very even-sounding results.
+\emph{Peak sensing} allows a compressor to quickly react to sudden
+changes in level, whereas \emph{RMS sensing} detects changes in the
+audio material's \emph{loudness} which often yields very even-sounding
+results.
 
-There are two ways of connecting a level detector: the old way is to
-detect the gain stage's output level (feed-back design), leading to a
-very distinct ``bouncing'' sound.  The modern way is to detect the
-compressor's input signal directly (feed-forward design), yielding a
-more natural sound.
+There are also two ways of connecting level detectors: vintage
+compressors sense the gain stage's \emph{output} level (feed-back
+design), leading to a very distinct ``bouncing'' sound.  Modern
+compressors sense the compressor's \emph{input} signal (feed-forward
+design), resulting in a more natural sound.
 
 \subsection{Gain computer}
 \label{sec:gain_computer}
 
-The gain computer\footnote{in the sense of ``calculator'', can consist
-  entirely of analogue circuitry} is fed by the level detector and
-converts a given input level to an output level by means of a transfer
-curve.  It then uses these levels to calculate a corresponding gain
-reduction (``attenuate the current input signal by \SI{2.5}{\dB}'').
-This gain reduction changes \emph{constantly} and in tune with the
-input signal.
+The level detector's signal is sent to a gain computer\footnote{in the
+  sense of ``calculator''; some gain computers are entirely built from
+  analogue circuitry} which determines the output level the signal
+should have.  It then calculates a corresponding gain reduction
+(``attenuate the current input signal by \SI{3.14}{\dB}'').  This gain
+reduction changes \emph{constantly} and in tune with the input signal.
 
-The most common gain computer design is a threshold control.  It sets
-a level below which all input passes the gain computer unchanged.
-Levels passing the threshold are attenuated by a compression ratio,
-set through a second control.  Higher compression ratios effect more
-compression when compared to lower ratios.  Note that a compression
+The most common gain computer design is a \emph{threshold} control.
+It sets a level below which all input passes the gain computer
+unchanged.  Levels exceeding the threshold are attenuated by a
+\emph{compression ratio}, set through a second control.  Higher ratios
+effect more compression than lower ratios.  Note that a compression
 ratio of 1:1 effectively bypasses the compressor.
 
 Looking for an example?  A threshold of \SI{-20}{\dBFS} yields a gain
-reduction of \SI{0}{\dB} (no compression) for any level below
+reduction of \SI{0}{\dB} (no compression) for all levels below
 \SI{-20}{\dBFS}.  A signal of \SI{-19}{\dBFS} will produce a gain
 reduction of \SI{-0.5}{\dB} for a compression ratio of 2:1 and
 \SI{-0.25}{\dB} for a ratio of 4:1.
 
-There may be a third control called knee width.  It defines a
-transition zone around the threshold where the compression ratio
-gradually changes from 1:1 to the selected ratio.  Quiet signals will
-receive less compression than loud signals, effectively reducing the
-audible artefacts caused by compression.
+There may be a third control called \emph{knee width}. It defines a
+transition zone around the threshold.  In this zone, the compression
+ratio gradually changes from 1:1 to the selected ratio.  This means
+that quiet signals will receive less compression than loud signals,
+effectively reducing the audible artefacts caused by compression.
 
 \chapter{Installation}
 \label{chap:installation}
