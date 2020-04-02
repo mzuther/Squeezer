@@ -145,29 +145,28 @@ hear his name -- the name of the barkeeper who \textbf{invented the
 
 \emph{Compressors are inherently complex sound processors.  Their
   technology is quite simple -- complexity arises from the dynamic
-  interaction of some controls.  While this is definitely a downside
+  interaction of their controls.  While this is definitely a downside
   when you try to understand compression, it is also what allows you
   to use compression creatively!}
 
 A compressor is a device for reducing the dynamic
-range\footnote{difference between loudest and quietest level} of audio
+range\footnote{difference between loudest and quietest signal} of audio
 material.  In its most basic form, it consists of four modules:
 
 \begin{tabular}{p{0.3 \textwidth}p{0.625 \textwidth}}
 
   \textbf{Level detector} &
-  measures level of audio at input and sends result to gain computer
-  (for instance \SI{-27.39}{\dBFS}) \\
+  measures level of audio at input and sends it to gain computer \\
 
   \textbf{Gain computer} &
   calculates difference between input level and desired output level
-  and sends result to smoothing filter (gain reduction, for example
-  \SI{-3.14}{\dB}) \\
+  and sends resulting gain reduction to smoothing filter \\
 
   \textbf{Smoothing filter} &
   smoothly adjusts \emph{current} gain reduction in direction of
-  \emph{calculated} gain reduction; uses two different speeds
-  (attack and release rate) depending on direction of change \\
+  \emph{calculated} gain reduction and sends result to gain stage;
+  the ``speed'' of smoothing can often be adjusted (\emph{time
+    constants}) \\
 
   \textbf{Gain stage} &
   attenuates audio input by current gain reduction \\
@@ -183,91 +182,88 @@ because they form a sideline of processing that will only be
 
 As its name implies, a level detector senses the level of an audio
 signal.  It can either detect the input wave form directly (peak
-sensing) or average the input signal (usually with a RMS\footnote{root
-  mean square} filter).
+sensing) or an estimate of its loudness (average sensing, usually with
+a RMS\footnote{root mean mean square} filter).
 
 \emph{Peak sensing} allows a compressor to quickly react to sudden
-changes in level, whereas \emph{RMS sensing} detects changes in the
-audio material's \emph{loudness} which often yields very even-sounding
-results.
+changes in level, whereas \emph{average sensing} detects changes over
+longer periods of time.
 
 There are also two ways of connecting level detectors: vintage
 compressors sense the gain stage's \emph{output} level (feed-back
 design), leading to a very distinct ``bouncing'' sound.  Modern
 compressors sense the compressor's \emph{input} signal (feed-forward
-design), resulting in a more natural sound.
+design) which results in a more natural sound.
 
 \section{Gain computer}
 \label{sec:gain_computer}
 
 The level detector's signal is sent to a gain computer\footnote{in the
-  sense of ``calculator''; some gain computers are entirely built from
-  analogue circuitry} which determines the output level the signal
-should have.  It then calculates a corresponding gain reduction
+  sense of \emph{calculator} -- some gain computers are entirely built
+  from analogue circuitry!} which determines the output level the
+signal should have.  It then calculates a corresponding gain reduction
 (``attenuate the current input signal by \SI{3.14}{\dB}'').  This gain
-reduction changes \emph{constantly} and in tune with the input signal.
+reduction changes \emph{constantly} over time.
 
 The most common gain computer design is a \emph{threshold} control.
-It sets a level below which all input passes the gain computer
-unchanged.  Levels exceeding the threshold are attenuated by a
-\emph{compression ratio}, set through a second control.  Higher ratios
-effect more compression than lower ratios.  Note that a compression
-ratio of 1:1 effectively bypasses the compressor.
+It sets a level below which all input passes unchanged.  Levels
+exceeding the threshold are attenuated by a \emph{compression ratio},
+set through a second control.  Higher ratios effect more compression
+than lower ratios\footnote{a compression ratio of 1:1 effectively
+  bypasses the compressor}.
 
-Looking for an example?  A threshold of \SI{-20}{\dBFS} yields a gain
+Need an example?  A threshold of \SI{-20}{\dBFS} yields a gain
 reduction of \SI{0}{\dB} (no compression) for all levels below
-\SI{-20}{\dBFS}.  A signal of \SI{-19}{\dBFS} will produce a gain
-reduction of \SI{-0.5}{\dB} for a compression ratio of 2:1 and
-\SI{-0.25}{\dB} for a ratio of 4:1.
+\SI{-20}{\dBFS}.  A signal of \SI{-18}{\dBFS} will produce a gain
+reduction of \SI{1}{\dB} for a compression ratio of 2:1\footnote{a
+  ratio of 2:1 means that \SI{2}{\dB} on the input yields \SI{1}{\dB}
+  at the output} and \SI{0.5}{\dB} for a ratio of 4:1.
 
 There may be a third control called \emph{knee width}. It defines a
 transition zone around the threshold.  In this zone, the compression
-ratio gradually changes from 1:1 to the selected ratio.  This means
-that quiet signals will receive less compression than loud signals,
-effectively reducing the audible artefacts caused by compression.
+ratio gradually changes from 1:1 (no compression) to the selected
+ratio (full compression).  Thus, quiet signals receive less
+compression than loud signals and the compressor sounds ``smoother''.
 
 \section{Smoothing filter}
 \label{sec:smoothing_filter}
 
-\emph{So far, so good.  This was the easy part, but now comes the part
-  where most explanations start to fail.  I'll try my best and
-  continue anyway \dots}
+\emph{This was the easy part, but from now on explanations usually
+  fail.  I'll try my best and continue anyway \dots}
 
 If you stopped here and let the gain computer control the gain stage
-directly, you'd have a wave shaping\footnote{``wave shaping'' is a
-  fancy way of saying ``distortion''} device.  The compressor would
-react so fast that it relentlessly changed the shape of \emph{single
-  wave forms}.
-
-Don't get me wrong: this already \emph{is} compression and I \emph{do}
-like the sound -- but it's not something you want to have on every
-track, let alone a full song.
+directly, you'd have a wave shaping\footnote{\emph{wave shaping} is a
+  fancy way of saying \emph{distortion}} device.  By reacting
+immediately, the compressor would relentlessly change the shape of
+\emph{single wave forms}.  Don't get me wrong: this already \emph{is}
+compression and I \emph{do} like the sound -- but it's not something
+you want to have on every track, let alone a full song.
 
 \emph{Listen for yourself!  Load a drum track into your DAW, add the
   Squeezer plug-in, unlock attack and release rate\footnote{click on
     the red lights next to the knobs so they light up} and set them to
-  their lowest value.  Make sure the compressor is set to a high
-  compression ratio and uses peak sensing\footnote{``RMS'' button is
-    not engaged}.  Now lower the threshold until you can clearly hear
-  the wave shaping.  But don't close the DAW yet \dots}
+  their lowest value.  Make sure the compressor uses peak
+  sensing\footnote{``RMS'' button is not engaged} and a high
+  compression ratio.  Now lower the threshold until you can clearly
+  hear the wave shaping.  Keep the DAW open for now.}
 
-What's the problem here?  Compression currently happens too quickly.
-We want to change \emph{sounds}, not \emph{single wave forms}.  So we
-have to slow down gain reduction.
-
-One possibility is using averaging level detectors\footnote{this is
-  \emph{not} the reason why compressors have averaging level
-  detectors}, employing photo cells is another\footnote{photo cells
-  react to level changes in complex time-dependant ways}.  Both
-solutions effectively slow down the compressor's response time, albeit
-crudely.  As there are many different types of sound, however, some
-more control would be welcome.  This is where time constants (attack
-and release rate) come in.
+To change \emph{sounds} instead of \emph{single wave forms}, gain
+reduction has to be slowed down.  One possibility is using averaging
+level detectors\footnote{this is \emph{not} the reason why compressors
+  have averaging level detectors}, employing photo cells is
+another\footnote{photo cells react to level changes in complex
+  time-dependant ways}.
 
 \emph{Play the drum track and engage the ``RMS'' button -- the
   distortion vanishes.  Disengage the ``RMS'' button and enable the
   ``Opto'' button instead -- the distortion vanishes, but the track
   sounds slightly different.  You can now close the DAW.}
+
+Both solutions effectively slow down the compressor's response time.
+However, we need more control to accommodate to different types of
+sound.  This is where time constants (attack and release rate) come
+in.
+
 
 \chapter{Installation}
 \label{chap:installation}
@@ -289,7 +285,7 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \chapter{Controls}
 \label{chap:controls}
 
-\emph{Sorry, I have yet to find enough time to write this manual.}
+\emph{Sorry, I have yet to find the time to finish this manual.}
 
 \chapter{Final words}
 \label{chap:final_words}
