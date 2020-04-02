@@ -202,15 +202,15 @@ The level detector's signal is sent to a gain computer\footnote{in the
   sense of \emph{calculator} -- some gain computers are entirely built
   from analogue circuitry!} which determines the output level the
 signal should have.  It then calculates a corresponding gain reduction
-(``attenuate the current input signal by \SI{3.14}{\dB}'').  This gain
-reduction changes \emph{constantly} over time.
+(``attenuate the current input signal by \SI{3.14}{\dB}'').  This
+\textbf{gain reduction changes constantly} over time.
 
 The most common gain computer design is a \emph{threshold} control.
 It sets a level below which all input passes unchanged.  Levels
 exceeding the threshold are attenuated by a \emph{compression ratio},
 set through a second control.  Higher ratios effect more compression
-than lower ratios\footnote{a compression ratio of 1:1 effectively
-  bypasses the compressor}.
+than lower ratios.\footnote{a compression ratio of 1:1 effectively
+  bypasses the compressor}
 
 Need an example?  A threshold of \SI{-20}{\dBFS} yields a gain
 reduction of \SI{0}{\dB} (no compression) for all levels below
@@ -236,34 +236,98 @@ directly, you'd have a wave shaping\footnote{\emph{wave shaping} is a
   fancy way of saying \emph{distortion}} device.  By reacting
 immediately, the compressor would relentlessly change the shape of
 \emph{single wave forms}.  Don't get me wrong: this already \emph{is}
-compression and I \emph{do} like the sound -- but it's not something
-you want to have on every track, let alone a full song.
+compression and I occasionally \emph{do} like the sound -- but it's
+not something you want to have on every track, let alone a full song.
 
 \emph{Listen for yourself!  Load a drum track into your DAW, add the
-  Squeezer plug-in, unlock attack and release rate\footnote{click on
+  Squeezer plug-in, unlock attack and release time\footnote{click on
     the red lights next to the knobs so they light up} and set them to
   their lowest value.  Make sure the compressor uses peak
   sensing\footnote{``RMS'' button is not engaged} and a high
   compression ratio.  Now lower the threshold until you can clearly
   hear the wave shaping.  Keep the DAW open for now.}
 
-To change \emph{sounds} instead of \emph{single wave forms}, gain
-reduction has to be slowed down.  One possibility is using averaging
-level detectors\footnote{this is \emph{not} the reason why compressors
-  have averaging level detectors}, employing photo cells is
-another\footnote{photo cells react to level changes in complex
-  time-dependant ways}.
+To change \emph{sounds} instead of \emph{single wave forms}, the
+\emph{current} gain reduction has to be slowed down and smoothly
+adjusted in the direction of the \emph{calculated} gain reduction.
+
+One possibility is using averaging level detectors,\footnote{this is
+  \emph{not} the reason why compressors have averaging level
+  detectors; they let compressors react to changes in \emph{loudness}}
+employing photo cells is another.\footnote{photo cells react to level
+  changes in complex time-dependant ways} Both solutions effectively
+slow down the compressor's response time, but somewhat crudely.
 
 \emph{Play the drum track and engage the ``RMS'' button -- the
   distortion vanishes.  Disengage the ``RMS'' button and enable the
   ``Opto'' button instead -- the distortion vanishes, but the track
   sounds slightly different.  You can now close the DAW.}
 
-Both solutions effectively slow down the compressor's response time.
-However, we need more control to accommodate to different types of
-sound.  This is where time constants (attack and release rate) come
-in.
+\subsection{Attack and release time}
+\label{sec:attack_and_release_time}
 
+With a little experimentation, it becomes clear that compressors sound
+best when gain reduction is increased quickly, but released much more
+slowly.\footnote{incidentally, that is \emph{exactly} how vintage
+  photo cells react to changes} Also, a single ``speed'' of smoothing
+could not accommodate the many different types of sound we encounter.
+So it makes sense to split response time into (at least) two controls:
+
+\emph{Attack} is the length of time it takes to apply
+roughly\footnote{every manufacturer defines attack and release times
+  differently} two-thirds of an \emph{upward} change in gain
+reduction.
+
+\emph{Release} is the length of time it takes to apply roughly
+two-thirds of an \emph{downward} change in gain
+reduction.\footnote{these definitions were shamelessly paraphrased
+  from
+  \href{https://www.attackmagazine.com/features/columns/gregory-scott-demolishing-the-myths-of-compression/}{Demolishing
+    the Myths of Compression} by Gregory Scott, one of the few
+  articles on compression actually worth reading}
+
+With this in mind, here are the important facts that almost every
+explanation gets wrong:\footnote{for simplicity, I will elide the
+  effects of knee width}
+
+\begin{itemize}
+\item compression starts \textbf{the very moment the detected level
+    passes threshold}
+\item compression continues \textbf{even after the detected level
+    falls below threshold}, at least for a short while
+\item compression occurs \textbf{whenever \emph{current} and
+    \emph{calculated} gain reduction differ}; this means \textbf{all
+    of the time the detected level is above threshold} and slightly
+  after
+\end{itemize}
+
+The last list item may need some explanation.  Imagine a signal above
+threshold\footnote{with a compression ratio above 1:1 and below 1:∞}.
+
+Whenever the signal's slope is rising, \emph{current} gain reduction
+will fall below \emph{calculated} gain reduction and will be smoothed
+using the attack time.  Even when the slope starts to drop,
+\emph{current} gain reduction may still be below \emph{calculated}
+gain reduction and will be affected by the attack time.
+
+If the slope keeps falling, \emph{current} gain reduction will
+eventually rise above \emph{calculated} gain reduction and will be
+smoothed according to the release time.  This continues until
+\emph{current} gain reduction starts to drop again and falls below
+\emph{calculated} gain reduction, when the attack time will once again
+take over.
+
+In other words: with any real-world audio signal, compressors enter an
+ever-changing dynamic state as soon as the input signal passes
+threshold.  And this is what makes them so hard to explain.
+
+The good news is that you can use compressors without fully
+understanding their dynamic state.  I still regard the above necessary
+knowledge, however, because it will let you \emph{disregard} the
+countless erroneous explanations out there.\footnote{which were the
+  reason for developing Squeezer in the first place} In my opinion,
+the erroneous explanations make it almost \emph{impossible} to
+understand compression!
 
 \chapter{Installation}
 \label{chap:installation}
@@ -291,9 +355,16 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \label{chap:final_words}
 
 I want to express my gratitude to the \textbf{Audio Engineering
-  Society} for their wonderful E-Library.  This includes everybody who
-wrote the fine papers within the library, especially Dimitrios
-Giannoulis, Michael Massberg and Joshua D. Reiss.
+  Society} and to the \textbf{Rane Corporation} for their wonderful
+E-Libraries.  This includes everybody who wrote the fine papers and
+notes, especially Dimitrios Giannoulis \emph{et
+  al.}\footnote{\textbf{Giannoulis, Dimitrios; Massberg, Michael;
+    Reiss, Joshua D.}  Digital Dynamic Range Compressor Design -- A
+  Tutorial and Analysis. \emph{JAES Volume 60 Issue 6 pp. 399-408;
+    June 2012.}} and Rick Jeffs \emph{et al.}\footnote{\textbf{Rick
+    Jeffs; Scott Holden; Dennis Bohn.}  Dynamics Processors --
+  Technology \& Application Tips.  \emph{Rane Corporation; Rane Note
+    155; 2005.}}
 
 I must also thank the \textbf{beta testers} and \textbf{users of
   Squeezer} for sending kind words, suggestions and bug reports.
