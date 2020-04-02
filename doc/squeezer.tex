@@ -160,13 +160,13 @@ material.  In its most basic form, it consists of four modules:
 
   \textbf{Gain computer} &
   calculates difference between input level and desired output level
-  and sends resulting gain reduction to smoothing filter \\
+  and sends resulting gain reduction target to smoothing filter \\
 
   \textbf{Smoothing filter} &
   smoothly adjusts \emph{current} gain reduction in direction of
-  \emph{calculated} gain reduction and sends result to gain stage;
-  the ``speed'' of smoothing can often be adjusted (\emph{time
-    constants}) \\
+  \emph{target} reduction and sends result to gain stage; the
+  ``speed'' of smoothing can often be adjusted (\emph{attack and
+    release times}) \\
 
   \textbf{Gain stage} &
   attenuates audio input by current gain reduction \\
@@ -222,8 +222,10 @@ reduction of \SI{1}{\dB} for a compression ratio of 2:1\footnote{a
 There may be a third control called \emph{knee width}. It defines a
 transition zone around the threshold.  In this zone, the compression
 ratio gradually changes from 1:1 (no compression) to the selected
-ratio (full compression).  Thus, quiet signals receive less
-compression than loud signals and the compressor sounds ``smoother''.
+ratio (full compression) -- quiet signals receive less compression
+than loud signals.  This reduces another type of distortion which
+stems from abrupt transition between compressed and uncompressed
+signal.
 
 \section{Smoothing filter}
 \label{sec:smoothing_filter}
@@ -249,7 +251,7 @@ not something you want to have on every track, let alone a full song.
 
 To change \emph{sounds} instead of \emph{single wave forms}, the
 \emph{current} gain reduction has to be slowed down and smoothly
-adjusted in the direction of the \emph{calculated} gain reduction.
+adjusted in the direction of the \emph{target} gain reduction.
 
 One possibility is using averaging level detectors,\footnote{this is
   \emph{not} the reason why compressors have averaging level
@@ -296,30 +298,30 @@ explanation gets wrong:\footnote{for simplicity, I will elide the
 \item compression continues \textbf{even after the detected level
     falls below threshold}, at least for a short while
 \item compression occurs \textbf{whenever \emph{current} and
-    \emph{calculated} gain reduction differ}; this means \textbf{all
-    of the time the detected level is above threshold} and slightly
-  after
+    \emph{target} gain reduction differ}; this means \textbf{all of
+    the time the detected level is above threshold} and slightly after
 \end{itemize}
 
 The last list item may need some explanation.  Imagine a signal above
 threshold\footnote{with a compression ratio above 1:1 and below 1:∞}.
 
 Whenever the signal's slope is rising, \emph{current} gain reduction
-will fall below \emph{calculated} gain reduction and will be smoothed
+will fall below \emph{target} gain reduction and will be smoothed
 using the attack time.  Even when the slope starts to drop,
-\emph{current} gain reduction may still be below \emph{calculated}
-gain reduction and will be affected by the attack time.
+\emph{current} gain reduction may still be below \emph{target} gain
+reduction and will be affected by the attack time.
 
 If the slope keeps falling, \emph{current} gain reduction will
-eventually rise above \emph{calculated} gain reduction and will be
+eventually rise above \emph{target} gain reduction and will be
 smoothed according to the release time.  This continues until
 \emph{current} gain reduction starts to drop again and falls below
-\emph{calculated} gain reduction, when the attack time will once again
+\emph{target} gain reduction, when the attack time will once again
 take over.
 
 In other words: with any real-world audio signal, compressors enter an
 ever-changing dynamic state as soon as the input signal passes
-threshold.  And this is what makes them so hard to explain.
+threshold.  This is what makes them so hard to explain -- and I'm
+quite confident that it also makes them sound so damn good.
 
 The good news is that you can use compressors without fully
 understanding their dynamic state.  I still regard the above necessary
@@ -328,6 +330,27 @@ countless erroneous explanations out there.\footnote{which were the
   reason for developing Squeezer in the first place} In my opinion,
 the erroneous explanations make it almost \emph{impossible} to
 understand compression!
+
+\subsection{Curve shape}
+\label{sec:curve_shape}
+
+Attack and release times can be implemented in a number of ways.
+Vintage compressors use simple analogue filters with logarithmic
+curves.  Speed depends on the difference between current and target
+gain reduction -- initial change is fast and slows down as the
+difference gets smaller.
+
+Newer compressors often have linear curves -- the target gain
+reduction is approached with constant speed.
+
+A third curve is often called ``S-curve''.  In the case of Squeezer,
+attack and release time behave like logarithmic curves.  However, when
+the attack phase changes to release, a smooth transition between the
+curves prevents a sharp drop in gain reduction.  This reduces yet
+another type of distortion exhibited by compressors.
+
+It is hard to say which curve sounds best, as it really depends on
+source material and personal taste.
 
 \chapter{Installation}
 \label{chap:installation}
