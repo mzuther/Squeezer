@@ -68,7 +68,7 @@ Squeezer also adapts easily to many tastes and use cases:
 
 \begin{itemize}
 \item feed-forward \& feed-back design
-\item linear, S-curve \& logarithmic reaction
+\item linear, logarithmic \& smooth response
 \item optical \& FET detectors
 \item peak \& RMS sensing
 \item hard, medium \& soft knee
@@ -333,19 +333,19 @@ explanations out there.\footnote{they were the reason for developing
 \label{sec:curve_shape}
 
 Attack and release times can be implemented in a number of ways.
-Vintage compressors use simple analogue filters with logarithmic
-curves.  Speed depends on the difference between current and target
-gain reduction -- initial change is fast and slows down as the
-difference gets smaller.
+Vintage compressors use simple analogue filters with
+\emph{logarithmic} curves.  Speed depends on the difference between
+current and target gain reduction -- initial change is fast and slows
+down as the difference gets smaller.
 
-Newer compressors often have linear curves -- the target gain
+Newer compressors often have \emph{linear} curves -- the target gain
 reduction is approached with constant speed.
 
-A third curve is often called ``S-curve''.  In the case of Squeezer,
-attack and release time behave like logarithmic curves.  However, when
-the attack phase changes to release, a smooth transition between the
-curves prevents a sharp drop in gain reduction.  This reduces yet
-another type of distortion exhibited by compressors.
+Squeezer also offers a \emph{smooth} curve.  Attack and release time
+behave like logarithmic curves.  However, when the attack phase
+changes to release, a smooth transition between the curves prevents a
+sharp drop in gain reduction.  This reduces yet another type of
+distortion exhibited by compressors.
 
 It is hard to say which curve sounds best, as it really depends on
 source material and personal taste.

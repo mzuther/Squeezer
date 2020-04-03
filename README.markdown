@@ -6,29 +6,30 @@ Flexible general-purpose audio compressor with a touch of citrus
 
 ## About
 
-I wrote this compressor to learn all I could about audio compression.
+*I wrote this compressor to learn all I could about audio compression.
 It took me several months to gather all the specs and papers I needed
-and convert this vast amount of information into code.
+and convert them into code.*
 
-What makes **Squeezer** different from the compressors I know is the
-stepping of all knobs to preset values (it took a loooong time to
-fine-tune them).  On clicking a small red light, however, the knobs
-become continuous.  That allows you to find good-sounding settings
-very fast while not preventing fine-tuning.
+**Squeezer** is different from all the compressors I know: its knobs
+are stepped to fine-tuned *preset* values, but can be changed to
+*continuous* values by clicking a small red light located next to
+them.  This allows you to find nice settings fast while not preventing
+to optimise these settings.
 
-**Squeezer** is also very flexible.  Its internal layout can be
-changed in many ways: feed-forward / feed-back, linear / S-curve /
-log, optical / transistor, RMS / almost peak, three different knees.
+**Squeezer** also adapts easily to many tastes and use cases:
 
-By writing and fine-tuning this compressor I have gained deep insight
-into audio compressors and really learned how to use them musically.
-But not only that, **Squeezer** has quickly become my go-to generic
-compressor.
+- feed-forward & feed-back design
+- linear, logarithmic & smooth response
+- optical & FET detectors
+- peak & RMS sensing
+- hard, medium & soft knee
+- flexible side-chain & parallel compression
 
-I have not yet released a binary, because I expected **Squeezer**'s
-internals to still change and have not yet found the time to write a
-manual.  But if you want, you can compile the plug-in yourself.  It's
-quite easy.
+**Squeezer** has given me a deep insight into compression.  But above
+that, it has quickly became my go-to generic compressor!
+
+*I'm currently in the process of finally releasing a binary.  Please
+be patient for a little longer...*
 
 <!--
 ## Documentation
