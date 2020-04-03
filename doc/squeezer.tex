@@ -15,7 +15,7 @@
         with a touch of citrus
         \vfill
         \vspace{1.5em}
-        \includegraphics[scale=0.30,clip]{include/images/squeezer.png}
+        \includegraphics[scale=0.35,clip]{include/images/squeezer.png}
         \vfill
       }}}
 }
@@ -234,12 +234,12 @@ signal.
   fail.  I'll try my best and continue anyway \dots}
 
 If you stopped here and let the gain computer control the gain stage
-directly, you'd have a wave shaping\footnote{\emph{wave shaping} is a
-  fancy way of saying \emph{distortion}} device.  By reacting
+directly, you'd have a wave shaping device.\footnote{\emph{wave
+    shaping} is a fancy way of saying \emph{distortion}} By reacting
 immediately, the compressor would relentlessly change the shape of
 \emph{single wave forms}.  Don't get me wrong: this already \emph{is}
 compression and I occasionally \emph{do} like the sound -- but it's
-not something you want to have on every track, let alone a full song.
+not something you want to have on every track, let alone a full mix.
 
 \emph{Listen for yourself!  Load a drum track into your DAW, add the
   Squeezer plug-in, unlock attack and release time\footnote{click on
@@ -262,8 +262,8 @@ slow down the compressor's response time, but somewhat crudely.
 
 \emph{Play the drum track and engage the ``RMS'' button -- the
   distortion vanishes.  Disengage the ``RMS'' button and enable the
-  ``Opto'' button instead -- the distortion vanishes, but the track
-  sounds slightly different.  You can now close the DAW.}
+  ``Opto'' button instead -- again, the distortion vanishes, but the
+  track sounds different.  You can now close the DAW.}
 
 \subsection{Attack and release time}
 \label{sec:attack_and_release_time}
@@ -271,7 +271,7 @@ slow down the compressor's response time, but somewhat crudely.
 With a little experimentation, it becomes clear that compressors sound
 best when gain reduction is increased quickly, but released much more
 slowly.\footnote{incidentally, that is \emph{exactly} how vintage
-  photo cells react to changes} Also, a single ``speed'' of smoothing
+  photo cells react to changes} Moreover, a single smoothing ``speed''
 could not accommodate the many different types of sound we encounter.
 So it makes sense to split response time into (at least) two controls:
 
@@ -281,7 +281,7 @@ roughly\footnote{every manufacturer defines attack and release times
 reduction.
 
 \emph{Release} is the length of time it takes to apply roughly
-two-thirds of an \emph{downward} change in gain
+two-thirds of a \emph{downward} change in gain
 reduction.\footnote{these definitions were shamelessly paraphrased
   from
   \href{https://www.attackmagazine.com/features/columns/gregory-scott-demolishing-the-myths-of-compression/}{Demolishing
@@ -294,7 +294,7 @@ explanation gets wrong:\footnote{for simplicity, I will elide the
 
 \begin{itemize}
 \item compression starts \textbf{the very moment the detected level
-    passes threshold}
+    passes threshold}, it is not delayed by attack time
 \item compression continues \textbf{even after the detected level
     falls below threshold}, at least for a short while
 \item compression occurs \textbf{whenever \emph{current} and
@@ -303,20 +303,20 @@ explanation gets wrong:\footnote{for simplicity, I will elide the
 \end{itemize}
 
 The last list item may need some explanation.  Imagine a signal above
-threshold\footnote{with a compression ratio above 1:1 and below 1:∞}.
+threshold.\footnote{with a compression ratio above 1:1 and below 1:∞}
 
 Whenever the signal's slope is rising, \emph{current} gain reduction
 will fall below \emph{target} gain reduction and will be smoothed
-using the attack time.  Even when the slope starts to drop,
+using the \emph{attack} time.  Even when the slope starts to drop,
 \emph{current} gain reduction may still be below \emph{target} gain
 reduction and will be affected by the attack time.
 
 If the slope keeps falling, \emph{current} gain reduction will
 eventually rise above \emph{target} gain reduction and will be
-smoothed according to the release time.  This continues until
-\emph{current} gain reduction starts to drop again and falls below
-\emph{target} gain reduction, when the attack time will once again
-take over.
+smoothed according to the \emph{release} time.  This continues until
+the slope starts to rise again and \emph{current} gain reduction falls
+below \emph{target} gain reduction.  Now, the \emph{attack} time will
+once again take over.
 
 In other words: with any real-world audio signal, compressors enter an
 ever-changing dynamic state as soon as the input signal passes
@@ -324,12 +324,10 @@ threshold.  This is what makes them so hard to explain -- and I'm
 quite confident that it also makes them sound so damn good.
 
 The good news is that you can use compressors without fully
-understanding their dynamic state.  I still regard the above necessary
-knowledge, however, because it will let you \emph{disregard} the
-countless erroneous explanations out there.\footnote{which were the
-  reason for developing Squeezer in the first place} In my opinion,
-the erroneous explanations make it almost \emph{impossible} to
-understand compression!
+understanding this dynamic state.  However, the information contained
+in this chapter will help you in ignoring the countless erroneous
+explanations out there.\footnote{they were the reason for developing
+  Squeezer in the first place}
 
 \subsection{Curve shape}
 \label{sec:curve_shape}
@@ -355,14 +353,84 @@ source material and personal taste.
 \section{Gain stage}
 \label{sec:gain_stage}
 
-The gain stage is an amplifier that attenuates the input signal by the
-current gain reduction.  There may be an additional gain control to
-make up for any level lost during compression (``make-up gain'').
+The gain stage is an amplifier that attenuates the input signal using
+the current gain reduction.  There may be an additional gain control
+to make up for any level lost during compression (``make-up gain'').
 
 That's it.
 
-% TODO: stereo link, parallel compression, side-chain
-% filtering, external side-chain
+\section{Advanced topics}
+\label{sec:advanced_topics}
+
+\subsection{Stereo link}
+\label{sec:stereo_link}
+
+When each channel of a stereo signal is compressed separately, the
+stereo image may shift uncontrollably.  This can be prevented by
+mixing the outputs of all level detectors and sending the \emph{mixed}
+signal to each gain computer.
+
+Squeezer automatically links its channels when placed on a stereo
+channel.  Occasionally, you may want to override this behaviour, so
+Squeezer lets you control the amount of stereo linking.
+
+\subsection{Parallel compression}
+\label{sec:parallel_compression}
+
+So far, I have described \emph{downward} compression.  As you know, it
+works by bringing high-level signals down and leaving low-level
+signals (mostly) untouched.  In other words, downward compression
+changes (and possibly damages) the \emph{transients}.
+
+This may not be what you want, so \emph{upward} compression works the
+other way round.  Low-level signals are brought up and high-level
+signals are left alone.  This approach has a huge problem, though --
+it amplifies the noise floor, which is why I have yet to see an upward
+compressor in the wild.
+
+\emph{Parallel} compression\footnote{also known as \emph{New York
+    compression}, where the signal is also equalised prior to
+  compression} is similar to \emph{upward} compression, but it
+preserves transients \emph{and} leaves the noise floor alone.  Here is
+how it works: you compress a signal (often heavily) and add some of
+the compressed signal to the original.
+
+Squeezer provides a latency-compensated \emph{wet/dry} control that
+allows you to apply parallel compression easily.
+
+\subsection{Side-chain filtering}
+\label{sec:side_chain_filtering}
+
+Bass frequencies contain most of a signal's energy, so bus compression
+will often ``pump'' in the rhythm of the bass
+instruments.\footnote{the human ear is least sensitive to bass
+  frequencies, so music also tends to contain more bass frequencies
+  than treble} A filter that removes bass frequencies
+(\emph{high-pass} filter) from the side-chain helps in achieving
+better compression results.
+
+Squeezer also provides a \emph{low-pass} filter to remove treble
+frequencies, although this is used less often.  For frequency-specific
+compression, you can leave only desired frequencies by employing both
+filters simultaneously.
+
+\subsection{External side-chain input}
+\label{sec:external_side_chain}
+
+Squeezer also lets you feed an external input into the side-chain.
+You can use this either for advanced filtering or as an effect.  In
+electronic dance music, compressor ``pumping'' triggered by the bass
+drum has become rather cliché \dots
+
+Depending on your DAW, setting up an external side-chain can be easy
+or highly complicated.  I cannot (and will not) help you with it, so
+please refer to your DAW's manual or manufacturer.
+
+I will however provide some information to get you started.  The input
+channels of Squeezer's stand-alone application and VST2 plug-in are
+doubled: main inputs (first half of the channels) and side-chain
+inputs (second half).  Channels of the other plug-ins formats are
+properly tagged and should work without problem.
 
 \chapter{Installation}
 \label{chap:installation}
