@@ -21,7 +21,7 @@
            button_curve_linear,
            button_curve_smooth_decoupled,
            button_curve_smooth_branching,
-           button_detector_rms,
+           button_rms_window,
            button_design_feedback,
            button_gainstage_optical,
            button_knee_hard,
@@ -52,7 +52,7 @@
            button_curve_linear?,
            button_curve_smooth_decoupled?,
            button_curve_smooth_branching?,
-           button_detector_rms?,
+           button_rms_window?,
            button_design_feedback?,
            button_gainstage_optical?,
            button_knee_hard?,
@@ -240,8 +240,8 @@
         <!ELEMENT button_curve_smooth_branching (#PCDATA)>
             <!ATTLIST button_curve_smooth_branching %attrs_button;>
 
-        <!ELEMENT button_detector_rms (#PCDATA)>
-            <!ATTLIST button_detector_rms %attrs_button;>
+        <!ELEMENT button_rms_window (#PCDATA)>
+            <!ATTLIST button_rms_window %attrs_button;>
 
         <!ELEMENT button_design_feedback (#PCDATA)>
             <!ATTLIST button_design_feedback %attrs_button;>

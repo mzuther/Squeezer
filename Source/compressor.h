@@ -35,10 +35,6 @@ class Compressor
 public:
     enum Parameters  // public namespace!
     {
-        DetectorPeak = 0,
-        DetectorRms,
-        NumberOfDetectorRmsFilters,
-
         DesignFeedForward = 0,
         DesignFeedBack,
         NumberOfDesigns,
@@ -57,8 +53,8 @@ public:
     bool getBypass();
     void setBypass(bool CompressorIsBypassedNew);
 
-    double getDetectorRmsFilter();
-    void setDetectorRmsFilter(double DetectorRateMilliSecondsNew);
+    double getRmsWindowSize();
+    void setRmsWindowSize(double RmsWindowSizeMilliSecondsNew);
 
     int getDesign();
     void setDesign(int CompressorDesignNew);

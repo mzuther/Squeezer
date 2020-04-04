@@ -49,8 +49,8 @@ public:
 
     void reset();
 
-    double getDetectorRmsFilter();
-    void setDetectorRmsFilter(double dDetectorRateMilliSecondsNew);
+    double getRmsWindowSize();
+    void setRmsWindowSize(double dRmsWindowSizeMilliSecondsNew);
 
     int getCurve();
     void setCurve(int nCurveTypeNew);
@@ -99,10 +99,10 @@ private:
     double dGainReductionIntermediate;
     double dGainCompensation;
 
-    double dDetectorCoefficient;
+    double dRmsWindowCoefficient;
     double dDetectorOutputLevelSquared;
 
-    double dDetectorRateMilliSeconds;
+    double dRmsWindowSizeMilliSeconds;
     int nCurveType;
     int nGainStageType;
 
@@ -119,7 +119,7 @@ private:
     double dReleaseCoefficient;
 
     double queryGainComputer(double dInputLevel);
-    double applyLevelDetectionFilter(double dDetectorInputLevel);
+    double applyRmsFilter(double dDetectorInputLevel);
     void applyCurveLinear(double dGainReductionNew);
     void applyCurveSmoothDecoupled(double dGainReductionNew);
     void applyCurveSmoothBranching(double dGainReductionNew);

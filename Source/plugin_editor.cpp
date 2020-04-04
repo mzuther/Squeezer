@@ -187,8 +187,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     ButtonBypass_.addListener(this);
     addAndMakeVisible(&ButtonBypass_);
 
-    ButtonDetectorRms_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorRms_);
+    ButtonRmsWindow_.addListener(this);
+    addAndMakeVisible(&ButtonRmsWindow_);
 
     ButtonDesignFeedback_.addListener(this);
     addAndMakeVisible(&ButtonDesignFeedback_);
@@ -280,7 +280,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     updateParameter(SqueezerPluginParameters::selSidechainLPFCutoffSwitch);
     updateParameter(SqueezerPluginParameters::selSidechainLPFCutoff);
 
-    updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
+    updateParameter(SqueezerPluginParameters::selRmsWindowSize);
     updateParameter(SqueezerPluginParameters::selDesign);
     updateParameter(SqueezerPluginParameters::selCurveType);
     updateParameter(SqueezerPluginParameters::selGainStage);
@@ -366,8 +366,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
     CurrentSkin_.placeAndSkinButton("button_curve_smooth_branching",
                                     &ButtonCurveSmoothBranching_);
 
-    CurrentSkin_.placeAndSkinButton("button_detector_rms",
-                                    &ButtonDetectorRms_);
+    CurrentSkin_.placeAndSkinButton("button_rms_window",
+                                    &ButtonRmsWindow_);
     CurrentSkin_.placeAndSkinButton("button_design_feedback",
                                     &ButtonDesignFeedback_);
     CurrentSkin_.placeAndSkinButton("button_gainstage_optical",
@@ -637,10 +637,10 @@ void SqueezerAudioProcessorEditor::updateParameter(
                                      dontSendNotification);
         break;
 
-    case SqueezerPluginParameters::selDetectorRmsFilter:
+    case SqueezerPluginParameters::selRmsWindowSize:
 
-        ButtonDetectorRms_.setToggleState(FloatValue != 0.0f,
-                                          dontSendNotification);
+        ButtonRmsWindow_.setToggleState(FloatValue != 0.0f,
+                                        dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selDesign:
@@ -835,10 +835,10 @@ void SqueezerAudioProcessorEditor::buttonClicked(
         PluginProcessor_->changeParameter(SqueezerPluginParameters::selBypass,
                                           !Button->getToggleState());
     }
-    else if (Button == &ButtonDetectorRms_)
+    else if (Button == &ButtonRmsWindow_)
     {
         PluginProcessor_->changeParameter(
-            SqueezerPluginParameters::selDetectorRmsFilter,
+            SqueezerPluginParameters::selRmsWindowSize,
             !Button->getToggleState());
     }
     else if (Button == &ButtonDesignFeedback_)

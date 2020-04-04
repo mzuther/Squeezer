@@ -288,14 +288,14 @@ void SqueezerAudioProcessor::setParameter(
 
         break;
 
-    case SqueezerPluginParameters::selDetectorRmsFilter:
+    case SqueezerPluginParameters::selRmsWindowSize:
 
         pluginParameters_.setFloat(nIndex, fValue);
 
         if (compressor_)
         {
-            float fDetectorRateMilliSeconds = pluginParameters_.getRealFloat(nIndex);
-            compressor_->setDetectorRmsFilter(fDetectorRateMilliSeconds);
+            float fRmsWindowSizeMilliSeconds = pluginParameters_.getRealFloat(nIndex);
+            compressor_->setRmsWindowSize(fRmsWindowSizeMilliSeconds);
         }
 
         break;
@@ -797,8 +797,8 @@ void SqueezerAudioProcessor::prepareToPlay(
 
     bool bBypassCompressor = pluginParameters_.getBoolean(
                                  SqueezerPluginParameters::selBypass);
-    float fDetectorRateMilliSeconds = pluginParameters_.getRealFloat(
-                                          SqueezerPluginParameters::selDetectorRmsFilter);
+    float fRmsWindowSizeMilliSeconds = pluginParameters_.getRealFloat(
+                                           SqueezerPluginParameters::selRmsWindowSize);
     int nDesign = pluginParameters_.getRealInteger(
                       SqueezerPluginParameters::selDesign);
     int nCurveType = pluginParameters_.getRealInteger(
@@ -851,7 +851,7 @@ void SqueezerAudioProcessor::prepareToPlay(
     compressor_ = new Compressor(numberOfChannels, (int) sampleRate);
 
     compressor_->setBypass(bBypassCompressor);
-    compressor_->setDetectorRmsFilter(fDetectorRateMilliSeconds);
+    compressor_->setRmsWindowSize(fRmsWindowSizeMilliSeconds);
     compressor_->setDesign(nDesign);
     compressor_->setCurve(nCurveType);
     compressor_->setGainStage(nGainStage);

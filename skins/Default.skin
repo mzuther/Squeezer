@@ -151,12 +151,12 @@
             image_off="buttons/button_curve_smooth_branching_off.png"
         />
 
-        <button_detector_rms
+        <button_rms_window
             x="417"
             y="176"
-            image_on="buttons/button_detector_rms_on.png"
-            image_over="buttons/button_detector_rms_over.png"
-            image_off="buttons/button_detector_rms_off.png"
+            image_on="buttons/button_rms_window_on.png"
+            image_over="buttons/button_rms_window_over.png"
+            image_off="buttons/button_rms_window_off.png"
         />
 
         <button_design_feedback

@@ -44,7 +44,7 @@ SideChain::SideChain(
     setRatio(2.0);
     setKneeWidth(0.0);
 
-    setDetectorRmsFilter(10.0);
+    setRmsWindowSize(10.0);
     nCurveType = SideChain::CurveSmoothBranching;
     nGainStageType = GainStage::FET;
 
@@ -79,41 +79,41 @@ void SideChain::reset()
 }
 
 
-double SideChain::getDetectorRmsFilter()
-/*  Get current detector RMS filter rate.
+double SideChain::getRmsWindowSize()
+/*  Get current detector RMS window size.
 
-    return value (double): returns current current detector RMS filter
-    rate
+    return value (double): returns current current detector RMS window
+    size
 */
 {
-    return dDetectorRateMilliSeconds;
+    return dRmsWindowSizeMilliSeconds;
 }
 
 
-void SideChain::setDetectorRmsFilter(
-    double dDetectorRateMilliSecondsNew)
-/*  Set new detector RMS filter rate.
+void SideChain::setRmsWindowSize(
+    double dRmsWindowSizeMilliSecondsNew)
+/*  Set new detector RMS window size.
 
-    dDetectorRateMilliSecondsNew (double): new detector RMS filter
-    rate; set to 0.0 to disable RMS sensing
+    dRmsWindowSizeMilliSecondsNew (double): new detector RMS window
+    size; set to 0.0 to disable RMS sensing
 
     return value: none
 */
 {
     // bypass RMS sensing
-    if (dDetectorRateMilliSecondsNew <= 0.0)
+    if (dRmsWindowSizeMilliSecondsNew <= 0.0)
     {
-        dDetectorRateMilliSeconds = 0.0;
-        dDetectorCoefficient = 0.0;
+        dRmsWindowSizeMilliSeconds = 0.0;
+        dRmsWindowCoefficient = 0.0;
     }
     else
     {
-        dDetectorRateMilliSeconds = dDetectorRateMilliSecondsNew;
-        double dDetectorRateSeconds = dDetectorRateMilliSeconds / 1000.0;
+        dRmsWindowSizeMilliSeconds = dRmsWindowSizeMilliSecondsNew;
+        double dRmsWindowSizeSeconds = dRmsWindowSizeMilliSeconds / 1000.0;
 
         // logarithmic envelope reaches 90% of the final reading
         // in the given attack time
-        dDetectorCoefficient = exp(log(0.10) / (dDetectorRateSeconds * dSampleRate));
+        dRmsWindowCoefficient = exp(log(0.10) / (dRmsWindowSizeSeconds * dSampleRate));
     }
 }
 
@@ -277,7 +277,7 @@ void SideChain::setAttackRate(
 {
     dAttackRate = dAttackRateNew;
 
-    if (dAttackRate == 0.0)
+    if (dAttackRate <= 0.0)
     {
         dAttackCoefficient = 0.0;
     }
@@ -314,7 +314,7 @@ void SideChain::setReleaseRate(
 {
     nReleaseRate = nReleaseRateNew;
 
-    if (nReleaseRate == 0)
+    if (nReleaseRate <= 0)
     {
         dReleaseCoefficient = 0.0;
     }
@@ -431,7 +431,7 @@ void SideChain::processSample(
     dGainReductionIdeal = queryGainComputer(dInputLevel);
 
     // filter calculated gain reduction through level detection filter
-    double dGainReductionNew = applyLevelDetectionFilter(dGainReductionIdeal);
+    double dGainReductionNew = applyRmsFilter(dGainReductionIdeal);
 
     // feed output from gain computer to level detector
     switch (nCurveType)
@@ -499,11 +499,11 @@ void SideChain::processSample(
 }
 
 
-double SideChain::applyLevelDetectionFilter(
+double SideChain::applyRmsFilter(
     double dDetectorInputLevel)
 {
     // bypass RMS sensing
-    if (dDetectorRateMilliSeconds <= 0.0)
+    if (dRmsWindowSizeMilliSeconds <= 0.0)
     {
         return dDetectorInputLevel;
     }
@@ -512,7 +512,7 @@ double SideChain::applyLevelDetectionFilter(
         double dDetectorInputLevelSquared = dDetectorInputLevel * dDetectorInputLevel;
         double dDetectorOutputLevelSquaredOld = dDetectorOutputLevelSquared;
 
-        dDetectorOutputLevelSquared = (dDetectorCoefficient * dDetectorOutputLevelSquaredOld) + (1.0 - dDetectorCoefficient) * dDetectorInputLevelSquared;
+        dDetectorOutputLevelSquared = (dRmsWindowCoefficient * dDetectorOutputLevelSquaredOld) + (1.0 - dRmsWindowCoefficient) * dDetectorInputLevelSquared;
 
         double dDetectorOutputLevel = sqrt(dDetectorOutputLevelSquared);
         return dDetectorOutputLevel;
@@ -572,7 +572,7 @@ void SideChain::applyCurveLinear(
 
 void SideChain::applyCurveSmoothDecoupled(
     double dGainReductionNew)
-/*  Calculate smooth decoupled detector ("S-Curve").
+/*  Calculate smooth decoupled detector ("Smooth").
 
     dGainReductionNew (double): calculated gain reduction in decibels
 

@@ -45,7 +45,7 @@ public:
     enum Parameters  // public namespace!
     {
         selBypass = 0,
-        selDetectorRmsFilter,
+        selRmsWindowSize,
         selDesign,
         selCurveType,
         selGainStage,

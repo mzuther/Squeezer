@@ -43,15 +43,15 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterBypass, selBypass);
 
 
-    frut::parameters::ParSwitch *ParameterDetectorRmsFilter =
+    frut::parameters::ParSwitch *ParameterRmsWindowSize =
         new frut::parameters::ParSwitch();
-    ParameterDetectorRmsFilter->setName("RMS Filter");
+    ParameterRmsWindowSize->setName("RMS Filter");  // keep old name for backward compatibility!
 
-    ParameterDetectorRmsFilter->addPreset(0.0f,  "Peak");
-    ParameterDetectorRmsFilter->addPreset(30.0f, "RMS (30 ms)");
+    ParameterRmsWindowSize->addPreset(0.0f,  "Peak");
+    ParameterRmsWindowSize->addPreset(30.0f, "RMS (30 ms)");
 
-    ParameterDetectorRmsFilter->setDefaultRealFloat(0.0f, true);
-    add(ParameterDetectorRmsFilter, selDetectorRmsFilter);
+    ParameterRmsWindowSize->setDefaultRealFloat(0.0f, true);
+    add(ParameterRmsWindowSize, selRmsWindowSize);
 
 
     frut::parameters::ParSwitch *ParameterDesign =
@@ -531,8 +531,8 @@ String SqueezerPluginParameters::toString()
         parameterValues += "=";
     }
 
-    parameterValues += "\nRMS Filter: ";
-    parameterValues += getText(selDetectorRmsFilter);
+    parameterValues += "\nRMS window: ";
+    parameterValues += getText(selRmsWindowSize);
 
     parameterValues += ", Design: ";
     parameterValues += getText(selDesign);

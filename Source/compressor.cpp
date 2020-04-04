@@ -133,28 +133,28 @@ void Compressor::setBypass(bool CompressorIsBypassedNew)
 }
 
 
-double Compressor::getDetectorRmsFilter()
-/*  Get current detector RMS filter rate.
+double Compressor::getRmsWindowSize()
+/*  Get current detector RMS window size.
 
-    return value (double): returns current current detector RMS filter
-    rate
+    return value (double): returns current current detector RMS window
+    size
 */
 {
-    return SideChainProcessor[0]->getDetectorRmsFilter();
+    return SideChainProcessor[0]->getRmsWindowSize();
 }
 
 
-void Compressor::setDetectorRmsFilter(double DetectorRateMilliSecondsNew)
-/*  Set new detector RMS filter rate.
+void Compressor::setRmsWindowSize(double RmsWindowSizeMilliSecondsNew)
+/*  Set new detector RMS window size.
 
-    DetectorRateMilliSecondsNew (double): new detector RMS filter rate
+    RmsWindowSizeMilliSecondsNew (double): new detector RMS window size
 
     return value: none
 */
 {
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        SideChainProcessor[CurrentChannel]->setDetectorRmsFilter(DetectorRateMilliSecondsNew);
+        SideChainProcessor[CurrentChannel]->setRmsWindowSize(RmsWindowSizeMilliSecondsNew);
     }
 }
 
@@ -355,9 +355,9 @@ void Compressor::setCurve(int CurveTypeNew)
 
 
 int Compressor::getGainStage()
-/*  Get current compressor detector type.
+/*  Get current compressor gain stage type.
 
-    return value (integer): returns compressor detector type
+    return value (integer): returns compressor gain stage type
  */
 {
     return SideChainProcessor[0]->getGainStage();

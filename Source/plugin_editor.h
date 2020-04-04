@@ -95,7 +95,7 @@ private:
     ScopedPointer<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;
     ScopedPointer<frut::widgets::SliderCombined> SliderSidechainLPFCutoff_;
 
-    ImageButton ButtonDetectorRms_;
+    ImageButton ButtonRmsWindow_;
     ImageButton ButtonDesignFeedback_;
     ImageButton ButtonGainStageOptical_;
 
