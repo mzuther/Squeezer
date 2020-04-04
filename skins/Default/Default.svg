@@ -28,10 +28,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.20089"
-     inkscape:cx="803.21584"
+     inkscape:cx="583.79524"
      inkscape:cy="239.00013"
      inkscape:document-units="px"
-     inkscape:current-layer="svg2"
+     inkscape:current-layer="webslicer-layer"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
@@ -1909,91 +1909,91 @@
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_threshold.png"
        xlink:href="sliders/slider_threshold.png"
-       transform="translate(-4,-429)"
-       style="display:inline;fill:#d40000;enable-background:new"
-       y="466"
-       x="16"
-       id="image14818"
-       preserveAspectRatio="none"
+       width="52"
        height="60"
-       width="52" />
+       preserveAspectRatio="none"
+       id="image14818"
+       x="16"
+       y="466"
+       style="display:inline;fill:#d40000;enable-background:new"
+       transform="translate(-4,-429)" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_threshold.png"
        xlink:href="sliders/slider_threshold.png"
-       transform="translate(-4,-429)"
-       style="display:inline;enable-background:new"
-       width="52"
-       height="60"
-       preserveAspectRatio="none"
-       id="image14821"
+       y="466"
        x="76"
-       y="466" />
+       id="image14821"
+       preserveAspectRatio="none"
+       height="60"
+       width="52"
+       style="display:inline;enable-background:new"
+       transform="translate(-4,-429)" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_attack.png"
        xlink:href="sliders/slider_attack.png"
-       transform="translate(-134,-345)"
-       style="display:inline;enable-background:new"
-       y="485"
-       x="146"
+       width="52"
+       height="60"
+       preserveAspectRatio="none"
        id="image14785"
-       preserveAspectRatio="none"
-       height="60"
-       width="52" />
+       x="146"
+       y="485"
+       style="display:inline;enable-background:new"
+       transform="translate(-134,-345)" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_attack.png"
        xlink:href="sliders/slider_attack.png"
-       transform="translate(-134,-345)"
-       style="display:inline;enable-background:new"
-       width="52"
-       height="60"
-       preserveAspectRatio="none"
-       id="image14823"
+       y="485"
        x="206"
-       y="485" />
+       id="image14823"
+       preserveAspectRatio="none"
+       height="60"
+       width="52"
+       style="display:inline;enable-background:new"
+       transform="translate(-134,-345)" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_hpf.png"
        xlink:href="sliders/slider_hpf.png"
-       transform="translate(-133,-345)"
-       style="display:inline;enable-background:new"
-       y="485"
-       x="276"
+       width="52"
+       height="60"
+       preserveAspectRatio="none"
        id="image14796"
-       preserveAspectRatio="none"
-       height="60"
-       width="52" />
+       x="276"
+       y="485"
+       style="display:inline;enable-background:new"
+       transform="translate(-133,-345)" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_hpf.png"
        xlink:href="sliders/slider_hpf.png"
-       transform="translate(-133,-345)"
-       style="display:inline;enable-background:new"
-       width="52"
-       height="60"
-       preserveAspectRatio="none"
-       id="image21512"
-       x="336"
-       y="485" />
-    <image
-       sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_output.png"
-       xlink:href="sliders/slider_output.png"
-       transform="translate(-263,-448)"
-       style="display:inline;enable-background:new"
        y="485"
-       x="406"
-       id="image14807"
+       x="336"
+       id="image21512"
        preserveAspectRatio="none"
        height="60"
-       width="52" />
+       width="52"
+       style="display:inline;enable-background:new"
+       transform="translate(-133,-345)" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_output.png"
        xlink:href="sliders/slider_output.png"
-       transform="translate(-263,-448)"
-       style="display:inline;enable-background:new"
        width="52"
        height="60"
        preserveAspectRatio="none"
-       id="image14829"
+       id="image14807"
+       x="406"
+       y="485"
+       style="display:inline;enable-background:new"
+       transform="translate(-263,-448)" />
+    <image
+       sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_output.png"
+       xlink:href="sliders/slider_output.png"
+       y="485"
        x="466"
-       y="485" />
+       id="image14829"
+       preserveAspectRatio="none"
+       height="60"
+       width="52"
+       style="display:inline;enable-background:new"
+       transform="translate(-263,-448)" />
     <g
        style="display:inline;enable-background:new"
        id="g18598"
@@ -5731,7 +5731,7 @@ layout-position-anchor: tl</desc>
        width="60"
        y="477"
        x="800"
-       id="button_detector_smooth_decoupled_on"
+       id="button_curve_smooth_decoupled_on"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc4179">format: png
@@ -5779,9 +5779,9 @@ layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>
     </rect>
     <rect
-       inkscape:label="#button_detector_linear_on"
+       inkscape:label="#button_curve_linear_on"
        style="opacity:0.5;fill:#ff0000"
-       id="button_detector_linear_on"
+       id="button_curve_linear_on"
        x="800"
        y="452"
        width="60"
@@ -5797,7 +5797,7 @@ layout-position-anchor: tl</desc>
        width="60"
        y="502"
        x="800"
-       id="button_detector_smooth_branching_on"
+       id="button_curve_smooth_branching_on"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc4171">format: png
@@ -5847,12 +5847,12 @@ layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>
     </rect>
     <rect
-       inkscape:label="#button_detector_smooth_decoupled_over"
+       inkscape:label="#button_curve_smooth_decoupled_over"
        height="20"
        width="60"
        y="477"
        x="870"
-       id="button_detector_smooth_decoupled_over"
+       id="button_curve_smooth_decoupled_over"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc5664">format: png
@@ -5904,12 +5904,12 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="button_detector_linear_over"
+       id="button_curve_linear_over"
        x="870"
        y="452"
        width="60"
        height="20"
-       inkscape:label="#button_detector_linear_over">
+       inkscape:label="#button_curve_linear_over">
       <desc
          id="desc5656">format: png
 dpi: 96
@@ -5917,12 +5917,12 @@ layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>
     </rect>
     <rect
-       inkscape:label="#button_detector_smooth_branching_over"
+       inkscape:label="#button_curve_smooth_branching_over"
        height="20"
        width="60"
        y="502"
        x="870.5"
-       id="button_detector_smooth_branching_over"
+       id="button_curve_smooth_branching_over"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc5660">format: png
@@ -5960,12 +5960,12 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="button_detector_smooth_decoupled_off"
+       id="button_curve_smooth_decoupled_off"
        x="940"
        y="477"
        width="60"
        height="20"
-       inkscape:label="#button_detector_smooth_decoupled_off">
+       inkscape:label="#button_curve_smooth_decoupled_off">
       <desc
          id="desc4183">format: png
 dpi: 96
@@ -6015,12 +6015,12 @@ layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>
     </rect>
     <rect
-       inkscape:label="#button_detector_linear_off"
+       inkscape:label="#button_curve_linear_off"
        height="20"
        width="60"
        y="452"
        x="940"
-       id="button_detector_linear_off"
+       id="button_curve_linear_off"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc4166">format: png
@@ -6030,12 +6030,12 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="button_detector_smooth_branching_off"
+       id="button_curve_smooth_branching_off"
        x="940"
        y="502"
        width="60"
        height="20"
-       inkscape:label="#button_detector_smooth_branching_off">
+       inkscape:label="#button_curve_smooth_branching_off">
       <desc
          id="desc4175">format: png
 dpi: 96

@@ -47,7 +47,7 @@ public:
         selBypass = 0,
         selDetectorRmsFilter,
         selDesign,
-        selDetector,
+        selCurveType,
         selGainStage,
 
         selThresholdSwitch,

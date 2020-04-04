@@ -65,16 +65,16 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterDesign, selDesign);
 
 
-    frut::parameters::ParSwitch *ParameterDetector =
+    frut::parameters::ParSwitch *ParameterCurveType =
         new frut::parameters::ParSwitch();
-    ParameterDetector->setName("Detector");
+    ParameterCurveType->setName("Detector");  // keep old name for backward compatibility!
 
-    ParameterDetector->addPreset(SideChain::DetectorLinear,          "Linear");
-    ParameterDetector->addPreset(SideChain::DetectorSmoothDecoupled, "S-Curve");
-    ParameterDetector->addPreset(SideChain::DetectorSmoothBranching, "Logarithmic");
+    ParameterCurveType->addPreset(SideChain::CurveLinear,          "Linear");
+    ParameterCurveType->addPreset(SideChain::CurveSmoothDecoupled, "Smooth");
+    ParameterCurveType->addPreset(SideChain::CurveSmoothBranching, "Logarithmic");
 
-    ParameterDetector->setDefaultRealFloat(SideChain::DetectorSmoothBranching, true);
-    add(ParameterDetector, selDetector);
+    ParameterCurveType->setDefaultRealFloat(SideChain::CurveSmoothBranching, true);
+    add(ParameterCurveType, selCurveType);
 
 
     frut::parameters::ParSwitch *ParameterGainStage =
@@ -556,7 +556,7 @@ String SqueezerPluginParameters::toString()
     parameterValues += getText(selReleaseRate);
 
     parameterValues += " (";
-    parameterValues += getText(selDetector);
+    parameterValues += getText(selCurveType);
 
     parameterValues += ", ";
     parameterValues += getText(selGainStage);

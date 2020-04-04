@@ -312,14 +312,14 @@ void SqueezerAudioProcessor::setParameter(
 
         break;
 
-    case SqueezerPluginParameters::selDetector:
+    case SqueezerPluginParameters::selCurveType:
 
         pluginParameters_.setFloat(nIndex, fValue);
 
         if (compressor_)
         {
-            int nDetector = pluginParameters_.getRealInteger(nIndex);
-            compressor_->setDetector(nDetector);
+            int nCurveType = pluginParameters_.getRealInteger(nIndex);
+            compressor_->setCurve(nCurveType);
         }
 
         break;
@@ -801,8 +801,8 @@ void SqueezerAudioProcessor::prepareToPlay(
                                           SqueezerPluginParameters::selDetectorRmsFilter);
     int nDesign = pluginParameters_.getRealInteger(
                       SqueezerPluginParameters::selDesign);
-    int nDetector = pluginParameters_.getRealInteger(
-                        SqueezerPluginParameters::selDetector);
+    int nCurveType = pluginParameters_.getRealInteger(
+                         SqueezerPluginParameters::selCurveType);
     int nGainStage = pluginParameters_.getRealInteger(
                          SqueezerPluginParameters::selGainStage);
 
@@ -853,7 +853,7 @@ void SqueezerAudioProcessor::prepareToPlay(
     compressor_->setBypass(bBypassCompressor);
     compressor_->setDetectorRmsFilter(fDetectorRateMilliSeconds);
     compressor_->setDesign(nDesign);
-    compressor_->setDetector(nDetector);
+    compressor_->setCurve(nCurveType);
     compressor_->setGainStage(nGainStage);
 
     compressor_->setThreshold(fThreshold);

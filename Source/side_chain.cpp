@@ -45,12 +45,12 @@ SideChain::SideChain(
     setKneeWidth(0.0);
 
     setDetectorRmsFilter(10.0);
-    nDetectorType = SideChain::DetectorSmoothBranching;
+    nCurveType = SideChain::CurveSmoothBranching;
     nGainStageType = GainStage::FET;
 
     setAttackRate(10.0);
     setReleaseRate(100);
-    setDetector(nDetectorType);
+    setCurve(nCurveType);
     setGainStage(nGainStageType);
 
     // reset (i.e. initialise) all relevant variables
@@ -118,26 +118,26 @@ void SideChain::setDetectorRmsFilter(
 }
 
 
-int SideChain::getDetector()
-/*  Get current compressor detector type.
+int SideChain::getCurve()
+/*  Get current compressor curve type.
 
-    return value (integer): returns compressor detector type
+    return value (integer): returns compressor curve type
  */
 {
-    return nDetectorType;
+    return nCurveType;
 }
 
 
-void SideChain::setDetector(
-    int nDetectorTypeNew)
-/*  Set new compressor detector type.
+void SideChain::setCurve(
+    int nCurveTypeNew)
+/*  Set new compressor curve type.
 
-    nDetectorTypeNew (integer): new compressor detector type
+    nCurveTypeNew (integer): new compressor curve type
 
     return value: none
  */
 {
-    nDetectorType = nDetectorTypeNew;
+    nCurveType = nCurveTypeNew;
     dGainReductionIntermediate = 0.0;
 
     setAttackRate(dAttackRate);
@@ -146,9 +146,9 @@ void SideChain::setDetector(
 
 
 int SideChain::getGainStage()
-/*  Get current compressor detector type.
+/*  Get current compressor gain stage type.
 
-    return value (integer): returns compressor detector type
+    return value (integer): returns compressor gain stage type
  */
 {
     return nGainStageType;
@@ -322,7 +322,7 @@ void SideChain::setReleaseRate(
     {
         double dReleaseRateSeconds = nReleaseRate / 1000.0;
 
-        if (nDetectorType == SideChain::DetectorLinear)
+        if (nCurveType == SideChain::CurveLinear)
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
@@ -434,18 +434,18 @@ void SideChain::processSample(
     double dGainReductionNew = applyLevelDetectionFilter(dGainReductionIdeal);
 
     // feed output from gain computer to level detector
-    switch (nDetectorType)
+    switch (nCurveType)
     {
-    case SideChain::DetectorLinear:
-        applyDetectorLinear(dGainReductionNew);
+    case SideChain::CurveLinear:
+        applyCurveLinear(dGainReductionNew);
         break;
 
-    case SideChain::DetectorSmoothDecoupled:
-        applyDetectorSmoothDecoupled(dGainReductionNew);
+    case SideChain::CurveSmoothDecoupled:
+        applyCurveSmoothDecoupled(dGainReductionNew);
         break;
 
-    case SideChain::DetectorSmoothBranching:
-        applyDetectorSmoothBranching(dGainReductionNew);
+    case SideChain::CurveSmoothBranching:
+        applyCurveSmoothBranching(dGainReductionNew);
         break;
 
     default:
@@ -520,7 +520,7 @@ double SideChain::applyLevelDetectionFilter(
 }
 
 
-void SideChain::applyDetectorLinear(
+void SideChain::applyCurveLinear(
     double dGainReductionNew)
 /*  Calculate detector with logarithmic attack and linear release
     ("Linear").
@@ -570,7 +570,7 @@ void SideChain::applyDetectorLinear(
 }
 
 
-void SideChain::applyDetectorSmoothDecoupled(
+void SideChain::applyCurveSmoothDecoupled(
     double dGainReductionNew)
 /*  Calculate smooth decoupled detector ("S-Curve").
 
@@ -613,7 +613,7 @@ void SideChain::applyDetectorSmoothDecoupled(
 }
 
 
-void SideChain::applyDetectorSmoothBranching(
+void SideChain::applyCurveSmoothBranching(
     double dGainReductionNew)
 /*  Calculate smooth branching detector ("Logarithmic").
 

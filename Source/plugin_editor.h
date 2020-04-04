@@ -103,9 +103,9 @@ private:
     ImageButton ButtonKneeMedium_;
     ImageButton ButtonKneeSoft_;
 
-    ImageButton ButtonDetectorLinear_;
-    ImageButton ButtonDetectorSmoothDecoupled_;
-    ImageButton ButtonDetectorSmoothBranching_;
+    ImageButton ButtonCurveLinear_;
+    ImageButton ButtonCurveSmoothDecoupled_;
+    ImageButton ButtonCurveSmoothBranching_;
 
     ImageButton ButtonAutoMakeupGain_;
     ImageButton ButtonSidechainInput_;

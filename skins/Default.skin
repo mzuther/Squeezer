@@ -127,28 +127,28 @@
             hue="0.55"
         />
 
-        <button_detector_linear
+        <button_curve_linear
             x="347"
             y="176"
-            image_on="buttons/button_detector_linear_on.png"
-            image_over="buttons/button_detector_linear_over.png"
-            image_off="buttons/button_detector_linear_off.png"
+            image_on="buttons/button_curve_linear_on.png"
+            image_over="buttons/button_curve_linear_over.png"
+            image_off="buttons/button_curve_linear_off.png"
         />
 
-        <button_detector_smooth_decoupled
+        <button_curve_smooth_decoupled
             x="347"
             y="147"
-            image_on="buttons/button_detector_smooth_decoupled_on.png"
-            image_over="buttons/button_detector_smooth_decoupled_over.png"
-            image_off="buttons/button_detector_smooth_decoupled_off.png"
+            image_on="buttons/button_curve_smooth_decoupled_on.png"
+            image_over="buttons/button_curve_smooth_decoupled_over.png"
+            image_off="buttons/button_curve_smooth_decoupled_off.png"
         />
 
-        <button_detector_smooth_branching
+        <button_curve_smooth_branching
             x="347"
             y="118"
-            image_on="buttons/button_detector_smooth_branching_on.png"
-            image_over="buttons/button_detector_smooth_branching_over.png"
-            image_off="buttons/button_detector_smooth_branching_off.png"
+            image_on="buttons/button_curve_smooth_branching_on.png"
+            image_over="buttons/button_curve_smooth_branching_over.png"
+            image_off="buttons/button_curve_smooth_branching_off.png"
         />
 
         <button_detector_rms

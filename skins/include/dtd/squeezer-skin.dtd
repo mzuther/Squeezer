@@ -18,9 +18,9 @@
            slider_makeup_gain,
            slider_stereo_link,
            slider_wet_mix,
-           button_detector_linear,
-           button_detector_smooth_decoupled,
-           button_detector_smooth_branching,
+           button_curve_linear,
+           button_curve_smooth_decoupled,
+           button_curve_smooth_branching,
            button_detector_rms,
            button_design_feedback,
            button_gainstage_optical,
@@ -49,9 +49,9 @@
            slider_makeup_gain?,
            slider_stereo_link?,
            slider_wet_mix?,
-           button_detector_linear?,
-           button_detector_smooth_decoupled?,
-           button_detector_smooth_branching?,
+           button_curve_linear?,
+           button_curve_smooth_decoupled?,
+           button_curve_smooth_branching?,
            button_detector_rms?,
            button_design_feedback?,
            button_gainstage_optical?,
@@ -231,14 +231,14 @@
         <!ELEMENT slider_wet_mix (#PCDATA)>
             <!ATTLIST slider_wet_mix %attrs_slider;>
 
-        <!ELEMENT button_detector_linear (#PCDATA)>
-            <!ATTLIST button_detector_linear %attrs_button;>
+        <!ELEMENT button_curve_linear (#PCDATA)>
+            <!ATTLIST button_curve_linear %attrs_button;>
 
-        <!ELEMENT button_detector_smooth_decoupled (#PCDATA)>
-            <!ATTLIST button_detector_smooth_decoupled %attrs_button;>
+        <!ELEMENT button_curve_smooth_decoupled (#PCDATA)>
+            <!ATTLIST button_curve_smooth_decoupled %attrs_button;>
 
-        <!ELEMENT button_detector_smooth_branching (#PCDATA)>
-            <!ATTLIST button_detector_smooth_branching %attrs_button;>
+        <!ELEMENT button_curve_smooth_branching (#PCDATA)>
+            <!ATTLIST button_curve_smooth_branching %attrs_button;>
 
         <!ELEMENT button_detector_rms (#PCDATA)>
             <!ATTLIST button_detector_rms %attrs_button;>

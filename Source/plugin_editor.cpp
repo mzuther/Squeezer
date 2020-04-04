@@ -196,17 +196,17 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     ButtonGainStageOptical_.addListener(this);
     addAndMakeVisible(&ButtonGainStageOptical_);
 
-    ButtonDetectorLinear_.setRadioGroupId(1);
-    ButtonDetectorLinear_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorLinear_);
+    ButtonCurveLinear_.setRadioGroupId(1);
+    ButtonCurveLinear_.addListener(this);
+    addAndMakeVisible(&ButtonCurveLinear_);
 
-    ButtonDetectorSmoothDecoupled_.setRadioGroupId(1);
-    ButtonDetectorSmoothDecoupled_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorSmoothDecoupled_);
+    ButtonCurveSmoothDecoupled_.setRadioGroupId(1);
+    ButtonCurveSmoothDecoupled_.addListener(this);
+    addAndMakeVisible(&ButtonCurveSmoothDecoupled_);
 
-    ButtonDetectorSmoothBranching_.setRadioGroupId(1);
-    ButtonDetectorSmoothBranching_.addListener(this);
-    addAndMakeVisible(&ButtonDetectorSmoothBranching_);
+    ButtonCurveSmoothBranching_.setRadioGroupId(1);
+    ButtonCurveSmoothBranching_.addListener(this);
+    addAndMakeVisible(&ButtonCurveSmoothBranching_);
 
     ButtonKneeHard_.setRadioGroupId(2);
     ButtonKneeHard_.addListener(this);
@@ -282,7 +282,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
 
     updateParameter(SqueezerPluginParameters::selDetectorRmsFilter);
     updateParameter(SqueezerPluginParameters::selDesign);
-    updateParameter(SqueezerPluginParameters::selDetector);
+    updateParameter(SqueezerPluginParameters::selCurveType);
     updateParameter(SqueezerPluginParameters::selGainStage);
     updateParameter(SqueezerPluginParameters::selKneeWidth);
 
@@ -359,12 +359,12 @@ void SqueezerAudioProcessorEditor::applySkin_()
     CurrentSkin_.placeAndSkinSlider("slider_wet_mix",
                                     SliderWetMix_);
 
-    CurrentSkin_.placeAndSkinButton("button_detector_linear",
-                                    &ButtonDetectorLinear_);
-    CurrentSkin_.placeAndSkinButton("button_detector_smooth_decoupled",
-                                    &ButtonDetectorSmoothDecoupled_);
-    CurrentSkin_.placeAndSkinButton("button_detector_smooth_branching",
-                                    &ButtonDetectorSmoothBranching_);
+    CurrentSkin_.placeAndSkinButton("button_curve_linear",
+                                    &ButtonCurveLinear_);
+    CurrentSkin_.placeAndSkinButton("button_curve_smooth_decoupled",
+                                    &ButtonCurveSmoothDecoupled_);
+    CurrentSkin_.placeAndSkinButton("button_curve_smooth_branching",
+                                    &ButtonCurveSmoothBranching_);
 
     CurrentSkin_.placeAndSkinButton("button_detector_rms",
                                     &ButtonDetectorRms_);
@@ -655,23 +655,23 @@ void SqueezerAudioProcessorEditor::updateParameter(
                                                dontSendNotification);
         break;
 
-    case SqueezerPluginParameters::selDetector:
+    case SqueezerPluginParameters::selCurveType:
 
-        if (FloatValue == (SideChain::DetectorLinear /
-                           float(SideChain::NumberOfDetectors - 1)))
+        if (FloatValue == (SideChain::CurveLinear /
+                           float(SideChain::NumberOfCurves - 1)))
         {
-            ButtonDetectorLinear_.setToggleState(true,
-                                                 dontSendNotification);
+            ButtonCurveLinear_.setToggleState(true,
+                                              dontSendNotification);
         }
-        else if (FloatValue == (SideChain::DetectorSmoothDecoupled /
-                                float(SideChain::NumberOfDetectors - 1)))
+        else if (FloatValue == (SideChain::CurveSmoothDecoupled /
+                                float(SideChain::NumberOfCurves - 1)))
         {
-            ButtonDetectorSmoothDecoupled_.setToggleState(true,
+            ButtonCurveSmoothDecoupled_.setToggleState(true,
                     dontSendNotification);
         }
         else
         {
-            ButtonDetectorSmoothBranching_.setToggleState(true,
+            ButtonCurveSmoothBranching_.setToggleState(true,
                     dontSendNotification);
         }
 
@@ -853,26 +853,26 @@ void SqueezerAudioProcessorEditor::buttonClicked(
             SqueezerPluginParameters::selGainStage,
             !Button->getToggleState());
     }
-    else if (Button == &ButtonDetectorLinear_)
+    else if (Button == &ButtonCurveLinear_)
     {
         PluginProcessor_->changeParameter(
-            SqueezerPluginParameters::selDetector,
-            SideChain::DetectorLinear /
-            float(SideChain::NumberOfDetectors - 1));
+            SqueezerPluginParameters::selCurveType,
+            SideChain::CurveLinear /
+            float(SideChain::NumberOfCurves - 1));
     }
-    else if (Button == &ButtonDetectorSmoothDecoupled_)
+    else if (Button == &ButtonCurveSmoothDecoupled_)
     {
         PluginProcessor_->changeParameter(
-            SqueezerPluginParameters::selDetector,
-            SideChain::DetectorSmoothDecoupled /
-            float(SideChain::NumberOfDetectors - 1));
+            SqueezerPluginParameters::selCurveType,
+            SideChain::CurveSmoothDecoupled /
+            float(SideChain::NumberOfCurves - 1));
     }
-    else if (Button == &ButtonDetectorSmoothBranching_)
+    else if (Button == &ButtonCurveSmoothBranching_)
     {
         PluginProcessor_->changeParameter(
-            SqueezerPluginParameters::selDetector,
-            SideChain::DetectorSmoothBranching /
-            float(SideChain::NumberOfDetectors - 1));
+            SqueezerPluginParameters::selCurveType,
+            SideChain::CurveSmoothBranching /
+            float(SideChain::NumberOfCurves - 1));
     }
     else if (Button == &ButtonKneeHard_)
     {

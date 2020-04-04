@@ -81,8 +81,8 @@ public:
     int getReleaseRate();
     void setReleaseRate(int ReleaseRateNew);
 
-    int getDetector();
-    void setDetector(int DetectorTypeNew);
+    int getCurve();
+    void setCurve(int CurveTypeNew);
 
     int getGainStage();
     void setGainStage(int GainStageTypeNew);

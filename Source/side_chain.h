@@ -39,10 +39,10 @@ class SideChain
 public:
     enum Parameters  // public namespace!
     {
-        DetectorLinear = 0,
-        DetectorSmoothDecoupled,
-        DetectorSmoothBranching,
-        NumberOfDetectors,
+        CurveLinear = 0,
+        CurveSmoothDecoupled,
+        CurveSmoothBranching,
+        NumberOfCurves,
     };
 
     explicit SideChain(int nSampleRate);
@@ -52,8 +52,8 @@ public:
     double getDetectorRmsFilter();
     void setDetectorRmsFilter(double dDetectorRateMilliSecondsNew);
 
-    int getDetector();
-    void setDetector(int nDetectorTypeNew);
+    int getCurve();
+    void setCurve(int nCurveTypeNew);
 
     int getGainStage();
     void setGainStage(int nGainStageTypeNew);
@@ -103,7 +103,7 @@ private:
     double dDetectorOutputLevelSquared;
 
     double dDetectorRateMilliSeconds;
-    int nDetectorType;
+    int nCurveType;
     int nGainStageType;
 
     double dThreshold;
@@ -120,9 +120,9 @@ private:
 
     double queryGainComputer(double dInputLevel);
     double applyLevelDetectionFilter(double dDetectorInputLevel);
-    void applyDetectorLinear(double dGainReductionNew);
-    void applyDetectorSmoothDecoupled(double dGainReductionNew);
-    void applyDetectorSmoothBranching(double dGainReductionNew);
+    void applyCurveLinear(double dGainReductionNew);
+    void applyCurveSmoothDecoupled(double dGainReductionNew);
+    void applyCurveSmoothBranching(double dGainReductionNew);
 };
 
 #endif  // SQUEEZER_SIDE_CHAIN_H

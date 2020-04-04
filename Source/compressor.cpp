@@ -329,27 +329,27 @@ void Compressor::setReleaseRate(int ReleaseRateNew)
 }
 
 
-int Compressor::getDetector()
-/*  Get current compressor detector type.
+int Compressor::getCurve()
+/*  Get current compressor curve type.
 
-    return value (integer): returns compressor detector type
+    return value (integer): returns compressor curve type
  */
 {
-    return SideChainProcessor[0]->getDetector();
+    return SideChainProcessor[0]->getCurve();
 }
 
 
-void Compressor::setDetector(int DetectorTypeNew)
-/*  Set new compressor detector type.
+void Compressor::setCurve(int CurveTypeNew)
+/*  Set new compressor curve type.
 
-    DetectorTypeNew (integer): new compressor detector type
+    CurveTypeNew (integer): new compressor curve type
 
     return value: none
  */
 {
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
     {
-        SideChainProcessor[CurrentChannel]->setDetector(DetectorTypeNew);
+        SideChainProcessor[CurrentChannel]->setCurve(CurveTypeNew);
     }
 }
 
