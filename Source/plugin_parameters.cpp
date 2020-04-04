@@ -47,7 +47,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameters::ParSwitch();
     ParameterRmsWindowSize->setName("RMS Filter");  // keep old name for backward compatibility!
 
-    ParameterRmsWindowSize->addPreset(0.0f,  "Peak");
+    ParameterRmsWindowSize->addPreset(0.0f,  "Peak (0 ms)");
     ParameterRmsWindowSize->addPreset(30.0f, "RMS (30 ms)");
 
     ParameterRmsWindowSize->setDefaultRealFloat(0.0f, true);

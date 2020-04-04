@@ -35,6 +35,7 @@ RateConverter::RateConverter(
     const int originalFftBufferSize,
     const int upsamplingFactor) :
 
+    // FIXME: improve efficiency of rate conversion
     frut::dsp::FIRFilterBox(
         numberOfChannels, upsamplingFactor * originalFftBufferSize),
     upsamplingFactor_(upsamplingFactor),
