@@ -45,7 +45,7 @@ SideChain::SideChain(
     setKneeWidth(0.0);
 
     setRmsWindowSize(10.0);
-    nCurveType = SideChain::CurveSmoothBranching;
+    nCurveType = SideChain::CurveLogSmoothBranching;
     nGainStageType = GainStage::FET;
 
     setAttackRate(10.0);
@@ -322,7 +322,7 @@ void SideChain::setReleaseRate(
     {
         double dReleaseRateSeconds = nReleaseRate / 1000.0;
 
-        if (nCurveType == SideChain::CurveLinear)
+        if (nCurveType == SideChain::CurveLogLin)
         {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
@@ -436,16 +436,16 @@ void SideChain::processSample(
     // feed output from gain computer to level detector
     switch (nCurveType)
     {
-    case SideChain::CurveLinear:
-        applyCurveLinear(dGainReductionNew);
+    case SideChain::CurveLogLin:
+        applyCurveLogLin(dGainReductionNew);
         break;
 
-    case SideChain::CurveSmoothDecoupled:
-        applyCurveSmoothDecoupled(dGainReductionNew);
+    case SideChain::CurveLogSmoothDecoupled:
+        applyCurveLogSmoothDecoupled(dGainReductionNew);
         break;
 
-    case SideChain::CurveSmoothBranching:
-        applyCurveSmoothBranching(dGainReductionNew);
+    case SideChain::CurveLogSmoothBranching:
+        applyCurveLogSmoothBranching(dGainReductionNew);
         break;
 
     default:
@@ -520,7 +520,7 @@ double SideChain::applyRmsFilter(
 }
 
 
-void SideChain::applyCurveLinear(
+void SideChain::applyCurveLogLin(
     double dGainReductionNew)
 /*  Calculate detector with logarithmic attack and linear release
     ("Linear").
@@ -570,7 +570,7 @@ void SideChain::applyCurveLinear(
 }
 
 
-void SideChain::applyCurveSmoothDecoupled(
+void SideChain::applyCurveLogSmoothDecoupled(
     double dGainReductionNew)
 /*  Calculate smooth decoupled detector ("Smooth").
 
@@ -613,7 +613,7 @@ void SideChain::applyCurveSmoothDecoupled(
 }
 
 
-void SideChain::applyCurveSmoothBranching(
+void SideChain::applyCurveLogSmoothBranching(
     double dGainReductionNew)
 /*  Calculate smooth branching detector ("Logarithmic").
 

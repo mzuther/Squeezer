@@ -39,9 +39,9 @@ class SideChain
 public:
     enum Parameters  // public namespace!
     {
-        CurveLinear = 0,
-        CurveSmoothDecoupled,
-        CurveSmoothBranching,
+        CurveLogLin = 0,
+        CurveLogSmoothDecoupled,
+        CurveLogSmoothBranching,
         NumberOfCurves,
     };
 
@@ -120,9 +120,9 @@ private:
 
     double queryGainComputer(double dInputLevel);
     double applyRmsFilter(double dDetectorInputLevel);
-    void applyCurveLinear(double dGainReductionNew);
-    void applyCurveSmoothDecoupled(double dGainReductionNew);
-    void applyCurveSmoothBranching(double dGainReductionNew);
+    void applyCurveLogLin(double dGainReductionNew);
+    void applyCurveLogSmoothDecoupled(double dGainReductionNew);
+    void applyCurveLogSmoothBranching(double dGainReductionNew);
 };
 
 #endif  // SQUEEZER_SIDE_CHAIN_H

@@ -19,7 +19,7 @@ to optimise these settings.
 **Squeezer** also adapts easily to many tastes and use cases:
 
 - feed-forward & feed-back design
-- linear, logarithmic & smooth response
+- linear, logarithmic \& smooth release stage
 - optical & FET detectors
 - peak & RMS sensing
 - hard, medium & soft knee

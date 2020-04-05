@@ -69,11 +69,11 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameters::ParSwitch();
     ParameterCurveType->setName("Detector");  // keep old name for backward compatibility!
 
-    ParameterCurveType->addPreset(SideChain::CurveLinear,          "Linear");
-    ParameterCurveType->addPreset(SideChain::CurveSmoothDecoupled, "Smooth");
-    ParameterCurveType->addPreset(SideChain::CurveSmoothBranching, "Logarithmic");
+    ParameterCurveType->addPreset(SideChain::CurveLogLin,             "Linear");
+    ParameterCurveType->addPreset(SideChain::CurveLogSmoothDecoupled, "Smooth");
+    ParameterCurveType->addPreset(SideChain::CurveLogSmoothBranching, "Logarithmic");
 
-    ParameterCurveType->setDefaultRealFloat(SideChain::CurveSmoothBranching, true);
+    ParameterCurveType->setDefaultRealFloat(SideChain::CurveLogSmoothBranching, true);
     add(ParameterCurveType, selCurveType);
 
 

@@ -68,7 +68,7 @@ Squeezer also adapts easily to many tastes and use cases:
 
 \begin{itemize}
 \item feed-forward \& feed-back design
-\item linear, logarithmic \& smooth response
+\item linear, logarithmic \& smooth release stage
 \item optical \& FET detectors
 \item peak \& RMS sensing
 \item hard, medium \& soft knee
@@ -341,11 +341,13 @@ down as the difference gets smaller.
 Newer compressors often have \emph{linear} curves -- the target gain
 reduction is approached with constant speed.
 
-Squeezer also offers a \emph{smooth} curve.  Attack and release time
-behave like logarithmic curves.  However, when the attack phase
-changes to release, a smooth transition between the curves prevents a
-sharp drop in gain reduction.  This reduces yet another type of
-distortion exhibited by compressors.
+In Squeezer, attack time always has a \emph{logarithmic} curve.  The
+curve of its release phase can be set to \emph{linear},
+\emph{logarithmic} or \emph{smooth}.  \emph{Smooth} behaves like a
+logarithmic curve, but when the attack phase changes to release, a
+smooth transition between the curves prevents a sharp drop in gain
+reduction.  This reduces yet another type of distortion exhibited by
+compressors.
 
 It is hard to say which curve sounds best, as it really depends on
 source material and personal taste.

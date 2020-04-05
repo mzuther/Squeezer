@@ -657,13 +657,13 @@ void SqueezerAudioProcessorEditor::updateParameter(
 
     case SqueezerPluginParameters::selCurveType:
 
-        if (FloatValue == (SideChain::CurveLinear /
+        if (FloatValue == (SideChain::CurveLogLin /
                            float(SideChain::NumberOfCurves - 1)))
         {
             ButtonCurveLinear_.setToggleState(true,
                                               dontSendNotification);
         }
-        else if (FloatValue == (SideChain::CurveSmoothDecoupled /
+        else if (FloatValue == (SideChain::CurveLogSmoothDecoupled /
                                 float(SideChain::NumberOfCurves - 1)))
         {
             ButtonCurveSmoothDecoupled_.setToggleState(true,
@@ -857,21 +857,21 @@ void SqueezerAudioProcessorEditor::buttonClicked(
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selCurveType,
-            SideChain::CurveLinear /
+            SideChain::CurveLogLin /
             float(SideChain::NumberOfCurves - 1));
     }
     else if (Button == &ButtonCurveSmoothDecoupled_)
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selCurveType,
-            SideChain::CurveSmoothDecoupled /
+            SideChain::CurveLogSmoothDecoupled /
             float(SideChain::NumberOfCurves - 1));
     }
     else if (Button == &ButtonCurveSmoothBranching_)
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selCurveType,
-            SideChain::CurveSmoothBranching /
+            SideChain::CurveLogSmoothBranching /
             float(SideChain::NumberOfCurves - 1));
     }
     else if (Button == &ButtonKneeHard_)
