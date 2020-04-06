@@ -265,23 +265,24 @@ const String Skin::getString(
 
 const Colour Skin::getColour(
     const XmlElement *xmlComponent,
-    const float defaultHue)
+    const Colour defaultColour,
+    const String valuePrefix)
 {
     float hue = getFloat(xmlComponent,
-                         "hue",
-                         defaultHue);
+                         valuePrefix + "hue",
+                         defaultColour.getHue());
 
     float saturation = getFloat(xmlComponent,
-                                "saturation",
-                                1.00f);
+                                valuePrefix + "saturation",
+                                defaultColour.getSaturation());
 
     float brightness = getFloat(xmlComponent,
-                                "brightness",
-                                1.00f);
+                                valuePrefix + "brightness",
+                                defaultColour.getBrightness());
 
     float alpha = getFloat(xmlComponent,
-                           "alpha",
-                           1.00f);
+                           valuePrefix + "alpha",
+                           defaultColour.getFloatAlpha());
 
     // initialise HSBA colour
     return Colour(hue, saturation, brightness, alpha);
@@ -528,10 +529,24 @@ void Skin::placeAndSkinSlider(
     widgets::FrutSlider *slider)
 {
     XmlElement *xmlComponent = getComponent(tagName);
-    Colour sliderColour = getColour(xmlComponent, 0.0f);
+    Colour sliderColour = getColour(xmlComponent);
 
     placeComponent(xmlComponent, slider);
     slider->setSliderColour(sliderColour);
+}
+
+
+void Skin::placeAndSkinSlider(
+    const String &tagName,
+    widgets::SliderCombined *slider)
+{
+    XmlElement *xmlComponent = getComponent(tagName);
+    Colour sliderColour = getColour(xmlComponent);
+    Colour toggleSwitchColour = getColour(xmlComponent, sliderColour, "toggle_");
+
+    placeComponent(xmlComponent, slider);
+    slider->setSliderColour(sliderColour);
+    slider->setToggleSwitchColour(toggleSwitchColour);
 }
 
 

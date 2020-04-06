@@ -416,15 +416,15 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     XmlElement *xmlSetting = CurrentSkin_.getSetting("meter_colour_high");
     Colour ColourHigh = CurrentSkin_.getColour(xmlSetting,
-                        0.00f);
+                        Colour(0.00f, 1.0f, 1.0f, 1.0f));
 
     xmlSetting = CurrentSkin_.getSetting("meter_colour_medium");
     Colour ColourMedium = CurrentSkin_.getColour(xmlSetting,
-                          0.18f);
+                          Colour(0.18f, 1.0f, 1.0f, 1.0f));
 
     xmlSetting = CurrentSkin_.getSetting("meter_colour_low");
     Colour ColourLow = CurrentSkin_.getColour(xmlSetting,
-                       0.30f);
+                       Colour(0.30f, 1.0f, 1.0f, 1.0f));
 
     ColoursLevelMeter.add(ColourHigh);    // overload
     ColoursLevelMeter.add(ColourMedium);  // warning
@@ -435,11 +435,11 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     xmlSetting = CurrentSkin_.getSetting("meter_gain_reduction_normal");
     Colour ColourReductionNormal = CurrentSkin_.getColour(xmlSetting,
-                                   0.58f);
+                                   Colour(0.58f, 1.0f, 1.0f, 1.0f));
 
     xmlSetting = CurrentSkin_.getSetting("meter_gain_reduction_special");
     Colour ColourReductionSpecial = CurrentSkin_.getColour(xmlSetting,
-                                    0.18f);
+                                    Colour(0.18f, 1.0f, 1.0f, 1.0f));
 
     ColoursGainReduction.add(ColourReductionNormal);   // normal
     ColoursGainReduction.add(ColourReductionSpecial);  // special

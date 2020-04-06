@@ -39,7 +39,9 @@ public:
 
     void visibilityChanged();
     void resized();
+
     virtual void setSliderColour(const Colour &colour);
+    void setToggleSwitchColour(const Colour &colour);
 
     void addButtonListener(Button::Listener *newListener);
     void removeListener(Button::Listener *listener);
@@ -57,6 +59,7 @@ private:
 
     ScopedPointer<DrawableButton> toggleButton;
     Colour colourRotary;
+    Colour colourToggleSwitch;
 
     parameters::ParCombined *pCombined;
     parameters::ParBoolean *pModeSwitch;

@@ -59,7 +59,8 @@ public:
                            const String &defaultValue = "");
 
     const Colour getColour(const XmlElement *xmlComponent,
-                           const float defaultHue = 0.0f);
+                           const Colour defaultColour = Colours::red,
+                           const String valuePrefix = "");
 
     void loadImage(const String &strFilename,
                    Image &image);
@@ -85,6 +86,9 @@ public:
 
     void placeAndSkinSlider(const String &tagName,
                             widgets::FrutSlider *slider);
+
+    void placeAndSkinSlider(const String &tagName,
+                            widgets::SliderCombined *slider);
 
     void placeAndSkinNeedleMeter(const String &tagName,
                                  widgets::NeedleMeter *meter);

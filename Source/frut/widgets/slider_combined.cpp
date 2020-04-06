@@ -39,25 +39,6 @@ SliderCombined::SliderCombined(parameters::Juggler *pParameters, int nParameterI
     setRange(0.0f, 1.0f, pCombined->getStepSize());
     setVelocityModeParameters(1.0, 1, 0.0, true);
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
-    colourRotary = Colours::white;
-
-    Path pathCircle;
-    pathCircle.addEllipse(0.0f, 0.0f, 8.0f, 8.0f);
-
-    DrawablePath drawCircleOff;
-    drawCircleOff.setFill(FillType(Colours::red.darker(0.2f)));
-    drawCircleOff.setStrokeFill(FillType(Colours::black));
-    drawCircleOff.setStrokeType(PathStrokeType(1.0f));
-    drawCircleOff.setPath(pathCircle);
-
-    DrawablePath drawCircleOn(drawCircleOff);
-    drawCircleOn.setFill(FillType(Colours::red.darker(2.0f)));
-
-    DrawablePath drawCircleOffOver(drawCircleOff);
-    drawCircleOffOver.setFill(FillType(Colours::red));
-
-    DrawablePath drawCircleOnOver(drawCircleOff);
-    drawCircleOnOver.setFill(FillType(Colours::red.darker(0.8f)));
 
     toggleButton = new DrawableButton(
         "Parameter Switch #" + String(nParameterIndexSwitch),
@@ -65,11 +46,13 @@ SliderCombined::SliderCombined(parameters::Juggler *pParameters, int nParameterI
 
     toggleButton->setClickingTogglesState(true);
     toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
-    toggleButton->setImages(&drawCircleOff, &drawCircleOffOver, &drawCircleOnOver, nullptr, &drawCircleOn, &drawCircleOnOver, &drawCircleOffOver, nullptr);
     toggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
     toggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
 
     addAndMakeVisible(toggleButton);
+
+    setSliderColour(Colours::white);
+    setToggleSwitchColour(Colours::white);
 }
 
 
@@ -105,6 +88,35 @@ void SliderCombined::setSliderColour(const Colour &colour)
     colourRotary = colour;
     setColour(Slider::thumbColourId, colourRotary);
     setColour(Slider::rotarySliderFillColourId, colourRotary);
+}
+
+
+void SliderCombined::setToggleSwitchColour(const Colour &colour)
+{
+    colourToggleSwitch = colour;
+
+    Path pathCircle;
+    pathCircle.addEllipse(0.0f, 0.0f, 8.0f, 8.0f);
+
+    DrawablePath drawCircleOff;
+    drawCircleOff.setFill(FillType(colourToggleSwitch.darker(0.2f)));
+    drawCircleOff.setStrokeFill(FillType(Colours::black));
+    drawCircleOff.setStrokeType(PathStrokeType(1.0f));
+    drawCircleOff.setPath(pathCircle);
+
+    DrawablePath drawCircleOn(drawCircleOff);
+    drawCircleOn.setFill(FillType(colourToggleSwitch.darker(2.0f)));
+
+    DrawablePath drawCircleOffOver(drawCircleOff);
+    drawCircleOffOver.setFill(FillType(colourToggleSwitch));
+
+    DrawablePath drawCircleOnOver(drawCircleOff);
+    drawCircleOnOver.setFill(FillType(colourToggleSwitch.darker(0.8f)));
+
+    toggleButton->setImages(&drawCircleOff, &drawCircleOffOver,
+                            &drawCircleOnOver, nullptr,
+                            &drawCircleOn, &drawCircleOnOver,
+                            &drawCircleOffOver, nullptr);
 }
 
 
