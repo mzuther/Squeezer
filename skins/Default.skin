@@ -51,7 +51,7 @@
             height="60"
             width="52"
             hue="0.83"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <slider_ratio
@@ -60,7 +60,7 @@
             height="60"
             width="52"
             hue="0.83"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <slider_attack_rate
@@ -69,7 +69,7 @@
             height="60"
             width="52"
             hue="0.16"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <slider_release_rate
@@ -78,7 +78,7 @@
             height="60"
             width="52"
             hue="0.16"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <slider_sidechain_hpf_cutoff
@@ -87,7 +87,7 @@
             height="60"
             width="52"
             hue="0.33"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <slider_sidechain_lpf_cutoff
@@ -96,7 +96,7 @@
             height="60"
             width="52"
             hue="0.33"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <slider_input_trim
@@ -106,7 +106,7 @@
             width="52"
             hue="0.00"
             saturation="0.0"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
             toggle_saturation="1.0"
         />
 
@@ -117,7 +117,7 @@
             width="52"
             hue="0.00"
             saturation="0.0"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
             toggle_saturation="1.0"
         />
 
@@ -127,7 +127,7 @@
             height="60"
             width="52"
             hue="0.55"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <slider_wet_mix
@@ -136,7 +136,7 @@
             height="60"
             width="52"
             hue="0.55"
-            toggle_hue="0.00"
+            toggle_hue="0.06"
         />
 
         <button_curve_linear

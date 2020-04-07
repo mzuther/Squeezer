@@ -12,7 +12,7 @@ and convert them into code.*
 
 **Squeezer** is different from all the compressors I know: its knobs
 are stepped to fine-tuned *preset* values, but can be changed to
-*continuous* values by clicking a small red light located next to
+*continuous* values by clicking a small orange light located next to
 them.  This allows you to find nice settings fast while not preventing
 to optimise these settings.
 
