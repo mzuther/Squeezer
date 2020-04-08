@@ -587,13 +587,6 @@ simultaneously to leave only a specific band of frequencies.
 \chapter{Buttons}
 \label{sec:buttons}
 
-\section{To do}
-
-\begin{itemize}
-\item external side-chain button
-\item listen to side-chain button
-\end{itemize}
-
 \section{Release curve type}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
@@ -616,6 +609,8 @@ curve) are detailed in \ref{sec:curve_shape} .
 Engaging the feed-back button places the level detector at the gain
 stage's output.  Otherwise, the detector is fed with the unprocessed
 input signal (feed-forward compression).
+
+\newpage %% layout
 
 \section{RMS filter}
 
@@ -656,20 +651,29 @@ width of \SI{24}{\dB}\footnote{transition zone starts \SI{12}{\dB}
   below threshold and ends \SI{12}{\dB} above} and \textbf{soft} a
 knee width of \SI{48}{\dB}.
 
-\section{Bypass compression}
+\section{External side-chain}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_on.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_sidechain_external_on.png}
   \newline \vspace{-0.9\baselineskip}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_off.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_sidechain_external_off.png}
 \end{wrapfigure}
 
-Click on this button to bypass Squeezer.  I regard this as the most
-important control of any compressor, as its easy to deteriorate a
-signal without noticing it.
+Using this button, you can feed Squeezer's side-chain with an external
+signal.  Please see \ref{sec:external_side_chain} for more
+information.
 
-Thus, I recommend matching the levels of compressed and uncompressed
-signal and comparing them by toggling the bypass button.
+\section{Listen to side-chain}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_sidechain_listen_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_sidechain_listen_off.png}
+\end{wrapfigure}
+
+By clicking on this button, you can listen to the side-chain (internal
+or external) including filtering.  \emph{Note: do not forget to
+  disable this button when you are done \dots}
 
 \section{Automatic make-up gain}
 \label{sec:buttons_automatic_makeup_gain}
@@ -687,6 +691,21 @@ Implementing automatic make-up gain is an exercise in compromise, so
 its quality depends on the incoming signal's level (and a lot of other
 factors).  Changing input trim (\ref{sec:input_trim_and_output_gain})
 can sometimes improve results.
+
+\section{Bypass compression}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_off.png}
+\end{wrapfigure}
+
+Click on this button to bypass Squeezer.  I regard this as the most
+important control of any compressor, as its easy to deteriorate a
+signal without noticing it.
+
+Thus, I recommend matching the levels of compressed and uncompressed
+signal and comparing them by toggling the bypass button.
 
 \section{Reset button}
 
@@ -710,6 +729,8 @@ reload the current skin and re-draw everything.
 Click on this button to select a new Squeezer skin.  You can also set
 a default skin that will be loaded when new plug-in instances are
 started.
+
+\newpage %% layout
 
 \section{View and copy settings}
 
