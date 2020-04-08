@@ -521,6 +521,7 @@ downward change in gain reduction (\emph{logarithmic} and
 \emph{smooth} curves).
 
 \section{Input trim and output gain}
+\label{sec:input_trim_and_output_gain}
 
 \begin{wrapfigure}{r}{0.26\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_input_trim.png}
@@ -534,16 +535,20 @@ In additional, you can control \textbf{output} gain independently.  I
 can think of several use cases:
 
 \begin{itemize}
-\item use output gain to match the loudness of compressed and direct
-  signal before comparing them\footnote{if you don't do this, the
-    louder signal will automatically sound better}
+\item use \emph{output gain} to match the loudness of compressed and
+  direct signal before comparing them\footnote{the brain perceives
+    loud signals to sound better than quiet ones}
 
 \item set the threshold to a fixed value and control Squeezer
-  \emph{vintage style} by changing trim and output gain only
+  \emph{vintage style} by changing \emph{trim} and \emph{output gain}
+  only
 
 \item if Squeezer sounds well and the level of the incoming signal
-  changes for some reason, I find it easier to adjust using trim
-  instead of threshold
+  changes for some reason, I find it easier to adjust using
+  \emph{trim} instead of \emph{threshold}
+
+\item use gain staging to improve automatic make-up gain
+  (\ref{sec:buttons_automatic_makeup_gain}) using \emph{trim}
 \end{itemize}
   
 \section{Stereo link and wet/dry ratio}
@@ -585,9 +590,6 @@ simultaneously to leave only a specific band of frequencies.
 \section{To do}
 
 \begin{itemize}
-\item detector placement
-\item auto-make-up gain button
-
 \item external side-chain button
 \item listen to side-chain button
 \end{itemize}
@@ -668,6 +670,23 @@ signal without noticing it.
 
 Thus, I recommend matching the levels of compressed and uncompressed
 signal and comparing them by toggling the bypass button.
+
+\section{Automatic make-up gain}
+\label{sec:buttons_automatic_makeup_gain}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_auto_makeup_gain_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_auto_makeup_gain_off.png}
+\end{wrapfigure}
+
+When this button is engaged, Squeezer tries to counter level jumps
+caused by changing threshold and compression ratio.
+
+Implementing automatic make-up gain is an exercise in compromise, so
+its quality depends on the incoming signal's level (and a lot of other
+factors).  Changing input trim (\ref{sec:input_trim_and_output_gain})
+can sometimes improve results.
 
 \section{Reset button}
 
