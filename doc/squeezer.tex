@@ -461,9 +461,6 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \item Trim control
 \item Output control
 
-\item Stereo link control
-\item Wet / dry control
-
 \item High-pass cutoff frequency control
 \item Low-pass cutoff frequency control
 \end{itemize}
@@ -530,6 +527,26 @@ by \SI{10}{\dB}\footnote{often called release \emph{rate} because the
 is the length of time it takes to apply \SI{90}{\percent} of an
 downward change in gain reduction (\emph{logarithmic} and
 \emph{smooth} curves).
+
+\section{Stereo link and wet/dry ratio}
+
+\begin{wrapfigure}{r}{0.26\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_stereo_link.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_wet_dry.png}
+\end{wrapfigure}
+
+\textbf{Link} controls the amount of stereo linking:
+\SI{100}{\percent} enforces full linking, whereas \SI{0}{\percent}
+disables linking and compresses every channel independently.
+
+\textbf{Wet} controls the ratio between wet (compressed) and dry
+(uncompressed) signal.  When set to \SI{100}{\percent}, you hear only
+compressed signal.  A value of \SI{50}{\percent} yields an equal mix
+of compressed and direct signal, whereas \SI{0}{\percent} effectively
+bypasses Squeezer.
+
+Mixing is latency-compensated, so you can use the wet control to
+easily set-up \emph{parallel compression}.
 
 \chapter{Buttons}
 \label{sec:buttons}
