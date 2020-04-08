@@ -481,7 +481,6 @@ setting or snaps to the value closest to it.
 \item Output control
 
 \item Threshold control
-\item Compression ratio control
 
 \item Stereo link control
 \item Wet / dry control
@@ -494,6 +493,24 @@ setting or snaps to the value closest to it.
 
 \item Auto-make-up gain button
 \end{itemize}
+
+\section{Compression ratio}
+
+\begin{wrapfigure}{r}{0.12\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_compression_ratio.png}
+\end{wrapfigure}
+
+This knob controls compression ratio -- a ratio of 2:1 means that
+\SI{1}{\dB} on the input yields \SI{0.5}{\dB} at the output.  Thus, a
+setting of 1:1 effectively disables Squeezer.
+
+You can set this control to values below 1:1.  This transforms
+Squeezer into an \emph{upward expander} -- a ratio of 0.5:1 means that
+\SI{1}{\dB} on the input yield \SI{2}{\dB} at the output.  This allows
+you to \emph{add} transients to boring and over-compressed recordings.
+
+\textbf{Note: upward expansion \emph{increases} the output level, so
+  take care of you ears!}
 
 \section{Attack and release time}
 
