@@ -585,11 +585,35 @@ simultaneously to leave only a specific band of frequencies.
 \section{To do}
 
 \begin{itemize}
-\item External side-chain button
-\item Listen to side-chain button
+\item detector placement
+\item auto-make-up gain button
 
-\item Auto-make-up gain button
+\item external side-chain button
+\item listen to side-chain button
 \end{itemize}
+
+\section{Release curve type}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/buttons_release_curve.png}
+\end{wrapfigure}
+
+In Squeezer, attack time always has a \emph{logarithmic} curve.  Use
+these buttons to change the release phase.  All options
+(\textbf{linear}, \textbf{logarithmic} and \textbf{smooth} release
+curve) are detailed in \ref{sec:curve_shape} .
+
+\section{Detector placement}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_feedback_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_feedback_off.png}
+\end{wrapfigure}
+
+Engaging the feed-back button places the level detector at the gain
+stage's output.  Otherwise, the detector is fed with the unprocessed
+input signal (feed-forward compression).
 
 \section{RMS filter}
 
@@ -616,17 +640,6 @@ Engage this button to switch between the linear response of a
 field-effect transistor (FET) and a photo cell emulation (Opto).  This
 control is independent of the ``RMS'' control -- both buttons can be
 engaged at the same time.
-
-\section{Release curve type}
-
-\begin{wrapfigure}{r}{0.14\linewidth}
-  \includegraphics[scale=\screenshotscale,clip]{include/images/buttons_release_curve.png}
-\end{wrapfigure}
-
-In Squeezer, attack time always has a \emph{logarithmic} curve.  Use
-these buttons to change the release phase.  All options
-(\textbf{linear}, \textbf{logarithmic} and \textbf{smooth} release
-curve) are detailed in \ref{sec:curve_shape} .
 
 \section{Knee width}
 
