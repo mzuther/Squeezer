@@ -141,7 +141,7 @@
 
         <button_curve_linear
             x="347"
-            y="176"
+            y="118"
             image_on="buttons/button_curve_linear_on.png"
             image_over="buttons/button_curve_linear_over.png"
             image_off="buttons/button_curve_linear_off.png"
@@ -157,7 +157,7 @@
 
         <button_curve_smooth_branching
             x="347"
-            y="118"
+            y="176"
             image_on="buttons/button_curve_smooth_branching_on.png"
             image_over="buttons/button_curve_smooth_branching_over.png"
             image_off="buttons/button_curve_smooth_branching_off.png"
@@ -165,7 +165,7 @@
 
         <button_rms_window
             x="417"
-            y="176"
+            y="118"
             image_on="buttons/button_rms_window_on.png"
             image_over="buttons/button_rms_window_over.png"
             image_off="buttons/button_rms_window_off.png"
@@ -173,7 +173,7 @@
 
         <button_design_feedback
             x="417"
-            y="147"
+            y="176"
             image_on="buttons/button_design_feedback_on.png"
             image_over="buttons/button_design_feedback_over.png"
             image_off="buttons/button_design_feedback_off.png"
@@ -181,7 +181,7 @@
 
         <button_gainstage_optical
             x="417"
-            y="118"
+            y="147"
             image_on="buttons/button_gainstage_optical_on.png"
             image_over="buttons/button_gainstage_optical_over.png"
             image_off="buttons/button_gainstage_optical_off.png"
