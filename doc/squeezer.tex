@@ -455,8 +455,8 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \chapter{Controls}
 \label{chap:controls}
 
-\section{Unlock controls}
-\label{sec:unlock_controls}
+\section{Unlock buttons}
+\label{sec:unlock_buttons}
 
 \begin{wrapfigure}{r}{0.26\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_toggle_locked.png}
@@ -464,14 +464,14 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \end{wrapfigure}
 
 By default, Squeezer's knobs are stepped to \emph{preset} values.  I
-have invested a lot of time to fine-tune these presets and ensure that
+have invested a lot of time to fine-tune these values and ensure that
 they are useful in practice.
 
 If you need finer control, however, every knob can be changed to
 \emph{continuous} values.  Just click the small orange light located
 in its upper right corner.
 
-Depending on your action, Squeezer tries to preserve your current
+Depending on your action, Squeezer either preserves your current
 setting or snaps to the value closest to it.
 
 \section{To do}
@@ -482,9 +482,6 @@ setting or snaps to the value closest to it.
 
 \item Threshold control
 \item Compression ratio control
-
-\item Attack time control
-\item Release time control
 
 \item Stereo link control
 \item Wet / dry control
@@ -497,6 +494,27 @@ setting or snaps to the value closest to it.
 
 \item Auto-make-up gain button
 \end{itemize}
+
+\section{Attack and release time}
+
+\begin{wrapfigure}{r}{0.26\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_attack_time.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_release_time.png}
+\end{wrapfigure}
+
+These buttons let you change Squeezer's response time.
+
+\textbf{Attack} is the length of time it takes to apply
+\SI{90}{\percent} of an upward change in gain reduction.
+
+\textbf{Release} is the length of time it takes gain reduction to fall
+by \SI{10}{\dB}\footnote{often called release \emph{rate} because the
+  actual release \emph{time} depends on the amount of applied gain
+  reduction; this yields a release phase which sounds very different
+  from logarithmic curves} (\emph{linear} curve).  Alternatively, this
+is the length of time it takes to apply \SI{90}{\percent} of an
+downward change in gain reduction (\emph{logarithmic} and
+\emph{smooth} curves).
 
 \section{RMS filter}
 
