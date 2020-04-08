@@ -2,7 +2,7 @@
 
 Flexible general-purpose audio compressor with a touch of citrus
 
-![Screenshot](./skins/screenshot.png)
+![Screenshot](./doc/include/images/squeezer.png)
 
 ## About
 
@@ -31,12 +31,10 @@ that, it has quickly became my go-to generic compressor!
 *I'm currently in the process of finally releasing a binary.  Please
 be patient for a little longer...*
 
-<!--
 ## Documentation
 
 For documentation and further information, please see the directory
 [doc][], especially the [manual][].
--->
 
 ## Code of conduct
 
@@ -66,4 +64,4 @@ Thank you for using free software!
 [Martin Zuther]:  http://www.mzuther.de/
 [COC]:            https://github.com/mzuther/Squeezer/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:            https://github.com/mzuther/Squeezer/tree/master/doc/
-[manual]:         https://github.com/mzuther/Squeezer/raw/master/doc/kmeter.pdf
+[manual]:         https://github.com/mzuther/Squeezer/raw/master/doc/squeezer.pdf
