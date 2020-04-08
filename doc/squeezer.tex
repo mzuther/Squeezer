@@ -452,11 +452,24 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \path{squeezer_mono.ini}.  These files are located in \path{~/.config}
 (GNU/Linux) or \path{%appdata%\.config\} (Windows).
 
-\chapter{Controls}
-\label{chap:controls}
+\chapter{Knobs}
+\label{sec:knobs}
 
-\section{Unlock buttons}
-\label{sec:unlock_buttons}
+\section{To do}
+
+\begin{itemize}
+\item Trim control
+\item Output control
+
+\item Stereo link control
+\item Wet / dry control
+
+\item High-pass cutoff frequency control
+\item Low-pass cutoff frequency control
+\end{itemize}
+
+\section{Unlock knobs}
+\label{sec:unlock_knobs}
 
 \begin{wrapfigure}{r}{0.26\linewidth}
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_toggle_locked.png}
@@ -474,43 +487,28 @@ in its upper right corner.
 Depending on your action, Squeezer either preserves your current
 setting or snaps to the value closest to it.
 
-\section{To do}
+\section{Threshold and compression ratio}
 
-\begin{itemize}
-\item Trim control
-\item Output control
-
-\item Threshold control
-
-\item Stereo link control
-\item Wet / dry control
-
-\item High-pass cutoff frequency control
-\item Low-pass cutoff frequency control
-
-\item External side-chain button
-\item Listen to side-chain button
-
-\item Auto-make-up gain button
-\end{itemize}
-
-\section{Compression ratio}
-
-\begin{wrapfigure}{r}{0.12\linewidth}
+\begin{wrapfigure}{r}{0.26\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_threshold.png}
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_compression_ratio.png}
 \end{wrapfigure}
 
-This knob controls compression ratio -- a ratio of 2:1 means that
-\SI{1}{\dB} on the input yields \SI{0.5}{\dB} at the output.  Thus, a
-setting of 1:1 effectively disables Squeezer.
+These knobs control both \textbf{threshold} and compression ratio.
 
-You can set this control to values below 1:1.  This transforms
-Squeezer into an \emph{upward expander} -- a ratio of 0.5:1 means that
-\SI{1}{\dB} on the input yield \SI{2}{\dB} at the output.  This allows
-you to \emph{add} transients to boring and over-compressed recordings.
+A \textbf{compression ratio} of 2:1 means that \SI{1}{\dB} on the
+input yields \SI{0.5}{\dB} at the output.  Thus, a setting of 1:1
+effectively disables Squeezer.
+
+You can set this knob to values below 1:1.  This transforms Squeezer
+into an \emph{upward expander} -- an \textbf{expansion ratio} of 0.5:1
+means that \SI{1}{\dB} on the input yield \SI{2}{\dB} at the output.
+This allows you to \emph{add} transients to boring and over-compressed
+recordings.
 
 \textbf{Note: upward expansion \emph{increases} the output level, so
-  take care of you ears!}
+  take care of you ears -- especially when you switch from compression
+  to expansion!}
 
 \section{Attack and release time}
 
@@ -519,7 +517,7 @@ you to \emph{add} transients to boring and over-compressed recordings.
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_release_time.png}
 \end{wrapfigure}
 
-These buttons let you change Squeezer's response time.
+These knobs let you change Squeezer's response time.
 
 \textbf{Attack} is the length of time it takes to apply
 \SI{90}{\percent} of an upward change in gain reduction.
@@ -532,6 +530,18 @@ by \SI{10}{\dB}\footnote{often called release \emph{rate} because the
 is the length of time it takes to apply \SI{90}{\percent} of an
 downward change in gain reduction (\emph{logarithmic} and
 \emph{smooth} curves).
+
+\chapter{Buttons}
+\label{sec:buttons}
+
+\section{To do}
+
+\begin{itemize}
+\item External side-chain button
+\item Listen to side-chain button
+
+\item Auto-make-up gain button
+\end{itemize}
 
 \section{RMS filter}
 
