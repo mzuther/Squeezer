@@ -256,9 +256,10 @@ adjusted in the direction of the \emph{target} gain reduction.
 One possibility is using averaging level detectors,\footnote{this is
   \emph{not} the reason why compressors have averaging level
   detectors; they let compressors react to changes in \emph{loudness}}
-employing photo cells is another.\footnote{photo cells react to level
-  changes in complex time-dependant ways} Both solutions effectively
-slow down the compressor's response time, but somewhat crudely.
+employing photo (``optical'') cells is another.\footnote{photo cells
+  react to level changes in complex time-dependant ways} Both
+solutions effectively slow down the compressor's response time, but
+somewhat crudely.
 
 \emph{Play the drum track and engage the ``RMS'' button -- the
   distortion vanishes.  Disengage the ``RMS'' button and enable the
@@ -458,8 +459,8 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \label{sec:unlock_controls}
 
 \begin{wrapfigure}{r}{0.26\linewidth}
-\includegraphics[scale=\screenshotscale,clip]{include/images/knob_toggle_locked.png}
-\includegraphics[scale=\screenshotscale,clip]{include/images/knob_toggle_unlocked.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_toggle_locked.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_toggle_unlocked.png}
 \end{wrapfigure}
 
 By default, Squeezer's knobs are stepped to \emph{preset} values.  I
@@ -491,23 +492,68 @@ setting or snaps to the value closest to it.
 \item High-pass cutoff frequency control
 \item Low-pass cutoff frequency control
 
-\item Curve shape buttons
-\item RMS button
-\item Opto button
-\item Knee width buttons
-
 \item External side-chain button
 \item Listen to side-chain button
 
 \item Auto-make-up gain button
 \end{itemize}
 
+\section{RMS filter}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_rms_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_rms_off.png}
+\end{wrapfigure}
+
+This button switches the RMS filter's window size between peak-sensing
+(\SI{0}{\milli\second}) and average-sensing (\SI{30}{\milli\second}).
+The RMS filter is independent of the ``Opto'' control -- both buttons
+can be engaged at the same time.
+
+\section{Detector type}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_opto_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_opto_off.png}
+\end{wrapfigure}
+
+Engage this button to switch between the linear response of a
+field-effect transistor (FET) and a photo cell emulation (Opto).  This
+control is independent of the ``RMS'' control -- both buttons can be
+engaged at the same time.
+
+\section{Release curve type}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/buttons_release_curve.png}
+\end{wrapfigure}
+
+In Squeezer, attack time always has a \emph{logarithmic} curve.  Use
+these buttons to change the release phase.  All options
+(\textbf{linear}, \textbf{logarithmic} and \textbf{smooth} release
+curve) are detailed in \ref{sec:curve_shape} .
+
+\section{Knee width}
+
+\begin{wrapfigure}{r}{0.14\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/buttons_knee_width.png}
+\end{wrapfigure}
+
+These buttons let you select the compressor's knee width.
+\textbf{Hard} knee abruptly transitions between compressed and
+uncompressed signal at the threshold.  \textbf{Medium} sets a knee
+width of \SI{24}{\dB}\footnote{transition zone starts \SI{12}{\dB}
+  below threshold and ends \SI{12}{\dB} above} and \textbf{soft} a
+knee width of \SI{48}{\dB}.
+
 \section{Bypass compression}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_on.png}
-\newline \vspace{-0.9\baselineskip}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_off.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_off.png}
 \end{wrapfigure}
 
 Click on this button to bypass Squeezer.  I regard this as the most
@@ -520,9 +566,9 @@ signal and comparing them by toggling the bypass button.
 \section{Reset button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_on.png}
-\newline \vspace{-0.9\baselineskip}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_off.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_off.png}
 \end{wrapfigure}
 
 Click on this button to reset all meters.  This action will also
@@ -531,9 +577,9 @@ reload the current skin and re-draw everything.
 \section{Select a skin}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_on.png}
-\newline \vspace{-0.9\baselineskip}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_off.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_off.png}
 \end{wrapfigure}
 
 Click on this button to select a new Squeezer skin.  You can also set
@@ -543,9 +589,9 @@ started.
 \section{View and copy settings}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_settings_on.png}
-\newline \vspace{-0.9\baselineskip}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_settings_off.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_settings_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_settings_off.png}
 \end{wrapfigure}
 
 Click on this button to display Squeezer's version number and all of
@@ -558,9 +604,9 @@ feature made my life much easier.
 \section{About button}
 
 \begin{wrapfigure}{r}{0.14\linewidth}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_about_on.png}
-\newline \vspace{-0.9\baselineskip}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_about_off.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_about_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_about_off.png}
 \end{wrapfigure}
 
 Clicking on this button will open the \textbf{about window} where you
@@ -570,9 +616,9 @@ GNU General Public License.
 \section{Display license}
 
 \begin{wrapfigure}{r}{0.15\linewidth}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_on.png}
-\newline \vspace{-0.9\baselineskip}
-\includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_off.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_on.png}
+  \newline \vspace{-0.9\baselineskip}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/button_gpl_off.png}
 \end{wrapfigure}
 
 This button is located in the \textbf{about window} and does not only
