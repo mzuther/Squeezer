@@ -455,13 +455,6 @@ settings by deleting the file \path{squeezer_stereo.ini} or
 \chapter{Knobs}
 \label{sec:knobs}
 
-\section{To do}
-
-\begin{itemize}
-\item Trim control
-\item Output control
-\end{itemize}
-
 \section{Unlock knobs}
 \label{sec:unlock_knobs}
 
@@ -480,6 +473,8 @@ in its upper right corner.
 
 Depending on your action, Squeezer either preserves your current
 setting or snaps to the value closest to it.
+
+\newpage %% layout
 
 \section{Threshold and compression ratio}
 
@@ -525,6 +520,32 @@ is the length of time it takes to apply \SI{90}{\percent} of an
 downward change in gain reduction (\emph{logarithmic} and
 \emph{smooth} curves).
 
+\section{Input trim and output gain}
+
+\begin{wrapfigure}{r}{0.26\linewidth}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_input_trim.png}
+  \includegraphics[scale=\screenshotscale,clip]{include/images/knob_output_gain.png}
+\end{wrapfigure}
+
+\textbf{Trim} allows you to simultaneously change Squeezer's input
+gain and output gain in opposite directions.
+
+In additional, you can control \textbf{output} gain independently.  I
+can think of several use cases:
+
+\begin{itemize}
+\item use output gain to match the loudness of compressed and direct
+  signal before comparing them\footnote{if you don't do this, the
+    louder signal will automatically sound better}
+
+\item set the threshold to a fixed value and control Squeezer
+  \emph{vintage style} by changing trim and output gain only
+
+\item if Squeezer sounds well and the level of the incoming signal
+  changes for some reason, I find it easier to adjust using trim
+  instead of threshold
+\end{itemize}
+  
 \section{Stereo link and wet/dry ratio}
 
 \begin{wrapfigure}{r}{0.26\linewidth}
@@ -532,7 +553,7 @@ downward change in gain reduction (\emph{logarithmic} and
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_wet_dry.png}
 \end{wrapfigure}
 
-\textbf{Link} controls the amount of stereo linking:
+\textbf{Link} controls the amount of stereo linking.
 \SI{100}{\percent} enforces full linking, whereas \SI{0}{\percent}
 disables linking and compresses every channel independently.
 
