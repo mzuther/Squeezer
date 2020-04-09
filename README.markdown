@@ -19,7 +19,7 @@ optimisation of settings.
 **Squeezer** adapts easily to many tastes and use cases:
 
 - feed-forward & feed-back design
-- linear, logarithmic \& smooth release stage
+- linear, logarithmic & smooth release stage
 - optical & FET detectors
 - peak & RMS sensing
 - hard, medium & soft knee
@@ -27,6 +27,9 @@ optimisation of settings.
 
 **Squeezer** has given me a deep insight into compression.  But above
 that, it has quickly become my go-to generic compressor!
+
+*I hope that you have as much fun with this compressor as I had when I
+coded it!*
 
 ## Documentation
 

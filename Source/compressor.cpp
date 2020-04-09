@@ -749,7 +749,7 @@ void Compressor::process(
                     CurrentChannel, MeterBufferPosition, MeterInputBuffer,
                     CurrentChannel, nSample, 1);
 
-                // store gain reduction now and apply ballistics later
+                // store gain reduction now
                 GainReduction.set(CurrentChannel, 0.0);
                 GainReductionWithMakeup.set(CurrentChannel, 0.0);
             }
@@ -867,7 +867,7 @@ void Compressor::process(
         // apply gain reduction and save output sample
         for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
         {
-            // store gain reduction now and apply ballistics later
+            // store gain reduction now
             GainReduction.set(CurrentChannel, SideChainProcessor[CurrentChannel]->getGainReduction(false));
             GainReductionWithMakeup.set(CurrentChannel, SideChainProcessor[CurrentChannel]->getGainReduction(true));
 
