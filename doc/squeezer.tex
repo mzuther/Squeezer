@@ -62,9 +62,9 @@ Squeezer is different from all the compressors I know: its knobs are
 stepped to fine-tuned \emph{preset} values, but can be changed to
 \emph{continuous} values by clicking a small orange light located next
 to them.  This allows you to find nice settings fast while not
-preventing to optimise these settings.
+preventing optimisation of settings.
 
-Squeezer also adapts easily to many tastes and use cases:
+Squeezer adapts easily to many tastes and use cases:
 
 \begin{itemize}
 \item feed-forward \& feed-back design
@@ -76,7 +76,10 @@ Squeezer also adapts easily to many tastes and use cases:
 \end{itemize}
 
 Squeezer has given me a deep insight into compression.  But above
-that, it has quickly became my go-to generic compressor!
+that, it has quickly become my go-to generic compressor.
+
+\emph{I hope that you have as much fun with Squeezer as I had when I
+  coded it!}
 
 \chapter{What is compression?}
 \label{chap:what_is_compression}
@@ -115,18 +118,20 @@ getting a \emph{stereo} mixer, so the new counter didn't go down too
 well with him).
 
 After an initial shock, the barkeeper was quite content.  The DJ
-really \emph{had} been lousy.  But how to keep the high number of
-drinks?
+really \emph{had} been lousy.  But how to keep the impressive sales
+figures for his drinks?
 
-Being an entrepreneur, the barkeeper took his challenge and connected
-the mixer's output to a simple amplifier.  The amplifier's input gain
-was regulated by a level sensor which in turn was connected to the
-amplifier's output -- a classic negative feed-back loop.
+Being an entrepreneur, the barkeeper loved challenges and connected
+the mixer's output to a simple amplifier.  The amplifier's gain was
+regulated by a level sensor which in turn was connected to the
+amplifier's output.\footnote{engineers call this a negative feed-back
+  loop}
 
 Although the new device exactly followed the DJ's instructions (and
-didn't smell as bad), customers complained about its bad sound.  The
-barkeeper had invented a \emph{wave shaping} device -- gain changes
-were applied instantly which \emph{distorted} its output signal.
+didn't smell as bad), customers complained about a decline in sound
+quality.  The barkeeper had invented a \emph{wave shaping} device --
+gain changes were applied instantly which \emph{distorted} its output
+signal.
 
 Fortunately, the barkeeper remembered a very important thing: the DJ
 had often been drunk and taken his time to apply gain changes.  So the
@@ -156,11 +161,13 @@ material.  In its most basic form, it consists of four modules:
 \begin{tabular}{p{0.3 \textwidth}p{0.625 \textwidth}}
 
   \textbf{Level detector} &
-  measures level of audio at input and sends it to gain computer \\
+  measures level of audio at its input and sends it to gain
+  computer \\
 
   \textbf{Gain computer} &
   calculates difference between input level and desired output level
-  and sends resulting gain reduction target to smoothing filter \\
+  and sends resulting \emph{target} gain reduction to smoothing
+  filter \\
 
   \textbf{Smoothing filter} &
   smoothly adjusts \emph{current} gain reduction in direction of
@@ -169,7 +176,7 @@ material.  In its most basic form, it consists of four modules:
     release times}) \\
 
   \textbf{Gain stage} &
-  attenuates audio input by current gain reduction \\
+  attenuates audio input by \emph{current} gain reduction \\
 
 \end{tabular}
 
@@ -183,7 +190,7 @@ because they form a sideline of processing that will only be
 As its name implies, a level detector senses the level of an audio
 signal.  It can either detect the input wave form directly (peak
 sensing) or an estimate of its loudness (average sensing, usually with
-a RMS\footnote{root mean mean square} filter).
+a RMS\footnote{root mean square} filter).
 
 \emph{Peak sensing} allows a compressor to quickly react to sudden
 changes in level, whereas \emph{average sensing} detects changes over
@@ -193,7 +200,7 @@ There are also two ways of connecting level detectors: vintage
 compressors sense the gain stage's \emph{output} level (feed-back
 design), leading to a very distinct ``bouncing'' sound.  Modern
 compressors sense the compressor's \emph{input} signal (feed-forward
-design) which results in a more natural sound.
+design) which often results in a more natural sound.
 
 \section{Gain computer}
 \label{sec:gain_computer}
@@ -203,7 +210,7 @@ The level detector's signal is sent to a gain computer\footnote{in the
   from analogue circuitry!} which determines the output level the
 signal should have.  It then calculates a corresponding gain reduction
 (``attenuate the current input signal by \SI{3.14}{\dB}'').  This
-\textbf{gain reduction changes constantly} over time.
+\textbf{gain reduction constantly changes} over time.
 
 The most common gain computer design is a \emph{threshold} control.
 It sets a level below which all input passes unchanged.  Levels
@@ -214,37 +221,36 @@ than lower ratios.\footnote{a compression ratio of 1:1 effectively
 
 Need an example?  A threshold of \SI{-20}{\dBFS} yields a gain
 reduction of \SI{0}{\dB} (no compression) for all levels below
-\SI{-20}{\dBFS}.  A signal of \SI{-18}{\dBFS} will produce a gain
-reduction of \SI{1}{\dB} for a compression ratio of 2:1\footnote{a
-  ratio of 2:1 means that \SI{2}{\dB} on the input yields \SI{1}{\dB}
-  at the output} and \SI{0.5}{\dB} for a ratio of 4:1.
+\SI{-20}{\dBFS}.  A signal of \SI{-18}{\dBFS} however will produce a
+gain reduction of \SI{1}{\dB} for a compression ratio of
+2:1\footnote{a ratio of 2:1 means that \SI{2}{\dB} on the input yields
+  \SI{1}{\dB} at the output} and \SI{0.5}{\dB} for a ratio of 4:1.
 
 There may be a third control called \emph{knee width}. It defines a
 transition zone around the threshold.  In this zone, the compression
 ratio gradually changes from 1:1 (no compression) to the selected
-ratio (full compression) -- quiet signals receive less compression
-than loud signals.  This reduces another type of distortion which
-stems from abrupt transition between compressed and uncompressed
-signal.
+ratio (full compression) -- quieter signals receive less compression
+than louder ones.  This reduces distortion caused by abrupt
+transitions between compressed and uncompressed signal.
 
 \section{Smoothing filter}
 \label{sec:smoothing_filter}
 
-\emph{This was the easy part, but from now on explanations usually
-  fail.  I'll try my best and continue anyway \dots}
+\emph{This was the easy part, but from now on most explanations start
+  to fail.  I'll try my best and continue anyway \dots}
 
 If you stopped here and let the gain computer control the gain stage
 directly, you'd have a wave shaping device.\footnote{\emph{wave
     shaping} is a fancy way of saying \emph{distortion}} By reacting
 immediately, the compressor would relentlessly change the shape of
 \emph{single wave forms}.  Don't get me wrong: this already \emph{is}
-compression and I occasionally \emph{do} like the sound -- but it's
+compression and I occasionally \emph{do} like its sound -- but it's
 not something you want to have on every track, let alone a full mix.
 
 \emph{Listen for yourself!  Load a drum track into your DAW, add the
   Squeezer plug-in, unlock attack and release time\footnote{click on
     the orange light next to a knob so it lights up} and set them to
-  their lowest value.  Make sure the compressor uses peak
+  the lowest possible value.  Make sure the compressor uses peak
   sensing\footnote{``RMS'' button is not engaged} and a high
   compression ratio.  Now lower the threshold until you can clearly
   hear the wave shaping.  Keep the DAW open for now.}
@@ -256,10 +262,10 @@ adjusted in the direction of the \emph{target} gain reduction.
 One possibility is using averaging level detectors,\footnote{this is
   \emph{not} the reason why compressors have averaging level
   detectors; they let compressors react to changes in \emph{loudness}}
-employing photo (``optical'') cells is another.\footnote{photo cells
-  react to level changes in complex time-dependant ways} Both
-solutions effectively slow down the compressor's response time, but
-somewhat crudely.
+employing photo (``optical'' or ``opto'') cells is
+another.\footnote{photo cells react to level changes in complex
+  time-dependant ways} Both solutions effectively slow down the
+compressor's response time, but somewhat crudely.
 
 \emph{Play the drum track and engage the ``RMS'' button -- the
   distortion vanishes.  Disengage the ``RMS'' button and enable the
@@ -322,7 +328,7 @@ once again take over.
 In other words: with any real-world audio signal, compressors enter an
 ever-changing dynamic state as soon as the input signal passes
 threshold.  This is what makes them so hard to explain -- and I'm
-quite confident that it also makes them sound so damn good.
+quite confident that it is also what makes them sound so damn good.
 
 The good news is that you can use compressors without fully
 understanding this dynamic state.  However, the information contained
@@ -336,16 +342,16 @@ explanations out there.\footnote{they were the reason for developing
 Attack and release times can be implemented in a number of ways.
 Vintage compressors use simple analogue filters with
 \emph{logarithmic} curves.  Speed depends on the difference between
-current and target gain reduction -- initial change is fast and slows
-down as the difference gets smaller.
+\emph{current} and \emph{target} gain reduction -- initial change is
+fast and slows down as the difference gets smaller.
 
-Newer compressors often have \emph{linear} curves -- the target gain
-reduction is approached with constant speed.
+Newer compressors often have \emph{linear} curves -- the \emph{target}
+gain reduction is approached with constant speed.
 
-In Squeezer, attack time always has a \emph{logarithmic} curve.  The
+In Squeezer, attack phase always has a \emph{logarithmic} curve.  The
 curve of its release phase can be set to \emph{linear},
 \emph{logarithmic} or \emph{smooth}.  \emph{Smooth} behaves like a
-logarithmic curve, but when the attack phase changes to release, a
+logarithmic curve, but when an attack phase changes to release, a
 smooth transition between the curves prevents a sharp drop in gain
 reduction.  This reduces yet another type of distortion exhibited by
 compressors.
@@ -357,8 +363,9 @@ source material and personal taste.
 \label{sec:gain_stage}
 
 The gain stage is an amplifier that attenuates the input signal using
-the current gain reduction.  There may be an additional gain control
-to make up for any level lost during compression (``make-up gain'').
+the \emph{current} gain reduction.  There may be an additional gain
+control to make up for any level lost during compression (also called
+\emph{make-up gain}).
 
 That's it.
 
@@ -382,18 +389,18 @@ Squeezer lets you control the amount of stereo linking.
 
 So far, I have described \emph{downward} compression.  As you know, it
 works by bringing high-level signals down and leaving low-level
-signals (mostly) untouched.  In other words, downward compression
-changes (and possibly damages) the \emph{transients}.
+signals untouched.  In other words, downward compression changes --
+and possibly damages -- the \emph{transients}.
 
 This may not be what you want, so \emph{upward} compression works the
 other way round.  Low-level signals are brought up and high-level
 signals are left alone.  This approach has a huge problem, though --
-it amplifies the noise floor, which is why I have yet to see an upward
-compressor in the wild.
+it also amplifies the noise floor!  This is probably the reason why I
+have never seen an upward compressor in the wild \dots
 
 \emph{Parallel} compression\footnote{also known as \emph{New York
-    compression}, where the signal is also equalised prior to
-  compression} is similar to \emph{upward} compression, but it
+    compression}, but in this case, the signal is also equalised prior
+  to compression} is similar to \emph{upward} compression, but it
 preserves transients \emph{and} leaves the noise floor alone.  Here is
 how it works: you compress a signal (often heavily) and add some of
 the compressed signal to the original.
@@ -405,12 +412,11 @@ allows you to apply parallel compression easily.
 \label{sec:side_chain_filtering}
 
 Bass frequencies contain most of a signal's energy, so bus compression
-will often ``pump'' in the rhythm of the bass
-instruments.\footnote{the human ear is least sensitive to bass
-  frequencies, so music also tends to contain more bass frequencies
-  than treble} A filter that removes bass frequencies
-(\emph{high-pass} filter) from the side-chain helps in achieving
-better compression results.
+will often ``pump'' in the rhythm of the bass instruments.\footnote{in
+  addition, music tends to contain more bass frequencies than treble
+  as the human ear is least sensitive to bass frequencies} A filter
+that removes bass frequencies (\emph{high-pass} filter) from the
+side-chain helps in achieving better compression results.
 
 Squeezer also provides a \emph{low-pass} filter to remove treble
 frequencies, although this is used less often.  For frequency-specific
@@ -425,20 +431,22 @@ You can use this either for advanced filtering or as an effect.  In
 electronic dance music, compressor ``pumping'' triggered by the bass
 drum has become rather cliché \dots
 
-Depending on your DAW, setting up an external side-chain can be easy
+Depending on your DAW, setting up an external side-chain can be simple
 or highly complicated.  I cannot (and will not) help you with it, so
-please refer to your DAW's manual or manufacturer.
+please refer to your DAW's manual or manufacturer.  I will however
+provide some information to get you started.
 
-I will however provide some information to get you started.  The input
-channels of Squeezer's stand-alone application and VST2 plug-in are
-doubled: main inputs (first half of the channels) and side-chain
-inputs (second half).  Channels of the other plug-ins formats are
-properly tagged and should work without problem.
+The input channels of Squeezer's stand-alone application and VST2
+plug-in are \emph{doubled} and divided into main inputs (first half of
+the channels) and side-chain inputs (second half).
+
+The other plug-in formats are properly tagged.  They notify your DAW
+about each channel's role and should work without problem.
 
 \chapter{Installation}
 \label{chap:installation}
 
-In order to use the pre-compiled binaries, simply extract the Squeezer
+In order to use the pre-compiled binaries, simply extract Squeezer's
 files from the downloaded archive.  For the plug-ins, you'll then have
 to move the extracted files to your respective plug-in folder.
 
@@ -532,8 +540,8 @@ the length of time it takes gain reduction to fall by
 output level.  \emph{You can also think of this as attenuating
   threshold by the value of trim.}
 
-\textbf{Output} controls output (or ``make-up'') gain.  There are
-several use cases:
+\textbf{Output} controls output (or make-up) gain.  There are several
+use cases:
 
 \begin{itemize}
 \item use \emph{output gain} to match the loudness of compressed and

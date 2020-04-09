@@ -14,9 +14,9 @@ and convert them into code.*
 are stepped to fine-tuned *preset* values, but can be changed to
 *continuous* values by clicking a small orange light located next to
 them.  This allows you to find nice settings fast while not preventing
-to optimise these settings.
+optimisation of settings.
 
-**Squeezer** also adapts easily to many tastes and use cases:
+**Squeezer** adapts easily to many tastes and use cases:
 
 - feed-forward & feed-back design
 - linear, logarithmic \& smooth release stage
@@ -26,10 +26,7 @@ to optimise these settings.
 - flexible side-chain & parallel compression
 
 **Squeezer** has given me a deep insight into compression.  But above
-that, it has quickly became my go-to generic compressor!
-
-*I'm currently in the process of finally releasing a binary.  Please
-be patient for a little longer...*
+that, it has quickly become my go-to generic compressor!
 
 ## Documentation
 
