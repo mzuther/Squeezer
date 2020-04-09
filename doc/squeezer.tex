@@ -499,8 +499,8 @@ effectively disables Squeezer.
 
 You can set this knob to values below 1:1.  This transforms Squeezer
 into an \emph{upward expander} -- an \textbf{expansion ratio} of 0.5:1
-means that \SI{1}{\dB} on the input yield \SI{2}{\dB} at the output.
-This allows you to \emph{add} transients to boring and over-compressed
+means that \SI{1}{\dB} on the input yields \SI{2}{\dB} at the output.
+This allows you to \emph{add transients} to boring and over-compressed
 recordings.
 
 \textbf{Note: upward expansion can massively \emph{increase} the
@@ -520,13 +520,13 @@ Change attack and release time using these two knobs.
 \SI{90}{\percent} of an upward change in gain reduction.
 
 \textbf{Release} is the length of time it takes to apply
-\SI{90}{\percent} of an downward change in gain reduction
+\SI{90}{\percent} of a downward change in gain reduction
 (\emph{logarithmic} and \emph{smooth} curves).  Alternatively, this is
-the length of time it takes gain reduction to fall by
-\SI{10}{\dB}\footnote{often called release \emph{rate} because the
-  actual release \emph{time} depends on the amount of applied gain
-  reduction; this yields a release phase which can sound very
-  different from logarithmic curves} (\emph{linear} curve).
+the length of time it takes gain reduction to fall by \SI{10}{\dB}
+(\emph{linear} curve).\footnote{often called release \emph{rate}
+  because the actual release \emph{time} depends on the amount of
+  applied gain reduction; linear release curves can sound very
+  different from logarithmic ones}
 
 \section{Input trim and output gain}
 \label{sec:input_trim_and_output_gain}
@@ -540,8 +540,8 @@ the length of time it takes gain reduction to fall by
 output level.  \emph{You can also think of this as attenuating
   threshold by the value of trim.}
 
-\textbf{Output} controls output (or make-up) gain.  There are several
-use cases:
+\textbf{Output} controls output gain (also called make-up gain).
+There are several use cases:
 
 \begin{itemize}
 \item use \emph{output gain} to match the loudness of compressed and
@@ -569,7 +569,7 @@ use cases:
 
 \textbf{Link} controls the amount of stereo linking.
 \SI{100}{\percent} enforces full linking, whereas \SI{0}{\percent}
-disables linking and compresses every channel independently.
+disables linking and processes every channel independently.
 
 \textbf{Wet} controls the ratio between wet (compressed) and dry
 (uncompressed) signal.  When set to \SI{100}{\percent}, you hear only
@@ -578,7 +578,7 @@ of compressed and direct signal, and \SI{0}{\percent} effectively
 bypasses Squeezer.
 
 Mixing is latency-compensated, so you can use the wet control to
-employ \emph{parallel compression} easily.
+employ \emph{parallel compression}.
 
 \section{Side-chain filters}
 
@@ -591,7 +591,8 @@ The side-chain is equipped with a high-pass filter and a low-pass
 filter.  These knobs control their \textbf{cutoff frequencies}.
 
 Both filters are connected in series so you can use them
-simultaneously to remove anything but a specific band of frequencies.
+simultaneously to remove everything but a specific band of
+frequencies.
 
 \chapter{Buttons}
 \label{sec:buttons}
@@ -602,10 +603,10 @@ simultaneously to remove anything but a specific band of frequencies.
   \includegraphics[scale=\screenshotscale,clip]{include/images/buttons_release_curve.png}
 \end{wrapfigure}
 
-Attack always has a \emph{logarithmic} curve.  Use these buttons to
-change the \emph{release} curve.  All options (\textbf{linear},
-\textbf{logarithmic} and \textbf{smooth}) are detailed in
-\ref{sec:curve_shape} .
+Attack phase always has a \emph{logarithmic} curve.  Use these buttons
+to change the \emph{release phase}.  All options (\textbf{linear},
+\textbf{logarithmic} and \textbf{smooth} curve) are detailed in
+\ref{sec:curve_shape}.
 
 \section{Detector placement}
 
@@ -629,11 +630,10 @@ uncompressed input signal (\textbf{feed-forward}).
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_rms_off.png}
 \end{wrapfigure}
 
-This button switches the RMS filter between peak-sensing (window size
-of \SI{0}{\milli\second}) and average-sensing
-(\SI{30}{\milli\second}).  The RMS filter is independent of the
-``Opto'' detector type -- both buttons can be engaged at the same
-time.
+This button switches the detector between peak-sensing and
+average-sensing using an \textbf{RMS} filter (window size of
+\SI{30}{\milli\second}).  RMS filter and the ``Opto'' detector type
+are independent -- both buttons can be engaged at the same time.
 
 \section{Detector type}
 
@@ -644,9 +644,9 @@ time.
 \end{wrapfigure}
 
 Engage this button to switch between the linear response of a
-field-effect transistor (FET) and a photo cell emulation (Opto).  This
-control is independent of the ``RMS'' filter control -- both buttons
-can be engaged at the same time.
+field-effect transistor (\textbf{FET}) and a photo cell emulation
+(\textbf{Opto}).  Detector type and ``RMS'' filter are independent --
+both buttons can be engaged at the same time.
 
 \section{Knee width}
 
@@ -658,8 +658,8 @@ These buttons let you select the compressor's knee width.
 \textbf{Hard} abruptly transitions between compressed and uncompressed
 signal at the threshold.  \textbf{Medium} sets a knee width of
 \SI{24}{\dB}\footnote{transition zone starts \SI{12}{\dB} below
-  threshold and ends \SI{12}{\dB} above} and \textbf{soft} a width of
-\SI{48}{\dB}.
+  threshold and ends \SI{12}{\dB} above} and \textbf{soft} a knee
+width of \SI{48}{\dB}.
 
 \section{External side-chain}
 
@@ -669,8 +669,9 @@ signal at the threshold.  \textbf{Medium} sets a knee width of
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_sidechain_external_off.png}
 \end{wrapfigure}
 
-Use this button to1 feed Squeezer's side-chain with an external signal.
-Please see \ref{sec:external_side_chain} for more information.
+Use this button to feed Squeezer's side-chain with an
+\textbf{external} signal.  For more information, please see
+\ref{sec:external_side_chain}.
 
 \section{Listen to side-chain}
 
@@ -680,9 +681,9 @@ Please see \ref{sec:external_side_chain} for more information.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_sidechain_listen_off.png}
 \end{wrapfigure}
 
-Listen to the internal or external side-chain by clicking this button.
-If you have engaged the side-chain filters, you will hear the
-\emph{filtered} signal.
+\textbf{Listen} to the internal or external side-chain by clicking
+this button.  If you have engaged the side-chain filters, you will
+hear the \emph{filtered} signal.
 
 \section{Automatic make-up gain}
 \label{sec:buttons_automatic_makeup_gain}
@@ -696,9 +697,9 @@ If you have engaged the side-chain filters, you will hear the
 When this button is engaged, Squeezer tries to counter the jumps in
 level caused by changing threshold and compression ratio.
 
-Implementing automatic make-up gain is an exercise in compromise, so
-its quality depends on the incoming signal's level (among a lot of
-other factors).  Changing input trim
+Implementing \textbf{automatic make-up gain} is an exercise in
+compromise, so its quality depends on the incoming signal's level
+(among a lot of other factors).  Changing input trim
 (\ref{sec:input_trim_and_output_gain}) can sometimes improve results.
 
 \newpage %% layout
@@ -711,9 +712,9 @@ other factors).  Changing input trim
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_bypass_off.png}
 \end{wrapfigure}
 
-Click on this button to bypass Squeezer.  I regard this as the most
-important control of any compressor, as its easy to \emph{deteriorate}
-a signal without noticing it.
+Click on this button to \textbf{bypass} Squeezer.  I regard this as
+the most important control of any compressor, as its easy to
+\emph{deteriorate} a signal by compression without noticing it.
 
 Thus, I recommend matching the levels of compressed and uncompressed
 signal (see \ref{sec:input_trim_and_output_gain}) and comparing them
@@ -727,8 +728,8 @@ by toggling the bypass button.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_reset_off.png}
 \end{wrapfigure}
 
-A click on this button resets all meters.  This action will also
-reload the current skin and re-draw everything.
+A click on this button \textbf{resets} all meters.  This action will
+also reload the current skin and re-draw everything.
 
 \section{Select a skin}
 
@@ -738,9 +739,9 @@ reload the current skin and re-draw everything.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_skin_off.png}
 \end{wrapfigure}
 
-Click on this button to select a new Squeezer skin.  You can also set
-a default skin that will be loaded when new plug-in instances are
-started.
+Click on this button to select a new Squeezer \textbf{skin}.  You can
+also set a default skin that will be loaded when new plug-in instances
+are started.
 
 \newpage %% layout
 
@@ -752,12 +753,12 @@ started.
   \includegraphics[scale=\screenshotscale,clip]{include/images/button_settings_off.png}
 \end{wrapfigure}
 
-Display all of Squeezer's settings with a click on this button.  This
-information is also copied to the clipboard for pasting into a text
-editor.
+Display all of Squeezer's \textbf{settings} with a click on this
+button.  This information is also copied to the clipboard for pasting
+into a text editor.
 
-\emph{I originally wrote Squeezer for a course on compression and this
-  feature made my life much easier.}
+\emph{I wrote Squeezer while attending a course on compression and
+  this feature made my life much easier.}
 
 \section{About button}
 
@@ -782,7 +783,7 @@ GNU General Public License.
 This button is located in the \textbf{about window} and does not only
 advertise that you are using free software licensed under the
 \textbf{GNU General Public License} -- when clicked, it will also open
-the license's website in your web browser \dots
+the license's website in your browser \dots
 
 \chapter{Meters}
 \label{chap:meters}
@@ -793,14 +794,15 @@ the license's website in your web browser \dots
 \includegraphics[scale=0.58,clip]{include/images/meter_levels.png}
 \end{wrapfigure}
 
-Squeezer's level meters consist of an average level meter (coloured
-bar) and an optional peak level meter (single coloured segment).  The
-meters are divided into steps of \SI{2}{\dB} and exhibit a flat
-frequency response.
+Squeezer's \textbf{level meters} consist of an average level meter
+(coloured bar) and a peak level meter (single coloured segment riding
+on top).  The meters are divided into steps of \SI{2}{\dB} and exhibit
+a flat frequency response.
 
-The average level meter reaches \SI{99}{\percent} of the final reading
-in \SI{300}{\milli\second}, whereas the peak level meter has a rise
-time of one sample and a fall time of \SI{8.67}{\dB\per\second}.
+The \emph{average} level meter reaches \SI{99}{\percent} of the final
+reading in \SI{300}{\milli\second}, whereas the \emph{peak} level
+meter has a rise time of one sample and a fall time of
+\SI{8.67}{\dB\per\second}.
 
 \section{Gain reduction}
 
@@ -808,9 +810,9 @@ time of one sample and a fall time of \SI{8.67}{\dB\per\second}.
 \includegraphics[scale=0.58,clip]{include/images/meter_gain_reduction.png}
 \end{wrapfigure}
 
-The gain reduction meter is divided into steps of \SI{1}{\dB} and
-displays \emph{current} gain reduction.  It also reflects ratio,
-attack and release time.
+The \textbf{gain reduction meter} is divided into steps of \SI{1}{\dB}
+and displays \emph{current} gain reduction.  It also indirectly
+reflects ratio, attack and release time.
 
 \emph{The gain reduction meter should always be in motion.  If a part
   of the meter is always lit, consider reducing the threshold.}
