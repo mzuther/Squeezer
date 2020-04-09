@@ -528,10 +528,11 @@ the length of time it takes gain reduction to fall by
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_output_gain.png}
 \end{wrapfigure}
 
-\textbf{Trim} allows you to simultaneously change Squeezer's input
-gain and output gain in opposite directions.
+\textbf{Trim} changes Squeezer's input gain without affecting its
+output level.  \emph{You can also think of this as attenuating
+  threshold by the value of trim.}
 
-You can also control \textbf{output} gain independently.  There are
+\textbf{Output} controls output (or ``make-up'') gain.  There are
 several use cases:
 
 \begin{itemize}
@@ -543,11 +544,11 @@ several use cases:
   \emph{vintage style} by changing \emph{trim} and \emph{output gain}
   only
 
-\item use gain staging to improve automatic make-up gain
-  (\ref{sec:buttons_automatic_makeup_gain}) using \emph{trim}
+\item use \emph{trim} for gain staging to improve automatic make-up
+  gain (\ref{sec:buttons_automatic_makeup_gain})
 
 \item if Squeezer sounds well and the level of the incoming signal
-  changes for some reason, it can seem more obvious to adjust
+  changes for some reason, it may be more obvious to adjust
   \emph{trim} instead of \emph{threshold}
 \end{itemize}
   
