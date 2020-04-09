@@ -1,15 +1,23 @@
 Git HEAD
 ========
 
+
+v2.5.2 (2020-04-09)
+===================
+
 * first official release
 
-* add buttons for input gain and stereo link
+* add buttons for input trim gain and stereo link
+
+* rename "S-curve" response to "smooth"
 
 * correctly round continuous parameters
 
 * disable automatic make-up gain by default
 
 * add plus sign to bi-polar continuous values
+
+* re-factor code
 
 * update skin
 
