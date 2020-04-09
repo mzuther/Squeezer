@@ -551,7 +551,7 @@ several use cases:
   changes for some reason, it may be more obvious to adjust
   \emph{trim} instead of \emph{threshold}
 \end{itemize}
-  
+
 \section{Stereo linking and wet/dry ratio}
 
 \begin{wrapfigure}{r}{0.26\linewidth}
@@ -794,7 +794,18 @@ The average level meter reaches \SI{99}{\percent} of the final reading
 in \SI{300}{\milli\second}, whereas the peak level meter has a rise
 time of one sample and a fall time of \SI{8.67}{\dB\per\second}.
 
-You can reset all meters by clicking on the ``Reset'' button.
+\section{Gain reduction meter}
+
+\begin{wrapfigure}{r}{0.13\linewidth}
+\includegraphics[scale=0.58,clip]{include/images/meter_gain_reduction.png}
+\end{wrapfigure}
+
+The gain reduction meter is divided into steps of \SI{1}{\dB} and
+displays \emph{current} gain reduction.  It also reflects ratio,
+attack and release time.
+
+\emph{The gain reduction meter should always be in motion.  If a part
+  of the meter is always lit, consider reducing the threshold.}
 
 \chapter{Final words}
 \label{chap:final_words}
