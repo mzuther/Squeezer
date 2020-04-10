@@ -460,6 +460,20 @@ settings by deleting the file \path{Squeezer (Stereo).ini} or
 \path{Squeezer (Mono).ini}.  These files are located in
 \path{~/.config} (GNU/Linux) or \path{%appdata%\.config\} (Windows).
 
+\chapter{Troubleshooting}
+\label{chap:troubleshooting}
+
+\textbf{My DAW acts weirdly if I insert Squeezer (VST2).}
+
+VST2 doesn't support side-chains, so I had to use a hack.  It works
+with a few DAWs, but \textbf{FL Studio} for example outputs a mono
+signal if you insert a stereo instance of Squeezer.
+
+Please use the VST2 plug-ins with ``\path{no side-chain}'' in their
+name -- they disable external side-chain input.  In case you need an
+external side-chain, please use VST3 plug-ins (VST3 officially
+supports side-chains).
+
 \chapter{Knobs}
 \label{sec:knobs}
 
