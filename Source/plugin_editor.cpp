@@ -223,8 +223,8 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     ButtonAutoMakeupGain_.addListener(this);
     addAndMakeVisible(&ButtonAutoMakeupGain_);
 
-    ButtonSidechainInput_.addListener(this);
-    addAndMakeVisible(&ButtonSidechainInput_);
+    ButtonSidechainExternal_.addListener(this);
+    addAndMakeVisible(&ButtonSidechainExternal_);
 
     ButtonSidechainListen_.addListener(this);
     addAndMakeVisible(&ButtonSidechainListen_);
@@ -380,8 +380,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
     CurrentSkin_.placeAndSkinButton("button_knee_soft",
                                     &ButtonKneeSoft_);
 
-    CurrentSkin_.placeAndSkinButton("button_sidechain_input",
-                                    &ButtonSidechainInput_);
+    CurrentSkin_.placeAndSkinButton("button_sidechain_external",
+                                    &ButtonSidechainExternal_);
     CurrentSkin_.placeAndSkinButton("button_sidechain_listen",
                                     &ButtonSidechainListen_);
 
@@ -511,6 +511,10 @@ void SqueezerAudioProcessorEditor::applySkin_()
         CurrentSkin_.placeMeterBar("meter_gain_reduction_right",
                                    GainReductionMeters_[1]);
     }
+
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 0
+    ButtonSidechainExternal_.setEnabled(false);
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 }
 
 
@@ -782,8 +786,8 @@ void SqueezerAudioProcessorEditor::updateParameter(
         break;
 
     case SqueezerPluginParameters::selSidechainInput:
-        ButtonSidechainInput_.setToggleState(FloatValue != 0.0f,
-                                             dontSendNotification);
+        ButtonSidechainExternal_.setToggleState(FloatValue != 0.0f,
+                                                dontSendNotification);
         break;
 
     case SqueezerPluginParameters::selSidechainHPFCutoffSwitch:
@@ -890,7 +894,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
             SqueezerPluginParameters::selAutoMakeupGain,
             !Button->getToggleState());
     }
-    else if (Button == &ButtonSidechainInput_)
+    else if (Button == &ButtonSidechainExternal_)
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selSidechainInput,

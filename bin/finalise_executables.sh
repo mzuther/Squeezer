@@ -74,6 +74,9 @@ finalise_executable "lv2/squeezer_mono_lv2.so"
 finalise_executable "vst/squeezer_stereo_vst.so"
 finalise_executable "vst/squeezer_mono_vst.so"
 
+finalise_executable "vst/squeezer_stereo_no_sidechain_vst.so"
+finalise_executable "vst/squeezer_mono_no_sidechain_vst.so"
+
 finalise_executable "standalone/squeezer_stereo_x64"
 finalise_executable "standalone/squeezer_mono_x64"
 
@@ -82,6 +85,9 @@ finalise_executable "lv2/squeezer_mono_lv2_x64.so"
 
 finalise_executable "vst/squeezer_stereo_vst_x64.so"
 finalise_executable "vst/squeezer_mono_vst_x64.so"
+
+finalise_executable "vst/squeezer_stereo_no_sidechain_vst_x64.so"
+finalise_executable "vst/squeezer_mono_no_sidechain_vst_x64.so"
 
 finalise_executable "standalone/Squeezer (Stereo).exe"
 finalise_symbols    "standalone/Squeezer (Stereo).pdb"
@@ -92,6 +98,11 @@ finalise_executable "vst/Squeezer (Stereo).dll"
 finalise_symbols    "vst/Squeezer (Stereo).pdb"
 finalise_executable "vst/Squeezer (Mono).dll"
 finalise_symbols    "vst/Squeezer (Mono).pdb"
+
+finalise_executable "vst/Squeezer (Stereo, no side-chain).dll"
+finalise_symbols    "vst/Squeezer (Stereo, no side-chain).pdb"
+finalise_executable "vst/Squeezer (Mono, no side-chain).dll"
+finalise_symbols    "vst/Squeezer (Mono, no side-chain).pdb"
 
 finalise_executable "vst3/Squeezer (Stereo).vst3"
 finalise_symbols    "vst3/Squeezer (Stereo).pdb"
@@ -107,6 +118,11 @@ finalise_executable "vst/Squeezer (Stereo x64).dll"
 finalise_symbols    "vst/Squeezer (Stereo x64).pdb"
 finalise_executable "vst/Squeezer (Mono x64).dll"
 finalise_symbols    "vst/Squeezer (Mono x64).pdb"
+
+finalise_executable "vst/Squeezer (Stereo, no side-chain x64).dll"
+finalise_symbols    "vst/Squeezer (Stereo, no side-chain x64).pdb"
+finalise_executable "vst/Squeezer (Mono, no side-chain x64).dll"
+finalise_symbols    "vst/Squeezer (Mono, no side-chain x64).pdb"
 
 finalise_executable "vst3/Squeezer (Stereo x64).vst3"
 finalise_symbols    "vst3/Squeezer (Stereo x64).pdb"

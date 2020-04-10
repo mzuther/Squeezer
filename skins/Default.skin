@@ -213,12 +213,12 @@
             image_off="buttons/button_sidechain_listen_off.png"
         />
 
-        <button_sidechain_input
+        <button_sidechain_external
             x="347"
             y="42"
-            image_on="buttons/button_sidechain_input_on.png"
-            image_over="buttons/button_sidechain_input_over.png"
-            image_off="buttons/button_sidechain_input_off.png"
+            image_on="buttons/button_sidechain_external_on.png"
+            image_over="buttons/button_sidechain_external_over.png"
+            image_off="buttons/button_sidechain_external_off.png"
         />
 
         <button_auto_makeup_gain

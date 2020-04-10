@@ -108,7 +108,7 @@ private:
     ImageButton ButtonCurveSmoothBranching_;
 
     ImageButton ButtonAutoMakeupGain_;
-    ImageButton ButtonSidechainInput_;
+    ImageButton ButtonSidechainExternal_;
     ImageButton ButtonSidechainListen_;
 
     ImageButton ButtonBypass_;

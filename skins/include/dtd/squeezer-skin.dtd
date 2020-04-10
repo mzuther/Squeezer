@@ -27,7 +27,7 @@
            button_knee_medium,
            button_knee_soft,
            button_sidechain_listen,
-           button_sidechain_input,
+           button_sidechain_external,
            button_auto_makeup_gain,
            button_bypass,
            button_settings,
@@ -58,7 +58,7 @@
            button_knee_medium?,
            button_knee_soft?,
            button_sidechain_listen?,
-           button_sidechain_input?,
+           button_sidechain_external?,
            button_auto_makeup_gain?,
            button_bypass?,
            button_settings?,
@@ -257,8 +257,8 @@
         <!ELEMENT button_sidechain_listen (#PCDATA)>
             <!ATTLIST button_sidechain_listen %attrs_button;>
 
-        <!ELEMENT button_sidechain_input (#PCDATA)>
-            <!ATTLIST button_sidechain_input %attrs_button;>
+        <!ELEMENT button_sidechain_external (#PCDATA)>
+            <!ATTLIST button_sidechain_external %attrs_button;>
 
         <!ELEMENT button_auto_makeup_gain (#PCDATA)>
             <!ATTLIST button_auto_makeup_gain %attrs_button;>

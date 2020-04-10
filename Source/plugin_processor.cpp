@@ -66,13 +66,27 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 
 #if JucePlugin_Build_VST
 
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
     return BusesProperties()
            .withInput("Main / SC In",
                       AudioChannelSet::discreteChannels(2))
            .withOutput("Main Out",
-                       AudioChannelSet::discreteChannels(1))
+                       AudioChannelSet::mono())
            .withInput("Disabled In",
                       AudioChannelSet::disabled());
+
+#else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+    return BusesProperties()
+           .withInput("Main In",
+                      AudioChannelSet::mono())
+           .withOutput("Main Out",
+                       AudioChannelSet::mono())
+           .withInput("Disabled In",
+                      AudioChannelSet::disabled());
+
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
 #else // JucePlugin_Build_VST
 
@@ -90,13 +104,27 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 
 #if JucePlugin_Build_VST
 
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
     return BusesProperties()
            .withInput("Main / SC In",
                       AudioChannelSet::discreteChannels(4))
            .withOutput("Main Out",
-                       AudioChannelSet::discreteChannels(2))
+                       AudioChannelSet::stereo())
            .withInput("Disabled In",
                       AudioChannelSet::disabled());
+
+#else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+    return BusesProperties()
+           .withInput("Main In",
+                      AudioChannelSet::stereo())
+           .withOutput("Main Out",
+                       AudioChannelSet::stereo())
+           .withInput("Disabled In",
+                      AudioChannelSet::disabled());
+
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
 #else // JucePlugin_Build_VST
 
@@ -135,11 +163,16 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
     // main input is mono
     if (layouts.getMainInputChannelSet() == AudioChannelSet::mono())
     {
+
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
         // side chain input is mono ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::mono())
         {
             return true;
         }
+
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
         // no side chain input ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
@@ -147,6 +180,8 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
             return true;
         }
     }
+
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
     // main input has two channels
     if (layouts.getMainInputChannelSet().size() == 2)
@@ -158,7 +193,9 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
         }
     }
 
-#else
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+#else // SQUEEZER_MONO
 
     // main output must be stereo
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
@@ -169,11 +206,16 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
     // main input is stereo
     if (layouts.getMainInputChannelSet() == AudioChannelSet::stereo())
     {
+
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
         // side chain input is stereo ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::stereo())
         {
             return true;
         }
+
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
         // no side chain input ==> okay
         if (layouts.getChannelSet(true, 1) == AudioChannelSet::disabled())
@@ -181,6 +223,8 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
             return true;
         }
     }
+
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
     // main input has four channels
     if (layouts.getMainInputChannelSet().size() == 4)
@@ -192,12 +236,14 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported(
         }
     }
 
-#endif
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+#endif // SQUEEZER_MONO
 
     // current channel layout is not allowed
     return false;
 }
-#endif
+#endif // JucePlugin_PreferredChannelConfigurations
 
 
 const String SqueezerAudioProcessor::getName() const

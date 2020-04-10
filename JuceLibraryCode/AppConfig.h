@@ -44,11 +44,21 @@
 ---------------------------------------------------------------------------- */
 
 #ifdef SQUEEZER_MONO
-  #define JucePlugin_PluginCode  'sqzM'
-  #define JucePlugin_Name        "Squeezer (Mono)"
+  #if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_PluginCode  'sqzM'
+    #define JucePlugin_Name        "Squeezer (Mono)"
+  #else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_PluginCode  'sqzN'
+    #define JucePlugin_Name        "Squeezer (Mono, no side-chain)"
+  #endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 #else // SQUEEZER_MONO
-  #define JucePlugin_PluginCode  'sqzr'
-  #define JucePlugin_Name        "Squeezer (Stereo)"
+  #if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_PluginCode  'sqzr'
+    #define JucePlugin_Name        "Squeezer (Stereo)"
+  #else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_PluginCode  'sqzS'
+    #define JucePlugin_Name        "Squeezer (Stereo, no side-chain)"
+  #endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 #endif // SQUEEZER_MONO
 
 #define JUCE_USE_FLAC  1

@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.20089"
-     inkscape:cx="786.5"
+     inkscape:cx="567.0794"
      inkscape:cy="239.00013"
      inkscape:document-units="px"
      inkscape:current-layer="g13041"
@@ -1909,91 +1909,91 @@
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_threshold.png"
        xlink:href="sliders/slider_threshold.png"
-       width="52"
-       height="60"
-       preserveAspectRatio="none"
-       id="image14818"
-       x="16"
-       y="466"
+       transform="translate(-4,-429)"
        style="display:inline;fill:#d40000;enable-background:new"
-       transform="translate(-4,-429)" />
+       y="466"
+       x="16"
+       id="image14818"
+       preserveAspectRatio="none"
+       height="60"
+       width="52" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_threshold.png"
        xlink:href="sliders/slider_threshold.png"
-       y="466"
-       x="76"
+       transform="translate(-4,-429)"
+       style="display:inline;enable-background:new"
+       width="52"
+       height="60"
+       preserveAspectRatio="none"
        id="image14821"
-       preserveAspectRatio="none"
-       height="60"
-       width="52"
-       style="display:inline;enable-background:new"
-       transform="translate(-4,-429)" />
+       x="76"
+       y="466" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_attack.png"
        xlink:href="sliders/slider_attack.png"
-       width="52"
-       height="60"
-       preserveAspectRatio="none"
-       id="image14785"
+       transform="translate(-134,-345)"
+       style="display:inline;enable-background:new"
+       y="485"
        x="146"
-       y="485"
-       style="display:inline;enable-background:new"
-       transform="translate(-134,-345)" />
+       id="image14785"
+       preserveAspectRatio="none"
+       height="60"
+       width="52" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_attack.png"
        xlink:href="sliders/slider_attack.png"
-       y="485"
-       x="206"
+       transform="translate(-134,-345)"
+       style="display:inline;enable-background:new"
+       width="52"
+       height="60"
+       preserveAspectRatio="none"
        id="image14823"
-       preserveAspectRatio="none"
-       height="60"
-       width="52"
-       style="display:inline;enable-background:new"
-       transform="translate(-134,-345)" />
+       x="206"
+       y="485" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_hpf.png"
        xlink:href="sliders/slider_hpf.png"
-       width="52"
-       height="60"
-       preserveAspectRatio="none"
-       id="image14796"
+       transform="translate(-133,-345)"
+       style="display:inline;enable-background:new"
+       y="485"
        x="276"
-       y="485"
-       style="display:inline;enable-background:new"
-       transform="translate(-133,-345)" />
+       id="image14796"
+       preserveAspectRatio="none"
+       height="60"
+       width="52" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_hpf.png"
        xlink:href="sliders/slider_hpf.png"
-       y="485"
-       x="336"
+       transform="translate(-133,-345)"
+       style="display:inline;enable-background:new"
+       width="52"
+       height="60"
+       preserveAspectRatio="none"
        id="image21512"
-       preserveAspectRatio="none"
-       height="60"
-       width="52"
-       style="display:inline;enable-background:new"
-       transform="translate(-133,-345)" />
+       x="336"
+       y="485" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_output.png"
        xlink:href="sliders/slider_output.png"
-       width="52"
-       height="60"
-       preserveAspectRatio="none"
-       id="image14807"
+       transform="translate(-263,-448)"
+       style="display:inline;enable-background:new"
+       y="485"
        x="406"
-       y="485"
-       style="display:inline;enable-background:new"
-       transform="translate(-263,-448)" />
+       id="image14807"
+       preserveAspectRatio="none"
+       height="60"
+       width="52" />
     <image
        sodipodi:absref="/home/martin/Documents/code/cpp/squeezer/skins/Default/sliders/slider_output.png"
        xlink:href="sliders/slider_output.png"
-       y="485"
-       x="466"
-       id="image14829"
-       preserveAspectRatio="none"
-       height="60"
-       width="52"
+       transform="translate(-263,-448)"
        style="display:inline;enable-background:new"
-       transform="translate(-263,-448)" />
+       width="52"
+       height="60"
+       preserveAspectRatio="none"
+       id="image14829"
+       x="466"
+       y="485" />
     <g
        style="display:inline;enable-background:new"
        id="g18598"
@@ -5708,7 +5708,7 @@
   </g>
   <g
      transform="translate(0,-464)"
-     style="display:none"
+     style="display:inline"
      id="webslicer-layer"
      inkscape:label="Web Slicer"
      inkscape:groupmode="layer"
@@ -6165,7 +6165,7 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="button_sidechain_input_on"
+       id="button_sidechain_external_on"
        x="1030"
        y="502"
        width="60"
@@ -6234,12 +6234,12 @@ layout-position-anchor: tl</desc>
     </rect>
     <rect
        style="opacity:0.5;fill:#ff0000"
-       id="button_sidechain_input_over"
+       id="button_sidechain_external_over"
        x="1100"
        y="502"
        width="60"
        height="20"
-       inkscape:label="#button_sidechain_input_over">
+       inkscape:label="#button_sidechain_external_over">
       <desc
          id="desc5210">format: png
 dpi: 96
@@ -6303,12 +6303,12 @@ layout-disposition: bg-el-norepeat
 layout-position-anchor: tl</desc>
     </rect>
     <rect
-       inkscape:label="#button_sidechain_input_off"
+       inkscape:label="#button_sidechain_external_off"
        height="20"
        width="60"
        y="502"
        x="1170"
-       id="button_sidechain_input_off"
+       id="button_sidechain_external_off"
        style="opacity:0.5;fill:#ff0000">
       <desc
          id="desc5230">format: png

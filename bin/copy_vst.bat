@@ -20,9 +20,21 @@ call :CopyVst ^
  "vst/squeezer"
 
 call :CopyVst ^
+ "%vst2_32%" ^
+ "vst/Squeezer (Mono, no side-chain).dll" ^
+ "vst/Squeezer (Stereo, no side-chain).dll" ^
+ "vst/squeezer"
+
+call :CopyVst ^
  "%categories_32%" ^
  "vst/Squeezer (Mono).dll" ^
  "vst/Squeezer (Stereo).dll" ^
+ "vst/squeezer"
+
+call :CopyVst ^
+ "%categories_32%" ^
+ "vst/Squeezer (Mono, no side-chain).dll" ^
+ "vst/Squeezer (Stereo, no side-chain).dll" ^
  "vst/squeezer"
 
 call :CopyVst ^
@@ -39,9 +51,21 @@ call :CopyVst ^
  "vst/squeezer"
 
 call :CopyVst ^
+ "%vst2_64%" ^
+ "vst/Squeezer (Mono, no side-chain x64).dll" ^
+ "vst/Squeezer (Stereo, no side-chain x64).dll" ^
+ "vst/squeezer"
+
+call :CopyVst ^
  "%categories_64%" ^
  "vst/Squeezer (Mono x64).dll" ^
  "vst/Squeezer (Stereo x64).dll" ^
+ "vst/squeezer"
+
+call :CopyVst ^
+ "%categories_64%" ^
+ "vst/Squeezer (Mono, no side-chain x64).dll" ^
+ "vst/Squeezer (Stereo, no side-chain x64).dll" ^
  "vst/squeezer"
 
 call :CopyVst ^

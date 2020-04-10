@@ -80,6 +80,14 @@ case $1 in
 		MAKEFILE="squeezer_vst_mono"
 		MAKEFILE_PRINT="VST plug-in (Mono)"
 		;;
+	7)
+		MAKEFILE="squeezer_vst_stereo_no_sidechain"
+		MAKEFILE_PRINT="VST plug-in (Stereo, no side-chain)"
+		;;
+	8)
+		MAKEFILE="squeezer_vst_mono_no_sidechain"
+		MAKEFILE_PRINT="VST plug-in (Mono, no side-chain)"
+		;;
 	*)
 		echo "  Target:    ..."
 		echo
@@ -92,6 +100,8 @@ case $1 in
 		echo "  4: LV2 plug-in (Mono)"
 		echo "  5: VST plug-in (Stereo)"
 		echo "  6: VST plug-in (Mono)"
+		echo "  7: VST plug-in (Stereo, no side-chain)"
+		echo "  8: VST plug-in (Mono, no side-chain)"
 		echo
 		exit
 esac

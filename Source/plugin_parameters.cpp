@@ -521,7 +521,7 @@ String SqueezerPluginParameters::toString()
     parameterValues += " (Mono)";
 #else // SQUEEZER_MONO
     parameterValues += " (Stereo)";
-#endif
+#endif // SQUEEZER_MONO
 
     int stringLength = parameterValues.length();
     parameterValues += "\n";
