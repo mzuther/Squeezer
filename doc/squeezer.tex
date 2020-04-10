@@ -477,6 +477,9 @@ supports side-chains).
 \chapter{Knobs}
 \label{sec:knobs}
 
+Double-click a knob to reset it to its default position.  For finer
+control, hold the \emph{Ctrl} key when turning a knob.
+
 \section{Unlock knobs}
 \label{sec:unlock_knobs}
 
@@ -581,9 +584,10 @@ There are several use cases:
   \includegraphics[scale=\screenshotscale,clip]{include/images/knob_wet_dry.png}
 \end{wrapfigure}
 
-\textbf{Link} controls the amount of stereo linking.
-\SI{100}{\percent} enforces full linking, whereas \SI{0}{\percent}
-disables linking and processes every channel independently.
+\textbf{Link} controls the amount of stereo linking.\footnote{Squeezer
+  does not support mid/side processing} \SI{100}{\percent} enforces
+full linking, whereas \SI{0}{\percent} disables linking and processes
+every channel independently.
 
 \textbf{Wet} controls the ratio between wet (compressed) and dry
 (uncompressed) signal.  When set to \SI{100}{\percent}, you hear only
