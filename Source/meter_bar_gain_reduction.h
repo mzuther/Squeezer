@@ -37,21 +37,11 @@ public:
     void create(frut::widgets::Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
-                const Array<Colour> &segmentColours);
+                const Colour &segmentColour);
 
     void setUpwardExpansion(bool upwardExpansion);
 
 protected:
-    /// Colour ID selector for meter segments.
-    enum colourSelector  // protected namespace
-    {
-        /// normal (usually blue)
-        normal = 0,
-
-        /// notify (usually yellow)
-        notify
-    };
-
     bool upwardExpansion_;
 
 private:

@@ -29,7 +29,7 @@
 void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
                                    bool discreteMeter,
                                    int mainSegmentHeight,
-                                   const Array<Colour> &segmentColours)
+                                   const Colour &segmentColour)
 
 {
     frut::widgets::MeterBar::create();
@@ -42,7 +42,6 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
 
     for (int n = 0; n < numberOfBars; ++n)
     {
-        int colourId = colourSelector::normal;
         bool hasHighestLevel = (n == (numberOfBars - 1)) ? true : false;
 
         if (discreteMeter)
@@ -59,8 +58,8 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
-                segmentColours[colourId],
-                segmentColours[colourId].withMultipliedBrightness(0.7f));
+                segmentColour,
+                segmentColour.withMultipliedBrightness(0.7f));
         }
         else
         {
@@ -75,8 +74,8 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
                 hasHighestLevel,
                 segmentHeight,
                 spacingBefore,
-                segmentColours[colourId],
-                segmentColours[colourId].withMultipliedBrightness(0.7f));
+                segmentColour,
+                segmentColour.withMultipliedBrightness(0.7f));
         }
 
         trueLowerThreshold += levelRange;

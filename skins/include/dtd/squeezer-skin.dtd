@@ -3,8 +3,7 @@
            meter_colour_high,
            meter_colour_medium,
            meter_colour_low,
-           meter_gain_reduction_normal,
-           meter_gain_reduction_special
+           meter_gain_reduction_normal
 ">
 
 <!ENTITY % main_components
@@ -194,9 +193,6 @@
 
         <!ELEMENT meter_gain_reduction_normal (#PCDATA)>
             <!ATTLIST meter_gain_reduction_normal %attrs_colour;>
-
-        <!ELEMENT meter_gain_reduction_special (#PCDATA)>
-            <!ATTLIST meter_gain_reduction_special %attrs_colour;>
 
         <!ELEMENT background (#PCDATA)>
             <!ATTLIST background %attrs_background;>

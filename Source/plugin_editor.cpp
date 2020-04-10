@@ -430,20 +430,9 @@ void SqueezerAudioProcessorEditor::applySkin_()
     ColoursLevelMeter.add(ColourMedium);  // warning
     ColoursLevelMeter.add(ColourLow);     // fine
 
-
-    Array<Colour> ColoursGainReduction;
-
     xmlSetting = CurrentSkin_.getSetting("meter_gain_reduction_normal");
-    Colour ColourReductionNormal = CurrentSkin_.getColour(xmlSetting,
-                                   Colour(0.58f, 1.0f, 1.0f, 1.0f));
-
-    xmlSetting = CurrentSkin_.getSetting("meter_gain_reduction_special");
-    Colour ColourReductionSpecial = CurrentSkin_.getColour(xmlSetting,
-                                    Colour(0.18f, 1.0f, 1.0f, 1.0f));
-
-    ColoursGainReduction.add(ColourReductionNormal);   // normal
-    ColoursGainReduction.add(ColourReductionSpecial);  // special
-
+    Colour ColourReduction = CurrentSkin_.getColour(xmlSetting,
+                             Colour(0.58f, 1.0f, 1.0f, 1.0f));
 
     xmlSetting = CurrentSkin_.getSetting("meter_segment");
     int SegmentHeight = CurrentSkin_.getInteger(xmlSetting,
@@ -487,7 +476,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
             MeterOrientation,
             IsDiscreteMeter,
             SegmentHeight,
-            ColoursGainReduction);
+            ColourReduction);
 
         addAndMakeVisible(GainReductionMeter);
     }

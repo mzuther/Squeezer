@@ -36,12 +36,6 @@
             saturation="1.00"
             brightness="0.97"
         />
-
-        <meter_gain_reduction_special
-            hue="0.18"
-            saturation="1.00"
-            brightness="0.97"
-        />
     </settings>
 
     <default>
