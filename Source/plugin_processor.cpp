@@ -74,7 +74,7 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
            .withInput("Disabled In",
                       AudioChannelSet::disabled());
 
-#else
+#else // JucePlugin_Build_VST
 
     return BusesProperties()
            .withInput("Main In",
@@ -84,9 +84,9 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
            .withInput("Side-Chain In",
                       AudioChannelSet::mono());
 
-#endif
+#endif // JucePlugin_Build_VST
 
-#else
+#else // SQUEEZER_MONO
 
 #if JucePlugin_Build_VST
 
@@ -98,7 +98,7 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
            .withInput("Disabled In",
                       AudioChannelSet::disabled());
 
-#else
+#else // JucePlugin_Build_VST
 
     return BusesProperties()
            .withInput("Main In",
@@ -108,9 +108,9 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
            .withInput("Side-Chain In",
                       AudioChannelSet::stereo());
 
-#endif
+#endif // JucePlugin_Build_VST
 
-#endif
+#endif // SQUEEZER_MONO
 }
 
 
