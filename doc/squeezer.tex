@@ -293,7 +293,10 @@ reduction.\footnote{these definitions were shamelessly paraphrased
   from
   \href{https://www.attackmagazine.com/features/columns/gregory-scott-demolishing-the-myths-of-compression/}{Demolishing
     the Myths of Compression} by Gregory Scott, one of the few
-  articles on compression actually worth reading}
+  articles on compression actually worth reading; I also highly
+  recommend working through Bob Katz's book
+  \href{https://www.soundonsound.com/reviews/bob-katz-mastering-audio}{Mastering
+    Audio}}
 
 With this in mind, here are the important facts that almost every
 explanation gets wrong:\footnote{for simplicity, I will elide the
@@ -449,6 +452,10 @@ about each channel's role and should work without problem.
 In order to use the pre-compiled binaries, simply extract Squeezer's
 files from the downloaded archive.  For the plug-ins, you'll then have
 to move the extracted files to your respective plug-in folder.
+
+\emph{VST2 plug-ins with \emph{``\path{no side-chain}''} in their name
+  lack the external side-chain input.  Use them if your DAW behaves
+  erratically with the ``regular'' VST2 plug-ins.}
 
 Squeezer requires a processor which supports the SSE2 instruction set.
 On Windows, you might also have to install the
