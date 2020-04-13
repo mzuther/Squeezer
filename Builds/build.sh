@@ -65,26 +65,18 @@ case $1 in
 		EXECUTABLE="squeezer_mono"
 		;;
 	3)
-		MAKEFILE="squeezer_lv2_stereo"
-		MAKEFILE_PRINT="LV2 plug-in (Stereo)"
-		;;
-	4)
-		MAKEFILE="squeezer_lv2_mono"
-		MAKEFILE_PRINT="LV2 plug-in (Mono)"
-		;;
-	5)
 		MAKEFILE="squeezer_vst_stereo"
 		MAKEFILE_PRINT="VST plug-in (Stereo)"
 		;;
-	6)
+	4)
 		MAKEFILE="squeezer_vst_mono"
 		MAKEFILE_PRINT="VST plug-in (Mono)"
 		;;
-	7)
+	5)
 		MAKEFILE="squeezer_vst_stereo_no_sidechain"
 		MAKEFILE_PRINT="VST plug-in (Stereo, no side-chain)"
 		;;
-	8)
+	6)
 		MAKEFILE="squeezer_vst_mono_no_sidechain"
 		MAKEFILE_PRINT="VST plug-in (Mono, no side-chain)"
 		;;
@@ -96,12 +88,10 @@ case $1 in
 		echo
 		echo "  1: Standalone (Stereo)"
 		echo "  2: Standalone (Mono)"
-		echo "  3: LV2 plug-in (Stereo)"
-		echo "  4: LV2 plug-in (Mono)"
-		echo "  5: VST plug-in (Stereo)"
-		echo "  6: VST plug-in (Mono)"
-		echo "  7: VST plug-in (Stereo, no side-chain)"
-		echo "  8: VST plug-in (Mono, no side-chain)"
+		echo "  3: VST plug-in (Stereo)"
+		echo "  4: VST plug-in (Mono)"
+		echo "  5: VST plug-in (Stereo, no side-chain)"
+		echo "  6: VST plug-in (Mono, no side-chain)"
 		echo
 		exit
 esac

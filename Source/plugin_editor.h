@@ -79,21 +79,21 @@ private:
     OwnedArray<MeterBarLevel> OutputLevelMeters_;
     OwnedArray<MeterBarGainReduction> GainReductionMeters_;
 
-    ScopedPointer<juce::LookAndFeel> currentLookAndFeel_;
+    frut::skin::LookAndFeel_Frut_V3 customLookAndFeel_;
 
-    ScopedPointer<frut::widgets::SliderCombined> SliderThreshold_;
-    ScopedPointer<frut::widgets::SliderCombined> SliderRatio_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderThreshold_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderRatio_;
 
-    ScopedPointer<frut::widgets::SliderCombined> SliderAttackRate_;
-    ScopedPointer<frut::widgets::SliderCombined> SliderReleaseRate_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderAttackRate_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderReleaseRate_;
 
-    ScopedPointer<frut::widgets::SliderCombined> SliderInputTrim_;
-    ScopedPointer<frut::widgets::SliderCombined> SliderMakeupGain_;
-    ScopedPointer<frut::widgets::SliderCombined> SliderStereoLink_;
-    ScopedPointer<frut::widgets::SliderCombined> SliderWetMix_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderInputTrim_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderMakeupGain_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderStereoLink_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderWetMix_;
 
-    ScopedPointer<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;
-    ScopedPointer<frut::widgets::SliderCombined> SliderSidechainLPFCutoff_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;
+    std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainLPFCutoff_;
 
     ImageButton ButtonRmsWindow_;
     ImageButton ButtonDesignFeedback_;

@@ -57,7 +57,7 @@ public:
 private:
     JUCE_LEAK_DETECTOR(SliderCombined);
 
-    ScopedPointer<DrawableButton> toggleButton;
+    std::unique_ptr<DrawableButton> toggleButton;
     Colour colourRotary;
     Colour colourToggleSwitch;
 

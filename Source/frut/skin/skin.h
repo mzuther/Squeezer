@@ -103,7 +103,8 @@ public:
                                 widgets::StateLabel *label);
 
 protected:
-    ScopedPointer<XmlElement> document_;
+    std::unique_ptr<XmlElement> document_;
+
     XmlElement *settingsGroup_;
     XmlElement *skinGroup_;
     XmlElement *skinFallback_1_;

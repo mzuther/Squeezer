@@ -14,8 +14,6 @@
 
 bin/.intermediate_*
 
-bin/lv2/squeezer_*.so
-
 bin/standalone/Squeezer*.exe
 bin/standalone/squeezer_*
 

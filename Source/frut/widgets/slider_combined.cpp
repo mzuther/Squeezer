@@ -40,16 +40,16 @@ SliderCombined::SliderCombined(parameters::Juggler *pParameters, int nParameterI
     setVelocityModeParameters(1.0, 1, 0.0, true);
     setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
 
-    toggleButton = new DrawableButton(
-        "Parameter Switch #" + String(nParameterIndexSwitch),
-        DrawableButton::ImageFitted);
+    toggleButton = std::make_unique<DrawableButton>(
+                       "Parameter Switch #" + String(nParameterIndexSwitch),
+                       DrawableButton::ImageFitted);
 
     toggleButton->setClickingTogglesState(true);
     toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
     toggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
     toggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
 
-    addAndMakeVisible(toggleButton);
+    addAndMakeVisible(toggleButton.get());
 
     setSliderColour(Colours::white);
     setToggleSwitchColour(Colours::white);

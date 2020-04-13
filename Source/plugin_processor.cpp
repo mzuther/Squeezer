@@ -894,7 +894,7 @@ void SqueezerAudioProcessor::prepareToPlay(
                             getMainBusNumOutputChannels()),
                        24);
 
-    compressor_ = new Compressor(numberOfChannels, (int) sampleRate);
+    compressor_ = std::make_unique<Compressor>(numberOfChannels, (int) sampleRate);
 
     compressor_->setBypass(bBypassCompressor);
     compressor_->setRmsWindowSize(fRmsWindowSizeMilliSeconds);
@@ -1135,7 +1135,7 @@ void SqueezerAudioProcessor::getStateInformation(
     DBG("[Squeezer]");
     DBG("[Squeezer] storing plug-in parameters:");
     DBG("[Squeezer]");
-    DBG(String("[Squeezer]   ") + xmlParameters.createDocument("").replace(
+    DBG(String("[Squeezer]   ") + xmlParameters.toString().replace(
             "\n", "\n[Squeezer]   "));
 
     copyXmlToBinary(xmlParameters, destData);
@@ -1146,14 +1146,14 @@ void SqueezerAudioProcessor::setStateInformation(
     const void *data,
     int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xmlParameters(getXmlFromBinary(data, sizeInBytes));
+    std::unique_ptr<XmlElement> xmlParameters(getXmlFromBinary(data, sizeInBytes));
 
     DBG("[Squeezer] loading plug-in parameters:");
     DBG("[Squeezer]");
-    DBG(String("[Squeezer]   ") + xmlParameters->createDocument("").replace(
+    DBG(String("[Squeezer]   ") + xmlParameters->toString().replace(
             "\n", "\n[Squeezer]   "));
 
-    pluginParameters_.loadFromXml(xmlParameters);
+    pluginParameters_.loadFromXml(xmlParameters.get());
     updateParameters(true);
 }
 

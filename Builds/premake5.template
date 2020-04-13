@@ -212,7 +212,6 @@ workspace "{{ name.short }}"
             {% for define in variant.defines -%}
             "{{ define }}",
             {% endfor -%}
-            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_Standalone=1",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
@@ -267,7 +266,6 @@ workspace "{{ name.short }}"
             {% for define in variant.defines -%}
             "{{ define }}",
             {% endfor -%}
-            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
@@ -285,7 +283,7 @@ workspace "{{ name.short }}"
         }
 
         includedirs {
-            "../libraries/vst"
+            "../libraries/vst2/VST2_SDK"
         }
 {{ additions }}
         filter { "system:linux" }
@@ -316,7 +314,6 @@ if os.target() == "windows" then
             {% for define in variant.defines -%}
             "{{ define }}",
             {% endfor -%}
-            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=1"
@@ -334,7 +331,8 @@ if os.target() == "windows" then
         }
 
         includedirs {
-            "../libraries/vst/VST3_SDK"
+            "../libraries/vst2/VST2_SDK",
+            "../libraries/vst3"
         }
 {{ additions }}
         filter { "system:windows" }
@@ -348,49 +346,5 @@ if os.target() == "windows" then
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_{{ variant.short }}_release")
 
 -- create VST3 projects on Windows only
-end
-{% endmacro %}
-
-
-
-{% macro lv2(name, variant, additions) %}
--- create LV2 projects on Linux only
-if os.target() == "linux" then
-
-    project ("{{ name.short }}_lv2_{{ variant.short }}")
-        kind "SharedLib"
-        targetdir "../bin/lv2/"
-
-        defines {
-            {% for define in variant.defines -%}
-            "{{ define }}",
-            {% endfor -%}
-            "JucePlugin_Build_LV2=1",
-            "JucePlugin_Build_Standalone=0",
-            "JucePlugin_Build_VST=0",
-            "JucePlugin_Build_VST3=0"
-        }
-
-        files {
-              "../JuceLibraryCode/include_juce_audio_plugin_client_LV2.cpp"
-        }
-
-        defines {
-            "JUCE_ALSA=0",
-            "JUCE_JACK=0",
-            "JUCE_WASAPI=0",
-            "JUCE_DIRECTSOUND=0"
-        }
-{{ additions }}
-        filter { "system:linux" }
-            targetname "{{ name.short }}_{{ variant.short }}_lv2"
-
-        filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/lv2_{{ variant.short }}_debug")
-
-        filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/lv2_{{ variant.short }}_release")
-
--- create LV2 projects on Linux only
 end
 {% endmacro %}

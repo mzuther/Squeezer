@@ -66,8 +66,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     : AudioProcessorEditor(OwnerFilter)
 {
     // load look and feel
-    currentLookAndFeel_ = new frut::skin::LookAndFeel_Frut_V3;
-    setLookAndFeel(currentLookAndFeel_);
+    setLookAndFeel(&customLookAndFeel_);
 
     // the editor window does not have any transparent areas
     // (increases performance on redrawing)
@@ -84,104 +83,104 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
 
     NumberOfChannels_ = NumberOfChannels;
 
-    SliderThreshold_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selThreshold,
-        SqueezerPluginParameters::selThresholdSwitch);
+    SliderThreshold_ = std::make_unique<frut::widgets::SliderCombined>(
+                           PluginParameters,
+                           SqueezerPluginParameters::selThreshold,
+                           SqueezerPluginParameters::selThresholdSwitch);
 
     SliderThreshold_->addListener(this);
     SliderThreshold_->addButtonListener(this);
-    addAndMakeVisible(SliderThreshold_);
+    addAndMakeVisible(SliderThreshold_.get());
 
 
-    SliderRatio_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selRatio,
-        SqueezerPluginParameters::selRatioSwitch);
+    SliderRatio_ = std::make_unique<frut::widgets::SliderCombined>(
+                       PluginParameters,
+                       SqueezerPluginParameters::selRatio,
+                       SqueezerPluginParameters::selRatioSwitch);
 
     SliderRatio_->addListener(this);
     SliderRatio_->addButtonListener(this);
-    addAndMakeVisible(SliderRatio_);
+    addAndMakeVisible(SliderRatio_.get());
 
 
-    SliderAttackRate_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selAttackRate,
-        SqueezerPluginParameters::selAttackRateSwitch);
+    SliderAttackRate_ = std::make_unique<frut::widgets::SliderCombined>(
+                            PluginParameters,
+                            SqueezerPluginParameters::selAttackRate,
+                            SqueezerPluginParameters::selAttackRateSwitch);
 
     SliderAttackRate_->addListener(this);
     SliderAttackRate_->addButtonListener(this);
-    addAndMakeVisible(SliderAttackRate_);
+    addAndMakeVisible(SliderAttackRate_.get());
 
 
-    SliderReleaseRate_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selReleaseRate,
-        SqueezerPluginParameters::selReleaseRateSwitch);
+    SliderReleaseRate_ = std::make_unique<frut::widgets::SliderCombined>(
+                             PluginParameters,
+                             SqueezerPluginParameters::selReleaseRate,
+                             SqueezerPluginParameters::selReleaseRateSwitch);
 
     SliderReleaseRate_->addListener(this);
     SliderReleaseRate_->addButtonListener(this);
-    addAndMakeVisible(SliderReleaseRate_);
+    addAndMakeVisible(SliderReleaseRate_.get());
 
 
-    SliderInputTrim_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selInputTrim,
-        SqueezerPluginParameters::selInputTrimSwitch);
+    SliderInputTrim_ = std::make_unique<frut::widgets::SliderCombined>(
+                           PluginParameters,
+                           SqueezerPluginParameters::selInputTrim,
+                           SqueezerPluginParameters::selInputTrimSwitch);
 
     SliderInputTrim_->addListener(this);
     SliderInputTrim_->addButtonListener(this);
-    addAndMakeVisible(SliderInputTrim_);
+    addAndMakeVisible(SliderInputTrim_.get());
 
 
-    SliderMakeupGain_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selMakeupGain,
-        SqueezerPluginParameters::selMakeupGainSwitch);
+    SliderMakeupGain_ = std::make_unique<frut::widgets::SliderCombined>(
+                            PluginParameters,
+                            SqueezerPluginParameters::selMakeupGain,
+                            SqueezerPluginParameters::selMakeupGainSwitch);
 
     SliderMakeupGain_->addListener(this);
     SliderMakeupGain_->addButtonListener(this);
-    addAndMakeVisible(SliderMakeupGain_);
+    addAndMakeVisible(SliderMakeupGain_.get());
 
 
-    SliderStereoLink_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selStereoLink,
-        SqueezerPluginParameters::selStereoLinkSwitch);
+    SliderStereoLink_ = std::make_unique<frut::widgets::SliderCombined>(
+                            PluginParameters,
+                            SqueezerPluginParameters::selStereoLink,
+                            SqueezerPluginParameters::selStereoLinkSwitch);
 
     SliderStereoLink_->addListener(this);
     SliderStereoLink_->addButtonListener(this);
-    addAndMakeVisible(SliderStereoLink_);
+    addAndMakeVisible(SliderStereoLink_.get());
 
 
-    SliderWetMix_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selWetMix,
-        SqueezerPluginParameters::selWetMixSwitch);
+    SliderWetMix_ = std::make_unique<frut::widgets::SliderCombined>(
+                        PluginParameters,
+                        SqueezerPluginParameters::selWetMix,
+                        SqueezerPluginParameters::selWetMixSwitch);
 
     SliderWetMix_->addListener(this);
     SliderWetMix_->addButtonListener(this);
-    addAndMakeVisible(SliderWetMix_);
+    addAndMakeVisible(SliderWetMix_.get());
 
 
-    SliderSidechainHPFCutoff_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selSidechainHPFCutoff,
-        SqueezerPluginParameters::selSidechainHPFCutoffSwitch);
+    SliderSidechainHPFCutoff_ = std::make_unique<frut::widgets::SliderCombined>(
+                                    PluginParameters,
+                                    SqueezerPluginParameters::selSidechainHPFCutoff,
+                                    SqueezerPluginParameters::selSidechainHPFCutoffSwitch);
 
     SliderSidechainHPFCutoff_->addListener(this);
     SliderSidechainHPFCutoff_->addButtonListener(this);
-    addAndMakeVisible(SliderSidechainHPFCutoff_);
+    addAndMakeVisible(SliderSidechainHPFCutoff_.get());
 
 
-    SliderSidechainLPFCutoff_ = new frut::widgets::SliderCombined(
-        PluginParameters,
-        SqueezerPluginParameters::selSidechainLPFCutoff,
-        SqueezerPluginParameters::selSidechainLPFCutoffSwitch);
+    SliderSidechainLPFCutoff_ = std::make_unique<frut::widgets::SliderCombined>(
+                                    PluginParameters,
+                                    SqueezerPluginParameters::selSidechainLPFCutoff,
+                                    SqueezerPluginParameters::selSidechainLPFCutoffSwitch);
 
     SliderSidechainLPFCutoff_->addListener(this);
     SliderSidechainLPFCutoff_->addButtonListener(this);
-    addAndMakeVisible(SliderSidechainLPFCutoff_);
+    addAndMakeVisible(SliderSidechainLPFCutoff_.get());
 
 
     ButtonBypass_.addListener(this);
@@ -337,27 +336,27 @@ void SqueezerAudioProcessorEditor::applySkin_()
     CurrentSkin_.setBackgroundImage(&BackgroundImage_, this);
 
     CurrentSkin_.placeAndSkinSlider("slider_threshold",
-                                    SliderThreshold_);
+                                    SliderThreshold_.get());
     CurrentSkin_.placeAndSkinSlider("slider_ratio",
-                                    SliderRatio_);
+                                    SliderRatio_.get());
     CurrentSkin_.placeAndSkinSlider("slider_attack_rate",
-                                    SliderAttackRate_);
+                                    SliderAttackRate_.get());
     CurrentSkin_.placeAndSkinSlider("slider_release_rate",
-                                    SliderReleaseRate_);
+                                    SliderReleaseRate_.get());
     CurrentSkin_.placeAndSkinSlider("slider_sidechain_hpf_cutoff",
-                                    SliderSidechainHPFCutoff_);
+                                    SliderSidechainHPFCutoff_.get());
     CurrentSkin_.placeAndSkinSlider("slider_sidechain_lpf_cutoff",
-                                    SliderSidechainLPFCutoff_);
+                                    SliderSidechainLPFCutoff_.get());
 
     CurrentSkin_.placeAndSkinSlider("slider_input_trim",
-                                    SliderInputTrim_);
+                                    SliderInputTrim_.get());
     CurrentSkin_.placeAndSkinSlider("slider_makeup_gain",
-                                    SliderMakeupGain_);
+                                    SliderMakeupGain_.get());
 
     CurrentSkin_.placeAndSkinSlider("slider_stereo_link",
-                                    SliderStereoLink_);
+                                    SliderStereoLink_.get());
     CurrentSkin_.placeAndSkinSlider("slider_wet_mix",
-                                    SliderWetMix_);
+                                    SliderWetMix_.get());
 
     CurrentSkin_.placeAndSkinButton("button_curve_linear",
                                     &ButtonCurveLinear_);
@@ -969,10 +968,6 @@ void SqueezerAudioProcessorEditor::buttonClicked(
         pluginNameAndVersion += " (Audio Unit)";
 #endif
 
-#if JucePlugin_Build_LV2
-        pluginNameAndVersion += " (LV2)";
-#endif
-
 #if JucePlugin_Build_VST
         pluginNameAndVersion += " (VST)";
 #endif
@@ -1012,9 +1007,6 @@ void SqueezerAudioProcessorEditor::buttonClicked(
             L"JACK\n"
 #endif
             L"JUCE\n"
-#if JucePlugin_Build_LV2
-            L"LV2\n"
-#endif
 #ifdef LINUX
             L"POSIX Threads\n"
 #endif
@@ -1075,61 +1067,61 @@ void SqueezerAudioProcessorEditor::buttonClicked(
             dynamic_cast<frut::widgets::SliderCombined *>(
                 Button->getParentComponent());
 
-        if (Slider == SliderThreshold_)
+        if (Slider == SliderThreshold_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selThresholdSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderRatio_)
+        else if (Slider == SliderRatio_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selRatioSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderAttackRate_)
+        else if (Slider == SliderAttackRate_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selAttackRateSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderReleaseRate_)
+        else if (Slider == SliderReleaseRate_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selReleaseRateSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderInputTrim_)
+        else if (Slider == SliderInputTrim_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selInputTrimSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderMakeupGain_)
+        else if (Slider == SliderMakeupGain_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selMakeupGainSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderStereoLink_)
+        else if (Slider == SliderStereoLink_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selStereoLinkSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderWetMix_)
+        else if (Slider == SliderWetMix_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selWetMixSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderSidechainHPFCutoff_)
+        else if (Slider == SliderSidechainHPFCutoff_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selSidechainHPFCutoffSwitch,
                 FloatValue);
         }
-        else if (Slider == SliderSidechainLPFCutoff_)
+        else if (Slider == SliderSidechainLPFCutoff_.get())
         {
             PluginProcessor_->changeParameter(
                 SqueezerPluginParameters::selSidechainLPFCutoffSwitch,
@@ -1148,61 +1140,61 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
 {
     float FloatValue = (float) Slider->getValue();
 
-    if (Slider == SliderThreshold_)
+    if (Slider == SliderThreshold_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selThreshold,
             FloatValue);
     }
-    else if (Slider == SliderRatio_)
+    else if (Slider == SliderRatio_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selRatio,
             FloatValue);
     }
-    else if (Slider == SliderAttackRate_)
+    else if (Slider == SliderAttackRate_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selAttackRate,
             FloatValue);
     }
-    else if (Slider == SliderReleaseRate_)
+    else if (Slider == SliderReleaseRate_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selReleaseRate,
             FloatValue);
     }
-    else if (Slider == SliderInputTrim_)
+    else if (Slider == SliderInputTrim_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selInputTrim,
             FloatValue);
     }
-    else if (Slider == SliderMakeupGain_)
+    else if (Slider == SliderMakeupGain_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selMakeupGain,
             FloatValue);
     }
-    else if (Slider == SliderStereoLink_)
+    else if (Slider == SliderStereoLink_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selStereoLink,
             FloatValue);
     }
-    else if (Slider == SliderWetMix_)
+    else if (Slider == SliderWetMix_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selWetMix,
             FloatValue);
     }
-    else if (Slider == SliderSidechainHPFCutoff_)
+    else if (Slider == SliderSidechainHPFCutoff_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selSidechainHPFCutoff,
             FloatValue);
     }
-    else if (Slider == SliderSidechainLPFCutoff_)
+    else if (Slider == SliderSidechainLPFCutoff_.get())
     {
         PluginProcessor_->changeParameter(
             SqueezerPluginParameters::selSidechainLPFCutoff,

@@ -68,9 +68,6 @@ echo
 finalise_executable "standalone/squeezer_stereo"
 finalise_executable "standalone/squeezer_mono"
 
-finalise_executable "lv2/squeezer_stereo_lv2.so"
-finalise_executable "lv2/squeezer_mono_lv2.so"
-
 finalise_executable "vst/squeezer_stereo_vst.so"
 finalise_executable "vst/squeezer_mono_vst.so"
 
@@ -79,9 +76,6 @@ finalise_executable "vst/squeezer_mono_no_sidechain_vst.so"
 
 finalise_executable "standalone/squeezer_stereo_x64"
 finalise_executable "standalone/squeezer_mono_x64"
-
-finalise_executable "lv2/squeezer_stereo_lv2_x64.so"
-finalise_executable "lv2/squeezer_mono_lv2_x64.so"
 
 finalise_executable "vst/squeezer_stereo_vst_x64.so"
 finalise_executable "vst/squeezer_mono_vst_x64.so"

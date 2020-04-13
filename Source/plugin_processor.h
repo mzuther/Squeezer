@@ -113,7 +113,7 @@ private:
     bool hasSideChain_;
 
     SqueezerPluginParameters pluginParameters_;
-    ScopedPointer<Compressor> compressor_;
+    std::unique_ptr<Compressor> compressor_;
 
     bool sampleRateIsValid_;
 };

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="2.5.3"
+<JUCERPROJECT id="Py2F1i" name="Squeezer" projectType="audioplug" version="2.5.4"
               bundleIdentifier="de.mzuther.Squeezer" buildVST="1" buildRTAS="0"
               buildAU="0" pluginName="Squeezer" pluginDesc="Flexible general-purpose audio compressor with a touch of citrus"
               pluginManufacturer="Martin Zuther" pluginManufacturerCode="MZut"
               pluginCode="sqzr" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
-              pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="2" jucerVersion="5.3.2"
+              pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="2" jucerVersion="5.4.7"
               companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
               pluginAAXCategory="2" includeBinaryInAppConfig="1" buildVST3="0"
               buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
@@ -84,7 +84,7 @@
   <EXPORTFORMATS>
     <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/squeezer/libraries/vst"
                 extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
-                extraDefs="JucePlugin_Build_LV2=0&#10;JucePlugin_Build_Standalone=0&#10;JucePlugin_Build_VST=1&#10;JucePlugin_Build_VST3=0&#10;SQUEEZER_STEREO=1&#10;SQUEEZER_EXTERNAL_SIDECHAIN=1&#10;LINUX=1"
+                extraDefs="JucePlugin_Build_Standalone=0&#10;JucePlugin_Build_VST=1&#10;JucePlugin_Build_VST3=0&#10;SQUEEZER_STEREO=1&#10;SQUEEZER_EXTERNAL_SIDECHAIN=1&#10;LINUX=1"
                 userNotes="Add &quot;Source/standalone_application.*&quot; when building the stand-alone."
                 extraLinkerFlags="">
       <CONFIGURATIONS>
@@ -132,7 +132,8 @@
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
     <MODULE id="juce_video" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_WEB_BROWSER="0"/>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled" JUCE_WEB_BROWSER="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"
+               JUCE_USE_CURL="0" JUCE_LOAD_CURL_SYMBOLS_LAZILY="1"/>
   <LIVE_SETTINGS>
     <LINUX/>
   </LIVE_SETTINGS>

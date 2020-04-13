@@ -90,13 +90,3 @@
 {{ render.vst3(name, variant) -}}
 
 {% endfor -%}
-
-
-
-{% for variant in variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.lv2(name, variant) -}}
-
-{% endfor -%}

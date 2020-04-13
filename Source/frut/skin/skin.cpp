@@ -54,7 +54,7 @@ bool Skin::loadFromXml(
         String("[Skin] loading file \"") +
         skinFile.getFileName() + "\"");
 
-    document_ = XmlDocument::parse(skinFile);
+    document_ = juce::parseXML(skinFile);
 
     if (document_ == nullptr)
     {
@@ -66,7 +66,7 @@ bool Skin::loadFromXml(
         return false;
     }
 
-    String skinVersion = getString(document_, "version");
+    String skinVersion = getString(document_.get(), "version");
 
     if (skinVersion.compare(assumedVersionNumber) != 0)
     {
@@ -107,7 +107,7 @@ bool Skin::loadFromXml(
 
         skinFallback_1_ = document_->getChildByName(currentFallbackName_);
 
-        String resourcePathName = getString(document_, "path");
+        String resourcePathName = getString(document_.get(), "path");
         resourcePath_ = File(skinFile.getSiblingFile(resourcePathName));
 
         if (!resourcePath_.isDirectory())
@@ -123,7 +123,7 @@ bool Skin::loadFromXml(
         }
     }
 
-    String originOfY = getString(document_, "origin_of_y", "top");
+    String originOfY = getString(document_.get(), "origin_of_y", "top");
     originOfYIsBottom_ = originOfY.compare("bottom") == 0;
 
     return true;

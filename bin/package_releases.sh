@@ -168,31 +168,6 @@ archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
 
 
-# ----- GNU/Linux LV2 (32 bit) -----
-
-echo "  === GNU/Linux LV2 $version (32 bit) ==="
-echo
-
-archive_dir="squeezer-linux32-lv2_$version"
-lv2_dir="./lv2/squeezer_lv2"
-
-archive_create
-
-archive_add "squeezer_stereo_lv2.so" "$executable_dir"
-archive_add "squeezer_mono_lv2.so" "$executable_dir"
-
-archive_add "manifest.ttl" "$lv2_dir"
-archive_add "squeezer_stereo.ttl" "$lv2_dir"
-archive_add "squeezer_mono.ttl" "$lv2_dir"
-
-archive_add "squeezer/doc" "$executable_dir"
-archive_add "squeezer/skins/Default" "$executable_dir"
-archive_add "squeezer/skins/Default.skin" "$executable_dir"
-
-archive_compress "gzip"
-archive_store "gzip" "$release_dir/linux"
-
-
 # ----- GNU/Linux VST2 (32 bit) -----
 
 echo "  === GNU/Linux VST2 $version (32 bit) ==="
@@ -227,31 +202,6 @@ archive_create
 
 archive_add "squeezer_stereo_x64" "$executable_dir"
 archive_add "squeezer_mono_x64" "$executable_dir"
-
-archive_add "squeezer/doc" "$executable_dir"
-archive_add "squeezer/skins/Default" "$executable_dir"
-archive_add "squeezer/skins/Default.skin" "$executable_dir"
-
-archive_compress "gzip"
-archive_store "gzip" "$release_dir/linux"
-
-
-# ----- GNU/Linux LV2 (64 bit) -----
-
-echo "  === GNU/Linux LV2 $version (64 bit) ==="
-echo
-
-archive_dir="squeezer-linux64-lv2_$version"
-lv2_dir="./lv2/squeezer_lv2_x64"
-
-archive_create
-
-archive_add "squeezer_stereo_lv2_x64.so" "$executable_dir"
-archive_add "squeezer_mono_lv2_x64.so" "$executable_dir"
-
-archive_add "manifest.ttl" "$lv2_dir"
-archive_add "squeezer_stereo.ttl" "$lv2_dir"
-archive_add "squeezer_mono.ttl" "$lv2_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"

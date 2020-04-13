@@ -894,7 +894,7 @@ Thanks for using free software.  I hope you'll enjoy it!
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 5.0.0 (alpha13) \\
+  Version:     \> 5.0.0 (alpha14) \\
   License:     \> BSD \\
   Homepage:    \> \href{https://premake.github.io/}{premake.github.io}
 \end{tabbing}
@@ -914,7 +914,7 @@ also have to install the necessary dependencies.
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 5.3.2 \\
+  Version:     \> 5.4.7 \\
   License:     \> ISC and GPL v3 (among others) \\
   Homepage:    \> \href{http://www.juce.com/}{www.juce.com}
 \end{tabbing}
@@ -923,23 +923,23 @@ also have to install the necessary dependencies.
 
 Extract the archive into the directory \path{libraries/juce}.
 
-If you want to build the LV2 plug-in, please extract the archive
-\path{distrho_lv2-xxxxxxxx.tar.gz} into the same directory.
-
 \subsection{Virtual Studio Technology SDK}
 
 \begin{tabbing}
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 2.4 / 3.6.8 \\
+  Version:     \> 2.4 / 3.6.12 \\
   License:     \> proprietary / GPL v3 \\
   Homepage:    \> \href{http://www.steinberg.net/en/company/developer.html}{www.steinberg.net}
 \end{tabbing}
 
 \subsubsection{Installation}
 
-Just extract the archive into the directory \path{libraries/vst}.
+Extract the archives into the directories \path{libraries/vst2} and
+\path{libraries/vst3}.  The proprietary VST2 SDK is not available
+anymore -- \textbf{you may only distribute VST2 plug-ins if you have
+  signed the old license agreement!}
 
 \subsection{Python}
 
@@ -947,7 +947,7 @@ Just extract the archive into the directory \path{libraries/vst}.
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 3.5 (or higher) \\
+  Version:     \> 3.6 (or higher) \\
   License:     \> Python Software Foundation License \\
   Homepage:    \> \href{http://www.python.org/}{www.python.org}
 \end{tabbing}
@@ -965,7 +965,7 @@ You can download an installer from the website.
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 2.8 (or higher) \\
+  Version:     \> 2.10 (or higher) \\
   License:     \> BSD \\
   Homepage:    \> \href{http://jinja.pocoo.org/}{jinja.pocoo.org}
 \end{tabbing}
@@ -979,7 +979,7 @@ templates (see \ref{sec:dependencies_premake}).
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 2.05.1 \\
+  Version:     \> 3.1 \\
   License:     \> LGPL v3 \\
   Homepage:    \> \href{http://astyle.sourceforge.net/}{astyle.sourceforge.net}
 \end{tabbing}
