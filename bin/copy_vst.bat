@@ -13,6 +13,10 @@ set categories_32=/cygdrive/d/Plugins/32-bit/Categories/Dynamics/Compressor
 set categories_64=/cygdrive/d/Plugins/64-bit/Categories/Dynamics/Compressor
 
 
+echo.
+echo "VST2 (32-bit)"
+echo.
+
 call :CopyVst ^
  "%vst2_32%" ^
  "vst/Squeezer (Mono).dll" ^
@@ -36,6 +40,10 @@ call :CopyVst ^
  "vst/Squeezer (Mono, no side-chain).dll" ^
  "vst/Squeezer (Stereo, no side-chain).dll" ^
  "vst/squeezer"
+
+echo.
+echo "VST3 (32-bit)"
+echo.
 
 call :CopyVst ^
  "%vst3_32%" ^
@@ -43,6 +51,9 @@ call :CopyVst ^
  "vst3/Squeezer (Stereo).vst3" ^
  "vst3/squeezer"
 
+echo.
+echo "VST2 (64-bit)"
+echo.
 
 call :CopyVst ^
  "%vst2_64%" ^
@@ -67,6 +78,10 @@ call :CopyVst ^
  "vst/Squeezer (Mono, no side-chain x64).dll" ^
  "vst/Squeezer (Stereo, no side-chain x64).dll" ^
  "vst/squeezer"
+
+echo.
+echo "VST3 (64-bit)"
+echo.
 
 call :CopyVst ^
  "%vst3_64%" ^
@@ -74,6 +89,7 @@ call :CopyVst ^
  "vst3/Squeezer (Stereo x64).vst3" ^
  "vst3/squeezer"
 
+echo.
 pause
 exit /b %errorlevel%
 
