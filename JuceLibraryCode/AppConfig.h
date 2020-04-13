@@ -61,6 +61,8 @@
   #endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 #endif // SQUEEZER_MONO
 
+#define JUCE_JACK_CLIENT_NAME JucePlugin_Name
+
 #define JUCE_USE_FLAC  1
 
 #ifdef SQUEEZER_MONO
