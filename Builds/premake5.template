@@ -1,4 +1,4 @@
--- -*-Lua-*- -------------------------------------------------------------------
+-- -*- mode: Lua; -*- ----------------------------------------------------------
 --
 --  This program is free software: you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
@@ -209,7 +209,9 @@ workspace "{{ name.short }}"
         targetdir "../bin/standalone/"
 
         defines {
-            "{{ name.short | upper }}_{{ variant.short | upper }}=1",
+            {% for define in variant.defines -%}
+            "{{ define }}",
+            {% endfor -%}
             "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_Standalone=1",
             "JucePlugin_Build_VST=0",
@@ -256,13 +258,15 @@ workspace "{{ name.short }}"
 
 
 
-{% macro vst(name, variant, additions) %}
+{% macro vst2(name, variant, additions) %}
     project ("{{ name.short }}_vst_{{ variant.short }}")
         kind "SharedLib"
         targetdir "../bin/vst/"
 
         defines {
-            "{{ name.short | upper }}_{{ variant.short | upper }}=1",
+            {% for define in variant.defines -%}
+            "{{ define }}",
+            {% endfor -%}
             "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=1",
@@ -309,7 +313,9 @@ if os.target() == "windows" then
         targetdir "../bin/vst3/"
 
         defines {
-            "{{ name.short | upper }}_{{ variant.short | upper }}=1",
+            {% for define in variant.defines -%}
+            "{{ define }}",
+            {% endfor -%}
             "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=0",
@@ -356,7 +362,9 @@ if os.target() == "linux" then
         targetdir "../bin/lv2/"
 
         defines {
-            "{{ name.short | upper }}_{{ variant.short | upper }}=1",
+            {% for define in variant.defines -%}
+            "{{ define }}",
+            {% endfor -%}
             "JucePlugin_Build_LV2=1",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=0",

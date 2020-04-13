@@ -27,8 +27,35 @@
 
 {% set name = {'real': 'Squeezer', 'short': 'squeezer'} -%}
 
-{% set variants = ({'real': 'Mono', 'short': 'mono'},
-                   {'real': 'Stereo', 'short': 'stereo'}) -%}
+{% set variants = [{'real':    'Mono',
+                    'short':   'mono',
+                    'defines': ['SQUEEZER_MONO=1',
+                                'SQUEEZER_EXTERNAL_SIDECHAIN=1']},
+
+                   {'real':    'Stereo',
+                    'short':   'stereo',
+                    'defines': ['SQUEEZER_STEREO=1',
+                                'SQUEEZER_EXTERNAL_SIDECHAIN=1']}] -%}
+
+{% set variants_vst2 = [{'real':    'Mono',
+                         'short':   'mono',
+                         'defines': ['SQUEEZER_MONO=1',
+                                          'SQUEEZER_EXTERNAL_SIDECHAIN=1']},
+
+                        {'real':    'Mono, no side-chain',
+                         'short':   'mono_no_sidechain',
+                         'defines': ['SQUEEZER_MONO=1',
+                                          'SQUEEZER_EXTERNAL_SIDECHAIN=0']},
+
+                        {'real':    'Stereo',
+                         'short':   'stereo',
+                         'defines': ['SQUEEZER_STEREO=1',
+                                          'SQUEEZER_EXTERNAL_SIDECHAIN=1']},
+
+                        {'real':    'Stereo, no side-chain',
+                         'short':   'stereo_no_sidechain',
+                         'defines': ['SQUEEZER_STEREO=1',
+                                     'SQUEEZER_EXTERNAL_SIDECHAIN=0']}] -%}
 
 
 
@@ -46,11 +73,11 @@
 
 
 
-{% for variant in variants %}
+{% for variant in variants_vst2 %}
 
 --------------------------------------------------------------------------------
 
-{{ render.vst(name, variant) -}}
+{{ render.vst2(name, variant) -}}
 
 {% endfor -%}
 
