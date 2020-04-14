@@ -177,11 +177,11 @@ archive_dir="squeezer-linux32-vst2_$version"
 
 archive_create
 
-archive_add "squeezer_stereo_vst.so" "$executable_dir"
-archive_add "squeezer_mono_vst.so" "$executable_dir"
+archive_add "squeezer_stereo_vst2.so" "$executable_dir"
+archive_add "squeezer_mono_vst2.so" "$executable_dir"
 
-archive_add "squeezer_stereo_no_sidechain_vst.so" "$executable_dir"
-archive_add "squeezer_mono_no_sidechain_vst.so" "$executable_dir"
+archive_add "squeezer_stereo_no_sidechain_vst2.so" "$executable_dir"
+archive_add "squeezer_mono_no_sidechain_vst2.so" "$executable_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -220,11 +220,11 @@ archive_dir="squeezer-linux64-vst2_$version"
 
 archive_create
 
-archive_add "squeezer_stereo_vst_x64.so" "$executable_dir"
-archive_add "squeezer_mono_vst_x64.so" "$executable_dir"
+archive_add "squeezer_stereo_vst2_x64.so" "$executable_dir"
+archive_add "squeezer_mono_vst2_x64.so" "$executable_dir"
 
-archive_add "squeezer_stereo_no_sidechain_vst_x64.so" "$executable_dir"
-archive_add "squeezer_mono_no_sidechain_vst_x64.so" "$executable_dir"
+archive_add "squeezer_stereo_no_sidechain_vst2_x64.so" "$executable_dir"
+archive_add "squeezer_mono_no_sidechain_vst2_x64.so" "$executable_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -370,7 +370,7 @@ archive_dir="debug-symbols_$version"
 archive_create
 
 archive_add "standalone" "$executable_dir/debug_symbols"
-archive_add "vst" "$executable_dir/debug_symbols"
+archive_add "vst2" "$executable_dir/debug_symbols"
 archive_add "vst3" "$executable_dir/debug_symbols"
 
 archive_compress "zip"

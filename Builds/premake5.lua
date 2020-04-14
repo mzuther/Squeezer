@@ -309,9 +309,9 @@ workspace "squeezer"
 
 --------------------------------------------------------------------------------
 
-    project ("squeezer_vst_mono")
+    project ("squeezer_vst2_mono")
         kind "SharedLib"
-        targetdir "../bin/vst/"
+        targetdir "../bin/vst2/"
 
         defines {
             "SQUEEZER_MONO=1",
@@ -337,23 +337,23 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_mono_vst"
+            targetname "squeezer_mono_vst2"
 
         filter { "system:windows" }
             targetname "Squeezer (Mono"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_release")
 
 --------------------------------------------------------------------------------
 
-    project ("squeezer_vst_mono_no_sidechain")
+    project ("squeezer_vst2_mono_no_sidechain")
         kind "SharedLib"
-        targetdir "../bin/vst/"
+        targetdir "../bin/vst2/"
 
         defines {
             "SQUEEZER_MONO=1",
@@ -379,23 +379,23 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_mono_no_sidechain_vst"
+            targetname "squeezer_mono_no_sidechain_vst2"
 
         filter { "system:windows" }
             targetname "Squeezer (Mono, no side-chain"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_mono_no_sidechain_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_mono_no_sidechain_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_release")
 
 --------------------------------------------------------------------------------
 
-    project ("squeezer_vst_stereo")
+    project ("squeezer_vst2_stereo")
         kind "SharedLib"
-        targetdir "../bin/vst/"
+        targetdir "../bin/vst2/"
 
         defines {
             "SQUEEZER_STEREO=1",
@@ -421,23 +421,23 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_stereo_vst"
+            targetname "squeezer_stereo_vst2"
 
         filter { "system:windows" }
             targetname "Squeezer (Stereo"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_release")
 
 --------------------------------------------------------------------------------
 
-    project ("squeezer_vst_stereo_no_sidechain")
+    project ("squeezer_vst2_stereo_no_sidechain")
         kind "SharedLib"
-        targetdir "../bin/vst/"
+        targetdir "../bin/vst2/"
 
         defines {
             "SQUEEZER_STEREO=1",
@@ -463,17 +463,17 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_stereo_no_sidechain_vst"
+            targetname "squeezer_stereo_no_sidechain_vst2"
 
         filter { "system:windows" }
             targetname "Squeezer (Stereo, no side-chain"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_no_sidechain_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_no_sidechain_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_stereo_no_sidechain_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_no_sidechain_release")
 
 --------------------------------------------------------------------------------
 

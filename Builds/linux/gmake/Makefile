@@ -11,37 +11,37 @@ endif
 ifeq ($(config),debug_x32)
   squeezer_standalone_mono_config = debug_x32
   squeezer_standalone_stereo_config = debug_x32
-  squeezer_vst_mono_config = debug_x32
-  squeezer_vst_mono_no_sidechain_config = debug_x32
-  squeezer_vst_stereo_config = debug_x32
-  squeezer_vst_stereo_no_sidechain_config = debug_x32
+  squeezer_vst2_mono_config = debug_x32
+  squeezer_vst2_mono_no_sidechain_config = debug_x32
+  squeezer_vst2_stereo_config = debug_x32
+  squeezer_vst2_stereo_no_sidechain_config = debug_x32
 endif
 ifeq ($(config),debug_x64)
   squeezer_standalone_mono_config = debug_x64
   squeezer_standalone_stereo_config = debug_x64
-  squeezer_vst_mono_config = debug_x64
-  squeezer_vst_mono_no_sidechain_config = debug_x64
-  squeezer_vst_stereo_config = debug_x64
-  squeezer_vst_stereo_no_sidechain_config = debug_x64
+  squeezer_vst2_mono_config = debug_x64
+  squeezer_vst2_mono_no_sidechain_config = debug_x64
+  squeezer_vst2_stereo_config = debug_x64
+  squeezer_vst2_stereo_no_sidechain_config = debug_x64
 endif
 ifeq ($(config),release_x32)
   squeezer_standalone_mono_config = release_x32
   squeezer_standalone_stereo_config = release_x32
-  squeezer_vst_mono_config = release_x32
-  squeezer_vst_mono_no_sidechain_config = release_x32
-  squeezer_vst_stereo_config = release_x32
-  squeezer_vst_stereo_no_sidechain_config = release_x32
+  squeezer_vst2_mono_config = release_x32
+  squeezer_vst2_mono_no_sidechain_config = release_x32
+  squeezer_vst2_stereo_config = release_x32
+  squeezer_vst2_stereo_no_sidechain_config = release_x32
 endif
 ifeq ($(config),release_x64)
   squeezer_standalone_mono_config = release_x64
   squeezer_standalone_stereo_config = release_x64
-  squeezer_vst_mono_config = release_x64
-  squeezer_vst_mono_no_sidechain_config = release_x64
-  squeezer_vst_stereo_config = release_x64
-  squeezer_vst_stereo_no_sidechain_config = release_x64
+  squeezer_vst2_mono_config = release_x64
+  squeezer_vst2_mono_no_sidechain_config = release_x64
+  squeezer_vst2_stereo_config = release_x64
+  squeezer_vst2_stereo_no_sidechain_config = release_x64
 endif
 
-PROJECTS := squeezer_standalone_mono squeezer_standalone_stereo squeezer_vst_mono squeezer_vst_mono_no_sidechain squeezer_vst_stereo squeezer_vst_stereo_no_sidechain
+PROJECTS := squeezer_standalone_mono squeezer_standalone_stereo squeezer_vst2_mono squeezer_vst2_mono_no_sidechain squeezer_vst2_stereo squeezer_vst2_stereo_no_sidechain
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -59,37 +59,37 @@ ifneq (,$(squeezer_standalone_stereo_config))
 	@${MAKE} --no-print-directory -C . -f squeezer_standalone_stereo.make config=$(squeezer_standalone_stereo_config)
 endif
 
-squeezer_vst_mono:
-ifneq (,$(squeezer_vst_mono_config))
-	@echo "==== Building squeezer_vst_mono ($(squeezer_vst_mono_config)) ===="
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_mono.make config=$(squeezer_vst_mono_config)
+squeezer_vst2_mono:
+ifneq (,$(squeezer_vst2_mono_config))
+	@echo "==== Building squeezer_vst2_mono ($(squeezer_vst2_mono_config)) ===="
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_mono.make config=$(squeezer_vst2_mono_config)
 endif
 
-squeezer_vst_mono_no_sidechain:
-ifneq (,$(squeezer_vst_mono_no_sidechain_config))
-	@echo "==== Building squeezer_vst_mono_no_sidechain ($(squeezer_vst_mono_no_sidechain_config)) ===="
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_mono_no_sidechain.make config=$(squeezer_vst_mono_no_sidechain_config)
+squeezer_vst2_mono_no_sidechain:
+ifneq (,$(squeezer_vst2_mono_no_sidechain_config))
+	@echo "==== Building squeezer_vst2_mono_no_sidechain ($(squeezer_vst2_mono_no_sidechain_config)) ===="
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_mono_no_sidechain.make config=$(squeezer_vst2_mono_no_sidechain_config)
 endif
 
-squeezer_vst_stereo:
-ifneq (,$(squeezer_vst_stereo_config))
-	@echo "==== Building squeezer_vst_stereo ($(squeezer_vst_stereo_config)) ===="
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_stereo.make config=$(squeezer_vst_stereo_config)
+squeezer_vst2_stereo:
+ifneq (,$(squeezer_vst2_stereo_config))
+	@echo "==== Building squeezer_vst2_stereo ($(squeezer_vst2_stereo_config)) ===="
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_stereo.make config=$(squeezer_vst2_stereo_config)
 endif
 
-squeezer_vst_stereo_no_sidechain:
-ifneq (,$(squeezer_vst_stereo_no_sidechain_config))
-	@echo "==== Building squeezer_vst_stereo_no_sidechain ($(squeezer_vst_stereo_no_sidechain_config)) ===="
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_stereo_no_sidechain.make config=$(squeezer_vst_stereo_no_sidechain_config)
+squeezer_vst2_stereo_no_sidechain:
+ifneq (,$(squeezer_vst2_stereo_no_sidechain_config))
+	@echo "==== Building squeezer_vst2_stereo_no_sidechain ($(squeezer_vst2_stereo_no_sidechain_config)) ===="
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_stereo_no_sidechain.make config=$(squeezer_vst2_stereo_no_sidechain_config)
 endif
 
 clean:
 	@${MAKE} --no-print-directory -C . -f squeezer_standalone_mono.make clean
 	@${MAKE} --no-print-directory -C . -f squeezer_standalone_stereo.make clean
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_mono.make clean
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_mono_no_sidechain.make clean
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_stereo.make clean
-	@${MAKE} --no-print-directory -C . -f squeezer_vst_stereo_no_sidechain.make clean
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_mono.make clean
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_mono_no_sidechain.make clean
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_stereo.make clean
+	@${MAKE} --no-print-directory -C . -f squeezer_vst2_stereo_no_sidechain.make clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -105,9 +105,9 @@ help:
 	@echo "   clean"
 	@echo "   squeezer_standalone_mono"
 	@echo "   squeezer_standalone_stereo"
-	@echo "   squeezer_vst_mono"
-	@echo "   squeezer_vst_mono_no_sidechain"
-	@echo "   squeezer_vst_stereo"
-	@echo "   squeezer_vst_stereo_no_sidechain"
+	@echo "   squeezer_vst2_mono"
+	@echo "   squeezer_vst2_mono_no_sidechain"
+	@echo "   squeezer_vst2_stereo"
+	@echo "   squeezer_vst2_stereo_no_sidechain"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

@@ -258,9 +258,9 @@ workspace "{{ name.short }}"
 
 
 {% macro vst2(name, variant, additions) %}
-    project ("{{ name.short }}_vst_{{ variant.short }}")
+    project ("{{ name.short }}_vst2_{{ variant.short }}")
         kind "SharedLib"
-        targetdir "../bin/vst/"
+        targetdir "../bin/vst2/"
 
         defines {
             {% for define in variant.defines -%}
@@ -287,17 +287,17 @@ workspace "{{ name.short }}"
         }
 {{ additions }}
         filter { "system:linux" }
-            targetname "{{ name.short }}_{{ variant.short }}_vst"
+            targetname "{{ name.short }}_{{ variant.short }}_vst2"
 
         filter { "system:windows" }
             targetname "{{ name.real }} ({{ variant.real }}"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_{{ variant.short }}_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_{{ variant.short }}_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst_{{ variant.short }}_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_{{ variant.short }}_release")
 {% endmacro %}
 
 

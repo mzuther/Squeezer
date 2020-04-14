@@ -33,9 +33,6 @@ cd $(dirname $0)
 python3 create_premake.py $windows_sdk
 
 echo
-premake5 --os=windows vs2015
-
-echo
 premake5 --os=windows vs2017
 
 echo
