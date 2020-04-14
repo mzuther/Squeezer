@@ -30,6 +30,8 @@
 
 
 {% set version = '2.5.3' %}
+{% set category = 'Dynamics/Compressor' %}
+{% set windows_sdk = '10.0.17763.0' %}
 
 
 {% set name = {'real': 'Squeezer', 'short': 'squeezer'} %}
@@ -65,6 +67,3 @@
                          'short':   'mono_no_sidechain',
                          'defines': ['SQUEEZER_MONO=1',
                                      'SQUEEZER_EXTERNAL_SIDECHAIN=0']}] %}
-
-
-{% set windows_sdk = '10.0.17763.0' %}

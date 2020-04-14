@@ -53,6 +53,11 @@ if __name__ == '__main__':
 
     render_template(
         templates,
+        'copy_vst.template',
+        '../bin/copy_vst.bat')
+
+    render_template(
+        templates,
         'finalise_executables.template',
         '../bin/finalise_executables.sh')
 

@@ -1,4 +1,38 @@
 @echo off
+#!/bin/bash
+
+rem  ----------------------------------------------------------------------------
+rem  
+rem  Squeezer
+rem  ========
+rem  Flexible general-purpose audio compressor with a touch of citrus
+rem  
+rem  Copyright (c) 2013-2020 Martin Zuther (http://www.mzuther.de/)
+rem  
+rem  This program is free software: you can redistribute it and/or modify
+rem  it under the terms of the GNU General Public License as published by
+rem  the Free Software Foundation, either version 3 of the License, or
+rem  (at your option) any later version.
+rem  
+rem  This program is distributed in the hope that it will be useful,
+rem  but WITHOUT ANY WARRANTY; without even the implied warranty of
+rem  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+rem  GNU General Public License for more details.
+rem  
+rem  You should have received a copy of the GNU General Public License
+rem  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+rem  
+rem  Thank you for using free software!
+rem  
+rem  ----------------------------------------------------------------------------
+
+
+rem ############################################################################
+rem
+rem  WARNING: this file is auto-generated, please do not edit!
+rem
+rem ############################################################################
+
 setlocal
 
 set rsync_path="E:\Documents\System\Tools\rsync\bin"
@@ -9,101 +43,75 @@ set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
 set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
 set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
 
-set categories_32=/cygdrive/d/Plugins/32-bit/Categories/Dynamics/Compressor
-set categories_64=/cygdrive/d/Plugins/64-bit/Categories/Dynamics/Compressor
+set vst2_32_categories=/cygdrive/d/Plugins/32-bit/Categories/Dynamics/Compressor
+set vst2_64_categories=/cygdrive/d/Plugins/64-bit/Categories/Dynamics/Compressor
 
 
 echo.
-echo "VST2 (32-bit)"
+echo "VST2 (32 bit)"
 echo.
 
-call :CopyVst ^
- "%vst2_32%" ^
- "vst/Squeezer (Mono).dll" ^
- "vst/Squeezer (Stereo).dll" ^
- "vst/squeezer"
-
-call :CopyVst ^
- "%vst2_32%" ^
- "vst/Squeezer (Mono, no side-chain).dll" ^
- "vst/Squeezer (Stereo, no side-chain).dll" ^
- "vst/squeezer"
-
-call :CopyVst ^
- "%categories_32%" ^
- "vst/Squeezer (Mono).dll" ^
- "vst/Squeezer (Stereo).dll" ^
- "vst/squeezer"
-
-call :CopyVst ^
- "%categories_32%" ^
- "vst/Squeezer (Mono, no side-chain).dll" ^
- "vst/Squeezer (Stereo, no side-chain).dll" ^
- "vst/squeezer"
+%rsync_cmd% --delete "vst2/squeezer" "%vst2_32%"
+%rsync_cmd%          "vst2/Squeezer (Stereo).dll" "%vst2_32%"
+%rsync_cmd%          "vst2/Squeezer (Mono).dll" "%vst2_32%"
+%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32%"
+%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32%"
 
 echo.
-echo "VST3 (32-bit)"
+echo "VST2 (32 bit, Categories)"
 echo.
 
-call :CopyVst ^
- "%vst3_32%" ^
- "vst3/Squeezer (Mono).vst3" ^
- "vst3/Squeezer (Stereo).vst3" ^
- "vst3/squeezer"
+%rsync_cmd% --delete "vst2/squeezer" "%vst2_32_categories%"
+%rsync_cmd%          "vst2/Squeezer (Stereo).dll" "%vst2_32_categories%"
+%rsync_cmd%          "vst2/Squeezer (Mono).dll" "%vst2_32_categories%"
+%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32_categories%"
+%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32_categories%"
+
 
 echo.
-echo "VST2 (64-bit)"
+echo "VST3 (32 bit)"
 echo.
 
-call :CopyVst ^
- "%vst2_64%" ^
- "vst/Squeezer (Mono x64).dll" ^
- "vst/Squeezer (Stereo x64).dll" ^
- "vst/squeezer"
+%rsync_cmd% --delete "vst3/squeezer" "%vst3_32%"
+%rsync_cmd%          "vst3/Squeezer (Stereo).vst3" "%vst3_32%"
+%rsync_cmd%          "vst3/Squeezer (Mono).vst3" "%vst3_32%"
 
-call :CopyVst ^
- "%vst2_64%" ^
- "vst/Squeezer (Mono, no side-chain x64).dll" ^
- "vst/Squeezer (Stereo, no side-chain x64).dll" ^
- "vst/squeezer"
+%rsync_cmd% --delete "vst3/squeezer" "%vst3_32%_categories"
+%rsync_cmd%          "vst3/Squeezer (Stereo).vst3" "%vst3_32_categories%"
+%rsync_cmd%          "vst3/Squeezer (Mono).vst3" "%vst3_32_categories%"
 
-call :CopyVst ^
- "%categories_64%" ^
- "vst/Squeezer (Mono x64).dll" ^
- "vst/Squeezer (Stereo x64).dll" ^
- "vst/squeezer"
-
-call :CopyVst ^
- "%categories_64%" ^
- "vst/Squeezer (Mono, no side-chain x64).dll" ^
- "vst/Squeezer (Stereo, no side-chain x64).dll" ^
- "vst/squeezer"
 
 echo.
-echo "VST3 (64-bit)"
+echo "VST2 (64 bit)"
 echo.
 
-call :CopyVst ^
- "%vst3_64%" ^
- "vst3/Squeezer (Mono x64).vst3" ^
- "vst3/Squeezer (Stereo x64).vst3" ^
- "vst3/squeezer"
+%rsync_cmd% --delete "vst2/squeezer" "%vst2_64%"
+%rsync_cmd%          "vst2/Squeezer (Stereo x64).dll" "%vst2_64%"
+%rsync_cmd%          "vst2/Squeezer (Mono x64).dll" "%vst2_64%"
+%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64%"
+%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64%"
 
 echo.
-pause
-exit /b %errorlevel%
+echo "VST2 (64 bit, Categories)"
+echo.
+
+%rsync_cmd% --delete "vst2/squeezer" "%vst2_64_categories%"
+%rsync_cmd%          "vst2/Squeezer (Stereo x64).dll" "%vst2_64_categories%"
+%rsync_cmd%          "vst2/Squeezer (Mono x64).dll" "%vst2_64_categories%"
+%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64_categories%"
+%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64_categories%"
 
 
-:CopyVst
-set destination=%1
-set dll_1=%2
-set dll_2=%3
-set aux_dir=%4
+echo.
+echo "VST3 (64 bit)"
+echo.
 
-echo %destination%
+%rsync_cmd% --delete "vst3/squeezer" "%vst3_64%"
+%rsync_cmd%          "vst3/Squeezer (Stereo x64).vst3" "%vst3_64%"
+%rsync_cmd%          "vst3/Squeezer (Mono x64).vst3" "%vst3_64%"
 
-%rsync_cmd% --delete %aux_dir% %destination%
-%rsync_cmd%          %dll_1%   %destination%
-%rsync_cmd%          %dll_2%   %destination%
+%rsync_cmd% --delete "vst3/squeezer" "%vst3_64%_categories"
+%rsync_cmd%          "vst3/Squeezer (Stereo x64).vst3" "%vst3_64_categories%"
+%rsync_cmd%          "vst3/Squeezer (Mono x64).vst3" "%vst3_64_categories%"
 
-exit /b 0
+

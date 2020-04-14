@@ -1,0 +1,79 @@
+{# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
+{#                                                                            #}
+{#  This program is free software: you can redistribute it and/or modify      #}
+{#  it under the terms of the GNU General Public License as published by      #}
+{#  the Free Software Foundation, either version 3 of the License, or         #}
+{#  (at your option) any later version.                                       #}
+{#                                                                            #}
+{#  This program is distributed in the hope that it will be useful,           #}
+{#  but WITHOUT ANY WARRANTY; without even the implied warranty of            #}
+{#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             #}
+{#  GNU General Public License for more details.                              #}
+{#                                                                            #}
+{#  You should have received a copy of the GNU General Public License         #}
+{#  along with this program.  If not, see <http://www.gnu.org/licenses/>.     #}
+{#                                                                            #}
+{#  Thank you for using free software!                                        #}
+{#                                                                            #}
+{# -------------------------------------------------------------------------- #}
+
+
+{% macro preamble(copyright, category) %}
+@echo off
+#!/bin/bash
+
+{% for line in copyright -%}
+rem  {{ line }}
+{% endfor %}
+
+
+rem ############################################################################
+rem
+rem  WARNING: this file is auto-generated, please do not edit!
+rem
+rem ############################################################################
+
+setlocal
+
+set rsync_path="E:\Documents\System\Tools\rsync\bin"
+set rsync_cmd="%rsync_path%\rsync.exe" --archive
+
+set vst2_32=/cygdrive/c/Program Files (x86)/Steinberg/VSTPlugins/radix/
+set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
+set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
+set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
+
+set vst2_32_categories=/cygdrive/d/Plugins/32-bit/Categories/{{category}}
+set vst2_64_categories=/cygdrive/d/Plugins/64-bit/Categories/{{category}}
+{% endmacro %}
+
+
+
+{% macro vst2_windows(name, variants, platform, bits, outdir, header) %}
+echo.
+echo "VST2 ({{header}})"
+echo.
+
+%rsync_cmd% --delete "vst2/squeezer" "%{{outdir}}%"
+{% for variant in variants %}
+%rsync_cmd%          "vst2/{{ name.real }} ({{variant.real}}{{platform}}).dll" "%{{outdir}}%"
+{% endfor %}
+{% endmacro %}
+
+
+
+{% macro vst3_windows(name, variants, platform, bits) %}
+echo.
+echo "VST3 ({{bits}} bit)"
+echo.
+
+%rsync_cmd% --delete "vst3/squeezer" "%vst3_{{bits}}%"
+{% for variant in variants %}
+%rsync_cmd%          "vst3/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "%vst3_{{bits}}%"
+{% endfor %}
+
+%rsync_cmd% --delete "vst3/squeezer" "%vst3_{{bits}}%_categories"
+{% for variant in variants %}
+%rsync_cmd%          "vst3/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "%vst3_{{bits}}_categories%"
+{% endfor %}
+{% endmacro %}
