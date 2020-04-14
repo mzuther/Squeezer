@@ -29,7 +29,7 @@
 
 {{ render.copyright(settings.copyright) }}
 
-{{ render.solution(settings.name, "", settings.windows_sdk) -}}
+{{ render.solution(settings.name, settings.additions_solution, settings.windows_sdk) -}}
 
 
 

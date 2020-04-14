@@ -67,3 +67,15 @@
                          'short':   'mono_no_sidechain',
                          'defines': ['SQUEEZER_MONO=1',
                                      'SQUEEZER_EXTERNAL_SIDECHAIN=0']}] %}
+
+
+{% set additions_solution = "" %}
+
+
+{% set additions_copyvst = {
+  'default': [
+    'archive_add "squeezer/doc" "$executable_dir"',
+    'archive_add "squeezer/skins/Default" "$executable_dir"',
+    'archive_add "squeezer/skins/Default.skin" "$executable_dir"'
+  ]
+} %}

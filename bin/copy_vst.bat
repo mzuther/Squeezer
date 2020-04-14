@@ -76,10 +76,6 @@ echo.
 %rsync_cmd%          "vst3/Squeezer (Stereo).vst3" "%vst3_32%"
 %rsync_cmd%          "vst3/Squeezer (Mono).vst3" "%vst3_32%"
 
-%rsync_cmd% --delete "vst3/squeezer" "%vst3_32%_categories"
-%rsync_cmd%          "vst3/Squeezer (Stereo).vst3" "%vst3_32_categories%"
-%rsync_cmd%          "vst3/Squeezer (Mono).vst3" "%vst3_32_categories%"
-
 
 echo.
 echo "VST2 (64 bit)"
@@ -109,9 +105,5 @@ echo.
 %rsync_cmd% --delete "vst3/squeezer" "%vst3_64%"
 %rsync_cmd%          "vst3/Squeezer (Stereo x64).vst3" "%vst3_64%"
 %rsync_cmd%          "vst3/Squeezer (Mono x64).vst3" "%vst3_64%"
-
-%rsync_cmd% --delete "vst3/squeezer" "%vst3_64%_categories"
-%rsync_cmd%          "vst3/Squeezer (Stereo x64).vst3" "%vst3_64_categories%"
-%rsync_cmd%          "vst3/Squeezer (Mono x64).vst3" "%vst3_64_categories%"
 
 

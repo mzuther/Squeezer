@@ -183,13 +183,13 @@ archive_store "zip" "$release_dir/windows"
 
 
 
-{% macro standalone_linux(name, variants, platform, bits) %}
+{% macro standalone_linux(name, variants, additions, platform, bits) %}
 # ----- GNU/Linux Standalone ({{bits}} bit) -----
 
 echo "  === GNU/Linux Standalone $version ({{bits}} bit) ==="
 echo
 
-archive_dir="squeezer-linux{{bits}}-standalone_$version"
+archive_dir="{{ name.short }}-linux{{bits}}-standalone_$version"
 
 archive_create
 
@@ -197,9 +197,13 @@ archive_create
 archive_add "{{ name.short }}_{{variant.short}}{{platform}}" "$executable_dir"
 {% endfor %}
 
-archive_add "{{ name.short }}/doc" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default.skin" "$executable_dir"
+{% for line in additions['default'] %}
+{{ line }}
+{% endfor -%}
+
+{% for line in additions['standalone_linux_' + bits] %}
+{{ line }}
+{% endfor %}
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
@@ -207,13 +211,13 @@ archive_store "gzip" "$release_dir/linux"
 
 
 
-{% macro vst2_linux(name, variants, platform, bits) %}
+{% macro vst2_linux(name, variants, additions, platform, bits) %}
 # ----- GNU/Linux VST2 ({{bits}} bit) -----
 
 echo "  === GNU/Linux VST2 $version ({{bits}} bit) ==="
 echo
 
-archive_dir="squeezer-linux{{bits}}-vst2_$version"
+archive_dir="{{ name.short }}-linux{{bits}}-vst2_$version"
 
 archive_create
 
@@ -221,9 +225,13 @@ archive_create
 archive_add "{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" "$executable_dir"
 {% endfor %}
 
-archive_add "{{ name.short }}/doc" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default.skin" "$executable_dir"
+{% for line in additions['default'] %}
+{{ line }}
+{% endfor -%}
+
+{% for line in additions['vst2_linux_' + bits] %}
+{{ line }}
+{% endfor %}
 
 archive_compress "gzip"
 archive_store "gzip" "$release_dir/linux"
@@ -231,13 +239,13 @@ archive_store "gzip" "$release_dir/linux"
 
 
 
-{% macro standalone_windows(name, variants, platform, bits) %}
+{% macro standalone_windows(name, variants, additions, platform, bits) %}
 # ----- Windows Standalone ({{bits}} bit) -----
 
 echo "  === Windows Standalone $version ({{bits}} bit) ==="
 echo
 
-archive_dir="squeezer-w{{bits}}-standalone_$version"
+archive_dir="{{ name.short }}-w{{bits}}-standalone_$version"
 
 archive_create
 
@@ -245,9 +253,13 @@ archive_create
 archive_add "{{ name.real }} ({{variant.real}}{{platform}}).exe" "$executable_dir"
 {% endfor %}
 
-archive_add "{{ name.short }}/doc" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default.skin" "$executable_dir"
+{% for line in additions['default'] %}
+{{ line }}
+{% endfor -%}
+
+{% for line in additions['standalone_windows_' + bits] %}
+{{ line }}
+{% endfor %}
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
@@ -255,13 +267,13 @@ archive_store "zip" "$release_dir/windows"
 
 
 
-{% macro vst2_windows(name, variants, platform, bits) %}
+{% macro vst2_windows(name, variants, additions, platform, bits) %}
 # ----- Windows VST2 ({{bits}} bit) -----
 
 echo "  === Windows VST2 $version ({{bits}} bit) ==="
 echo
 
-archive_dir="squeezer-w{{bits}}-vst2_$version"
+archive_dir="{{ name.short }}-w{{bits}}-vst2_$version"
 
 archive_create
 
@@ -269,9 +281,13 @@ archive_create
 archive_add "{{ name.real }} ({{variant.real}}{{platform}}).dll" "$executable_dir"
 {% endfor %}
 
-archive_add "{{ name.short }}/doc" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default.skin" "$executable_dir"
+{% for line in additions['default'] %}
+{{ line }}
+{% endfor -%}
+
+{% for line in additions['vst2_windows_' + bits] %}
+{{ line }}
+{% endfor %}
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
@@ -279,13 +295,13 @@ archive_store "zip" "$release_dir/windows"
 
 
 
-{% macro vst3_windows(name, variants, platform, bits) %}
+{% macro vst3_windows(name, variants, additions, platform, bits) %}
 # ----- Windows VST3 ({{bits}} bit) -----
 
 echo "  === Windows VST3 $version ({{bits}} bit) ==="
 echo
 
-archive_dir="squeezer-w{{bits}}-vst3_$version"
+archive_dir="{{ name.short }}-w{{bits}}-vst3_$version"
 
 archive_create
 
@@ -293,9 +309,13 @@ archive_create
 archive_add "{{ name.real }} ({{variant.real}}{{platform}}).vst3" "$executable_dir"
 {% endfor %}
 
-archive_add "{{ name.short }}/doc" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default" "$executable_dir"
-archive_add "{{ name.short }}/skins/Default.skin" "$executable_dir"
+{% for line in additions['default'] %}
+{{ line }}
+{% endfor -%}
+
+{% for line in additions['vst3_windows_' + bits] %}
+{{ line }}
+{% endfor %}
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"

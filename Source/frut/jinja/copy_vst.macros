@@ -60,7 +60,7 @@ echo.
 echo "VST2 ({{header}})"
 echo.
 
-%rsync_cmd% --delete "vst2/squeezer" "%{{outdir}}%"
+%rsync_cmd% --delete "vst2/{{ name.short }}" "%{{outdir}}%"
 {% for variant in variants %}
 %rsync_cmd%          "vst2/{{ name.real }} ({{variant.real}}{{platform}}).dll" "%{{outdir}}%"
 {% endfor %}
@@ -73,13 +73,8 @@ echo.
 echo "VST3 ({{bits}} bit)"
 echo.
 
-%rsync_cmd% --delete "vst3/squeezer" "%vst3_{{bits}}%"
+%rsync_cmd% --delete "vst3/{{ name.short }}" "%vst3_{{bits}}%"
 {% for variant in variants %}
 %rsync_cmd%          "vst3/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "%vst3_{{bits}}%"
-{% endfor %}
-
-%rsync_cmd% --delete "vst3/squeezer" "%vst3_{{bits}}%_categories"
-{% for variant in variants %}
-%rsync_cmd%          "vst3/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "%vst3_{{bits}}_categories%"
 {% endfor %}
 {% endmacro %}
