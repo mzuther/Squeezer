@@ -55,3 +55,8 @@ if __name__ == '__main__':
         templates,
         'finalise_executables.template',
         '../bin/finalise_executables.sh')
+
+    render_template(
+        templates,
+        'package_releases.template',
+        '../bin/package_releases.sh')

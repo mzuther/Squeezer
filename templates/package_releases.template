@@ -1,0 +1,45 @@
+{# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
+{#                                                                            #}
+{#  This program is free software: you can redistribute it and/or modify      #}
+{#  it under the terms of the GNU General Public License as published by      #}
+{#  the Free Software Foundation, either version 3 of the License, or         #}
+{#  (at your option) any later version.                                       #}
+{#                                                                            #}
+{#  This program is distributed in the hope that it will be useful,           #}
+{#  but WITHOUT ANY WARRANTY; without even the implied warranty of            #}
+{#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             #}
+{#  GNU General Public License for more details.                              #}
+{#                                                                            #}
+{#  You should have received a copy of the GNU General Public License         #}
+{#  along with this program.  If not, see <http://www.gnu.org/licenses/>.     #}
+{#                                                                            #}
+{#  Thank you for using free software!                                        #}
+{#                                                                            #}
+{# -------------------------------------------------------------------------- #}
+
+
+{%- import 'settings.template' as settings -%}
+{%- import 'package_releases_macros.template' as render -%}
+
+{{ render.preamble(settings.copyright, settings.version) }}
+
+{% for platform, bits in [['', '32'], ['_x64', '64']] -%}
+
+{{ render.standalone_linux(settings.name, settings.variants, platform, bits) }}
+
+{{ render.vst2_linux(settings.name, settings.variants_vst2, platform, bits) }}
+
+{% endfor -%}
+
+
+{% for platform, bits in [['', '32'], [' x64', '64']] -%}
+
+{{ render.standalone_windows(settings.name, settings.variants, platform, bits) }}
+
+{{ render.vst2_windows(settings.name, settings.variants_vst2, platform, bits) }}
+
+{{ render.vst3_windows(settings.name, settings.variants, platform, bits) }}
+
+{% endfor %}
+
+{{- render.postamble() }}
