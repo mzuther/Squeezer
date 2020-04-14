@@ -34,7 +34,7 @@ def cache_templates(searchpath):
 
 
 def render_template(templates, template_file, output_file):
-    print('Rendering "{}" to file "{}"...'.format(template_file, output_file))
+    print('{:30s} --> {}'.format(template_file, output_file))
 
     with open(output_file, 'w') as f:
         template = templates.get_template(template_file)
@@ -46,6 +46,12 @@ def render_template(templates, template_file, output_file):
 if __name__ == '__main__':
     templates = cache_templates('../templates/')
 
-    render_template(templates, 'premake5.template', './premake5.lua')
+    render_template(
+        templates,
+        'premake5.template',
+        './premake5.lua')
 
-    print('Done.')
+    render_template(
+        templates,
+        'finalise_executables.template',
+        '../bin/finalise_executables.sh')

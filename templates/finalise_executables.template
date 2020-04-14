@@ -19,38 +19,38 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'premake5_macros.template' as render -%}
+{%- import 'finalise_executables_macros.template' as render -%}
 
-{{ render.copyright(settings.copyright) }}
-
-{{ render.solution(settings.name, "", settings.windows_sdk) -}}
+{{ render.preamble(settings.copyright) -}}
 
 
+{% for platform in ['', '_x64'] -%}
 
 {% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.standalone(settings.name, variant) -}}
-
-{% endfor -%}
-
-
+{{ render.standalone_linux(settings.name, variant, platform) -}}
+{% endfor %}
 
 {% for variant in settings.variants_vst2 %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst2(settings.name, variant) -}}
+{{ render.vst2_linux(settings.name, variant, platform) -}}
+{% endfor %}
 
 {% endfor -%}
 
 
+{% for platform in ['', ' x64'] -%}
 
 {% for variant in settings.variants %}
+{{ render.standalone_windows(settings.name, variant, platform) -}}
+{% endfor %}
 
---------------------------------------------------------------------------------
+{% for variant in settings.variants_vst2 %}
+{{ render.vst2_windows(settings.name, variant, platform) -}}
+{% endfor %}
 
-{{ render.vst3(settings.name, variant) -}}
+{% for variant in settings.variants %}
+{{ render.vst3_windows(settings.name, variant, platform) -}}
+{% endfor %}
 
-{% endfor -%}
+{% endfor %}
+
+{{- render.postamble() }}

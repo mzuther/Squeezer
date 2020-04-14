@@ -1,27 +1,34 @@
---------------------------------------------------------------------------------
---
+--  ----------------------------------------------------------------------------
+--  
 --  Squeezer
 --  ========
 --  Flexible general-purpose audio compressor with a touch of citrus
---
+--  
 --  Copyright (c) 2013-2020 Martin Zuther (http://www.mzuther.de/)
---
+--  
 --  This program is free software: you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
 --  the Free Software Foundation, either version 3 of the License, or
 --  (at your option) any later version.
---
+--  
 --  This program is distributed in the hope that it will be useful,
 --  but WITHOUT ANY WARRANTY; without even the implied warranty of
 --  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 --  GNU General Public License for more details.
---
+--  
 --  You should have received a copy of the GNU General Public License
 --  along with this program.  If not, see <http://www.gnu.org/licenses/>.
---
+--  
 --  Thank you for using free software!
+--  
+--  ----------------------------------------------------------------------------
+
+
+-- #############################################################################
 --
---------------------------------------------------------------------------------
+-- WARNING: this file is auto-generated, please do not edit!
+--
+-- #############################################################################
 
 
 if not _ACTION then
@@ -207,57 +214,6 @@ workspace "squeezer"
 
 --------------------------------------------------------------------------------
 
-    project ("squeezer_standalone_mono")
-        kind "WindowedApp"
-        targetdir "../bin/standalone/"
-
-        defines {
-            "SQUEEZER_MONO=1",
-            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
-            "JucePlugin_Build_Standalone=1",
-            "JucePlugin_Build_VST=0",
-            "JucePlugin_Build_VST3=0"
-        }
-
-        entrypoint "WinMainCRTStartup"
-
-        files {
-              "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
-        }
-
-        filter { "system:linux" }
-            targetname "squeezer_mono"
-
-            defines {
-                "JUCE_ALSA=1",
-                "JUCE_JACK=1",
-                "JUCE_WASAPI=0",
-                "JUCE_DIRECTSOUND=0"
-            }
-
-            links {
-                "asound"
-            }
-
-        filter { "system:windows" }
-            targetname "Squeezer (Mono"
-            targetextension (".exe")
-
-            defines {
-                "JUCE_ALSA=0",
-                "JUCE_JACK=0",
-                "JUCE_WASAPI=1",
-                "JUCE_DIRECTSOUND=1"
-            }
-
-        filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_debug")
-
-        filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_release")
-
---------------------------------------------------------------------------------
-
     project ("squeezer_standalone_stereo")
         kind "WindowedApp"
         targetdir "../bin/standalone/"
@@ -309,87 +265,54 @@ workspace "squeezer"
 
 --------------------------------------------------------------------------------
 
-    project ("squeezer_vst2_mono")
-        kind "SharedLib"
-        targetdir "../bin/vst2/"
+    project ("squeezer_standalone_mono")
+        kind "WindowedApp"
+        targetdir "../bin/standalone/"
 
         defines {
             "SQUEEZER_MONO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
-            "JucePlugin_Build_Standalone=0",
-            "JucePlugin_Build_VST=1",
+            "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }
 
+        entrypoint "WinMainCRTStartup"
+
         files {
-              "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
-        }
-
-        defines {
-            "JUCE_ALSA=0",
-            "JUCE_JACK=0",
-            "JUCE_WASAPI=0",
-            "JUCE_DIRECTSOUND=0"
-        }
-
-        includedirs {
-            "../libraries/vst2/VST2_SDK"
+              "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_mono_vst2"
+            targetname "squeezer_mono"
+
+            defines {
+                "JUCE_ALSA=1",
+                "JUCE_JACK=1",
+                "JUCE_WASAPI=0",
+                "JUCE_DIRECTSOUND=0"
+            }
+
+            links {
+                "asound"
+            }
 
         filter { "system:windows" }
             targetname "Squeezer (Mono"
-            targetextension (".dll")
+            targetextension (".exe")
+
+            defines {
+                "JUCE_ALSA=0",
+                "JUCE_JACK=0",
+                "JUCE_WASAPI=1",
+                "JUCE_DIRECTSOUND=1"
+            }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_release")
-
---------------------------------------------------------------------------------
-
-    project ("squeezer_vst2_mono_no_sidechain")
-        kind "SharedLib"
-        targetdir "../bin/vst2/"
-
-        defines {
-            "SQUEEZER_MONO=1",
-            "SQUEEZER_EXTERNAL_SIDECHAIN=0",
-            "JucePlugin_Build_Standalone=0",
-            "JucePlugin_Build_VST=1",
-            "JucePlugin_Build_VST3=0"
-        }
-
-        files {
-              "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
-        }
-
-        defines {
-            "JUCE_ALSA=0",
-            "JUCE_JACK=0",
-            "JUCE_WASAPI=0",
-            "JUCE_DIRECTSOUND=0"
-        }
-
-        includedirs {
-            "../libraries/vst2/VST2_SDK"
-        }
-
-        filter { "system:linux" }
-            targetname "squeezer_mono_no_sidechain_vst2"
-
-        filter { "system:windows" }
-            targetname "Squeezer (Mono, no side-chain"
-            targetextension (".dll")
-
-        filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_debug")
-
-        filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -435,6 +358,48 @@ workspace "squeezer"
 
 --------------------------------------------------------------------------------
 
+    project ("squeezer_vst2_mono")
+        kind "SharedLib"
+        targetdir "../bin/vst2/"
+
+        defines {
+            "SQUEEZER_MONO=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
+            "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_VST=1",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
+        }
+
+        defines {
+            "JUCE_ALSA=0",
+            "JUCE_JACK=0",
+            "JUCE_WASAPI=0",
+            "JUCE_DIRECTSOUND=0"
+        }
+
+        includedirs {
+            "../libraries/vst2/VST2_SDK"
+        }
+
+        filter { "system:linux" }
+            targetname "squeezer_mono_vst2"
+
+        filter { "system:windows" }
+            targetname "Squeezer (Mono"
+            targetextension (".dll")
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_release")
+
+--------------------------------------------------------------------------------
+
     project ("squeezer_vst2_stereo_no_sidechain")
         kind "SharedLib"
         targetdir "../bin/vst2/"
@@ -477,23 +442,20 @@ workspace "squeezer"
 
 --------------------------------------------------------------------------------
 
--- create VST3 projects on Windows only
-if os.target() == "windows" then
-
-    project ("squeezer_vst3_mono")
+    project ("squeezer_vst2_mono_no_sidechain")
         kind "SharedLib"
-        targetdir "../bin/vst3/"
+        targetdir "../bin/vst2/"
 
         defines {
             "SQUEEZER_MONO=1",
-            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=0",
             "JucePlugin_Build_Standalone=0",
-            "JucePlugin_Build_VST=0",
-            "JucePlugin_Build_VST3=1"
+            "JucePlugin_Build_VST=1",
+            "JucePlugin_Build_VST3=0"
         }
 
         files {
-              "../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp"
+              "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
         }
 
         defines {
@@ -504,22 +466,21 @@ if os.target() == "windows" then
         }
 
         includedirs {
-            "../libraries/vst2/VST2_SDK",
-            "../libraries/vst3"
+            "../libraries/vst2/VST2_SDK"
         }
 
+        filter { "system:linux" }
+            targetname "squeezer_mono_no_sidechain_vst2"
+
         filter { "system:windows" }
-            targetname "Squeezer (Mono"
-            targetextension (".vst3")
+            targetname "Squeezer (Mono, no side-chain"
+            targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_release")
-
--- create VST3 projects on Windows only
-end
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_release")
 
 --------------------------------------------------------------------------------
 
@@ -563,6 +524,52 @@ if os.target() == "windows" then
 
         filter { "configurations:Release" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_release")
+
+-- create VST3 projects on Windows only
+end
+
+--------------------------------------------------------------------------------
+
+-- create VST3 projects on Windows only
+if os.target() == "windows" then
+
+    project ("squeezer_vst3_mono")
+        kind "SharedLib"
+        targetdir "../bin/vst3/"
+
+        defines {
+            "SQUEEZER_MONO=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
+            "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_VST=0",
+            "JucePlugin_Build_VST3=1"
+        }
+
+        files {
+              "../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp"
+        }
+
+        defines {
+            "JUCE_ALSA=0",
+            "JUCE_JACK=0",
+            "JUCE_WASAPI=0",
+            "JUCE_DIRECTSOUND=0"
+        }
+
+        includedirs {
+            "../libraries/vst2/VST2_SDK",
+            "../libraries/vst3"
+        }
+
+        filter { "system:windows" }
+            targetname "Squeezer (Mono"
+            targetextension (".vst3")
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_release")
 
 -- create VST3 projects on Windows only
 end

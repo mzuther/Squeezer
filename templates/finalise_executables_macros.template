@@ -1,0 +1,116 @@
+{# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
+{#                                                                            #}
+{#  This program is free software: you can redistribute it and/or modify      #}
+{#  it under the terms of the GNU General Public License as published by      #}
+{#  the Free Software Foundation, either version 3 of the License, or         #}
+{#  (at your option) any later version.                                       #}
+{#                                                                            #}
+{#  This program is distributed in the hope that it will be useful,           #}
+{#  but WITHOUT ANY WARRANTY; without even the implied warranty of            #}
+{#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             #}
+{#  GNU General Public License for more details.                              #}
+{#                                                                            #}
+{#  You should have received a copy of the GNU General Public License         #}
+{#  along with this program.  If not, see <http://www.gnu.org/licenses/>.     #}
+{#                                                                            #}
+{#  Thank you for using free software!                                        #}
+{#                                                                            #}
+{# -------------------------------------------------------------------------- #}
+
+
+{% macro preamble(copyright) %}
+#!/bin/bash
+
+{% for line in copyright -%}
+#  {{ line }}
+{% endfor %}
+
+
+###############################################################################
+#
+#  WARNING: this file is auto-generated, please do not edit!
+#
+###############################################################################
+
+executable_dir="final"
+
+
+function finalise_executable
+{
+	filepath=$1
+	filename=$(basename "$1")
+
+	if [ -f "./$filepath" ]; then
+		echo "  Finalising:  $filepath -->"
+		echo "               $executable_dir/$filename"
+
+		mv "./$filepath" "./$executable_dir/$filename"
+
+        echo
+	fi
+}
+
+
+function finalise_symbols
+{
+	filepath=$1
+	filename=$(basename "$1")
+
+	if [ -f "./$filepath" ]; then
+		echo "  Finalising:  $filepath -->"
+		echo "               $executable_dir/debug_symbols/$filepath"
+
+        mkdir -p "$(dirname "./$executable_dir/debug_symbols/$filepath")"
+		mv "./$filepath" "./$executable_dir/debug_symbols/$filepath"
+
+        echo
+	fi
+}
+
+
+echo
+echo "  === Finalising executables ==="
+echo
+
+{% endmacro %}
+
+
+
+{% macro postamble() %}
+echo "  Done."
+echo
+echo
+{% endmacro %}
+
+
+
+{% macro standalone_linux(name, variant, platform) %}
+finalise_executable "standalone/{{ name.short }}_{{ variant.short }}{{platform}}"
+{% endmacro %}
+
+
+
+{% macro vst2_linux(name, variant, platform) %}
+finalise_executable "vst2/{{ name.short }}_{{ variant.short }}_vst2{{platform}}.so"
+{% endmacro %}
+
+
+
+{% macro standalone_windows(name, variant, platform) %}
+finalise_executable "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).exe"
+finalise_symbols    "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
+{% endmacro %}
+
+
+
+{% macro vst2_windows(name, variant, platform) %}
+finalise_executable "vst2/{{ name.real }} ({{ variant.real }}{{platform}}).dll"
+finalise_symbols    "vst2/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
+{% endmacro %}
+
+
+
+{% macro vst3_windows(name, variant, platform) %}
+finalise_executable "vst3/{{ name.real }} ({{ variant.real }}{{platform}}).vst3"
+finalise_symbols    "vst3/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
+{% endmacro %}
