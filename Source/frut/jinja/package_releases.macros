@@ -46,106 +46,106 @@ release_dir="releases"
 
 function archive_create
 {
-	rm -rf "/tmp/$archive_dir"
+    rm -rf "/tmp/$archive_dir"
 
-	echo "  Creating archive in \"/tmp/$archive_dir\":"
-	mkdir -p "/tmp/$archive_dir"
-	echo
+    echo "  Creating archive in \"/tmp/$archive_dir\":"
+    mkdir -p "/tmp/$archive_dir"
+    echo
 }
 
 
 function archive_add
 {
-	filename="$1"
-	source_dir="$2"
-	target_dir=$(dirname "/tmp/$archive_dir/$1")
+    filename="$1"
+    source_dir="$2"
+    target_dir=$(dirname "/tmp/$archive_dir/$1")
 
-	if [ ! -d "$target_dir" ]; then
-		mkdir -p "$target_dir"
-	fi
+    if [ ! -d "$target_dir" ]; then
+        mkdir -p "$target_dir"
+    fi
 
-	if [ -f "$source_dir/$filename" ]; then
-		echo "  [+] $filename"
-		cp --dereference "$source_dir/$filename" "/tmp/$archive_dir/$1"
-	elif [ -d "$source_dir/$filename" ]; then
-		echo "  [+] $filename/*"
-		cp --dereference --recursive "$source_dir/$filename/" "/tmp/$archive_dir/$1"
-	else
-		echo "  [ ] $filename  --> not added"
-	fi
+    if [ -f "$source_dir/$filename" ]; then
+        echo "  [+] $filename"
+        cp --dereference "$source_dir/$filename" "/tmp/$archive_dir/$1"
+    elif [ -d "$source_dir/$filename" ]; then
+        echo "  [+] $filename/*"
+        cp --dereference --recursive "$source_dir/$filename/" "/tmp/$archive_dir/$1"
+    else
+        echo "  [ ] $filename  --> not added"
+    fi
 }
 
 
 function archive_del
 {
-	filename="$1"
+    filename="$1"
 
-	if [ -f "/tmp/$archive_dir/$filename" ]; then
-		echo "  [-] $filename"
-		rm "/tmp/$archive_dir/$filename"
-	elif [ -d "/tmp/$archive_dir/$filename" ]; then
-		echo "  [-] $filename/*"
-		rm -rf "/tmp/$archive_dir/$filename/"
-	else
-		echo "  [ ] $filename  --> not deleted"
-	fi
+    if [ -f "/tmp/$archive_dir/$filename" ]; then
+        echo "  [-] $filename"
+        rm "/tmp/$archive_dir/$filename"
+    elif [ -d "/tmp/$archive_dir/$filename" ]; then
+        echo "  [-] $filename/*"
+        rm -rf "/tmp/$archive_dir/$filename/"
+    else
+        echo "  [ ] $filename  --> not deleted"
+    fi
 }
 
 
 function archive_compress
 {
-	archive_type=$1
-	old_dir=$(pwd)
+    archive_type=$1
+    old_dir=$(pwd)
 
-	echo
-	echo "  Compressing archive..."
+    echo
+    echo "  Compressing archive..."
 
-	cd /tmp || exit
+    cd /tmp || exit
 
-	if [ "$archive_type" = "bzip2" ]; then
-		archive_name="$archive_dir.tar.bz2"
-		rm -f "$archive_name"
-		tar --create --bzip2 --verbose --file "$archive_name" "$archive_dir" > /dev/null
-	elif [ "$archive_type" = "gzip" ]; then
-		archive_name="$archive_dir.tar.gz"
-		rm -f "$archive_name"
-		tar --create --gzip --verbose --file "$archive_name" "$archive_dir" > /dev/null
-	elif [ "$archive_type" = "zip" ]; then
-		archive_name="$archive_dir.zip"
-		rm -f "$archive_name"
-		zip --recurse-paths "$archive_name" "$archive_dir" > /dev/null
-	fi
+    if [ "$archive_type" = "bzip2" ]; then
+        archive_name="$archive_dir.tar.bz2"
+        rm -f "$archive_name"
+        tar --create --bzip2 --verbose --file "$archive_name" "$archive_dir" > /dev/null
+    elif [ "$archive_type" = "gzip" ]; then
+        archive_name="$archive_dir.tar.gz"
+        rm -f "$archive_name"
+        tar --create --gzip --verbose --file "$archive_name" "$archive_dir" > /dev/null
+    elif [ "$archive_type" = "zip" ]; then
+        archive_name="$archive_dir.zip"
+        rm -f "$archive_name"
+        zip --recurse-paths "$archive_name" "$archive_dir" > /dev/null
+    fi
 
-	cd "$old_dir" || exit
+    cd "$old_dir" || exit
 }
 
 
 function archive_store
 {
-	archive_type=$1
-	destination_dir=$2
+    archive_type=$1
+    destination_dir=$2
 
-	if [ "$archive_type" = "bzip2" ]; then
-		archive_name="$archive_dir.tar.bz2"
-	elif [ "$archive_type" = "gzip" ]; then
-		archive_name="$archive_dir.tar.gz"
-	elif [ "$archive_type" = "zip" ]; then
-		archive_name="$archive_dir.zip"
-	fi
+    if [ "$archive_type" = "bzip2" ]; then
+        archive_name="$archive_dir.tar.bz2"
+    elif [ "$archive_type" = "gzip" ]; then
+        archive_name="$archive_dir.tar.gz"
+    elif [ "$archive_type" = "zip" ]; then
+        archive_name="$archive_dir.zip"
+    fi
 
-	rm -rf "/tmp/$archive_dir/"
+    rm -rf "/tmp/$archive_dir/"
 
-	if [ -f "$destination_dir/$archive_name" ]; then
-		echo "  Overwriting \"$destination_dir/$archive_name\"..."
-	else
-		echo "  Storing at \"$destination_dir/$archive_name\"..."
-	fi
+    if [ -f "$destination_dir/$archive_name" ]; then
+        echo "  Overwriting \"$destination_dir/$archive_name\"..."
+    else
+        echo "  Storing at \"$destination_dir/$archive_name\"..."
+    fi
 
-	mv "/tmp/$archive_name" "$destination_dir/$archive_name"
+    mv "/tmp/$archive_name" "$destination_dir/$archive_name"
 
-	echo "  Done."
-	echo
-	echo
+    echo "  Done."
+    echo
+    echo
 }
 
 

@@ -81,7 +81,7 @@
     <FILE id="ixBmrp" name="skin.h" compile="0" resource="0" file="Source/skin.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/squeezer/libraries/vst"
+    <LINUX_MAKE targetFolder="Builds/Linux" vstFolder="~/Documents/code/cpp/squeezer/libraries/vst2"
                 extraCompilerFlags="" cppLanguageStandard="-std=c++11" externalLibraries="dl&#10;freetype&#10;pthread&#10;rt&#10;X11&#10;Xext&#10;asound"
                 extraDefs="JucePlugin_Build_Standalone=0&#10;JucePlugin_Build_VST=1&#10;JucePlugin_Build_VST3=0&#10;SQUEEZER_STEREO=1&#10;SQUEEZER_EXTERNAL_SIDECHAIN=1&#10;LINUX=1"
                 userNotes="Add &quot;Source/standalone_application.*&quot; when building the stand-alone."
