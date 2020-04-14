@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/bin/bash
 
 # ----------------------------------------------------------------------------
 #
@@ -25,43 +25,18 @@
 #
 # ----------------------------------------------------------------------------
 
-import jinja2
+cd "$(dirname "$0")" || exit
+
+echo
+echo "=== Rendering templates ==="
+python3 "../Source/frut/jinja/render_templates.py"
 
 
-def cache_templates(searchpath):
-    templateLoader = jinja2.FileSystemLoader(searchpath=searchpath)
-    return jinja2.Environment(loader=templateLoader, trim_blocks=True)
+echo
+premake5 --os=windows vs2017
 
+echo
+premake5 --cc=clang --os=linux gmake
+# premake5 --cc=gcc --os=linux gmake
 
-def render_template(templates, template_file, output_file):
-    print('{:30s} --> {}'.format(template_file, output_file))
-
-    with open(output_file, 'w') as f:
-        template = templates.get_template(template_file)
-        output = template.render()
-
-        f.write(output)
-
-
-if __name__ == '__main__':
-    templates = cache_templates('../templates/')
-
-    render_template(
-        templates,
-        'premake5.template',
-        './premake5.lua')
-
-    render_template(
-        templates,
-        'copy_vst.template',
-        '../bin/copy_vst.bat')
-
-    render_template(
-        templates,
-        'finalise_executables.template',
-        '../bin/finalise_executables.sh')
-
-    render_template(
-        templates,
-        'package_releases.template',
-        '../bin/package_releases.sh')
+echo

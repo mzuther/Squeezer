@@ -1,5 +1,11 @@
 {# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
 {#                                                                            #}
+{#  FrutJUCE                                                                  #}
+{#  ========                                                                  #}
+{#  Common classes for use with the JUCE library                              #}
+{#                                                                            #}
+{#  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)            #}
+{#                                                                            #}
 {#  This program is free software: you can redistribute it and/or modify      #}
 {#  it under the terms of the GNU General Public License as published by      #}
 {#  the Free Software Foundation, either version 3 of the License, or         #}
@@ -19,7 +25,7 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'copy_vst_macros.template' as render -%}
+{%- import 'copy_vst.macros' as render -%}
 
 {{ render.preamble(settings.copyright, settings.category) }}
 

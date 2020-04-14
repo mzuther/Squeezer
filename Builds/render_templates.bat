@@ -27,7 +27,8 @@
 
 @echo.
 @echo "=== Rendering templates ==="
-python.exe render_templates.py
+python.exe "../Source/frut/jinja/render_templates.py"
+
 
 @echo.
 @premake5 --os=windows vs2017

@@ -1,5 +1,11 @@
 {# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
 {#                                                                            #}
+{#  FrutJUCE                                                                  #}
+{#  ========                                                                  #}
+{#  Common classes for use with the JUCE library                              #}
+{#                                                                            #}
+{#  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)            #}
+{#                                                                            #}
 {#  This program is free software: you can redistribute it and/or modify      #}
 {#  it under the terms of the GNU General Public License as published by      #}
 {#  the Free Software Foundation, either version 3 of the License, or         #}
@@ -19,38 +25,27 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'premake5_macros.template' as render -%}
+{%- import 'package_releases.macros' as render -%}
 
-{{ render.copyright(settings.copyright) }}
+{{ render.preamble(settings.copyright, settings.version) }}
 
-{{ render.solution(settings.name, "", settings.windows_sdk) -}}
+{% for platform, bits in [['', '32'], ['_x64', '64']] -%}
 
+{{ render.standalone_linux(settings.name, settings.variants, platform, bits) }}
 
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.standalone(settings.name, variant) -}}
+{{ render.vst2_linux(settings.name, settings.variants_vst2, platform, bits) }}
 
 {% endfor -%}
 
 
+{% for platform, bits in [['', '32'], [' x64', '64']] -%}
 
-{% for variant in settings.variants_vst2 %}
+{{ render.standalone_windows(settings.name, settings.variants, platform, bits) }}
 
---------------------------------------------------------------------------------
+{{ render.vst2_windows(settings.name, settings.variants_vst2, platform, bits) }}
 
-{{ render.vst2(settings.name, variant) -}}
+{{ render.vst3_windows(settings.name, settings.variants, platform, bits) }}
 
-{% endfor -%}
+{% endfor %}
 
-
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst3(settings.name, variant) -}}
-
-{% endfor -%}
+{{- render.postamble() }}
