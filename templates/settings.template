@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------
+{% set copyright = '--------------------------------------------------------------------------------
 --
 --  Squeezer
 --  ========
@@ -22,10 +22,11 @@
 --  Thank you for using free software!
 --
 --------------------------------------------------------------------------------
+' %}
 
-{% import 'premake5.template' as render %}
 
-{% set name = {'real': 'Squeezer', 'short': 'squeezer'} -%}
+{% set name = {'real': 'Squeezer', 'short': 'squeezer'} %}
+
 
 {% set variants = [{'real':    'Mono',
                     'short':   'mono',
@@ -35,58 +36,25 @@
                    {'real':    'Stereo',
                     'short':   'stereo',
                     'defines': ['SQUEEZER_STEREO=1',
-                                'SQUEEZER_EXTERNAL_SIDECHAIN=1']}] -%}
+                                'SQUEEZER_EXTERNAL_SIDECHAIN=1']}] %}
+
 
 {% set variants_vst2 = [{'real':    'Mono',
                          'short':   'mono',
                          'defines': ['SQUEEZER_MONO=1',
-                                          'SQUEEZER_EXTERNAL_SIDECHAIN=1']},
+                                     'SQUEEZER_EXTERNAL_SIDECHAIN=1']},
 
                         {'real':    'Mono, no side-chain',
                          'short':   'mono_no_sidechain',
                          'defines': ['SQUEEZER_MONO=1',
-                                          'SQUEEZER_EXTERNAL_SIDECHAIN=0']},
+                                     'SQUEEZER_EXTERNAL_SIDECHAIN=0']},
 
                         {'real':    'Stereo',
                          'short':   'stereo',
                          'defines': ['SQUEEZER_STEREO=1',
-                                          'SQUEEZER_EXTERNAL_SIDECHAIN=1']},
+                                     'SQUEEZER_EXTERNAL_SIDECHAIN=1']},
 
                         {'real':    'Stereo, no side-chain',
                          'short':   'stereo_no_sidechain',
                          'defines': ['SQUEEZER_STEREO=1',
-                                     'SQUEEZER_EXTERNAL_SIDECHAIN=0']}] -%}
-
-
-
-{{ render.solution(name, "", windows_sdk) -}}
-
-
-
-{% for variant in variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.standalone(name, variant) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in variants_vst2 %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst2(name, variant) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst3(name, variant) -}}
-
-{% endfor -%}
+                                     'SQUEEZER_EXTERNAL_SIDECHAIN=0']}] %}

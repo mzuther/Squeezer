@@ -25,12 +25,11 @@
 #
 # ----------------------------------------------------------------------------
 
-windows_sdk="10.0.17763.0"
-
-
 cd $(dirname $0)
 
-python3 create_premake.py $windows_sdk
+echo
+echo "=== Rendering templates ==="
+python3 render_templates.py
 
 echo
 premake5 --os=windows vs2017

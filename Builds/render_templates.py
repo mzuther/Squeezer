@@ -25,24 +25,27 @@
 #
 # ----------------------------------------------------------------------------
 
-import sys
 import jinja2
 
 
-windows_sdk = sys.argv[1]
+def cache_templates(searchpath):
+    templateLoader = jinja2.FileSystemLoader(searchpath=searchpath)
+    return jinja2.Environment(loader=templateLoader, trim_blocks=True)
 
-templateLoader = jinja2.FileSystemLoader(searchpath='.')
-templateEnv = jinja2.Environment(loader=templateLoader, trim_blocks=True)
-template = templateEnv.get_template('layout.template')
 
-filename = 'premake5.lua'
-output = template.render(windows_sdk=windows_sdk)
+def render_template(templates, template_file, output_file):
+    print('Rendering "{}" to file "{}"...'.format(template_file, output_file))
 
-print()
-print('=== Generating premake script ===')
-print('Rendering file \'{}\'...'.format(filename))
+    with open(output_file, 'w') as f:
+        template = templates.get_template(template_file)
+        output = template.render()
 
-with open(filename, 'w') as f:
-    f.write(output)
+        f.write(output)
 
-print('Done.')
+
+if __name__ == '__main__':
+    templates = cache_templates('../templates/')
+
+    render_template(templates, 'premake5.template', './premake5.lua')
+
+    print('Done.')
