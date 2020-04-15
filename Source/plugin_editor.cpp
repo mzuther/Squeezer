@@ -301,6 +301,9 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
 SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 {
     PluginProcessor_->removeActionListener(this);
+
+    // release look and feel
+    setLookAndFeel(nullptr);
 }
 
 
