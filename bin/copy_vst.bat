@@ -1,5 +1,4 @@
 @echo off
-#!/bin/bash
 
 rem  ----------------------------------------------------------------------------
 rem  
@@ -48,62 +47,85 @@ set vst2_64_categories=/cygdrive/d/Plugins/64-bit/Categories/Dynamics/Compressor
 
 
 echo.
-echo "VST2 (32 bit)"
+echo VST2 (32 bit)
 echo.
 
-%rsync_cmd% --delete "vst2/squeezer" "%vst2_32%"
-%rsync_cmd%          "vst2/Squeezer (Stereo).dll" "%vst2_32%"
-%rsync_cmd%          "vst2/Squeezer (Mono).dll" "%vst2_32%"
-%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32%"
-%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32%"
+call :CopyVstDelete "vst2/squeezer" "%vst2_32%"
+call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32%"
+call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32%"
+call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32%"
+call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32%"
 
 echo.
-echo "VST2 (32 bit, Categories)"
+echo VST2 (32 bit, Categories)
 echo.
 
-%rsync_cmd% --delete "vst2/squeezer" "%vst2_32_categories%"
-%rsync_cmd%          "vst2/Squeezer (Stereo).dll" "%vst2_32_categories%"
-%rsync_cmd%          "vst2/Squeezer (Mono).dll" "%vst2_32_categories%"
-%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32_categories%"
-%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32_categories%"
-
-
-echo.
-echo "VST3 (32 bit)"
-echo.
-
-%rsync_cmd% --delete "vst3/squeezer" "%vst3_32%"
-%rsync_cmd%          "vst3/Squeezer (Stereo).vst3" "%vst3_32%"
-%rsync_cmd%          "vst3/Squeezer (Mono).vst3" "%vst3_32%"
+call :CopyVstDelete "vst2/squeezer" "%vst2_32_categories%"
+call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32_categories%"
+call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32_categories%"
+call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32_categories%"
+call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32_categories%"
 
 
 echo.
-echo "VST2 (64 bit)"
+echo VST3 (32 bit)
 echo.
 
-%rsync_cmd% --delete "vst2/squeezer" "%vst2_64%"
-%rsync_cmd%          "vst2/Squeezer (Stereo x64).dll" "%vst2_64%"
-%rsync_cmd%          "vst2/Squeezer (Mono x64).dll" "%vst2_64%"
-%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64%"
-%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64%"
-
-echo.
-echo "VST2 (64 bit, Categories)"
-echo.
-
-%rsync_cmd% --delete "vst2/squeezer" "%vst2_64_categories%"
-%rsync_cmd%          "vst2/Squeezer (Stereo x64).dll" "%vst2_64_categories%"
-%rsync_cmd%          "vst2/Squeezer (Mono x64).dll" "%vst2_64_categories%"
-%rsync_cmd%          "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64_categories%"
-%rsync_cmd%          "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64_categories%"
+call :CopyVstDelete "vst3/squeezer" "%vst3_32%"
+call :CopyVst       "vst3/Squeezer (Stereo).vst3" "%vst3_32%"
+call :CopyVst       "vst3/Squeezer (Mono).vst3" "%vst3_32%"
 
 
 echo.
-echo "VST3 (64 bit)"
+echo VST2 (64 bit)
 echo.
 
-%rsync_cmd% --delete "vst3/squeezer" "%vst3_64%"
-%rsync_cmd%          "vst3/Squeezer (Stereo x64).vst3" "%vst3_64%"
-%rsync_cmd%          "vst3/Squeezer (Mono x64).vst3" "%vst3_64%"
+call :CopyVstDelete "vst2/squeezer" "%vst2_64%"
+call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64%"
+call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64%"
+call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64%"
+call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64%"
+
+echo.
+echo VST2 (64 bit, Categories)
+echo.
+
+call :CopyVstDelete "vst2/squeezer" "%vst2_64_categories%"
+call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64_categories%"
+call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64_categories%"
+call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64_categories%"
+call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64_categories%"
 
 
+echo.
+echo VST3 (64 bit)
+echo.
+
+call :CopyVstDelete "vst3/squeezer" "%vst3_64%"
+call :CopyVst       "vst3/Squeezer (Stereo x64).vst3" "%vst3_64%"
+call :CopyVst       "vst3/Squeezer (Mono x64).vst3" "%vst3_64%"
+
+
+echo.
+pause
+exit /b %errorlevel%
+
+
+:CopyVst
+set source=%~1
+set destination=%~2
+
+echo CopyVst       %source%
+%rsync_cmd% "%source%" "%destination%"
+
+exit /b 0
+
+
+:CopyVstDelete
+set source=%~1
+set destination=%~2
+
+echo CopyVstDelete %source%
+%rsync_cmd% --delete "%source%" "%destination%"
+
+exit /b 0

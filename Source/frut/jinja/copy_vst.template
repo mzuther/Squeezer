@@ -38,4 +38,6 @@
 
 {{ render.vst3_windows(settings.name, settings.variants, platform, bits) }}
 
-{% endfor -%}
+{% endfor %}
+
+{{- render.postamble() }}

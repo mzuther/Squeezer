@@ -352,7 +352,7 @@ if os.target() == "windows" then
 
         includedirs {
             "../libraries/vst2/VST2_SDK",
-            "../libraries/vst3"
+            "../libraries/vst3/VST3_SDK"
         }
 {{ additions }}
         filter { "system:windows" }
