@@ -27,7 +27,7 @@
 {%- import 'settings.template' as settings -%}
 {%- import 'copy_vst.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.category) }}
+{{ render.preamble(settings.copyright, settings.vst2_category) }}
 
 {% for platform, bits in [['', '32'], [' x64', '64']] -%}
 

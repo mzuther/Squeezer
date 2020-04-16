@@ -24,7 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{% macro preamble(copyright, category) %}
+{% macro preamble(copyright, vst2_category) %}
 @echo off
 
 {% for line in copyright -%}
@@ -48,8 +48,8 @@ set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
 set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
 set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
 
-set vst2_32_categories=/cygdrive/d/Plugins/32-bit/Categories/{{category}}
-set vst2_64_categories=/cygdrive/d/Plugins/64-bit/Categories/{{category}}
+set vst2_32_categories=/cygdrive/d/Plugins/32-bit/Categories/{{vst2_category}}
+set vst2_64_categories=/cygdrive/d/Plugins/64-bit/Categories/{{vst2_category}}
 {% endmacro %}
 
 

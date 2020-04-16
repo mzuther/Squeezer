@@ -353,6 +353,14 @@ workspace "squeezer"
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_debug")
 
+        filter { "system:windows", "configurations:Debug", "platforms:x32" }
+            targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
+
+        filter { "system:windows", "configurations:Debug", "platforms:x64" }
+            targetdir "D:/Plugins/64-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
+
         filter { "configurations:Release" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_release")
 
@@ -394,6 +402,14 @@ workspace "squeezer"
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_debug")
+
+        filter { "system:windows", "configurations:Debug", "platforms:x32" }
+            targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
+
+        filter { "system:windows", "configurations:Debug", "platforms:x64" }
+            targetdir "D:/Plugins/64-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_release")
@@ -437,6 +453,14 @@ workspace "squeezer"
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_no_sidechain_debug")
 
+        filter { "system:windows", "configurations:Debug", "platforms:x32" }
+            targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
+
+        filter { "system:windows", "configurations:Debug", "platforms:x64" }
+            targetdir "D:/Plugins/64-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
+
         filter { "configurations:Release" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_no_sidechain_release")
 
@@ -478,6 +502,14 @@ workspace "squeezer"
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_debug")
+
+        filter { "system:windows", "configurations:Debug", "platforms:x32" }
+            targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
+
+        filter { "system:windows", "configurations:Debug", "platforms:x64" }
+            targetdir "D:/Plugins/64-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_release")
@@ -521,6 +553,14 @@ if os.target() == "windows" then
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_debug")
+
+        filter { "system:windows", "configurations:Debug", "platforms:x32" }
+            targetdir "C:/Program Files (x86)/Common Files/VST3/radix"
+            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
+
+        filter { "system:windows", "configurations:Debug", "platforms:x64" }
+            targetdir "C:/Program Files/Common Files/VST3/radix"
+            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_release")
@@ -567,6 +607,14 @@ if os.target() == "windows" then
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_debug")
+
+        filter { "system:windows", "configurations:Debug", "platforms:x32" }
+            targetdir "C:/Program Files (x86)/Common Files/VST3/radix"
+            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
+
+        filter { "system:windows", "configurations:Debug", "platforms:x64" }
+            targetdir "C:/Program Files/Common Files/VST3/radix"
+            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_release")
