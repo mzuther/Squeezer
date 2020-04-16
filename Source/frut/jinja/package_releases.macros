@@ -156,8 +156,8 @@ function archive_store
 mkdir -p "./releases/linux/i386"
 mkdir -p "./releases/linux/amd64"
 
-mkdir -p "./releases/windows/i386"
-mkdir -p "./releases/windows/amd64"
+mkdir -p "./releases/windows/x32"
+mkdir -p "./releases/windows/x64"
 mkdir -p "./releases/windows/debug_symbols"
 {% endmacro %}
 
