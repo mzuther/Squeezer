@@ -25,7 +25,7 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'finalise_executables.macros' as render -%}
+{%- import 'finalise_binaries.macros' as render -%}
 
 {{ render.preamble(settings.copyright) -}}
 

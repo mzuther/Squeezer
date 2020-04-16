@@ -62,8 +62,8 @@ if __name__ == '__main__':
 
     render_template(
         templates,
-        'finalise_executables.template',
-        '../../../bin/finalise_executables.sh')
+        'finalise_binaries.template',
+        '../../../bin/finalise_binaries.sh')
 
     render_template(
         templates,

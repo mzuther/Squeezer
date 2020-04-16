@@ -40,7 +40,7 @@
 
 version="{{version}}"
 
-executable_dir="./final"
+binary_dir="./final"
 release_dir="releases"
 
 
@@ -151,7 +151,7 @@ function archive_store
 
 # ----- General -----
 
-./finalise_executables.sh
+./finalise_binaries.sh
 
 mkdir -p "./releases/linux/i386"
 mkdir -p "./releases/linux/amd64"
@@ -173,9 +173,9 @@ archive_dir="debug-symbols_$version"
 
 archive_create
 
-archive_add "standalone" "$executable_dir/debug_symbols"
-archive_add "vst2" "$executable_dir/debug_symbols"
-archive_add "vst3" "$executable_dir/debug_symbols"
+archive_add "standalone" "$binary_dir/debug_symbols"
+archive_add "vst2" "$binary_dir/debug_symbols"
+archive_add "vst3" "$binary_dir/debug_symbols"
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"
@@ -194,7 +194,7 @@ archive_dir="{{ name.short }}-linux{{bits}}-standalone_$version"
 archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.short }}_{{variant.short}}{{platform}}" "$executable_dir"
+archive_add "{{ name.short }}_{{variant.short}}{{platform}}" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -222,7 +222,7 @@ archive_dir="{{ name.short }}-linux{{bits}}-vst2_$version"
 archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" "$executable_dir"
+archive_add "{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -250,7 +250,7 @@ archive_dir="{{ name.short }}-w{{bits}}-standalone_$version"
 archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.real }} ({{variant.real}}{{platform}}).exe" "$executable_dir"
+archive_add "{{ name.real }} ({{variant.real}}{{platform}}).exe" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -278,7 +278,7 @@ archive_dir="{{ name.short }}-w{{bits}}-vst2_$version"
 archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.real }} ({{variant.real}}{{platform}}).dll" "$executable_dir"
+archive_add "{{ name.real }} ({{variant.real}}{{platform}}).dll" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -306,7 +306,7 @@ archive_dir="{{ name.short }}-w{{bits}}-vst3_$version"
 archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.real }} ({{variant.real}}{{platform}}).vst3" "$executable_dir"
+archive_add "{{ name.real }} ({{variant.real}}{{platform}}).vst3" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}

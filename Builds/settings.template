@@ -74,8 +74,8 @@
 
 {% set additions_copyvst = {
   'default': [
-    'archive_add "squeezer/doc" "$executable_dir"',
-    'archive_add "squeezer/skins/Default" "$executable_dir"',
-    'archive_add "squeezer/skins/Default.skin" "$executable_dir"'
+    'archive_add "squeezer/doc" "$binary_dir"',
+    'archive_add "squeezer/skins/Default" "$binary_dir"',
+    'archive_add "squeezer/skins/Default.skin" "$binary_dir"'
   ]
 } %}
