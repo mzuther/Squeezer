@@ -32,21 +32,23 @@
 #
 ###############################################################################
 
-executable_dir="final"
+binary_dir="final"
 
 
-function finalise_executable
+function finalise_binary
 {
     filepath=$1
     filename=$(basename "$1")
 
     if [ -f "./$filepath" ]; then
-        echo "  Finalising:  $filepath -->"
-        echo "               $executable_dir/$filename"
+        if [ ! -f "$binary_dir/$filename" ] || [ "./$filepath" -nt "$binary_dir/$filename" ]; then
+            echo "  Finalising:  $filepath -->"
+            echo "               $binary_dir/$filename"
 
-        mv "./$filepath" "./$executable_dir/$filename"
+            cp "./$filepath" "./$binary_dir/$filename"
 
-        echo
+            echo
+        fi
     fi
 }
 
@@ -57,73 +59,75 @@ function finalise_symbols
     filename=$(basename "$1")
 
     if [ -f "./$filepath" ]; then
-        echo "  Finalising:  $filepath -->"
-        echo "               $executable_dir/debug_symbols/$filepath"
+        if [ ! -f "$binary_dir/debug_symbols/$filepath" ] || [ "./$filepath" -nt "$binary_dir/debug_symbols/$filepath" ]; then
+            echo "  Finalising:  $filepath -->"
+            echo "               $binary_dir/debug_symbols/$filepath"
 
-        mkdir -p "$(dirname "./$executable_dir/debug_symbols/$filepath")"
-        mv "./$filepath" "./$executable_dir/debug_symbols/$filepath"
+            mkdir -p "$(dirname "./$binary_dir/debug_symbols/$filepath")"
+            cp "./$filepath" "./$binary_dir/debug_symbols/$filepath"
 
-        echo
+            echo
+        fi
     fi
 }
 
 
 echo
-echo "  === Finalising executables ==="
+echo "  === Finalising binaries ==="
 echo
 
-finalise_executable "standalone/squeezer_stereo"
-finalise_executable "standalone/squeezer_mono"
+finalise_binary "standalone/squeezer_stereo"
+finalise_binary "standalone/squeezer_mono"
 
-finalise_executable "vst2/squeezer_stereo_vst2.so"
-finalise_executable "vst2/squeezer_mono_vst2.so"
-finalise_executable "vst2/squeezer_stereo_no_sidechain_vst2.so"
-finalise_executable "vst2/squeezer_mono_no_sidechain_vst2.so"
+finalise_binary "vst2/squeezer_stereo_vst2.so"
+finalise_binary "vst2/squeezer_mono_vst2.so"
+finalise_binary "vst2/squeezer_stereo_no_sidechain_vst2.so"
+finalise_binary "vst2/squeezer_mono_no_sidechain_vst2.so"
 
-finalise_executable "standalone/squeezer_stereo_x64"
-finalise_executable "standalone/squeezer_mono_x64"
+finalise_binary "standalone/squeezer_stereo_x64"
+finalise_binary "standalone/squeezer_mono_x64"
 
-finalise_executable "vst2/squeezer_stereo_vst2_x64.so"
-finalise_executable "vst2/squeezer_mono_vst2_x64.so"
-finalise_executable "vst2/squeezer_stereo_no_sidechain_vst2_x64.so"
-finalise_executable "vst2/squeezer_mono_no_sidechain_vst2_x64.so"
+finalise_binary "vst2/squeezer_stereo_vst2_x64.so"
+finalise_binary "vst2/squeezer_mono_vst2_x64.so"
+finalise_binary "vst2/squeezer_stereo_no_sidechain_vst2_x64.so"
+finalise_binary "vst2/squeezer_mono_no_sidechain_vst2_x64.so"
 
-finalise_executable "standalone/Squeezer (Stereo).exe"
+finalise_binary "standalone/Squeezer (Stereo).exe"
 finalise_symbols    "standalone/Squeezer (Stereo).pdb"
-finalise_executable "standalone/Squeezer (Mono).exe"
+finalise_binary "standalone/Squeezer (Mono).exe"
 finalise_symbols    "standalone/Squeezer (Mono).pdb"
 
-finalise_executable "vst2/Squeezer (Stereo).dll"
+finalise_binary "vst2/Squeezer (Stereo).dll"
 finalise_symbols    "vst2/Squeezer (Stereo).pdb"
-finalise_executable "vst2/Squeezer (Mono).dll"
+finalise_binary "vst2/Squeezer (Mono).dll"
 finalise_symbols    "vst2/Squeezer (Mono).pdb"
-finalise_executable "vst2/Squeezer (Stereo, no side-chain).dll"
+finalise_binary "vst2/Squeezer (Stereo, no side-chain).dll"
 finalise_symbols    "vst2/Squeezer (Stereo, no side-chain).pdb"
-finalise_executable "vst2/Squeezer (Mono, no side-chain).dll"
+finalise_binary "vst2/Squeezer (Mono, no side-chain).dll"
 finalise_symbols    "vst2/Squeezer (Mono, no side-chain).pdb"
 
-finalise_executable "vst3/Squeezer (Stereo).vst3"
+finalise_binary "vst3/Squeezer (Stereo).vst3"
 finalise_symbols    "vst3/Squeezer (Stereo).pdb"
-finalise_executable "vst3/Squeezer (Mono).vst3"
+finalise_binary "vst3/Squeezer (Mono).vst3"
 finalise_symbols    "vst3/Squeezer (Mono).pdb"
 
-finalise_executable "standalone/Squeezer (Stereo x64).exe"
+finalise_binary "standalone/Squeezer (Stereo x64).exe"
 finalise_symbols    "standalone/Squeezer (Stereo x64).pdb"
-finalise_executable "standalone/Squeezer (Mono x64).exe"
+finalise_binary "standalone/Squeezer (Mono x64).exe"
 finalise_symbols    "standalone/Squeezer (Mono x64).pdb"
 
-finalise_executable "vst2/Squeezer (Stereo x64).dll"
+finalise_binary "vst2/Squeezer (Stereo x64).dll"
 finalise_symbols    "vst2/Squeezer (Stereo x64).pdb"
-finalise_executable "vst2/Squeezer (Mono x64).dll"
+finalise_binary "vst2/Squeezer (Mono x64).dll"
 finalise_symbols    "vst2/Squeezer (Mono x64).pdb"
-finalise_executable "vst2/Squeezer (Stereo, no side-chain x64).dll"
+finalise_binary "vst2/Squeezer (Stereo, no side-chain x64).dll"
 finalise_symbols    "vst2/Squeezer (Stereo, no side-chain x64).pdb"
-finalise_executable "vst2/Squeezer (Mono, no side-chain x64).dll"
+finalise_binary "vst2/Squeezer (Mono, no side-chain x64).dll"
 finalise_symbols    "vst2/Squeezer (Mono, no side-chain x64).pdb"
 
-finalise_executable "vst3/Squeezer (Stereo x64).vst3"
+finalise_binary "vst3/Squeezer (Stereo x64).vst3"
 finalise_symbols    "vst3/Squeezer (Stereo x64).pdb"
-finalise_executable "vst3/Squeezer (Mono x64).vst3"
+finalise_binary "vst3/Squeezer (Mono x64).vst3"
 finalise_symbols    "vst3/Squeezer (Mono x64).pdb"
 
 echo "  Done."

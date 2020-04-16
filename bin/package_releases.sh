@@ -34,7 +34,7 @@
 
 version="2.5.3"
 
-executable_dir="./final"
+binary_dir="./final"
 release_dir="releases"
 
 
@@ -145,7 +145,7 @@ function archive_store
 
 # ----- General -----
 
-./finalise_executables.sh
+./finalise_binaries.sh
 
 mkdir -p "./releases/linux/i386"
 mkdir -p "./releases/linux/amd64"
@@ -164,8 +164,8 @@ archive_dir="squeezer-linux32-standalone_$version"
 
 archive_create
 
-archive_add "squeezer_stereo" "$executable_dir"
-archive_add "squeezer_mono" "$executable_dir"
+archive_add "squeezer_stereo" "$binary_dir"
+archive_add "squeezer_mono" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -184,10 +184,10 @@ archive_dir="squeezer-linux32-vst2_$version"
 
 archive_create
 
-archive_add "squeezer_stereo_vst2.so" "$executable_dir"
-archive_add "squeezer_mono_vst2.so" "$executable_dir"
-archive_add "squeezer_stereo_no_sidechain_vst2.so" "$executable_dir"
-archive_add "squeezer_mono_no_sidechain_vst2.so" "$executable_dir"
+archive_add "squeezer_stereo_vst2.so" "$binary_dir"
+archive_add "squeezer_mono_vst2.so" "$binary_dir"
+archive_add "squeezer_stereo_no_sidechain_vst2.so" "$binary_dir"
+archive_add "squeezer_mono_no_sidechain_vst2.so" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -206,8 +206,8 @@ archive_dir="squeezer-linux64-standalone_$version"
 
 archive_create
 
-archive_add "squeezer_stereo_x64" "$executable_dir"
-archive_add "squeezer_mono_x64" "$executable_dir"
+archive_add "squeezer_stereo_x64" "$binary_dir"
+archive_add "squeezer_mono_x64" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -226,10 +226,10 @@ archive_dir="squeezer-linux64-vst2_$version"
 
 archive_create
 
-archive_add "squeezer_stereo_vst2_x64.so" "$executable_dir"
-archive_add "squeezer_mono_vst2_x64.so" "$executable_dir"
-archive_add "squeezer_stereo_no_sidechain_vst2_x64.so" "$executable_dir"
-archive_add "squeezer_mono_no_sidechain_vst2_x64.so" "$executable_dir"
+archive_add "squeezer_stereo_vst2_x64.so" "$binary_dir"
+archive_add "squeezer_mono_vst2_x64.so" "$binary_dir"
+archive_add "squeezer_stereo_no_sidechain_vst2_x64.so" "$binary_dir"
+archive_add "squeezer_mono_no_sidechain_vst2_x64.so" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -248,8 +248,8 @@ archive_dir="squeezer-w32-standalone_$version"
 
 archive_create
 
-archive_add "Squeezer (Stereo).exe" "$executable_dir"
-archive_add "Squeezer (Mono).exe" "$executable_dir"
+archive_add "Squeezer (Stereo).exe" "$binary_dir"
+archive_add "Squeezer (Mono).exe" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -268,10 +268,10 @@ archive_dir="squeezer-w32-vst2_$version"
 
 archive_create
 
-archive_add "Squeezer (Stereo).dll" "$executable_dir"
-archive_add "Squeezer (Mono).dll" "$executable_dir"
-archive_add "Squeezer (Stereo, no side-chain).dll" "$executable_dir"
-archive_add "Squeezer (Mono, no side-chain).dll" "$executable_dir"
+archive_add "Squeezer (Stereo).dll" "$binary_dir"
+archive_add "Squeezer (Mono).dll" "$binary_dir"
+archive_add "Squeezer (Stereo, no side-chain).dll" "$binary_dir"
+archive_add "Squeezer (Mono, no side-chain).dll" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -290,8 +290,8 @@ archive_dir="squeezer-w32-vst3_$version"
 
 archive_create
 
-archive_add "Squeezer (Stereo).vst3" "$executable_dir"
-archive_add "Squeezer (Mono).vst3" "$executable_dir"
+archive_add "Squeezer (Stereo).vst3" "$binary_dir"
+archive_add "Squeezer (Mono).vst3" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -310,8 +310,8 @@ archive_dir="squeezer-w64-standalone_$version"
 
 archive_create
 
-archive_add "Squeezer (Stereo x64).exe" "$executable_dir"
-archive_add "Squeezer (Mono x64).exe" "$executable_dir"
+archive_add "Squeezer (Stereo x64).exe" "$binary_dir"
+archive_add "Squeezer (Mono x64).exe" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -330,10 +330,10 @@ archive_dir="squeezer-w64-vst2_$version"
 
 archive_create
 
-archive_add "Squeezer (Stereo x64).dll" "$executable_dir"
-archive_add "Squeezer (Mono x64).dll" "$executable_dir"
-archive_add "Squeezer (Stereo, no side-chain x64).dll" "$executable_dir"
-archive_add "Squeezer (Mono, no side-chain x64).dll" "$executable_dir"
+archive_add "Squeezer (Stereo x64).dll" "$binary_dir"
+archive_add "Squeezer (Mono x64).dll" "$binary_dir"
+archive_add "Squeezer (Stereo, no side-chain x64).dll" "$binary_dir"
+archive_add "Squeezer (Mono, no side-chain x64).dll" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -352,8 +352,8 @@ archive_dir="squeezer-w64-vst3_$version"
 
 archive_create
 
-archive_add "Squeezer (Stereo x64).vst3" "$executable_dir"
-archive_add "Squeezer (Mono x64).vst3" "$executable_dir"
+archive_add "Squeezer (Stereo x64).vst3" "$binary_dir"
+archive_add "Squeezer (Mono x64).vst3" "$binary_dir"
 
 archive_add "squeezer/doc" "$executable_dir"
 archive_add "squeezer/skins/Default" "$executable_dir"
@@ -372,9 +372,9 @@ archive_dir="debug-symbols_$version"
 
 archive_create
 
-archive_add "standalone" "$executable_dir/debug_symbols"
-archive_add "vst2" "$executable_dir/debug_symbols"
-archive_add "vst3" "$executable_dir/debug_symbols"
+archive_add "standalone" "$binary_dir/debug_symbols"
+archive_add "vst2" "$binary_dir/debug_symbols"
+archive_add "vst3" "$binary_dir/debug_symbols"
 
 archive_compress "zip"
 archive_store "zip" "$release_dir/windows"

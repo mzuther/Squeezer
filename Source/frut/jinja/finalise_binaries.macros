@@ -38,21 +38,23 @@
 #
 ###############################################################################
 
-executable_dir="final"
+binary_dir="final"
 
 
-function finalise_executable
+function finalise_binary
 {
     filepath=$1
     filename=$(basename "$1")
 
     if [ -f "./$filepath" ]; then
-        echo "  Finalising:  $filepath -->"
-        echo "               $executable_dir/$filename"
+        if [ ! -f "$binary_dir/$filename" ] || [ "./$filepath" -nt "$binary_dir/$filename" ]; then
+            echo "  Finalising:  $filepath -->"
+            echo "               $binary_dir/$filename"
 
-        mv "./$filepath" "./$executable_dir/$filename"
+            cp "./$filepath" "./$binary_dir/$filename"
 
-        echo
+            echo
+        fi
     fi
 }
 
@@ -63,19 +65,21 @@ function finalise_symbols
     filename=$(basename "$1")
 
     if [ -f "./$filepath" ]; then
-        echo "  Finalising:  $filepath -->"
-        echo "               $executable_dir/debug_symbols/$filepath"
+        if [ ! -f "$binary_dir/debug_symbols/$filepath" ] || [ "./$filepath" -nt "$binary_dir/debug_symbols/$filepath" ]; then
+            echo "  Finalising:  $filepath -->"
+            echo "               $binary_dir/debug_symbols/$filepath"
 
-        mkdir -p "$(dirname "./$executable_dir/debug_symbols/$filepath")"
-        mv "./$filepath" "./$executable_dir/debug_symbols/$filepath"
+            mkdir -p "$(dirname "./$binary_dir/debug_symbols/$filepath")"
+            cp "./$filepath" "./$binary_dir/debug_symbols/$filepath"
 
-        echo
+            echo
+        fi
     fi
 }
 
 
 echo
-echo "  === Finalising executables ==="
+echo "  === Finalising binaries ==="
 echo
 
 {% endmacro %}
@@ -91,32 +95,32 @@ echo
 
 
 {% macro standalone_linux(name, variant, platform) %}
-finalise_executable "standalone/{{ name.short }}_{{ variant.short }}{{platform}}"
+finalise_binary "standalone/{{ name.short }}_{{ variant.short }}{{platform}}"
 {% endmacro %}
 
 
 
 {% macro vst2_linux(name, variant, platform) %}
-finalise_executable "vst2/{{ name.short }}_{{ variant.short }}_vst2{{platform}}.so"
+finalise_binary "vst2/{{ name.short }}_{{ variant.short }}_vst2{{platform}}.so"
 {% endmacro %}
 
 
 
 {% macro standalone_windows(name, variant, platform) %}
-finalise_executable "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).exe"
+finalise_binary "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).exe"
 finalise_symbols    "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
 {% endmacro %}
 
 
 
 {% macro vst2_windows(name, variant, platform) %}
-finalise_executable "vst2/{{ name.real }} ({{ variant.real }}{{platform}}).dll"
+finalise_binary "vst2/{{ name.real }} ({{ variant.real }}{{platform}}).dll"
 finalise_symbols    "vst2/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
 {% endmacro %}
 
 
 
 {% macro vst3_windows(name, variant, platform) %}
-finalise_executable "vst3/{{ name.real }} ({{ variant.real }}{{platform}}).vst3"
+finalise_binary "vst3/{{ name.real }} ({{ variant.real }}{{platform}}).vst3"
 finalise_symbols    "vst3/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
 {% endmacro %}
