@@ -1,4 +1,9 @@
 o [mzuther] document code
 
-* implement parameter smoothing ("anti-zipper")
+* add over-sampling
 
+* add linear attack phase
+
+* add release hold
+
+* implement parameter smoothing ("anti-zipper")
