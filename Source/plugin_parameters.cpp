@@ -217,7 +217,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     realMaximum = 8000.0f;
     stepSize = 1.0f;
     scalingFactor = 4.0f;
-    decimalPlaces = 0;
+    decimalPlaces = -1;
 
     frut::parameters::ParCombined *ParameterReleaseRate =
         new frut::parameters::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
@@ -252,7 +252,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
 
     realMinimum = -36.0f;
     realMaximum = +36.0f;
-    stepSize = 0.5f;
+    stepSize = 0.2f;
     scalingFactor = 0.0f;
     decimalPlaces = 1;
 
@@ -412,7 +412,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
 
     realMinimum = -36.0f;
     realMaximum = +36.0f;
-    stepSize = 0.5f;
+    stepSize = 0.2f;
     scalingFactor = 0.0f;
     decimalPlaces = 1;
 
