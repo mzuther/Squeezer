@@ -1,5 +1,7 @@
 o [mzuther] document code
 
+* separate buttons for peak / RMS, FET / Opto, F.Frwrd. / F.Back
+
 * add over-sampling
 
 * add linear attack phase

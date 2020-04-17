@@ -3,6 +3,29 @@ Git HEAD
 
 
 
+v2.5.4 (2020-04-17)
+===================
+       
+* improve precision of unlocked values:
+
+  * input trim and make-up gain: 0.2 dB (in a few cases, values can
+    differ by 0.1 dB from old projects and presets)
+        
+  * release time: 0.1 ms for small values (allows fine-tuning of
+    distortion effects)
+        
+* customize Jack daemon client name
+
+* drop support for LV2 (sorry, it's just too much hassle)
+        
+* minor fixes and improvements
+        
+* update JUCE framework and libraries
+        
+* update manual
+        
+
+
 v2.5.3 (2020-04-11)
 ===================
 
