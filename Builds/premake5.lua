@@ -36,9 +36,9 @@ if not _ACTION then
     _ACTION = ""
 elseif _ACTION == "gmake" then
     if _OPTIONS["cc"] == "clang" then
-        print ("=== Generating project files (Clang++, " .. os.target():upper() .. ") ===")
+        print ("=== Generating project files (Clang, " .. os.target():upper() .. ") ===")
     else
-        print ("=== Generating project files (GNU g++, " .. os.target():upper() .. ") ===")
+        print ("=== Generating project files (GNU gcc, " .. os.target():upper() .. ") ===")
     end
 elseif string.startswith(_ACTION, "codeblocks") then
     print "=== Generating project files (Code::Blocks, Windows) ==="

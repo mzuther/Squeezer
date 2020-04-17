@@ -865,21 +865,13 @@ Finally, I want to thank the \textbf{open source community} for making
 all of this possible.
 
 Although coding Squeezer has been a lot of fun, it has also been a lot
-of work.  So if you like Squeezer, why not send me a short email and
-tell me so?  Write a few words about yourself, send suggestions for
-future updates or volunteer to create a nice skin.  I also really
-enjoy listening to music that you have produced using my software
-\dots
+of work.  So if you like Squeezer, why not
+\href{http://www.mzuther.de/}{send me an email} and tell me so?  Write
+a few words about yourself, send suggestions for future updates or
+volunteer to create a nice skin.  I also really enjoy listening to
+music that you have produced using my software \dots
 
-\newpage %% layout
-
-Here is my email address (please remove ``\texttt{-nospam}''):
-
-\begin{center}
-  \texttt{"Martin Zuther" <code-nospam@mzuther.de>}
-\end{center}
-
-Thanks for using free software.  I hope you'll enjoy it!
+\emph{Thanks for using free software.  I hope you'll enjoy it!}
 
 \appendix
 
@@ -909,6 +901,23 @@ platform, you should run \path{premake} using the scripts
 
 To change the premake file using Jinja templates, you'll also have to
 install the necessary dependencies.
+
+\subsection{Compilers}
+
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> required \\
+  Linux:       \> Clang 6.0 (or gcc 7.5.0) \\
+  Windows:     \> Visual Studio 2017 \\
+  License:     \> proprietary (Visual Studio) / Open Source \\
+\end{tabbing}
+
+Use premake (\ref{sec:dependencies_premake}) to generate the Make
+files (or project) files needed by different compilers.
+
+\emph{Different compiler versions may work, and premake supports other
+  compiler tool sets as well.  But in this case, you're on your own!}
 
 \subsection{JUCE library}
 
@@ -940,7 +949,7 @@ Extract the archive into the directory \path{libraries/juce}.
 
 Extract the archives into the directories \path{libraries/vst2} and
 \path{libraries/vst3}.  The proprietary VST2 SDK is not available
-anymore -- \textbf{you may only distribute VST2 plug-ins if you have
+anymore.  \textbf{You may only distribute VST2 plug-ins if you have
   signed the old license agreement!}
 
 \subsection{Python}
