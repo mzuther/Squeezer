@@ -48,7 +48,7 @@ Did you compile Squeezer yourself? [no]
 You only need to add the tools you actually used:
 
 - Build automation: [ premake v5.0.0 alpha14 ]
-- Compiler: [ Visual Studio 2017, Clang v6.0.0, g++ Ubuntu v7.5.0 ]
+- Compiler: [ Visual Studio 2017, Clang v6.0.0, gcc Ubuntu v7.5.0 ]
 - JUCE: [ v5.4.7 ]
 - SDK: [ VST2 2.4 (from SDK v3.6.10), VST3 3.6.14, stand-alone ]
 - ...
