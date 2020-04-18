@@ -1,3 +1,4 @@
+#!/bin/bash
 {# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
@@ -42,6 +43,27 @@ version="{{version}}"
 
 binary_dir="./final"
 release_dir="releases"
+
+
+function archive_is_missing
+{
+    archive_type=$1
+    destination_dir=$2
+
+    if [ "$archive_type" = "bzip2" ]; then
+        archive_name="$archive_dir.tar.bz2"
+    elif [ "$archive_type" = "gzip" ]; then
+        archive_name="$archive_dir.tar.gz"
+    elif [ "$archive_type" = "zip" ]; then
+        archive_name="$archive_dir.zip"
+    fi
+
+    if [ -f "$destination_dir/$archive_name" ]; then
+        return 1
+    else
+        return 0
+    fi
+}
 
 
 function archive_create
@@ -153,12 +175,19 @@ function archive_store
 
 ./finalise_binaries.sh
 
+echo "  === Creating release directories ==="
+echo
+
 mkdir -p "./releases/linux/i386"
 mkdir -p "./releases/linux/amd64"
 
 mkdir -p "./releases/windows/x32"
 mkdir -p "./releases/windows/x64"
 mkdir -p "./releases/windows/debug_symbols"
+
+echo "  Done."
+echo
+echo
 {% endmacro %}
 
 
@@ -166,19 +195,28 @@ mkdir -p "./releases/windows/debug_symbols"
 {% macro postamble() %}
 # ----- Windows debug symbols -----
 
-echo "  === Windows debug symbols ==="
-echo
-
 archive_dir="debug-symbols_$version"
 
-archive_create
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    echo "  --- Windows debug symbols ---"
+    echo
 
-archive_add "standalone" "$binary_dir/debug_symbols"
-archive_add "vst2" "$binary_dir/debug_symbols"
-archive_add "vst3" "$binary_dir/debug_symbols"
+    archive_create
 
-archive_compress "zip"
-archive_store "zip" "$release_dir/windows"
+    archive_add "standalone" "$binary_dir/debug_symbols"
+    archive_add "vst2" "$binary_dir/debug_symbols"
+    archive_add "vst3" "$binary_dir/debug_symbols"
+
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/windows"
+fi
+
+echo "  === Finishing up ==="
+echo
+
+echo "  Done."
+echo
+echo
 {% endmacro %}
 
 
@@ -186,27 +224,29 @@ archive_store "zip" "$release_dir/windows"
 {% macro standalone_linux(name, variants, additions, platform, bits) %}
 # ----- GNU/Linux Standalone ({{bits}} bit) -----
 
-echo "  === GNU/Linux Standalone $version ({{bits}} bit) ==="
-echo
-
 archive_dir="{{ name.short }}-linux{{bits}}-standalone_$version"
 
-archive_create
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    echo "  --- GNU/Linux Standalone $version ({{bits}} bit) ---"
+    echo
+
+    archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.short }}_{{variant.short}}{{platform}}" "$binary_dir"
+    archive_add "{{ name.short }}_{{variant.short}}{{platform}}" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
-{{ line }}
+    {{ line }}
 {% endfor -%}
 
 {% for line in additions['standalone_linux_' + bits] %}
-{{ line }}
+    {{ line }}
 {% endfor %}
 
-archive_compress "gzip"
-archive_store "gzip" "$release_dir/linux"
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/linux"
+fi
 {% endmacro %}
 
 
@@ -214,27 +254,29 @@ archive_store "gzip" "$release_dir/linux"
 {% macro vst2_linux(name, variants, additions, platform, bits) %}
 # ----- GNU/Linux VST2 ({{bits}} bit) -----
 
-echo "  === GNU/Linux VST2 $version ({{bits}} bit) ==="
-echo
-
 archive_dir="{{ name.short }}-linux{{bits}}-vst2_$version"
 
-archive_create
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    echo "  --- GNU/Linux VST2 $version ({{bits}} bit) ---"
+    echo
+
+    archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" "$binary_dir"
+    archive_add "{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
-{{ line }}
+    {{ line }}
 {% endfor -%}
 
 {% for line in additions['vst2_linux_' + bits] %}
-{{ line }}
+    {{ line }}
 {% endfor %}
 
-archive_compress "gzip"
-archive_store "gzip" "$release_dir/linux"
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/linux"
+fi
 {% endmacro %}
 
 
@@ -242,27 +284,29 @@ archive_store "gzip" "$release_dir/linux"
 {% macro standalone_windows(name, variants, additions, platform, bits) %}
 # ----- Windows Standalone ({{bits}} bit) -----
 
-echo "  === Windows Standalone $version ({{bits}} bit) ==="
-echo
-
 archive_dir="{{ name.short }}-w{{bits}}-standalone_$version"
 
-archive_create
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    echo "  --- Windows Standalone $version ({{bits}} bit) ---"
+    echo
+
+    archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.real }} ({{variant.real}}{{platform}}).exe" "$binary_dir"
+    archive_add "{{ name.real }} ({{variant.real}}{{platform}}).exe" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
-{{ line }}
+    {{ line }}
 {% endfor -%}
 
 {% for line in additions['standalone_windows_' + bits] %}
-{{ line }}
+    {{ line }}
 {% endfor %}
 
-archive_compress "zip"
-archive_store "zip" "$release_dir/windows"
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/windows"
+fi
 {% endmacro %}
 
 
@@ -270,27 +314,29 @@ archive_store "zip" "$release_dir/windows"
 {% macro vst2_windows(name, variants, additions, platform, bits) %}
 # ----- Windows VST2 ({{bits}} bit) -----
 
-echo "  === Windows VST2 $version ({{bits}} bit) ==="
-echo
-
 archive_dir="{{ name.short }}-w{{bits}}-vst2_$version"
 
-archive_create
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    echo "  --- Windows VST2 $version ({{bits}} bit) ---"
+    echo
+
+    archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.real }} ({{variant.real}}{{platform}}).dll" "$binary_dir"
+    archive_add "{{ name.real }} ({{variant.real}}{{platform}}).dll" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
-{{ line }}
+    {{ line }}
 {% endfor -%}
 
 {% for line in additions['vst2_windows_' + bits] %}
-{{ line }}
+    {{ line }}
 {% endfor %}
 
-archive_compress "zip"
-archive_store "zip" "$release_dir/windows"
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/windows"
+fi
 {% endmacro %}
 
 
@@ -298,25 +344,27 @@ archive_store "zip" "$release_dir/windows"
 {% macro vst3_windows(name, variants, additions, platform, bits) %}
 # ----- Windows VST3 ({{bits}} bit) -----
 
-echo "  === Windows VST3 $version ({{bits}} bit) ==="
-echo
-
 archive_dir="{{ name.short }}-w{{bits}}-vst3_$version"
 
-archive_create
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    echo "  --- Windows VST3 $version ({{bits}} bit) ---"
+    echo
+
+    archive_create
 
 {% for variant in variants %}
-archive_add "{{ name.real }} ({{variant.real}}{{platform}}).vst3" "$binary_dir"
+    archive_add "{{ name.real }} ({{variant.real}}{{platform}}).vst3" "$binary_dir"
 {% endfor %}
 
 {% for line in additions['default'] %}
-{{ line }}
+    {{ line }}
 {% endfor -%}
 
 {% for line in additions['vst3_windows_' + bits] %}
-{{ line }}
+    {{ line }}
 {% endfor %}
 
-archive_compress "zip"
-archive_store "zip" "$release_dir/windows"
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/windows"
+fi
 {% endmacro %}
