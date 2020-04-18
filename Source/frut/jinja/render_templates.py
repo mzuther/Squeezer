@@ -26,7 +26,11 @@
 # ----------------------------------------------------------------------------
 
 import os
+import pathlib
+import stat
+
 import jinja2
+
 
 script_path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_path)
@@ -38,13 +42,24 @@ def cache_templates(searchpath):
 
 
 def render_template(templates, template_file, output_file):
+    if output_file.endswith('.bat'):
+        newline = '\r\n'
+    else:
+        newline = None
+
     print('{:30s} --> {}'.format(template_file, output_file))
 
-    with open(output_file, 'w') as f:
+    with open(output_file, mode='w', newline=newline) as f:
         template = templates.get_template(template_file)
         output = template.render()
 
         f.write(output)
+
+    # shell files are executable by users
+    if output_file.endswith('.sh'):
+        with pathlib.Path(output_file) as f:
+            mode = f.stat().st_mode
+            f.chmod(mode | stat.S_IEXEC)
 
 
 if __name__ == '__main__':
