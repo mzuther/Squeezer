@@ -38,6 +38,12 @@ public:
                      const String &rootName,
                      const String &assumedVersionNumber);
 
+    static File getDefaultSkinFile(const File &skinDirectory);
+
+    static String getDefaultSkin(const File &skinDirectory);
+    static void setDefaultSkin(const String &defaultSkinName,
+                               const File &skinDirectory);
+
     XmlElement *getSetting(const String &tagName);
 
     XmlElement *getComponent(const String &tagName);
@@ -104,6 +110,10 @@ public:
 
 protected:
     std::unique_ptr<XmlElement> document_;
+
+    Image createBogusImage(const String &warningText,
+                           int width,
+                           int height);
 
     XmlElement *settingsGroup_;
     XmlElement *skinGroup_;

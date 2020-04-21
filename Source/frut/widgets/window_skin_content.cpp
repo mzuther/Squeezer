@@ -255,28 +255,16 @@ void SkinListBoxModel::fill(
     const File &skinDirectory)
 
 {
+    skinDirectory_ = skinDirectory;
+
     // search skin files in directory
     DirectoryContentsList skinFiles(&skinWildcard_, directoryThread_);
-    skinFiles.setDirectory(skinDirectory, false, true);
+    skinFiles.setDirectory(skinDirectory_, false, true);
     directoryThread_.startThread();
 
-    // locate file containing the default skin's name
-    defaultSkinFile_ = skinDirectory.getChildFile("default_skin.ini");
-
-    // make sure the file exists
-    if (!defaultSkinFile_.existsAsFile())
-    {
-        // create file
-        DBG("[Skin] creating new \"default_skin.ini\" file");
-        defaultSkinFile_.create();
-
-        // set "Default" as default skin as it comes with the plug-in
-        // (uses Unicode encoding)
-        defaultSkinFile_.replaceWithText("Default", true, true);
-    }
-
-    // load name of default skin from file
-    defaultSkinName_ = defaultSkinFile_.loadFileAsString();
+    // load name of default skin from file (will be used when drawing
+    // box contents)
+    defaultSkinName_ = frut::skin::Skin::getDefaultSkin(skinDirectory_);
 
     // wait for directory scan
     while (skinFiles.isStillLoading())
@@ -369,10 +357,7 @@ void SkinListBoxModel::setDefault(
 
     // store name of default skin
     defaultSkinName_ = skinNames_[rowNumber];
-
-    // store default skin name in file "default_skin.ini" (uses
-    // Unicode encoding)
-    defaultSkinFile_.replaceWithText(defaultSkinName_, true, true);
+    frut::skin::Skin::setDefaultSkin(defaultSkinName_, skinDirectory_);
 }
 
 

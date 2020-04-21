@@ -489,21 +489,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     // locate directory containing the skins
     File skinDirectory = getSkinDirectory();
 
-    // locate file containing the default skin's name
-    File defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
-
-    // make sure the file exists
-    if (!defaultSkinFile.existsAsFile())
-    {
-        // create file
-        defaultSkinFile.create();
-
-        // set "Default" as default skin (using Unicode encoding)
-        defaultSkinFile.replaceWithText("Default", true, true);
-    }
-
     // load name of default skin from file
-    String defaultSkinName = defaultSkinFile.loadFileAsString();
+    String defaultSkinName = frut::skin::Skin::getDefaultSkin(skinDirectory);
 
     frut::parameters::ParString *ParameterSkinName =
         new frut::parameters::ParString(defaultSkinName);

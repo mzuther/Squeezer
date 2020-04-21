@@ -59,7 +59,7 @@ private:
     WildcardFileFilter skinWildcard_;
     TimeSliceThread directoryThread_;
 
-    File defaultSkinFile_;
+    File skinDirectory_;
     String defaultSkinName_;
     StringArray skinNames_;
 

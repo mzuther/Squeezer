@@ -130,6 +130,47 @@ bool Skin::loadFromXml(
 }
 
 
+File Skin::getDefaultSkinFile(
+    const File &skinDirectory)
+{
+    // locate file containing the default skin's name
+    File defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
+
+    // make sure the file exists
+    if (!defaultSkinFile.existsAsFile())
+    {
+        // create file
+        defaultSkinFile.create();
+
+        // set "Default" as default skin, as it comes with the plug-in
+        // (uses Unicode encoding)
+        defaultSkinFile.replaceWithText("Default", true, true);
+    }
+
+    return defaultSkinFile;
+}
+
+
+String Skin::getDefaultSkin(
+    const File &skinDirectory)
+{
+    File defaultSkinFile = getDefaultSkinFile(skinDirectory);
+
+    return defaultSkinFile.loadFileAsString();
+}
+
+
+void Skin::setDefaultSkin(
+    const String &defaultSkinName,
+    const File &skinDirectory)
+{
+    File defaultSkinFile = getDefaultSkinFile(skinDirectory);
+
+    // uses Unicode encoding
+    defaultSkinFile.replaceWithText(defaultSkinName, true, true);
+}
+
+
 XmlElement *Skin::getSetting(
     const String &tagName)
 {
@@ -289,6 +330,34 @@ const Colour Skin::getColour(
 }
 
 
+Image Skin::createBogusImage(
+    const String &warningText,
+    int width,
+    int height)
+{
+    Image bogusImage(
+        Image::PixelFormat::RGB,
+        width,
+        height,
+        true);
+
+    Graphics g(bogusImage);
+    g.fillAll(Colours::red);
+
+    g.setColour(Colours::white);
+    g.drawFittedText(
+        warningText,
+        10,
+        10,
+        bogusImage.getWidth() - 10,
+        bogusImage.getHeight() - 10,
+        Justification::Flags::topLeft,
+        1);
+
+    return bogusImage;
+}
+
+
 void Skin::loadImage(
     const String &strFilename,
     Image &image)
@@ -306,7 +375,7 @@ void Skin::loadImage(
             fileImage.getFullPathName() +
             "\" not found");
 
-        image = Image();
+        image = createBogusImage("Image file not found", 200, 200);
     }
 }
 
@@ -328,7 +397,7 @@ void Skin::setBackgroundImage(
                 currentGroupName_ +
                 "\" specifies no background image");
 
-            imageBackground = Image();
+            imageBackground = createBogusImage("No background specified", 200, 200);
         }
         else
         {
