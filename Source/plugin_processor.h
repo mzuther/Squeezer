@@ -89,6 +89,8 @@ public:
 
     double getTailLengthSeconds() const override;
 
+    StringArray getAlternateDisplayNames() const override;
+
     int getNumPrograms() override;
 
     int getCurrentProgram() override;

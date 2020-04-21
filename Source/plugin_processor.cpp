@@ -779,6 +779,14 @@ double SqueezerAudioProcessor::getTailLengthSeconds() const
 }
 
 
+StringArray SqueezerAudioProcessor::getAlternateDisplayNames() const
+{
+    StringArray displayNames(JucePlugin_Name);
+    displayNames.add("Squeezer");
+    displayNames.add("squz");
+}
+
+
 int SqueezerAudioProcessor::getNumPrograms()
 {
     return 0;
