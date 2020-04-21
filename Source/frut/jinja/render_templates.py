@@ -84,3 +84,8 @@ if __name__ == '__main__':
         templates,
         'package_releases.template',
         '../../../bin/package_releases.sh')
+
+    render_template(
+        templates,
+        'link_vst.template',
+        '../../../bin/link_vst.sh')
