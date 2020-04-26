@@ -794,6 +794,8 @@ StringArray SqueezerAudioProcessor::getAlternateDisplayNames() const
     StringArray displayNames(JucePlugin_Name);
     displayNames.add("Squeezer");
     displayNames.add("squz");
+
+    return displayNames;
 }
 
 
