@@ -42,16 +42,16 @@ class SqueezerAudioProcessorEditor :
 {
 public:
     SqueezerAudioProcessorEditor(
-        SqueezerAudioProcessor *OwnerFilter,
-        SqueezerPluginParameters *PluginParameters,
+        SqueezerAudioProcessor &processor,
+        SqueezerPluginParameters &PluginParameters,
         int NumberOfChannels);
 
     ~SqueezerAudioProcessorEditor();
 
-    void buttonClicked(Button *Button);
-    void sliderValueChanged(Slider *Slider);
+    void buttonClicked(Button *Button) override;
+    void sliderValueChanged(Slider *Slider) override;
 
-    void actionListenerCallback(const String &Message);
+    void actionListenerCallback(const String &Message) override;
     void updateParameter(int Index);
 
     void windowAboutCallback(int ModalResult);
@@ -69,7 +69,7 @@ private:
     bool IsInitialising_;
     int NumberOfChannels_;
 
-    SqueezerAudioProcessor *PluginProcessor_;
+    SqueezerAudioProcessor &PluginProcessor_;
 
     File SkinDirectory_;
     Skin CurrentSkin_;

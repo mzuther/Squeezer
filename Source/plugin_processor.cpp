@@ -1135,9 +1135,9 @@ void SqueezerAudioProcessor::process(
 AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
 #ifdef SQUEEZER_MONO
-    return new SqueezerAudioProcessorEditor(this, &pluginParameters_, 1);
+    return new SqueezerAudioProcessorEditor(*this, pluginParameters_, 1);
 #else
-    return new SqueezerAudioProcessorEditor(this, &pluginParameters_, 2);
+    return new SqueezerAudioProcessorEditor(*this, pluginParameters_, 2);
 #endif
 }
 

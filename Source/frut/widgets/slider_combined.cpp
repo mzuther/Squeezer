@@ -28,12 +28,12 @@ namespace frut
 namespace widgets
 {
 
-SliderCombined::SliderCombined(parameters::Juggler *pParameters, int nParameterIndex, int nParameterIndexSwitch)
+SliderCombined::SliderCombined(parameters::Juggler &parameters, int nParameterIndex, int nParameterIndexSwitch)
 {
-    pCombined = dynamic_cast<parameters::ParCombined *>(pParameters->getPluginParameter(nParameterIndex));
+    pCombined = dynamic_cast<parameters::ParCombined *>(parameters.getPluginParameter(nParameterIndex));
     jassert(pCombined != nullptr);
 
-    pModeSwitch = dynamic_cast<parameters::ParBoolean *>(pParameters->getPluginParameter(nParameterIndexSwitch));
+    pModeSwitch = dynamic_cast<parameters::ParBoolean *>(parameters.getPluginParameter(nParameterIndexSwitch));
     jassert(pModeSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pCombined->getStepSize());

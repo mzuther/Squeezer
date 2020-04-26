@@ -60,10 +60,11 @@ static void window_skin_callback(
 
 
 SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
-    SqueezerAudioProcessor *OwnerFilter,
-    SqueezerPluginParameters *PluginParameters,
+    SqueezerAudioProcessor &processor,
+    SqueezerPluginParameters &PluginParameters,
     int NumberOfChannels)
-    : AudioProcessorEditor(OwnerFilter)
+    : AudioProcessorEditor(&processor),
+      PluginProcessor_(processor)
 {
     // load look and feel
     setLookAndFeel(&customLookAndFeel_);
@@ -78,8 +79,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     // The plug-in editor's size as well as the location of buttons
     // and labels will be set later on in this constructor.
 
-    PluginProcessor_ = OwnerFilter;
-    PluginProcessor_->addActionListener(this);
+    PluginProcessor_.addActionListener(this);
 
     NumberOfChannels_ = NumberOfChannels;
 
@@ -293,14 +293,14 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     SkinDirectory_ = SqueezerPluginParameters::getSkinDirectory();
 
     // apply skin to plug-in editor
-    CurrentSkinName_ = PluginProcessor_->getParameterSkinName();
+    CurrentSkinName_ = PluginProcessor_.getParameterSkinName();
     loadSkin_();
 }
 
 
 SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 {
-    PluginProcessor_->removeActionListener(this);
+    PluginProcessor_.removeActionListener(this);
 
     // release look and feel
     setLookAndFeel(nullptr);
@@ -320,7 +320,7 @@ void SqueezerAudioProcessorEditor::loadSkin_()
         FileSkin = SkinDirectory_.getChildFile(CurrentSkinName_ + ".skin");
     }
 
-    PluginProcessor_->setParameterSkinName(CurrentSkinName_);
+    PluginProcessor_.setParameterSkinName(CurrentSkinName_);
 
     CurrentSkin_.loadSkin(FileSkin, NumberOfChannels_);
 
@@ -565,9 +565,9 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(
         String StringIndex = Message.substring(3);
         int Index = StringIndex.getIntValue();
         jassert(Index >= 0);
-        jassert(Index < PluginProcessor_->getNumParameters());
+        jassert(Index < PluginProcessor_.getNumParameters());
 
-        if (PluginProcessor_->hasChanged(Index))
+        if (PluginProcessor_.hasChanged(Index))
         {
             updateParameter(Index);
         }
@@ -583,25 +583,25 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(
                 float NoPeakDisplay = -100.0;
 
                 float AverageInputLevel =
-                    PluginProcessor_->getAverageMeterInputLevel(Channel);
+                    PluginProcessor_.getAverageMeterInputLevel(Channel);
                 float PeakInputLevel =
-                    PluginProcessor_->getPeakMeterInputLevel(Channel);
+                    PluginProcessor_.getPeakMeterInputLevel(Channel);
 
                 InputLevelMeters_[Channel]->setLevels(
                     AverageInputLevel, NoPeakDisplay,
                     PeakInputLevel, NoPeakDisplay);
 
                 float AverageOutputLevel =
-                    PluginProcessor_->getAverageMeterOutputLevel(Channel);
+                    PluginProcessor_.getAverageMeterOutputLevel(Channel);
                 float PeakOutputLevel =
-                    PluginProcessor_->getPeakMeterOutputLevel(Channel);
+                    PluginProcessor_.getPeakMeterOutputLevel(Channel);
 
                 OutputLevelMeters_[Channel]->setLevels(
                     AverageOutputLevel, NoPeakDisplay,
                     PeakOutputLevel, NoPeakDisplay);
 
                 float GainReduction =
-                    PluginProcessor_->getGainReduction(Channel);
+                    PluginProcessor_.getGainReduction(Channel);
 
                 // make sure gain reduction meter doesn't show anything
                 // while there is no gain reduction
@@ -622,8 +622,8 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(
 void SqueezerAudioProcessorEditor::updateParameter(
     int Index)
 {
-    float FloatValue = PluginProcessor_->getParameter(Index);
-    PluginProcessor_->clearChangeFlag(Index);
+    float FloatValue = PluginProcessor_.getParameter(Index);
+    PluginProcessor_.clearChangeFlag(Index);
 
     switch (Index)
     {
@@ -827,90 +827,90 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 {
     if (Button == &ButtonBypass_)
     {
-        PluginProcessor_->changeParameter(SqueezerPluginParameters::selBypass,
-                                          !Button->getToggleState());
+        PluginProcessor_.changeParameter(SqueezerPluginParameters::selBypass,
+                                         !Button->getToggleState());
     }
     else if (Button == &ButtonRmsWindow_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selRmsWindowSize,
             !Button->getToggleState());
     }
     else if (Button == &ButtonDesignFeedback_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selDesign,
             !Button->getToggleState());
     }
     else if (Button == &ButtonGainStageOptical_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selGainStage,
             !Button->getToggleState());
     }
     else if (Button == &ButtonCurveLinear_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selCurveType,
             SideChain::CurveLogLin /
             float(SideChain::NumberOfCurves - 1));
     }
     else if (Button == &ButtonCurveSmoothDecoupled_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selCurveType,
             SideChain::CurveLogSmoothDecoupled /
             float(SideChain::NumberOfCurves - 1));
     }
     else if (Button == &ButtonCurveSmoothBranching_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selCurveType,
             SideChain::CurveLogSmoothBranching /
             float(SideChain::NumberOfCurves - 1));
     }
     else if (Button == &ButtonKneeHard_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selKneeWidth,
             Compressor::KneeHard /
             float(Compressor::NumberOfKneeSettings - 1));
     }
     else if (Button == &ButtonKneeMedium_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selKneeWidth,
             Compressor::KneeMedium /
             float(Compressor::NumberOfKneeSettings - 1));
     }
     else if (Button == &ButtonKneeSoft_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selKneeWidth,
             Compressor::KneeSoft /
             float(Compressor::NumberOfKneeSettings - 1));
     }
     else if (Button == &ButtonAutoMakeupGain_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selAutoMakeupGain,
             !Button->getToggleState());
     }
     else if (Button == &ButtonSidechainExternal_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selSidechainInput,
             !Button->getToggleState());
     }
     else if (Button == &ButtonSidechainListen_)
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selSidechainListen,
             !Button->getToggleState());
     }
     else if (Button == &ButtonReset_)
     {
-        PluginProcessor_->resetMeters();
+        PluginProcessor_.resetMeters();
 
         // apply skin to plug-in editor
         loadSkin_();
@@ -923,7 +923,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 
         int Width = 440;
         int Height = 155;
-        String PluginSettings = PluginProcessor_->getParameters().trim();
+        String PluginSettings = PluginProcessor_.getParameters().trim();
 
         // prepare and launch dialog window
         DialogWindow *windowSettings =
@@ -1072,61 +1072,61 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 
         if (Slider == SliderThreshold_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selThresholdSwitch,
                 FloatValue);
         }
         else if (Slider == SliderRatio_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selRatioSwitch,
                 FloatValue);
         }
         else if (Slider == SliderAttackRate_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selAttackRateSwitch,
                 FloatValue);
         }
         else if (Slider == SliderReleaseRate_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selReleaseRateSwitch,
                 FloatValue);
         }
         else if (Slider == SliderInputTrim_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selInputTrimSwitch,
                 FloatValue);
         }
         else if (Slider == SliderMakeupGain_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selMakeupGainSwitch,
                 FloatValue);
         }
         else if (Slider == SliderStereoLink_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selStereoLinkSwitch,
                 FloatValue);
         }
         else if (Slider == SliderWetMix_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selWetMixSwitch,
                 FloatValue);
         }
         else if (Slider == SliderSidechainHPFCutoff_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selSidechainHPFCutoffSwitch,
                 FloatValue);
         }
         else if (Slider == SliderSidechainLPFCutoff_.get())
         {
-            PluginProcessor_->changeParameter(
+            PluginProcessor_.changeParameter(
                 SqueezerPluginParameters::selSidechainLPFCutoffSwitch,
                 FloatValue);
         }
@@ -1145,61 +1145,61 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
 
     if (Slider == SliderThreshold_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selThreshold,
             FloatValue);
     }
     else if (Slider == SliderRatio_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selRatio,
             FloatValue);
     }
     else if (Slider == SliderAttackRate_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selAttackRate,
             FloatValue);
     }
     else if (Slider == SliderReleaseRate_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selReleaseRate,
             FloatValue);
     }
     else if (Slider == SliderInputTrim_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selInputTrim,
             FloatValue);
     }
     else if (Slider == SliderMakeupGain_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selMakeupGain,
             FloatValue);
     }
     else if (Slider == SliderStereoLink_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selStereoLink,
             FloatValue);
     }
     else if (Slider == SliderWetMix_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selWetMix,
             FloatValue);
     }
     else if (Slider == SliderSidechainHPFCutoff_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selSidechainHPFCutoff,
             FloatValue);
     }
     else if (Slider == SliderSidechainLPFCutoff_.get())
     {
-        PluginProcessor_->changeParameter(
+        PluginProcessor_.changeParameter(
             SqueezerPluginParameters::selSidechainLPFCutoff,
             FloatValue);
     }

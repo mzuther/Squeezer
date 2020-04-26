@@ -29,12 +29,12 @@ namespace widgets
 {
 
 SliderContinuous::SliderContinuous(
-    parameters::Juggler *parameters,
+    parameters::Juggler &parameters,
     int parameterIndex)
 
 {
     parameter_ = dynamic_cast<parameters::ParContinuous *>(
-                     parameters->getPluginParameter(parameterIndex));
+                     parameters.getPluginParameter(parameterIndex));
 
     jassert(parameter_ != nullptr);
 

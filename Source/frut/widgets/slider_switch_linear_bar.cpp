@@ -28,9 +28,9 @@ namespace frut
 namespace widgets
 {
 
-SliderSwitchLinearBar::SliderSwitchLinearBar(parameters::Juggler *pParameters, int nParameterIndex)
+SliderSwitchLinearBar::SliderSwitchLinearBar(parameters::Juggler &parameters, int nParameterIndex)
 {
-    pSwitch = dynamic_cast<parameters::ParSwitch *>(pParameters->getPluginParameter(nParameterIndex));
+    pSwitch = dynamic_cast<parameters::ParSwitch *>(parameters.getPluginParameter(nParameterIndex));
     jassert(pSwitch != nullptr);
 
     setRange(0.0f, 1.0f, pSwitch->getStepSize());

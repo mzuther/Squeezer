@@ -35,7 +35,7 @@ class SliderSwitch :
     virtual public FrutSlider
 {
 public:
-    SliderSwitch(parameters::Juggler *pParameters, int nParameterIndex);
+    SliderSwitch(parameters::Juggler &parameters, int nParameterIndex);
 
     void visibilityChanged();
     void resized();

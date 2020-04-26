@@ -35,7 +35,7 @@ class SliderSwitchLinearBar :
     public FrutSlider
 {
 public:
-    SliderSwitchLinearBar(parameters::Juggler *pParameters, int nParameterIndex);
+    SliderSwitchLinearBar(parameters::Juggler &parameters, int nParameterIndex);
 
     void visibilityChanged();
     void setSliderColour(const Colour &colour);

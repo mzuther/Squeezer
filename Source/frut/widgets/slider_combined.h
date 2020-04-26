@@ -35,7 +35,7 @@ class SliderCombined :
     virtual public FrutSlider
 {
 public:
-    SliderCombined(parameters::Juggler *pParameters, int nParameterIndex, int nParameterIndexSwitch);
+    SliderCombined(parameters::Juggler &parameters, int nParameterIndex, int nParameterIndexSwitch);
 
     void visibilityChanged();
     void resized();

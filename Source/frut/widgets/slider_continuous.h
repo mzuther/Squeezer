@@ -35,7 +35,7 @@ class SliderContinuous :
     virtual public FrutSlider
 {
 public:
-    SliderContinuous(parameters::Juggler *pParameters, int parameterIndex);
+    SliderContinuous(parameters::Juggler &parameters, int parameterIndex);
 
     virtual void visibilityChanged();
     virtual void resized();
