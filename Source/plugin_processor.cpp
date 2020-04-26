@@ -773,6 +773,16 @@ bool SqueezerAudioProcessor::producesMidi() const
 }
 
 
+bool SqueezerAudioProcessor::isMidiEffect() const
+{
+#if JucePlugin_IsMidiEffect
+    return true;
+#else
+    return false;
+#endif
+}
+
+
 double SqueezerAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
@@ -789,7 +799,10 @@ StringArray SqueezerAudioProcessor::getAlternateDisplayNames() const
 
 int SqueezerAudioProcessor::getNumPrograms()
 {
-    return 0;
+    // some hosts don't cope very well if you tell them there are no
+    // programs, so this should be at least 1, even if you're not
+    // really implementing programs.
+    return 1;
 }
 
 

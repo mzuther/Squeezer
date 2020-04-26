@@ -86,6 +86,7 @@ public:
 
     bool acceptsMidi() const override;
     bool producesMidi() const override;
+    bool isMidiEffect() const override;
 
     double getTailLengthSeconds() const override;
 
@@ -103,7 +104,7 @@ public:
     void setStateInformation(const void *data, int sizeInBytes) override;
 
 private:
-    JUCE_LEAK_DETECTOR(SqueezerAudioProcessor);
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SqueezerAudioProcessor);
 
     static BusesProperties getBusesProperties();
 

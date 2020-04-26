@@ -58,10 +58,10 @@ public:
     void windowSettingsCallback(int ModalResult);
     void windowSkinCallback(int ModalResult);
 
-    void resized();
+    void resized() override;
 
 private:
-    JUCE_LEAK_DETECTOR(SqueezerAudioProcessorEditor);
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SqueezerAudioProcessorEditor);
 
     void applySkin_();
     void loadSkin_();
