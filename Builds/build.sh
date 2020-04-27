@@ -94,8 +94,10 @@ case $1 in
 		echo
 		echo "  1: Standalone (Stereo)"
 		echo "  2: Standalone (Mono)"
+		echo
 		echo "  3: VST2 plug-in (Stereo)"
 		echo "  4: VST2 plug-in (Mono)"
+		echo
 		echo "  5: VST2 plug-in (Stereo, no side-chain)"
 		echo "  6: VST2 plug-in (Mono, no side-chain)"
 		echo
