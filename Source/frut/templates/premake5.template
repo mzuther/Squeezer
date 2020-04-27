@@ -37,7 +37,7 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.standalone(settings.name, variant, settings.additions_solution) -}}
+{{ render.standalone(settings.name, variant) -}}
 
 {% endfor -%}
 
@@ -47,7 +47,7 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.vst2(settings.name, variant, settings.additions_solution, settings.vst2_category) -}}
+{{ render.vst2(settings.name, variant, settings.vst2_category) -}}
 
 {% endfor -%}
 
@@ -57,6 +57,10 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.vst3(settings.name, variant, settings.additions_solution) -}}
+{{ render.vst3(settings.name, variant) -}}
 
-{% endfor -%}
+{% endfor %}
+
+--------------------------------------------------------------------------------
+
+{{ render.unittest(settings.name, settings.variants[0]) -}}

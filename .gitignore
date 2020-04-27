@@ -13,6 +13,7 @@
 .Rhistory
 
 bin/.intermediate_*
+bin/unittest/
 
 bin/standalone/Squeezer*.exe
 bin/standalone/squeezer_*

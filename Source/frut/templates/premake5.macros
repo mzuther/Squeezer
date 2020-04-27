@@ -223,7 +223,7 @@ workspace "{{ name.short }}"
 
 
 
-{% macro standalone(name, variant, additions) %}
+{% macro standalone(name, variant) %}
     project ("{{ name.short }}_standalone_{{ variant.short }}")
         kind "WindowedApp"
         targetdir "../bin/standalone/"
@@ -242,7 +242,7 @@ workspace "{{ name.short }}"
         files {
               "../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp"
         }
-{{ additions }}
+
         filter { "system:linux" }
             targetname "{{ name.short }}_{{ variant.short }}"
 
@@ -277,7 +277,7 @@ workspace "{{ name.short }}"
 
 
 
-{% macro vst2(name, variant, additions, vst2_category) %}
+{% macro vst2(name, variant, vst2_category) %}
     project ("{{ name.short }}_vst2_{{ variant.short }}")
         kind "SharedLib"
         targetdir "../bin/vst2/"
@@ -305,7 +305,7 @@ workspace "{{ name.short }}"
         includedirs {
             "../libraries/vst2/VST2_SDK"
         }
-{{ additions }}
+
         filter { "system:linux" }
             targetname "{{ name.short }}_{{ variant.short }}_vst2"
 
@@ -330,7 +330,7 @@ workspace "{{ name.short }}"
 
 
 
-{% macro vst3(name, variant, additions) %}
+{% macro vst3(name, variant) %}
 -- create VST3 projects on Windows only
 if os.target() == "windows" then
 
@@ -362,7 +362,7 @@ if os.target() == "windows" then
             "../libraries/vst2/VST2_SDK",
             "../libraries/vst3/VST3_SDK"
         }
-{{ additions }}
+
         filter { "system:windows" }
             targetname "{{ name.real }} ({{ variant.real }}"
             targetextension (".vst3")
@@ -382,5 +382,52 @@ if os.target() == "windows" then
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_{{ variant.short }}_release")
 
 -- create VST3 projects on Windows only
+end
+{% endmacro %}
+
+
+
+{% macro unittest(name, variant) %}
+-- create unit tests on Linux only
+if os.target() == "linux" then
+
+    project ("unittest")
+        kind "ConsoleApp"
+        targetdir "../bin/unittest/"
+
+        defines {
+            {% for define in variant.defines -%}
+            "{{ define }}",
+            {% endfor -%}
+            "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_VST=0",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../Source/frut/unittest/unittest.cpp"
+        }
+
+        filter { "system:linux" }
+            targetname "unittest"
+
+            defines {
+                "JUCE_ALSA=0",
+                "JUCE_JACK=0",
+                "JUCE_WASAPI=0",
+                "JUCE_DIRECTSOUND=0"
+            }
+
+            prebuildcommands {
+               "cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h"
+            }
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_release")
+
+-- create unit tests on Linux only
 end
 {% endmacro %}

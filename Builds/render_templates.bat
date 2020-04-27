@@ -27,7 +27,7 @@
 
 @echo.
 @echo "=== Rendering templates ==="
-python.exe "../Source/frut/jinja/render_templates.py"
+python.exe "../Source/frut/templates/render_templates.py"
 
 
 @echo.

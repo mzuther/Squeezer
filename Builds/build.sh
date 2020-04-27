@@ -39,7 +39,7 @@ case $1 in
 esac
 
 echo
-echo "  Platform: " $PLATFORM_PRINT
+echo "  Platform:  $PLATFORM_PRINT"
 
 # get next command line option
 shift 1
@@ -53,6 +53,11 @@ case $1 in
 	c)
 		MAKEFILE="clean"
 		MAKEFILE_PRINT="clean targets"
+		;;
+	u)
+		MAKEFILE="unittest"
+		MAKEFILE_PRINT="Unit tests"
+		EXECUTABLE="unittest"
 		;;
 	1)
 		MAKEFILE="squeezer_standalone_stereo"
@@ -85,6 +90,7 @@ case $1 in
 		echo
 		echo "  a: All targets"
 		echo "  c: Clean targets"
+		echo "  u: Unit tests"
 		echo
 		echo "  1: Standalone (Stereo)"
 		echo "  2: Standalone (Mono)"
@@ -96,26 +102,26 @@ case $1 in
 		exit
 esac
 
-echo "  Target:   " $MAKEFILE_PRINT
+echo "  Target:    $MAKEFILE_PRINT"
 
 # get next command line option
 shift 1
 
 # display additional options
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 	echo "  Options:   --no-print-directory"
 	echo
 else
-	echo "  Options:  --no-print-directory" $*
+	echo "  Options:  --no-print-directory $*"
 	echo
 fi
 
 # indent and format code
 if [ "$MAKEFILE" != "clean" ]; then
 	echo "==== Indenting and formatting code ===="
-	cd "../Source"
+	cd "../Source" || exit
 	"./format_code.sh"
-	cd "../Builds"
+	cd "../Builds" || exit
 	echo
 fi
 
@@ -124,11 +130,21 @@ make --directory=linux/gmake/ --no-print-directory config=$PLATFORM $MAKEFILE $*
 
 # compilation was successful
 if [ $? -eq 0 ]; then
-	echo $MAKEFILE | grep "_standalone_"
+	echo $MAKEFILE | grep "_standalone_" > /dev/null
 
 	# target is standalone, so execute file
 	if [ $? -eq 0 ]; then
+        echo $EXECUTABLE$EXECUTABLE_EXTENSION
 		echo
 		../bin/standalone/$EXECUTABLE$EXECUTABLE_EXTENSION
+	fi
+
+	echo $MAKEFILE | grep "unittest" > /dev/null
+
+	# target is unit test, so execute file
+	if [ $? -eq 0 ]; then
+        echo $EXECUTABLE$EXECUTABLE_EXTENSION
+		echo
+		../bin/unittest/$EXECUTABLE$EXECUTABLE_EXTENSION
 	fi
 fi

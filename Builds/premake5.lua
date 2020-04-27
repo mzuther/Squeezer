@@ -621,3 +621,47 @@ if os.target() == "windows" then
 
 -- create VST3 projects on Windows only
 end
+
+--------------------------------------------------------------------------------
+
+-- create unit tests on Linux only
+if os.target() == "linux" then
+
+    project ("unittest")
+        kind "ConsoleApp"
+        targetdir "../bin/unittest/"
+
+        defines {
+            "SQUEEZER_STEREO=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
+            "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_VST=0",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../Source/frut/unittest/unittest.cpp"
+        }
+
+        filter { "system:linux" }
+            targetname "unittest"
+
+            defines {
+                "JUCE_ALSA=0",
+                "JUCE_JACK=0",
+                "JUCE_WASAPI=0",
+                "JUCE_DIRECTSOUND=0"
+            }
+
+            prebuildcommands {
+               "cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h"
+            }
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_release")
+
+-- create unit tests on Linux only
+end

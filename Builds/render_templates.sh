@@ -29,7 +29,7 @@ cd "$(dirname "$0")" || exit
 
 echo
 echo "=== Rendering templates ==="
-python3 "../Source/frut/jinja/render_templates.py"
+python3 "../Source/frut/templates/render_templates.py"
 
 
 echo
