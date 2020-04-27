@@ -36,7 +36,7 @@ ifeq ($(config),debug_x32)
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
 	@echo Running prebuild commands
-	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
+	+@$(MAKE) --directory=../../../Source/frut/ --quiet unittest
   endef
   define PRELINKCMDS
   endef
@@ -73,7 +73,7 @@ ifeq ($(config),debug_x64)
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
 	@echo Running prebuild commands
-	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
+	+@$(MAKE) --directory=../../../Source/frut/ --quiet unittest
   endef
   define PRELINKCMDS
   endef
@@ -110,7 +110,7 @@ ifeq ($(config),release_x32)
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
 	@echo Running prebuild commands
-	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
+	+@$(MAKE) --directory=../../../Source/frut/ --quiet unittest
   endef
   define PRELINKCMDS
   endef
@@ -147,7 +147,7 @@ ifeq ($(config),release_x64)
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
 	@echo Running prebuild commands
-	cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h
+	+@$(MAKE) --directory=../../../Source/frut/ --quiet unittest
   endef
   define PRELINKCMDS
   endef
@@ -180,6 +180,8 @@ OBJECTS := \
 	$(OBJDIR)/include_frut_parameters.o \
 	$(OBJDIR)/include_frut_skin.o \
 	$(OBJDIR)/include_frut_widgets.o \
+	$(OBJDIR)/test_1.o \
+	$(OBJDIR)/test_2.o \
 	$(OBJDIR)/unittest.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/gain_stage_optical.o \
@@ -309,6 +311,12 @@ $(OBJDIR)/include_frut_skin.o: ../../../Source/frut/amalgamated/include_frut_ski
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_frut_widgets.o: ../../../Source/frut/amalgamated/include_frut_widgets.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/test_1.o: ../../../Source/frut/unittest/test_1.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/test_2.o: ../../../Source/frut/unittest/test_2.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/unittest.o: ../../../Source/frut/unittest/unittest.cpp

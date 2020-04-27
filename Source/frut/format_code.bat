@@ -25,5 +25,8 @@
 @rem
 @rem ---------------------------------------------------------------------------
 
-@AStyle --recursive --exclude="resources" --options=./.astylerc "*.cpp" "*.h"
+@AStyle --recursive --exclude="resources" --exclude="unittest" --options=./.astylerc "*.cpp"
+@echo.
+
+@AStyle --recursive --exclude="resources" --exclude="unittest" --options=./.astylerc "*.h"
 @pause

@@ -31,9 +31,6 @@
 
 
 
-# display optional information
---verbose
-
 # only display changed files
 --formatted
 

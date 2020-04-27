@@ -404,8 +404,11 @@ if os.target() == "linux" then
             "JucePlugin_Build_VST3=0"
         }
 
+        os.execute("echo 'Creating unit tests...'")
+        os.execute("make --directory=../Source/frut/ --quiet unittest")
+
         files {
-              "../Source/frut/unittest/unittest.cpp"
+              "../Source/frut/unittest/*.cpp"
         }
 
         filter { "system:linux" }
@@ -419,7 +422,7 @@ if os.target() == "linux" then
             }
 
             prebuildcommands {
-               "cxxtestgen --runner=ErrorPrinter --have-eh -o ../../../Source/frut/unittest/unittest.cpp ../../../Source/frut/unittest/*.h"
+               "+@$(MAKE) --directory=../../../Source/frut/ --quiet unittest"
             }
 
         filter { "configurations:Debug" }
