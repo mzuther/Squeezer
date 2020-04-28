@@ -875,8 +875,8 @@ music that you have produced using my software \dots
 
 \appendix
 
-\chapter{Build Squeezer}
-\label{chap:build_squeezer}
+\chapter{Build process}
+\label{chap:build_process}
 
 \section{Dependencies}
 \label{sec:dependencies}
@@ -997,13 +997,49 @@ premake file from templates (see \ref{sec:dependencies_premake}).
 
 This application formats the code so it looks more beautiful and
 consistent.  Thus, you only have to install it if you plan to help me
-with coding Squeezer.
+with coding.
 
-\subsubsection{Installation}
+\subsection{googletest}
 
-Place the binary somewhere in your \path{PATH}.  Depending on your
-platform, you should run \path{astyle} using the scripts
-\path{Source/format_code.sh} or \path{Source/format_code.bat}.
+\begin{tabbing}
+  \hspace*{6em}\=\=\kill
+
+  Importance:  \> optional \\
+  Version:     \> 1.10.0 \\
+  License:     \> BSD 3-clauses \\
+  Homepage:    \> \href{https://github.com/google/googletest}{github.com/google/googletest}
+\end{tabbing}
+
+This is a framework for testing and mocking.  You only need to install
+it if you plan to help me with coding.
+
+\subsubsection{Installation on GNU/Linux}
+
+Extract the archive into the directory \path{libraries/googletest},
+change into this directory and run:
+
+\begin{VerbatimBoth}
+  mkdir googletest/build
+  cd googletest/build
+\end{VerbatimBoth}
+
+\begin{Verbatim32}
+  rm -f ./CMakeCache.txt
+  cmake ..
+  make
+  mkdir -p lib/linux/i386/
+  mv lib/*.a lib/linux/i386/
+  make clean
+\end{Verbatim32}
+
+\begin{Verbatim64}
+  rm -f ./CMakeCache.txt
+  cmake ..
+  make
+  mkdir -p lib/linux/amd64/
+  mv lib/*.a lib/linux/amd64/
+  make clean
+\end{Verbatim64}
 
 \newpage %% layout
 
@@ -1011,16 +1047,16 @@ platform, you should run \path{astyle} using the scripts
 
 \subsection{Environment}
 
-To build Squeezer yourself, I recommend setting up a \texttt{chroot}
-environment.  This is fast and easy to do on Debian-based systems and
-might save you a \textbf{lot} of trouble.  At the time of writing, I'm
-using Linux Mint 19, but the procedure should be similar on your
-distribution of choice.
+To build this application yourself, I recommend setting up a
+\texttt{chroot} environment.  This is fast and easy to do on
+Debian-based systems and might save you a \textbf{lot} of trouble.  At
+the time of writing, I'm using Linux Mint 19, but the procedure should
+be similar on your distribution of choice.
 
 Start by installing the necessary packages:
 
 \begin{VerbatimBoth}
-  sudo apt-get install debootstrap schroot
+  sudo apt install debootstrap schroot
 \end{VerbatimBoth}
 
 Then install the \texttt{chroot} base system by executing the
@@ -1089,11 +1125,12 @@ Now install a few packages -- \path{less} and \path{vim} are optional,
 but might come in handy:
 
 \begin{VerbatimBoth}
-  apt-get update
-  apt-get -y install bash-completion clang \
-    libasound2-dev libjack-jackd2-dev \
-    mesa-common-dev xorg-dev less vim
-  apt-get clean
+  apt update
+  apt -y install bash-completion clang \
+    cmake libasound2-dev libjack-jackd2-dev \
+    libpthread-workqueue-dev mesa-common-dev \
+    xorg-dev less vim
+  apt clean
 \end{VerbatimBoth}
 
 If you like \path{bash} completion, you might also want to open the
@@ -1118,7 +1155,7 @@ Finally, log out and log in as normal user:
 
 In this \path{chroot} shell, install the dependencies
 (\ref{sec:dependencies}).  Congratulations -- you are now ready to
-build Squeezer!
+build!
 
 \subsection{Build}
 

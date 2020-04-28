@@ -25,7 +25,7 @@
 #
 # ----------------------------------------------------------------------------
 
-astyle --recursive --exclude="resources" --exclude="unittest" --options=./.astylerc \
+astyle --recursive --exclude="resources" --options=./.astylerc \
   "*.cpp"
 
 echo

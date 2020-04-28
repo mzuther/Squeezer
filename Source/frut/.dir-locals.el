@@ -4,6 +4,7 @@
                         (language-standard "c++14")
                         (include-path (list (concat root "JuceLibraryCode/")
                                             (concat root "libraries/juce/modules/")
+                                            (concat root "libraries/googletest/googletest/include/")
                                             (concat root "Source/frut/")
                                             (concat root "libraries/"))))
 

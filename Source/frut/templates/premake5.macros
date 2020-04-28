@@ -404,10 +404,12 @@ if os.target() == "linux" then
             "JucePlugin_Build_VST3=0"
         }
 
-        os.execute("echo 'Creating unit tests...'")
-        os.execute("make --directory=../Source/frut/ --quiet unittest")
+        includedirs {
+           "../libraries/googletest/googletest/include/"
+        }
 
         files {
+              "../Source/frut/unittest/*.h",
               "../Source/frut/unittest/*.cpp"
         }
 
@@ -421,9 +423,19 @@ if os.target() == "linux" then
                 "JUCE_DIRECTSOUND=0"
             }
 
-            prebuildcommands {
-               "+@$(MAKE) --directory=../../../Source/frut/ --quiet unittest"
-            }
+        filter { "system:linux", "platforms:x32" }
+            linkoptions {
+                -- force static linking to googletest
+                "../../../libraries/googletest/googletest/build/lib/linux/i386/libgtest.a",
+                "../../../libraries/googletest/googletest/build/lib/linux/i386/libgtest_main.a"
+        }
+
+        filter { "system:linux", "platforms:x64" }
+            linkoptions {
+                -- force static linking to googletest
+                "../../../libraries/googletest/googletest/build/lib/linux/amd64/libgtest.a",
+                "../../../libraries/googletest/googletest/build/lib/linux/amd64/libgtest_main.a"
+        }
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_debug")
