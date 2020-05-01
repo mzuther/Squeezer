@@ -1,5 +1,37 @@
 #!/bin/bash
 
+#  ----------------------------------------------------------------------------
+#  
+#  Squeezer
+#  ========
+#  Flexible general-purpose audio compressor with a touch of citrus
+#  
+#  Copyright (c) 2013-2020 Martin Zuther (http://www.mzuther.de/)
+#  
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  
+#  Thank you for using free software!
+#  
+#  ----------------------------------------------------------------------------
+
+
+###############################################################################
+#
+#  WARNING: this file is auto-generated, please do not edit!
+#
+###############################################################################
+
 function print_line
 {
     printf "%s\n" "$1"
@@ -30,7 +62,7 @@ case $1 in
         ;;
     *)
         print_line ""
-        print_line "  Usage:  mz_build PLATFORM TARGET [BUILD_OPTIONS]"
+        print_line "  Usage:  build PLATFORM TARGET [BUILD_OPTIONS]"
         print_line ""
         print_line ""
         print_line "  Platform:  ..."
@@ -104,7 +136,6 @@ case $1 in
         print_line ""
         print_line "  3: VST2 plug-in (Stereo)"
         print_line "  4: VST2 plug-in (Mono)"
-        print_line ""
         print_line "  5: VST2 plug-in (Stereo, no side-chain)"
         print_line "  6: VST2 plug-in (Mono, no side-chain)"
         print_line ""

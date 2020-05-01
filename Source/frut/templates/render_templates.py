@@ -72,6 +72,11 @@ if __name__ == '__main__':
 
     render_template(
         templates,
+        'build_sh.template',
+        '../../../Builds/build.sh')
+
+    render_template(
+        templates,
         'copy_vst.template',
         '../../../bin/copy_vst.bat')
 
