@@ -24,6 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
+{%- import 'frut.template' as frut -%}
 {%- import 'settings.template' as settings -%}
 {%- import 'lint.sh.macros' as render -%}
 

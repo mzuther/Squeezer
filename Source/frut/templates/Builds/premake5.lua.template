@@ -24,6 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
+{%- import 'frut.template' as frut -%}
 {%- import 'settings.template' as settings -%}
 {%- import 'premake5.lua.macros' as render -%}
 

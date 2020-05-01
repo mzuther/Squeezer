@@ -5,7 +5,7 @@
 #  FrutJUCE
 #  ========
 #  Common classes for use with the JUCE library
-#
+#  
 #  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
 #  
 #  This program is free software: you can redistribute it and/or modify
@@ -33,6 +33,7 @@
 ###############################################################################
 
 project_home=$(pwd)/../..
+parallel_threads=12
 
 
 function lint_file
@@ -81,9 +82,11 @@ function lint_file
 
 printf "\n"
 
-find . \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read -r filename
-do
-    lint_file "$filename" \;
+for filename in $(find . \( -iname "*.cpp" -or -iname "*.h" \) -print | sort); do
+    # use parallel threads to improve performance; adapted from
+    # https://unix.stackexchange.com/a/216475
+    ((i=i%parallel_threads)); ((i++==0)) && wait
+    lint_file "$filename" &
 done
 
 printf "\n"

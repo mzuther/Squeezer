@@ -173,6 +173,7 @@ OBJECTS := \
 	$(OBJDIR)/include_frut_skin.o \
 	$(OBJDIR)/include_frut_widgets.o \
 	$(OBJDIR)/par_boolean_unittest.o \
+	$(OBJDIR)/par_string_unittest.o \
 	$(OBJDIR)/gain_stage_fet.o \
 	$(OBJDIR)/gain_stage_optical.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
@@ -304,6 +305,9 @@ $(OBJDIR)/include_frut_widgets.o: ../../../Source/frut/amalgamated/include_frut_
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/par_boolean_unittest.o: ../../../Source/frut/parameters/par_boolean_unittest.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/par_string_unittest.o: ../../../Source/frut/parameters/par_string_unittest.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp

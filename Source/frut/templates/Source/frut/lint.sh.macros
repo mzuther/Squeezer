@@ -27,30 +27,9 @@
 {% macro preamble(copyright, includes) %}
 #! /usr/bin/env bash
 
-#  ----------------------------------------------------------------------------
-#  
-#  FrutJUCE
-#  ========
-#  Common classes for use with the JUCE library
-#
-#  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
-#  
-#  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or
-#  (at your option) any later version.
-#  
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#  
-#  You should have received a copy of the GNU General Public License
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#  
-#  Thank you for using free software!
-#  
-#  ----------------------------------------------------------------------------
+{% for line in copyright -%}
+#  {{ line }}
+{% endfor %}
 
 
 ###############################################################################
@@ -60,6 +39,7 @@
 ###############################################################################
 
 project_home=$(pwd)/../..
+parallel_threads=12
 
 
 function lint_file
@@ -110,9 +90,11 @@ function lint_file
 
 printf "\n"
 
-find . \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read -r filename
-do
-    lint_file "$filename" \;
+for filename in $(find . \( -iname "*.cpp" -or -iname "*.h" \) -print | sort); do
+    # use parallel threads to improve performance; adapted from
+    # https://unix.stackexchange.com/a/216475
+    ((i=i%parallel_threads)); ((i++==0)) && wait
+    lint_file "$filename" &
 done
 
 printf "\n"

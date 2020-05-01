@@ -55,7 +55,7 @@ def render_template(templates, template_file):
     else:
         newline = None
 
-    print('{:30s} --> {}'.format(template_file, output_file))
+    print(output_file)
 
     with open(output_file, mode='w', newline=newline) as f:
         template = templates.get_template(template_file)

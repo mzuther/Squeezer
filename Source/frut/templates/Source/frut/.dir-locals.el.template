@@ -24,9 +24,10 @@
 {# -------------------------------------------------------------------------- #}
 
 
+{%- import 'frut.template' as frut -%}
 {%- import 'settings.template' as settings -%}
 {%- import '.dir-locals.el.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.includes) }}
+{{ render.preamble(frut.copyright, settings.includes) }}
 
 {{- render.postamble() }}

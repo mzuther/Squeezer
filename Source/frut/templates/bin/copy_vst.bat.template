@@ -24,6 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
+{%- import 'frut.template' as frut -%}
 {%- import 'settings.template' as settings -%}
 {%- import 'copy_vst.bat.macros' as render -%}
 
