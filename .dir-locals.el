@@ -6,12 +6,15 @@
                                             (concat root "libraries/juce/modules/")
                                             (concat root "libraries/googletest/googletest/include/")
                                             (concat root "Source/frut/")
-                                            (concat root "libraries/"))))
+                                            (concat root "libraries/")))
+                        (includes (list (concat root "Source/frut/FrutHeader.h"))))
 
                    (setq-local flycheck-clang-language-standard language-standard)
                    (setq-local flycheck-clang-include-path include-path)
+                   (setq-local flycheck-clang-includes includes)
 
                    (setq-local flycheck-gcc-language-standard language-standard)
-                   (setq-local flycheck-gcc-include-path include-path)))))
+                   (setq-local flycheck-gcc-include-path include-path)
+                   (setq-local flycheck-gcc-includes includes)))))
  (c-mode . ((mode . c++)))
  )
