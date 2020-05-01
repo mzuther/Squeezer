@@ -38,7 +38,7 @@
 {% endmacro %}
 
 
-{% macro solution(name, additions, windows_sdk) %}
+{% macro solution(name, additions, windows_sdk, includes) %}
 if not _ACTION then
     -- prevent "attempt to concatenate a nil value" error
     _ACTION = ""
@@ -68,7 +68,9 @@ workspace "{{ name.short }}"
     targetprefix ""
 
     files {
-        "../Source/frut/FrutHeader.h",
+{% for line in includes.files %}
+        "../{{ line }}",
+{% endfor %}
         "../Source/frut/amalgamated/*.h",
         "../Source/frut/amalgamated/*.cpp",
 
@@ -92,10 +94,9 @@ workspace "{{ name.short }}"
     }
 
     includedirs {
-        "../JuceLibraryCode/",
-        "../libraries/juce/modules/",
-        "../Source/frut/",
-        "../libraries/"
+{% for line in includes.paths %}
+        "../{{ line }}/",
+{% endfor %}
     }
 
     cppdialect "C++14"
@@ -387,7 +388,7 @@ end
 
 
 
-{% macro unittest(name, variant) %}
+{% macro unittest(name, variant, includes) %}
 -- create unit tests on Linux only
 if os.target() == "linux" then
 
@@ -405,10 +406,15 @@ if os.target() == "linux" then
         }
 
         includedirs {
-           "../libraries/googletest/googletest/include/"
+{% for line in includes.paths_unittest %}
+            "../{{ line }}/",
+{% endfor %}
         }
 
         files {
+{% for line in includes.files_unittest %}
+              "../{{ line }}",
+{% endfor %}
               "../Source/frut/unittest.h",
               "../Source/frut/**_unittest.h",
               "../Source/frut/**_unittest.cpp"

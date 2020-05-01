@@ -25,42 +25,8 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'premake5.lua.macros' as render -%}
+{%- import 'lint.sh.macros' as render -%}
 
-{{ render.copyright(settings.copyright) }}
+{{ render.preamble(settings.copyright, settings.includes) }}
 
-{{ render.solution(settings.name, settings.additions_solution, settings.windows_sdk, settings.includes) -}}
-
-
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.standalone(settings.name, variant) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in settings.variants_vst2 %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst2(settings.name, variant, settings.vst2_category) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst3(settings.name, variant) -}}
-
-{% endfor %}
-
---------------------------------------------------------------------------------
-
-{{ render.unittest(settings.name, settings.variants[0], settings.includes) -}}
+{{- render.postamble() }}

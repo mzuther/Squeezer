@@ -24,43 +24,87 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{%- import 'settings.template' as settings -%}
-{%- import 'premake5.lua.macros' as render -%}
+{% macro preamble(copyright, includes) %}
+#! /usr/bin/env bash
 
-{{ render.copyright(settings.copyright) }}
-
-{{ render.solution(settings.name, settings.additions_solution, settings.windows_sdk, settings.includes) -}}
-
-
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.standalone(settings.name, variant) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in settings.variants_vst2 %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst2(settings.name, variant, settings.vst2_category) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst3(settings.name, variant) -}}
-
+{% for line in copyright -%}
+#  {{ line }}
 {% endfor %}
 
---------------------------------------------------------------------------------
 
-{{ render.unittest(settings.name, settings.variants[0], settings.includes) -}}
+###############################################################################
+#
+#  WARNING: this file is auto-generated, please do not edit!
+#
+###############################################################################
+
+project_home=$(pwd)/..
+
+
+function lint_file
+{
+    filename="$1"
+    dirname=$(dirname "$1")
+    printf "%s\n" "$filename"
+
+    /usr/bin/clang \
+        -x c++ - \
+{% for line in includes.files + includes.files_unittest %}
+        -include "$project_home/{{ line }}" \
+{% endfor %}
+{% for line in includes.paths + includes.paths_unittest %}
+        -I "$project_home/{{ line }}" \
+{% endfor %}
+        -I "$dirname" \
+        -fsyntax-only \
+        -fno-caret-diagnostics \
+        -std=c++14 \
+        -Wall \
+        < "$filename"
+
+    /usr/bin/cppcheck \
+        --template=gcc \
+        --enable=style \
+{% for line in includes.files + includes.files_unittest %}
+        --include="$project_home/{{ line }}" \
+{% endfor %}
+        --inline-suppr \
+        --language=c++ \
+        --quiet \
+        "$filename"
+
+    # find error-like codetags
+    GREP_COLORS="mt=01;31" /bin/grep \
+               --extended-regexp --colour \
+               '\<(FIXME|BUG)\>' \
+               "$filename"
+
+    # find warning-like codetags
+    GREP_COLORS="mt=01;33" /bin/grep \
+               --extended-regexp --colour \
+               '\<(TODO|@todo)\>' \
+               "$filename"
+}
+
+
+printf "\n"
+
+find . -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read -r filename
+do
+    lint_file "$filename" \;
+done
+
+printf "\n"
+
+find ./frut/amalgamated -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read -r filename
+do
+    lint_file "$filename" \;
+done
+
+printf "\n"
+{% endmacro %}
+
+
+
+{% macro postamble() %}
+{% endmacro %}

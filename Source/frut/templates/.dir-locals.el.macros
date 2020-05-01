@@ -24,43 +24,45 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{%- import 'settings.template' as settings -%}
-{%- import 'premake5.lua.macros' as render -%}
-
-{{ render.copyright(settings.copyright) }}
-
-{{ render.solution(settings.name, settings.additions_solution, settings.windows_sdk, settings.includes) -}}
-
-
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.standalone(settings.name, variant) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in settings.variants_vst2 %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst2(settings.name, variant, settings.vst2_category) -}}
-
-{% endfor -%}
-
-
-
-{% for variant in settings.variants %}
-
---------------------------------------------------------------------------------
-
-{{ render.vst3(settings.name, variant) -}}
-
+{% macro preamble(copyright, includes) %}
+{% for line in copyright -%}
+;;  {{ line }}
 {% endfor %}
 
---------------------------------------------------------------------------------
 
-{{ render.unittest(settings.name, settings.variants[0], settings.includes) -}}
+;; ############################################################################
+;;
+;;  WARNING: this file is auto-generated, please do not edit!
+;;
+;; ############################################################################
+
+(
+ (nil . ((eval . (let* ((relative-root "")
+                        (root (concat (projectile-project-root) relative-root))
+                        (language-standard "c++14")
+                        (include-path (list
+{% for line in includes.paths + includes.paths_unittest %}
+                                       (concat root "{{ line }}/")
+{% endfor %}
+                                       ))
+                        (includes (list
+{% for line in includes.files + includes.files_unittest %}
+                                   (concat root "{{ line }}")
+{% endfor %}
+                                   )))
+
+                   (setq-local flycheck-clang-language-standard language-standard)
+                   (setq-local flycheck-clang-include-path include-path)
+                   (setq-local flycheck-clang-includes includes)
+
+                   (setq-local flycheck-gcc-language-standard language-standard)
+                   (setq-local flycheck-gcc-include-path include-path)
+                   (setq-local flycheck-gcc-includes includes)))))
+ (c-mode . ((mode . c++)))
+ )
+{% endmacro %}
+
+
+
+{% macro postamble() %}
+{% endmacro %}

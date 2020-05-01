@@ -1,0 +1,124 @@
+{# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
+{#                                                                            #}
+{#  FrutJUCE                                                                  #}
+{#  ========                                                                  #}
+{#  Common classes for use with the JUCE library                              #}
+{#                                                                            #}
+{#  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)            #}
+{#                                                                            #}
+{#  This program is free software: you can redistribute it and/or modify      #}
+{#  it under the terms of the GNU General Public License as published by      #}
+{#  the Free Software Foundation, either version 3 of the License, or         #}
+{#  (at your option) any later version.                                       #}
+{#                                                                            #}
+{#  This program is distributed in the hope that it will be useful,           #}
+{#  but WITHOUT ANY WARRANTY; without even the implied warranty of            #}
+{#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             #}
+{#  GNU General Public License for more details.                              #}
+{#                                                                            #}
+{#  You should have received a copy of the GNU General Public License         #}
+{#  along with this program.  If not, see <http://www.gnu.org/licenses/>.     #}
+{#                                                                            #}
+{#  Thank you for using free software!                                        #}
+{#                                                                            #}
+{# -------------------------------------------------------------------------- #}
+
+
+{% macro preamble(copyright, includes) %}
+#! /usr/bin/env bash
+
+#  ----------------------------------------------------------------------------
+#  
+#  FrutJUCE
+#  ========
+#  Common classes for use with the JUCE library
+#
+#  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
+#  
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  
+#  Thank you for using free software!
+#  
+#  ----------------------------------------------------------------------------
+
+
+###############################################################################
+#
+#  WARNING: this file is auto-generated, please do not edit!
+#
+###############################################################################
+
+project_home=$(pwd)/../..
+
+
+function lint_file
+{
+    filename="$1"
+    dirname=$(dirname "$1")
+    printf "%s\n" "$filename"
+
+    /usr/bin/clang \
+        -x c++ - \
+{% for line in includes.files + includes.files_unittest %}
+        -include "$project_home/{{ line }}" \
+{% endfor %}
+{% for line in includes.paths + includes.paths_unittest %}
+        -I "$project_home/{{ line }}" \
+{% endfor %}
+        -I "$dirname" \
+        -fsyntax-only \
+        -fno-caret-diagnostics \
+        -std=c++14 \
+        -Wall \
+        < "$filename"
+
+    /usr/bin/cppcheck \
+        --template=gcc \
+        --enable=style \
+{% for line in includes.files + includes.files_unittest %}
+        --include="$project_home/{{ line }}" \
+{% endfor %}
+        --inline-suppr \
+        --language=c++ \
+        --quiet \
+        "$filename"
+
+    # find error-like codetags
+    GREP_COLORS="mt=01;31" /bin/grep \
+               --extended-regexp --colour \
+               '\<(FIXME|BUG)\>' \
+               "$filename"
+
+    # find warning-like codetags
+    GREP_COLORS="mt=01;33" /bin/grep \
+               --extended-regexp --colour \
+               '\<(TODO|@todo)\>' \
+               "$filename"
+}
+
+
+printf "\n"
+
+find . \( -iname "*.cpp" -or -iname "*.h" \) -print | sort | while read -r filename
+do
+    lint_file "$filename" \;
+done
+
+printf "\n"
+{% endmacro %}
+
+
+
+{% macro postamble() %}
+{% endmacro %}
