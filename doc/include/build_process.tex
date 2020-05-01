@@ -20,7 +20,8 @@
 
 Place the binary somewhere in your \path{PATH}.  Depending on your
 platform, you should run \path{premake} using the scripts
-\path{Builds/run_premake.sh} or \path{Builds/run_premake.bat}.
+\path{Builds/render_templates.sh} or
+\path{Builds/render_templates.bat}.
 
 To change the premake file using Jinja templates, you'll also have to
 install the necessary dependencies.
@@ -299,10 +300,10 @@ environment
   schroot -c bionic-amd64
 \end{Verbatim64}
 
-change into the directory \path{build} and execute
+change into the directory \path{Builds} and execute
 
 \begin{VerbatimBoth}
-  ./run_premake.sh
+  ./render_templates.sh
   make config=CFG TARGET
 \end{VerbatimBoth}
 
@@ -321,15 +322,19 @@ The compiled binaries will end up in the directory \path{bin}.
 
 \subsection{Build}
 
-After preparing the dependencies, change into the directory
-\path{build} and execute
+After setting up the dependencies, please open the file
+\path{Builds/premake5.lua} in an editor and change
+\texttt{systemversion} to the version of the Microsoft Windows SDK
+installed on your system.
+
+Now open the directory \path{Builds} and execute
 
 \begin{VerbatimBoth}
-  ./run_premake.bat
+  ./render_templates.bat
 \end{VerbatimBoth}
 
 Then change into the directory \path{Builds/windows/vs20xx}, open the
-project file with the corresponding version of Visual C++ and build
+project file with the corresponding version of Visual Studio and build
 the project.
 
 The compiled binaries will end up in the directory \path{bin}.
