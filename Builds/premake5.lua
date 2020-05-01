@@ -644,8 +644,9 @@ if os.target() == "linux" then
         }
 
         files {
-              "../Source/frut/unittest/*.h",
-              "../Source/frut/unittest/*.cpp"
+              "../Source/frut/unittest.h",
+              "../Source/frut/**_unittest.h",
+              "../Source/frut/**_unittest.cpp"
         }
 
         filter { "system:linux" }

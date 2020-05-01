@@ -171,15 +171,15 @@ void ParBoolean::setBoolean(bool newValue)
 ///
 float ParBoolean::getFloatFromText(const String &newValue)
 {
-    // return "true" (1.0) if string matches "labelTrue"
-    if (newValue.compare(labelTrue) == 0)
-    {
-        return 1.0f;
-    }
-    // otherwise, return "false" (0.0)
-    else
+    // return "false" (0.0) if string matches "labelFalse"
+    if (newValue.compare(labelFalse) == 0)
     {
         return 0.0f;
+    }
+    // otherwise, return "true" (1.0)
+    else
+    {
+        return 1.0f;
     }
 }
 
