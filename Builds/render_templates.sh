@@ -27,16 +27,15 @@
 
 cd "$(dirname "$0")" || exit
 
-echo
-echo "=== Rendering templates ==="
+printf "\n=== Rendering templates ===\n"
 python3 "../Source/frut/templates/render_templates.py"
 
 
-echo
+printf "\n"
 premake5 --os=windows vs2017
 
-echo
+printf "\n"
 premake5 --cc=clang --os=linux gmake
 # premake5 --cc=gcc --os=linux gmake
 
-echo
+printf "\n"

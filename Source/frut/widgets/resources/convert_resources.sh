@@ -25,25 +25,23 @@
 #
 # ----------------------------------------------------------------------------
 
-BINARY_BUILDER_DIR=../../../../libraries/juce/extras/binarybuilder/Builds/LinuxMakefile/build
-OUTPUT_DIR=.
+BINARY_BUILDER_DIR="../../../../libraries/juce/extras/binarybuilder/Builds/LinuxMakefile/build"
+OUTPUT_DIR="."
 
 if [ ! -x "$BINARY_BUILDER_DIR/BinaryBuilder" ]; then
-	echo
-	echo "BinaryBuilder not found in $BINARY_BUILDER_DIR"
-	echo
-	exit 1
+    printf "\nBinaryBuilder not found in %sn\n" $BINARY_BUILDER_DIR
+    exit 1
 fi
 
-cd $(dirname $0)
+cd "$(dirname "$0")" || exit
 "$BINARY_BUILDER_DIR/BinaryBuilder" output "$OUTPUT_DIR" resources '*.png'
 
-echo
-echo --------------------------------------------------------------------------------
-echo
+printf "\n"
+printf "--------------------------------------------------------------------------------\n"
+printf "\n"
 
 cat "$OUTPUT_DIR/resources.h"
 
-echo
-echo --------------------------------------------------------------------------------
-echo
+printf "\n"
+printf "--------------------------------------------------------------------------------\n"
+printf "\n"

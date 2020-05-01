@@ -42,12 +42,12 @@ function finalise_binary
 
     if [ -f "./$filepath" ]; then
         if [ ! -f "$binary_dir/$filename" ] || [ "./$filepath" -nt "$binary_dir/$filename" ]; then
-            echo "  Finalising:  $filepath -->"
-            echo "               $binary_dir/$filename"
+            printf "  Finalising binary:   %s -->\n" "$filepath"
+            printf "                       %s\n"     "$binary_dir/$filename"
 
             cp "./$filepath" "./$binary_dir/$filename"
 
-            echo
+            printf "\n"
         fi
     fi
 }
@@ -60,76 +60,74 @@ function finalise_symbols
 
     if [ -f "./$filepath" ]; then
         if [ ! -f "$binary_dir/debug_symbols/$filepath" ] || [ "./$filepath" -nt "$binary_dir/debug_symbols/$filepath" ]; then
-            echo "  Finalising:  $filepath -->"
-            echo "               $binary_dir/debug_symbols/$filepath"
+            printf "  Finalising symbols:  %s -->\n" "$filepath"
+            printf "                       %s\n"     "$binary_dir/debug_symbols/$filepath"
 
             mkdir -p "$(dirname "./$binary_dir/debug_symbols/$filepath")"
             cp "./$filepath" "./$binary_dir/debug_symbols/$filepath"
 
-            echo
+            printf "\n"
         fi
     fi
 }
 
 
-echo
-echo "  === Finalising binaries ==="
-echo
+printf "\n  === Finalising binaries ===\n\n"
 
-finalise_binary "standalone/squeezer_stereo"
-finalise_binary "standalone/squeezer_mono"
+mkdir -p "$binary_dir/debug_symbols"
 
-finalise_binary "vst2/squeezer_stereo_vst2.so"
-finalise_binary "vst2/squeezer_mono_vst2.so"
-finalise_binary "vst2/squeezer_stereo_no_sidechain_vst2.so"
-finalise_binary "vst2/squeezer_mono_no_sidechain_vst2.so"
+finalise_binary  "standalone/squeezer_stereo"
+finalise_binary  "standalone/squeezer_mono"
 
-finalise_binary "standalone/squeezer_stereo_x64"
-finalise_binary "standalone/squeezer_mono_x64"
+finalise_binary  "vst2/squeezer_stereo_vst2.so"
+finalise_binary  "vst2/squeezer_mono_vst2.so"
+finalise_binary  "vst2/squeezer_stereo_no_sidechain_vst2.so"
+finalise_binary  "vst2/squeezer_mono_no_sidechain_vst2.so"
 
-finalise_binary "vst2/squeezer_stereo_vst2_x64.so"
-finalise_binary "vst2/squeezer_mono_vst2_x64.so"
-finalise_binary "vst2/squeezer_stereo_no_sidechain_vst2_x64.so"
-finalise_binary "vst2/squeezer_mono_no_sidechain_vst2_x64.so"
+finalise_binary  "standalone/squeezer_stereo_x64"
+finalise_binary  "standalone/squeezer_mono_x64"
 
-finalise_binary "standalone/Squeezer (Stereo).exe"
-finalise_symbols    "standalone/Squeezer (Stereo).pdb"
-finalise_binary "standalone/Squeezer (Mono).exe"
-finalise_symbols    "standalone/Squeezer (Mono).pdb"
+finalise_binary  "vst2/squeezer_stereo_vst2_x64.so"
+finalise_binary  "vst2/squeezer_mono_vst2_x64.so"
+finalise_binary  "vst2/squeezer_stereo_no_sidechain_vst2_x64.so"
+finalise_binary  "vst2/squeezer_mono_no_sidechain_vst2_x64.so"
 
-finalise_binary "vst2/Squeezer (Stereo).dll"
-finalise_symbols    "vst2/Squeezer (Stereo).pdb"
-finalise_binary "vst2/Squeezer (Mono).dll"
-finalise_symbols    "vst2/Squeezer (Mono).pdb"
-finalise_binary "vst2/Squeezer (Stereo, no side-chain).dll"
-finalise_symbols    "vst2/Squeezer (Stereo, no side-chain).pdb"
-finalise_binary "vst2/Squeezer (Mono, no side-chain).dll"
-finalise_symbols    "vst2/Squeezer (Mono, no side-chain).pdb"
+finalise_binary  "standalone/Squeezer (Stereo).exe"
+finalise_symbols "standalone/Squeezer (Stereo).pdb"
+finalise_binary  "standalone/Squeezer (Mono).exe"
+finalise_symbols "standalone/Squeezer (Mono).pdb"
 
-finalise_binary "vst3/Squeezer (Stereo).vst3"
-finalise_symbols    "vst3/Squeezer (Stereo).pdb"
-finalise_binary "vst3/Squeezer (Mono).vst3"
-finalise_symbols    "vst3/Squeezer (Mono).pdb"
+finalise_binary  "vst2/Squeezer (Stereo).dll"
+finalise_symbols "vst2/Squeezer (Stereo).pdb"
+finalise_binary  "vst2/Squeezer (Mono).dll"
+finalise_symbols "vst2/Squeezer (Mono).pdb"
+finalise_binary  "vst2/Squeezer (Stereo, no side-chain).dll"
+finalise_symbols "vst2/Squeezer (Stereo, no side-chain).pdb"
+finalise_binary  "vst2/Squeezer (Mono, no side-chain).dll"
+finalise_symbols "vst2/Squeezer (Mono, no side-chain).pdb"
 
-finalise_binary "standalone/Squeezer (Stereo x64).exe"
-finalise_symbols    "standalone/Squeezer (Stereo x64).pdb"
-finalise_binary "standalone/Squeezer (Mono x64).exe"
-finalise_symbols    "standalone/Squeezer (Mono x64).pdb"
+finalise_binary  "vst3/Squeezer (Stereo).vst3"
+finalise_symbols "vst3/Squeezer (Stereo).pdb"
+finalise_binary  "vst3/Squeezer (Mono).vst3"
+finalise_symbols "vst3/Squeezer (Mono).pdb"
 
-finalise_binary "vst2/Squeezer (Stereo x64).dll"
-finalise_symbols    "vst2/Squeezer (Stereo x64).pdb"
-finalise_binary "vst2/Squeezer (Mono x64).dll"
-finalise_symbols    "vst2/Squeezer (Mono x64).pdb"
-finalise_binary "vst2/Squeezer (Stereo, no side-chain x64).dll"
-finalise_symbols    "vst2/Squeezer (Stereo, no side-chain x64).pdb"
-finalise_binary "vst2/Squeezer (Mono, no side-chain x64).dll"
-finalise_symbols    "vst2/Squeezer (Mono, no side-chain x64).pdb"
+finalise_binary  "standalone/Squeezer (Stereo x64).exe"
+finalise_symbols "standalone/Squeezer (Stereo x64).pdb"
+finalise_binary  "standalone/Squeezer (Mono x64).exe"
+finalise_symbols "standalone/Squeezer (Mono x64).pdb"
 
-finalise_binary "vst3/Squeezer (Stereo x64).vst3"
-finalise_symbols    "vst3/Squeezer (Stereo x64).pdb"
-finalise_binary "vst3/Squeezer (Mono x64).vst3"
-finalise_symbols    "vst3/Squeezer (Mono x64).pdb"
+finalise_binary  "vst2/Squeezer (Stereo x64).dll"
+finalise_symbols "vst2/Squeezer (Stereo x64).pdb"
+finalise_binary  "vst2/Squeezer (Mono x64).dll"
+finalise_symbols "vst2/Squeezer (Mono x64).pdb"
+finalise_binary  "vst2/Squeezer (Stereo, no side-chain x64).dll"
+finalise_symbols "vst2/Squeezer (Stereo, no side-chain x64).pdb"
+finalise_binary  "vst2/Squeezer (Mono, no side-chain x64).dll"
+finalise_symbols "vst2/Squeezer (Mono, no side-chain x64).pdb"
 
-echo "  Done."
-echo
-echo
+finalise_binary  "vst3/Squeezer (Stereo x64).vst3"
+finalise_symbols "vst3/Squeezer (Stereo x64).pdb"
+finalise_binary  "vst3/Squeezer (Mono x64).vst3"
+finalise_symbols "vst3/Squeezer (Mono x64).pdb"
+
+printf "  Done.\n\n\n"

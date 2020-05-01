@@ -26,9 +26,9 @@
 # ----------------------------------------------------------------------------
 
 astyle --recursive --exclude="resources" --options=./.astylerc \
-  "*.cpp"
+       "*.cpp"
 
-echo
+printf "\n"
 
 astyle --recursive --exclude="resources" --options=./.astylerc \
-  "*.h"
+       "*.h"
