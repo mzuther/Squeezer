@@ -25,37 +25,26 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'finalise_binaries.macros' as render -%}
+{%- import 'package_releases.sh.macros' as render -%}
 
-{{ render.preamble(settings.copyright) -}}
+{{ render.preamble(settings.copyright, settings.version) }}
 
+{% for platform, bits in [['', '32'], ['_x64', '64']] -%}
 
-{% for platform in ['', '_x64'] -%}
+{{ render.standalone_linux(settings.name, settings.variants, settings.additions_copyvst, platform, bits) }}
 
-{% for variant in settings.variants %}
-{{ render.standalone_linux(settings.name, variant, platform) -}}
-{% endfor %}
-
-{% for variant in settings.variants_vst2 %}
-{{ render.vst2_linux(settings.name, variant, platform) -}}
-{% endfor %}
+{{ render.vst2_linux(settings.name, settings.variants_vst2, settings.additions_copyvst, platform, bits) }}
 
 {% endfor -%}
 
 
-{% for platform in ['', ' x64'] -%}
+{% for platform, bits in [['', '32'], [' x64', '64']] -%}
 
-{% for variant in settings.variants %}
-{{ render.standalone_windows(settings.name, variant, platform) -}}
-{% endfor %}
+{{ render.standalone_windows(settings.name, settings.variants, settings.additions_copyvst, platform, bits) }}
 
-{% for variant in settings.variants_vst2 %}
-{{ render.vst2_windows(settings.name, variant, platform) -}}
-{% endfor %}
+{{ render.vst2_windows(settings.name, settings.variants_vst2, settings.additions_copyvst, platform, bits) }}
 
-{% for variant in settings.variants %}
-{{ render.vst3_windows(settings.name, variant, platform) -}}
-{% endfor %}
+{{ render.vst3_windows(settings.name, settings.variants, settings.additions_copyvst, platform, bits) }}
 
 {% endfor %}
 

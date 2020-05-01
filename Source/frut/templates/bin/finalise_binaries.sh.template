@@ -25,18 +25,37 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'copy_vst.macros' as render -%}
+{%- import 'finalise_binaries.sh.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.vst2_category) }}
+{{ render.preamble(settings.copyright) -}}
 
-{% for platform, bits in [['', '32'], [' x64', '64']] -%}
 
-{% for outdir, header in [['vst2_' + bits, bits + ' bit'],
-                          ['vst2_' + bits + '_categories', bits + ' bit, Categories']] -%}
-{{ render.vst2_windows(settings.name, settings.variants_vst2, platform, bits, outdir, header) }}
+{% for platform in ['', '_x64'] -%}
+
+{% for variant in settings.variants %}
+{{ render.standalone_linux(settings.name, variant, platform) -}}
 {% endfor %}
 
-{{ render.vst3_windows(settings.name, settings.variants, platform, bits) }}
+{% for variant in settings.variants_vst2 %}
+{{ render.vst2_linux(settings.name, variant, platform) -}}
+{% endfor %}
+
+{% endfor -%}
+
+
+{% for platform in ['', ' x64'] -%}
+
+{% for variant in settings.variants %}
+{{ render.standalone_windows(settings.name, variant, platform) -}}
+{% endfor %}
+
+{% for variant in settings.variants_vst2 %}
+{{ render.vst2_windows(settings.name, variant, platform) -}}
+{% endfor %}
+
+{% for variant in settings.variants %}
+{{ render.vst3_windows(settings.name, variant, platform) -}}
+{% endfor %}
 
 {% endfor %}
 

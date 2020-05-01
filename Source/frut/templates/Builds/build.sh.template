@@ -25,27 +25,12 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'package_releases.macros' as render -%}
+{%- import 'build.sh.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.version) }}
+{{ render.preamble(settings.copyright) }}
 
-{% for platform, bits in [['', '32'], ['_x64', '64']] -%}
+{{ render.platform_menu()}}
 
-{{ render.standalone_linux(settings.name, settings.variants, settings.additions_copyvst, platform, bits) }}
+{{ render.target_menu(settings.name, settings.variants, settings.variants_vst2) }}
 
-{{ render.vst2_linux(settings.name, settings.variants_vst2, settings.additions_copyvst, platform, bits) }}
-
-{% endfor -%}
-
-
-{% for platform, bits in [['', '32'], [' x64', '64']] -%}
-
-{{ render.standalone_windows(settings.name, settings.variants, settings.additions_copyvst, platform, bits) }}
-
-{{ render.vst2_windows(settings.name, settings.variants_vst2, settings.additions_copyvst, platform, bits) }}
-
-{{ render.vst3_windows(settings.name, settings.variants, settings.additions_copyvst, platform, bits) }}
-
-{% endfor %}
-
-{{- render.postamble() }}
+{{ render.postamble() }}

@@ -32,16 +32,24 @@ import stat
 import jinja2
 
 
-script_path = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_path)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_dir = os.path.join(script_dir, '../../../')
+
+os.chdir(script_dir)
 
 
 def cache_templates(searchpath):
-    templateLoader = jinja2.FileSystemLoader(searchpath=searchpath)
+    searchpath = [script_dir, searchpath]
+    templateLoader = jinja2.FileSystemLoader(searchpath)
     return jinja2.Environment(loader=templateLoader, trim_blocks=True)
 
 
-def render_template(templates, template_file, output_file):
+def render_template(templates, template_file):
+    output_file = os.path.abspath(os.path.join(project_dir, template_file))
+    output_file = os.path.splitext(output_file)[0]
+
+    template_file = os.path.split(template_file)[1]
+
     if output_file.endswith('.bat'):
         newline = '\r\n'
     else:
@@ -63,34 +71,13 @@ def render_template(templates, template_file, output_file):
 
 
 if __name__ == '__main__':
-    templates = cache_templates('.')
+    for root_dir, directories, files in os.walk('.'):
+        if root_dir == '.':
+            continue
 
-    render_template(
-        templates,
-        'premake5.template',
-        '../../../Builds/premake5.lua')
+        templates = cache_templates(root_dir)
 
-    render_template(
-        templates,
-        'build_sh.template',
-        '../../../Builds/build.sh')
-
-    render_template(
-        templates,
-        'copy_vst.template',
-        '../../../bin/copy_vst.bat')
-
-    render_template(
-        templates,
-        'finalise_binaries.template',
-        '../../../bin/finalise_binaries.sh')
-
-    render_template(
-        templates,
-        'package_releases.template',
-        '../../../bin/package_releases.sh')
-
-    render_template(
-        templates,
-        'link_vst.template',
-        '../../../bin/link_vst.sh')
+        for filename in sorted(files):
+            if filename.endswith('.template'):
+                template_file = os.path.join(root_dir, filename)
+                render_template(templates, template_file)

@@ -25,6 +25,19 @@
 
 
 {%- import 'settings.template' as settings -%}
-{%- import 'link_vst.macros' as render -%}
+{%- import 'copy_vst.bat.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.name) }}
+{{ render.preamble(settings.copyright, settings.vst2_category) }}
+
+{% for platform, bits in [['', '32'], [' x64', '64']] -%}
+
+{% for outdir, header in [['vst2_' + bits, bits + ' bit'],
+                          ['vst2_' + bits + '_categories', bits + ' bit, Categories']] -%}
+{{ render.vst2_windows(settings.name, settings.variants_vst2, platform, bits, outdir, header) }}
+{% endfor %}
+
+{{ render.vst3_windows(settings.name, settings.variants, platform, bits) }}
+
+{% endfor %}
+
+{{- render.postamble() }}
