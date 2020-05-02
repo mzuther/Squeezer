@@ -1,4 +1,4 @@
-{# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
+{# -------------------------------------------------------------------------- #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -24,10 +24,10 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{%- import 'frut.template' as frut -%}
-{%- import 'settings.template' as settings -%}
+{%- import 'frut.jinja' as frut -%}
+{%- import 'settings.jinja' as settings -%}
 {%- import 'format_code.sh.macros' as render -%}
 
-{{ render.preamble(frut.copyright, settings.includes) }}
+{{ render.preamble(settings.copyright, settings.includes) }}
 
 {{- render.postamble() }}

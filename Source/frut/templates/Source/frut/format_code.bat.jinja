@@ -1,4 +1,4 @@
-{# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
+{# -------------------------------------------------------------------------- #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -24,14 +24,10 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{%- import 'frut.template' as frut -%}
-{%- import 'settings.template' as settings -%}
-{%- import 'build.sh.macros' as render -%}
+{%- import 'frut.jinja' as frut -%}
+{%- import 'settings.jinja' as settings -%}
+{%- import 'format_code.bat.macros' as render -%}
 
-{{ render.preamble(settings.copyright) }}
+{{ render.preamble(frut.copyright, settings.includes) }}
 
-{{ render.platform_menu()}}
-
-{{ render.target_menu(settings.name, settings.variants, settings.variants_vst2) }}
-
-{{ render.postamble() }}
+{{- render.postamble() }}

@@ -44,18 +44,18 @@ def cache_templates(searchpath):
     return jinja2.Environment(loader=templateLoader, trim_blocks=True)
 
 
-def render_template(templates, template_file):
-    output_file = os.path.abspath(os.path.join(project_dir, template_file))
+def render_template(templates, input_file):
+    output_file = os.path.abspath(os.path.join(project_dir, input_file))
     output_file = os.path.splitext(output_file)[0]
 
-    template_file = os.path.split(template_file)[1]
+    template_file = os.path.split(input_file)[1]
+
+    print(os.path.relpath(output_file, project_dir))
 
     if output_file.endswith('.bat'):
         newline = '\r\n'
     else:
         newline = None
-
-    print(output_file)
 
     with open(output_file, mode='w', newline=newline) as f:
         template = templates.get_template(template_file)
@@ -78,6 +78,6 @@ if __name__ == '__main__':
         templates = cache_templates(root_dir)
 
         for filename in sorted(files):
-            if filename.endswith('.template'):
+            if filename.endswith('.jinja'):
                 template_file = os.path.join(root_dir, filename)
                 render_template(templates, template_file)

@@ -111,18 +111,18 @@ case $1 in
         MAKEFILE_PRINT="Unit tests"
         EXECUTABLE="unittest/unittest"
         ;;
-{% for n in range(standalone | length) %}
-    {{ (n + 1) }})
-        MAKEFILE="{{ name.short }}_standalone_{{ standalone[n].short }}"
-        MAKEFILE_PRINT="Standalone ({{ standalone[n].real }})"
-        EXECUTABLE="standalone/{{ name.short }}_{{ standalone[n].short }}"
+{% for item in standalone %}
+    {{ loop.index }})
+        MAKEFILE="{{ name.short }}_standalone_{{ item.short }}"
+        MAKEFILE_PRINT="Standalone ({{ item.real }})"
+        EXECUTABLE="standalone/{{ name.short }}_{{ item.short }}"
         ;;
 {% endfor -%}
 
-{%- for n in range(vst2 | length) %}
-    {{ (n + 3) }})
-        MAKEFILE="{{ name.short }}_vst2_{{ vst2[n].short }}"
-        MAKEFILE_PRINT="VST2 plug-in ({{ vst2[n].real }})"
+{% for item in vst2 %}
+    {{ loop.index + (standalone | length) }})
+        MAKEFILE="{{ name.short }}_vst2_{{ item.short }}"
+        MAKEFILE_PRINT="VST2 plug-in ({{ item.real }})"
         ;;
 {% endfor %}
     *)
@@ -132,12 +132,12 @@ case $1 in
         print_line "  c: Clean targets"
         print_line "  u: Unit tests"
         print_line ""
-{% for n in range(standalone | length) %}
-        print_line "  {{ (n + 1) }}: Standalone ({{ standalone[n].real }})"
+{% for item in standalone %}
+        print_line "  {{ loop.index }}: Standalone ({{ item.real }})"
 {% endfor %}
         print_line ""
-{% for n in range(vst2 | length) %}
-        print_line "  {{ (n + 3) }}: VST2 plug-in ({{ vst2[n].real }})"
+{% for item in vst2 %}
+        print_line "  {{ loop.index + (standalone | length) }}: VST2 plug-in ({{ item.real }})"
 {% endfor %}
         print_line ""
 

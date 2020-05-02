@@ -1,4 +1,4 @@
-{# -*- mode: Jinja2; -*- ---------------------------------------------------- #}
+{# -------------------------------------------------------------------------- #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -24,21 +24,10 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{%- import 'frut.template' as frut -%}
-{%- import 'settings.template' as settings -%}
-{%- import 'copy_vst.bat.macros' as render -%}
+{%- import 'frut.jinja' as frut -%}
+{%- import 'settings.jinja' as settings -%}
+{%- import '.dir-locals.el.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.vst2_category) }}
-
-{% for platform, bits in [['', '32'], [' x64', '64']] -%}
-
-{% for outdir, header in [['vst2_' + bits, bits + ' bit'],
-                          ['vst2_' + bits + '_categories', bits + ' bit, Categories']] -%}
-{{ render.vst2_windows(settings.name, settings.variants_vst2, platform, bits, outdir, header) }}
-{% endfor %}
-
-{{ render.vst3_windows(settings.name, settings.variants, platform, bits) }}
-
-{% endfor %}
+{{ render.preamble(frut.copyright, settings.includes) }}
 
 {{- render.postamble() }}
