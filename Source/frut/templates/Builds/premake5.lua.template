@@ -64,4 +64,4 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.unittest(settings.name, settings.variants[0], settings.includes) -}}
+{{ render.unittest(settings.name, settings.variants.0, settings.includes) -}}

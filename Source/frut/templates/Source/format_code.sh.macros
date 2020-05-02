@@ -24,7 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{% macro preamble(copyright, name) %}
+{% macro preamble(copyright, includes) %}
 #! /usr/bin/env bash
 
 {% for line in copyright -%}
@@ -38,63 +38,16 @@
 #
 ###############################################################################
 
-destination_dir="$HOME/.vst/{{ name.short }}"
-use_final_binaries=0
-
-resource_dir="{{ name.short }}"
-source_dir_current=$(realpath "$(dirname "$0")/vst2")
-source_dir_final=$(realpath "$(dirname "$0")/final")
-
-
-printf "\nCreating VST2 directory"
-printf "\n=======================\n"
-printf "%s\n" "$destination_dir"
-
-mkdir -p "$destination_dir"
-
-
-printf "\nUnlinking binaries"
-printf "\n==================\n"
-
-find  "$destination_dir" -iname "*_x64.so" -print -execdir rm {} \; | \
-    sort
-
-
-printf "\nLinking resource directory"
-printf "\n==========================\n"
-printf "%s\n" "$resource_dir"
-
-if [ $use_final_binaries -eq 0 ]; then
-    ln -sf "$source_dir_current/$resource_dir" "$destination_dir"
-else
-    ln -sf "$source_dir_final/$resource_dir" "$destination_dir"
-fi
-
-
-printf "\nLinking debug binaries"
-printf "\n======================\n"
-
-find "$source_dir_current" -iname "*vst2_debug_x64.so" -printf "%f\n" | \
-    tee /dev/tty | \
-    xargs "-d\n" -I{} ln -sf "$source_dir_current"/{} "$destination_dir"/{} | \
-    sort
-
-
-printf "\nLinking release binaries"
-printf "\n========================\n"
-
-if [ $use_final_binaries -eq 0 ]; then
-    find "$source_dir_current" -iname "*vst2_x64.so" -printf "%f\n" | \
-        tee /dev/tty | \
-        xargs "-d\n" -I{} ln -sf "$source_dir_current"/{} "$destination_dir"/{} | \
-        sort
-else
-    find "$source_dir_final" -iname "*vst2_x64.so" -printf "%f\n" | \
-        tee /dev/tty | \
-        xargs "-d\n" -I{} ln -sf "$source_dir_final"/{} "$destination_dir"/{} | \
-        sort
-fi
-
+astyle --recursive --exclude="resources" --options=./.astylerc \
+       "*.cpp"
 
 printf "\n"
+
+astyle --recursive --exclude="resources" --options=./.astylerc \
+       "*.h"
+{% endmacro %}
+
+
+
+{% macro postamble() %}
 {% endmacro %}

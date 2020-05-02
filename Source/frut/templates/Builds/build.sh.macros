@@ -25,7 +25,7 @@
 
 
 {% macro preamble(copyright) %}
-#!/bin/bash
+#! /usr/bin/env bash
 
 {% for line in copyright -%}
 #  {{ line }}
