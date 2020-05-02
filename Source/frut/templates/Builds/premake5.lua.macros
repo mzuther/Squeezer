@@ -133,6 +133,11 @@ workspace "{{ name.short }}"
 
         systemversion "{{ windows_sdk }}"
 
+        flags {
+           "MultiProcessorCompile",
+           "NoMinimalRebuild"
+        }
+
         vectorextensions "SSE2"
 
         links {

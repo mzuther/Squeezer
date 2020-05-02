@@ -124,6 +124,11 @@ workspace "squeezer"
 
         systemversion "10.0.17763.0"
 
+        flags {
+           "MultiProcessorCompile",
+           "NoMinimalRebuild"
+        }
+
         vectorextensions "SSE2"
 
         links {
