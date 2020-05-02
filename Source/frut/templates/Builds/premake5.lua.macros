@@ -38,7 +38,7 @@
 {% endmacro %}
 
 
-{% macro solution(name, additions, windows_sdk, includes) %}
+{% macro solution(name, additions, includes) %}
 if not _ACTION then
     -- prevent "attempt to concatenate a nil value" error
     _ACTION = ""
@@ -130,8 +130,6 @@ workspace "{{ name.short }}"
             "_WINDOWS=1",
             "_USE_MATH_DEFINES=1",
         }
-
-        systemversion "{{ windows_sdk }}"
 
         flags {
            "MultiProcessorCompile",

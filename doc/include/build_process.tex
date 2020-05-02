@@ -11,7 +11,7 @@
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 5.0.0 (alpha14) \\
+  Version:     \> 5.0.0 (alpha15) \\
   License:     \> BSD \\
   Homepage:    \> \href{https://premake.github.io/}{premake.github.io}
 \end{tabbing}
@@ -33,7 +33,7 @@ install the necessary dependencies.
 
   Importance:  \> required \\
   Linux:       \> Clang 6.0 (or gcc 7.5.0) \\
-  Windows:     \> Visual Studio 2017 \\
+  Windows:     \> Visual Studio 2017 (and above) \\
   License:     \> proprietary (Visual Studio) / Open Source \\
 \end{tabbing}
 
@@ -322,12 +322,8 @@ The compiled binaries will end up in the directory \path{bin}.
 
 \subsection{Build}
 
-After setting up the dependencies, please open the file
-\path{Builds/premake5.lua} in an editor and change
-\texttt{systemversion} to the version of the Microsoft Windows SDK
-installed on your system.
-
-Now open the directory \path{Builds} and execute
+After setting up the dependencies, open the directory \path{Builds}
+and execute
 
 \begin{VerbatimBoth}
   ./render_templates.bat

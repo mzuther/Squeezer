@@ -31,7 +31,6 @@
 
 {% set version = '2.5.4' %}
 {% set vst2_category = 'Dynamics/Compressor' %}
-{% set windows_sdk = '10.0.17763.0' %}
 
 
 {% set name = {'real': 'Squeezer', 'short': 'squeezer'} %}
