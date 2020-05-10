@@ -87,10 +87,11 @@ echo.
 echo VST2 ({{header}})
 echo.
 
-call :CopyVstDelete "vst2/{{ name.short }}" "%{{outdir}}%"
 {% for variant in variants %}
 call :CopyVst       "vst2/{{ name.real }} ({{variant.real}}{{platform}}).dll" "%{{outdir}}%"
 {% endfor %}
+call :CopyVst       "vst2/{{ name.short }}.pdf" "%{{outdir}}%"
+call :CopyVstDelete "vst2/{{ name.short }}" "%{{outdir}}%"
 {% endmacro %}
 
 
@@ -100,8 +101,9 @@ echo.
 echo VST3 ({{bits}} bit)
 echo.
 
-call :CopyVstDelete "vst3/{{ name.short }}" "%vst3_{{bits}}%"
 {% for variant in variants %}
 call :CopyVst       "vst3/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "%vst3_{{bits}}%"
 {% endfor %}
+call :CopyVst       "vst3/{{ name.short }}.pdf" "%{{outdir}}%"
+call :CopyVstDelete "vst3/{{ name.short }}" "%vst3_{{bits}}%"
 {% endmacro %}
