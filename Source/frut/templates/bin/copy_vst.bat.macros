@@ -104,6 +104,6 @@ echo.
 {% for variant in variants %}
 call :CopyVst       "vst3/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "%vst3_{{bits}}%"
 {% endfor %}
-call :CopyVst       "vst3/{{ name.short }}.pdf" "%{{outdir}}%"
+call :CopyVst       "vst3/{{ name.short }}.pdf" "%vst3_{{bits}}%"
 call :CopyVstDelete "vst3/{{ name.short }}" "%vst3_{{bits}}%"
 {% endmacro %}
