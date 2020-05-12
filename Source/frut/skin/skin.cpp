@@ -77,7 +77,8 @@ bool Skin::loadFromXml(
             skinVersion +
             "\"");
 
-        // try to keep running
+        document_ = nullptr;
+        return false;
     }
 
     settingsGroup_ = document_->getChildByName("settings");
@@ -90,7 +91,6 @@ bool Skin::loadFromXml(
             "[Skin] XML file not valid");
 
         document_ = nullptr;
-
         return false;
     }
     else
@@ -118,7 +118,6 @@ bool Skin::loadFromXml(
                 "\" not found");
 
             document_ = nullptr;
-
             return false;
         }
     }
@@ -174,6 +173,11 @@ void Skin::setDefaultSkin(
 XmlElement *Skin::getSetting(
     const String &tagName)
 {
+    if (document_ == nullptr)
+    {
+        return nullptr;
+    }
+
     if (settingsGroup_ == nullptr)
     {
         Logger::outputDebugString(
@@ -309,6 +313,11 @@ const Colour Skin::getColour(
     const Colour defaultColour,
     const String valuePrefix)
 {
+    if (xmlComponent == nullptr)
+    {
+        return Colours::white;
+    }
+
     float hue = getFloat(xmlComponent,
                          valuePrefix + "hue",
                          defaultColour.getHue());
@@ -384,37 +393,43 @@ void Skin::setBackgroundImage(
     ImageComponent *background,
     AudioProcessorEditor *editor)
 {
+    Image imageBackground;
+
     if (skinGroup_ != nullptr)
     {
-        Image imageBackground;
-
         XmlElement *xmlBackground = skinGroup_->getChildByName("background");
 
-        if (xmlBackground == nullptr)
-        {
-            Logger::outputDebugString(
-                String("[Skin] XML element \"") +
-                currentGroupName_ +
-                "\" specifies no background image");
-
-            imageBackground = createBogusImage("No background specified", 200, 200);
-        }
-        else
+        if (xmlBackground != nullptr)
         {
             String strImageFilename = getString(xmlBackground,
                                                 currentBackgroundName_);
 
             loadImage(strImageFilename, imageBackground);
         }
+        else
+        {
+            Logger::outputDebugString(
+                String("[Skin] XML element \"") +
+                currentGroupName_ +
+                "\" specifies no background image");
+        }
+    }
 
-        backgroundWidth_ = imageBackground.getWidth();
-        backgroundHeight_ = imageBackground.getHeight();
+    if (!imageBackground.isValid())
+    {
+        imageBackground = createBogusImage("No background specified", 200, 200);
+    }
 
-        XmlElement *xmlMeterGraduation = nullptr;
+    backgroundWidth_ = imageBackground.getWidth();
+    backgroundHeight_ = imageBackground.getHeight();
 
-        // get rid of the "unused variable" warning
-        (void) xmlMeterGraduation;
+    XmlElement *xmlMeterGraduation = nullptr;
 
+    // get rid of the "unused variable" warning
+    (void) xmlMeterGraduation;
+
+    if (skinGroup_ != nullptr)
+    {
         forEachXmlChildElementWithTagName(*skinGroup_,
                                           xmlMeterGraduation,
                                           "meter_graduation")
@@ -436,17 +451,16 @@ void Skin::setBackgroundImage(
                               false);
             }
         }
-
-        background->setImage(imageBackground);
-        background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
-
-        // moves background image to the back of the editor's z-plane
-        // so that it doesn't overlay (and thus block) any other
-        // components
-        background->toBack();
-
-        editor->setSize(backgroundWidth_, backgroundHeight_);
     }
+
+    background->setImage(imageBackground);
+    background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
+
+    // moves background image to the back of the editor's z-plane so
+    // that it doesn't overlay (and thus block) any other components
+    background->toBack();
+
+    editor->setSize(backgroundWidth_, backgroundHeight_);
 }
 
 
@@ -454,6 +468,11 @@ Point<int> Skin::getPosition(
     const XmlElement *xmlComponent,
     const int componentHeight)
 {
+    if (document_ == nullptr)
+    {
+        return Point<int>(0, 0);
+    }
+
     jassert(backgroundHeight_ != 0);
 
     int x = getInteger(xmlComponent, "x", 0);
@@ -473,6 +492,11 @@ Rectangle<int> Skin::getBounds(
     int width,
     int height)
 {
+    if (document_ == nullptr)
+    {
+        return Rectangle<int>(0, 0, 1, 1);
+    }
+
     if (width < 0)
     {
         width = getInteger(xmlComponent, "width", 0);
@@ -496,6 +520,11 @@ void Skin::placeComponent(
 {
     jassert(component != nullptr);
 
+    if (document_ == nullptr)
+    {
+        return;
+    }
+
     Rectangle<int> bounds = getBounds(xmlComponent);
     component->setBounds(bounds);
 }
@@ -506,6 +535,11 @@ void Skin::placeMeterBar(
     widgets::MeterBar *meterBar)
 {
     jassert(meterBar != nullptr);
+
+    if (document_ == nullptr)
+    {
+        return;
+    }
 
     XmlElement *xmlComponent = getComponent(tagName);
 
@@ -550,6 +584,11 @@ void Skin::placeAndSkinButton(
     ImageButton *button)
 {
     jassert(button != nullptr);
+
+    if (document_ == nullptr)
+    {
+        return;
+    }
 
     XmlElement *xmlComponent = getComponent(tagName);
 
@@ -597,6 +636,11 @@ void Skin::placeAndSkinSlider(
     const String &tagName,
     widgets::FrutSlider *slider)
 {
+    if (document_ == nullptr)
+    {
+        return;
+    }
+
     XmlElement *xmlComponent = getComponent(tagName);
     Colour sliderColour = getColour(xmlComponent);
 
@@ -609,6 +653,11 @@ void Skin::placeAndSkinSlider(
     const String &tagName,
     widgets::SliderCombined *slider)
 {
+    if (document_ == nullptr)
+    {
+        return;
+    }
+
     XmlElement *xmlComponent = getComponent(tagName);
     Colour sliderColour = getColour(xmlComponent);
     Colour toggleSwitchColour = getColour(xmlComponent, sliderColour, "toggle_");
@@ -624,6 +673,11 @@ void Skin::placeAndSkinNeedleMeter(
     widgets::NeedleMeter *meter)
 {
     jassert(meter != nullptr);
+
+    if (document_ == nullptr)
+    {
+        return;
+    }
 
     XmlElement *xmlComponent = getComponent(tagName);
 
@@ -662,6 +716,11 @@ void Skin::placeAndSkinLabel(
 {
     jassert(label != nullptr);
 
+    if (document_ == nullptr)
+    {
+        return;
+    }
+
     XmlElement *xmlComponent = getComponent(tagName);
 
     if (xmlComponent != nullptr)
@@ -686,6 +745,11 @@ void Skin::placeAndSkinSignalLed(
     widgets::SignalLed *label)
 {
     jassert(label != nullptr);
+
+    if (document_ == nullptr)
+    {
+        return;
+    }
 
     XmlElement *xmlComponent = getComponent(tagName);
 
@@ -741,6 +805,11 @@ void Skin::placeAndSkinStateLabel(
     widgets::StateLabel *label)
 {
     jassert(label != nullptr);
+
+    if (document_ == nullptr)
+    {
+        return;
+    }
 
     XmlElement *xmlComponent = getComponent(tagName);
 
