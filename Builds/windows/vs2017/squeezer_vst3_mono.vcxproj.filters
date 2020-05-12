@@ -101,6 +101,9 @@
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_data_structures.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_dsp.cpp">
+      <Filter>JuceLibraryCode</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_events.cpp">
       <Filter>JuceLibraryCode</Filter>
     </ClCompile>

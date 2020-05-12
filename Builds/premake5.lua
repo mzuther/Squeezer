@@ -76,6 +76,7 @@ workspace "squeezer"
         "../JuceLibraryCode/include_juce_core.cpp",
         "../JuceLibraryCode/include_juce_cryptography.cpp",
         "../JuceLibraryCode/include_juce_data_structures.cpp",
+        "../JuceLibraryCode/include_juce_dsp.cpp",
         "../JuceLibraryCode/include_juce_events.cpp",
         "../JuceLibraryCode/include_juce_graphics.cpp",
         "../JuceLibraryCode/include_juce_gui_basics.cpp",

@@ -160,6 +160,7 @@ OBJECTS := \
 	$(OBJDIR)/include_juce_core.o \
 	$(OBJDIR)/include_juce_cryptography.o \
 	$(OBJDIR)/include_juce_data_structures.o \
+	$(OBJDIR)/include_juce_dsp.o \
 	$(OBJDIR)/include_juce_events.o \
 	$(OBJDIR)/include_juce_graphics.o \
 	$(OBJDIR)/include_juce_gui_basics.o \
@@ -266,6 +267,9 @@ $(OBJDIR)/include_juce_cryptography.o: ../../../JuceLibraryCode/include_juce_cry
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_juce_data_structures.o: ../../../JuceLibraryCode/include_juce_data_structures.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/include_juce_dsp.o: ../../../JuceLibraryCode/include_juce_dsp.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_juce_events.o: ../../../JuceLibraryCode/include_juce_events.cpp
