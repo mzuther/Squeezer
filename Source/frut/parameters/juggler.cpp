@@ -589,6 +589,29 @@ void Juggler::clearChangeFlag(
 }
 
 
+/// Hook which allow custom handling of version upgrades.
+///
+/// @param xmlDocument original settings
+///
+/// @param oldMajorVersion major version of settings
+///
+/// @param oldMinorVersion minor version of settings
+///
+/// @return xmlDocument updated settings
+///
+XmlElement *Juggler::handleUpgrades(
+    XmlElement *xmlDocument,
+    int oldMajorVersion,
+    int oldMinorVersion)
+
+{
+    ignoreUnused(oldMajorVersion);
+    ignoreUnused(oldMinorVersion);
+
+    return xmlDocument;
+}
+
+
 /// Load all parameter values from XML.
 ///
 /// @param xmlDocument XML document to load from
@@ -600,6 +623,21 @@ void Juggler::loadFromXml(
     // check ID of XML document
     if (xmlDocument && xmlDocument->hasTagName(jugglerId_))
     {
+        String oldVersion = xmlDocument->getStringAttribute("version", "0.0.1");
+
+        // call hook for custom handling of version upgrades
+        if (!oldVersion.equalsIgnoreCase(JucePlugin_VersionString))
+        {
+            String oldMajorVersion = oldVersion.upToFirstOccurrenceOf(".", false, false);
+
+            String oldMinorVersion = oldVersion.fromFirstOccurrenceOf(".", false, false);
+            oldMinorVersion = oldMinorVersion.upToFirstOccurrenceOf(".", false, false);
+
+            handleUpgrades(xmlDocument,
+                           oldMajorVersion.getIntValue(),
+                           oldMinorVersion.getIntValue());
+        }
+
         // loop over plug-in parameters
         for (int n = 0; n < virtualParameters_.size(); ++n)
         {

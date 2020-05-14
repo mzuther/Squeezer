@@ -86,6 +86,10 @@ public:
         numberOfParametersComplete,
     };
 
+    virtual XmlElement *handleUpgrades(XmlElement *xmlDocument,
+                                       int oldMajorVersion,
+                                       int oldMinorVersion) override;
+
 private:
     JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
 };

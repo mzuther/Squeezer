@@ -43,6 +43,9 @@ public:
             int completeParameters,
             int revealedParameters);
 
+    // Destructor
+    virtual ~Juggler() {};
+
     Parameter *getPluginParameter(int index);
     String toString();
 
@@ -89,6 +92,10 @@ public:
 
     bool hasChanged(int index);
     void clearChangeFlag(int index);
+
+    virtual XmlElement *handleUpgrades(XmlElement *xmlDocument,
+                                       int oldMajorVersion,
+                                       int oldMinorVersion);
 
     void loadFromXml(XmlElement *xmlDocument);
     XmlElement storeAsXml();

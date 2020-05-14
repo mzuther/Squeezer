@@ -43,9 +43,10 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterBypass, selBypass);
 
 
+    // old name: "RMS Filter" (v2.5.x and below)
     frut::parameters::ParSwitch *ParameterRmsWindowSize =
         new frut::parameters::ParSwitch();
-    ParameterRmsWindowSize->setName("RMS Filter");  // keep old name for backward compatibility!
+    ParameterRmsWindowSize->setName("RMS Window Size");
 
     ParameterRmsWindowSize->addPreset(0.0f,  "Peak (0 ms)");
     ParameterRmsWindowSize->addPreset(30.0f, "RMS (30 ms)");
@@ -65,9 +66,10 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterDesign, selDesign);
 
 
+    // old name: "Detector" (v2.5.x and below)
     frut::parameters::ParSwitch *ParameterCurveType =
         new frut::parameters::ParSwitch();
-    ParameterCurveType->setName("Detector");  // keep old name for backward compatibility!
+    ParameterCurveType->setName("Curve Type");
 
     ParameterCurveType->addPreset(SideChain::CurveLogLin,             "Linear");
     ParameterCurveType->addPreset(SideChain::CurveLogSmoothDecoupled, "Smooth");
@@ -88,8 +90,9 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     add(ParameterGainStage, selGainStage);
 
 
-    float realMinimum = -48.0f;
-    float realMaximum = +19.0f;
+    // old range (K-20 scale): -48 dBr to +19 dBr (v2.5.x and below)
+    float realMinimum = -68.0f;
+    float realMaximum = -1.0f;
     float stepSize = 1.0f;
     float scalingFactor = 0.0f;
     int decimalPlaces = 0;
@@ -98,6 +101,16 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameters::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterThreshold->setName("Threshold");
 
+    ParameterThreshold->addPreset(-56.0f, "-56 dB");
+    ParameterThreshold->addPreset(-54.0f, "-54 dB");
+    ParameterThreshold->addPreset(-52.0f, "-52 dB");
+    ParameterThreshold->addPreset(-50.0f, "-50 dB");
+    ParameterThreshold->addPreset(-48.0f, "-48 dB");
+    ParameterThreshold->addPreset(-46.0f, "-46 dB");
+    ParameterThreshold->addPreset(-44.0f, "-44 dB");
+    ParameterThreshold->addPreset(-42.0f, "-42 dB");
+    ParameterThreshold->addPreset(-40.0f, "-40 dB");
+    ParameterThreshold->addPreset(-38.0f, "-38 dB");
     ParameterThreshold->addPreset(-36.0f, "-36 dB");
     ParameterThreshold->addPreset(-34.0f, "-34 dB");
     ParameterThreshold->addPreset(-32.0f, "-32 dB");
@@ -116,19 +129,10 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterThreshold->addPreset(-6.0f,   "-6 dB");
     ParameterThreshold->addPreset(-4.0f,   "-4 dB");
     ParameterThreshold->addPreset(-2.0f,   "-2 dB");
-    ParameterThreshold->addPreset(0.0f,     "0 dB");
-    ParameterThreshold->addPreset(+2.0f,   "+2 dB");
-    ParameterThreshold->addPreset(+4.0f,   "+4 dB");
-    ParameterThreshold->addPreset(+6.0f,   "+6 dB");
-    ParameterThreshold->addPreset(+8.0f,   "+8 dB");
-    ParameterThreshold->addPreset(+10.0f, "+10 dB");
-    ParameterThreshold->addPreset(+12.0f, "+12 dB");
-    ParameterThreshold->addPreset(+14.0f, "+14 dB");
-    ParameterThreshold->addPreset(+16.0f, "+16 dB");
-    ParameterThreshold->addPreset(+18.0f, "+18 dB");
 
     ParameterThreshold->setSuffix(" dB");
-    ParameterThreshold->setDefaultRealFloat(-12.0f, true);
+    // old default value (K-20 scale): -12 dBr (v2.5.x and below)
+    ParameterThreshold->setDefaultRealFloat(-32.0f, true);
     addCombined(ParameterThreshold, selThresholdSwitch, selThreshold);
 
 
@@ -187,13 +191,7 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
         new frut::parameters::ParCombined(realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces);
     ParameterAttackRate->setName("Attack Rate");
 
-    // Equivalent of 20 microseconds
-    // =============================
-    //  44100 Hz:  0.9 samples
-    //  48000 Hz:  1.0 samples
-    //  96000 Hz:  1.9 samples
-    // 192000 Hz:  3.8 samples
-    ParameterAttackRate->addPreset(0.02f,    "20 us");
+    ParameterAttackRate->addPreset(0.02f,    "20 us");  // 0.9 samples at 44.1 kHz
     ParameterAttackRate->addPreset(0.05f,    "50 us");
     ParameterAttackRate->addPreset(0.10f,   "100 us");
     ParameterAttackRate->addPreset(0.20f,   "200 us");
@@ -586,6 +584,64 @@ String SqueezerPluginParameters::toString()
     parameterValues += getText(selWetMix);
 
     return parameterValues + "\n";
+}
+
+
+XmlElement *SqueezerPluginParameters::handleUpgrades(
+    XmlElement *xmlDocument,
+    int oldMajorVersion,
+    int oldMinorVersion)
+
+{
+    bool upgradedSettings = false;
+
+    // apply upgrade from v2.5.x to v2.6.x
+    if ((oldMajorVersion < 2) ||
+            ((oldMajorVersion == 2) && (oldMinorVersion < 6)))
+    {
+        // rename parameter "RMS Filter" to "RMS Window Size"
+        XmlElement *xmlRmsFilter = xmlDocument->getChildByName("rms_filter");
+
+        if (xmlRmsFilter != nullptr)
+        {
+            xmlRmsFilter->setTagName("rms_window_size");
+        }
+
+        // rename parameter "Detector" to "Curve Type"
+        XmlElement *xmlDetector = xmlDocument->getChildByName("detector");
+
+        if (xmlDetector != nullptr)
+        {
+            xmlDetector->setTagName("curve_type");
+        }
+
+        // originally, Squeezer's meters displayed values on a K-20
+        // scale, so threshold values were related to this scale; we
+        // need to break backward compatibility shortly after initial
+        // release to avoid complex future constructs; for conversion
+        // from K-20 scale to dBFS, get the value and substract 20 dB
+        XmlElement *xmlThreshold = xmlDocument->getChildByName("threshold");
+
+        if (xmlThreshold != nullptr)
+        {
+            double threshold = xmlThreshold->getDoubleAttribute("value");
+            threshold -= 20.0;
+
+            xmlThreshold->setAttribute("value", threshold);
+        }
+
+        upgradedSettings = true;
+    }
+
+    if (upgradedSettings)
+    {
+        DBG("[Squeezer] upgraded plug-in parameters:");
+        DBG("[Squeezer]");
+        DBG(String("[Squeezer]   ") + xmlDocument->toString().replace(
+                "\n", "\n[Squeezer]   "));
+    }
+
+    return xmlDocument;
 }
 
 

@@ -37,6 +37,9 @@ Compressor::Compressor(int channels, int sample_rate) :
 {
     jassert((NumberOfChannels == 1) || (NumberOfChannels == 2));
 
+    // originally, Squeezer's meters displayed values on a K-20 scale,
+    // so threshold values are related to this scale; for conversion
+    // from K-20 scale to dBFS, simply substract 20 dB from a value
     CrestFactor = 20.0;
     UseUpwardExpansion = false;
 
