@@ -75,10 +75,7 @@ void SideChain::reset()
     dGainCompensation = 0.0;
     dDetectorOutputLevelSquared = 0.0;
 
-    // originally, Squeezer's meters displayed values on a K-20 scale,
-    // so threshold values are related to this scale; for conversion
-    // from K-20 scale to dBFS, simply substract 20 dB from a value
-    dCrestFactorAutoGain = 20.0;
+    dAutoGainReferenceLevel = 0.0;
 }
 
 
@@ -189,10 +186,7 @@ double SideChain::getThreshold()
     return value (double): returns the current threshold in decibels
  */
 {
-    // originally, Squeezer's meters displayed values on a K-20 scale,
-    // so threshold values are related to this scale; for conversion
-    // from K-20 scale to dBFS, simply substract 20 dB from a value
-    return dThreshold - dCrestFactorAutoGain;
+    return dThreshold;
 }
 
 
@@ -205,12 +199,9 @@ void SideChain::setThreshold(
     return value: none
  */
 {
-    // originally, Squeezer's meters displayed values on a K-20 scale,
-    // so threshold values are related to this scale; for conversion
-    // from dBFS to K-20 scale, simply add 20 dB to a value
-    dThreshold = dThresholdNew + dCrestFactorAutoGain;
+    dThreshold = dThresholdNew;
 
-    dGainCompensation = queryGainComputer(dCrestFactorAutoGain) / 2.0;
+    dGainCompensation = queryGainComputer(dAutoGainReferenceLevel) / 2.0;
 }
 
 
@@ -234,7 +225,7 @@ void SideChain::setRatio(
  */
 {
     dRatioInternal = 1.0 - (1.0 / dRatioNew);
-    dGainCompensation = queryGainComputer(dCrestFactorAutoGain) / 2.0;
+    dGainCompensation = queryGainComputer(dAutoGainReferenceLevel) / 2.0;
 }
 
 
@@ -261,7 +252,7 @@ void SideChain::setKneeWidth(
     dKneeWidthHalf = dKneeWidth / 2.0;
     dKneeWidthDouble = dKneeWidth * 2.0;
 
-    dGainCompensation = queryGainComputer(dCrestFactorAutoGain) / 2.0;
+    dGainCompensation = queryGainComputer(dAutoGainReferenceLevel) / 2.0;
 }
 
 

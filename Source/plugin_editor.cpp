@@ -442,11 +442,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
                         5);
 
     bool IsDiscreteMeter = true;
-
-    // originally, Squeezer's meters displayed values on a K-20 scale,
-    // so threshold values are related to this scale; for conversion
-    // from K-20 scale to dBFS, simply substract 20 dB from a value
-    int CrestFactor = 20;
+    int CrestFactor = 0;
 
     frut::widgets::Orientation MeterOrientation =
         frut::widgets::Orientation::vertical;

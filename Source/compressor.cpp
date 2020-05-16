@@ -37,10 +37,6 @@ Compressor::Compressor(int channels, int sample_rate) :
 {
     jassert((NumberOfChannels == 1) || (NumberOfChannels == 2));
 
-    // originally, Squeezer's meters displayed values on a K-20 scale,
-    // so threshold values are related to this scale; for conversion
-    // from K-20 scale to dBFS, simply substract 20 dB from a value
-    CrestFactor = 20.0;
     UseUpwardExpansion = false;
 
     // fall time: 26 dB in 3 seconds (linear)
@@ -93,7 +89,7 @@ Compressor::Compressor(int channels, int sample_rate) :
 
 void Compressor::resetMeters()
 {
-    double MeterMinimumDecibel = -(70.01 + CrestFactor);
+    double MeterMinimumDecibel = -70.01;
 
     // loop through all audio channels
     for (int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel)
@@ -665,7 +661,7 @@ double Compressor::getPeakMeterInputLevel(int CurrentChannel)
     jassert(CurrentChannel >= 0);
     jassert(CurrentChannel < NumberOfChannels);
 
-    return PeakMeterInputLevels[CurrentChannel] + CrestFactor;
+    return PeakMeterInputLevels[CurrentChannel];
 }
 
 
@@ -680,7 +676,7 @@ double Compressor::getPeakMeterOutputLevel(int CurrentChannel)
     jassert(CurrentChannel >= 0);
     jassert(CurrentChannel < NumberOfChannels);
 
-    return PeakMeterOutputLevels[CurrentChannel] + CrestFactor;
+    return PeakMeterOutputLevels[CurrentChannel];
 }
 
 
@@ -696,7 +692,7 @@ double Compressor::getAverageMeterInputLevel(int CurrentChannel)
     jassert(CurrentChannel >= 0);
     jassert(CurrentChannel < NumberOfChannels);
 
-    return AverageMeterInputLevels[CurrentChannel] + CrestFactor;
+    return AverageMeterInputLevels[CurrentChannel];
 }
 
 
@@ -712,7 +708,7 @@ double Compressor::getAverageMeterOutputLevel(int CurrentChannel)
     jassert(CurrentChannel >= 0);
     jassert(CurrentChannel < NumberOfChannels);
 
-    return AverageMeterOutputLevels[CurrentChannel] + CrestFactor;
+    return AverageMeterOutputLevels[CurrentChannel];
 }
 
 
@@ -858,9 +854,6 @@ void Compressor::process(
 
             // convert side chain level to decibels
             SideChainLevel = SideChain::level2decibel(SideChainLevel);
-
-            // apply crest factor
-            SideChainLevel += CrestFactor;
 
             // send current trim-adjusted input sample to gain
             // reduction unit

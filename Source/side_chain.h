@@ -93,7 +93,7 @@ private:
     GainStageOptical gainStageOptical;
 
     double dSampleRate;
-    double dCrestFactorAutoGain;
+    double dAutoGainReferenceLevel;
     double dGainReduction;
     double dGainReductionIdeal;
     double dGainReductionIntermediate;

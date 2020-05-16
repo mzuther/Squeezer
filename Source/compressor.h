@@ -161,9 +161,7 @@ private:
     Array<double> GainReduction;
     Array<double> GainReductionWithMakeup;
 
-    double CrestFactor;
     int CompressorDesign;
-
     double ReleaseCoefLinear;
 
     bool CompressorIsBypassed;
