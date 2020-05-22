@@ -31,17 +31,31 @@ that, it has quickly become my go-to generic compressor!
 *I hope that you have as much fun with this compressor as I had when I
 coded it!*
 
+## FAQ
+
+### Squeezer crashes when the plug-in is loaded/opened
+
+Squeezer comes with a folder called `squeezer`.  This folder must be
+located in the same folder as the plug-in, so please copy it along and
+try again!
+
+### Some hosts (FL Studio, Bitwig) do not assign VST2 channels correctly
+
+As an example, a stereo plug-in might only output a mono signal.
+
+VST2 does not support side-chains.  I have found a way around this
+limitation, but unfortunately some hosts will behave erratically.
+
+VST3 supports side-chains, so if your DAW supports it, use the VST3
+plug-ins instead.  As an alternative, I have created VST2 plug-ins
+without external side-chain inputs.  They are distinguished by the
+words `no side-chain` in their name and should fix channel-assignment
+problems.
+
 ## Documentation
 
 For documentation and further information, please see the [manual][]
 and the directory [doc][].
-
-## Documentation
-
-For documentation and further information, please see the [manual][]
-and the directory [doc][].
-
-**Before reporting bugs, please read the [FAQ][wiki].  Thanks!**
 
 ## Code of conduct
 
@@ -72,4 +86,3 @@ Thank you for using free software!
 [COC]:            https://github.com/mzuther/Squeezer/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:            https://github.com/mzuther/Squeezer/tree/master/doc/
 [manual]:         https://github.com/mzuther/Squeezer/raw/master/doc/squeezer.pdf
-[wiki]:           https://github.com/mzuther/Squeezer/wiki
