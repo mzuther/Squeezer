@@ -1,6 +1,6 @@
 # Squeezer
 
-Flexible general-purpose audio compressor with a touch of citrus
+*Flexible general-purpose audio compressor with a touch of citrus*
 
 ![Screenshot](./doc/include/images/squeezer.png)
 
