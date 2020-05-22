@@ -40,7 +40,7 @@ If applicable, add screenshots to help explain your problem.
  - DAW: [ Reaper v6.0.8 (32-bit), Ardour v5.12.0 (32-bit) ]
  - Plug-in: [ Squeezer v2.5.3 VST2 (64-bit), Squeezer v2.5.3 stand-alone (64-bit) ]
 
-Are Squeezer and the directory "squeezer" located in the folder? [no]
+Are Squeezer and the directory "squeezer" located in the same folder? [no]
 Did you compile Squeezer yourself? [no]
 
 
