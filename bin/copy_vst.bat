@@ -73,10 +73,7 @@ echo.
 echo VST3 (32 bit)
 echo.
 
-call :CopyVst       "vst3/Squeezer (Stereo).vst3" "%vst3_32%"
-call :CopyVst       "vst3/Squeezer (Mono).vst3" "%vst3_32%"
-call :CopyVst       "vst3/squeezer.pdf" "%vst3_32%"
-call :CopyVstDelete "vst3/squeezer" "%vst3_32%"
+call :CopyVstDelete "vst3/squeezer.vst3" "%vst3_32%"
 
 
 echo.
@@ -106,10 +103,7 @@ echo.
 echo VST3 (64 bit)
 echo.
 
-call :CopyVst       "vst3/Squeezer (Stereo x64).vst3" "%vst3_64%"
-call :CopyVst       "vst3/Squeezer (Mono x64).vst3" "%vst3_64%"
-call :CopyVst       "vst3/squeezer.pdf" "%vst3_64%"
-call :CopyVstDelete "vst3/squeezer" "%vst3_64%"
+call :CopyVstDelete "vst3/squeezer.vst3" "%vst3_64%"
 
 
 echo.
@@ -132,6 +126,6 @@ set source=%~1
 set destination=%~2
 
 echo CopyVstDelete %source%
-%rsync_cmd% --delete "%source%" "%destination%"
+%rsync_cmd% --delete --exclude="*-linux" "%source%" "%destination%"
 
 exit /b 0

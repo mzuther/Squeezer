@@ -88,9 +88,19 @@
 
 {% set additions_packaging = {
   'default': [
-    'archive_add "squeezer.pdf" "$binary_dir"',
-    'archive_add "squeezer/doc" "$binary_dir"',
-    'archive_add "squeezer/skins/Default" "$binary_dir"',
-    'archive_add "squeezer/skins/Default.skin" "$binary_dir"'
+    'archive_add "squeezer.pdf" ""',
+    'archive_add "squeezer/Documentation" "squeezer"',
+    'archive_add "squeezer/Skins/Default" "squeezer/Skins"',
+    'archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"'
+  ]
+} %}
+
+
+{% set additions_packaging_vst3 = {
+  'default': [
+    'archive_add "squeezer.pdf" ""',
+    'archive_add "squeezer/Documentation" "squeezer.vst3/Resources"',
+    'archive_add "squeezer/Skins/Default" "squeezer.vst3/Resources/Skins"',
+    'archive_add "squeezer/Skins/Default.skin" "squeezer.vst3/Resources/Skins"'
   ]
 } %}

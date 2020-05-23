@@ -527,7 +527,6 @@ if os.target() == "windows" then
 
     project ("squeezer_vst3_stereo")
         kind "SharedLib"
-        targetdir "../bin/vst3/"
 
         defines {
             "SQUEEZER_STEREO=1",
@@ -553,19 +552,34 @@ if os.target() == "windows" then
             "../libraries/vst3/VST3_SDK"
         }
 
+        filter { "system:linux" }
+            targetname "squeezer_stereo_vst3"
+
+        filter { "system:linux", "platforms:x32" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/i386-linux/"
+
+        filter { "system:linux", "platforms:x64" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/x86_64-linux/"
+
         filter { "system:windows" }
             targetname "Squeezer (Stereo"
             targetextension (".vst3")
+
+        filter { "system:windows", "platforms:x32" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/x86-win/"
+
+        filter { "system:windows", "platforms:x64" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_stereo_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "C:/Program Files (x86)/Common Files/VST3/radix"
+            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/squeezer.vst3/Contents/x86-win/"
             debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
 
         filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "C:/Program Files/Common Files/VST3/radix"
+            targetdir "C:/Program Files/Common Files/VST3/radix/squeezer.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
@@ -581,7 +595,6 @@ if os.target() == "windows" then
 
     project ("squeezer_vst3_mono")
         kind "SharedLib"
-        targetdir "../bin/vst3/"
 
         defines {
             "SQUEEZER_MONO=1",
@@ -607,19 +620,34 @@ if os.target() == "windows" then
             "../libraries/vst3/VST3_SDK"
         }
 
+        filter { "system:linux" }
+            targetname "squeezer_mono_vst3"
+
+        filter { "system:linux", "platforms:x32" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/i386-linux/"
+
+        filter { "system:linux", "platforms:x64" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/x86_64-linux/"
+
         filter { "system:windows" }
             targetname "Squeezer (Mono"
             targetextension (".vst3")
+
+        filter { "system:windows", "platforms:x32" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/x86-win/"
+
+        filter { "system:windows", "platforms:x64" }
+            targetdir "../bin/vst3/squeezer.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_mono_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "C:/Program Files (x86)/Common Files/VST3/radix"
+            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/squeezer.vst3/Contents/x86-win/"
             debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
 
         filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "C:/Program Files/Common Files/VST3/radix"
+            targetdir "C:/Program Files/Common Files/VST3/radix/squeezer.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }

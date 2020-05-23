@@ -32,20 +32,21 @@
 #
 ###############################################################################
 
-binary_dir="final"
+binary_dir="./final"
 
 
 function finalise_binary
 {
-    filepath=$1
-    filename=$(basename "$1")
+    input_file=$1
+    output_file="$binary_dir/$input_file"
 
-    if [ -f "./$filepath" ]; then
-        if [ ! -f "$binary_dir/$filename" ] || [ "./$filepath" -nt "$binary_dir/$filename" ]; then
-            printf "  Finalising binary:   %s -->\n" "$filepath"
-            printf "                       %s\n"     "$binary_dir/$filename"
+    if [ -f "./$input_file" ]; then
+        if [ ! -f "$output_file" ] || [ "./$input_file" -nt "$output_file" ]; then
+            printf "  Finalising binary:   %s -->\n" "$input_file"
+            printf "                       %s\n"     "$output_file"
 
-            cp "./$filepath" "./$binary_dir/$filename"
+            mkdir -p "$(dirname "./$output_file")"
+            cp "./$input_file" "./$output_file"
 
             printf "\n"
         fi
@@ -55,16 +56,16 @@ function finalise_binary
 
 function finalise_symbols
 {
-    filepath=$1
-    filename=$(basename "$1")
+    input_file=$1
+    output_file="$binary_dir/debug_symbols/$input_file"
 
-    if [ -f "./$filepath" ]; then
-        if [ ! -f "$binary_dir/debug_symbols/$filepath" ] || [ "./$filepath" -nt "$binary_dir/debug_symbols/$filepath" ]; then
-            printf "  Finalising symbols:  %s -->\n" "$filepath"
-            printf "                       %s\n"     "$binary_dir/debug_symbols/$filepath"
+    if [ -f "./$input_file" ]; then
+        if [ ! -f "$output_file" ] || [ "./$input_file" -nt "$output_file" ]; then
+            printf "  Finalising symbols:  %s -->\n" "$input_file"
+            printf "                       %s\n"     "$output_file"
 
-            mkdir -p "$(dirname "./$binary_dir/debug_symbols/$filepath")"
-            cp "./$filepath" "./$binary_dir/debug_symbols/$filepath"
+            mkdir -p "$(dirname "./$output_file")"
+            cp "./$input_file" "./$output_file"
 
             printf "\n"
         fi
@@ -106,10 +107,10 @@ finalise_symbols "vst2/Squeezer (Stereo, no side-chain).pdb"
 finalise_binary  "vst2/Squeezer (Mono, no side-chain).dll"
 finalise_symbols "vst2/Squeezer (Mono, no side-chain).pdb"
 
-finalise_binary  "vst3/Squeezer (Stereo).vst3"
-finalise_symbols "vst3/Squeezer (Stereo).pdb"
-finalise_binary  "vst3/Squeezer (Mono).vst3"
-finalise_symbols "vst3/Squeezer (Mono).pdb"
+finalise_binary  "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Stereo).vst3"
+finalise_symbols "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Stereo).pdb"
+finalise_binary  "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Mono).vst3"
+finalise_symbols "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Mono).pdb"
 
 finalise_binary  "standalone/Squeezer (Stereo x64).exe"
 finalise_symbols "standalone/Squeezer (Stereo x64).pdb"
@@ -125,9 +126,9 @@ finalise_symbols "vst2/Squeezer (Stereo, no side-chain x64).pdb"
 finalise_binary  "vst2/Squeezer (Mono, no side-chain x64).dll"
 finalise_symbols "vst2/Squeezer (Mono, no side-chain x64).pdb"
 
-finalise_binary  "vst3/Squeezer (Stereo x64).vst3"
-finalise_symbols "vst3/Squeezer (Stereo x64).pdb"
-finalise_binary  "vst3/Squeezer (Mono x64).vst3"
-finalise_symbols "vst3/Squeezer (Mono x64).pdb"
+finalise_binary  "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Stereo x64).vst3"
+finalise_symbols "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Stereo x64).pdb"
+finalise_binary  "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Mono x64).vst3"
+finalise_symbols "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Mono x64).pdb"
 
 printf "  Done.\n\n\n"

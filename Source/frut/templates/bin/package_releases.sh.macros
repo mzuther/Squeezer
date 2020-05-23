@@ -41,7 +41,7 @@
 version="{{version}}"
 
 binary_dir="./final"
-release_dir="releases"
+release_dir="./releases"
 
 
 function archive_is_missing
@@ -78,19 +78,19 @@ function archive_create
 function archive_add
 {
     filename="$1"
-    source_dir="$2"
-    target_dir=$(dirname "/tmp/$archive_dir/$1")
+    source_file="$binary_dir/$filename"
+    target_dir="/tmp/$archive_dir/$2"
 
     if [ ! -d "$target_dir" ]; then
         mkdir -p "$target_dir"
     fi
 
-    if [ -f "$source_dir/$filename" ]; then
+    if [ -f "$source_file" ]; then
         printf "  [+] %s\n" "$filename"
-        cp --dereference "$source_dir/$filename" "/tmp/$archive_dir/$1"
-    elif [ -d "$source_dir/$filename" ]; then
+        cp --dereference "$source_file" "$target_dir"
+    elif [ -d "$source_file" ]; then
         printf "  [+] %s/*\n" "$filename"
-        cp --dereference --recursive "$source_dir/$filename/" "/tmp/$archive_dir/$1"
+        cp --dereference --recursive "$source_file/" "$target_dir"
     else
         printf "  [ ] %s  --> not added\n" "$filename"
     fi
@@ -174,12 +174,12 @@ function archive_store
 
 printf "  === Creating release directories ===\n\n"
 
-mkdir -p "./$release_dir/linux/i386"
-mkdir -p "./$release_dir/linux/amd64"
+mkdir -p "$release_dir/linux/i386"
+mkdir -p "$release_dir/linux/amd64"
 
-mkdir -p "./$release_dir/windows/x32"
-mkdir -p "./$release_dir/windows/x64"
-mkdir -p "./$release_dir/windows/debug_symbols"
+mkdir -p "$release_dir/windows/x32"
+mkdir -p "$release_dir/windows/x64"
+mkdir -p "$release_dir/windows/debug_symbols"
 
 printf "  Done.\n\n\n"
 {% endmacro %}
@@ -196,9 +196,9 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "standalone" "$binary_dir/debug_symbols"
-    archive_add "vst2" "$binary_dir/debug_symbols"
-    archive_add "vst3" "$binary_dir/debug_symbols"
+    archive_add "debug_symbols/standalone" ""
+    archive_add "debug_symbols/vst2" ""
+    archive_add "debug_symbols/vst3" ""
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -221,7 +221,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_create
 
 {% for variant in variants %}
-    archive_add "{{ name.short }}_{{variant.short}}{{platform}}" "$binary_dir"
+    archive_add "standalone/{{ name.short }}_{{variant.short}}{{platform}}" ""
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -250,7 +250,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_create
 
 {% for variant in variants %}
-    archive_add "{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" "$binary_dir"
+    archive_add "vst2/{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" ""
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -279,7 +279,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for variant in variants %}
-    archive_add "{{ name.real }} ({{variant.real}}{{platform}}).exe" "$binary_dir"
+    archive_add "standalone/{{ name.real }} ({{variant.real}}{{platform}}).exe" ""
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -308,7 +308,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for variant in variants %}
-    archive_add "{{ name.real }} ({{variant.real}}{{platform}}).dll" "$binary_dir"
+    archive_add "vst2/{{ name.real }} ({{variant.real}}{{platform}}).dll" ""
 {% endfor %}
 
 {% for line in additions['default'] %}
@@ -338,7 +338,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for variant in variants %}
-    archive_add "{{ name.real }} ({{variant.real}}{{platform}}).vst3" "$binary_dir"
+    archive_add "vst3/{{ name.short }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "{{ name.short }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
 {% endfor %}
 
 {% for line in additions['default'] %}

@@ -343,7 +343,6 @@ if os.target() == "windows" then
 
     project ("{{ name.short }}_vst3_{{ variant.short }}")
         kind "SharedLib"
-        targetdir "../bin/vst3/"
 
         defines {
             {% for define in variant.defines -%}
@@ -370,19 +369,34 @@ if os.target() == "windows" then
             "../libraries/vst3/VST3_SDK"
         }
 
+        filter { "system:linux" }
+            targetname "{{ name.short }}_{{ variant.short }}_vst3"
+
+        filter { "system:linux", "platforms:x32" }
+            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/i386-linux/"
+
+        filter { "system:linux", "platforms:x64" }
+            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/x86_64-linux/"
+
         filter { "system:windows" }
             targetname "{{ name.real }} ({{ variant.real }}"
             targetextension (".vst3")
+
+        filter { "system:windows", "platforms:x32" }
+            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/x86-win/"
+
+        filter { "system:windows", "platforms:x64" }
+            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
             objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_{{ variant.short }}_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "C:/Program Files (x86)/Common Files/VST3/radix"
+            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/{{ name.short }}.vst3/Contents/x86-win/"
             debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
 
         filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "C:/Program Files/Common Files/VST3/radix"
+            targetdir "C:/Program Files/Common Files/VST3/radix/{{ name.short }}.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }

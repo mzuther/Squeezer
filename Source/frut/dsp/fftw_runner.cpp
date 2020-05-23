@@ -48,6 +48,7 @@ FftwRunner::FftwRunner(
     File currentExecutableFile = File::getSpecialLocation(
                                      File::currentExecutableFile);
 
+// FIXME: remove hard-coded FFTW path (K-Meter)
 #ifdef _WIN64
     File dynamicLibraryFftwFile = currentExecutableFile.getSiblingFile(
                                       "kmeter/fftw/libfftw3f-3_x64.dll");

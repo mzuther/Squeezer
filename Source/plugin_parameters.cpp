@@ -670,7 +670,11 @@ const File SqueezerPluginParameters::getSkinDirectory()
                                File::currentApplicationFile).getParentDirectory();
 #endif
 
-    return applicationDirectory.getChildFile("./squeezer/skins/");
+#if JucePlugin_Build_VST3
+    return applicationDirectory.getChildFile("../Resources/Skins/");
+#else
+    return applicationDirectory.getChildFile("./squeezer/Skins/");
+#endif
 }
 
 

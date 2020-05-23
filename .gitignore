@@ -21,8 +21,8 @@ bin/standalone/squeezer_*
 bin/vst2/Squeezer*.dll
 bin/vst2/squeezer_*.so
 
-bin/vst3/Squeezer*.vst3
-bin/vst3/squeezer_*.so
+bin/vst3/**/Squeezer*.vst3
+bin/vst3/**/squeezer_*.so
 
 skins/default_skin.ini
 
