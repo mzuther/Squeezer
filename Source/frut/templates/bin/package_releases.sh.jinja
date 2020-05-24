@@ -28,7 +28,7 @@
 {%- import 'settings.jinja' as settings -%}
 {%- import 'package_releases.sh.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.version) }}
+{{ render.preamble(settings.name, settings.copyright, settings.version) }}
 
 {% for platform, bits in [['', '32'], ['_x64', '64']] -%}
 
@@ -45,7 +45,7 @@
 
 {{ render.vst2_windows(settings.name, settings.variants_vst2, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst3_windows(settings.name, settings.variants, settings.additions_packaging_vst3, platform, bits) }}
+{{ render.vst3_windows(settings.name, settings.variants, settings.additions_packaging, platform, bits) }}
 
 {% endfor %}
 

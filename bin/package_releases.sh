@@ -37,6 +37,10 @@ version="2.5.4"
 binary_dir="./final"
 release_dir="./releases"
 
+resource_dir_standalone="./standalone/squeezer"
+resource_dir_vst2="./vst2/squeezer"
+resource_dir_vst3="./vst3/squeezer.vst3/Contents/Resources"
+
 
 function archive_is_missing
 {
@@ -71,8 +75,8 @@ function archive_create
 
 function archive_add
 {
-    filename="$1"
-    source_file="$binary_dir/$filename"
+    source_file="$1"
+    source_file_display=$(realpath --relative-base . --no-symlinks "$source_file")
     target_dir="/tmp/$archive_dir/$2"
 
     if [ ! -d "$target_dir" ]; then
@@ -80,13 +84,13 @@ function archive_add
     fi
 
     if [ -f "$source_file" ]; then
-        printf "  [+] %s\n" "$filename"
+        printf "  [+] %s\n" "$source_file_display"
         cp --dereference "$source_file" "$target_dir"
     elif [ -d "$source_file" ]; then
-        printf "  [+] %s/*\n" "$filename"
+        printf "  [+] %s/*\n" "$source_file_display"
         cp --dereference --recursive "$source_file/" "$target_dir"
     else
-        printf "  [ ] %s  --> not added\n" "$filename"
+        printf "  [ ] %s  --> not added\n" "$source_file_display"
     fi
 }
 
@@ -187,13 +191,13 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "standalone/squeezer_stereo" ""
-    archive_add "standalone/squeezer_mono" ""
+    archive_add "$binary_dir/standalone/squeezer_stereo" ""
+    archive_add "$binary_dir/standalone/squeezer_mono" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "squeezer"
+    archive_add "$resource_dir_standalone/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -209,15 +213,15 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "vst2/squeezer_stereo_vst2.so" ""
-    archive_add "vst2/squeezer_mono_vst2.so" ""
-    archive_add "vst2/squeezer_stereo_no_sidechain_vst2.so" ""
-    archive_add "vst2/squeezer_mono_no_sidechain_vst2.so" ""
+    archive_add "$binary_dir/vst2/squeezer_stereo_vst2.so" ""
+    archive_add "$binary_dir/vst2/squeezer_mono_vst2.so" ""
+    archive_add "$binary_dir/vst2/squeezer_stereo_no_sidechain_vst2.so" ""
+    archive_add "$binary_dir/vst2/squeezer_mono_no_sidechain_vst2.so" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "squeezer"
+    archive_add "$resource_dir_vst2/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -233,13 +237,13 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "standalone/squeezer_stereo_x64" ""
-    archive_add "standalone/squeezer_mono_x64" ""
+    archive_add "$binary_dir/standalone/squeezer_stereo_x64" ""
+    archive_add "$binary_dir/standalone/squeezer_mono_x64" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "squeezer"
+    archive_add "$resource_dir_standalone/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -255,15 +259,15 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "vst2/squeezer_stereo_vst2_x64.so" ""
-    archive_add "vst2/squeezer_mono_vst2_x64.so" ""
-    archive_add "vst2/squeezer_stereo_no_sidechain_vst2_x64.so" ""
-    archive_add "vst2/squeezer_mono_no_sidechain_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_stereo_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_mono_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_stereo_no_sidechain_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_mono_no_sidechain_vst2_x64.so" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "squeezer"
+    archive_add "$resource_dir_vst2/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "gzip"
     archive_store "gzip" "$release_dir/linux"
@@ -279,13 +283,13 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "standalone/Squeezer (Stereo).exe" ""
-    archive_add "standalone/Squeezer (Mono).exe" ""
+    archive_add "$binary_dir/standalone/Squeezer (Stereo).exe" ""
+    archive_add "$binary_dir/standalone/Squeezer (Mono).exe" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "squeezer"
+    archive_add "$resource_dir_standalone/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -301,15 +305,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "vst2/Squeezer (Stereo).dll" ""
-    archive_add "vst2/Squeezer (Mono).dll" ""
-    archive_add "vst2/Squeezer (Stereo, no side-chain).dll" ""
-    archive_add "vst2/Squeezer (Mono, no side-chain).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Stereo).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Mono).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Stereo, no side-chain).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Mono, no side-chain).dll" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "squeezer"
+    archive_add "$resource_dir_vst2/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -326,13 +330,13 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Stereo).vst3" "squeezer.vst3/Contents/x86-win"
-    archive_add "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Mono).vst3" "squeezer.vst3/Contents/x86-win"
+    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86-win/Squeezer (Stereo).vst3" "squeezer.vst3/Contents/x86-win"
+    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86-win/Squeezer (Mono).vst3" "squeezer.vst3/Contents/x86-win"
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer.vst3/Resources"
-    archive_add "squeezer/Skins/Default" "squeezer.vst3/Resources/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer.vst3/Resources/Skins"
+    archive_add "$resource_dir_vst3/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_vst3/Documentation" "squeezer.vst3/Contents/Resources"
+    archive_add "$resource_dir_vst3/Skins/Default" "squeezer.vst3/Contents/Resources/Skins"
+    archive_add "$resource_dir_vst3/Skins/Default.skin" "squeezer.vst3/Contents/Resources/Skins"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -348,13 +352,13 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "standalone/Squeezer (Stereo x64).exe" ""
-    archive_add "standalone/Squeezer (Mono x64).exe" ""
+    archive_add "$binary_dir/standalone/Squeezer (Stereo x64).exe" ""
+    archive_add "$binary_dir/standalone/Squeezer (Mono x64).exe" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_standalone/Documentation" "squeezer"
+    archive_add "$resource_dir_standalone/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_standalone/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -370,15 +374,15 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "vst2/Squeezer (Stereo x64).dll" ""
-    archive_add "vst2/Squeezer (Mono x64).dll" ""
-    archive_add "vst2/Squeezer (Stereo, no side-chain x64).dll" ""
-    archive_add "vst2/Squeezer (Mono, no side-chain x64).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Stereo x64).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Mono x64).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Stereo, no side-chain x64).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (Mono, no side-chain x64).dll" ""
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer"
-    archive_add "squeezer/Skins/Default" "squeezer/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_vst2/Documentation" "squeezer"
+    archive_add "$resource_dir_vst2/Skins/Default" "squeezer/Skins"
+    archive_add "$resource_dir_vst2/Skins/Default.skin" "squeezer/Skins"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -395,13 +399,13 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Stereo x64).vst3" "squeezer.vst3/Contents/x86_64-win"
-    archive_add "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Mono x64).vst3" "squeezer.vst3/Contents/x86_64-win"
+    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Stereo x64).vst3" "squeezer.vst3/Contents/x86_64-win"
+    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Mono x64).vst3" "squeezer.vst3/Contents/x86_64-win"
 
-    archive_add "squeezer.pdf" ""
-    archive_add "squeezer/Documentation" "squeezer.vst3/Resources"
-    archive_add "squeezer/Skins/Default" "squeezer.vst3/Resources/Skins"
-    archive_add "squeezer/Skins/Default.skin" "squeezer.vst3/Resources/Skins"
+    archive_add "$resource_dir_vst3/Documentation/squeezer.pdf" ""
+    archive_add "$resource_dir_vst3/Documentation" "squeezer.vst3/Contents/Resources"
+    archive_add "$resource_dir_vst3/Skins/Default" "squeezer.vst3/Contents/Resources/Skins"
+    archive_add "$resource_dir_vst3/Skins/Default.skin" "squeezer.vst3/Contents/Resources/Skins"
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"
@@ -417,9 +421,9 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "debug_symbols/standalone" ""
-    archive_add "debug_symbols/vst2" ""
-    archive_add "debug_symbols/vst3" ""
+    archive_add "$binary_dir/debug_symbols/standalone" ""
+    archive_add "$binary_dir/debug_symbols/vst2" ""
+    archive_add "$binary_dir/debug_symbols/vst3" ""
 
     archive_compress "zip"
     archive_store "zip" "$release_dir/windows"

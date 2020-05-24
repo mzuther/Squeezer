@@ -88,19 +88,9 @@
 
 {% set additions_packaging = {
   'default': [
-    'archive_add "squeezer.pdf" ""',
-    'archive_add "squeezer/Documentation" "squeezer"',
-    'archive_add "squeezer/Skins/Default" "squeezer/Skins"',
-    'archive_add "squeezer/Skins/Default.skin" "squeezer/Skins"'
-  ]
-} %}
-
-
-{% set additions_packaging_vst3 = {
-  'default': [
-    'archive_add "squeezer.pdf" ""',
-    'archive_add "squeezer/Documentation" "squeezer.vst3/Resources"',
-    'archive_add "squeezer/Skins/Default" "squeezer.vst3/Resources/Skins"',
-    'archive_add "squeezer/Skins/Default.skin" "squeezer.vst3/Resources/Skins"'
+    'archive_add "RESOURCE_INPUT/Documentation/squeezer.pdf" ""',
+    'archive_add "RESOURCE_INPUT/Documentation" "RESOURCE_OUTPUT"',
+    'archive_add "RESOURCE_INPUT/Skins/Default" "RESOURCE_OUTPUT/Skins"',
+    'archive_add "RESOURCE_INPUT/Skins/Default.skin" "RESOURCE_OUTPUT/Skins"'
   ]
 } %}
