@@ -268,6 +268,37 @@ fi
 
 
 
+{% macro vst3_linux(name, variants, additions, platform, bits) %}
+# ----- GNU/Linux VST3 ({{bits}} bit) -----
+
+archive_dir="{{ name.short }}-linux{{bits}}-vst3_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux VST3 %s ({{bits}} bit) ---\n\n" "$version"
+
+    archive_create
+
+{% for variant in variants %}
+{% if platform == '_x64' %}
+    archive_add "$binary_dir/vst3/{{ name.short }}.vst3/Contents/x86_64-linux/{{ name.short }}_{{ variant.short }}_vst3_x64.so" "squeezer.vst3/Contents/x86_64-linux"
+{% else %}
+    archive_add "$binary_dir/vst3/{{ name.short }}.vst3/Contents/i386-linux/{{ name.short }}_{{ variant.short }}_vst3.so" "squeezer.vst3/Contents/i386-linux"
+{% endif %}
+{% endfor %}
+
+{% for scope in ['default', 'vst3_linux_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', name.short + '.vst3/Contents/Resources') }}
+{% endfor -%}
+{% endfor %}
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/linux"
+fi
+{% endmacro %}
+
+
+
 {% macro standalone_windows(name, variants, additions, platform, bits) %}
 # ----- Windows Standalone ({{bits}} bit) -----
 
@@ -328,8 +359,7 @@ fi
 archive_dir="{{ name.short }}-w{{bits}}-vst3_$version"
 
 if archive_is_missing "zip" "$release_dir/windows" ; then
-    printf "  --- Windows VST3 %s ({{bits}} bit) ---\n" "$version"
-    printf "\n"
+    printf "  --- Windows VST3 %s ({{bits}} bit) ---\n\n" "$version"
 
     archive_create
 

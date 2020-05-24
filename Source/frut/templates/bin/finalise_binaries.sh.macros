@@ -105,6 +105,16 @@ finalise_binary  "vst2/{{ name.short }}_{{ variant.short }}_vst2{{platform}}.so"
 
 
 
+{% macro vst3_linux(name, variant, platform) %}
+{% if platform == '_x64' %}
+finalise_binary  "vst3/{{ name.short }}.vst3/Contents/x86_64-linux/{{ name.short }}_{{ variant.short }}_vst3_x64.so"
+{% else %}
+finalise_binary  "vst3/{{ name.short }}.vst3/Contents/i386-linux/{{ name.short }}_{{ variant.short }}_vst3.so"
+{% endif %}
+{% endmacro %}
+
+
+
 {% macro standalone_windows(name, variant, platform) %}
 finalise_binary  "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).exe"
 finalise_symbols "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"

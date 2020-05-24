@@ -124,7 +124,16 @@ case $1 in
         MAKEFILE="{{ name.short }}_vst2_{{ item.short }}"
         MAKEFILE_PRINT="VST2 plug-in ({{ item.real }})"
         ;;
+{% endfor -%}
+
+{# VST3 Linux support
+{% for item in standalone %}
+    {{ loop.index + (standalone | length) + (vst2 | length) }})
+        MAKEFILE="{{ name.short }}_vst3_{{ item.short }}"
+        MAKEFILE_PRINT="VST3 plug-in ({{ item.real }})"
+        ;;
 {% endfor %}
+#}
     *)
         print_line "  Target:    ..."
         print_line ""
@@ -140,6 +149,11 @@ case $1 in
         print_line "  {{ loop.index + (standalone | length) }}: VST2 plug-in ({{ item.real }})"
 {% endfor %}
         print_line ""
+{# VST3 Linux support
+{% for item in standalone %}
+        print_line "  {{ loop.index + (standalone | length) +  + (vst2 | length) }}: VST3 ({{ item.real }})"
+{% endfor %}
+#}
 
         exit
 esac

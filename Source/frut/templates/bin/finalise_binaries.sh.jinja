@@ -41,6 +41,12 @@
 {{ render.vst2_linux(settings.name, variant, platform) -}}
 {% endfor %}
 
+{# VST3 Linux support
+{% for variant in settings.variants %}
+{{ render.vst3_linux(settings.name, variant, platform) -}}
+{% endfor %}
+
+#}
 {% endfor -%}
 
 
