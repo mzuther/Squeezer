@@ -54,7 +54,7 @@ call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32%"
-call :CopyVst       "vst2/squeezer.pdf" "%vst2_32%"
+call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_32%"
 call :CopyVstDelete "vst2/squeezer" "%vst2_32%"
 
 echo.
@@ -65,7 +65,7 @@ call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32_categories%"
-call :CopyVst       "vst2/squeezer.pdf" "%vst2_32_categories%"
+call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_32_categories%"
 call :CopyVstDelete "vst2/squeezer" "%vst2_32_categories%"
 
 
@@ -84,7 +84,7 @@ call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64%"
-call :CopyVst       "vst2/squeezer.pdf" "%vst2_64%"
+call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_64%"
 call :CopyVstDelete "vst2/squeezer" "%vst2_64%"
 
 echo.
@@ -95,7 +95,7 @@ call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64_categories%"
-call :CopyVst       "vst2/squeezer.pdf" "%vst2_64_categories%"
+call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_64_categories%"
 call :CopyVstDelete "vst2/squeezer" "%vst2_64_categories%"
 
 
