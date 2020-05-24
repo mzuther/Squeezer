@@ -37,7 +37,8 @@ class TruePeakMeter :
     public frut::dsp::RateConverter
 {
 public:
-    TruePeakMeter(const int numberOfChannels,
+    TruePeakMeter(const File resourceDirectory,
+                  const int numberOfChannels,
                   const int originalFftBufferSize,
                   const int upsamplingFactor);
 

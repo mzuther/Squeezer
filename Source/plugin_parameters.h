@@ -38,7 +38,9 @@ public:
 
     String toString();
 
+    static const File getResourceDirectory();
     static const File getSkinDirectory();
+
     String getSkinName();
     void setSkinName(const String &strSkinName);
 

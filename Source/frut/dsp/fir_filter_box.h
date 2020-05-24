@@ -37,7 +37,8 @@ class FIRFilterBox :
     public FftwRunner
 {
 public:
-    FIRFilterBox(const int numberOfChannels,
+    FIRFilterBox(const File resourceDirectory,
+                 const int numberOfChannels,
                  const int fftBufferSize);
 
     virtual ~FIRFilterBox();

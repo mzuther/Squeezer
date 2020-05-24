@@ -36,7 +36,8 @@ namespace dsp
 class FftwRunner
 {
 public:
-    FftwRunner(const int numberOfChannels,
+    FftwRunner(const File resourceDirectory,
+               const int numberOfChannels,
                const int fftBufferSize);
 
     virtual ~FftwRunner();

@@ -645,9 +645,9 @@ XmlElement *SqueezerPluginParameters::handleUpgrades(
 }
 
 
-const File SqueezerPluginParameters::getSkinDirectory()
+const File SqueezerPluginParameters::getResourceDirectory()
 {
-    // On all platforms we want the skins folder to be located with
+    // On all platforms we want the resource folder to be located with
     // the executable.  On Mac, the executable is *not* the same as
     // the application folder because what looks like an application
     // is really a package (i.e. a folder) with the executable being
@@ -656,7 +656,7 @@ const File SqueezerPluginParameters::getSkinDirectory()
     // When deploying on a Mac, right-click on the build target and
     // select "Show Package Contents".  Navigate through
     // Contents/MacOS and you will find the Squeezer executable.  Put
-    // the squeezer folder here.
+    // the "squeezer" folder here.
     //
     // Thanks to Tod Gentille!
 
@@ -671,10 +671,17 @@ const File SqueezerPluginParameters::getSkinDirectory()
 #endif
 
 #if JucePlugin_Build_VST3
-    return applicationDirectory.getChildFile("../Resources/Skins/");
+    return applicationDirectory.getChildFile("../Resources/");
 #else
-    return applicationDirectory.getChildFile("./squeezer/Skins/");
+    return applicationDirectory.getChildFile("./squeezer/");
 #endif
+}
+
+
+const File SqueezerPluginParameters::getSkinDirectory()
+{
+    File resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
+    return resourceDirectory.getChildFile("./Skins/");
 }
 
 

@@ -31,11 +31,13 @@ namespace dsp
 {
 
 TruePeakMeter::TruePeakMeter(
+    const File resourceDirectory,
     const int numberOfChannels,
     const int originalFftBufferSize,
     const int upsamplingFactor) :
 
-    frut::dsp::RateConverter(numberOfChannels,
+    frut::dsp::RateConverter(resourceDirectory,
+                             numberOfChannels,
                              originalFftBufferSize,
                              upsamplingFactor)
 {

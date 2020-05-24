@@ -31,13 +31,14 @@ namespace dsp
 {
 
 RateConverter::RateConverter(
+    const File resourceDirectory,
     const int numberOfChannels,
     const int originalFftBufferSize,
     const int upsamplingFactor) :
 
     // FIXME: improve efficiency of rate conversion
     frut::dsp::FIRFilterBox(
-        numberOfChannels, upsamplingFactor * originalFftBufferSize),
+        resourceDirectory, numberOfChannels, upsamplingFactor * originalFftBufferSize),
     upsamplingFactor_(upsamplingFactor),
     originalFftBufferSize_(originalFftBufferSize),
     sampleBufferOriginal_(numberOfChannels_, originalFftBufferSize_)

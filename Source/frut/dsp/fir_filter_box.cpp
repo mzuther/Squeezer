@@ -31,10 +31,11 @@ namespace dsp
 {
 
 FIRFilterBox::FIRFilterBox(
+    const File resourceDirectory,
     const int numberOfChannels,
     const int fftBufferSize) :
 
-    frut::dsp::FftwRunner(numberOfChannels, fftBufferSize)
+    frut::dsp::FftwRunner(resourceDirectory, numberOfChannels, fftBufferSize)
 {
 }
 

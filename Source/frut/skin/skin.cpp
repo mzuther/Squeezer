@@ -423,11 +423,6 @@ void Skin::setBackgroundImage(
     backgroundWidth_ = imageBackground.getWidth();
     backgroundHeight_ = imageBackground.getHeight();
 
-    XmlElement *xmlMeterGraduation = nullptr;
-
-    // get rid of the "unused variable" warning
-    (void) xmlMeterGraduation;
-
     if (skinGroup_ != nullptr)
     {
         forEachXmlChildElementWithTagName(*skinGroup_,

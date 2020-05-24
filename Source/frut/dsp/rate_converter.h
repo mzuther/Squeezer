@@ -38,6 +38,7 @@ class RateConverter :
 {
 public:
     RateConverter(
+        const File resourceDirectory,
         const int numberOfChannels,
         const int originalFftBufferSize,
         const int upsamplingFactor);
