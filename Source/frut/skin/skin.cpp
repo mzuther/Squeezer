@@ -339,11 +339,51 @@ const Colour Skin::getColour(
 }
 
 
+std::unique_ptr<Drawable> Skin::createBogusDrawable(
+    const String &warningText,
+    int width,
+    int height)
+{
+    auto drawable = new DrawableComposite();
+    auto boundingBox = Rectangle<float>(
+                           0,
+                           0,
+                           width,
+                           height);
+
+    auto rectangle = new DrawablePath();
+    rectangle->setFill(Colours::red);
+    drawable->addAndMakeVisible(rectangle);
+
+    Path path;
+    path.addRectangle(boundingBox);
+    rectangle->setPath(path);
+
+    auto text = new DrawableText();
+    drawable->addAndMakeVisible(text);
+
+    text->setText(warningText);
+    text->setColour(Colours::white);
+    text->setFontHeight(20);
+    text->setJustification(Justification::Flags::topLeft);
+
+    auto shrinkFactor = 10;
+    text->setBoundingBox(boundingBox.reduced(shrinkFactor).withPosition(shrinkFactor, shrinkFactor));
+
+    return std::unique_ptr<Drawable>(drawable);
+}
+
+
 Image Skin::createBogusImage(
     const String &warningText,
     int width,
     int height)
 {
+    auto bogusDrawable = createBogusDrawable(
+                             warningText,
+                             width,
+                             height);
+
     Image bogusImage(
         Image::PixelFormat::ARGB,
         width,
@@ -351,60 +391,9 @@ Image Skin::createBogusImage(
         true);
 
     Graphics g(bogusImage);
-    g.fillAll(Colours::red);
-
-    g.setColour(Colours::white);
-    g.drawFittedText(
-        warningText,
-        10,
-        10,
-        bogusImage.getWidth() - 10,
-        bogusImage.getHeight() - 10,
-        Justification::Flags::topLeft,
-        1);
+    bogusDrawable->draw(g, 1.0f);
 
     return bogusImage;
-}
-
-
-void Skin::loadImage(
-    const String &strFilename,
-    Image &image)
-{
-    File fileImage = resourcePath_.getChildFile(strFilename);
-
-    if (fileImage.existsAsFile())
-    {
-        if (strFilename.endsWith(".svg"))
-        {
-            std::unique_ptr<Drawable> svg = Drawable::createFromSVGFile(fileImage);
-
-            DBG(strFilename + ": loading as SVG");
-            DBG(svg->getWidth());
-            DBG(svg->getHeight());
-
-            image = Image(Image::PixelFormat::ARGB,
-                          svg->getWidth(),
-                          svg->getHeight(),
-                          true);
-
-            Graphics g(image);
-            svg->draw(g, 1.0f);
-        }
-        else
-        {
-            image = ImageFileFormat::loadFrom(fileImage);
-        }
-    }
-    else
-    {
-        Logger::outputDebugString(
-            String("[Skin] image file \"") +
-            fileImage.getFullPathName() +
-            "\" not found");
-
-        image = createBogusImage("Image file not found", 200, 200);
-    }
 }
 
 
@@ -457,6 +446,122 @@ std::unique_ptr<Drawable> Skin::loadSvg(
     }
 
     return svg;
+}
+
+
+void Skin::loadImage(
+    const String &strFilename,
+    Image &image)
+{
+    File fileImage = resourcePath_.getChildFile(strFilename);
+
+    if (fileImage.existsAsFile())
+    {
+        if (strFilename.endsWith(".svg"))
+        {
+            std::unique_ptr<Drawable> svg = Drawable::createFromSVGFile(fileImage);
+
+            DBG(strFilename + ": loading as SVG");
+            DBG(svg->getWidth());
+            DBG(svg->getHeight());
+
+            image = Image(Image::PixelFormat::ARGB,
+                          svg->getWidth(),
+                          svg->getHeight(),
+                          true);
+
+            Graphics g(image);
+            svg->draw(g, 1.0f);
+        }
+        else
+        {
+            image = ImageFileFormat::loadFrom(fileImage);
+        }
+    }
+    else
+    {
+        Logger::outputDebugString(
+            String("[Skin] image file \"") +
+            fileImage.getFullPathName() +
+            "\" not found");
+
+        image = createBogusImage("Image file not found", 200, 200);
+    }
+}
+
+
+void Skin::setBackground(
+    std::unique_ptr<Drawable> &background,
+    AudioProcessorEditor *editor)
+{
+    if (skinGroup_ != nullptr)
+    {
+        XmlElement *xmlBackground = skinGroup_->getChildByName("background");
+
+        if (xmlBackground != nullptr)
+        {
+            String strSvgFilename = getString(xmlBackground,
+                                              currentBackgroundName_);
+
+            editor->removeChildComponent(background.get());
+            background = loadSvg(strSvgFilename);
+
+            if (!background)
+            {
+                background = createBogusDrawable("No background specified", 200, 200);
+            }
+        }
+        else
+        {
+            Logger::outputDebugString(
+                String("[Skin] XML element \"") +
+                currentGroupName_ +
+                "\" specifies no background Svg");
+
+            return;
+        }
+    }
+
+    // FIXME
+
+    // if (skinGroup_ != nullptr)
+    // {
+    //     forEachXmlChildElementWithTagName(*skinGroup_,
+    //                                       xmlMeterGraduation,
+    //                                       "meter_graduation")
+    //     {
+    //         Image SvgMeterGraduation;
+    //         String strSvgFilename = getString(xmlMeterGraduation,
+    //                                             currentBackgroundName_);
+
+    //         loadSvg(strSvgFilename, SvgMeterGraduation);
+
+    //         if (SvgMeterGraduation.isValid())
+    //         {
+    //             int height = SvgMeterGraduation.getHeight();
+    //             Point<int> position = getPosition(xmlMeterGraduation, height);
+
+    //             Graphics g(background);
+    //             g.drawSvgAt(SvgMeterGraduation,
+    //                           position.getX(), position.getY(),
+    //                           false);
+    //         }
+    //     }
+    // }
+
+    backgroundWidth_ = background->getWidth();
+    backgroundHeight_ = background->getHeight();
+
+    background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
+
+    // prevent unnecessary redrawing of plugin editor
+    background->setOpaque(true);
+
+    // moves background image to the back of the editor's z-plane so
+    // that it doesn't overlay (and thus block) any other components
+    editor->addAndMakeVisible(background.get(), 0);
+
+    editor->setSize(backgroundWidth_, backgroundHeight_);
 }
 
 
@@ -525,83 +630,6 @@ void Skin::setBackgroundImage(
     // moves background image to the back of the editor's z-plane so
     // that it doesn't overlay (and thus block) any other components
     background->toBack();
-
-    editor->setSize(backgroundWidth_, backgroundHeight_);
-}
-
-
-void Skin::setBackgroundSvg(
-    std::unique_ptr<Drawable> &background,
-    AudioProcessorEditor *editor)
-{
-    if (skinGroup_ != nullptr)
-    {
-        XmlElement *xmlBackground = skinGroup_->getChildByName("background");
-
-        if (xmlBackground != nullptr)
-        {
-            String strSvgFilename = getString(xmlBackground,
-                                              currentBackgroundName_);
-
-            editor->removeChildComponent(background.get());
-            background = loadSvg(strSvgFilename);
-        }
-        else
-        {
-            Logger::outputDebugString(
-                String("[Skin] XML element \"") +
-                currentGroupName_ +
-                "\" specifies no background Svg");
-
-            return;
-        }
-    }
-
-    // FIXME
-
-    // if (!background.isValid())
-    // {
-    //     background = createBogusSvg("No background specified", 200, 200);
-    // }
-
-    backgroundWidth_ = background->getWidth();
-    backgroundHeight_ = background->getHeight();
-
-    // FIXME
-
-    // if (skinGroup_ != nullptr)
-    // {
-    //     forEachXmlChildElementWithTagName(*skinGroup_,
-    //                                       xmlMeterGraduation,
-    //                                       "meter_graduation")
-    //     {
-    //         Image SvgMeterGraduation;
-    //         String strSvgFilename = getString(xmlMeterGraduation,
-    //                                             currentBackgroundName_);
-
-    //         loadSvg(strSvgFilename, SvgMeterGraduation);
-
-    //         if (SvgMeterGraduation.isValid())
-    //         {
-    //             int height = SvgMeterGraduation.getHeight();
-    //             Point<int> position = getPosition(xmlMeterGraduation, height);
-
-    //             Graphics g(background);
-    //             g.drawSvgAt(SvgMeterGraduation,
-    //                           position.getX(), position.getY(),
-    //                           false);
-    //         }
-    //     }
-    // }
-
-    background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
-
-    // prevent unnecessary redrawing of plugin editor
-    background->setOpaque(true);
-
-    // moves background image to the back of the editor's z-plane so
-    // that it doesn't overlay (and thus block) any other components
-    editor->addAndMakeVisible(background.get(), 0);
 
     editor->setSize(backgroundWidth_, backgroundHeight_);
 }

@@ -68,16 +68,17 @@ public:
                            const Colour defaultColour = Colours::red,
                            const String valuePrefix = "");
 
-    void loadImage(const String &strFilename,
-                   Image &image);
     std::unique_ptr<Drawable> loadImage(const String &strFilename);
     std::unique_ptr<Drawable> loadSvg(const String &strFilename);
 
+    void loadImage(const String &strFilename,
+                   Image &image);
+
+    void setBackground(std::unique_ptr<Drawable> &background,
+                       AudioProcessorEditor *editor);
+
     void setBackgroundImage(ImageComponent *background,
                             AudioProcessorEditor *editor);
-
-    void setBackgroundSvg(std::unique_ptr<Drawable> &background,
-                          AudioProcessorEditor *editor);
 
     Point<int> getPosition(const XmlElement *xmlComponent,
                            const int componentHeight = 0);
@@ -115,6 +116,10 @@ public:
 
 protected:
     std::unique_ptr<XmlElement> document_;
+
+    std::unique_ptr<Drawable> createBogusDrawable(const String &warningText,
+            int width,
+            int height);
 
     Image createBogusImage(const String &warningText,
                            int width,
