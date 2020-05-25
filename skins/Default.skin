@@ -136,9 +136,9 @@
         <button_curve_linear
             x="347"
             y="118"
-            image_on="buttons/button_curve_linear_on.svg"
-            image_over="buttons/button_curve_linear_on.svg"
-            image_off="buttons/button_curve_linear_on.svg"
+            image_on="buttons/button_curve_linear_on.png"
+            image_over="buttons/button_curve_linear_over.png"
+            image_off="buttons/button_curve_linear_off.png"
         />
 
         <button_curve_smooth_decoupled
@@ -278,7 +278,7 @@
 
     <mono>
         <background
-            image="backgrounds/background.svg" />
+            image="backgrounds/background.png" />
 
         <meter_input
             x="683"
@@ -304,7 +304,7 @@
 
     <stereo>
         <background
-            image="backgrounds/background.svg" />
+            image="backgrounds/background.png" />
 
         <meter_input_left
             x="683"

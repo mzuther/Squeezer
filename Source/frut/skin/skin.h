@@ -70,9 +70,14 @@ public:
 
     void loadImage(const String &strFilename,
                    Image &image);
+    std::unique_ptr<Drawable> loadImage(const String &strFilename);
+    std::unique_ptr<Drawable> loadSvg(const String &strFilename);
 
     void setBackgroundImage(ImageComponent *background,
                             AudioProcessorEditor *editor);
+
+    void setBackgroundSvg(std::unique_ptr<Drawable> &background,
+                          AudioProcessorEditor *editor);
 
     Point<int> getPosition(const XmlElement *xmlComponent,
                            const int componentHeight = 0);
@@ -88,7 +93,7 @@ public:
                        widgets::MeterBar *meterBar);
 
     void placeAndSkinButton(const String &tagName,
-                            ImageButton *button);
+                            DrawableButton *button);
 
     void placeAndSkinSlider(const String &tagName,
                             widgets::FrutSlider *slider);

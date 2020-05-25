@@ -377,8 +377,9 @@ void Skin::loadImage(
     {
         if (strFilename.endsWith(".svg"))
         {
-            DBG(strFilename + ": loading as SVG");
             std::unique_ptr<Drawable> svg = Drawable::createFromSVGFile(fileImage);
+
+            DBG(strFilename + ": loading as SVG");
             DBG(svg->getWidth());
             DBG(svg->getHeight());
 
@@ -404,6 +405,58 @@ void Skin::loadImage(
 
         image = createBogusImage("Image file not found", 200, 200);
     }
+}
+
+
+std::unique_ptr<Drawable> Skin::loadImage(
+    const String &strFilename)
+{
+    File fileImage = resourcePath_.getChildFile(strFilename);
+    std::unique_ptr<Drawable> component = nullptr;
+
+    if (fileImage.existsAsFile())
+    {
+        component = Drawable::createFromImageFile(fileImage);
+
+        if (strFilename.endsWith(".svg"))
+        {
+            DBG(strFilename + ": loading from SVG");
+            DBG(component->getWidth());
+            DBG(component->getHeight());
+        }
+    }
+    else
+    {
+        // Logger::outputDebugString(
+        //     String("[Skin] image file \"") +
+        //     fileImage.getFullPathName() +
+        //     "\" not found");
+
+        // image = createBogusImage("Image file not found", 200, 200);
+    }
+
+    return component;
+}
+
+
+std::unique_ptr<Drawable> Skin::loadSvg(
+    const String &strFilename)
+{
+    jassert(strFilename.endsWith(".svg"));
+
+    File fileSvg = resourcePath_.getChildFile(strFilename);
+    std::unique_ptr<Drawable> svg = nullptr;
+
+    if (fileSvg.existsAsFile())
+    {
+        svg = Drawable::createFromSVGFile(fileSvg);
+
+        DBG(strFilename + ": loading SVG");
+        DBG(svg->getWidth());
+        DBG(svg->getHeight());
+    }
+
+    return svg;
 }
 
 
@@ -472,6 +525,83 @@ void Skin::setBackgroundImage(
     // moves background image to the back of the editor's z-plane so
     // that it doesn't overlay (and thus block) any other components
     background->toBack();
+
+    editor->setSize(backgroundWidth_, backgroundHeight_);
+}
+
+
+void Skin::setBackgroundSvg(
+    std::unique_ptr<Drawable> &background,
+    AudioProcessorEditor *editor)
+{
+    if (skinGroup_ != nullptr)
+    {
+        XmlElement *xmlBackground = skinGroup_->getChildByName("background");
+
+        if (xmlBackground != nullptr)
+        {
+            String strSvgFilename = getString(xmlBackground,
+                                              currentBackgroundName_);
+
+            editor->removeChildComponent(background.get());
+            background = loadSvg(strSvgFilename);
+        }
+        else
+        {
+            Logger::outputDebugString(
+                String("[Skin] XML element \"") +
+                currentGroupName_ +
+                "\" specifies no background Svg");
+
+            return;
+        }
+    }
+
+    // FIXME
+
+    // if (!background.isValid())
+    // {
+    //     background = createBogusSvg("No background specified", 200, 200);
+    // }
+
+    backgroundWidth_ = background->getWidth();
+    backgroundHeight_ = background->getHeight();
+
+    // FIXME
+
+    // if (skinGroup_ != nullptr)
+    // {
+    //     forEachXmlChildElementWithTagName(*skinGroup_,
+    //                                       xmlMeterGraduation,
+    //                                       "meter_graduation")
+    //     {
+    //         Image SvgMeterGraduation;
+    //         String strSvgFilename = getString(xmlMeterGraduation,
+    //                                             currentBackgroundName_);
+
+    //         loadSvg(strSvgFilename, SvgMeterGraduation);
+
+    //         if (SvgMeterGraduation.isValid())
+    //         {
+    //             int height = SvgMeterGraduation.getHeight();
+    //             Point<int> position = getPosition(xmlMeterGraduation, height);
+
+    //             Graphics g(background);
+    //             g.drawSvgAt(SvgMeterGraduation,
+    //                           position.getX(), position.getY(),
+    //                           false);
+    //         }
+    //     }
+    // }
+
+    background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
+
+    // prevent unnecessary redrawing of plugin editor
+    background->setOpaque(true);
+
+    // moves background image to the back of the editor's z-plane so
+    // that it doesn't overlay (and thus block) any other components
+    editor->addAndMakeVisible(background.get(), 0);
 
     editor->setSize(backgroundWidth_, backgroundHeight_);
 }
@@ -594,7 +724,7 @@ void Skin::placeMeterBar(
 
 void Skin::placeAndSkinButton(
     const String &tagName,
-    ImageButton *button)
+    DrawableButton *button)
 {
     jassert(button != nullptr);
 
@@ -610,37 +740,35 @@ void Skin::placeAndSkinButton(
         Image imageOn;
         String strImageFilenameOn = getString(xmlComponent, "image_on");
 
-        loadImage(strImageFilenameOn, imageOn);
+        std::unique_ptr<Drawable> componentOn = loadImage(strImageFilenameOn);
 
         Image imageOff;
         String strImageFilenameOff = getString(xmlComponent, "image_off");
 
-        loadImage(strImageFilenameOff, imageOff);
+        std::unique_ptr<Drawable> componentOff = loadImage(strImageFilenameOff);
 
-        Image imageOver;
         String strImageFilenameOver = getString(xmlComponent, "image_over");
 
-        // use "image_on" if "image_over" does not exist
-        if (!strImageFilenameOver.isEmpty())
-        {
-            loadImage(strImageFilenameOver, imageOver);
-        }
-        else
-        {
-            imageOver = imageOn.createCopy();
-            imageOver.multiplyAllAlphas(0.5f);
-        }
+        // a missing "image_over" is handled gracefully by "setImages"
+        std::unique_ptr<Drawable> componentOver = loadImage(strImageFilenameOver);
 
-        button->setImages(true, true, true,
-                          imageOff, 1.0f, Colour(),
-                          imageOver, 1.0f, Colour(),
-                          imageOn, 1.0f, Colour(),
-                          0.3f);
+        button->setImages(componentOff.get(),
+                          componentOver.get(),
+                          componentOn.get(),
+                          nullptr,
+                          componentOn.get(),
+                          componentOn.get(),
+                          componentOff.get(),
+                          nullptr);
 
-        int height = imageOn.getHeight();
+        button->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
+
+        int width = componentOn->getWidth();
+        int height = componentOn->getHeight();
 
         Point<int> position = getPosition(xmlComponent, height);
         button->setTopLeftPosition(position);
+        button->setSize(width, height);
     }
 }
 

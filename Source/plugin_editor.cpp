@@ -64,7 +64,30 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     SqueezerPluginParameters &PluginParameters,
     int NumberOfChannels)
     : AudioProcessorEditor(&processor),
-      PluginProcessor_(processor)
+      PluginProcessor_(processor),
+
+      ButtonRmsWindow_("Rms Window", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonDesignFeedback_("Design Feedback", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonGainStageOptical_("Gain Stage Optical", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonKneeHard_("Knee Hard", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonKneeMedium_("Knee Medium", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonKneeSoft_("Knee Soft", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonCurveLinear_("Curve Linear", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonCurveSmoothDecoupled_("Curve Smooth Decoupled", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonCurveSmoothBranching_("Curve Smooth Branching", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonAutoMakeupGain_("Auto Makeup Gain", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonSidechainExternal_("Sidechain External", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonSidechainListen_("Sidechain Listen", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonBypass_("Bypass", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonReset_("Reset", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonSkin_("Skin", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonSettings_("Settings", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonAbout_("About", DrawableButton::ButtonStyle::ImageRaw)
 {
     // load look and feel
     setLookAndFeel(&customLookAndFeel_);
