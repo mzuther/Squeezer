@@ -345,7 +345,7 @@ Image Skin::createBogusImage(
     int height)
 {
     Image bogusImage(
-        Image::PixelFormat::RGB,
+        Image::PixelFormat::ARGB,
         width,
         height,
         true);
@@ -375,7 +375,25 @@ void Skin::loadImage(
 
     if (fileImage.existsAsFile())
     {
-        image = ImageFileFormat::loadFrom(fileImage);
+        if (strFilename.endsWith(".svg"))
+        {
+            DBG(strFilename + ": loading as SVG");
+            std::unique_ptr<Drawable> svg = Drawable::createFromSVGFile(fileImage);
+            DBG(svg->getWidth());
+            DBG(svg->getHeight());
+
+            image = Image(Image::PixelFormat::ARGB,
+                          svg->getWidth(),
+                          svg->getHeight(),
+                          true);
+
+            Graphics g(image);
+            svg->draw(g, 1.0f);
+        }
+        else
+        {
+            image = ImageFileFormat::loadFrom(fileImage);
+        }
     }
     else
     {
