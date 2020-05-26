@@ -348,8 +348,8 @@ std::unique_ptr<Drawable> Skin::createBogusImage(
     auto boundingBox = Rectangle<float>(
                            0,
                            0,
-                           width,
-                           height);
+                           static_cast<float>(width),
+                           static_cast<float>(height));
 
     auto rectangle = new DrawablePath();
     rectangle->setFill(Colours::red);
@@ -367,7 +367,7 @@ std::unique_ptr<Drawable> Skin::createBogusImage(
     text->setFontHeight(20);
     text->setJustification(Justification::Flags::topLeft);
 
-    auto shrinkFactor = 10;
+    float shrinkFactor = 10.0f;
     text->setBoundingBox(boundingBox.reduced(shrinkFactor).withPosition(shrinkFactor, shrinkFactor));
 
     return std::unique_ptr<Drawable>(drawable);
