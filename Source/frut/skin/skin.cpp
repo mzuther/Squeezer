@@ -470,32 +470,22 @@ void Skin::setBackground(
         background = createBogusImage(message, 200, 200);
     }
 
-    // FIXME
+    if (skinGroup_ != nullptr)
+    {
+        forEachXmlChildElementWithTagName(*skinGroup_,
+                                          xmlMeterGraduation,
+                                          "meter_graduation")
+        {
+            String imageFilename = getString(xmlMeterGraduation,
+                                             currentBackgroundName_);
 
-    // if (skinGroup_ != nullptr)
-    // {
-    //     forEachXmlChildElementWithTagName(*skinGroup_,
-    //                                       xmlMeterGraduation,
-    //                                       "meter_graduation")
-    //     {
-    //         Image SvgMeterGraduation;
-    //         String imageFilename = getString(xmlMeterGraduation,
-    //                                          currentBackgroundName_);
+            auto drawableGraduation = loadImage(imageFilename);
+            Point<int> position = getPosition(xmlMeterGraduation, drawableGraduation->getHeight());
 
-    //         loadImage(imageFilename, SvgMeterGraduation);
-
-    //         if (SvgMeterGraduation.isValid())
-    //         {
-    //             int height = SvgMeterGraduation.getHeight();
-    //             Point<int> position = getPosition(xmlMeterGraduation, height);
-
-    //             Graphics g(background);
-    //             g.drawSvgAt(SvgMeterGraduation,
-    //                           position.getX(), position.getY(),
-    //                           false);
-    //         }
-    //     }
-    // }
+            background->addAndMakeVisible(drawableGraduation.get());
+            drawableGraduation->setTopLeftPosition(position.getX(), position.getY());
+        }
+    }
 
     backgroundWidth_ = background->getWidth();
     backgroundHeight_ = background->getHeight();
