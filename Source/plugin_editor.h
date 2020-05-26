@@ -119,8 +119,7 @@ private:
     DrawableButton ButtonSettings_;
     DrawableButton ButtonAbout_;
 
-    ImageComponent LabelDebug_;
-
+    std::unique_ptr<Drawable> LabelDebug_;
     std::unique_ptr<Drawable> DrawableBackground_;
 };
 

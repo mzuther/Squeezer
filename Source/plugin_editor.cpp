@@ -266,7 +266,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
 #ifdef DEBUG
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(LabelDebug_, 0);
+    addAndMakeVisible(LabelDebug_.get(), 0);
 #endif
 
     // moves background image to the back of the editor's z-plane so
@@ -424,7 +424,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
 #ifdef DEBUG
     CurrentSkin_.placeAndSkinLabel("label_debug",
-                                   &LabelDebug_);
+                                   LabelDebug_,
+                                   this);
 #endif
 
     // allow meter updates from now on

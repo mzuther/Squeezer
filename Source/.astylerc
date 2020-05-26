@@ -37,5 +37,5 @@
 # force Linux-style line endings (LF)
 --lineend=linux
 
-# append given suffix to the original file name
---suffix=.astyle~
+# do not retain a backup of the original file
+--suffix=none
