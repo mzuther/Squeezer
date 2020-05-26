@@ -58,6 +58,7 @@ public:
     void windowSettingsCallback(int ModalResult);
     void windowSkinCallback(int ModalResult);
 
+    virtual void paint(Graphics &g) override;
     void resized() override;
 
 private:
@@ -95,32 +96,31 @@ private:
     std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;
     std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainLPFCutoff_;
 
-    ImageButton ButtonRmsWindow_;
-    ImageButton ButtonDesignFeedback_;
-    ImageButton ButtonGainStageOptical_;
+    DrawableButton ButtonRmsWindow_;
+    DrawableButton ButtonDesignFeedback_;
+    DrawableButton ButtonGainStageOptical_;
 
-    ImageButton ButtonKneeHard_;
-    ImageButton ButtonKneeMedium_;
-    ImageButton ButtonKneeSoft_;
+    DrawableButton ButtonKneeHard_;
+    DrawableButton ButtonKneeMedium_;
+    DrawableButton ButtonKneeSoft_;
 
-    ImageButton ButtonCurveLinear_;
-    ImageButton ButtonCurveSmoothDecoupled_;
-    ImageButton ButtonCurveSmoothBranching_;
+    DrawableButton ButtonCurveLinear_;
+    DrawableButton ButtonCurveSmoothDecoupled_;
+    DrawableButton ButtonCurveSmoothBranching_;
 
-    ImageButton ButtonAutoMakeupGain_;
-    ImageButton ButtonSidechainExternal_;
-    ImageButton ButtonSidechainListen_;
+    DrawableButton ButtonAutoMakeupGain_;
+    DrawableButton ButtonSidechainExternal_;
+    DrawableButton ButtonSidechainListen_;
 
-    ImageButton ButtonBypass_;
-    ImageButton ButtonReset_;
+    DrawableButton ButtonBypass_;
+    DrawableButton ButtonReset_;
 
-    ImageButton ButtonSkin_;
-    ImageButton ButtonSettings_;
-    ImageButton ButtonAbout_;
+    DrawableButton ButtonSkin_;
+    DrawableButton ButtonSettings_;
+    DrawableButton ButtonAbout_;
 
-    ImageComponent LabelDebug_;
-
-    ImageComponent BackgroundImage_;
+    std::unique_ptr<Drawable> LabelDebug_;
+    std::unique_ptr<Drawable> DrawableBackground_;
 };
 
 #endif  // SQUEEZER_PLUGIN_EDITOR_H

@@ -64,7 +64,30 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     SqueezerPluginParameters &PluginParameters,
     int NumberOfChannels)
     : AudioProcessorEditor(&processor),
-      PluginProcessor_(processor)
+      PluginProcessor_(processor),
+
+      ButtonRmsWindow_("Rms Window", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonDesignFeedback_("Design Feedback", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonGainStageOptical_("Gain Stage Optical", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonKneeHard_("Knee Hard", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonKneeMedium_("Knee Medium", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonKneeSoft_("Knee Soft", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonCurveLinear_("Curve Linear", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonCurveSmoothDecoupled_("Curve Smooth Decoupled", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonCurveSmoothBranching_("Curve Smooth Branching", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonAutoMakeupGain_("Auto Makeup Gain", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonSidechainExternal_("Sidechain External", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonSidechainListen_("Sidechain Listen", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonBypass_("Bypass", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonReset_("Reset", DrawableButton::ButtonStyle::ImageRaw),
+
+      ButtonSkin_("Skin", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonSettings_("Settings", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonAbout_("About", DrawableButton::ButtonStyle::ImageRaw)
 {
     // load look and feel
     setLookAndFeel(&customLookAndFeel_);
@@ -240,18 +263,6 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     ButtonAbout_.addListener(this);
     addAndMakeVisible(&ButtonAbout_);
 
-#ifdef DEBUG
-    // moves debug label to the back of the editor's z-plane to that
-    // it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(LabelDebug_, 0);
-#endif
-
-    // prevent unnecessary redrawing of plugin editor
-    BackgroundImage_.setOpaque(true);
-    // moves background image to the back of the editor's z-plane to
-    // that it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(BackgroundImage_, 0);
-
     updateParameter(SqueezerPluginParameters::selBypass);
 
     updateParameter(SqueezerPluginParameters::selThresholdSwitch);
@@ -336,7 +347,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
-    CurrentSkin_.setBackgroundImage(&BackgroundImage_, this);
+    CurrentSkin_.setBackground(DrawableBackground_, this);
 
     CurrentSkin_.placeAndSkinSlider("slider_threshold",
                                     SliderThreshold_.get());
@@ -403,7 +414,8 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
 #ifdef DEBUG
     CurrentSkin_.placeAndSkinLabel("label_debug",
-                                   &LabelDebug_);
+                                   LabelDebug_,
+                                   this);
 #endif
 
     // allow meter updates from now on
@@ -1208,6 +1220,12 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
     {
         DBG("[Squeezer] editor::sliderValueChanged ==> invalid slider");
     }
+}
+
+
+void SqueezerAudioProcessorEditor::paint(Graphics &g)
+{
+    g.fillAll(Colours::green);
 }
 
 
