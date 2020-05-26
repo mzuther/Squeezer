@@ -269,11 +269,9 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     addAndMakeVisible(LabelDebug_, 0);
 #endif
 
-    // prevent unnecessary redrawing of plugin editor
-    BackgroundImage_.setOpaque(true);
-    // moves background image to the back of the editor's z-plane to
+    // moves background image to the back of the editor's z-plane so
     // that it doesn't overlay (and thus block) any other components
-    addAndMakeVisible(BackgroundImage_, 0);
+    addAndMakeVisible(DrawableBackground_.get(), 0);
 
     updateParameter(SqueezerPluginParameters::selBypass);
 
@@ -359,7 +357,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
-    CurrentSkin_.setBackgroundImage(&BackgroundImage_, this);
+    CurrentSkin_.setBackground(DrawableBackground_, this);
 
     CurrentSkin_.placeAndSkinSlider("slider_threshold",
                                     SliderThreshold_.get());
@@ -1231,6 +1229,12 @@ void SqueezerAudioProcessorEditor::sliderValueChanged(
     {
         DBG("[Squeezer] editor::sliderValueChanged ==> invalid slider");
     }
+}
+
+
+void SqueezerAudioProcessorEditor::paint(Graphics &g)
+{
+    g.fillAll(Colours::green);
 }
 
 

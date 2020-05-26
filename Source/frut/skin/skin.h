@@ -77,9 +77,6 @@ public:
     void setBackground(std::unique_ptr<Drawable> &background,
                        AudioProcessorEditor *editor);
 
-    void setBackgroundImage(ImageComponent *background,
-                            AudioProcessorEditor *editor);
-
     Point<int> getPosition(const XmlElement *xmlComponent,
                            const int componentHeight = 0);
 

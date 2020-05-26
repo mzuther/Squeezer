@@ -58,6 +58,7 @@ public:
     void windowSettingsCallback(int ModalResult);
     void windowSkinCallback(int ModalResult);
 
+    virtual void paint(Graphics &g) override;
     void resized() override;
 
 private:
@@ -120,7 +121,7 @@ private:
 
     ImageComponent LabelDebug_;
 
-    ImageComponent BackgroundImage_;
+    std::unique_ptr<Drawable> DrawableBackground_;
 };
 
 #endif  // SQUEEZER_PLUGIN_EDITOR_H

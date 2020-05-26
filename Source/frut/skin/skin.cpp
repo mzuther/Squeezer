@@ -500,26 +500,34 @@ void Skin::setBackground(
 
         if (xmlBackground != nullptr)
         {
-            String strSvgFilename = getString(xmlBackground,
-                                              currentBackgroundName_);
-
-            editor->removeChildComponent(background.get());
-            background = loadSvg(strSvgFilename);
+            String imageFilename = getString(xmlBackground,
+                                             currentBackgroundName_);
+            background = loadSvg(imageFilename);
 
             if (!background)
             {
-                background = createBogusDrawable("No background specified", 200, 200);
+                auto message = "No background specified";
+
+                Logger::outputDebugString(String("[Skin] ") + message);
+                background = createBogusDrawable(message, 200, 200);
             }
         }
         else
         {
-            Logger::outputDebugString(
-                String("[Skin] XML element \"") +
-                currentGroupName_ +
-                "\" specifies no background Svg");
+            auto message = String("XML element \"") +
+                           currentGroupName_ +
+                           String("\" specifies no background image");
 
-            return;
+            Logger::outputDebugString(String("[Skin] ") + message);
+            background = createBogusDrawable(message, 200, 200);
         }
+    }
+    else
+    {
+        auto message = "No skin groups found";
+
+        Logger::outputDebugString(String("[Skin] ") + message);
+        background = createBogusDrawable(message, 200, 200);
     }
 
     // FIXME
@@ -531,10 +539,10 @@ void Skin::setBackground(
     //                                       "meter_graduation")
     //     {
     //         Image SvgMeterGraduation;
-    //         String strSvgFilename = getString(xmlMeterGraduation,
-    //                                             currentBackgroundName_);
+    //         String imageFilename = getString(xmlMeterGraduation,
+    //                                          currentBackgroundName_);
 
-    //         loadSvg(strSvgFilename, SvgMeterGraduation);
+    //         loadSvg(imageFilename, SvgMeterGraduation);
 
     //         if (SvgMeterGraduation.isValid())
     //         {
@@ -554,82 +562,9 @@ void Skin::setBackground(
 
     background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
 
-    // prevent unnecessary redrawing of plugin editor
-    background->setOpaque(true);
-
     // moves background image to the back of the editor's z-plane so
     // that it doesn't overlay (and thus block) any other components
     editor->addAndMakeVisible(background.get(), 0);
-
-    editor->setSize(backgroundWidth_, backgroundHeight_);
-}
-
-
-void Skin::setBackgroundImage(
-    ImageComponent *background,
-    AudioProcessorEditor *editor)
-{
-    Image imageBackground;
-
-    if (skinGroup_ != nullptr)
-    {
-        XmlElement *xmlBackground = skinGroup_->getChildByName("background");
-
-        if (xmlBackground != nullptr)
-        {
-            String strImageFilename = getString(xmlBackground,
-                                                currentBackgroundName_);
-
-            loadImage(strImageFilename, imageBackground);
-        }
-        else
-        {
-            Logger::outputDebugString(
-                String("[Skin] XML element \"") +
-                currentGroupName_ +
-                "\" specifies no background image");
-        }
-    }
-
-    if (!imageBackground.isValid())
-    {
-        imageBackground = createBogusImage("No background specified", 200, 200);
-    }
-
-    backgroundWidth_ = imageBackground.getWidth();
-    backgroundHeight_ = imageBackground.getHeight();
-
-    if (skinGroup_ != nullptr)
-    {
-        forEachXmlChildElementWithTagName(*skinGroup_,
-                                          xmlMeterGraduation,
-                                          "meter_graduation")
-        {
-            Image imageMeterGraduation;
-            String strImageFilename = getString(xmlMeterGraduation,
-                                                currentBackgroundName_);
-
-            loadImage(strImageFilename, imageMeterGraduation);
-
-            if (imageMeterGraduation.isValid())
-            {
-                int height = imageMeterGraduation.getHeight();
-                Point<int> position = getPosition(xmlMeterGraduation, height);
-
-                Graphics g(imageBackground);
-                g.drawImageAt(imageMeterGraduation,
-                              position.getX(), position.getY(),
-                              false);
-            }
-        }
-    }
-
-    background->setImage(imageBackground);
-    background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
-
-    // moves background image to the back of the editor's z-plane so
-    // that it doesn't overlay (and thus block) any other components
-    background->toBack();
 
     editor->setSize(backgroundWidth_, backgroundHeight_);
 }
