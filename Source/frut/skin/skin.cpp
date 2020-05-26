@@ -500,6 +500,10 @@ void Skin::setBackground(
         }
     }
 
+    // moves background image to the back of the editor's z-plane so
+    // that it doesn't overlay (and thus block) any other components
+    background->toBack();
+
     editor->setSize(backgroundWidth_, backgroundHeight_);
 }
 
