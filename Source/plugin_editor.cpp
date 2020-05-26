@@ -66,7 +66,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     : AudioProcessorEditor(&processor),
       PluginProcessor_(processor),
 
-      ButtonRmsWindow_("Rms Window", DrawableButton::ButtonStyle::ImageRaw),
+      ButtonRmsWindow_("RMS Window", DrawableButton::ButtonStyle::ImageRaw),
       ButtonDesignFeedback_("Design Feedback", DrawableButton::ButtonStyle::ImageRaw),
       ButtonGainStageOptical_("Gain Stage Optical", DrawableButton::ButtonStyle::ImageRaw),
 
@@ -263,6 +263,16 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     ButtonAbout_.addListener(this);
     addAndMakeVisible(&ButtonAbout_);
 
+#ifdef DEBUG
+    // moves debug label to the back of the editor's z-plane to that
+    // it doesn't overlay (and thus block) any other components
+    addAndMakeVisible(LabelDebug_, 0);
+#endif
+
+    // moves background image to the back of the editor's z-plane so
+    // that it doesn't overlay (and thus block) any other components
+    addAndMakeVisible(DrawableBackground_, 0);
+
     updateParameter(SqueezerPluginParameters::selBypass);
 
     updateParameter(SqueezerPluginParameters::selThresholdSwitch);
@@ -347,7 +357,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
-    CurrentSkin_.setBackground(DrawableBackground_, this);
+    CurrentSkin_.setBackground(&DrawableBackground_, this);
 
     CurrentSkin_.placeAndSkinSlider("slider_threshold",
                                     SliderThreshold_.get());
@@ -414,8 +424,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
 #ifdef DEBUG
     CurrentSkin_.placeAndSkinLabel("label_debug",
-                                   LabelDebug_,
-                                   this);
+                                   &LabelDebug_);
 #endif
 
     // allow meter updates from now on

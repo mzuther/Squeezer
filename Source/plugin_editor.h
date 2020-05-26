@@ -119,8 +119,11 @@ private:
     DrawableButton ButtonSettings_;
     DrawableButton ButtonAbout_;
 
-    std::unique_ptr<Drawable> LabelDebug_;
-    std::unique_ptr<Drawable> DrawableBackground_;
+#ifdef DEBUG
+    DrawableComposite LabelDebug_;
+#endif
+
+    DrawableComposite DrawableBackground_;
 };
 
 #endif  // SQUEEZER_PLUGIN_EDITOR_H

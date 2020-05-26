@@ -73,22 +73,26 @@ public:
     void loadImage(const String &strFilename,
                    Image &image);
 
-    void setBackground(std::unique_ptr<Drawable> &background,
+    void setBackground(DrawableComposite *background,
                        AudioProcessorEditor *editor);
 
     Point<float> getPositionFloat(const XmlElement *xmlComponent,
-                                  const float componentHeight = 0.0f);
+                                  const float componentHeight,
+                                  bool useRelativePosition);
 
     Point<int> getPositionInteger(const XmlElement *xmlComponent,
-                                  const int componentHeight = 0);
+                                  const int componentHeight,
+                                  bool useRelativePosition);
 
     Rectangle<float> getBoundsFloat(const XmlElement *xmlComponent,
-                                    float width = -1.0f,
-                                    float height = -1.0f);
+                                    float width,
+                                    float height,
+                                    bool useRelativePosition);
 
     Rectangle<int> getBoundsInteger(const XmlElement *xmlComponent,
-                                    int width = -1,
-                                    int height = -1);
+                                    int width,
+                                    int height,
+                                    bool useRelativePosition);
 
     void placeComponent(const XmlElement *xmlComponent,
                         Component *component);
@@ -109,8 +113,7 @@ public:
                                  widgets::NeedleMeter *meter);
 
     void placeAndSkinLabel(const String &tagName,
-                           std::unique_ptr<Drawable> &label,
-                           AudioProcessorEditor *editor);
+                           DrawableComposite *label);
 
     void placeAndSkinSignalLed(const String &tagName,
                                widgets::SignalLed *label);
