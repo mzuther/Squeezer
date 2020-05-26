@@ -352,7 +352,7 @@ std::unique_ptr<Drawable> Skin::createBogusImage(
                            static_cast<float>(height));
 
     auto rectangle = new DrawablePath();
-    rectangle->setFill(Colours::red);
+    rectangle->setFill(Colours::red.withAlpha(0.8f));
     drawable->addAndMakeVisible(rectangle);
 
     Path path;
@@ -431,9 +431,12 @@ void Skin::loadImage(
 
 
 void Skin::setBackground(
-    std::unique_ptr<Drawable> &background,
+    DrawableComposite *background,
     AudioProcessorEditor *editor)
 {
+    background->deleteAllChildren();
+    std::unique_ptr<Drawable> drawable;
+
     if (skinGroup_ != nullptr)
     {
         XmlElement *xmlBackground = skinGroup_->getChildByName("background");
@@ -442,14 +445,14 @@ void Skin::setBackground(
         {
             String imageFilename = getString(xmlBackground,
                                              currentBackgroundName_);
-            background = loadImage(imageFilename);
+            drawable = loadImage(imageFilename);
 
             if (!background)
             {
                 auto message = "No background specified";
 
                 Logger::outputDebugString(String("[Skin] ") + message);
-                background = createBogusImage(message, 200, 200);
+                drawable = createBogusImage(message, 200, 200);
             }
         }
         else
@@ -459,7 +462,7 @@ void Skin::setBackground(
                            String("\" specifies no background image");
 
             Logger::outputDebugString(String("[Skin] ") + message);
-            background = createBogusImage(message, 200, 200);
+            drawable = createBogusImage(message, 200, 200);
         }
     }
     else
@@ -467,8 +470,15 @@ void Skin::setBackground(
         auto message = "No skin groups found";
 
         Logger::outputDebugString(String("[Skin] ") + message);
-        background = createBogusImage(message, 200, 200);
+        drawable = createBogusImage(message, 200, 200);
     }
+
+    background->addAndMakeVisible(drawable.release());
+
+    backgroundWidth_ = background->getWidth();
+    backgroundHeight_ = background->getHeight();
+
+    background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
 
     if (skinGroup_ != nullptr)
     {
@@ -478,25 +488,21 @@ void Skin::setBackground(
         {
             String imageFilename = getString(xmlMeterGraduation,
                                              currentBackgroundName_);
-
             auto drawableGraduation = loadImage(imageFilename);
-            Point<int> position = getPositionInteger(
-                                      xmlMeterGraduation,
-                                      drawableGraduation->getHeight());
 
-            background->addAndMakeVisible(drawableGraduation.get());
-            drawableGraduation->setTopLeftPosition(position.getX(), position.getY());
+            auto position = getPositionFloat(
+                                xmlMeterGraduation,
+                                0.0f,
+                                false);
+
+            drawableGraduation->setOriginWithOriginalSize(position);
+            background->addAndMakeVisible(drawableGraduation.release());
         }
     }
 
-    backgroundWidth_ = background->getWidth();
-    backgroundHeight_ = background->getHeight();
-
-    background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
-
     // moves background image to the back of the editor's z-plane so
     // that it doesn't overlay (and thus block) any other components
-    editor->addAndMakeVisible(background.get(), 0);
+    background->toBack();
 
     editor->setSize(backgroundWidth_, backgroundHeight_);
 }
@@ -504,14 +510,15 @@ void Skin::setBackground(
 
 Point<float> Skin::getPositionFloat(
     const XmlElement *xmlComponent,
-    const float componentHeight)
+    const float componentHeight,
+    bool useRelativePosition)
 {
     jassert(componentHeight >= 0.0f);
 
     float x = getFloat(xmlComponent, "x", 0.0f);
     float y = getFloat(xmlComponent, "y", 0.0f);
 
-    if (originOfYIsBottom_)
+    if (useRelativePosition && originOfYIsBottom_)
     {
         y = backgroundHeight_ - (y + componentHeight);
     }
@@ -522,9 +529,12 @@ Point<float> Skin::getPositionFloat(
 
 Point<int> Skin::getPositionInteger(
     const XmlElement *xmlComponent,
-    const int componentHeight)
+    const int componentHeight,
+    bool useRelativePosition)
 {
-    auto position = getPositionFloat(xmlComponent, static_cast<float>(componentHeight));
+    auto position = getPositionFloat(xmlComponent,
+                                     static_cast<float>(componentHeight),
+                                     useRelativePosition);
 
     return Point<int>(math::SimpleMath::round(position.getX()),
                       math::SimpleMath::round(position.getY()));
@@ -534,24 +544,16 @@ Point<int> Skin::getPositionInteger(
 Rectangle<float> Skin::getBoundsFloat(
     const XmlElement *xmlComponent,
     float width,
-    float height)
+    float height,
+    bool useRelativePosition)
 {
-    if (document_ == nullptr)
-    {
-        return Rectangle<float>(0.0f, 0.0f, 1.0f, 1.0f);
-    }
+    jassert(width >= 0.0f);
+    jassert(height >= 0.0f);
 
-    if (width < 0.0f)
-    {
-        width = getFloat(xmlComponent, "width", 0.0f);
-    }
+    width = getFloat(xmlComponent, "width", width);
+    height = getFloat(xmlComponent, "height", height);
 
-    if (height < 0.0f)
-    {
-        height = getFloat(xmlComponent, "height", 0.0f);
-    }
-
-    auto position = getPositionFloat(xmlComponent, height);
+    auto position = getPositionFloat(xmlComponent, height, useRelativePosition);
     auto extends = position.translated(width, height);
 
     return Rectangle<float>(position, extends);
@@ -561,11 +563,13 @@ Rectangle<float> Skin::getBoundsFloat(
 Rectangle<int> Skin::getBoundsInteger(
     const XmlElement *xmlComponent,
     int width,
-    int height)
+    int height,
+    bool useRelativePosition)
 {
     auto bounds = getBoundsFloat(xmlComponent,
                                  static_cast<float>(width),
-                                 static_cast<float>(height));
+                                 static_cast<float>(height),
+                                 useRelativePosition);
 
     return Rectangle<int>(math::SimpleMath::round(bounds.getX()),
                           math::SimpleMath::round(bounds.getY()),
@@ -585,7 +589,7 @@ void Skin::placeComponent(
         return;
     }
 
-    Rectangle<int> bounds = getBoundsInteger(xmlComponent);
+    Rectangle<int> bounds = getBoundsInteger(xmlComponent, 10, 10, true);
     component->setBounds(bounds);
 }
 
@@ -606,7 +610,7 @@ void Skin::placeMeterBar(
     if (xmlComponent != nullptr)
     {
         int height = meterBar->getHeight();
-        Point<int> position = getPositionInteger(xmlComponent, height);
+        Point<int> position = getPositionInteger(xmlComponent, height, true);
 
         meterBar->setTopLeftPosition(position);
 
@@ -683,7 +687,7 @@ void Skin::placeAndSkinButton(
         int width = componentOn->getWidth();
         int height = componentOn->getHeight();
 
-        Point<int> position = getPositionInteger(xmlComponent, height);
+        Point<int> position = getPositionInteger(xmlComponent, height, true);
         button->setTopLeftPosition(position);
         button->setSize(width, height);
     }
@@ -762,7 +766,7 @@ void Skin::placeAndSkinNeedleMeter(
         int width = imageBackground.getWidth();
         int height = imageBackground.getHeight();
 
-        Rectangle<int> bounds = getBoundsInteger(xmlComponent, width, height);
+        Rectangle<int> bounds = getBoundsInteger(xmlComponent, width, height, true);
         meter->setBounds(bounds);
     }
 }
@@ -770,9 +774,9 @@ void Skin::placeAndSkinNeedleMeter(
 
 void Skin::placeAndSkinLabel(
     const String &tagName,
-    std::unique_ptr<Drawable> &label,
-    AudioProcessorEditor *editor)
+    DrawableComposite *label)
 {
+    label->deleteAllChildren();
     XmlElement *xmlComponent = getComponent(tagName);
 
     if (xmlComponent == nullptr)
@@ -781,14 +785,16 @@ void Skin::placeAndSkinLabel(
     }
 
     auto fileName = getString(xmlComponent, "image");
-    label = loadImage(fileName);
+    auto drawable = loadImage(fileName);
+
+    label->addAndMakeVisible(drawable.release());
 
     auto position = getPositionFloat(
                         xmlComponent,
-                        static_cast<float>(label->getHeight()));
+                        static_cast<float>(label->getHeight()),
+                        true);
 
     label->setOriginWithOriginalSize(position);
-    editor->addAndMakeVisible(label.get());
 }
 
 
@@ -846,7 +852,7 @@ void Skin::placeAndSkinSignalLed(
                 "\" differs");
         }
 
-        Rectangle<int> bounds = getBoundsInteger(xmlComponent, width, height);
+        Rectangle<int> bounds = getBoundsInteger(xmlComponent, width, height, true);
         label->setBounds(bounds);
     }
 }
@@ -928,7 +934,7 @@ void Skin::placeAndSkinStateLabel(
                 "\" differs");
         }
 
-        Rectangle<int> bounds = getBoundsInteger(xmlComponent, width, height);
+        Rectangle<int> bounds = getBoundsInteger(xmlComponent, width, height, true);
         label->setBounds(bounds);
     }
 }
