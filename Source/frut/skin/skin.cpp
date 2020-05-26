@@ -339,7 +339,7 @@ const Colour Skin::getColour(
 }
 
 
-std::unique_ptr<Drawable> Skin::createBogusDrawable(
+std::unique_ptr<Drawable> Skin::createBogusImage(
     const String &warningText,
     int width,
     int height)
@@ -374,34 +374,11 @@ std::unique_ptr<Drawable> Skin::createBogusDrawable(
 }
 
 
-Image Skin::createBogusImage(
-    const String &warningText,
-    int width,
-    int height)
-{
-    auto bogusDrawable = createBogusDrawable(
-                             warningText,
-                             width,
-                             height);
-
-    Image bogusImage(
-        Image::PixelFormat::ARGB,
-        width,
-        height,
-        true);
-
-    Graphics g(bogusImage);
-    bogusDrawable->draw(g, 1.0f);
-
-    return bogusImage;
-}
-
-
 std::unique_ptr<Drawable> Skin::loadImage(
     const String &strFilename)
 {
     File fileImage = resourcePath_.getChildFile(strFilename);
-    std::unique_ptr<Drawable> component = nullptr;
+    std::unique_ptr<Drawable> component;
 
     if (fileImage.existsAsFile())
     {
@@ -409,73 +386,18 @@ std::unique_ptr<Drawable> Skin::loadImage(
 
         if (strFilename.endsWith(".svg"))
         {
-            DBG(strFilename + ": loading from SVG");
-            DBG(component->getWidth());
-            DBG(component->getHeight());
+            DBG(String("[Skin] loading SVG file \"") + strFilename + "\" (" +
+                String(component->getWidth()) + " x " + String(component->getHeight()) + " pixels)");
         }
-    }
-    else
-    {
-        // Logger::outputDebugString(
-        //     String("[Skin] image file \"") +
-        //     fileImage.getFullPathName() +
-        //     "\" not found");
 
-        // image = createBogusImage("Image file not found", 200, 200);
-    }
-
-    return component;
-}
-
-
-std::unique_ptr<Drawable> Skin::loadSvg(
-    const String &strFilename)
-{
-    jassert(strFilename.endsWith(".svg"));
-
-    File fileSvg = resourcePath_.getChildFile(strFilename);
-    std::unique_ptr<Drawable> svg = nullptr;
-
-    if (fileSvg.existsAsFile())
-    {
-        svg = Drawable::createFromSVGFile(fileSvg);
-
-        DBG(strFilename + ": loading SVG");
-        DBG(svg->getWidth());
-        DBG(svg->getHeight());
-    }
-
-    return svg;
-}
-
-
-void Skin::loadImage(
-    const String &strFilename,
-    Image &image)
-{
-    File fileImage = resourcePath_.getChildFile(strFilename);
-
-    if (fileImage.existsAsFile())
-    {
-        if (strFilename.endsWith(".svg"))
+        if (!component)
         {
-            std::unique_ptr<Drawable> svg = Drawable::createFromSVGFile(fileImage);
+            Logger::outputDebugString(
+                String("[Skin] image file \"") +
+                fileImage.getFullPathName() +
+                "\" not loaded");
 
-            DBG(strFilename + ": loading as SVG");
-            DBG(svg->getWidth());
-            DBG(svg->getHeight());
-
-            image = Image(Image::PixelFormat::ARGB,
-                          svg->getWidth(),
-                          svg->getHeight(),
-                          true);
-
-            Graphics g(image);
-            svg->draw(g, 1.0f);
-        }
-        else
-        {
-            image = ImageFileFormat::loadFrom(fileImage);
+            component = createBogusImage("Image file not loaded", 200, 200);
         }
     }
     else
@@ -485,8 +407,26 @@ void Skin::loadImage(
             fileImage.getFullPathName() +
             "\" not found");
 
-        image = createBogusImage("Image file not found", 200, 200);
+        component = createBogusImage("Image file not found", 200, 200);
     }
+
+    return component;
+}
+
+
+void Skin::loadImage(
+    const String &strFilename,
+    Image &image)
+{
+    auto drawable = loadImage(strFilename);
+
+    image = Image(Image::PixelFormat::ARGB,
+                  drawable->getWidth(),
+                  drawable->getHeight(),
+                  true);
+
+    Graphics g(image);
+    drawable->draw(g, 1.0f);
 }
 
 
@@ -502,14 +442,14 @@ void Skin::setBackground(
         {
             String imageFilename = getString(xmlBackground,
                                              currentBackgroundName_);
-            background = loadSvg(imageFilename);
+            background = loadImage(imageFilename);
 
             if (!background)
             {
                 auto message = "No background specified";
 
                 Logger::outputDebugString(String("[Skin] ") + message);
-                background = createBogusDrawable(message, 200, 200);
+                background = createBogusImage(message, 200, 200);
             }
         }
         else
@@ -519,7 +459,7 @@ void Skin::setBackground(
                            String("\" specifies no background image");
 
             Logger::outputDebugString(String("[Skin] ") + message);
-            background = createBogusDrawable(message, 200, 200);
+            background = createBogusImage(message, 200, 200);
         }
     }
     else
@@ -527,7 +467,7 @@ void Skin::setBackground(
         auto message = "No skin groups found";
 
         Logger::outputDebugString(String("[Skin] ") + message);
-        background = createBogusDrawable(message, 200, 200);
+        background = createBogusImage(message, 200, 200);
     }
 
     // FIXME
@@ -542,7 +482,7 @@ void Skin::setBackground(
     //         String imageFilename = getString(xmlMeterGraduation,
     //                                          currentBackgroundName_);
 
-    //         loadSvg(imageFilename, SvgMeterGraduation);
+    //         loadImage(imageFilename, SvgMeterGraduation);
 
     //         if (SvgMeterGraduation.isValid())
     //         {

@@ -69,7 +69,6 @@ public:
                            const String valuePrefix = "");
 
     std::unique_ptr<Drawable> loadImage(const String &strFilename);
-    std::unique_ptr<Drawable> loadSvg(const String &strFilename);
 
     void loadImage(const String &strFilename,
                    Image &image);
@@ -114,13 +113,9 @@ public:
 protected:
     std::unique_ptr<XmlElement> document_;
 
-    std::unique_ptr<Drawable> createBogusDrawable(const String &warningText,
+    std::unique_ptr<Drawable> createBogusImage(const String &warningText,
             int width,
             int height);
-
-    Image createBogusImage(const String &warningText,
-                           int width,
-                           int height);
 
     XmlElement *settingsGroup_;
     XmlElement *skinGroup_;
