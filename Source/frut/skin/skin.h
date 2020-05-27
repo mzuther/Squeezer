@@ -76,6 +76,15 @@ public:
     void setBackground(DrawableComposite *background,
                        AudioProcessorEditor *editor);
 
+    void printPosition(const String &header,
+                       Component *component);
+
+    void printSize(const String &header,
+                   Component *component);
+
+    void printBounds(const String &header,
+                     Component *component);
+
     Point<float> getPositionFloat(const XmlElement *xmlComponent,
                                   const float componentHeight,
                                   bool useRelativePosition);

@@ -386,8 +386,12 @@ std::unique_ptr<Drawable> Skin::loadImage(
 
         if (strFilename.endsWith(".svg"))
         {
-            DBG(String("[Skin] loading SVG file \"") + strFilename + "\" (" +
-                String(component->getWidth()) + " x " + String(component->getHeight()) + " pixels)");
+            auto output = String("[Skin] loading SVG file \"");
+            output << strFilename << "\" (" <<
+                   component->getWidth() << " x " <<
+                   component->getHeight() << " pixels)";
+
+            DBG(output);
         }
 
         if (!component)
@@ -434,7 +438,7 @@ void Skin::setBackground(
     DrawableComposite *background,
     AudioProcessorEditor *editor)
 {
-    background->deleteAllChildren();
+    background->deleteAllChildren(); //FIXME
     std::unique_ptr<Drawable> drawable;
 
     if (skinGroup_ != nullptr)
@@ -473,11 +477,12 @@ void Skin::setBackground(
         drawable = createBogusImage(message, 200, 200);
     }
 
+    backgroundWidth_ = drawable->getWidth();
+    backgroundHeight_ = drawable->getHeight();
+
+    drawable->setTopLeftPosition(0, 0);
+
     background->addAndMakeVisible(drawable.release());
-
-    backgroundWidth_ = background->getWidth();
-    backgroundHeight_ = background->getHeight();
-
     background->setBounds(0, 0, backgroundWidth_, backgroundHeight_);
 
     if (skinGroup_ != nullptr)
@@ -538,6 +543,45 @@ Point<int> Skin::getPositionInteger(
 
     return Point<int>(math::SimpleMath::round(position.getX()),
                       math::SimpleMath::round(position.getY()));
+}
+
+
+void Skin::printPosition(
+    const String &header,
+    Component *component)
+{
+    auto output = header;
+    output << component->getX() << ", " << component->getY();
+
+    Logger::outputDebugString(output);
+}
+
+
+void Skin::printSize(
+    const String &header,
+    Component *component)
+{
+    auto output = header;
+    output << component->getWidth() << " x " << component->getHeight();
+
+    Logger::outputDebugString(output);
+}
+
+
+void Skin::printBounds(
+    const String &header,
+    Component *component)
+{
+    auto bounds = component->getBounds();
+    auto output = header;
+
+    output <<
+           bounds.getX() << ", " <<
+           bounds.getY() << " (" <<
+           bounds.getWidth() << " x " <<
+           bounds.getHeight() << ")";
+
+    Logger::outputDebugString(output);
 }
 
 
@@ -673,6 +717,19 @@ void Skin::placeAndSkinButton(
         // a missing "image_over" is handled gracefully by "setImages"
         std::unique_ptr<Drawable> componentOver = loadImage(strImageFilenameOver);
 
+        auto bounds = componentOn->getDrawableBounds();
+        auto boundsZero = bounds.withZeroOrigin();
+
+         // FIXME: SVG files with implied position
+        if (bounds != boundsZero)
+        {
+            componentOn->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
+            componentOver->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
+            componentOff->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
+
+            button->setTopLeftPosition(componentOn->getX(), componentOn->getY());
+        }
+
         button->setImages(componentOff.get(),
                           componentOver.get(),
                           componentOn.get(),
@@ -687,8 +744,13 @@ void Skin::placeAndSkinButton(
         int width = componentOn->getWidth();
         int height = componentOn->getHeight();
 
-        Point<int> position = getPositionInteger(xmlComponent, height, true);
-        button->setTopLeftPosition(position);
+         // FIXME: image files with position from XML
+        if (bounds == boundsZero)
+        {
+            Point<int> position = getPositionInteger(xmlComponent, height, true);
+            button->setTopLeftPosition(position);
+        }
+
         button->setSize(width, height);
     }
 }
@@ -776,7 +838,7 @@ void Skin::placeAndSkinLabel(
     const String &tagName,
     DrawableComposite *label)
 {
-    label->deleteAllChildren();
+    label->deleteAllChildren(); //FIXME
     XmlElement *xmlComponent = getComponent(tagName);
 
     if (xmlComponent == nullptr)
@@ -788,13 +850,6 @@ void Skin::placeAndSkinLabel(
     auto drawable = loadImage(fileName);
 
     label->addAndMakeVisible(drawable.release());
-
-    auto position = getPositionFloat(
-                        xmlComponent,
-                        static_cast<float>(label->getHeight()),
-                        true);
-
-    label->setOriginWithOriginalSize(position);
 }
 
 

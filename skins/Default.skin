@@ -134,11 +134,9 @@
         />
 
         <button_curve_linear
-            x="347"
-            y="118"
             image_on="buttons/button_curve_linear_on.svg"
-            image_over="buttons/button_curve_linear_over.png"
-            image_off="buttons/button_curve_linear_off.png"
+            image_over="buttons/button_curve_linear_over.svg"
+            image_off="buttons/button_curve_linear_off.svg"
         />
 
         <button_curve_smooth_decoupled
@@ -270,9 +268,7 @@
         />
 
         <label_debug
-            x="527"
-            y="75"
-            image="labels/label_debug.png"
+            image="labels/label_debug.svg"
         />
     </default>
 
