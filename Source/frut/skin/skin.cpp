@@ -384,16 +384,6 @@ std::unique_ptr<Drawable> Skin::loadImage(
     {
         component = Drawable::createFromImageFile(fileImage);
 
-        if (strFilename.endsWith(".svg"))
-        {
-            auto output = String("[Skin] loading SVG file \"");
-            output << strFilename << "\" (" <<
-                   component->getWidth() << " x " <<
-                   component->getHeight() << " pixels)";
-
-            DBG(output);
-        }
-
         if (!component)
         {
             Logger::outputDebugString(
@@ -720,7 +710,7 @@ void Skin::placeAndSkinButton(
         auto bounds = componentOn->getDrawableBounds();
         auto boundsZero = bounds.withZeroOrigin();
 
-         // FIXME: SVG files with implied position
+        // FIXME: SVG files with implied position
         if (bounds != boundsZero)
         {
             componentOn->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
@@ -744,7 +734,7 @@ void Skin::placeAndSkinButton(
         int width = componentOn->getWidth();
         int height = componentOn->getHeight();
 
-         // FIXME: image files with position from XML
+        // FIXME: image files with position from XML
         if (bounds == boundsZero)
         {
             Point<int> position = getPositionInteger(xmlComponent, height, true);

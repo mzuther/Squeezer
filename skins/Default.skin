@@ -134,147 +134,115 @@
         />
 
         <button_curve_linear
-            image_on="buttons/button_curve_linear_on.svg"
-            image_over="buttons/button_curve_linear_over.svg"
-            image_off="buttons/button_curve_linear_off.svg"
+            image_on="button/curve_linear_on.svg"
+            image_over="button/curve_linear_over.svg"
+            image_off="button/curve_linear_off.svg"
         />
 
         <button_curve_smooth_decoupled
-            x="347"
-            y="147"
-            image_on="buttons/button_curve_smooth_decoupled_on.png"
-            image_over="buttons/button_curve_smooth_decoupled_over.png"
-            image_off="buttons/button_curve_smooth_decoupled_off.png"
+            image_on="button/curve_smooth_decoupled_on.svg"
+            image_over="button/curve_smooth_decoupled_over.svg"
+            image_off="button/curve_smooth_decoupled_off.svg"
         />
 
         <button_curve_smooth_branching
-            x="347"
-            y="176"
-            image_on="buttons/button_curve_smooth_branching_on.png"
-            image_over="buttons/button_curve_smooth_branching_over.png"
-            image_off="buttons/button_curve_smooth_branching_off.png"
+            image_on="button/curve_smooth_branching_on.svg"
+            image_over="button/curve_smooth_branching_over.svg"
+            image_off="button/curve_smooth_branching_off.svg"
         />
 
         <button_rms_window
-            x="417"
-            y="118"
-            image_on="buttons/button_rms_window_on.png"
-            image_over="buttons/button_rms_window_over.png"
-            image_off="buttons/button_rms_window_off.png"
+            image_on="button/rms_window_on.svg"
+            image_over="button/rms_window_over.svg"
+            image_off="button/rms_window_off.svg"
         />
 
         <button_design_feedback
-            x="417"
-            y="176"
-            image_on="buttons/button_design_feedback_on.png"
-            image_over="buttons/button_design_feedback_over.png"
-            image_off="buttons/button_design_feedback_off.png"
+            image_on="button/design_feedback_on.svg"
+            image_over="button/design_feedback_over.svg"
+            image_off="button/design_feedback_off.svg"
         />
 
         <button_gainstage_optical
-            x="417"
-            y="147"
-            image_on="buttons/button_gainstage_optical_on.png"
-            image_over="buttons/button_gainstage_optical_over.png"
-            image_off="buttons/button_gainstage_optical_off.png"
+            image_on="button/gainstage_optical_on.svg"
+            image_over="button/gainstage_optical_over.svg"
+            image_off="button/gainstage_optical_off.svg"
         />
 
         <button_knee_hard
-            x="487"
-            y="176"
-            image_on="buttons/button_knee_hard_on.png"
-            image_over="buttons/button_knee_hard_over.png"
-            image_off="buttons/button_knee_hard_off.png"
+            image_on="button/knee_hard_on.svg"
+            image_over="button/knee_hard_over.svg"
+            image_off="button/knee_hard_off.svg"
         />
 
         <button_knee_medium
-            x="487"
-            y="147"
-            image_on="buttons/button_knee_medium_on.png"
-            image_over="buttons/button_knee_medium_over.png"
-            image_off="buttons/button_knee_medium_off.png"
+            image_on="button/knee_medium_on.svg"
+            image_over="button/knee_medium_over.svg"
+            image_off="button/knee_medium_off.svg"
         />
 
         <button_knee_soft
-            x="487"
-            y="118"
-            image_on="buttons/button_knee_soft_on.png"
-            image_over="buttons/button_knee_soft_over.png"
-            image_off="buttons/button_knee_soft_off.png"
+            image_on="button/knee_soft_on.svg"
+            image_over="button/knee_soft_over.svg"
+            image_off="button/knee_soft_off.svg"
         />
 
         <button_sidechain_listen
-            x="347"
-            y="14"
-            image_on="buttons/button_sidechain_listen_on.png"
-            image_over="buttons/button_sidechain_listen_over.png"
-            image_off="buttons/button_sidechain_listen_off.png"
+            image_on="button/sidechain_listen_on.svg"
+            image_over="button/sidechain_listen_over.svg"
+            image_off="button/sidechain_listen_off.svg"
         />
 
         <button_sidechain_external
-            x="347"
-            y="42"
-            image_on="buttons/button_sidechain_external_on.png"
-            image_over="buttons/button_sidechain_external_over.png"
-            image_off="buttons/button_sidechain_external_off.png"
+            image_on="button/sidechain_external_on.svg"
+            image_over="button/sidechain_external_over.svg"
+            image_off="button/sidechain_external_off.svg"
         />
 
         <button_auto_makeup_gain
-            x="417"
-            y="42"
-            image_on="buttons/button_auto_makeup_gain_on.png"
-            image_over="buttons/button_auto_makeup_gain_over.png"
-            image_off="buttons/button_auto_makeup_gain_off.png"
+            image_on="button/auto_makeup_gain_on.svg"
+            image_over="button/auto_makeup_gain_over.svg"
+            image_off="button/auto_makeup_gain_off.svg"
         />
 
         <button_bypass
-            x="417"
-            y="14"
-            image_on="buttons/button_bypass_on.png"
-            image_over="buttons/button_bypass_over.png"
-            image_off="buttons/button_bypass_off.png"
+            image_on="button/bypass_on.svg"
+            image_over="button/bypass_over.svg"
+            image_off="button/bypass_off.svg"
         />
 
         <button_settings
-            x="487"
-            y="42"
-            image_on="buttons/button_settings_on.png"
-            image_over="buttons/button_settings_over.png"
-            image_off="buttons/button_settings_off.png"
+            image_on="button/settings_on.svg"
+            image_over="button/settings_over.svg"
+            image_off="button/settings_off.svg"
         />
 
         <button_about
-            x="487"
-            y="14"
-            image_on="buttons/button_about_on.png"
-            image_over="buttons/button_about_over.png"
-            image_off="buttons/button_about_off.png"
+            image_on="button/about_on.svg"
+            image_over="button/about_over.svg"
+            image_off="button/about_off.svg"
         />
 
         <button_reset
-            x="690"
-            y="19"
-            image_on="buttons/button_reset_on.png"
-            image_over="buttons/button_reset_over.png"
-            image_off="buttons/button_reset_off.png"
+            image_on="button/reset_on.svg"
+            image_over="button/reset_over.svg"
+            image_off="button/reset_off.svg"
         />
 
         <button_skin
-            x="579"
-            y="19"
-            image_on="buttons/button_skin_on.png"
-            image_over="buttons/button_skin_over.png"
-            image_off="buttons/button_skin_off.png"
+            image_on="button/skin_on.svg"
+            image_over="button/skin_over.svg"
+            image_off="button/skin_off.svg"
         />
 
         <label_debug
-            image="labels/label_debug.svg"
+            image="label/debug.svg"
         />
     </default>
 
     <mono>
         <background
-            image="backgrounds/background.svg" />
+            image="background/background.svg" />
 
         <meter_input
             x="683"
@@ -300,7 +268,7 @@
 
     <stereo>
         <background
-            image="backgrounds/background.svg" />
+            image="background/background.svg" />
 
         <meter_input_left
             x="683"

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="773"
+   height="213"
+   id="svg2"
+   version="1.1"
+   style="enable-background:new">
+  <defs
+     id="defs4">
+    <pattern
+       xlink:href="#pattern1836"
+       id="pattern2556"
+       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,859.00006,-122.99997)" />
+    <pattern
+       xlink:href="#pattern6575"
+       id="pattern1836"
+       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)" />
+    <pattern
+       xlink:href="#pattern11850"
+       id="pattern6575"
+       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)" />
+    <pattern
+       xlink:href="#pattern6644"
+       id="pattern11850"
+       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)" />
+    <pattern
+       xlink:href="#pattern6132"
+       id="pattern6644"
+       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)" />
+    <pattern
+       xlink:href="#pattern5618"
+       id="pattern6132"
+       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)" />
+    <pattern
+       xlink:href="#pattern25706"
+       id="pattern5618"
+       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)" />
+    <pattern
+       xlink:href="#pattern20948"
+       id="pattern25706"
+       patternTransform="matrix(0.78764255,1.364237,-9.5105953,5.4909442,130.00002,147.00003)" />
+    <pattern
+       xlink:href="#pattern20628"
+       id="pattern20948"
+       patternTransform="matrix(0.78764255,1.364237,-9.5105953,5.4909442,930.00002,-122.99997)" />
+    <pattern
+       xlink:href="#pattern6948"
+       id="pattern20628"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)" />
+    <pattern
+       xlink:href="#pattern13272"
+       id="pattern6948"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)" />
+    <pattern
+       xlink:href="#pattern13037"
+       id="pattern13272"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)" />
+    <pattern
+       xlink:href="#pattern9313-9-6"
+       id="pattern13037"
+       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,930.00001,-122.99997)" />
+    <pattern
+       patternTransform="matrix(0.78764255,1.364237,-9.5105957,5.4909443,389.99998,-313.99998)"
+       id="pattern9313-9-6"
+       xlink:href="#Strips1_1-7-9" />
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="2"
+       height="1"
+       patternTransform="translate(0,0) scale(10,10)"
+       id="Strips1_1-7-9">
+      <rect
+         style="fill:black;stroke:none"
+         x="0"
+         y="-0.5"
+         width="1"
+         height="2"
+         id="rect8592-4-3" />
+    </pattern>
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer6"
+     style="display:inline">
+    <g
+       transform="translate(250,152)"
+       id="export-button-settings-off">
+      <path
+         d="m 810.5,-111.5 h 39 c 5.54,0 10,4.237 10,9.5 0,5.263001 -4.46,9.500002 -10,9.500002 h -39 c -5.54,0 -10,-4.237001 -10,-9.500002 0,-5.263 4.46,-9.5 10,-9.5 z"
+         style="color:#000000;font-variation-settings:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#666666;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         id="rect2200" />
+      <g
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;display:inline;opacity:1;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new;stop-color:#000000;stop-opacity:1"
+         id="text2204"
+         aria-label="Settings">
+        <path
+           id="path1329"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 815.23197,-105.19468 c -0.576,-0.544 -1.44,-0.81067 -2.19734,-0.81067 -1.36534,0 -2.76268,0.68267 -2.76268,2.21868 0,1.408 0.99201,1.856 1.90934,2.144 0.94934,0.29867 1.73868,0.52267 1.73868,1.31201 0,0.810667 -0.73601,1.120002 -1.36534,1.120002 -0.59734,0 -1.28001,-0.320001 -1.65334,-0.832002 l -0.96,0.896002 c 0.59733,0.704002 1.61067,1.077337 2.59201,1.077337 1.48267,0 2.752,-0.789336 2.752,-2.410679 0,-1.48267 -1.23733,-1.90934 -2.208,-2.208 -0.85334,-0.26667 -1.44001,-0.46934 -1.44001,-1.16267 0,-0.73601 0.71467,-1.03467 1.33334,-1.03467 0.53334,0 1.09867,0.27733 1.38667,0.65067 z" />
+        <path
+           id="path1331"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 817.54898,-101.33333 c 0.0533,-0.71467 0.66133,-1.23734 1.41867,-1.23734 0.832,0 1.20534,0.576 1.20534,1.23734 z m 3.90401,0.576 c 0,-1.84534 -1.04534,-2.77334 -2.47467,-2.77334 -1.54668,0 -2.70935,1.088 -2.70935,2.74134 0,1.664005 1.17334,2.677342 2.75201,2.677342 0.97067,0 1.69601,-0.341335 2.19734,-1.024003 l -0.85333,-0.682669 c -0.288,0.405334 -0.71467,0.661335 -1.35467,0.661335 -0.74667,0 -1.40801,-0.533335 -1.46134,-1.258675 h 3.89334 c 0.0107,-0.11733 0.0107,-0.224 0.0107,-0.34133 z" />
+        <path
+           id="path1333"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 822.85266,-102.35733 v 2.389336 c 0,0.981336 0.30934,1.813339 1.66401,1.813339 0.288,0 0.62933,-0.05333 0.85333,-0.138667 l -0.0427,-1.00267 c -0.14934,0.07467 -0.37334,0.106667 -0.54401,0.106667 -0.56533,0 -0.672,-0.330668 -0.672,-0.789336 v -2.378669 h 1.28001 v -1.02401 h -1.28001 v -1.48267 h -1.25867 v 1.48267 h -0.896 v 1.02401 z" />
+        <path
+           id="path1335"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 826.31101,-102.35733 v 2.389336 c 0,0.981336 0.30933,1.813339 1.664,1.813339 0.288,0 0.62934,-0.05333 0.85334,-0.138667 l -0.0427,-1.00267 c -0.14933,0.07467 -0.37333,0.106667 -0.544,0.106667 -0.56534,0 -0.672,-0.330668 -0.672,-0.789336 v -2.378669 h 1.28 v -1.02401 h -1.28 v -1.48267 h -1.25867 v 1.48267 H 825.415 v 1.02401 z" />
+        <path
+           id="path1337"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 829.79735,-98.261322 h 1.28 v -5.120018 h -1.28 z m -0.18133,-6.858688 c 0,0.40533 0.34133,0.768 0.81067,0.768 0.46933,0 0.832,-0.33067 0.832,-0.768 0,-0.43734 -0.36267,-0.768 -0.832,-0.768 -0.46934,0 -0.81067,0.36267 -0.81067,0.768 z" />
+        <path
+           id="path1339"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 832.63019,-98.261322 h 1.28001 v -2.816008 c 0,-0.68267 0.384,-1.38667 1.19467,-1.38667 0.82133,0 0.96,0.75733 0.96,1.36534 v 2.837338 h 1.28 v -3.200008 c 0,-1.04534 -0.55466,-2.06934 -1.888,-2.06934 -0.75734,0 -1.36534,0.45867 -1.58934,0.97067 h -0.0213 v -0.82134 h -1.21601 z" />
+        <path
+           id="path1341"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 842.82789,-103.38134 v 0.768 h -0.0213 c -0.37334,-0.61866 -1.04534,-0.91733 -1.76001,-0.91733 -1.54667,0 -2.50667,1.20534 -2.50667,2.68801 0,1.450668 0.992,2.666672 2.52801,2.666672 0.704,0 1.30133,-0.266668 1.67467,-0.768003 h 0.0213 v 0.373335 c 0,1.013336 -0.384,1.760005 -1.62134,1.760005 -0.64,0 -1.30133,-0.256001 -1.792,-0.725335 l -0.73601,0.992003 c 0.66134,0.544001 1.70668,0.842669 2.53868,0.842669 1.99467,0 2.89068,-1.173337 2.89068,-3.018676 v -4.66135 z m -1.51467,0.896 c 0.928,0 1.51467,0.74667 1.51467,1.63201 0,0.853336 -0.576,1.621338 -1.52534,1.621338 -0.91733,0 -1.46133,-0.810668 -1.46133,-1.621338 0,-0.90667 0.544,-1.63201 1.472,-1.63201 z" />
+        <path
+           id="path1343"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 849.22591,-102.752 c -0.416,-0.52267 -1.184,-0.77867 -1.92,-0.77867 -1.01334,0 -2.03734,0.49067 -2.03734,1.632 0,0.96001 0.75733,1.26934 1.51467,1.45067 0.77867,0.18134 1.17334,0.30934 1.17334,0.736007 0,0.458668 -0.44801,0.608002 -0.82134,0.608002 -0.55467,0 -1.03467,-0.277335 -1.312,-0.640002 l -0.84267,0.789335 c 0.49066,0.544002 1.312,0.84267 2.10134,0.84267 1.12,0 2.13334,-0.458668 2.13334,-1.706672 0,-1.00267 -0.89601,-1.344 -1.65334,-1.52534 -0.71467,-0.17067 -1.10934,-0.27733 -1.10934,-0.672 0,-0.40534 0.416,-0.55467 0.82134,-0.55467 0.46933,0 0.896,0.256 1.12,0.55467 z" />
+      </g>
+    </g>
+  </g>
+</svg>
