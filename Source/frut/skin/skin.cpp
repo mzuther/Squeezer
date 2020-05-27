@@ -692,47 +692,42 @@ void Skin::placeAndSkinButton(
 
     if (xmlComponent != nullptr)
     {
-        Image imageOn;
-        String strImageFilenameOn = getString(xmlComponent, "image_on");
+        auto fileNameOn = getString(xmlComponent, "image_on");
+        auto drawableOn = loadImage(fileNameOn);
 
-        std::unique_ptr<Drawable> componentOn = loadImage(strImageFilenameOn);
-
-        Image imageOff;
-        String strImageFilenameOff = getString(xmlComponent, "image_off");
-
-        std::unique_ptr<Drawable> componentOff = loadImage(strImageFilenameOff);
-
-        String strImageFilenameOver = getString(xmlComponent, "image_over");
+        auto fileNameOff = getString(xmlComponent, "image_off");
+        auto drawableOff = loadImage(fileNameOff);
 
         // a missing "image_over" is handled gracefully by "setImages"
-        std::unique_ptr<Drawable> componentOver = loadImage(strImageFilenameOver);
+        auto fileNameOver = getString(xmlComponent, "image_over");
+        auto drawableOver = loadImage(fileNameOver);
 
-        auto bounds = componentOn->getDrawableBounds();
+        auto bounds = drawableOn->getDrawableBounds();
         auto boundsZero = bounds.withZeroOrigin();
 
         // FIXME: SVG files with implied position
         if (bounds != boundsZero)
         {
-            componentOn->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
-            componentOver->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
-            componentOff->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
+            drawableOn->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
+            drawableOver->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
+            drawableOff->setTransformToFit(boundsZero, RectanglePlacement(RectanglePlacement::xLeft | RectanglePlacement::yTop));
 
-            button->setTopLeftPosition(componentOn->getX(), componentOn->getY());
+            button->setTopLeftPosition(drawableOn->getX(), drawableOn->getY());
         }
 
-        button->setImages(componentOff.get(),
-                          componentOver.get(),
-                          componentOn.get(),
+        button->setImages(drawableOff.get(),
+                          drawableOver.get(),
+                          drawableOn.get(),
                           nullptr,
-                          componentOn.get(),
-                          componentOn.get(),
-                          componentOff.get(),
+                          drawableOn.get(),
+                          drawableOn.get(),
+                          drawableOff.get(),
                           nullptr);
 
         button->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
 
-        int width = componentOn->getWidth();
-        int height = componentOn->getHeight();
+        int width = drawableOn->getWidth();
+        int height = drawableOn->getHeight();
 
         // FIXME: image files with position from XML
         if (bounds == boundsZero)

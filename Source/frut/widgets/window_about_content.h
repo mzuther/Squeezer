@@ -59,7 +59,7 @@ protected:
 
     TextEditor textEditor_;
     TextButton buttonClose_;
-    ImageButton buttonLicense_;
+    DrawableButton buttonLicense_;
 
 private:
     JUCE_LEAK_DETECTOR(WindowAboutContent);
