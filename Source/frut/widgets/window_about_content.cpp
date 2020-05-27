@@ -39,6 +39,7 @@ namespace widgets
 /// | 1      | user wants to close the window    |
 ///
 WindowAboutContent::WindowAboutContent()
+    : buttonLicense_("License", DrawableButton::ButtonStyle::ImageRaw)
 {
 }
 
@@ -109,7 +110,6 @@ void WindowAboutContent::initialise(
     int componentWidth,
     int componentHeight,
     const StringPairArray &chapters)
-
 {
     // set dimensions of content component
     setSize(componentWidth, componentHeight);
@@ -128,29 +128,25 @@ void WindowAboutContent::initialise(
     addAndMakeVisible(buttonLicense_);
     buttonLicense_.addListener(this);
 
+    auto drawableOn = Drawable::createFromImageData(
+                          resources::button_gpl_on_svg,
+                          resources::button_gpl_on_svgSize);
+
+    auto drawableOff = Drawable::createFromImageData(
+                           resources::button_gpl_off_svg,
+                           resources::button_gpl_off_svgSize);
+
     // set license button images
-    buttonLicense_.setImages(
-        true,
-        false,
-        true,
+    buttonLicense_.setImages(drawableOff.get(),
+                             drawableOn.get(),
+                             drawableOn.get(),
+                             nullptr,
+                             drawableOn.get(),
+                             drawableOn.get(),
+                             drawableOff.get(),
+                             nullptr);
 
-        ImageCache::getFromMemory(
-            resources::button_gpl_normal_png,
-            resources::button_gpl_normal_pngSize),
-        1.0f,
-        Colour(),
-
-        ImageCache::getFromMemory(
-            resources::button_gpl_down_png,
-            resources::button_gpl_down_pngSize),
-        1.0f,
-        Colour(),
-
-        ImageCache::getFromMemory(
-            resources::button_gpl_down_png,
-            resources::button_gpl_down_pngSize),
-        1.0f,
-        Colour());
+    buttonLicense_.setBounds(0, 0, drawableOn->getWidth() + 1, drawableOn->getHeight() + 1);
 
     // initialise "close" button
     buttonClose_.setButtonText("Close");
@@ -198,7 +194,7 @@ void WindowAboutContent::applySkin()
     int height = getHeight();
 
     textEditor_.setBounds(0, 0, width, height - 47);
-    buttonLicense_.setBounds(6, height - 41, 64, 32);
+    buttonLicense_.setTopLeftPosition(8, height - 39);
     buttonClose_.setBounds(width - 70, height - 34, 60, 20);
 }
 
