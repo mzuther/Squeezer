@@ -77,7 +77,7 @@ protected:
     void (*fftwf_destroy_plan)(fftwf_plan);
 
     void (*fftwf_execute)(const fftwf_plan);
-#endif
+#endif // (defined (_WIN32) || defined (_WIN64))
 
 private:
     JUCE_LEAK_DETECTOR(FftwRunner);

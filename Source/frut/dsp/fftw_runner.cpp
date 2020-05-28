@@ -54,10 +54,10 @@ FftwRunner::FftwRunner(
 #ifdef _WIN64
     File dynamicLibraryFftwFile = resourceDirectory.getChildFile(
                                       "FFTW/libfftw3f-3_x64.dll");
-#else
+#else // _WIN64
     File dynamicLibraryFftwFile = resourceDirectory.getChildFile(
                                       "FFTW/libfftw3f-3.dll");
-#endif
+#endif // _WIN64
 
     String dynamicLibraryFftwPath = dynamicLibraryFftwFile.getFullPathName();
     dynamicLibraryFFTW.open(dynamicLibraryFftwPath);
@@ -87,7 +87,7 @@ FftwRunner::FftwRunner(
 
     fftwf_execute = (void (*)(const fftwf_plan)) dynamicLibraryFFTW.getFunction(
                         "fftwf_execute");
-#endif
+#endif // (defined (_WIN32) || defined (_WIN64))
 
     filterKernel_TD_ = fftwf_alloc_real(fftSize_);
     filterKernel_FD_ = fftwf_alloc_complex(halfFftSizePlusOne_);
@@ -129,7 +129,7 @@ FftwRunner::~FftwRunner()
     fftwf_destroy_plan = nullptr;
 
     fftwf_execute = nullptr;
-#endif
+#endif // (defined (_WIN32) || defined (_WIN64))
 }
 
 

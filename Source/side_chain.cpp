@@ -61,7 +61,7 @@ SideChain::SideChain(
 
     dDebugFinalValue90 = -1.0;
     dDebugTimeInReleasePhase = 0.0;
-#endif
+#endif // DEBUG_RELEASE_RATE
 }
 
 
@@ -496,7 +496,7 @@ void SideChain::processSample(
         }
     }
 
-#endif
+#endif // DEBUG_RELEASE_RATE
 }
 
 

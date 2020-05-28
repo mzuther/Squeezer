@@ -79,7 +79,7 @@ void Juggler::assertParameter(
         jassert(mayModify_[index]);
     }
 }
-#endif
+#endif // DEBUG
 
 
 /// Get pointer to plug-in parameter.  **Do not delete this pointer!**
@@ -94,7 +94,7 @@ Parameter *Juggler::getPluginParameter(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index];
 }
@@ -161,7 +161,7 @@ void Juggler::add(
 {
 #ifndef DEBUG
     ignoreUnused(index);
-#endif
+#endif // DEBUG
 
     // mark parameter for deletion on class destruction
     garbageCollector_.add(parameter);
@@ -215,7 +215,7 @@ void Juggler::addCombined(
 {
 #ifndef DEBUG
     ignoreUnused(parameterIndex);
-#endif
+#endif // DEBUG
 
     jassert(parameterIndex == (switchIndex + 1));
 
@@ -254,7 +254,7 @@ String Juggler::getName(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getName();
 }
@@ -273,7 +273,7 @@ void Juggler::setName(
 {
 #ifdef DEBUG
     assertParameter(index, true);
-#endif
+#endif // DEBUG
 
     virtualParameters_[index]->setName(newParameterName);
 }
@@ -292,7 +292,7 @@ float Juggler::getDefaultFloat(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getDefaultFloat();
 }
@@ -311,7 +311,7 @@ float Juggler::getDefaultRealFloat(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getDefaultRealFloat();
 }
@@ -330,7 +330,7 @@ bool Juggler::getDefaultBoolean(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getDefaultBoolean();
 }
@@ -350,7 +350,7 @@ int Juggler::getDefaultRealInteger(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getDefaultRealInteger();
 }
@@ -374,7 +374,7 @@ void Juggler::setDefaultRealFloat(
 {
 #ifdef DEBUG
     assertParameter(index, true);
-#endif
+#endif // DEBUG
 
     virtualParameters_[index]->setDefaultRealFloat(newRealValue, updateParameter);
 }
@@ -393,7 +393,7 @@ float Juggler::getFloat(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getFloat();
 }
@@ -413,7 +413,7 @@ void Juggler::setFloat(
 {
 #ifdef DEBUG
     assertParameter(index, true);
-#endif
+#endif // DEBUG
 
     virtualParameters_[index]->setFloat(newValue);
 }
@@ -432,7 +432,7 @@ float Juggler::getRealFloat(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getRealFloat();
 }
@@ -452,7 +452,7 @@ void Juggler::setRealFloat(
 {
 #ifdef DEBUG
     assertParameter(index, true);
-#endif
+#endif // DEBUG
 
     virtualParameters_[index]->setRealFloat(newRealValue);
 }
@@ -472,7 +472,7 @@ int Juggler::getRealInteger(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getRealInteger();
 }
@@ -492,7 +492,7 @@ void Juggler::setRealInteger(
 {
 #ifdef DEBUG
     assertParameter(index, true);
-#endif
+#endif // DEBUG
 
     virtualParameters_[index]->setRealInteger(newRealValue);
 }
@@ -511,7 +511,7 @@ bool Juggler::getBoolean(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getBoolean();
 }
@@ -529,7 +529,7 @@ String Juggler::getText(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->getText();
 }
@@ -548,7 +548,7 @@ void Juggler::setText(
 {
 #ifdef DEBUG
     assertParameter(index, true);
-#endif
+#endif // DEBUG
 
     virtualParameters_[index]->setText(newValue);
 }
@@ -567,7 +567,7 @@ bool Juggler::hasChanged(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->hasChanged();
 }
@@ -583,7 +583,7 @@ void Juggler::clearChangeFlag(
 {
 #ifdef DEBUG
     assertParameter(index, false);
-#endif
+#endif // DEBUG
 
     return virtualParameters_[index]->clearChangeFlag();
 }

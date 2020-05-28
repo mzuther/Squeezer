@@ -43,7 +43,7 @@ Flow of parameter processing:
 SqueezerAudioProcessor::SqueezerAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
     : AudioProcessor(getBusesProperties())
-#endif
+#endif // JucePlugin_PreferredChannelConfigurations
 {
     frut::Frut::printVersionNumbers();
 
@@ -757,9 +757,9 @@ bool SqueezerAudioProcessor::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput
     return true;
-#else
+#else // JucePlugin_WantsMidiInput
     return false;
-#endif
+#endif // JucePlugin_WantsMidiInput
 }
 
 
@@ -767,9 +767,9 @@ bool SqueezerAudioProcessor::producesMidi() const
 {
 #if JucePlugin_ProducesMidiOutput
     return true;
-#else
+#else // JucePlugin_ProducesMidiOutput
     return false;
-#endif
+#endif // JucePlugin_ProducesMidiOutput
 }
 
 
@@ -777,9 +777,9 @@ bool SqueezerAudioProcessor::isMidiEffect() const
 {
 #if JucePlugin_IsMidiEffect
     return true;
-#else
+#else // JucePlugin_IsMidiEffect
     return false;
-#endif
+#endif // JucePlugin_IsMidiEffect
 }
 
 
@@ -909,9 +909,9 @@ void SqueezerAudioProcessor::prepareToPlay(
 
 #ifdef SQUEEZER_MONO
     int numberOfChannels = 1;
-#else
+#else // SQUEEZER_MONO
     int numberOfChannels = 2;
-#endif
+#endif // SQUEEZER_MONO
 
     dither_.initialise(jmax(getMainBusNumInputChannels(),
                             getMainBusNumOutputChannels()),
@@ -1069,7 +1069,7 @@ void SqueezerAudioProcessor::process(
         sideChainInput_.clear();
     }
 
-#else
+#else // SQUEEZER_MONO
 
     mainInput_ = AudioBuffer<double>(2, nNumSamples);
     sideChainInput_ = AudioBuffer<double>(2, nNumSamples);
@@ -1111,7 +1111,7 @@ void SqueezerAudioProcessor::process(
         sideChainInput_.clear();
     }
 
-#endif
+#endif // SQUEEZER_MONO
 
     compressor_->process(mainInput_, sideChainInput_);
 
@@ -1120,14 +1120,14 @@ void SqueezerAudioProcessor::process(
     buffer.copyFrom(0, 0, mainInput_,
                     0, 0, nNumSamples);
 
-#else
+#else // SQUEEZER_MONO
 
     buffer.copyFrom(0, 0, mainInput_,
                     0, 0, nNumSamples);
     buffer.copyFrom(1, 0, mainInput_,
                     1, 0, nNumSamples);
 
-#endif
+#endif // SQUEEZER_MONO
 
     // "UM" ==> update meters
     sendActionMessage("UM");
@@ -1138,9 +1138,9 @@ AudioProcessorEditor *SqueezerAudioProcessor::createEditor()
 {
 #ifdef SQUEEZER_MONO
     return new SqueezerAudioProcessorEditor(*this, pluginParameters_, 1);
-#else
+#else // SQUEEZER_MONO
     return new SqueezerAudioProcessorEditor(*this, pluginParameters_, 2);
-#endif
+#endif // SQUEEZER_MONO
 }
 
 
