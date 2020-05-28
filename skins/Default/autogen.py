@@ -72,6 +72,8 @@ def payload():
     stdout = proc.communicate()[0]
     components = stdout.strip().split()
 
+    inkscape_actions = []
+
     for component in sorted(components):
         component_id, x, y, width, height = component.split(',')
 
@@ -90,24 +92,34 @@ def payload():
             width, height))
         print()
 
-        command = '''inkscape --export-filename="{}" \
-                       --export-id="{}" \
-                       --export-id-only --export-area-page \
-                       --export-plain-svg --export-text-to-path --vacuum-defs \
-                       "{}"'''.format(output_file, component_id, input_file)
+        inkscape_action = [
+            'file-open:{}'.format(input_file),
+            'export-filename:{}'.format(output_file),
+            'export-id:{}'.format(component_id),
+            'export-id-only',
+            'export-area-page',
+            'export-plain-svg',
+            'export-text-to-path',
+            'vacuum-defs',
+            'export-do'
+        ]
 
-        proc = subprocess.Popen(command,
-                                shell=True,
-                                stdin=subprocess.PIPE,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE,
-                                universal_newlines=True)
+        inkscape_action = '; '.join(inkscape_action)
+        inkscape_actions.append(inkscape_action)
 
-    # display output of "stdout" and "stderr" (if any)
-    for pipe_output in proc.communicate():
-        if pipe_output:
-            print(pipe_output.strip())
-            print()
+    print('  Exporting SVG documents ...')
+
+    # assemble actions
+    inkscape_actions = '; '.join(inkscape_actions)
+
+    command = 'inkscape --actions="{}"'.format(
+        inkscape_actions)
+
+    proc = subprocess.Popen(command, shell=True, universal_newlines=True)
+    proc.wait()
+
+    print('  Done.')
+    print('')
 
 
 if __name__ == '__main__':
