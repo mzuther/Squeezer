@@ -28,7 +28,13 @@ namespace frut
 namespace widgets
 {
 
-SliderCombined::SliderCombined(parameters::Juggler &parameters, int nParameterIndex, int nParameterIndexSwitch)
+SliderCombined::SliderCombined(
+    parameters::Juggler &parameters,
+    int nParameterIndex,
+    int nParameterIndexSwitch)
+
+    : FrutSlider(Slider::RotaryHorizontalVerticalDrag,
+                 TextEntryBoxPosition::TextBoxBelow)
 {
     pCombined = dynamic_cast<parameters::ParCombined *>(parameters.getPluginParameter(nParameterIndex));
     jassert(pCombined != nullptr);
@@ -60,7 +66,6 @@ void SliderCombined::visibilityChanged()
 {
     Slider::visibilityChanged();
 
-    setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
     setColour(Slider::rotarySliderFillColourId, colourRotary);
     setColour(Slider::textBoxTextColourId, Colours::white);
     setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
@@ -73,9 +78,7 @@ void SliderCombined::resized()
     Slider::resized();
 
     int nWidth = getBounds().getWidth();
-    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
-
-    int nSwitchWidth = 15;
+    int nSwitchWidth = math::SimpleMath::round(nWidth / 3.75f);
     int nSwitchX = nWidth - nSwitchWidth + 3;
     int nSwitchY = -3;
 
@@ -101,6 +104,7 @@ void SliderCombined::setToggleSwitchColour(const Colour &colour)
     DrawablePath drawCircleOff;
     drawCircleOff.setFill(FillType(colourToggleSwitch.darker(0.2f)));
     drawCircleOff.setStrokeFill(FillType(Colours::black));
+
     drawCircleOff.setStrokeType(PathStrokeType(1.0f));
     drawCircleOff.setPath(pathCircle);
 

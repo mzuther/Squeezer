@@ -35,6 +35,19 @@ class FrutSlider :
     public Slider
 {
 public:
+    FrutSlider()
+        : Slider()
+    {};
+
+    FrutSlider(const String &componentName)
+        : Slider(componentName)
+    {};
+
+    FrutSlider(SliderStyle style,
+               TextEntryBoxPosition textBoxPosition)
+        : Slider(style, textBoxPosition)
+    {};
+
     virtual void setSliderColour(const Colour &colour) = 0;
 };
 
