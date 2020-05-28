@@ -146,7 +146,7 @@ void WindowAboutContent::initialise(
                              drawableOff.get(),
                              nullptr);
 
-    buttonLicense_.setBounds(0, 0, drawableOn->getWidth(), drawableOn->getHeight());
+    buttonLicense_.setBounds(0, 0, drawableOn->getWidth() + 1, drawableOn->getHeight() + 1);
 
     // initialise "close" button
     buttonClose_.setButtonText("Close");
