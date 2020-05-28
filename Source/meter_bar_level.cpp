@@ -48,12 +48,12 @@ void MeterBarLevel::create(int crestFactor,
         int segmentHeight;
         int spacingBefore = 0;
 
-        if (trueLowerThreshold >= -80)
+        if (trueLowerThreshold >= -40)
         {
             colourId = colourSelector::overload;
             segmentHeight = mainSegmentHeight;
         }
-        else if (trueLowerThreshold >= -200)
+        else if (trueLowerThreshold >= -120)
         {
             colourId = colourSelector::warning;
             segmentHeight = mainSegmentHeight;

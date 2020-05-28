@@ -77,20 +77,30 @@ def payload():
     for component in sorted(components):
         component_id, x, y, width, height = component.split(',')
 
+        x = float(x)
+        y = float(y)
+        width = float(width)
+        height = float(height)
+
         output_file = component_id + '.svg'
         output_file = output_file.replace('export-', '', 1)
         output_file = output_file.replace('-', '_')
         output_file = output_file.replace('_', os.path.sep, 1)
 
-        print('  component:  {}'.format(
-            component_id))
-        print('  file name:  {} '.format(
-            output_file))
-        print('  position:   {} | {}'.format(
-            x, y))
-        print('  size:       {} x {}'.format(
-            width, height))
-        print()
+        print('  {} --> {}  ({} | {}, {} x {})'.format(
+            component_id, output_file, x, y, width, height))
+
+        if int(x) != x:
+            print('  *** x is not an integer')
+
+        if int(y) != y:
+            print('  *** y is not an integer')
+
+        if int(width) != width:
+            print('  *** width is not an integer')
+
+        if int(height) != height:
+            print('  *** height is not an integer')
 
         inkscape_action = [
             'file-open:{}'.format(input_file),
@@ -107,6 +117,7 @@ def payload():
         inkscape_action = '; '.join(inkscape_action)
         inkscape_actions.append(inkscape_action)
 
+    print()
     print('  Exporting SVG documents ...')
 
     # assemble actions
