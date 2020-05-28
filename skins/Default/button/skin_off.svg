@@ -5,85 +5,13 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   width="773"
-   height="213"
-   id="svg2"
+   style="enable-background:new"
    version="1.1"
-   style="enable-background:new">
+   id="svg2"
+   height="213"
+   width="773">
   <defs
-     id="defs4">
-    <pattern
-       xlink:href="#pattern1836"
-       id="pattern2556"
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,859.00006,-122.99997)" />
-    <pattern
-       xlink:href="#pattern6575"
-       id="pattern1836"
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)" />
-    <pattern
-       xlink:href="#pattern11850"
-       id="pattern6575"
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)" />
-    <pattern
-       xlink:href="#pattern6644"
-       id="pattern11850"
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)" />
-    <pattern
-       xlink:href="#pattern6132"
-       id="pattern6644"
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)" />
-    <pattern
-       xlink:href="#pattern5618"
-       id="pattern6132"
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)" />
-    <pattern
-       xlink:href="#pattern25706"
-       id="pattern5618"
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)" />
-    <pattern
-       xlink:href="#pattern20948"
-       id="pattern25706"
-       patternTransform="matrix(0.78764255,1.364237,-9.5105953,5.4909442,130.00002,147.00003)" />
-    <pattern
-       xlink:href="#pattern20628"
-       id="pattern20948"
-       patternTransform="matrix(0.78764255,1.364237,-9.5105953,5.4909442,930.00002,-122.99997)" />
-    <pattern
-       xlink:href="#pattern6948"
-       id="pattern20628"
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)" />
-    <pattern
-       xlink:href="#pattern13272"
-       id="pattern6948"
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)" />
-    <pattern
-       xlink:href="#pattern13037"
-       id="pattern13272"
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)" />
-    <pattern
-       xlink:href="#pattern9313-9-6"
-       id="pattern13037"
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,930.00001,-122.99997)" />
-    <pattern
-       patternTransform="matrix(0.78764255,1.364237,-9.5105957,5.4909443,389.99998,-313.99998)"
-       id="pattern9313-9-6"
-       xlink:href="#Strips1_1-7-9" />
-    <pattern
-       patternUnits="userSpaceOnUse"
-       width="2"
-       height="1"
-       patternTransform="translate(0,0) scale(10,10)"
-       id="Strips1_1-7-9">
-      <rect
-         style="fill:black;stroke:none"
-         x="0"
-         y="-0.5"
-         width="1"
-         height="2"
-         id="rect8592-4-3" />
-    </pattern>
-  </defs>
+     id="defs4" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -114,11 +42,11 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer6"
-     style="display:inline">
+     style="display:inline"
+     id="layer6">
     <g
-       id="export-button-skin-off"
-       transform="translate(250,182)">
+       transform="translate(250,182)"
+       id="export-button-skin-off">
       <path
          d="m 810.5,-111.5 h 39 c 5.54,0 10,4.237 10,9.5 0,5.263001 -4.46,9.500002 -10,9.500002 h -39 c -5.54,0 -10,-4.237001 -10,-9.500002 0,-5.263 4.46,-9.5 10,-9.5 z"
          style="color:#000000;font-variation-settings:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#666666;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
@@ -128,19 +56,19 @@
          id="text2228"
          aria-label="Skin">
         <path
-           id="path1367"
+           id="path1627"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            d="m 824.67992,-105.19468 c -0.576,-0.544 -1.44001,-0.81067 -2.19734,-0.81067 -1.36534,0 -2.76268,0.68267 -2.76268,2.21868 0,1.408 0.992,1.856 1.90934,2.144 0.94934,0.29867 1.73867,0.52267 1.73867,1.31201 0,0.810667 -0.736,1.120002 -1.36533,1.120002 -0.59734,0 -1.28001,-0.320001 -1.65334,-0.832002 l -0.96001,0.896002 c 0.59734,0.704002 1.61068,1.077337 2.59201,1.077337 1.48267,0 2.75201,-0.789336 2.75201,-2.410679 0,-1.48267 -1.23734,-1.90934 -2.20801,-2.208 -0.85333,-0.26667 -1.44,-0.46934 -1.44,-1.16267 0,-0.73601 0.71467,-1.03467 1.33334,-1.03467 0.53333,0 1.09867,0.27733 1.38667,0.65067 z" />
         <path
-           id="path1369"
+           id="path1629"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            d="m 826.03692,-98.261322 h 1.28001 v -2.624008 h 0.032 l 2.02667,2.624008 h 1.696 l -2.35734,-2.805338 2.21868,-2.31468 h -1.64267 l -1.94134,2.15468 h -0.032 v -5.09869 h -1.28001 z" />
         <path
-           id="path1371"
+           id="path1631"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            d="m 831.82861,-98.261322 h 1.28 v -5.120018 h -1.28 z m -0.18134,-6.858688 c 0,0.40533 0.34134,0.768 0.81067,0.768 0.46934,0 0.832,-0.33067 0.832,-0.768 0,-0.43734 -0.36266,-0.768 -0.832,-0.768 -0.46933,0 -0.81067,0.36267 -0.81067,0.768 z" />
         <path
-           id="path1373"
+           id="path1633"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            d="m 834.66145,-98.261322 h 1.28 v -2.816008 c 0,-0.68267 0.384,-1.38667 1.19467,-1.38667 0.82134,0 0.96001,0.75733 0.96001,1.36534 v 2.837338 h 1.28 v -3.200008 c 0,-1.04534 -0.55467,-2.06934 -1.88801,-2.06934 -0.75733,0 -1.36533,0.45867 -1.58933,0.97067 h -0.0213 v -0.82134 h -1.216 z" />
       </g>

@@ -5,85 +5,13 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    style="enable-background:new"
    version="1.1"
    id="svg2"
    height="213"
    width="773">
   <defs
-     id="defs4">
-    <pattern
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,859.00006,-122.99997)"
-       id="pattern2556"
-       xlink:href="#pattern1836" />
-    <pattern
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)"
-       id="pattern1836"
-       xlink:href="#pattern6575" />
-    <pattern
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)"
-       id="pattern6575"
-       xlink:href="#pattern11850" />
-    <pattern
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)"
-       id="pattern11850"
-       xlink:href="#pattern6644" />
-    <pattern
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,930.00001,-122.99997)"
-       id="pattern6644"
-       xlink:href="#pattern6132" />
-    <pattern
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)"
-       id="pattern6132"
-       xlink:href="#pattern5618" />
-    <pattern
-       patternTransform="matrix(0.78764252,1.364237,-9.5105949,5.4909442,130.00001,147.00003)"
-       id="pattern5618"
-       xlink:href="#pattern25706" />
-    <pattern
-       patternTransform="matrix(0.78764255,1.364237,-9.5105953,5.4909442,130.00002,147.00003)"
-       id="pattern25706"
-       xlink:href="#pattern20948" />
-    <pattern
-       patternTransform="matrix(0.78764255,1.364237,-9.5105953,5.4909442,930.00002,-122.99997)"
-       id="pattern20948"
-       xlink:href="#pattern20628" />
-    <pattern
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)"
-       id="pattern20628"
-       xlink:href="#pattern6948" />
-    <pattern
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)"
-       id="pattern6948"
-       xlink:href="#pattern13272" />
-    <pattern
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,290.00001,147.00003)"
-       id="pattern13272"
-       xlink:href="#pattern13037" />
-    <pattern
-       patternTransform="matrix(0.78764254,1.364237,-9.5105951,5.4909442,930.00001,-122.99997)"
-       id="pattern13037"
-       xlink:href="#pattern9313-9-6" />
-    <pattern
-       xlink:href="#Strips1_1-7-9"
-       id="pattern9313-9-6"
-       patternTransform="matrix(0.78764255,1.364237,-9.5105957,5.4909443,389.99998,-313.99998)" />
-    <pattern
-       id="Strips1_1-7-9"
-       patternTransform="translate(0,0) scale(10,10)"
-       height="1"
-       width="2"
-       patternUnits="userSpaceOnUse">
-      <rect
-         id="rect8592-4-3"
-         height="2"
-         width="1"
-         y="-0.5"
-         x="0"
-         style="fill:black;stroke:none" />
-    </pattern>
-  </defs>
+     id="defs4" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -126,12 +54,12 @@
          d="M -70.999952,437 H 702.00002 V 650 H -70.999952 Z"
          id="path6007" />
       <path
-         d="M -70.999954,437 H 702.00005 V 650 H -70.999954 Z"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.5;fill:url(#pattern2556);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;enable-background:accumulate"
-         id="rect6009" />
+         d="m -69.999954,438 v 0.19531 L -69.662064,438 Z m 3.53711,0 -3.53711,2.04102 v 1.8496 L -63.261674,438 Z m 6.39844,0 -9.93555,5.73633 v 1.84765 L -56.865184,438 Z m 6.40039,0 -16.33594,9.43164 v 1.84766 L -50.464794,438 Z m 6.40234,0 -22.73828,13.12891 v 1.8457 L -44.064404,438 Z m 6.40039,0 -29.13867,16.82227 v 1.8457 L -37.664014,438 Z m 6.40039,0 -35.53906,20.51758 v 1.84765 L -31.261674,438 Z m 6.39844,0 -41.9375,24.21289 v 1.84766 L -24.863234,438 Z m 6.39649,0 -48.33399,27.90625 v 1.84961 L -18.462844,438 Z m 6.40234,0 -54.73633,31.60156 v 1.84766 L -12.062454,438 Z m 6.40039,0 -61.13672,35.29687 v 1.84766 L -5.662064,438 Z m 6.40039,0 -67.53711,38.99219 v 1.84961 L 0.738326,438 Z m 6.39844,0 -73.93555,42.6875 v 1.84766 L 7.136766,438 Z m 6.40039,0 -80.33594,46.38281 v 1.84571 L 13.535206,438 Z m 6.40234,0 -86.73828,50.07812 v 1.84571 L 19.935596,438 Z m 6.40039,0 -93.13867,53.77344 v 1.8457 L 26.335986,438 Z m 6.40039,0 -99.53906,57.46875 v 1.84766 L 32.738326,438 Z m 6.39649,0 -105.93555,61.16211 v 1.84766 L 39.136766,438 Z m 6.39843,0 -112.33398,64.85742 v 1.84766 L 45.537156,438 Z m 6.40235,0 -118.73633,68.55273 v 1.84766 L 51.937546,438 Z m 6.40039,0 -125.13672,72.24805 v 1.84765 L 58.337936,438 Z m 6.40039,0 -131.53711,75.94336 v 1.84766 L 64.740276,438 Z m 6.40039,0 -137.9375,79.63867 v 1.8457 L 71.136769,438 Z m 6.398443,0 -144.335943,83.33203 v 1.84766 L 77.535209,438 Z m 6.40234,0 -150.738283,87.0293 v 1.8457 L 83.935599,438 Z m 6.40039,0 -157.138673,90.72461 v 1.8457 L 90.335989,438 Z m 6.40039,0 -163.539063,94.41992 v 1.8457 L 96.738329,438 Z m 6.39649,0 -169.935553,98.11133 v 1.84961 L 103.13677,438 Z m 6.400391,0 -176.335944,101.80664 v 1.84961 L 109.53716,438 Z m 6.40039,0 -182.736334,105.50391 v 1.84765 L 115.93755,438 Z m 6.40039,0 -189.136724,109.19727 v 1.84961 L 122.33794,438 Z m 6.40039,0 -195.537114,112.89258 v 1.84765 L 128.73638,438 Z m 6.40039,0 -201.937504,116.58789 v 1.84766 L 135.13677,438 Z m 6.39844,0 -208.335944,120.2832 v 1.84766 L 141.53521,438 Z m 6.40234,0 -214.738284,123.97852 v 1.84765 L 147.9356,438 Z m 6.40039,0 -221.138674,127.67383 v 1.8457 L 154.33599,438 Z m 6.40039,0 -227.539064,131.36914 v 1.84766 L 160.73833,438 Z m 6.39649,0 -233.935554,135.0625 v 1.84961 L 167.13872,438 Z m 6.40039,0 -240.335944,138.75781 v 1.84961 L 173.53716,438 Z m 6.40039,0 -246.736334,142.45312 v 1.84766 L 179.93755,438 Z m 6.40039,0 -253.136724,146.14844 v 1.84765 L 186.33794,438 Z m 6.40039,0 -259.537114,149.84375 v 1.84766 L 192.73638,438 Z m 6.40039,0 -265.937504,153.53906 v 1.84766 L 199.13677,438 Z m 6.39844,0 -272.335944,157.23438 v 1.8457 L 205.53716,438 Z m 6.40234,0 -278.738284,160.92969 v 1.8457 L 211.9356,438 Z m 6.40039,0 -285.138674,164.625 v 1.8457 L 218.33599,438 Z m 6.39649,0 -291.535164,168.31836 v 1.84961 L 224.73833,438 Z m 6.40039,0 -297.935554,172.01367 v 1.84766 L 231.13872,438 Z m 6.40039,0 -304.335944,175.70898 v 1.84766 L 237.53716,438 Z m 6.40039,0 -310.736334,179.4043 v 1.84765 L 243.93755,438 Z m 6.40039,0 -317.136724,183.09961 v 1.84766 L 250.33794,438 Z m 6.40039,0 -323.537114,186.79492 v 1.8457 L 256.73638,438 Z m 6.40039,0 -329.937504,190.48828 v 1.84766 L 263.13677,438 Z m 6.40039,0 -336.337894,194.18359 v 1.84766 L 269.53716,438 Z m 6.4004,0 -342.738294,197.88086 v 1.8457 L 275.93561,438 Z m 6.40039,0 -349.138684,201.57617 v 1.84571 L 282.336,438 Z m 6.39649,0 -355.535174,205.26758 v 1.84961 L 288.73834,438 Z m 6.40039,0 -361.935564,208.96289 v 1.84961 L 295.13873,438 Z m 6.40039,0 -365.462904,211 h 3.20312 L 301.53717,438 Z m 6.40039,0 -365.460954,211 h 3.19922 L 307.93756,438 Z m 6.40039,0 -365.462904,211 h 3.19727 L 314.33404,438 Z m 6.40039,0 -365.462904,211 h 3.19922 L 320.73639,438 Z m 6.40039,0 -365.462904,211 h 3.19922 L 327.13678,438 Z m 6.40039,0 -365.462904,211 h 3.19922 L 333.53717,438 Z m 6.40039,0 -365.462904,211 h 3.19922 L 339.93561,438 Z m 6.39649,0 -365.460954,211 h 3.19922 L 346.336,438 Z m 6.40039,0 -365.462904,211 h 3.20312 L 352.73834,438 Z m 6.40039,0 -365.462904,211 h 3.20312 L 359.13873,438 Z m 6.40039,0 -365.462904,211 h 3.20312 L 365.53912,438 Z m 6.40234,0 L 3.275436,649 h 3.19922 L 371.93756,438 Z m 6.39844,0 L 9.673876,649 h 3.19727 L 378.33404,438 Z m 6.40039,0 -365.462904,211 h 3.19922 L 384.73639,438 Z m 6.40039,0 -365.462904,211 h 3.19922 L 391.13678,438 Z m 6.40039,0 -365.462904,211 h 3.19922 L 397.53717,438 Z m 6.40039,0 -365.460954,211 h 3.19727 L 403.93561,438 Z m 6.39844,0 -365.462904,211 h 3.19922 L 410.336,438 Z m 6.39844,0 -365.462904,211 h 3.20312 L 416.73834,438 Z m 6.40039,0 -365.462904,211 h 3.20312 L 423.13873,438 Z m 6.40039,0 -365.462904,211 h 3.20312 L 429.53912,438 Z m 6.40234,0 -365.462904,211 h 3.199223 L 435.93756,438 Z m 6.39844,0 -365.460951,211 h 3.19727 L 442.33404,438 Z m 6.40039,0 -365.462901,211 h 3.19922 L 448.73639,438 Z m 6.40039,0 -365.462901,211 h 3.19922 L 455.13678,438 Z m 6.40039,0 -365.462901,211 h 3.19922 L 461.53717,438 Z m 6.40234,0 -365.462901,211 h 3.197271 l 365.4629,-211 z m 6.39649,0 -365.4629,211 h 3.19922 L 474.336,438 Z m 6.39844,0 -365.4629,211 h 3.20312 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.20312 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.20312 l 365.4629,-211 z m 6.40234,0 -365.4629,211 h 3.19727 l 365.4629,-211 z m 6.39844,0 -365.46095,211 h 3.19727 L 506.336,438 Z m 6.40039,0 -365.4629,211 h 3.19922 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19922 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19922 l 365.4629,-211 z m 6.39844,0 -365.4629,211 h 3.20117 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19922 L 538.336,438 Z m 6.39844,0 -365.46095,211 h 3.20117 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.20312 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.20312 l 365.4629,-211 z m 6.40234,0 -365.4629,211 h 3.19727 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19727 L 570.336,438 Z m 6.39844,0 -365.4629,211 h 3.19922 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19922 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19922 l 365.4629,-211 z m 6.39844,0 -365.4629,211 h 3.20117 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.20117 L 602.336,438 Z m 6.40039,0 -365.4629,211 h 3.20117 l 365.4629,-211 z m 6.39844,0 -365.4629,211 h 3.20312 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19922 l 365.4629,-211 z m 6.40234,0 -365.4629,211 h 3.19727 l 365.4629,-211 z m 6.40039,0 -365.4629,211 h 3.19727 L 634.336,438 Z m 6.39844,0 -365.46289,211 h 3.20117 L 640.73639,438 Z m 6.40039,0 -365.46289,211 h 3.19922 L 647.13678,438 Z m 6.40039,0 -365.46289,211 h 3.19922 L 653.53717,438 Z m 6.39844,0 -365.46289,211 h 3.20117 L 659.93756,438 Z m 6.40039,0 -365.46289,211 h 3.20117 L 666.33795,438 Z m 6.40039,0 -365.46289,211 h 3.20117 L 672.73834,438 Z m 6.39844,0 -365.46289,211 h 3.20312 L 679.13873,438 Z m 6.40039,0 -365.46289,211 h 3.19922 L 685.53522,438 Z m 6.40234,0 -365.46289,211 h 3.19727 L 691.93561,438 Z m 6.40039,0 -365.46289,211 h 3.19727 L 698.33795,438 Z m 5.86133,0.31055 L 336.07623,649 h 3.19922 L 701.00006,440.1582 Z m 0,3.69531 L 342.47467,649 h 3.19922 L 701.00006,443.85352 Z m 0,3.69336 L 348.87115,649 h 3.20313 L 701.00006,447.54687 Z m 0,3.69531 L 355.2735,649 h 3.20117 L 701.00006,451.24219 Z m 0,3.69531 L 361.67389,649 h 3.20117 l 336.125,-194.06055 z m 0,3.69532 L 368.07428,649 h 3.20117 L 701.00006,458.63477 Z m 0,3.69531 L 374.47467,649 h 3.20117 L 701.00006,462.32812 Z m 0,3.69531 L 380.87311,649 h 3.19922 L 701.00006,466.02148 Z m 0,3.69531 L 387.27545,649 h 3.19727 L 701.00006,469.7168 Z m 0,3.69532 L 393.67584,649 h 3.19727 L 701.00006,473.41211 Z m 0,3.69531 L 400.07623,649 h 3.19922 L 701.00006,477.10742 Z m 0,3.69531 L 406.47467,649 h 3.19922 L 701.00006,480.80273 Z m 0,3.69141 L 412.87115,649 h 3.20313 L 701.00006,484.49805 Z m 0,3.69726 L 419.2735,649 h 3.20117 L 701.00006,488.19336 Z m 0,3.69532 L 425.67389,649 h 3.20117 l 272.125,-157.11133 z m 0,3.69531 L 432.07428,649 h 3.20312 L 701.00006,495.58398 Z m 0,3.69336 L 438.47467,649 h 3.19922 L 701.00006,499.27734 Z m 0,3.69531 L 444.87311,649 h 3.19922 L 701.00006,502.97266 Z m 0,3.69727 L 451.27545,649 h 3.19727 L 701.00006,506.66797 Z m 0,3.69335 L 457.67584,649 h 3.19727 L 701.00006,510.36328 Z m 0,3.69532 L 464.07623,649 h 3.19922 L 701.00006,514.05859 Z m 0,3.69336 L 470.47272,649 h 3.20312 L 701.00006,517.75391 Z m 0,3.69531 L 476.87311,649 h 3.20117 L 701.00006,521.44922 Z m 0,3.69531 L 483.2735,649 h 3.20117 L 701.00006,525.14453 Z m 0,3.69531 L 489.67389,649 h 3.20117 l 208.125,-120.16016 z m 0,3.69532 L 496.07428,649 h 3.20312 L 701.00006,532.53516 Z m 0,3.69531 L 502.47467,649 h 3.19922 L 701.00006,536.22852 Z m 0,3.69531 L 508.87311,649 h 3.19922 L 701.00006,539.92383 Z m 0,3.69531 L 515.27545,649 h 3.19727 L 701.00006,543.61719 Z m 0,3.69532 L 521.67584,649 h 3.19922 l 176.125,-101.68555 z m 0,3.69531 L 528.07623,649 h 3.19922 l 169.72461,-97.99023 z m 0,3.69336 L 534.47272,649 h 3.20312 l 163.32422,-94.29492 z m 0,3.69531 L 540.87311,649 h 3.20117 l 156.92578,-90.60156 z m 0,3.69531 L 547.2735,649 h 3.20117 l 150.52539,-86.90625 z m 0,3.69532 L 553.67389,649 h 3.20312 l 144.12305,-83.20898 z m 0,3.69531 L 560.07428,649 h 3.19922 l 137.72656,-79.51562 z m 0,3.69531 L 566.47467,649 h 3.19922 l 131.32617,-75.82227 z m 0,3.69531 L 572.87311,649 h 3.20117 l 124.92578,-72.12695 z m 0,3.69532 L 579.27545,649 h 3.19727 l 118.52734,-68.43164 z m 0,3.69531 L 585.67584,649 h 3.19922 l 112.125,-64.73633 z m 0,3.69531 L 592.07623,649 h 3.19922 l 105.72461,-61.04102 z m 0,3.69336 L 598.47272,649 h 3.20312 l 99.32422,-57.3457 z m 0,3.69336 -96.12695,55.5 h 3.20117 l 92.92578,-53.65039 z m 0,3.69727 L 611.2735,649 h 3.20117 l 86.52539,-49.95508 z m 0,3.69531 L 617.67389,649 h 3.20312 l 80.12305,-46.25977 z m 0,3.69336 L 624.07428,649 h 3.19922 l 73.72656,-42.56641 z m 0,3.69531 L 630.47467,649 h 3.19922 l 67.32617,-38.87109 z m 0,3.69531 L 636.87506,649 h 3.19922 l 60.92578,-35.17578 z m 0,3.69727 L 643.27545,649 h 3.19727 l 54.52734,-31.48047 z m 0,3.69336 L 649.67584,649 h 3.19922 l 48.125,-27.78516 z m 0,3.69336 L 656.07233,649 h 3.20312 l 41.72461,-24.08984 z m 0,3.69531 L 662.47272,649 h 3.20312 l 35.32422,-20.39453 z m 0,3.69531 L 668.87311,649 h 3.20117 l 28.92578,-16.69922 z m 0,3.69531 L 675.27545,649 h 3.19922 l 22.52539,-13.00391 z m 0,3.69532 L 681.67389,649 h 3.20312 l 16.12305,-9.30859 z m 0,3.69531 L 688.07428,649 h 3.19922 l 9.72656,-5.61523 z m 0,3.69531 L 694.47467,649 h 3.19922 l 3.32617,-1.91992 z m 0,3.69531 -0.125,0.0723 h 0.125 z"
+         style="color:#000000;display:inline;overflow:visible;fill:#141414;fill-opacity:1;stroke:none;stroke-width:0.480772;stroke-linejoin:round;paint-order:markers fill stroke;enable-background:new"
+         id="use5062" />
       <path
          d="M -70.499954,437.5 H 701.50005 V 649.49998 H -70.499954 Z"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.4;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
+         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#141414;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker:none;enable-background:accumulate"
          id="rect6011" />
       <g
          id="g6571"
@@ -164,23 +92,23 @@
                id="text6024"
                aria-label="Ratio">
               <path
-                 id="path537"
+                 id="path797"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 384.60507,528.71765 h 1.386 v -3.3 h 1.012 l 1.804,3.3 h 1.672 l -2.079,-3.454 c 1.089,-0.242 1.782,-0.979 1.782,-2.101 0,-1.65 -1.408,-2.233 -2.871,-2.233 h -2.706 z m 1.386,-4.433 v -2.189 h 1.254 c 0.715,0 1.551,0.209 1.551,1.056 0,0.946 -0.891,1.133 -1.672,1.133 z" />
               <path
-                 id="path539"
+                 id="path799"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 394.60613,528.71765 h 1.232 v -3.212 c 0,-1.056 -0.462,-2.222 -2.354,-2.222 -0.803,0 -1.639,0.286 -2.233,0.836 l 0.682,0.803 c 0.341,-0.341 0.88,-0.605 1.441,-0.605 0.66,0 1.21,0.319 1.21,0.968 v 0.132 c -1.65,0 -3.63,0.22 -3.63,1.793 0,1.232 1.133,1.639 1.98,1.639 0.748,0 1.375,-0.341 1.639,-0.803 h 0.033 z m -0.022,-2.222 c 0,0.836 -0.484,1.353 -1.386,1.353 -0.451,0 -0.924,-0.154 -0.924,-0.66 0,-0.781 1.177,-0.88 2.013,-0.88 h 0.297 z" />
               <path
-                 id="path541"
+                 id="path801"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 397.4443,524.49365 v 2.464 c 0,1.012 0.319,1.87 1.716,1.87 0.297,0 0.649,-0.055 0.88,-0.143 l -0.044,-1.034 c -0.154,0.077 -0.385,0.11 -0.561,0.11 -0.583,0 -0.693,-0.341 -0.693,-0.814 v -2.453 h 1.32 v -1.056 h -1.32 v -1.529 h -1.298 v 1.529 h -0.924 v 1.056 z" />
               <path
-                 id="path543"
+                 id="path803"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 401.03959,528.71765 h 1.32 v -5.28 h -1.32 z m -0.187,-7.073 c 0,0.418 0.352,0.792 0.836,0.792 0.484,0 0.858,-0.341 0.858,-0.792 0,-0.451 -0.374,-0.792 -0.858,-0.792 -0.484,0 -0.836,0.374 -0.836,0.792 z" />
               <path
-                 id="path545"
+                 id="path805"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 403.65295,526.05565 c 0,1.661 1.276,2.816 2.871,2.816 1.595,0 2.871,-1.155 2.871,-2.816 0,-1.661 -1.276,-2.772 -2.871,-2.772 -1.595,0 -2.871,1.111 -2.871,2.772 z m 1.342,0 c 0,-0.825 0.484,-1.694 1.529,-1.694 1.045,0 1.529,0.869 1.529,1.694 0,0.825 -0.484,1.716 -1.529,1.716 -1.045,0 -1.529,-0.891 -1.529,-1.716 z" />
             </g>
@@ -198,27 +126,27 @@
                id="text6032"
                aria-label="Thresh">
               <path
-                 id="path549"
+                 id="path809"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 382.83176,528.71765 h 1.386 v -6.578 h 2.387 v -1.21 h -6.16 v 1.21 h 2.387 z" />
               <path
-                 id="path551"
+                 id="path811"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 390.18835,523.28365 c -0.781,0 -1.364,0.451 -1.573,0.891 h -0.022 v -3.773 h -1.32 v 8.316 h 1.32 v -2.882 c 0,-0.704 0.407,-1.419 1.243,-1.419 0.847,0 0.979,0.77 0.979,1.397 v 2.904 h 1.32 v -3.3 c 0,-1.078 -0.572,-2.134 -1.947,-2.134 z" />
               <path
-                 id="path553"
+                 id="path813"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 393.67518,528.71765 h 1.32 v -2.827 c 0,-0.385 0.231,-1.419 1.419,-1.419 0.121,0 0.231,0.011 0.407,0.055 v -1.21 c -0.088,-0.022 -0.22,-0.033 -0.319,-0.033 -0.693,0 -1.254,0.429 -1.54,1.034 h -0.022 v -0.88 h -1.265 z" />
               <path
-                 id="path555"
+                 id="path815"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 398.48991,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
               <path
-                 id="path557"
+                 id="path817"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 407.54532,524.08665 c -0.429,-0.539 -1.221,-0.803 -1.98,-0.803 -1.045,0 -2.101,0.506 -2.101,1.683 0,0.99 0.781,1.309 1.562,1.496 0.803,0.187 1.21,0.319 1.21,0.759 0,0.473 -0.462,0.627 -0.847,0.627 -0.572,0 -1.067,-0.286 -1.353,-0.66 l -0.869,0.814 c 0.506,0.561 1.353,0.869 2.167,0.869 1.155,0 2.2,-0.473 2.2,-1.76 0,-1.034 -0.924,-1.386 -1.705,-1.573 -0.737,-0.176 -1.144,-0.286 -1.144,-0.693 0,-0.418 0.429,-0.572 0.847,-0.572 0.484,0 0.924,0.264 1.155,0.572 z" />
               <path
-                 id="path559"
+                 id="path819"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 411.60827,523.28365 c -0.781,0 -1.364,0.451 -1.573,0.891 h -0.022 v -3.773 h -1.32 v 8.316 h 1.32 v -2.882 c 0,-0.704 0.407,-1.419 1.243,-1.419 0.847,0 0.979,0.77 0.979,1.397 v 2.904 h 1.32 v -3.3 c 0,-1.078 -0.572,-2.134 -1.947,-2.134 z" />
             </g>
@@ -244,31 +172,31 @@
                id="text6044"
                aria-label="Release">
               <path
-                 id="path564"
+                 id="path824"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 377.89584,528.71765 h 1.386 v -3.3 h 1.012 l 1.804,3.3 h 1.672 l -2.079,-3.454 c 1.089,-0.242 1.782,-0.979 1.782,-2.101 0,-1.65 -1.408,-2.233 -2.871,-2.233 h -2.706 z m 1.386,-4.433 v -2.189 h 1.254 c 0.715,0 1.551,0.209 1.551,1.056 0,0.946 -0.891,1.133 -1.672,1.133 z" />
               <path
-                 id="path566"
+                 id="path826"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 385.6309,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
               <path
-                 id="path568"
+                 id="path828"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 390.95731,528.71765 h 1.32 v -8.316 h -1.32 z" />
               <path
-                 id="path570"
+                 id="path830"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 394.89067,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
               <path
-                 id="path572"
+                 id="path832"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 403.40862,528.71765 h 1.232 v -3.212 c 0,-1.056 -0.462,-2.222 -2.354,-2.222 -0.803,0 -1.639,0.286 -2.233,0.836 l 0.682,0.803 c 0.341,-0.341 0.88,-0.605 1.441,-0.605 0.66,0 1.21,0.319 1.21,0.968 v 0.132 c -1.65,0 -3.63,0.22 -3.63,1.793 0,1.232 1.133,1.639 1.98,1.639 0.748,0 1.375,-0.341 1.639,-0.803 h 0.033 z m -0.022,-2.222 c 0,0.836 -0.484,1.353 -1.386,1.353 -0.451,0 -0.924,-0.154 -0.924,-0.66 0,-0.781 1.177,-0.88 2.013,-0.88 h 0.297 z" />
               <path
-                 id="path574"
+                 id="path834"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 409.94022,524.08665 c -0.429,-0.539 -1.221,-0.803 -1.98,-0.803 -1.045,0 -2.101,0.506 -2.101,1.683 0,0.99 0.781,1.309 1.562,1.496 0.803,0.187 1.21,0.319 1.21,0.759 0,0.473 -0.462,0.627 -0.847,0.627 -0.572,0 -1.067,-0.286 -1.353,-0.66 l -0.869,0.814 c 0.506,0.561 1.353,0.869 2.167,0.869 1.155,0 2.2,-0.473 2.2,-1.76 0,-1.034 -0.924,-1.386 -1.705,-1.573 -0.737,-0.176 -1.144,-0.286 -1.144,-0.693 0,-0.418 0.429,-0.572 0.847,-0.572 0.484,0 0.924,0.264 1.155,0.572 z" />
               <path
-                 id="path576"
+                 id="path836"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 412.07817,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
             </g>
@@ -286,27 +214,27 @@
                id="text6052"
                aria-label="Attack">
               <path
-                 id="path580"
+                 id="path840"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 380.7079,528.71765 h 1.551 l 0.704,-1.782 h 3.377 l 0.726,1.782 h 1.584 l -3.355,-7.788 h -1.199 z m 2.728,-2.97 1.221,-3.168 1.199,3.168 z" />
               <path
-                 id="path582"
+                 id="path842"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 389.50876,524.49365 v 2.464 c 0,1.012 0.319,1.87 1.716,1.87 0.297,0 0.649,-0.055 0.88,-0.143 l -0.044,-1.034 c -0.154,0.077 -0.385,0.11 -0.561,0.11 -0.583,0 -0.693,-0.341 -0.693,-0.814 v -2.453 h 1.32 v -1.056 h -1.32 v -1.529 h -1.298 v 1.529 h -0.924 v 1.056 z" />
               <path
-                 id="path584"
+                 id="path844"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 393.07516,524.49365 v 2.464 c 0,1.012 0.319,1.87 1.716,1.87 0.297,0 0.649,-0.055 0.88,-0.143 l -0.044,-1.034 c -0.154,0.077 -0.385,0.11 -0.561,0.11 -0.583,0 -0.693,-0.341 -0.693,-0.814 v -2.453 h 1.32 v -1.056 h -1.32 v -1.529 h -1.298 v 1.529 h -0.924 v 1.056 z" />
               <path
-                 id="path586"
+                 id="path846"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 399.92645,528.71765 h 1.232 v -3.212 c 0,-1.056 -0.462,-2.222 -2.354,-2.222 -0.803,0 -1.639,0.286 -2.233,0.836 l 0.682,0.803 c 0.341,-0.341 0.88,-0.605 1.441,-0.605 0.66,0 1.21,0.319 1.21,0.968 v 0.132 c -1.65,0 -3.63,0.22 -3.63,1.793 0,1.232 1.133,1.639 1.98,1.639 0.748,0 1.375,-0.341 1.639,-0.803 h 0.033 z m -0.022,-2.222 c 0,0.836 -0.484,1.353 -1.386,1.353 -0.451,0 -0.924,-0.154 -0.924,-0.66 0,-0.781 1.177,-0.88 2.013,-0.88 h 0.297 z" />
               <path
-                 id="path588"
+                 id="path848"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 407.21704,524.10865 c -0.418,-0.517 -1.221,-0.825 -1.991,-0.825 -1.551,0 -2.827,1.078 -2.827,2.794 0,1.76 1.298,2.794 2.86,2.794 0.781,0 1.507,-0.264 1.947,-0.737 l -0.825,-0.836 c -0.253,0.308 -0.704,0.473 -1.111,0.473 -1.001,0 -1.496,-0.869 -1.496,-1.694 0,-0.825 0.484,-1.694 1.452,-1.694 0.429,0 0.88,0.22 1.089,0.517 z" />
               <path
-                 id="path590"
+                 id="path850"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 408.10013,528.71765 h 1.32 v -2.706 h 0.033 l 2.09,2.706 h 1.749 l -2.431,-2.893 2.288,-2.387 h -1.694 l -2.002,2.222 h -0.033 v -5.258 h -1.32 z" />
             </g>
@@ -335,15 +263,15 @@
                  id="text6064"
                  aria-label="HPF">
                 <path
-                   id="path595"
+                   id="path855"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 387.0744,528.71765 h 1.386 v -3.454 h 3.641 v 3.454 h 1.386 v -7.788 h -1.386 v 3.146 h -3.641 v -3.146 h -1.386 z" />
                 <path
-                   id="path597"
+                   id="path857"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 395.19549,528.71765 h 1.386 v -3.223 h 1.067 c 1.65,0 3.025,-0.594 3.025,-2.31 0,-1.628 -1.155,-2.255 -2.937,-2.255 h -2.541 z m 1.386,-4.389 v -2.233 h 1.012 c 0.858,0 1.683,0.165 1.683,1.089 0,0.924 -0.825,1.144 -1.727,1.144 z" />
                 <path
-                   id="path599"
+                   id="path859"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 401.89862,528.71765 h 1.386 v -3.278 h 3.432 v -1.166 h -3.432 v -2.134 h 3.641 v -1.21 h -5.027 z" />
               </g>
@@ -369,15 +297,15 @@
                  id="text6076"
                  aria-label="LPF">
                 <path
-                   id="path603"
+                   id="path863"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 379.00674,528.71765 h 4.697 v -1.232 h -3.311 v -6.556 h -1.386 z" />
                 <path
-                   id="path605"
+                   id="path865"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 384.63565,528.71765 h 1.386 v -3.223 h 1.067 c 1.65,0 3.025,-0.594 3.025,-2.31 0,-1.628 -1.155,-2.255 -2.937,-2.255 h -2.541 z m 1.386,-4.389 v -2.233 h 1.012 c 0.858,0 1.683,0.165 1.683,1.089 0,0.924 -0.825,1.144 -1.727,1.144 z" />
                 <path
-                   id="path607"
+                   id="path867"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 391.33877,528.71765 h 1.386 v -3.278 h 3.432 v -1.166 h -3.432 v -2.134 h 3.641 v -1.21 h -5.027 z" />
               </g>
@@ -408,15 +336,15 @@
                id="text6092"
                aria-label="Wet">
               <path
-                 id="path612"
+                 id="path872"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 389.03618,528.71765 h 1.342 l 1.826,-5.841 h 0.022 l 1.826,5.841 h 1.342 l 2.277,-7.788 h -1.474 l -1.54,5.72 h -0.022 l -1.683,-5.72 h -1.43 l -1.716,5.72 h -0.022 l -1.507,-5.72 h -1.518 z" />
               <path
-                 id="path614"
+                 id="path874"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 399.15343,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
               <path
-                 id="path616"
+                 id="path876"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 404.62283,524.49365 v 2.464 c 0,1.012 0.319,1.87 1.716,1.87 0.297,0 0.649,-0.055 0.88,-0.143 l -0.044,-1.034 c -0.154,0.077 -0.385,0.11 -0.561,0.11 -0.583,0 -0.693,-0.341 -0.693,-0.814 v -2.453 h 1.32 v -1.056 h -1.32 v -1.529 h -1.298 v 1.529 h -0.924 v 1.056 z" />
             </g>
@@ -434,19 +362,19 @@
                id="text6100"
                aria-label="Link">
               <path
-                 id="path620"
+                 id="path880"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 386.93869,528.71765 h 4.697 v -1.232 h -3.311 v -6.556 h -1.386 z" />
               <path
-                 id="path622"
+                 id="path882"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 392.52359,528.71765 h 1.32 v -5.28 h -1.32 z m -0.187,-7.073 c 0,0.418 0.352,0.792 0.836,0.792 0.484,0 0.858,-0.341 0.858,-0.792 0,-0.451 -0.374,-0.792 -0.858,-0.792 -0.484,0 -0.836,0.374 -0.836,0.792 z" />
               <path
-                 id="path624"
+                 id="path884"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 395.44495,528.71765 h 1.32 v -2.904 c 0,-0.704 0.396,-1.43 1.232,-1.43 0.847,0 0.99,0.781 0.99,1.408 v 2.926 h 1.32 v -3.3 c 0,-1.078 -0.572,-2.134 -1.947,-2.134 -0.781,0 -1.408,0.473 -1.639,1.001 h -0.022 v -0.847 h -1.254 z" />
               <path
-                 id="path626"
+                 id="path886"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 401.8693,528.71765 h 1.32 v -2.706 h 0.033 l 2.09,2.706 h 1.749 l -2.431,-2.893 2.288,-2.387 h -1.694 l -2.002,2.222 h -0.033 v -5.258 h -1.32 z" />
             </g>
@@ -467,35 +395,35 @@
                id="text6110"
                aria-label="Squeezer">
               <path
-                 id="path630"
+                 id="path890"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="m 327.85376,566.67773 v -4.1748 h 6.01807 q 0.5249,0 0.80566,-0.21973 0.29297,-0.21972 0.29297,-0.63476 0,-0.36621 -0.29297,-0.72022 -0.29297,-0.36621 -0.90332,-0.74463 l -3.35693,-2.02636 q -1.14746,-0.70801 -1.83106,-1.81885 -0.68359,-1.12305 -0.68359,-2.30713 0,-1.14746 0.39062,-2.0752 0.39063,-0.93994 1.15967,-1.59912 0.72022,-0.63476 1.77002,-0.89111 1.04981,-0.26855 3.40576,-0.26855 h 3.9917 v 4.0039 h -4.57764 q -0.95214,0 -1.31835,0.15869 -0.35401,0.14649 -0.35401,0.5127 0,0.354 0.28076,0.70801 0.28076,0.34179 0.8667,0.6958 l 3.28369,1.95312 q 1.40381,0.85449 2.13623,2.02637 0.73243,1.17187 0.73243,2.55127 0,1.18408 -0.50049,2.19726 -0.50049,1.01319 -1.3916,1.64795 -0.78125,0.54932 -1.75782,0.79346 -0.97656,0.23193 -3.10058,0.23193 h -0.26856 z" />
               <path
-                 id="path632"
+                 id="path892"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="m 349.6311,572 v -11.24268 q 0,-1.36718 -0.59814,-2.06298 -0.59815,-0.6958 -1.78223,-0.6958 -0.97656,0 -1.58691,0.68359 -0.61035,0.67139 -0.61035,1.77002 0,1.13525 0.63476,1.80664 0.64698,0.67139 1.75781,0.67139 0.26856,0 0.62256,-0.0732 0.35401,-0.0732 0.92774,-0.25634 v 4.05273 q -0.47608,0.0977 -0.90332,0.14648 -0.42725,0.0488 -0.79346,0.0488 -2.70996,0 -4.46777,-1.80664 -1.75782,-1.80664 -1.75782,-4.58984 0,-2.7832 1.75782,-4.58985 1.75781,-1.80664 4.46777,-1.80664 1.86768,0 3.38135,0.96436 1.51367,0.95215 2.27051,2.6123 0.29296,0.63477 0.41504,1.41602 0.13427,0.76904 0.13427,2.45361 V 572 Z" />
               <path
-                 id="path634"
+                 id="path894"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="m 359.36011,554.2998 v 6.89698 q 0,0.8667 0.50049,1.41601 0.51269,0.53711 1.30615,0.53711 0.79346,0 1.29394,-0.53711 0.50049,-0.54931 0.50049,-1.41601 v -6.89698 h 3.88184 v 6.27442 q 0,2.89307 -1.5625,4.61426 -1.5503,1.70898 -4.11377,1.70898 -1.40381,0 -2.6001,-0.59814 -1.19629,-0.61036 -2.02637,-1.74561 -0.54931,-0.76904 -0.80566,-1.69678 -0.24414,-0.92773 -0.24414,-2.28271 v -6.27442 z" />
               <path
-                 id="path636"
+                 id="path896"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="m 381.46704,562.07568 q -0.97656,2.30713 -2.73437,3.56446 -1.75782,1.25732 -3.9917,1.25732 -1.23291,0 -2.38037,-0.47607 -1.13526,-0.48828 -2.01416,-1.3916 -0.91553,-0.92774 -1.39161,-2.08741 -0.46386,-1.15967 -0.46386,-2.46582 0,-1.30615 0.46386,-2.46582 0.47608,-1.15967 1.39161,-2.0874 0.8789,-0.89111 2.00195,-1.36719 1.13525,-0.47607 2.39258,-0.47607 1.87988,0 3.38134,1.00097 1.50147,0.98877 2.46582,2.89307 l -5.99365,4.07715 -1.50146,-2.27051 3.24707,-2.2583 q -0.31738,-0.20752 -0.65918,-0.30517 -0.3418,-0.10987 -0.70801,-0.10987 -1.14746,0 -1.95312,0.87891 -0.80567,0.8667 -0.80567,2.13623 0,1.29394 0.79346,2.17285 0.79346,0.87891 1.94092,0.87891 1.07422,0 1.98974,-0.64698 0.92774,-0.64697 1.57471,-1.87988 z" />
               <path
-                 id="path638"
+                 id="path898"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="m 395.2854,562.07568 q -0.97656,2.30713 -2.73437,3.56446 -1.75782,1.25732 -3.9917,1.25732 -1.23291,0 -2.38037,-0.47607 -1.13526,-0.48828 -2.01417,-1.3916 -0.91552,-0.92774 -1.3916,-2.08741 -0.46386,-1.15967 -0.46386,-2.46582 0,-1.30615 0.46386,-2.46582 0.47608,-1.15967 1.3916,-2.0874 0.87891,-0.89111 2.00196,-1.36719 1.13525,-0.47607 2.39258,-0.47607 1.87988,0 3.38134,1.00097 1.50147,0.98877 2.46582,2.89307 l -5.99365,4.07715 -1.50146,-2.27051 3.24707,-2.2583 q -0.31739,-0.20752 -0.65918,-0.30517 -0.3418,-0.10987 -0.70801,-0.10987 -1.14746,0 -1.95313,0.87891 -0.80566,0.8667 -0.80566,2.13623 0,1.29394 0.79346,2.17285 0.79345,0.87891 1.94092,0.87891 1.07421,0 1.98974,-0.64698 0.92774,-0.64697 1.57471,-1.87988 z" />
               <path
-                 id="path640"
+                 id="path900"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="m 398.55688,566.67773 q -1.29394,0 -1.98974,-0.53711 -0.6836,-0.5371 -0.6836,-1.53808 0,-0.5127 0.23194,-1.00098 0.24414,-0.48828 0.81787,-1.12304 l 4.15039,-4.62647 h -4.47998 v -3.55225 h 6.57959 q 1.57471,0 2.35596,0.54932 0.79345,0.54932 0.79345,1.64795 0,0.53711 -0.25634,1.07422 -0.24414,0.53711 -0.72022,1.06201 l -3.95508,4.37012 h 4.90723 v 3.67431 z" />
               <path
-                 id="path642"
+                 id="path902"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="m 420.38306,562.07568 q -0.97657,2.30713 -2.73438,3.56446 -1.75781,1.25732 -3.9917,1.25732 -1.23291,0 -2.38037,-0.47607 -1.13525,-0.48828 -2.01416,-1.3916 -0.91553,-0.92774 -1.3916,-2.08741 -0.46387,-1.15967 -0.46387,-2.46582 0,-1.30615 0.46387,-2.46582 0.47607,-1.15967 1.3916,-2.0874 0.87891,-0.89111 2.00195,-1.36719 1.13526,-0.47607 2.39258,-0.47607 1.87989,0 3.38135,1.00097 1.50146,0.98877 2.46582,2.89307 l -5.99365,4.07715 -1.50147,-2.27051 3.24707,-2.2583 q -0.31738,-0.20752 -0.65918,-0.30517 -0.34179,-0.10987 -0.708,-0.10987 -1.14746,0 -1.95313,0.87891 -0.80566,0.8667 -0.80566,2.13623 0,1.29394 0.79345,2.17285 0.79346,0.87891 1.94092,0.87891 1.07422,0 1.98975,-0.64698 0.92773,-0.64697 1.57471,-1.87988 z" />
               <path
-                 id="path644"
+                 id="path904"
                  style="font-size:25px;line-height:1.25;fill:#fff7f5;fill-opacity:1;stroke:#c93900;stroke-opacity:1"
                  d="M 421.75024,566.67773 V 554.2998 h 3.57666 v 1.85547 q 0.58594,-0.96435 1.51368,-1.40381 0.92773,-0.45166 2.36816,-0.45166 h 0.46387 v 3.74756 h -0.1709 q -2.11182,0 -3.05176,0.93994 -0.92773,0.92774 -0.92773,3.03956 v 4.65087 z" />
             </g>
@@ -630,47 +558,47 @@
                id="text6154"
                aria-label="Level In/Out">
               <path
-                 id="path650"
+                 id="path910"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 391.66586,528.71765 h 4.697 v -1.232 h -3.311 v -6.556 h -1.386 z" />
               <path
-                 id="path652"
+                 id="path912"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 398.04741,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
               <path
-                 id="path654"
+                 id="path914"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 404.69381,528.71765 h 1.408 l 2.101,-5.28 h -1.397 l -1.397,3.85 h -0.022 l -1.386,-3.85 h -1.441 z" />
               <path
-                 id="path656"
+                 id="path916"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 410.01421,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
               <path
-                 id="path658"
+                 id="path918"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 415.34061,528.71765 h 1.32 v -8.316 h -1.32 z" />
               <path
-                 id="path660"
+                 id="path920"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 421.07797,528.71765 h 1.386 v -7.788 h -1.386 z" />
               <path
-                 id="path662"
+                 id="path922"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 424.10572,528.71765 h 1.32 v -2.904 c 0,-0.704 0.396,-1.43 1.232,-1.43 0.847,0 0.99,0.781 0.99,1.408 v 2.926 h 1.32 v -3.3 c 0,-1.078 -0.572,-2.134 -1.947,-2.134 -0.781,0 -1.408,0.473 -1.639,1.001 h -0.022 v -0.847 h -1.254 z" />
               <path
-                 id="path664"
+                 id="path924"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 433.96206,520.73165 -0.913,-0.352 -3.432,8.536 0.913,0.33 z" />
               <path
-                 id="path666"
+                 id="path926"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 434.47546,524.80165 c 0,2.431 1.771,4.114 4.169,4.114 2.431,0 4.202,-1.683 4.202,-4.114 0,-2.497 -1.771,-4.07 -4.202,-4.07 -2.398,0 -4.169,1.573 -4.169,4.07 z m 1.507,0 c 0,-1.606 1.067,-2.849 2.673,-2.849 1.617,0 2.684,1.243 2.684,2.849 0,1.661 -1.089,2.871 -2.684,2.871 -1.584,0 -2.673,-1.21 -2.673,-2.871 z" />
               <path
-                 id="path668"
+                 id="path928"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 448.94716,523.43765 h -1.32 v 2.904 c 0,0.704 -0.396,1.43 -1.232,1.43 -0.847,0 -0.99,-0.781 -0.99,-1.408 v -2.926 h -1.32 v 3.3 c 0,1.078 0.572,2.134 1.947,2.134 0.781,0 1.408,-0.473 1.639,-1.001 h 0.022 v 0.847 h 1.254 z" />
               <path
-                 id="path670"
+                 id="path930"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 450.6965,524.49365 v 2.464 c 0,1.012 0.319,1.87 1.716,1.87 0.297,0 0.649,-0.055 0.88,-0.143 l -0.044,-1.034 c -0.154,0.077 -0.385,0.11 -0.561,0.11 -0.583,0 -0.693,-0.341 -0.693,-0.814 v -2.453 h 1.32 v -1.056 h -1.32 v -1.529 h -1.298 v 1.529 h -0.924 v 1.056 z" />
             </g>
@@ -714,11 +642,11 @@
                  id="text6174"
                  aria-label="-2">
                 <path
-                   id="path675"
+                   id="path935"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 588.21095,512.03196 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path677"
+                   id="path937"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 589.2312,514.80396 h 4.396 v -1.02667 h -2.97733 l 1.90399,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05466,-1.932 -2.20266,-1.932 -1.21333,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48534,-1.12933 1.12,-1.12933 0.59733,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26134,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
               </g>
@@ -743,11 +671,11 @@
                  id="text6188"
                  aria-label="-2">
                 <path
-                   id="path680"
+                   id="path940"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 526.21095,469.03199 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path682"
+                   id="path942"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 527.2312,471.80399 h 4.396 v -1.02667 h -2.97733 l 1.90399,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05466,-1.932 -2.20266,-1.932 -1.21333,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48534,-1.12933 1.12,-1.12933 0.59733,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26134,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
               </g>
@@ -772,15 +700,15 @@
                  id="text6203"
                  aria-label="ovr">
                 <path
-                   id="path685"
+                   id="path945"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;fill-opacity:1"
                    d="m 583.41063,511.48132 c 0,1.40934 1.08266,2.38934 2.436,2.38934 1.35333,0 2.436,-0.98 2.436,-2.38934 0,-1.40933 -1.08267,-2.35199 -2.436,-2.35199 -1.35334,0 -2.436,0.94266 -2.436,2.35199 z m 1.13866,0 c 0,-0.7 0.41067,-1.43733 1.29734,-1.43733 0.88666,0 1.29733,0.73733 1.29733,1.43733 0,0.7 -0.41067,1.456 -1.29733,1.456 -0.88667,0 -1.29734,-0.756 -1.29734,-1.456 z" />
                 <path
-                   id="path687"
+                   id="path947"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;fill-opacity:1"
                    d="m 590.49813,513.73999 h 1.19466 l 1.78267,-4.48 h -1.18533 l -1.18534,3.26667 h -0.0187 l -1.176,-3.26667 h -1.22267 z" />
                 <path
-                   id="path689"
+                   id="path949"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;fill-opacity:1"
                    d="m 594.15373,513.73999 h 1.12 v -2.39867 c 0,-0.32666 0.196,-1.204 1.204,-1.204 0.10266,0 0.196,0.009 0.34533,0.0467 v -1.02666 c -0.0747,-0.0187 -0.18667,-0.028 -0.27067,-0.028 -0.58799,0 -1.06399,0.364 -1.30666,0.87733 h -0.0187 v -0.74667 h -1.07333 z" />
               </g>
@@ -797,15 +725,15 @@
                  id="text6212"
                  aria-label="ovr">
                 <path
-                   id="path692"
+                   id="path952"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;fill-opacity:1"
                    d="m 521.41063,468.48132 c 0,1.40934 1.08266,2.38934 2.436,2.38934 1.35333,0 2.436,-0.98 2.436,-2.38934 0,-1.40933 -1.08267,-2.35199 -2.436,-2.35199 -1.35334,0 -2.436,0.94266 -2.436,2.35199 z m 1.13866,0 c 0,-0.7 0.41067,-1.43733 1.29734,-1.43733 0.88666,0 1.29733,0.73733 1.29733,1.43733 0,0.7 -0.41067,1.456 -1.29733,1.456 -0.88667,0 -1.29734,-0.756 -1.29734,-1.456 z" />
                 <path
-                   id="path694"
+                   id="path954"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;fill-opacity:1"
                    d="m 528.49813,470.73999 h 1.19466 l 1.78267,-4.48 h -1.18533 l -1.18534,3.26667 h -0.0187 l -1.176,-3.26667 h -1.22267 z" />
                 <path
-                   id="path696"
+                   id="path956"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;fill-opacity:1"
                    d="m 532.15373,470.73999 h 1.12 v -2.39867 c 0,-0.32666 0.196,-1.204 1.204,-1.204 0.10266,0 0.196,0.009 0.34533,0.0467 v -1.02666 c -0.0747,-0.0187 -0.18667,-0.028 -0.27067,-0.028 -0.58799,0 -1.06399,0.364 -1.30666,0.87733 h -0.0187 v -0.74667 h -1.07333 z" />
               </g>
@@ -838,11 +766,11 @@
                  id="text6228"
                  aria-label="-8">
                 <path
-                   id="path699"
+                   id="path959"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 588.21095,512.03196 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path701"
+                   id="path961"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 591.43387,508.02796 c -1.15734,0 -2.09067,0.71866 -2.09067,1.83866 0,0.76534 0.43867,1.232 1.02667,1.44667 v 0.0187 c -0.644,0.168 -1.24134,0.74666 -1.24134,1.60533 0,1.316 1.036,2.03467 2.30534,2.03467 1.26933,0 2.30533,-0.71867 2.30533,-2.03467 0,-0.812 -0.55067,-1.43733 -1.24134,-1.60533 v -0.0187 c 0.59734,-0.196 1.02667,-0.728 1.02667,-1.49333 0,-1.12 -0.93333,-1.792 -2.09066,-1.792 z m 0,0.924 c 0.50399,0 0.96133,0.364 0.96133,0.93333 0,0.532 -0.42934,0.96133 -0.96133,0.96133 -0.57867,0 -0.952,-0.42933 -0.952,-0.96133 0,-0.56933 0.40133,-0.93333 0.952,-0.93333 z m 0,2.84666 c 0.63466,0 1.13866,0.476 1.13866,1.12934 0,0.69066 -0.49467,1.10133 -1.13866,1.10133 -0.65334,0 -1.148,-0.41067 -1.148,-1.10133 0,-0.672 0.504,-1.12934 1.148,-1.12934 z" />
               </g>
@@ -867,11 +795,11 @@
                  id="text6240"
                  aria-label="-8">
                 <path
-                   id="path704"
+                   id="path964"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 526.21095,469.03199 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path706"
+                   id="path966"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 529.43387,465.02799 c -1.15734,0 -2.09067,0.71866 -2.09067,1.83866 0,0.76534 0.43867,1.232 1.02667,1.44667 v 0.0187 c -0.644,0.168 -1.24134,0.74666 -1.24134,1.60533 0,1.316 1.036,2.03467 2.30534,2.03467 1.26933,0 2.30533,-0.71867 2.30533,-2.03467 0,-0.812 -0.55067,-1.43733 -1.24134,-1.60533 v -0.0187 c 0.59734,-0.196 1.02667,-0.728 1.02667,-1.49333 0,-1.12 -0.93333,-1.792 -2.09066,-1.792 z m 0,0.924 c 0.50399,0 0.96133,0.364 0.96133,0.93333 0,0.532 -0.42934,0.96133 -0.96133,0.96133 -0.57867,0 -0.952,-0.42933 -0.952,-0.96133 0,-0.56933 0.40133,-0.93333 0.952,-0.93333 z m 0,2.84666 c 0.63466,0 1.13866,0.476 1.13866,1.12934 0,0.69066 -0.49467,1.10133 -1.13866,1.10133 -0.65334,0 -1.148,-0.41067 -1.148,-1.10133 0,-0.672 0.504,-1.12934 1.148,-1.12934 z" />
               </g>
@@ -912,15 +840,15 @@
                  id="text6260"
                  aria-label="-14">
                 <path
-                   id="path709"
+                   id="path969"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 585.3672,512.03196 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path711"
+                   id="path971"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 588.34745,514.80396 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66133 0.65333,0.77467 1.30667,-1.07334 z" />
                 <path
-                   id="path713"
+                   id="path973"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 594.67895,514.80396 h 1.10133 v -1.372 h 0.924 v -0.96134 h -0.924 v -4.27466 h -1.344 l -2.80933,4.24666 v 0.98934 h 3.052 z m 0,-2.33334 h -1.89467 l 1.876,-2.95866 h 0.0187 z" />
               </g>
@@ -945,15 +873,15 @@
                  id="text6272"
                  aria-label="-14">
                 <path
-                   id="path716"
+                   id="path976"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 523.3672,469.03199 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path718"
+                   id="path978"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 526.34745,471.80399 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66133 0.65333,0.77467 1.30667,-1.07334 z" />
                 <path
-                   id="path720"
+                   id="path980"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 532.67895,471.80399 h 1.10133 v -1.372 h 0.924 v -0.96134 h -0.924 v -4.27466 h -1.344 l -2.80933,4.24666 v 0.98934 h 3.052 z m 0,-2.33334 h -1.89467 l 1.876,-2.95866 h 0.0187 z" />
               </g>
@@ -994,15 +922,15 @@
                  id="text6294"
                  aria-label="-20">
                 <path
-                   id="path723"
+                   id="path983"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff;fill-opacity:1"
                    d="m 585.3672,512.03196 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path725"
+                   id="path985"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff;fill-opacity:1"
                    d="m 586.38745,514.80396 h 4.396 v -1.02667 h -2.97733 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05467,-1.932 -2.20267,-1.932 -1.21333,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48534,-1.12933 1.12,-1.12933 0.59734,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26133,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
                 <path
-                   id="path727"
+                   id="path987"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff;fill-opacity:1"
                    d="m 596.61095,511.49996 c 0,-2.13734 -0.83067,-3.472 -2.324,-3.472 -1.50267,0 -2.34267,1.33466 -2.34267,3.472 0,2.13733 0.84,3.472 2.34267,3.472 1.49333,0 2.324,-1.33467 2.324,-3.472 z m -1.148,0 c 0,0.924 -0.17734,2.52 -1.176,2.52 -1.008,0 -1.19467,-1.596 -1.19467,-2.52 0,-0.924 0.18667,-2.53867 1.19467,-2.53867 0.99866,0 1.176,1.61467 1.176,2.53867 z" />
               </g>
@@ -1027,15 +955,15 @@
                  id="text6308"
                  aria-label="-20">
                 <path
-                   id="path730"
+                   id="path990"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff;fill-opacity:1"
                    d="m 523.3672,469.03199 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path732"
+                   id="path992"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff;fill-opacity:1"
                    d="m 524.38745,471.80399 h 4.396 v -1.02667 h -2.97733 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05467,-1.932 -2.20267,-1.932 -1.21333,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48534,-1.12933 1.12,-1.12933 0.59734,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26133,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
                 <path
-                   id="path734"
+                   id="path994"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ffffff;fill-opacity:1"
                    d="m 534.61095,468.49999 c 0,-2.13734 -0.83067,-3.472 -2.324,-3.472 -1.50267,0 -2.34267,1.33466 -2.34267,3.472 0,2.13733 0.84,3.472 2.34267,3.472 1.49333,0 2.324,-1.33467 2.324,-3.472 z m -1.148,0 c 0,0.924 -0.17734,2.52 -1.176,2.52 -1.008,0 -1.19467,-1.596 -1.19467,-2.52 0,-0.924 0.18667,-2.53867 1.19467,-2.53867 0.99866,0 1.176,1.61467 1.176,2.53867 z" />
               </g>
@@ -1076,15 +1004,15 @@
                  id="text6328"
                  aria-label="-26">
                 <path
-                   id="path737"
+                   id="path997"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 585.3672,512.03196 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path739"
+                   id="path999"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 586.38745,514.80396 h 4.396 v -1.02667 h -2.97733 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05467,-1.932 -2.20267,-1.932 -1.21333,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48534,-1.12933 1.12,-1.12933 0.59734,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26133,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
                 <path
-                   id="path741"
+                   id="path1001"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 594.18428,508.19596 -1.652,2.55733 c -0.42933,0.68133 -0.68133,1.19467 -0.68133,1.95067 0,1.27866 1.036,2.268 2.41733,2.268 1.35333,0 2.408,-0.91467 2.408,-2.31467 0,-1.204 -0.94267,-2.11867 -2.10933,-2.11867 -0.224,0 -0.52267,0.0373 -0.7,0.112 l -0.009,-0.009 1.68934,-2.44533 z m -1.19467,4.536 c 0,-0.77467 0.532,-1.30667 1.288,-1.30667 0.74667,0 1.25067,0.54133 1.25067,1.288 0,0.784 -0.51333,1.30667 -1.26933,1.30667 -0.77467,0 -1.26934,-0.59734 -1.26934,-1.288 z" />
               </g>
@@ -1109,15 +1037,15 @@
                  id="text6341"
                  aria-label="-26">
                 <path
-                   id="path744"
+                   id="path1004"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 523.3672,469.03199 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path746"
+                   id="path1006"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 524.38745,471.80399 h 4.396 v -1.02667 h -2.97733 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05467,-1.932 -2.20267,-1.932 -1.21333,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48534,-1.12933 1.12,-1.12933 0.59734,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26133,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
                 <path
-                   id="path748"
+                   id="path1008"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 532.18428,465.19599 -1.652,2.55733 c -0.42933,0.68133 -0.68133,1.19467 -0.68133,1.95067 0,1.27866 1.036,2.268 2.41733,2.268 1.35333,0 2.408,-0.91467 2.408,-2.31467 0,-1.204 -0.94267,-2.11867 -2.10933,-2.11867 -0.224,0 -0.52267,0.0373 -0.7,0.112 l -0.009,-0.009 1.68934,-2.44533 z m -1.19467,4.536 c 0,-0.77467 0.532,-1.30667 1.288,-1.30667 0.74667,0 1.25067,0.54133 1.25067,1.288 0,0.784 -0.51333,1.30667 -1.26933,1.30667 -0.77467,0 -1.26934,-0.59734 -1.26934,-1.288 z" />
               </g>
@@ -1150,15 +1078,15 @@
                  id="text6357"
                  aria-label="-32">
                 <path
-                   id="path751"
+                   id="path1011"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 585.3672,512.03196 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path753"
+                   id="path1013"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 587.72212,511.80796 h 0.28 c 0.7,0 1.60533,0.26133 1.60533,1.12 0,0.79333 -0.63467,1.092 -1.21333,1.092 -0.7,0 -1.15734,-0.41067 -1.316,-0.93334 l -1.04534,0.32667 c 0.35467,1.10133 1.288,1.55867 2.39867,1.55867 1.12,0 2.30533,-0.66267 2.30533,-2.03467 0,-0.812 -0.56,-1.428 -1.36266,-1.58667 v -0.0187 c 0.71866,-0.17734 1.18533,-0.784 1.18533,-1.49334 0,-1.18533 -0.97067,-1.81066 -2.128,-1.81066 -1.05467,0 -1.92267,0.62533 -2.156,1.512 l 1.05467,0.27066 c 0.13066,-0.504 0.51333,-0.84933 1.05466,-0.84933 0.56,0 1.04534,0.35467 1.04534,0.952 0,0.812 -0.74667,0.99867 -1.40934,0.99867 h -0.29866 z" />
                 <path
-                   id="path755"
+                   id="path1015"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 592.07495,514.80396 h 4.396 v -1.02667 h -2.97734 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05466,-1.932 -2.20266,-1.932 -1.21334,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48533,-1.12933 1.12,-1.12933 0.59733,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26134,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
               </g>
@@ -1175,15 +1103,15 @@
                  id="text6365"
                  aria-label="-32">
                 <path
-                   id="path758"
+                   id="path1018"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 523.3672,469.03199 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path760"
+                   id="path1020"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 525.72212,468.80799 h 0.28 c 0.7,0 1.60533,0.26133 1.60533,1.12 0,0.79333 -0.63467,1.092 -1.21333,1.092 -0.7,0 -1.15734,-0.41067 -1.316,-0.93334 l -1.04534,0.32667 c 0.35467,1.10133 1.288,1.55867 2.39867,1.55867 1.12,0 2.30533,-0.66267 2.30533,-2.03467 0,-0.812 -0.56,-1.428 -1.36266,-1.58667 v -0.0187 c 0.71866,-0.17734 1.18533,-0.784 1.18533,-1.49334 0,-1.18533 -0.97067,-1.81066 -2.128,-1.81066 -1.05467,0 -1.92267,0.62533 -2.156,1.512 l 1.05467,0.27066 c 0.13066,-0.504 0.51333,-0.84933 1.05466,-0.84933 0.56,0 1.04534,0.35467 1.04534,0.952 0,0.812 -0.74667,0.99867 -1.40934,0.99867 h -0.29866 z" />
                 <path
-                   id="path762"
+                   id="path1022"
                    style="font-weight:600;font-size:9.33333px;line-height:1.25;-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#b3b3b3;fill-opacity:1"
                    d="m 530.07495,471.80399 h 4.396 v -1.02667 h -2.97734 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.148 1.064,-1.99733 0,-1.26934 -1.05466,-1.932 -2.20266,-1.932 -1.21334,0 -2.1,0.80266 -2.23067,1.89466 l 1.092,0.168 c 0.084,-0.644 0.48533,-1.12933 1.12,-1.12933 0.59733,0 1.05467,0.40133 1.05467,1.01733 0,0.51334 -0.26134,0.896 -0.672,1.29734 l -2.548,2.50133 z" />
               </g>
@@ -1229,35 +1157,35 @@
                id="text6389"
                aria-label="Gain Red.">
               <path
-                 id="path767"
+                 id="path1027"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 380.89126,524.27365 h -2.981 v 1.144 h 1.639 v 1.98 c -0.451,0.187 -0.968,0.275 -1.551,0.275 -1.716,0 -2.772,-1.21 -2.772,-2.871 0,-1.606 1.067,-2.849 2.706,-2.849 0.836,0 1.595,0.352 1.991,0.792 l 0.957,-1.034 c -0.627,-0.583 -1.727,-0.979 -2.959,-0.979 -2.398,0 -4.224,1.573 -4.224,4.07 0,2.431 1.749,4.114 4.257,4.114 1.221,0 2.156,-0.231 2.937,-0.605 z" />
               <path
-                 id="path769"
+                 id="path1029"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 385.79107,528.71765 h 1.232 v -3.212 c 0,-1.056 -0.462,-2.222 -2.354,-2.222 -0.803,0 -1.639,0.286 -2.233,0.836 l 0.682,0.803 c 0.341,-0.341 0.88,-0.605 1.441,-0.605 0.66,0 1.21,0.319 1.21,0.968 v 0.132 c -1.65,0 -3.63,0.22 -3.63,1.793 0,1.232 1.133,1.639 1.98,1.639 0.748,0 1.375,-0.341 1.639,-0.803 h 0.033 z m -0.022,-2.222 c 0,0.836 -0.484,1.353 -1.386,1.353 -0.451,0 -0.924,-0.154 -0.924,-0.66 0,-0.781 1.177,-0.88 2.013,-0.88 h 0.297 z" />
               <path
-                 id="path771"
+                 id="path1031"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 388.59366,528.71765 h 1.32 v -5.28 h -1.32 z m -0.187,-7.073 c 0,0.418 0.352,0.792 0.836,0.792 0.484,0 0.858,-0.341 0.858,-0.792 0,-0.451 -0.374,-0.792 -0.858,-0.792 -0.484,0 -0.836,0.374 -0.836,0.792 z" />
               <path
-                 id="path773"
+                 id="path1033"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 391.51502,528.71765 h 1.32 v -2.904 c 0,-0.704 0.396,-1.43 1.232,-1.43 0.847,0 0.99,0.781 0.99,1.408 v 2.926 h 1.32 v -3.3 c 0,-1.078 -0.572,-2.134 -1.947,-2.134 -0.781,0 -1.408,0.473 -1.639,1.001 h -0.022 v -0.847 h -1.254 z" />
               <path
-                 id="path775"
+                 id="path1035"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 400.73337,528.71765 h 1.386 v -3.3 h 1.012 l 1.804,3.3 h 1.672 l -2.079,-3.454 c 1.089,-0.242 1.782,-0.979 1.782,-2.101 0,-1.65 -1.408,-2.233 -2.871,-2.233 h -2.706 z m 1.386,-4.433 v -2.189 h 1.254 c 0.715,0 1.551,0.209 1.551,1.056 0,0.946 -0.891,1.133 -1.672,1.133 z" />
               <path
-                 id="path777"
+                 id="path1037"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 408.46843,525.54965 c 0.055,-0.737 0.682,-1.276 1.463,-1.276 0.858,0 1.243,0.594 1.243,1.276 z m 4.026,0.594 c 0,-1.903 -1.078,-2.86 -2.552,-2.86 -1.595,0 -2.794,1.122 -2.794,2.827 0,1.716 1.21,2.761 2.838,2.761 1.001,0 1.749,-0.352 2.266,-1.056 l -0.88,-0.704 c -0.297,0.418 -0.737,0.682 -1.397,0.682 -0.77,0 -1.452,-0.55 -1.507,-1.298 h 4.015 c 0.011,-0.121 0.011,-0.231 0.011,-0.352 z" />
               <path
-                 id="path779"
+                 id="path1039"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 419.14083,520.40165 h -1.32 v 3.707 h -0.033 c -0.275,-0.341 -0.803,-0.825 -1.771,-0.825 -1.507,0 -2.563,1.21 -2.563,2.772 0,1.54 0.99,2.816 2.596,2.816 0.737,0 1.452,-0.341 1.815,-0.946 h 0.022 v 0.792 h 1.254 z m -4.345,5.654 c 0,-0.825 0.495,-1.694 1.518,-1.694 0.968,0 1.551,0.891 1.551,1.716 0,0.825 -0.583,1.694 -1.551,1.694 -1.023,0 -1.518,-0.891 -1.518,-1.716 z" />
               <path
-                 id="path781"
+                 id="path1041"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 420.51326,527.94765 c 0,0.473 0.418,0.836 0.88,0.836 0.484,0 0.88,-0.385 0.88,-0.858 0,-0.473 -0.407,-0.836 -0.88,-0.836 -0.484,0 -0.88,0.385 -0.88,0.858 z" />
             </g>
@@ -1281,11 +1209,11 @@
                  id="text6399"
                  aria-label="-3">
                 <path
-                   id="path784"
+                   id="path1044"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.21095,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path786"
+                   id="path1046"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 527.56587,486.892 h 0.28 c 0.69999,0 1.60533,0.26133 1.60533,1.12 0,0.79333 -0.63467,1.092 -1.21333,1.092 -0.7,0 -1.15734,-0.41067 -1.316,-0.93333 l -1.04534,0.32666 c 0.35467,1.10134 1.288,1.55867 2.39867,1.55867 1.12,0 2.30533,-0.66267 2.30533,-2.03467 0,-0.812 -0.56,-1.428 -1.36267,-1.58666 v -0.0187 c 0.71867,-0.17733 1.18534,-0.784 1.18534,-1.49333 0,-1.18533 -0.97067,-1.81067 -2.128,-1.81067 -1.05467,0 -1.92267,0.62534 -2.156,1.512 l 1.05467,0.27067 c 0.13066,-0.504 0.51333,-0.84933 1.05466,-0.84933 0.56,0 1.04533,0.35466 1.04533,0.952 0,0.812 -0.74666,0.99866 -1.40933,0.99866 h -0.29866 z" />
               </g>
@@ -1310,11 +1238,11 @@
                  id="text6412"
                  aria-label="-3">
                 <path
-                   id="path789"
+                   id="path1049"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.21095,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path791"
+                   id="path1051"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 527.56587,486.892 h 0.28 c 0.69999,0 1.60533,0.26133 1.60533,1.12 0,0.79333 -0.63467,1.092 -1.21333,1.092 -0.7,0 -1.15734,-0.41067 -1.316,-0.93333 l -1.04534,0.32666 c 0.35467,1.10134 1.288,1.55867 2.39867,1.55867 1.12,0 2.30533,-0.66267 2.30533,-2.03467 0,-0.812 -0.56,-1.428 -1.36267,-1.58666 v -0.0187 c 0.71867,-0.17733 1.18534,-0.784 1.18534,-1.49333 0,-1.18533 -0.97067,-1.81067 -2.128,-1.81067 -1.05467,0 -1.92267,0.62534 -2.156,1.512 l 1.05467,0.27067 c 0.13066,-0.504 0.51333,-0.84933 1.05466,-0.84933 0.56,0 1.04533,0.35466 1.04533,0.952 0,0.812 -0.74666,0.99866 -1.40933,0.99866 h -0.29866 z" />
               </g>
@@ -1339,11 +1267,11 @@
                  id="text6425"
                  aria-label="-6">
                 <path
-                   id="path794"
+                   id="path1054"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.21095,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path796"
+                   id="path1056"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 528.34053,483.28 -1.652,2.55734 c -0.42933,0.68133 -0.68133,1.19466 -0.68133,1.95066 0,1.27867 1.036,2.268 2.41733,2.268 1.35333,0 2.408,-0.91467 2.408,-2.31467 0,-1.204 -0.94267,-2.11866 -2.10933,-2.11866 -0.224,0 -0.52267,0.0373 -0.7,0.112 l -0.009,-0.009 1.68933,-2.44534 z m -1.19466,4.536 c 0,-0.77467 0.532,-1.30667 1.288,-1.30667 0.74666,0 1.25066,0.54134 1.25066,1.288 0,0.784 -0.51333,1.30667 -1.26933,1.30667 -0.77467,0 -1.26933,-0.59733 -1.26933,-1.288 z" />
               </g>
@@ -1368,11 +1296,11 @@
                  id="text6437"
                  aria-label="-6">
                 <path
-                   id="path799"
+                   id="path1059"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.21095,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path801"
+                   id="path1061"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 528.34053,483.28 -1.652,2.55734 c -0.42933,0.68133 -0.68133,1.19466 -0.68133,1.95066 0,1.27867 1.036,2.268 2.41733,2.268 1.35333,0 2.408,-0.91467 2.408,-2.31467 0,-1.204 -0.94267,-2.11866 -2.10933,-2.11866 -0.224,0 -0.52267,0.0373 -0.7,0.112 l -0.009,-0.009 1.68933,-2.44534 z m -1.19466,4.536 c 0,-0.77467 0.532,-1.30667 1.288,-1.30667 0.74666,0 1.25066,0.54134 1.25066,1.288 0,0.784 -0.51333,1.30667 -1.26933,1.30667 -0.77467,0 -1.26933,-0.59733 -1.26933,-1.288 z" />
               </g>
@@ -1397,11 +1325,11 @@
                  id="text6449"
                  aria-label="-9">
                 <path
-                   id="path804"
+                   id="path1064"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.21095,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path806"
+                   id="path1066"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 528.51787,489.888 1.65199,-2.55733 c 0.42934,-0.68134 0.68134,-1.19467 0.68134,-1.95067 0,-1.27866 -1.036,-2.268 -2.41733,-2.268 -1.35334,0 -2.408,0.91467 -2.408,2.31467 0,1.204 0.94266,2.11866 2.10933,2.11866 0.224,0 0.52266,-0.0373 0.70933,-0.12133 l 0.009,0.009 -1.69866,2.45467 z m 1.19466,-4.536 c 0,0.77467 -0.532,1.30667 -1.288,1.30667 -0.74666,0 -1.25066,-0.54133 -1.25066,-1.288 0,-0.784 0.51333,-1.32533 1.26933,-1.32533 0.77466,0 1.26933,0.616 1.26933,1.30666 z" />
               </g>
@@ -1426,11 +1354,11 @@
                  id="text6461"
                  aria-label="-9">
                 <path
-                   id="path809"
+                   id="path1069"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.21095,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path811"
+                   id="path1071"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 528.51787,489.888 1.65199,-2.55733 c 0.42934,-0.68134 0.68134,-1.19467 0.68134,-1.95067 0,-1.27866 -1.036,-2.268 -2.41733,-2.268 -1.35334,0 -2.408,0.91467 -2.408,2.31467 0,1.204 0.94266,2.11866 2.10933,2.11866 0.224,0 0.52266,-0.0373 0.70933,-0.12133 l 0.009,0.009 -1.69866,2.45467 z m 1.19466,-4.536 c 0,0.77467 -0.532,1.30667 -1.288,1.30667 -0.74666,0 -1.25066,-0.54133 -1.25066,-1.288 0,-0.784 0.51333,-1.32533 1.26933,-1.32533 0.77466,0 1.26933,0.616 1.26933,1.30666 z" />
               </g>
@@ -1455,15 +1383,15 @@
                  id="text6473"
                  aria-label="-12">
                 <path
-                   id="path814"
+                   id="path1074"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 522.3672,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path816"
+                   id="path1076"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.34745,489.888 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66134 0.65333,0.77466 1.30667,-1.07333 z" />
                 <path
-                   id="path818"
+                   id="path1078"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 529.07495,489.888 h 4.396 v -1.02667 h -2.97734 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.14799 1.064,-1.99733 0,-1.26933 -1.05466,-1.932 -2.20266,-1.932 -1.21334,0 -2.1,0.80267 -2.23067,1.89467 l 1.092,0.168 c 0.084,-0.644 0.48533,-1.12933 1.12,-1.12933 0.59733,0 1.05467,0.40133 1.05467,1.01733 0,0.51333 -0.26134,0.896 -0.672,1.29733 l -2.548,2.50133 z" />
               </g>
@@ -1488,15 +1416,15 @@
                  id="text6485"
                  aria-label="-12">
                 <path
-                   id="path821"
+                   id="path1081"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 522.3672,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path823"
+                   id="path1083"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.34745,489.888 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66134 0.65333,0.77466 1.30667,-1.07333 z" />
                 <path
-                   id="path825"
+                   id="path1085"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 529.07495,489.888 h 4.396 v -1.02667 h -2.97734 l 1.904,-1.82 c 0.588,-0.56 1.064,-1.14799 1.064,-1.99733 0,-1.26933 -1.05466,-1.932 -2.20266,-1.932 -1.21334,0 -2.1,0.80267 -2.23067,1.89467 l 1.092,0.168 c 0.084,-0.644 0.48533,-1.12933 1.12,-1.12933 0.59733,0 1.05467,0.40133 1.05467,1.01733 0,0.51333 -0.26134,0.896 -0.672,1.29733 l -2.548,2.50133 z" />
               </g>
@@ -1521,15 +1449,15 @@
                  id="text6497"
                  aria-label="-15">
                 <path
-                   id="path828"
+                   id="path1088"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 522.3672,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path830"
+                   id="path1090"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.34745,489.888 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66134 0.65333,0.77466 1.30667,-1.07333 z" />
                 <path
-                   id="path832"
+                   id="path1092"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 533.14428,483.28 h -3.76133 l -0.112,3.612 c 0.40133,-0.20533 1.036,-0.364 1.54,-0.364 0.71866,0 1.47466,0.29867 1.47466,1.316 0,0.80267 -0.56933,1.26 -1.232,1.26 -0.588,0 -1.05466,-0.34533 -1.24133,-0.868 l -1.01733,0.37333 c 0.34533,0.88667 1.12933,1.44667 2.23066,1.44667 1.316,0 2.408,-0.868 2.408,-2.33333 0,-1.33467 -0.98,-2.09067 -2.27733,-2.09067 -0.23333,0 -0.56933,0.028 -0.77467,0.084 l 0.0653,-1.428 h 2.69733 z" />
               </g>
@@ -1554,15 +1482,15 @@
                  id="text6509"
                  aria-label="-15">
                 <path
-                   id="path835"
+                   id="path1095"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 522.3672,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path837"
+                   id="path1097"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.34745,489.888 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66134 0.65333,0.77466 1.30667,-1.07333 z" />
                 <path
-                   id="path839"
+                   id="path1099"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 533.14428,483.28 h -3.76133 l -0.112,3.612 c 0.40133,-0.20533 1.036,-0.364 1.54,-0.364 0.71866,0 1.47466,0.29867 1.47466,1.316 0,0.80267 -0.56933,1.26 -1.232,1.26 -0.588,0 -1.05466,-0.34533 -1.24133,-0.868 l -1.01733,0.37333 c 0.34533,0.88667 1.12933,1.44667 2.23066,1.44667 1.316,0 2.408,-0.868 2.408,-2.33333 0,-1.33467 -0.98,-2.09067 -2.27733,-2.09067 -0.23333,0 -0.56933,0.028 -0.77467,0.084 l 0.0653,-1.428 h 2.69733 z" />
               </g>
@@ -1587,15 +1515,15 @@
                  id="text6521"
                  aria-label="-18">
                 <path
-                   id="path842"
+                   id="path1102"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 522.3672,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path844"
+                   id="path1104"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.34745,489.888 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66134 0.65333,0.77466 1.30667,-1.07333 z" />
                 <path
-                   id="path846"
+                   id="path1106"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 531.27761,483.112 c -1.15733,0 -2.09066,0.71867 -2.09066,1.83867 0,0.76533 0.43866,1.232 1.02666,1.44667 v 0.0187 c -0.644,0.168 -1.24133,0.74667 -1.24133,1.60533 0,1.316 1.036,2.03467 2.30533,2.03467 1.26934,0 2.30534,-0.71867 2.30534,-2.03467 0,-0.812 -0.55067,-1.43733 -1.24134,-1.60533 v -0.0187 c 0.59734,-0.196 1.02667,-0.728 1.02667,-1.49334 0,-1.12 -0.93333,-1.792 -2.09067,-1.792 z m 0,0.924 c 0.504,0 0.96134,0.364 0.96134,0.93334 0,0.532 -0.42934,0.96133 -0.96134,0.96133 -0.57866,0 -0.952,-0.42933 -0.952,-0.96133 0,-0.56934 0.40134,-0.93334 0.952,-0.93334 z m 0,2.84667 c 0.63467,0 1.13867,0.476 1.13867,1.12933 0,0.69067 -0.49467,1.10133 -1.13867,1.10133 -0.65333,0 -1.148,-0.41066 -1.148,-1.10133 0,-0.672 0.504,-1.12933 1.148,-1.12933 z" />
               </g>
@@ -1620,15 +1548,15 @@
                  id="text6533"
                  aria-label="-18">
                 <path
-                   id="path849"
+                   id="path1109"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 522.3672,487.116 h -2.24 v 0.952 h 2.24 z" />
                 <path
-                   id="path851"
+                   id="path1111"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 525.34745,489.888 h 1.12 v -6.608 h -1.01733 l -2.06267,1.66134 0.65333,0.77466 1.30667,-1.07333 z" />
                 <path
-                   id="path853"
+                   id="path1113"
                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:9.33333px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                    d="m 531.27761,483.112 c -1.15733,0 -2.09066,0.71867 -2.09066,1.83867 0,0.76533 0.43866,1.232 1.02666,1.44667 v 0.0187 c -0.644,0.168 -1.24133,0.74667 -1.24133,1.60533 0,1.316 1.036,2.03467 2.30533,2.03467 1.26934,0 2.30534,-0.71867 2.30534,-2.03467 0,-0.812 -0.55067,-1.43733 -1.24134,-1.60533 v -0.0187 c 0.59734,-0.196 1.02667,-0.728 1.02667,-1.49334 0,-1.12 -0.93333,-1.792 -2.09067,-1.792 z m 0,0.924 c 0.504,0 0.96134,0.364 0.96134,0.93334 0,0.532 -0.42934,0.96133 -0.96134,0.96133 -0.57866,0 -0.952,-0.42933 -0.952,-0.96133 0,-0.56934 0.40134,-0.93334 0.952,-0.93334 z m 0,2.84667 c 0.63467,0 1.13867,0.476 1.13867,1.12933 0,0.69067 -0.49467,1.10133 -1.13867,1.10133 -0.65333,0 -1.148,-0.41066 -1.148,-1.10133 0,-0.672 0.504,-1.12933 1.148,-1.12933 z" />
               </g>
@@ -1720,27 +1648,27 @@
                id="text1820"
                aria-label="Output">
               <path
-                 id="path860"
+                 id="path1120"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 379.02972,524.80165 c 0,2.431 1.771,4.114 4.169,4.114 2.431,0 4.202,-1.683 4.202,-4.114 0,-2.497 -1.771,-4.07 -4.202,-4.07 -2.398,0 -4.169,1.573 -4.169,4.07 z m 1.507,0 c 0,-1.606 1.067,-2.849 2.673,-2.849 1.617,0 2.684,1.243 2.684,2.849 0,1.661 -1.089,2.871 -2.684,2.871 -1.584,0 -2.673,-1.21 -2.673,-2.871 z" />
               <path
-                 id="path862"
+                 id="path1122"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 393.50142,523.43765 h -1.32 v 2.904 c 0,0.704 -0.396,1.43 -1.232,1.43 -0.847,0 -0.99,-0.781 -0.99,-1.408 v -2.926 h -1.32 v 3.3 c 0,1.078 0.572,2.134 1.947,2.134 0.781,0 1.408,-0.473 1.639,-1.001 h 0.022 v 0.847 h 1.254 z" />
               <path
-                 id="path864"
+                 id="path1124"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 395.25076,524.49365 v 2.464 c 0,1.012 0.319,1.87 1.716,1.87 0.297,0 0.649,-0.055 0.88,-0.143 l -0.044,-1.034 c -0.154,0.077 -0.385,0.11 -0.561,0.11 -0.583,0 -0.693,-0.341 -0.693,-0.814 v -2.453 h 1.32 v -1.056 h -1.32 v -1.529 h -1.298 v 1.529 h -0.924 v 1.056 z" />
               <path
-                 id="path866"
+                 id="path1126"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 398.82404,523.43765 v 7.92 h 1.32 v -3.344 h 0.022 c 0.341,0.528 1.012,0.858 1.749,0.858 1.606,0 2.596,-1.276 2.596,-2.816 0,-1.562 -1.056,-2.772 -2.563,-2.772 -0.968,0 -1.562,0.473 -1.826,0.891 h -0.033 v -0.737 z m 4.345,2.618 c 0,0.825 -0.495,1.716 -1.518,1.716 -0.968,0 -1.551,-0.869 -1.551,-1.694 0,-0.825 0.583,-1.716 1.551,-1.716 1.023,0 1.518,0.869 1.518,1.694 z" />
               <path
-                 id="path868"
+                 id="path1128"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 410.60298,523.43765 h -1.32 v 2.904 c 0,0.704 -0.396,1.43 -1.232,1.43 -0.847,0 -0.99,-0.781 -0.99,-1.408 v -2.926 h -1.32 v 3.3 c 0,1.078 0.572,2.134 1.947,2.134 0.781,0 1.408,-0.473 1.639,-1.001 h 0.022 v 0.847 h 1.254 z" />
               <path
-                 id="path870"
+                 id="path1130"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 412.35232,524.49365 v 2.464 c 0,1.012 0.319,1.87 1.716,1.87 0.297,0 0.649,-0.055 0.88,-0.143 l -0.044,-1.034 c -0.154,0.077 -0.385,0.11 -0.561,0.11 -0.583,0 -0.693,-0.341 -0.693,-0.814 v -2.453 h 1.32 v -1.056 h -1.32 v -1.529 h -1.298 v 1.529 h -0.924 v 1.056 z" />
             </g>
@@ -1758,19 +1686,19 @@
                id="text1828"
                aria-label="Trim">
               <path
-                 id="path874"
+                 id="path1134"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 388.78644,528.71765 h 1.386 v -6.578 h 2.387 v -1.21 h -6.16 v 1.21 h 2.387 z" />
               <path
-                 id="path876"
+                 id="path1136"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 392.41111,528.71765 h 1.32 v -2.827 c 0,-0.385 0.231,-1.419 1.419,-1.419 0.121,0 0.231,0.011 0.407,0.055 v -1.21 c -0.088,-0.022 -0.22,-0.033 -0.319,-0.033 -0.693,0 -1.254,0.429 -1.54,1.034 h -0.022 v -0.88 h -1.265 z" />
               <path
-                 id="path878"
+                 id="path1138"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 396.4292,528.71765 h 1.32 v -5.28 h -1.32 z m -0.187,-7.073 c 0,0.418 0.352,0.792 0.836,0.792 0.484,0 0.858,-0.341 0.858,-0.792 0,-0.451 -0.374,-0.792 -0.858,-0.792 -0.484,0 -0.836,0.374 -0.836,0.792 z" />
               <path
-                 id="path880"
+                 id="path1140"
                  style="color:#000000;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:middle;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
                  d="m 405.65356,523.28365 c -0.792,0 -1.386,0.363 -1.738,1.001 -0.297,-0.594 -0.836,-1.001 -1.65,-1.001 -0.847,0 -1.408,0.484 -1.639,1.001 h -0.022 v -0.847 h -1.254 v 5.28 h 1.32 v -2.904 c 0,-0.704 0.363,-1.43 1.155,-1.43 0.671,0 0.979,0.495 0.979,1.144 v 3.19 h 1.32 v -2.882 c 0,-0.682 0.341,-1.452 1.166,-1.452 0.847,0 0.99,0.781 0.99,1.408 v 2.926 h 1.32 v -3.3 c 0,-1.078 -0.572,-2.134 -1.947,-2.134 z" />
             </g>
