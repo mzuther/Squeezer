@@ -38,7 +38,7 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
 
     int trueLowerThreshold = 0;
     int levelRange = 10;
-    int numberOfBars = 18;
+    int numberOfBars = 15;
 
     for (int n = 0; n < numberOfBars; ++n)
     {

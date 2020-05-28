@@ -10,7 +10,7 @@
 
     <settings>
         <meter_segment
-            height="6"
+            height="8"
         />
 
         <meter_colour_high
@@ -40,63 +40,63 @@
 
     <default>
         <slider_threshold
-            x="83"
-            y="116"
-            height="60"
+            x="86"
+            y="124"
+            height="64"
             width="52"
             hue="0.83"
             toggle_hue="0.06"
         />
 
         <slider_ratio
-            x="143"
-            y="116"
-            height="60"
+            x="146"
+            y="124"
+            height="64"
             width="52"
             hue="0.83"
             toggle_hue="0.06"
         />
 
         <slider_attack_rate
-            x="83"
-            y="13"
-            height="60"
+            x="86"
+            y="16"
+            height="64"
             width="52"
             hue="0.16"
             toggle_hue="0.06"
         />
 
         <slider_release_rate
-            x="143"
-            y="13"
-            height="60"
+            x="146"
+            y="16"
+            height="64"
             width="52"
             hue="0.16"
             toggle_hue="0.06"
         />
 
         <slider_sidechain_hpf_cutoff
-            x="214"
-            y="13"
-            height="60"
+            x="218"
+            y="16"
+            height="64"
             width="52"
             hue="0.33"
             toggle_hue="0.06"
         />
 
         <slider_sidechain_lpf_cutoff
-            x="274"
-            y="13"
-            height="60"
+            x="278"
+            y="16"
+            height="64"
             width="52"
             hue="0.33"
             toggle_hue="0.06"
         />
 
         <slider_input_trim
-            x="12"
-            y="116"
-            height="60"
+            x="14"
+            y="124"
+            height="64"
             width="52"
             hue="0.00"
             saturation="0.0"
@@ -105,9 +105,9 @@
         />
 
         <slider_makeup_gain
-            x="12"
-            y="13"
-            height="60"
+            x="14"
+            y="16"
+            height="64"
             width="52"
             hue="0.00"
             saturation="0.0"
@@ -116,18 +116,18 @@
         />
 
         <slider_stereo_link
-            x="214"
-            y="116"
-            height="60"
+            x="218"
+            y="124"
+            height="64"
             width="52"
             hue="0.55"
             toggle_hue="0.06"
         />
 
         <slider_wet_mix
-            x="274"
-            y="116"
-            height="60"
+            x="278"
+            y="124"
+            height="64"
             width="52"
             hue="0.55"
             toggle_hue="0.06"
@@ -245,22 +245,22 @@
             image="background/background.svg" />
 
         <meter_input
-            x="683"
-            y="67"
+            x="692"
+            y="68"
             segment_width="24"
             vertical="true"
         />
 
         <meter_output
-            x="714"
-            y="67"
+            x="724"
+            y="68"
             segment_width="24"
             vertical="true"
         />
 
         <meter_gain_reduction
-            x="592"
-            y="67"
+            x="596"
+            y="68"
             segment_width="24"
             vertical="true"
         />
@@ -271,43 +271,43 @@
             image="background/background.svg" />
 
         <meter_input_left
-            x="683"
-            y="67"
+            x="692"
+            y="68"
             segment_width="12"
             vertical="true"
         />
 
         <meter_input_right
-            x="695"
-            y="67"
+            x="704"
+            y="68"
             segment_width="12"
             vertical="true"
         />
 
         <meter_output_left
-            x="714"
-            y="67"
+            x="724"
+            y="68"
             segment_width="12"
             vertical="true"
         />
 
         <meter_output_right
-            x="726"
-            y="67"
+            x="736"
+            y="68"
             segment_width="12"
             vertical="true"
         />
 
         <meter_gain_reduction_left
-            x="592"
-            y="67"
+            x="596"
+            y="68"
             segment_width="12"
             vertical="true"
         />
 
         <meter_gain_reduction_right
-            x="604"
-            y="67"
+            x="608"
+            y="68"
             segment_width="12"
             vertical="true"
         />

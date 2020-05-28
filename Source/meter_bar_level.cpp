@@ -40,7 +40,7 @@ void MeterBarLevel::create(int crestFactor,
     int trueLowerThreshold = 0;
     int lowerThreshold = trueLowerThreshold + crestFactor;
 
-    int numberOfBars = 18;
+    int numberOfBars = 15;
 
     for (int n = 0; n < numberOfBars; ++n)
     {

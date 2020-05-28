@@ -5,11 +5,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="773"
-   height="213"
-   id="svg2"
+   style="enable-background:new"
    version="1.1"
-   style="enable-background:new">
+   id="svg2"
+   height="224"
+   width="788">
   <defs
      id="defs4" />
   <metadata
@@ -42,11 +42,11 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer6"
-     style="display:inline">
+     style="display:inline"
+     id="layer6">
     <g
-       transform="translate(-382,158)"
-       id="export-button-gainstage-optical-on">
+       id="export-button-gainstage-optical-on"
+       transform="translate(-378,161)">
       <path
          d="m 810.5,-111.5 h 39 c 5.54,0 10,4.237 10,9.5 0,5.263001 -4.46,9.500002 -10,9.500002 h -39 c -5.54,0 -10,-4.237001 -10,-9.500002 0,-5.263 4.46,-9.5 10,-9.5 z"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -56,19 +56,19 @@
          id="text1993"
          aria-label="Opto">
         <path
-           id="path48992"
+           id="path47070"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
            d="m 817.49719,-102.05867 c 0,2.357343 1.71734,3.989349 4.04268,3.989349 2.35734,0 4.07468,-1.632006 4.07468,-3.989349 0,-2.42134 -1.71734,-3.94668 -4.07468,-3.94668 -2.32534,0 -4.04268,1.52534 -4.04268,3.94668 z m 1.46133,0 c 0,-1.55734 1.03467,-2.76267 2.59201,-2.76267 1.56801,0 2.60268,1.20533 2.60268,2.76267 0,1.61067 -1.05601,2.784011 -2.60268,2.784011 -1.536,0 -2.59201,-1.173341 -2.59201,-2.784011 z" />
         <path
-           id="path48994"
+           id="path47072"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
            d="m 826.85838,-103.38134 v 7.680026 h 1.28001 v -3.242677 h 0.0213 c 0.33067,0.512002 0.98134,0.832003 1.69601,0.832003 1.55733,0 2.51734,-1.237337 2.51734,-2.730672 0,-1.51467 -1.02401,-2.68801 -2.48534,-2.68801 -0.93867,0 -1.51468,0.45867 -1.77068,0.864 h -0.032 v -0.71467 z m 4.21335,2.53868 c 0,0.8 -0.48,1.664002 -1.472,1.664002 -0.93867,0 -1.50401,-0.842672 -1.50401,-1.642672 0,-0.8 0.56534,-1.66401 1.50401,-1.66401 0.992,0 1.472,0.84267 1.472,1.64268 z" />
         <path
-           id="path48996"
+           id="path47074"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
            d="m 833.7684,-102.35733 v 2.389336 c 0,0.981336 0.30934,1.813339 1.66401,1.813339 0.288,0 0.62934,-0.05333 0.85334,-0.138667 l -0.0427,-1.00267 c -0.14933,0.07467 -0.37334,0.106667 -0.544,0.106667 -0.56534,0 -0.672,-0.330668 -0.672,-0.789336 v -2.378669 h 1.28 v -1.02401 h -1.28 v -1.48267 h -1.25868 v 1.48267 h -0.896 v 1.02401 z" />
         <path
-           id="path48998"
+           id="path47076"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000"
            d="m 836.93475,-100.84266 c 0,1.610668 1.23734,2.730672 2.78401,2.730672 1.54667,0 2.78401,-1.120004 2.78401,-2.730672 0,-1.61068 -1.23734,-2.68801 -2.78401,-2.68801 -1.54667,0 -2.78401,1.07733 -2.78401,2.68801 z m 1.30134,0 c 0,-0.80001 0.46933,-1.64268 1.48267,-1.64268 1.01333,0 1.48267,0.84267 1.48267,1.64268 0,0.8 -0.46934,1.664002 -1.48267,1.664002 -1.01334,0 -1.48267,-0.864002 -1.48267,-1.664002 z" />
       </g>
