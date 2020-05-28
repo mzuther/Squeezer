@@ -133,7 +133,7 @@ void RingBuffer<Type>::clear()
                 ringBufferMemTestByte_);
     }
 
-#endif
+#endif // DEBUG
 }
 
 
@@ -341,7 +341,7 @@ void RingBuffer<Type>::importFrom(
                 ringBufferMemTestByte_);
     }
 
-#endif
+#endif // DEBUG
 }
 
 

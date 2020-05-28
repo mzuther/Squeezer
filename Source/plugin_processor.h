@@ -41,7 +41,7 @@ public:
 
 #ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
-#endif
+#endif // JucePlugin_PreferredChannelConfigurations
 
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;

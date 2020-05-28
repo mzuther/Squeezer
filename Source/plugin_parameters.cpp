@@ -665,16 +665,16 @@ const File SqueezerPluginParameters::getResourceDirectory()
 #ifdef __APPLE__
     applicationDirectory = File::getSpecialLocation(
                                File::currentExecutableFile).getParentDirectory();
-#else
+#else // __APPLE__
     applicationDirectory = File::getSpecialLocation(
                                File::currentApplicationFile).getParentDirectory();
-#endif
+#endif // __APPLE__
 
 #if JucePlugin_Build_VST3
     return applicationDirectory.getChildFile("../Resources/");
-#else
+#else // JucePlugin_Build_VST3
     return applicationDirectory.getChildFile("./squeezer/");
-#endif
+#endif // JucePlugin_Build_VST3
 }
 
 

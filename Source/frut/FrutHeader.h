@@ -31,7 +31,7 @@
 
 #ifndef FRUT_DSP_USE_FFTW
 #define FRUT_DSP_USE_FFTW 0
-#endif
+#endif // FRUT_DSP_USE_FFTW
 
 
 namespace frut
@@ -56,7 +56,7 @@ public:
     {
 #ifndef DEBUG
         Logger::outputDebugString(SystemStats::getJUCEVersion());
-#endif
+#endif // DEBUG
 
         Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
         Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);

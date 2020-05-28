@@ -104,7 +104,7 @@ protected:
 #ifdef DEBUG
     void assertParameter(int index,
                          bool wantModification);
-#endif
+#endif // DEBUG
 
     int numberOfParameters_;
     int numberOfRevealedParameters_;

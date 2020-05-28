@@ -267,7 +267,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     // moves debug label to the back of the editor's z-plane to that
     // it doesn't overlay (and thus block) any other components
     addAndMakeVisible(LabelDebug_, 0);
-#endif
+#endif // DEBUG
 
     // moves background image to the back of the editor's z-plane so
     // that it doesn't overlay (and thus block) any other components
@@ -425,7 +425,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
 #ifdef DEBUG
     CurrentSkin_.placeAndSkinLabel("label_debug",
                                    &LabelDebug_);
-#endif
+#endif // DEBUG
 
     // allow meter updates from now on
     IsInitialising_ = false;
@@ -991,15 +991,15 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 
 #if JucePlugin_Build_AU
         pluginNameAndVersion += " (Audio Unit)";
-#endif
+#endif // JucePlugin_Build_AU
 
 #if JucePlugin_Build_VST
         pluginNameAndVersion += " (VST2)";
-#endif
+#endif // JucePlugin_Build_VST
 
 #if JucePlugin_Build_VST3
         pluginNameAndVersion += " (VST3)";
-#endif
+#endif // JucePlugin_Build_VST3
 
         Chapters.set(
             pluginNameAndVersion,
@@ -1026,22 +1026,20 @@ void SqueezerAudioProcessorEditor::buttonClicked(
             "Libraries",
 #ifdef LINUX
             L"ALSA\n"
-#endif
-#ifdef LINUX
             L"FreeType\n"
             L"JACK\n"
-#endif
+#endif // LINUX
             L"JUCE\n"
 #ifdef LINUX
             L"POSIX Threads\n"
-#endif
+#endif // LINUX
 #if JucePlugin_Build_VST || JucePlugin_Build_VST3
             L"VST\n"
-#endif
+#endif // JucePlugin_Build_VST || JucePlugin_Build_VST3
 #ifdef LINUX
             L"Xlib\n"
             L"Xext\n"
-#endif
+#endif // LINUX
         );
 
 #if JucePlugin_Build_VST || JucePlugin_Build_VST3
@@ -1050,7 +1048,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
             "Trademarks",
             L"VST is a trademark of Steinberg Media Technologies GmbH, "
             L"registered in Europe and other countries.\n");
-#endif
+#endif // JucePlugin_Build_VST || JucePlugin_Build_VST3
 
         Chapters.set(
             "License",
