@@ -82,13 +82,6 @@ def payload():
 
         print('  component:  {}'.format(
             component_id))
-        print('  file name:  {} '.format(
-            output_file))
-        print('  position:   {} | {}'.format(
-            x, y))
-        print('  size:       {} x {}'.format(
-            width, height))
-        print()
 
         command = '''inkscape --export-filename="{}" \
                        --export-id="{}" \
@@ -103,11 +96,19 @@ def payload():
                                 stderr=subprocess.PIPE,
                                 universal_newlines=True)
 
-    # display output of "stdout" and "stderr" (if any)
-    for pipe_output in proc.communicate():
-        if pipe_output:
-            print(pipe_output.strip())
-            print()
+        # display output of "stdout" and "stderr" (if any)
+        for pipe_output in proc.communicate():
+            if pipe_output:
+                print(pipe_output.strip())
+                print()
+
+        print('  file name:  {} '.format(
+            output_file))
+        print('  position:   {} | {}'.format(
+            x, y))
+        print('  size:       {} x {}'.format(
+            width, height))
+        print()
 
 
 if __name__ == '__main__':
