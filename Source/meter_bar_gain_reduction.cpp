@@ -34,8 +34,6 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
 {
     frut::widgets::MeterBar::create();
 
-    setUpwardExpansion(false);
-
     int trueLowerThreshold = 0;
     int levelRange = 10;
     int numberOfBars = 15;
@@ -81,8 +79,9 @@ void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
         trueLowerThreshold += levelRange;
     }
 
-    // set orientation here to save some processing power
+    // set orientation here to save some processing
     setOrientation(orientation);
+    setUpwardExpansion(false);
 }
 
 

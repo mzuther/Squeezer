@@ -64,9 +64,23 @@ void MeterBarLevel::create(int crestFactor,
             segmentHeight = mainSegmentHeight;
         }
 
-        bool hasHighestLevel = (n == 0) ? true : false;
+        bool hasHighestLevel = (n == 0);
 
-        if (discreteMeter)
+        if ((!discreteMeter) && (!hasHighestLevel))
+        {
+            // meter segment outlines must not overlap
+
+            addContinuousSegment(
+                lowerThreshold * 0.1f,
+                levelRange * 0.1f,
+                (levelRange * 0.1f) / segmentHeight,
+                hasHighestLevel,
+                segmentHeight,
+                spacingBefore,
+                segmentColours[colourId],
+                segmentColours[colourId].withMultipliedBrightness(0.7f));
+        }
+        else
         {
             // meter segment outlines overlap
             spacingBefore -= 1;
@@ -83,25 +97,11 @@ void MeterBarLevel::create(int crestFactor,
                 segmentColours[colourId],
                 segmentColours[colourId].withMultipliedBrightness(0.7f));
         }
-        else
-        {
-            // meter segment outlines must not overlap
-
-            addContinuousSegment(
-                lowerThreshold * 0.1f,
-                levelRange * 0.1f,
-                (levelRange * 0.1f) / segmentHeight,
-                hasHighestLevel,
-                segmentHeight,
-                spacingBefore,
-                segmentColours[colourId],
-                segmentColours[colourId].withMultipliedBrightness(0.7f));
-        }
 
         trueLowerThreshold -= levelRange;
         lowerThreshold = trueLowerThreshold + crestFactor;
     }
 
-    // set orientation here to save some processing power
+    // set orientation here to save some processing
     setOrientation(orientation);
 }
