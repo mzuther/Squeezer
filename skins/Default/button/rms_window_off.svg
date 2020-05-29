@@ -5,11 +5,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="788"
-   height="224"
-   id="svg2"
+   style="enable-background:new"
    version="1.1"
-   style="enable-background:new">
+   id="svg2"
+   height="218"
+   width="778">
   <defs
      id="defs4" />
   <metadata
@@ -42,11 +42,11 @@
     </rdf:RDF>
   </metadata>
   <g
-     id="layer6"
-     style="display:inline">
+     style="display:inline"
+     id="layer6">
     <g
-       id="export-button-rms-window-off"
-       transform="translate(90,212)">
+       transform="translate(90,212)"
+       id="export-button-rms-window-off">
       <path
          d="m 810.5,-111.5 h 39 c 5.54,0 10,4.237 10,9.5 0,5.263001 -4.46,9.500002 -10,9.500002 h -39 c -5.54,0 -10,-4.237001 -10,-9.500002 0,-5.263 4.46,-9.5 10,-9.5 z"
          style="color:#000000;font-variation-settings:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#232323;fill-opacity:1;fill-rule:nonzero;stroke:#666666;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
@@ -57,15 +57,15 @@
          transform="translate(0.22898358)"
          aria-label="RMS">
         <path
-           id="path75060"
+           id="path75098"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            d="m 819.12123,-98.261322 h 1.34401 v -3.200008 h 0.98133 l 1.74934,3.200008 h 1.62134 l -2.01601,-3.349348 c 1.05601,-0.23466 1.72801,-0.94933 1.72801,-2.03734 0,-1.6 -1.36534,-2.16534 -2.78401,-2.16534 h -2.62401 z m 1.34401,-4.298678 v -2.12268 h 1.216 c 0.69334,0 1.50401,0.20267 1.50401,1.02401 0,0.91733 -0.86401,1.09867 -1.62134,1.09867 z" />
         <path
-           id="path75062"
+           id="path75100"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            d="m 825.82959,-98.261322 h 1.28 v -6.069348 h 0.0213 l 2.26135,6.069348 h 0.93866 l 2.29335,-6.069348 h 0.0213 v 6.069348 h 1.33334 v -7.552028 h -2.11201 l -1.94134,5.36535 h -0.032 l -1.96267,-5.36535 h -2.10134 z" />
         <path
-           id="path75064"
+           id="path75102"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:125%;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:center;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:middle;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;vector-effect:none;fill:#999999;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
            d="m 840.36747,-105.19468 c -0.57601,-0.544 -1.44001,-0.81067 -2.19734,-0.81067 -1.36534,0 -2.76268,0.68267 -2.76268,2.21868 0,1.408 0.992,1.856 1.90934,2.144 0.94934,0.29867 1.73867,0.52267 1.73867,1.31201 0,0.810667 -0.736,1.120002 -1.36534,1.120002 -0.59733,0 -1.28,-0.320001 -1.65333,-0.832002 l -0.96001,0.896002 c 0.59734,0.704002 1.61067,1.077337 2.59201,1.077337 1.48267,0 2.75201,-0.789336 2.75201,-2.410679 0,-1.48267 -1.23734,-1.90934 -2.20801,-2.208 -0.85333,-0.26667 -1.44,-0.46934 -1.44,-1.16267 0,-0.73601 0.71467,-1.03467 1.33334,-1.03467 0.53333,0 1.09867,0.27733 1.38667,0.65067 z" />
       </g>
