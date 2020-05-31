@@ -72,14 +72,15 @@ void Skin::updateSkin(
 
 File Skin::getSkinDirectory()
 {
-    const auto resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
+    auto resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
     return resourceDirectory.getChildFile("./Skins/");
 }
 
 
 File Skin::getSettingsFile()
 {
-    File defaultSkinFile = getSkinDirectory().getChildFile("default_skin.ini");
+    auto settingsDirectory = File::getSpecialLocation(File::userApplicationDataDirectory);
+    auto defaultSkinFile = settingsDirectory.getChildFile("Squeezer.skin");
 
     return defaultSkinFile;
 }
