@@ -5,8 +5,8 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   width="778"
-   height="218"
+   width="782"
+   height="222"
    id="svg2"
    version="1.1"
    style="enable-background:new">
@@ -45,7 +45,7 @@
      id="layer6"
      style="display:inline">
     <g
-       transform="translate(-386,295)"
+       transform="translate(-384,297)"
        id="export-button-bypass-on">
       <path
          d="m 810.5,-111.5 h 39 c 5.54,0 10,4.237 10,9.5 0,5.263001 -4.46,9.500002 -10,9.500002 h -39 c -5.54,0 -10,-4.237001 -10,-9.500002 0,-5.263 4.46,-9.5 10,-9.5 z"
