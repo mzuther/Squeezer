@@ -212,7 +212,7 @@ void MeterSegmentDiscrete::paint(
     }
 
     // attenuate colours if segment is disabled
-    if (!isEnabled())
+    if (! isEnabled())
     {
         g.setColour(attenuatedColour_);
         g.fillAll();
@@ -254,7 +254,7 @@ void MeterSegmentDiscrete::setLevels(
     {
         // auto-fade mode: set meter segment to dark (unless it is
         // topmost)
-        if ((retainSignalFactor_ > 0.0f) && (!isTopmost_))
+        if ((retainSignalFactor_ > 0.0f) && (! isTopmost_))
         {
             brightness_ = 0.0f;
         }

@@ -643,31 +643,7 @@ void SqueezerAudioProcessor::updateParameters(
 
         // the following parameters need no updating:
         //
-        // * selSkinName
     }
-}
-
-
-String SqueezerAudioProcessor::getParameterSkinName()
-{
-    // This method will be called by the host, probably on the audio
-    // thread, so it's absolutely time-critical. Don't use critical
-    // sections or anything GUI-related, or anything at all that may
-    // block in any way!
-
-    return pluginParameters_.getSkinName();
-}
-
-
-void SqueezerAudioProcessor::setParameterSkinName(
-    const String &strSkinName)
-{
-    // This method will be called by the host, probably on the audio
-    // thread, so it's absolutely time-critical. Don't use critical
-    // sections or anything GUI-related, or anything at all that may
-    // block in any way!
-
-    pluginParameters_.setSkinName(strSkinName);
 }
 
 
@@ -967,7 +943,7 @@ void SqueezerAudioProcessor::processBlock(
     AudioBuffer<float> &buffer,
     MidiBuffer &midiMessages)
 {
-    jassert(!isUsingDoublePrecision());
+    jassert(! isUsingDoublePrecision());
     ignoreUnused(midiMessages);
 
     // temporarily disable denormals
@@ -1008,7 +984,7 @@ void SqueezerAudioProcessor::process(
 {
     int nNumSamples = buffer.getNumSamples();
 
-    if (!sampleRateIsValid_)
+    if (! sampleRateIsValid_)
     {
         buffer.clear();
         return;

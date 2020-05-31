@@ -27,13 +27,12 @@
 
 
 bool Skin::loadSkin(
-    File &skinFile,
     int numberOfChannels)
 
 {
     updateSkin(numberOfChannels);
 
-    return loadFromXml(skinFile, "squeezer-skin", "1.1");
+    return loadFromXml("squeezer-skin", "1.2");
 }
 
 
@@ -68,4 +67,19 @@ void Skin::updateSkin(
         skinFallback_1_ = nullptr;
         skinFallback_2_ = nullptr;
     }
+}
+
+
+File Skin::getSkinDirectory()
+{
+    const auto resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
+    return resourceDirectory.getChildFile("./Skins/");
+}
+
+
+File Skin::getSettingsFile()
+{
+    File defaultSkinFile = getSkinDirectory().getChildFile("default_skin.ini");
+
+    return defaultSkinFile;
 }

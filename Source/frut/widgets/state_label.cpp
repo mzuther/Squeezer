@@ -177,7 +177,7 @@ void StateLabel::setImages(
     imageActive_ = imageActive.createCopy();
 
     // attenuate colours if label is disabled
-    if (!isEnabled())
+    if (! isEnabled())
     {
         Graphics g1(imageOff_);
         g1.setColour(attenuatedColour_);

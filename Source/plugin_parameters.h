@@ -39,10 +39,6 @@ public:
     String toString();
 
     static const File getResourceDirectory();
-    static const File getSkinDirectory();
-
-    String getSkinName();
-    void setSkinName(const String &strSkinName);
 
     enum Parameters  // public namespace!
     {
@@ -83,9 +79,7 @@ public:
 
         numberOfParametersRevealed,
 
-        selSkinName = numberOfParametersRevealed,
-
-        numberOfParametersComplete,
+        numberOfParametersComplete = numberOfParametersRevealed,
     };
 
     virtual XmlElement *handleUpgrades(XmlElement *xmlDocument,

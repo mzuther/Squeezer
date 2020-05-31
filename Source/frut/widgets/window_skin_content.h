@@ -28,6 +28,13 @@
 
 namespace frut
 {
+
+namespace skin
+{
+class Skin;
+}
+
+
 namespace widgets
 {
 
@@ -44,10 +51,9 @@ public:
     virtual int getNumRows();
     virtual int getRow(const String &skinNameToLookFor);
 
-    virtual void fill(const File &skinDirectory);
+    virtual void fill(frut::skin::Skin *skin);
 
     virtual const String getSkinName(int rowNumber);
-    virtual void setDefault(int rowNumber);
 
     virtual void paintListBoxItem(int rowNumber,
                                   Graphics &g,
@@ -56,11 +62,11 @@ public:
                                   bool isRowSelected);
 
 private:
+    frut::skin::Skin *skin_;
+
     WildcardFileFilter skinWildcard_;
     TimeSliceThread directoryThread_;
 
-    File skinDirectory_;
-    String defaultSkinName_;
     StringArray skinNames_;
 
 private:
@@ -80,24 +86,21 @@ public:
     WindowSkinContent();
 
     static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
-                                            String *currentSkinName,
-                                            const File &skinDirectory);
+                                            frut::skin::Skin *skin);
 
     virtual void buttonClicked(Button *button);
 
     virtual void applySkin();
 
-    virtual void initialise(String *currentSkinName,
-                            const File &skinDirectory);
+    virtual void initialise(frut::skin::Skin *skin);
 
 protected:
+    frut::skin::Skin *skin_;
+
     ListBox skinList_;
     SkinListBoxModel listModel_;
 
     TextButton buttonSelect_;
-    TextButton buttonDefault_;
-
-    String *currentSkinName_;
 
 private:
     JUCE_LEAK_DETECTOR(WindowSkinContent);

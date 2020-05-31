@@ -69,9 +69,6 @@ public:
     bool hasChanged(int nIndex);
     void updateParameters(bool bIncludeHiddenParameters);
 
-    String getParameterSkinName();
-    void setParameterSkinName(const String &strSkinName);
-
     void resetMeters();
 
     float getGainReduction(int nChannel);

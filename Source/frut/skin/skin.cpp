@@ -38,7 +38,6 @@ namespace skin
 // * skinFallback_2_
 //
 bool Skin::loadFromXml(
-    const File &skinFile,
     const String &rootName,
     const String &assumedVersionNumber)
 {
@@ -50,12 +49,16 @@ bool Skin::loadFromXml(
     backgroundWidth_ = 0;
     backgroundHeight_ = 0;
 
+    auto skinFile = getSkinDirectory().getChildFile(
+                        getDefaultSkin() + ".skin");
+
     Logger::outputDebugString(
         String("[Skin] loading file \"") +
         skinFile.getFileName() + "\"");
 
     document_ = juce::parseXML(skinFile);
 
+    // this should not happen!
     if (document_ == nullptr)
     {
         Logger::outputDebugString(
@@ -66,7 +69,7 @@ bool Skin::loadFromXml(
         return false;
     }
 
-    String skinVersion = getString(document_.get(), "version");
+    auto skinVersion = getString(document_.get(), "version");
 
     if (skinVersion.compare(assumedVersionNumber) != 0)
     {
@@ -84,7 +87,7 @@ bool Skin::loadFromXml(
     settingsGroup_ = document_->getChildByName("settings");
     skinFallback_2_ = document_->getChildByName("default");
 
-    if ((!document_->hasTagName(rootName)) ||
+    if ((! document_->hasTagName(rootName)) ||
             (skinFallback_2_ == nullptr))
     {
         Logger::outputDebugString(
@@ -107,10 +110,10 @@ bool Skin::loadFromXml(
 
         skinFallback_1_ = document_->getChildByName(currentFallbackName_);
 
-        String resourcePathName = getString(document_.get(), "path");
+        auto resourcePathName = getString(document_.get(), "path");
         resourcePath_ = File(skinFile.getSiblingFile(resourcePathName));
 
-        if (!resourcePath_.isDirectory())
+        if (! resourcePath_.isDirectory())
         {
             Logger::outputDebugString(
                 String("[Skin] directory \"") +
@@ -122,51 +125,47 @@ bool Skin::loadFromXml(
         }
     }
 
-    String originOfY = getString(document_.get(), "origin_of_y", "top");
+    auto originOfY = getString(document_.get(), "origin_of_y", "top");
     originOfYIsBottom_ = originOfY.compare("bottom") == 0;
 
     return true;
 }
 
 
-File Skin::getDefaultSkinFile(
-    const File &skinDirectory)
+String Skin::getDefaultSkin()
 {
-    // locate file containing the default skin's name
-    File defaultSkinFile = skinDirectory.getChildFile("default_skin.ini");
+    auto settingsFile = this->getSettingsFile();
 
-    // make sure the file exists
-    if (!defaultSkinFile.existsAsFile())
+    // make sure settings file exists
+    if (! settingsFile.existsAsFile())
     {
-        // create file
-        defaultSkinFile.create();
+        settingsFile.create();
 
-        // set "Default" as default skin, as it comes with the plug-in
-        // (uses Unicode encoding)
-        defaultSkinFile.replaceWithText("Default", true, true);
+        // use "Default" skin by default, as it comes with the plug-in
+        setDefaultSkin("Default");
     }
 
-    return defaultSkinFile;
-}
+    auto skinName = settingsFile.loadFileAsString();
+    auto skinFile = getSkinDirectory().getChildFile(
+                        skinName + ".skin");
 
+    // use "Default" skin if specified skin file does not exist
+    if (! skinFile.existsAsFile())
+    {
+        skinName = "Default";
+    }
 
-String Skin::getDefaultSkin(
-    const File &skinDirectory)
-{
-    File defaultSkinFile = getDefaultSkinFile(skinDirectory);
-
-    return defaultSkinFile.loadFileAsString();
+    return skinName;
 }
 
 
 void Skin::setDefaultSkin(
-    const String &defaultSkinName,
-    const File &skinDirectory)
+    const String &defaultSkinName)
 {
-    File defaultSkinFile = getDefaultSkinFile(skinDirectory);
+    auto settingsFile = this->getSettingsFile();
 
     // uses Unicode encoding
-    defaultSkinFile.replaceWithText(defaultSkinName, true, true);
+    settingsFile.replaceWithText(defaultSkinName, true, true);
 }
 
 
@@ -384,7 +383,7 @@ std::unique_ptr<Drawable> Skin::loadImage(
     {
         component = Drawable::createFromImageFile(fileImage);
 
-        if (!component)
+        if (! component)
         {
             Logger::outputDebugString(
                 String("[Skin] image file \"") +
@@ -441,7 +440,7 @@ void Skin::setBackground(
                                              currentBackgroundName_);
             drawable = loadImage(imageFilename);
 
-            if (!background)
+            if (! background)
             {
                 auto message = "No background specified";
 
@@ -927,7 +926,7 @@ void Skin::placeAndSkinStateLabel(
         String strImageFilenameActive = getString(xmlComponent, "image_active");
 
         // use "image_on" if "image_active" does not exist
-        if (!strImageFilenameActive.isEmpty())
+        if (! strImageFilenameActive.isEmpty())
         {
             loadImage(strImageFilenameActive, imageActive);
         }

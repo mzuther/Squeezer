@@ -310,11 +310,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor(
     updateParameter(SqueezerPluginParameters::selSidechainInput);
     updateParameter(SqueezerPluginParameters::selSidechainListen);
 
-    // locate directory containing the skins
-    SkinDirectory_ = SqueezerPluginParameters::getSkinDirectory();
-
     // apply skin to plug-in editor
-    CurrentSkinName_ = PluginProcessor_.getParameterSkinName();
     loadSkin_();
 }
 
@@ -330,20 +326,7 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 
 void SqueezerAudioProcessorEditor::loadSkin_()
 {
-    File FileSkin = SkinDirectory_.getChildFile(CurrentSkinName_ + ".skin");
-
-    if (!FileSkin.existsAsFile())
-    {
-        Logger::outputDebugString("[Skin] file \"" + FileSkin.getFileName() +
-                                  "\" not found");
-
-        CurrentSkinName_ = "Default";
-        FileSkin = SkinDirectory_.getChildFile(CurrentSkinName_ + ".skin");
-    }
-
-    PluginProcessor_.setParameterSkinName(CurrentSkinName_);
-
-    CurrentSkin_.loadSkin(FileSkin, NumberOfChannels_);
+    skin_.loadSkin(NumberOfChannels_);
 
     // moves background image to the back of the editor's z-plane
     applySkin_();
@@ -353,78 +336,78 @@ void SqueezerAudioProcessorEditor::loadSkin_()
 void SqueezerAudioProcessorEditor::applySkin_()
 {
     // update skin
-    CurrentSkin_.updateSkin(NumberOfChannels_);
+    skin_.updateSkin(NumberOfChannels_);
 
     // moves background image to the back of the editor's z-plane;
     // will also resize plug-in editor
-    CurrentSkin_.setBackground(&DrawableBackground_, this);
+    skin_.setBackground(&DrawableBackground_, this);
 
-    CurrentSkin_.placeAndSkinSlider("slider_threshold",
-                                    SliderThreshold_.get());
-    CurrentSkin_.placeAndSkinSlider("slider_ratio",
-                                    SliderRatio_.get());
-    CurrentSkin_.placeAndSkinSlider("slider_attack_rate",
-                                    SliderAttackRate_.get());
-    CurrentSkin_.placeAndSkinSlider("slider_release_rate",
-                                    SliderReleaseRate_.get());
-    CurrentSkin_.placeAndSkinSlider("slider_sidechain_hpf_cutoff",
-                                    SliderSidechainHPFCutoff_.get());
-    CurrentSkin_.placeAndSkinSlider("slider_sidechain_lpf_cutoff",
-                                    SliderSidechainLPFCutoff_.get());
+    skin_.placeAndSkinSlider("slider_threshold",
+                             SliderThreshold_.get());
+    skin_.placeAndSkinSlider("slider_ratio",
+                             SliderRatio_.get());
+    skin_.placeAndSkinSlider("slider_attack_rate",
+                             SliderAttackRate_.get());
+    skin_.placeAndSkinSlider("slider_release_rate",
+                             SliderReleaseRate_.get());
+    skin_.placeAndSkinSlider("slider_sidechain_hpf_cutoff",
+                             SliderSidechainHPFCutoff_.get());
+    skin_.placeAndSkinSlider("slider_sidechain_lpf_cutoff",
+                             SliderSidechainLPFCutoff_.get());
 
-    CurrentSkin_.placeAndSkinSlider("slider_input_trim",
-                                    SliderInputTrim_.get());
-    CurrentSkin_.placeAndSkinSlider("slider_makeup_gain",
-                                    SliderMakeupGain_.get());
+    skin_.placeAndSkinSlider("slider_input_trim",
+                             SliderInputTrim_.get());
+    skin_.placeAndSkinSlider("slider_makeup_gain",
+                             SliderMakeupGain_.get());
 
-    CurrentSkin_.placeAndSkinSlider("slider_stereo_link",
-                                    SliderStereoLink_.get());
-    CurrentSkin_.placeAndSkinSlider("slider_wet_mix",
-                                    SliderWetMix_.get());
+    skin_.placeAndSkinSlider("slider_stereo_link",
+                             SliderStereoLink_.get());
+    skin_.placeAndSkinSlider("slider_wet_mix",
+                             SliderWetMix_.get());
 
-    CurrentSkin_.placeAndSkinButton("button_curve_linear",
-                                    &ButtonCurveLinear_);
-    CurrentSkin_.placeAndSkinButton("button_curve_smooth_decoupled",
-                                    &ButtonCurveSmoothDecoupled_);
-    CurrentSkin_.placeAndSkinButton("button_curve_smooth_branching",
-                                    &ButtonCurveSmoothBranching_);
+    skin_.placeAndSkinButton("button_curve_linear",
+                             &ButtonCurveLinear_);
+    skin_.placeAndSkinButton("button_curve_smooth_decoupled",
+                             &ButtonCurveSmoothDecoupled_);
+    skin_.placeAndSkinButton("button_curve_smooth_branching",
+                             &ButtonCurveSmoothBranching_);
 
-    CurrentSkin_.placeAndSkinButton("button_rms_window",
-                                    &ButtonRmsWindow_);
-    CurrentSkin_.placeAndSkinButton("button_design_feedback",
-                                    &ButtonDesignFeedback_);
-    CurrentSkin_.placeAndSkinButton("button_gainstage_optical",
-                                    &ButtonGainStageOptical_);
+    skin_.placeAndSkinButton("button_rms_window",
+                             &ButtonRmsWindow_);
+    skin_.placeAndSkinButton("button_design_feedback",
+                             &ButtonDesignFeedback_);
+    skin_.placeAndSkinButton("button_gainstage_optical",
+                             &ButtonGainStageOptical_);
 
-    CurrentSkin_.placeAndSkinButton("button_knee_hard",
-                                    &ButtonKneeHard_);
-    CurrentSkin_.placeAndSkinButton("button_knee_medium",
-                                    &ButtonKneeMedium_);
-    CurrentSkin_.placeAndSkinButton("button_knee_soft",
-                                    &ButtonKneeSoft_);
+    skin_.placeAndSkinButton("button_knee_hard",
+                             &ButtonKneeHard_);
+    skin_.placeAndSkinButton("button_knee_medium",
+                             &ButtonKneeMedium_);
+    skin_.placeAndSkinButton("button_knee_soft",
+                             &ButtonKneeSoft_);
 
-    CurrentSkin_.placeAndSkinButton("button_sidechain_external",
-                                    &ButtonSidechainExternal_);
-    CurrentSkin_.placeAndSkinButton("button_sidechain_listen",
-                                    &ButtonSidechainListen_);
+    skin_.placeAndSkinButton("button_sidechain_external",
+                             &ButtonSidechainExternal_);
+    skin_.placeAndSkinButton("button_sidechain_listen",
+                             &ButtonSidechainListen_);
 
-    CurrentSkin_.placeAndSkinButton("button_auto_makeup_gain",
-                                    &ButtonAutoMakeupGain_);
-    CurrentSkin_.placeAndSkinButton("button_about",
-                                    &ButtonAbout_);
-    CurrentSkin_.placeAndSkinButton("button_settings",
-                                    &ButtonSettings_);
-    CurrentSkin_.placeAndSkinButton("button_skin",
-                                    &ButtonSkin_);
-    CurrentSkin_.placeAndSkinButton("button_bypass",
-                                    &ButtonBypass_);
+    skin_.placeAndSkinButton("button_auto_makeup_gain",
+                             &ButtonAutoMakeupGain_);
+    skin_.placeAndSkinButton("button_about",
+                             &ButtonAbout_);
+    skin_.placeAndSkinButton("button_settings",
+                             &ButtonSettings_);
+    skin_.placeAndSkinButton("button_skin",
+                             &ButtonSkin_);
+    skin_.placeAndSkinButton("button_bypass",
+                             &ButtonBypass_);
 
-    CurrentSkin_.placeAndSkinButton("button_reset",
-                                    &ButtonReset_);
+    skin_.placeAndSkinButton("button_reset",
+                             &ButtonReset_);
 
 #ifdef DEBUG
-    CurrentSkin_.placeAndSkinLabel("label_debug",
-                                   &LabelDebug_);
+    skin_.placeAndSkinLabel("label_debug",
+                            &LabelDebug_);
 #endif // DEBUG
 
     // allow meter updates from now on
@@ -437,30 +420,30 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     Array<Colour> ColoursLevelMeter;
 
-    XmlElement *xmlSetting = CurrentSkin_.getSetting("meter_colour_high");
-    Colour ColourHigh = CurrentSkin_.getColour(xmlSetting,
-                        Colour(0.00f, 1.0f, 1.0f, 1.0f));
+    XmlElement *xmlSetting = skin_.getSetting("meter_colour_high");
+    Colour ColourHigh = skin_.getColour(xmlSetting,
+                                        Colour(0.00f, 1.0f, 1.0f, 1.0f));
 
-    xmlSetting = CurrentSkin_.getSetting("meter_colour_medium");
-    Colour ColourMedium = CurrentSkin_.getColour(xmlSetting,
-                          Colour(0.18f, 1.0f, 1.0f, 1.0f));
+    xmlSetting = skin_.getSetting("meter_colour_medium");
+    Colour ColourMedium = skin_.getColour(xmlSetting,
+                                          Colour(0.18f, 1.0f, 1.0f, 1.0f));
 
-    xmlSetting = CurrentSkin_.getSetting("meter_colour_low");
-    Colour ColourLow = CurrentSkin_.getColour(xmlSetting,
-                       Colour(0.30f, 1.0f, 1.0f, 1.0f));
+    xmlSetting = skin_.getSetting("meter_colour_low");
+    Colour ColourLow = skin_.getColour(xmlSetting,
+                                       Colour(0.30f, 1.0f, 1.0f, 1.0f));
 
     ColoursLevelMeter.add(ColourHigh);    // overload
     ColoursLevelMeter.add(ColourMedium);  // warning
     ColoursLevelMeter.add(ColourLow);     // fine
 
-    xmlSetting = CurrentSkin_.getSetting("meter_gain_reduction_normal");
-    Colour ColourReduction = CurrentSkin_.getColour(xmlSetting,
+    xmlSetting = skin_.getSetting("meter_gain_reduction_normal");
+    Colour ColourReduction = skin_.getColour(xmlSetting,
                              Colour(0.58f, 1.0f, 1.0f, 1.0f));
 
-    xmlSetting = CurrentSkin_.getSetting("meter_segment");
-    int SegmentHeight = CurrentSkin_.getInteger(xmlSetting,
-                        "height",
-                        5);
+    xmlSetting = skin_.getSetting("meter_segment");
+    int SegmentHeight = skin_.getInteger(xmlSetting,
+                                         "height",
+                                         5);
 
     bool IsDiscreteMeter = true;
     int CrestFactor = 0;
@@ -507,33 +490,33 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
     if (NumberOfChannels_ == 1)
     {
-        CurrentSkin_.placeMeterBar("meter_input",
-                                   InputLevelMeters_[0]);
+        skin_.placeMeterBar("meter_input",
+                            InputLevelMeters_[0]);
 
-        CurrentSkin_.placeMeterBar("meter_output",
-                                   OutputLevelMeters_[0]);
+        skin_.placeMeterBar("meter_output",
+                            OutputLevelMeters_[0]);
 
-        CurrentSkin_.placeMeterBar("meter_gain_reduction",
-                                   GainReductionMeters_[0]);
+        skin_.placeMeterBar("meter_gain_reduction",
+                            GainReductionMeters_[0]);
 
         SliderStereoLink_->setEnabled(false);
     }
     else
     {
-        CurrentSkin_.placeMeterBar("meter_input_left",
-                                   InputLevelMeters_[0]);
-        CurrentSkin_.placeMeterBar("meter_input_right",
-                                   InputLevelMeters_[1]);
+        skin_.placeMeterBar("meter_input_left",
+                            InputLevelMeters_[0]);
+        skin_.placeMeterBar("meter_input_right",
+                            InputLevelMeters_[1]);
 
-        CurrentSkin_.placeMeterBar("meter_output_left",
-                                   OutputLevelMeters_[0]);
-        CurrentSkin_.placeMeterBar("meter_output_right",
-                                   OutputLevelMeters_[1]);
+        skin_.placeMeterBar("meter_output_left",
+                            OutputLevelMeters_[0]);
+        skin_.placeMeterBar("meter_output_right",
+                            OutputLevelMeters_[1]);
 
-        CurrentSkin_.placeMeterBar("meter_gain_reduction_left",
-                                   GainReductionMeters_[0]);
-        CurrentSkin_.placeMeterBar("meter_gain_reduction_right",
-                                   GainReductionMeters_[1]);
+        skin_.placeMeterBar("meter_gain_reduction_left",
+                            GainReductionMeters_[0]);
+        skin_.placeMeterBar("meter_gain_reduction_right",
+                            GainReductionMeters_[1]);
     }
 
 #if SQUEEZER_EXTERNAL_SIDECHAIN == 0
@@ -595,10 +578,10 @@ void SqueezerAudioProcessorEditor::actionListenerCallback(
         }
     }
     // "UM" ==> update meters
-    else if (!Message.compare("UM"))
+    else if (! Message.compare("UM"))
     {
         // prevent meter updates during initialisation
-        if (!IsInitialising_)
+        if (! IsInitialising_)
         {
             for (int Channel = 0; Channel < NumberOfChannels_; ++Channel)
             {
@@ -735,7 +718,7 @@ void SqueezerAudioProcessorEditor::updateParameter(
 
         {
             // prevent meter updates during initialisation
-            if (!IsInitialising_)
+            if (! IsInitialising_)
             {
                 float RealValue = SliderRatio_->getRealFloat();
                 bool UseUpwardExpansion = (RealValue < 1.0f);
@@ -968,8 +951,7 @@ void SqueezerAudioProcessorEditor::buttonClicked(
 
         // prepare and launch dialog window
         DialogWindow *WindowSkin =
-            frut::widgets::WindowSkinContent::createDialogWindow(
-                this, &CurrentSkinName_, SkinDirectory_);
+            frut::widgets::WindowSkinContent::createDialogWindow(this, &skin_);
 
         // attach callback to dialog window
         ModalComponentManager::getInstance()->attachCallback(

@@ -34,15 +34,11 @@ namespace skin
 class Skin
 {
 public:
-    bool loadFromXml(const File &skinFile,
-                     const String &rootName,
+    bool loadFromXml(const String &rootName,
                      const String &assumedVersionNumber);
 
-    static File getDefaultSkinFile(const File &skinDirectory);
-
-    static String getDefaultSkin(const File &skinDirectory);
-    static void setDefaultSkin(const String &defaultSkinName,
-                               const File &skinDirectory);
+    String getDefaultSkin();
+    void setDefaultSkin(const String &defaultSkinName);
 
     XmlElement *getSetting(const String &tagName);
 
@@ -129,6 +125,10 @@ public:
 
     void placeAndSkinStateLabel(const String &tagName,
                                 widgets::StateLabel *label);
+
+    virtual File getSkinDirectory() = 0;
+    virtual File getSettingsFile() = 0;
+
 
 protected:
     std::unique_ptr<XmlElement> document_;

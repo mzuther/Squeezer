@@ -405,7 +405,7 @@ void MeterSegmentContinuous::paint(
     }
 
     // attenuate colours if segment is disabled
-    if (!isEnabled())
+    if (! isEnabled())
     {
         g.setColour(attenuatedColour_);
         g.fillAll();

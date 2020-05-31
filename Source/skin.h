@@ -34,10 +34,12 @@ class Skin :
     public frut::skin::Skin
 {
 public:
-    bool loadSkin(File &skinFile,
-                  int numberOfChannels);
+    bool loadSkin(int numberOfChannels);
 
     void updateSkin(int numberOfChannels);
+
+    virtual File getSkinDirectory() override;
+    virtual File getSettingsFile() override;
 
 private:
     JUCE_LEAK_DETECTOR(Skin);

@@ -626,7 +626,7 @@ void Juggler::loadFromXml(
         String oldVersion = xmlDocument->getStringAttribute("version", "0.0.1");
 
         // call hook for custom handling of version upgrades
-        if (!oldVersion.equalsIgnoreCase(JucePlugin_VersionString))
+        if (! oldVersion.equalsIgnoreCase(JucePlugin_VersionString))
         {
             String oldMajorVersion = oldVersion.upToFirstOccurrenceOf(".", false, false);
 

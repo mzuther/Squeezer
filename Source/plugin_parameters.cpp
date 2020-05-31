@@ -482,18 +482,6 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
     ParameterStereoLink->setSuffix(" %");
     ParameterStereoLink->setDefaultRealFloat(100.0f, true);
     addCombined(ParameterStereoLink, selStereoLinkSwitch, selStereoLink);
-
-
-    // locate directory containing the skins
-    File skinDirectory = getSkinDirectory();
-
-    // load name of default skin from file
-    String defaultSkinName = frut::skin::Skin::getDefaultSkin(skinDirectory);
-
-    frut::parameters::ParString *ParameterSkinName =
-        new frut::parameters::ParString(defaultSkinName);
-    ParameterSkinName->setName("Skin");
-    add(ParameterSkinName, selSkinName);
 }
 
 
@@ -675,23 +663,4 @@ const File SqueezerPluginParameters::getResourceDirectory()
 #else // JucePlugin_Build_VST3
     return applicationDirectory.getChildFile("./squeezer/");
 #endif // JucePlugin_Build_VST3
-}
-
-
-const File SqueezerPluginParameters::getSkinDirectory()
-{
-    File resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
-    return resourceDirectory.getChildFile("./Skins/");
-}
-
-
-String SqueezerPluginParameters::getSkinName()
-{
-    return getText(selSkinName);
-}
-
-
-void SqueezerPluginParameters::setSkinName(const String &strSkinName)
-{
-    setText(selSkinName, strSkinName);
 }

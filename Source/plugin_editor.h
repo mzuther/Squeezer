@@ -71,10 +71,7 @@ private:
     int NumberOfChannels_;
 
     SqueezerAudioProcessor &PluginProcessor_;
-
-    File SkinDirectory_;
-    Skin CurrentSkin_;
-    String CurrentSkinName_;
+    Skin skin_;
 
     OwnedArray<MeterBarLevel> InputLevelMeters_;
     OwnedArray<MeterBarLevel> OutputLevelMeters_;

@@ -62,7 +62,7 @@ FftwRunner::FftwRunner(
     String dynamicLibraryFftwPath = dynamicLibraryFftwFile.getFullPathName();
     dynamicLibraryFFTW.open(dynamicLibraryFftwPath);
 
-    if (!dynamicLibraryFFTW.getNativeHandle())
+    if (! dynamicLibraryFFTW.getNativeHandle())
     {
         NativeMessageBox::showMessageBox(
             AlertWindow::WarningIcon,

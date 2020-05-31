@@ -439,7 +439,7 @@ void MeterBar::setOrientation(
 
             // non-inverted orientation: add height of segment to
             // position
-            if (!isInverted_)
+            if (! isInverted_)
             {
                 tempY += segmentHeight;
             }

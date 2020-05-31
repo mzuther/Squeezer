@@ -222,7 +222,7 @@ void WindowAboutContent::addChapters(
         String currentHeadline = headlines[n];
 
         // skip empty chapters
-        if (!chapters[currentHeadline].isEmpty())
+        if (! chapters[currentHeadline].isEmpty())
         {
             // display headline
             textEditor_.setFont(headlineFont);

@@ -66,7 +66,7 @@ void MeterBarLevel::create(int crestFactor,
 
         bool hasHighestLevel = (n == 0);
 
-        if ((!discreteMeter) && (!hasHighestLevel))
+        if ((! discreteMeter) && (! hasHighestLevel))
         {
             // meter segment outlines must not overlap
 

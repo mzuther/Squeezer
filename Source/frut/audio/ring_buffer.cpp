@@ -291,7 +291,7 @@ void RingBuffer<Type>::importFrom(
         unprocessedSamples -= samplesToCopy;
 
         // update write position?
-        if (!updatePosition)
+        if (! updatePosition)
         {
 
             continue;
