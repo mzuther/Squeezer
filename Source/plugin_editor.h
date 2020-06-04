@@ -26,6 +26,8 @@
 #ifndef SQUEEZER_PLUGIN_EDITOR_H
 #define SQUEEZER_PLUGIN_EDITOR_H
 
+#include "build_id.h"
+
 #include "FrutHeader.h"
 #include "compressor.h"
 #include "meter_bar_gain_reduction.h"

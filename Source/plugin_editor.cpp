@@ -983,6 +983,8 @@ void SqueezerAudioProcessorEditor::buttonClicked(
         pluginNameAndVersion += " (VST3)";
 #endif // JucePlugin_Build_VST3
 
+        pluginNameAndVersion += String(SQUEEZER_BUILD_ID);
+
         Chapters.set(
             pluginNameAndVersion,
             String(JucePlugin_Desc) + ".\n");
