@@ -40,97 +40,43 @@
 
     <default>
         <slider_input_trim
-            x="14"
-            y="36"
-            height="66"
-            width="52"
-            hue="0.00"
-            saturation="0.0"
-            toggle_hue="0.06"
-            toggle_saturation="1.0"
+            image="slider/input_trim.svg"
         />
 
         <slider_makeup_gain
-            x="14"
-            y="144"
-            height="66"
-            width="52"
-            hue="0.00"
-            saturation="0.0"
-            toggle_hue="0.06"
-            toggle_saturation="1.0"
+            image="slider/makeup_gain.svg"
         />
 
         <slider_threshold
-            x="86"
-            y="36"
-            height="66"
-            width="52"
-            hue="0.83"
-            toggle_hue="0.06"
+            image="slider/threshold.svg"
         />
 
         <slider_ratio
-            x="146"
-            y="36"
-            height="66"
-            width="52"
-            hue="0.83"
-            toggle_hue="0.06"
+            image="slider/ratio.svg"
         />
 
         <slider_attack_rate
-            x="86"
-            y="144"
-            height="66"
-            width="52"
-            hue="0.16"
-            toggle_hue="0.06"
+            image="slider/attack_rate.svg"
         />
 
         <slider_release_rate
-            x="146"
-            y="144"
-            height="66"
-            width="52"
-            hue="0.16"
-            toggle_hue="0.06"
+            image="slider/release_rate.svg"
         />
 
         <slider_stereo_link
-            x="218"
-            y="36"
-            height="66"
-            width="52"
-            hue="0.55"
-            toggle_hue="0.06"
+            image="slider/stereo_link.svg"
         />
 
         <slider_wet_mix
-            x="278"
-            y="36"
-            height="66"
-            width="52"
-            hue="0.55"
-            toggle_hue="0.06"
+            image="slider/wet_mix.svg"
         />
 
         <slider_sidechain_hpf_cutoff
-            x="218"
-            y="144"
-            height="66"
-            width="52"
-            hue="0.33"
-            toggle_hue="0.06"
+            image="slider/sidechain_hpf_cutoff.svg"
         />
 
         <slider_sidechain_lpf_cutoff
-            x="278"
-            y="144"
-            height="66"
-            width="52"
-            hue="0.33"
-            toggle_hue="0.06"
+            image="slider/sidechain_lpf_cutoff.svg"
         />
 
         <button_curve_smooth_branching

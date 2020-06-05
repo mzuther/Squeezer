@@ -49,15 +49,15 @@
        id="export-label-debug"
        aria-label="dbg">
       <path
-         id="path104921"
+         id="path106024"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;stroke-width:1"
          d="m 540.18698,129.99999 h -1.32 v 3.707 h -0.033 c -0.275,-0.341 -0.803,-0.825 -1.771,-0.825 -1.507,0 -2.563,1.21 -2.563,2.772 0,1.54 0.99,2.816 2.596,2.816 0.737,0 1.452,-0.341 1.815,-0.946 h 0.022 v 0.792 h 1.254 z m -4.345,5.654 c 0,-0.825 0.495,-1.694 1.518,-1.694 0.968,0 1.551,0.891 1.551,1.716 0,0.825 -0.583,1.694 -1.551,1.694 -1.023,0 -1.518,-0.891 -1.518,-1.716 z" />
       <path
-         id="path104923"
+         id="path106026"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;stroke-width:1"
          d="m 541.8234,129.99999 v 8.316 h 1.254 v -0.792 h 0.022 c 0.363,0.605 1.078,0.946 1.815,0.946 1.606,0 2.596,-1.276 2.596,-2.816 0,-1.562 -1.056,-2.772 -2.563,-2.772 -0.968,0 -1.496,0.484 -1.771,0.825 h -0.033 v -3.707 z m 4.345,5.654 c 0,0.825 -0.495,1.716 -1.518,1.716 -0.968,0 -1.551,-0.869 -1.551,-1.694 0,-0.825 0.583,-1.716 1.551,-1.716 1.023,0 1.518,0.869 1.518,1.694 z" />
       <path
-         id="path104925"
+         id="path106028"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:11px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#ff0000;stroke-width:1"
          d="m 552.89782,133.03599 v 0.792 h -0.022 c -0.385,-0.638 -1.078,-0.946 -1.815,-0.946 -1.595,0 -2.585,1.243 -2.585,2.772 0,1.496 1.023,2.75 2.607,2.75 0.726,0 1.342,-0.275 1.727,-0.792 h 0.022 v 0.385 c 0,1.045 -0.396,1.815 -1.672,1.815 -0.66,0 -1.342,-0.264 -1.848,-0.748 l -0.759,1.023 c 0.682,0.561 1.76,0.869 2.618,0.869 2.057,0 2.981,-1.21 2.981,-3.113 v -4.807 z m -1.562,0.924 c 0.957,0 1.562,0.77 1.562,1.683 0,0.88 -0.594,1.672 -1.573,1.672 -0.946,0 -1.507,-0.836 -1.507,-1.672 0,-0.935 0.561,-1.683 1.518,-1.683 z" />
     </g>

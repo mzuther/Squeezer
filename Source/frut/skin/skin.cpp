@@ -687,7 +687,7 @@ void Skin::placeAndSkinButton(
         return;
     }
 
-    XmlElement *xmlComponent = getComponent(tagName);
+    auto xmlComponent = getComponent(tagName);
 
     if (xmlComponent != nullptr)
     {
@@ -749,30 +749,61 @@ void Skin::placeAndSkinSlider(
         return;
     }
 
-    XmlElement *xmlComponent = getComponent(tagName);
-    Colour sliderColour = getColour(xmlComponent);
+    auto xmlComponent = getComponent(tagName);
 
-    placeComponent(xmlComponent, slider);
-    slider->setSliderColour(sliderColour);
-}
-
-
-void Skin::placeAndSkinSlider(
-    const String &tagName,
-    widgets::SliderCombined *slider)
-{
-    if (document_ == nullptr)
+    if (xmlComponent == nullptr)
     {
         return;
     }
 
-    XmlElement *xmlComponent = getComponent(tagName);
-    Colour sliderColour = getColour(xmlComponent);
-    Colour toggleSwitchColour = getColour(xmlComponent, sliderColour, "toggle_");
+    auto fileName = getString(xmlComponent, "image");
+    Colour sliderColour;
+    Colour toggleSwitchColour;
 
-    placeComponent(xmlComponent, slider);
+    if (fileName.isNotEmpty())
+    {
+        auto drawable = loadImage(fileName);
+        Component *recursiveChild = drawable.get();
+        DrawableShape *firstDrawableShape = dynamic_cast<DrawableShape *>(recursiveChild);
+
+        // recursively search SVG children for a "DrawableShape"
+        while ((recursiveChild != nullptr) && (firstDrawableShape == nullptr))
+        {
+            recursiveChild = recursiveChild->getChildComponent(0);
+            firstDrawableShape = dynamic_cast<DrawableShape *>(recursiveChild);
+        }
+
+        if (firstDrawableShape)
+        {
+            sliderColour = firstDrawableShape->getFill().colour;
+            toggleSwitchColour = firstDrawableShape->getStrokeFill().colour;
+
+            // fallback in case the drawable has no stroke fill
+            if (toggleSwitchColour.getBrightness() < 0.2f)
+            {
+                toggleSwitchColour = Colours::red;
+            }
+
+            auto bounds = firstDrawableShape->getDrawableBounds();
+            slider->setBounds(bounds.getSmallestIntegerContainer());
+        }
+    }
+    else
+    {
+        sliderColour = getColour(xmlComponent);
+        toggleSwitchColour = getColour(xmlComponent, sliderColour, "toggle_");
+
+        placeComponent(xmlComponent, slider);
+    }
+
     slider->setSliderColour(sliderColour);
-    slider->setToggleSwitchColour(toggleSwitchColour);
+
+    auto sliderCombined = dynamic_cast<frut::widgets::SliderCombined *>(slider);
+
+    if (sliderCombined != nullptr)
+    {
+        sliderCombined->setToggleSwitchColour(toggleSwitchColour);
+    }
 }
 
 

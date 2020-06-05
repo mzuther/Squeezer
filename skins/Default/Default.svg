@@ -28,7 +28,7 @@
      inkscape:cx="555.0005"
      inkscape:cy="140"
      inkscape:document-units="px"
-     inkscape:current-layer="g13041"
+     inkscape:current-layer="layer6"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
@@ -1569,8 +1569,12 @@
   </g>
   <g
      inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Sliders" />
+  <g
+     inkscape:groupmode="layer"
      id="layer6"
-     inkscape:label="Widgets"
+     inkscape:label="Buttons"
      style="display:inline">
     <text
        id="export-label-debug"
@@ -2824,6 +2828,76 @@
            sodipodi:role="line"
            style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro Semi-Bold';fill:#000000">Reset</tspan></text>
     </g>
+    <rect
+       style="color:#000000;overflow:visible;fill:#ff00ff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-slider-threshold"
+       width="48"
+       height="62"
+       x="88"
+       y="38" />
+    <rect
+       y="38"
+       x="148"
+       height="62"
+       width="48"
+       id="export-slider-ratio"
+       style="color:#000000;overflow:visible;fill:#ff00ff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000" />
+    <rect
+       y="38"
+       x="16"
+       height="62"
+       width="48"
+       id="export-slider-input-trim"
+       style="color:#000000;overflow:visible;fill:#ffffff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000" />
+    <rect
+       style="color:#000000;overflow:visible;fill:#ffffff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-slider-makeup-gain"
+       width="48"
+       height="62"
+       x="16"
+       y="146" />
+    <rect
+       y="146"
+       x="88"
+       height="62"
+       width="48"
+       id="export-slider-attack-rate"
+       style="color:#000000;overflow:visible;fill:#fff700;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000" />
+    <rect
+       style="color:#000000;overflow:visible;fill:#fff700;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-slider-release-rate"
+       width="48"
+       height="62"
+       x="148"
+       y="146" />
+    <rect
+       style="color:#000000;overflow:visible;fill:#00b2ff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-slider-stereo-link"
+       width="48"
+       height="62"
+       x="220"
+       y="38" />
+    <rect
+       y="38"
+       x="280"
+       height="62"
+       width="48"
+       id="export-slider-wet-mix"
+       style="color:#000000;overflow:visible;fill:#00b2ff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000" />
+    <rect
+       y="146"
+       x="220"
+       height="62"
+       width="48"
+       id="export-slider-sidechain-hpf-cutoff"
+       style="color:#000000;overflow:visible;fill:#08ff00;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000" />
+    <rect
+       style="color:#000000;overflow:visible;fill:#08ff00;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-slider-sidechain-lpf-cutoff"
+       width="48"
+       height="62"
+       x="280"
+       y="146" />
   </g>
   <g
      style="display:none"
