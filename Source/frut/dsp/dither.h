@@ -34,49 +34,49 @@ namespace dsp
 class Dither
 {
 public:
-    Dither();
+   Dither();
 
-    void initialise(const int numberOfChannels,
+   void initialise( const int numberOfChannels,
                     const int numberOfBits,
-                    const double noiseShaping = 0.5);
+                    const double noiseShaping = 0.5 );
 
-    void convertToDouble(const AudioBuffer<float> &sourceBufferFloat,
-                         AudioBuffer<double> &destinationBufferDouble);
+   void convertToDouble( const AudioBuffer<float>& sourceBufferFloat,
+                         AudioBuffer<double>& destinationBufferDouble );
 
-    void truncateToFloat(const AudioBuffer<double> &sourceBufferDouble,
-                         AudioBuffer<float> &destinationBufferFloat);
+   void truncateToFloat( const AudioBuffer<double>& sourceBufferDouble,
+                         AudioBuffer<float>& destinationBufferFloat );
 
-    void denormalize(AudioBuffer<float> &buffer);
-    void denormalize(AudioBuffer<double> &buffer);
+   void denormalize( AudioBuffer<float>& buffer );
+   void denormalize( AudioBuffer<double>& buffer );
 
-    void denormalizeToDouble(const AudioBuffer<float> &sourceBufferFloat,
-                             AudioBuffer<double> &destinationBufferDouble);
+   void denormalizeToDouble( const AudioBuffer<float>& sourceBufferFloat,
+                             AudioBuffer<double>& destinationBufferDouble );
 
-    float ditherSample(const int currentChannel,
-                       const double &sourceValueDouble);
+   float ditherSample( const int currentChannel,
+                       const double& sourceValueDouble );
 
-    void ditherToFloat(const AudioBuffer<double> &sourceBufferDouble,
-                       AudioBuffer<float> &destinationBufferFloat);
+   void ditherToFloat( const AudioBuffer<double>& sourceBufferDouble,
+                       AudioBuffer<float>& destinationBufferFloat );
 
 private:
-    Array<int> randomNumber_1_;
-    Array<int> randomNumber_2_;
+   Array<int> randomNumber_1_;
+   Array<int> randomNumber_2_;
 
-    Array<double> errorFeedback_1_;
-    Array<double> errorFeedback_2_;
+   Array<double> errorFeedback_1_;
+   Array<double> errorFeedback_2_;
 
-    const float antiDenormalFloat_;
-    const double antiDenormalDouble_;
+   const float antiDenormalFloat_;
+   const double antiDenormalDouble_;
 
-    bool isInitialized_;
+   bool isInitialized_;
 
-    int numberOfChannels_;
+   int numberOfChannels_;
 
-    double dcOffset_;
-    double ditherAmplitude_;
-    double noiseShaping_;
-    double wordLength_;
-    double wordLengthInverted_;
+   double dcOffset_;
+   double ditherAmplitude_;
+   double noiseShaping_;
+   double wordLength_;
+   double wordLengthInverted_;
 };
 
 }

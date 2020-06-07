@@ -40,58 +40,58 @@ namespace parameters
 class ParCombined : virtual public Parameter
 {
 public:
-    ParCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places);
+   ParCombined( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places );
 
-    virtual void setName(const String &newParameterName) override;
+   virtual void setName( const String& newParameterName ) override;
 
-    bool getMode();
-    void setMode(bool use_presets);
-    void toggleMode();
-    parameters::ParBoolean *getModeSwitch();
+   bool getMode();
+   void setMode( bool use_presets );
+   void toggleMode();
+   parameters::ParBoolean* getModeSwitch();
 
-    void addPreset(const float newRealValue, const String &newLabel);
-    int getNumberOfSteps();
-    float getStepSize();
+   void addPreset( const float newRealValue, const String& newLabel );
+   int getNumberOfSteps();
+   float getStepSize();
 
-    virtual float getDefaultFloat() override;
-    virtual float getDefaultRealFloat() override;
-    virtual bool getDefaultBoolean() override;
-    virtual int getDefaultRealInteger() override;
-    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+   virtual float getDefaultFloat() override;
+   virtual float getDefaultRealFloat() override;
+   virtual bool getDefaultBoolean() override;
+   virtual int getDefaultRealInteger() override;
+   virtual void setDefaultRealFloat( float newRealValue, bool updateParameter ) override;
 
-    virtual float getFloat() override;
-    virtual void setFloat(float newValue) override;
+   virtual float getFloat() override;
+   virtual void setFloat( float newValue ) override;
 
-    virtual float getRealFloat() override;
-    virtual void setRealFloat(float newRealValue) override;
+   virtual float getRealFloat() override;
+   virtual void setRealFloat( float newRealValue ) override;
 
-    virtual int getRealInteger() override;
-    virtual void setRealInteger(int nRealValue) override;
+   virtual int getRealInteger() override;
+   virtual void setRealInteger( int nRealValue ) override;
 
-    virtual bool getBoolean() override;
+   virtual bool getBoolean() override;
 
-    void setSuffix(const String &newSuffix);
+   void setSuffix( const String& newSuffix );
 
-    virtual float getFloatFromText(const String &newValue) override;
-    virtual const String getTextFromFloat(float newValue) override;
+   virtual float getFloatFromText( const String& newValue ) override;
+   virtual const String getTextFromFloat( float newValue ) override;
 
-    virtual bool hasChanged() override;
-    virtual void clearChangeFlag() override;
+   virtual bool hasChanged() override;
+   virtual void clearChangeFlag() override;
 
-    virtual void loadFromXml(XmlElement *xmlDocument) override;
-    virtual void storeAsXml(XmlElement *xmlDocument) override;
+   virtual void loadFromXml( XmlElement* xmlDocument ) override;
+   virtual void storeAsXml( XmlElement* xmlDocument ) override;
 
 protected:
-    virtual void setChangeFlag() override;
+   virtual void setChangeFlag() override;
 
 private:
-    JUCE_LEAK_DETECTOR(ParCombined);
+   JUCE_LEAK_DETECTOR( ParCombined );
 
-    bool usePresets;
+   bool usePresets;
 
-    parameters::ParBoolean modeSwitch;
-    parameters::ParSwitch presetValues;
-    parameters::ParContinuous continuousValues;
+   parameters::ParBoolean modeSwitch;
+   parameters::ParSwitch presetValues;
+   parameters::ParContinuous continuousValues;
 };
 
 }

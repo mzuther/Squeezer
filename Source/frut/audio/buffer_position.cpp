@@ -36,21 +36,21 @@ namespace audio
 ///        delayed
 ///
 BufferPosition::BufferPosition(
-    const int numberOfSamples,
-    const int preDelay)
+   const int numberOfSamples,
+   const int preDelay )
 {
-    jassert(numberOfSamples > 0);
-    jassert(preDelay >= 0);
+   jassert( numberOfSamples > 0 );
+   jassert( preDelay >= 0 );
 
-    // initialise pre-delay
-    preDelay_ = preDelay;
+   // initialise pre-delay
+   preDelay_ = preDelay;
 
-    // initialise number of samples necessary for buffer (buffer
-    // length + pre-delay)
-    totalBufferLength_ = numberOfSamples + preDelay_;
+   // initialise number of samples necessary for buffer (buffer
+   // length + pre-delay)
+   totalBufferLength_ = numberOfSamples + preDelay_;
 
-    // reset buffer positions
-    reset();
+   // reset buffer positions
+   reset();
 }
 
 
@@ -58,23 +58,23 @@ BufferPosition::BufferPosition(
 ///
 void BufferPosition::reset()
 {
-    // initialise read position
-    readPosition_ = 0;
+   // initialise read position
+   readPosition_ = 0;
 
-    // initialise remaining number of samples from read position to
-    // end of buffer
-    readPositionToWrap_ = totalBufferLength_ - readPosition_;
+   // initialise remaining number of samples from read position to
+   // end of buffer
+   readPositionToWrap_ = totalBufferLength_ - readPosition_;
 
-    // initialise write position (this automatically applies
-    // pre-delay!)
-    writePosition_ = preDelay_;
+   // initialise write position (this automatically applies
+   // pre-delay!)
+   writePosition_ = preDelay_;
 
-    // initialise remaining number of samples from write position to
-    // end of buffer
-    writePositionToWrap_ = totalBufferLength_ - writePosition_;
+   // initialise remaining number of samples from write position to
+   // end of buffer
+   writePositionToWrap_ = totalBufferLength_ - writePosition_;
 
-    // initialise number of samples stored in buffer
-    storedSamples_ = 0;
+   // initialise number of samples stored in buffer
+   storedSamples_ = 0;
 }
 
 
@@ -84,7 +84,7 @@ void BufferPosition::reset()
 ///
 int BufferPosition::getNumberOfSamples() const
 {
-    return totalBufferLength_ - preDelay_;
+   return totalBufferLength_ - preDelay_;
 }
 
 
@@ -94,7 +94,7 @@ int BufferPosition::getNumberOfSamples() const
 ///
 int BufferPosition::getTotalBufferLength() const
 {
-    return totalBufferLength_;
+   return totalBufferLength_;
 }
 
 
@@ -104,7 +104,7 @@ int BufferPosition::getTotalBufferLength() const
 ///
 int BufferPosition::getPreDelay() const
 {
-    return preDelay_;
+   return preDelay_;
 }
 
 
@@ -114,7 +114,7 @@ int BufferPosition::getPreDelay() const
 ///
 int BufferPosition::getCurrentReadPosition() const
 {
-    return readPosition_;
+   return readPosition_;
 }
 
 
@@ -124,7 +124,7 @@ int BufferPosition::getCurrentReadPosition() const
 ///
 int BufferPosition::getCurrentWritePosition() const
 {
-    return writePosition_;
+   return writePosition_;
 }
 
 /// Get positions of two sample blocks for storing a specified number
@@ -149,46 +149,44 @@ int BufferPosition::getCurrentWritePosition() const
 ///        be updated
 ///
 void BufferPosition::store(
-    const int numberOfSamples,
-    int &startIndex_1,
-    int &blockSize_1,
-    int &startIndex_2,
-    int &blockSize_2,
-    const bool updatePosition)
+   const int numberOfSamples,
+   int& startIndex_1,
+   int& blockSize_1,
+   int& startIndex_2,
+   int& blockSize_2,
+   const bool updatePosition )
 {
-    jassert(isPositiveAndNotGreaterThan(numberOfSamples,
-                                        totalBufferLength_));
+   jassert( isPositiveAndNotGreaterThan( numberOfSamples,
+                                         totalBufferLength_ ) );
 
-    // calculate position and length of first block from write
-    // position
-    startIndex_1 = writePosition_;
-    blockSize_1 = jmin(numberOfSamples, writePositionToWrap_);
+   // calculate position and length of first block from write
+   // position
+   startIndex_1 = writePosition_;
+   blockSize_1 = jmin( numberOfSamples, writePositionToWrap_ );
 
-    // calculate position and length of second block (data that didn't
-    // fit into the first block)
-    startIndex_2 = 0;
-    blockSize_2 = numberOfSamples - blockSize_1;
+   // calculate position and length of second block (data that didn't
+   // fit into the first block)
+   startIndex_2 = 0;
+   blockSize_2 = numberOfSamples - blockSize_1;
 
-    // update write position
-    if (updatePosition)
-    {
-        // update write position and wrap around at end of buffer
-        writePosition_ = negativeAwareModulo(
-                             writePosition_ + numberOfSamples,
-                             totalBufferLength_);
+   // update write position
+   if ( updatePosition ) {
+      // update write position and wrap around at end of buffer
+      writePosition_ = negativeAwareModulo(
+                          writePosition_ + numberOfSamples,
+                          totalBufferLength_ );
 
-        // update remaining number of samples to end of buffer
-        writePositionToWrap_ = totalBufferLength_ - writePosition_;
+      // update remaining number of samples to end of buffer
+      writePositionToWrap_ = totalBufferLength_ - writePosition_;
 
-        // increase number of samples in buffer
-        storedSamples_ += numberOfSamples;
+      // increase number of samples in buffer
+      storedSamples_ += numberOfSamples;
 
-        // check for data corruption
-        if (storedSamples_ > totalBufferLength_)
-        {
-            DBG("[BufferPosition] overwriting unread data!");
-        }
-    }
+      // check for data corruption
+      if ( storedSamples_ > totalBufferLength_ ) {
+         DBG( "[BufferPosition] overwriting unread data!" );
+      }
+   }
 }
 
 
@@ -215,45 +213,43 @@ void BufferPosition::store(
 ///        be updated
 ///
 void BufferPosition::retrieve(
-    const int numberOfSamples,
-    int &startIndex_1,
-    int &blockSize_1,
-    int &startIndex_2,
-    int &blockSize_2,
-    const bool updatePosition)
+   const int numberOfSamples,
+   int& startIndex_1,
+   int& blockSize_1,
+   int& startIndex_2,
+   int& blockSize_2,
+   const bool updatePosition )
 {
-    jassert(isPositiveAndNotGreaterThan(numberOfSamples,
-                                        totalBufferLength_));
+   jassert( isPositiveAndNotGreaterThan( numberOfSamples,
+                                         totalBufferLength_ ) );
 
-    // calculate position and length of first block from read position
-    startIndex_1 = readPosition_;
-    blockSize_1 = jmin(numberOfSamples, readPositionToWrap_);
+   // calculate position and length of first block from read position
+   startIndex_1 = readPosition_;
+   blockSize_1 = jmin( numberOfSamples, readPositionToWrap_ );
 
-    // calculate position and length of second block (data that didn't
-    // fit into the first block)
-    startIndex_2 = 0;
-    blockSize_2 = numberOfSamples - blockSize_1;
+   // calculate position and length of second block (data that didn't
+   // fit into the first block)
+   startIndex_2 = 0;
+   blockSize_2 = numberOfSamples - blockSize_1;
 
-    // update write position
-    if (updatePosition)
-    {
-        // update read position and wrap around at end of buffer
-        readPosition_ = negativeAwareModulo(
-                            readPosition_ + numberOfSamples,
-                            totalBufferLength_);
+   // update write position
+   if ( updatePosition ) {
+      // update read position and wrap around at end of buffer
+      readPosition_ = negativeAwareModulo(
+                         readPosition_ + numberOfSamples,
+                         totalBufferLength_ );
 
-        // update remaining number of samples to end of buffer
-        readPositionToWrap_ = totalBufferLength_ - readPosition_;
+      // update remaining number of samples to end of buffer
+      readPositionToWrap_ = totalBufferLength_ - readPosition_;
 
-        // decrease number of samples in buffer
-        storedSamples_ -= numberOfSamples;
+      // decrease number of samples in buffer
+      storedSamples_ -= numberOfSamples;
 
-        // check for data corruption
-        if (storedSamples_ < 0)
-        {
-            DBG("[BufferPosition] reading undefined data!");
-        }
-    }
+      // check for data corruption
+      if ( storedSamples_ < 0 ) {
+         DBG( "[BufferPosition] reading undefined data!" );
+      }
+   }
 }
 
 
@@ -265,24 +261,23 @@ void BufferPosition::retrieve(
 ///        buffer
 ///
 void BufferPosition::simulateDequeue(
-    const int numberOfSamples)
+   const int numberOfSamples )
 {
-    // update read position and wrap around at end of buffer
-    readPosition_ = negativeAwareModulo(
-                        readPosition_ + numberOfSamples,
-                        totalBufferLength_);
+   // update read position and wrap around at end of buffer
+   readPosition_ = negativeAwareModulo(
+                      readPosition_ + numberOfSamples,
+                      totalBufferLength_ );
 
-    // update remaining number of samples to end of buffer
-    readPositionToWrap_ = totalBufferLength_ - readPosition_;
+   // update remaining number of samples to end of buffer
+   readPositionToWrap_ = totalBufferLength_ - readPosition_;
 
-    // decrease number of samples in buffer
-    storedSamples_ -= numberOfSamples;
+   // decrease number of samples in buffer
+   storedSamples_ -= numberOfSamples;
 
-    // check for data corruption
-    if (storedSamples_ < 0)
-    {
-        DBG("[BufferPosition] reading undefined data!");
-    }
+   // check for data corruption
+   if ( storedSamples_ < 0 ) {
+      DBG( "[BufferPosition] reading undefined data!" );
+   }
 }
 
 
@@ -307,34 +302,34 @@ void BufferPosition::simulateDequeue(
 ///        any) should be stored to or retrieved from the second block
 ///
 void BufferPosition::lookBackFromWritePosition(
-    const int numberOfSamples,
-    int &startIndex_1,
-    int &blockSize_1,
-    int &startIndex_2,
-    int &blockSize_2)
+   const int numberOfSamples,
+   int& startIndex_1,
+   int& blockSize_1,
+   int& startIndex_2,
+   int& blockSize_2 )
 {
-    jassert(isPositiveAndNotGreaterThan(numberOfSamples,
-                                        totalBufferLength_));
+   jassert( isPositiveAndNotGreaterThan( numberOfSamples,
+                                         totalBufferLength_ ) );
 
-    // calculate beginning of data based on the **write** position and
-    // wrap around at start of buffer
-    int writePositionTemp = negativeAwareModulo(
-                                writePosition_ - numberOfSamples,
-                                totalBufferLength_);
+   // calculate beginning of data based on the **write** position and
+   // wrap around at start of buffer
+   int writePositionTemp = negativeAwareModulo(
+                              writePosition_ - numberOfSamples,
+                              totalBufferLength_ );
 
-    // calculate remaining number of samples from **write** position
-    // to end of buffer
-    int writePositionTempToWrap = totalBufferLength_ - writePositionTemp;
+   // calculate remaining number of samples from **write** position
+   // to end of buffer
+   int writePositionTempToWrap = totalBufferLength_ - writePositionTemp;
 
-    // calculate position and length of first block from **write**
-    // position
-    startIndex_1 = writePositionTemp;
-    blockSize_1 = jmin(numberOfSamples, writePositionTempToWrap);
+   // calculate position and length of first block from **write**
+   // position
+   startIndex_1 = writePositionTemp;
+   blockSize_1 = jmin( numberOfSamples, writePositionTempToWrap );
 
-    // calculate position and length of second block (data that didn't
-    // fit into the first block)
-    startIndex_2 = 0;
-    blockSize_2 = numberOfSamples - blockSize_1;
+   // calculate position and length of second block (data that didn't
+   // fit into the first block)
+   startIndex_2 = 0;
+   blockSize_2 = numberOfSamples - blockSize_1;
 }
 
 

@@ -32,13 +32,13 @@ namespace widgets
 ///
 ChannelSlider::ChannelSlider()
 {
-    // initialise number of channels
-    setNumberOfChannels(1);
+   // initialise number of channels
+   setNumberOfChannels( 1 );
 
-    // format slider
-    setSliderStyle(Slider::IncDecButtons);
-    setTextBoxStyle(Slider::TextBoxLeft, true, 30, 20);
-    setIncDecButtonsMode(Slider::incDecButtonsNotDraggable);
+   // format slider
+   setSliderStyle( Slider::IncDecButtons );
+   setTextBoxStyle( Slider::TextBoxLeft, true, 30, 20 );
+   setIncDecButtonsMode( Slider::incDecButtonsNotDraggable );
 }
 
 
@@ -48,7 +48,7 @@ ChannelSlider::ChannelSlider()
 ///
 int ChannelSlider::getNumberOfChannels()
 {
-    return numberOfChannels_;
+   return numberOfChannels_;
 }
 
 
@@ -57,14 +57,14 @@ int ChannelSlider::getNumberOfChannels()
 /// @param numberOfChannels number of audio channels
 ///
 void ChannelSlider::setNumberOfChannels(
-    int numberOfChannels)
+   int numberOfChannels )
 
 {
-    numberOfChannels_ = numberOfChannels;
+   numberOfChannels_ = numberOfChannels;
 
-    // channels start with index 0, -1 designates "all channels"
-    setRange(-1.0, numberOfChannels_ - 1, 1.0);
-    setValue(-1.0, sendNotificationAsync);
+   // channels start with index 0, -1 designates "all channels"
+   setRange( -1.0, numberOfChannels_ - 1, 1.0 );
+   setValue( -1.0, sendNotificationAsync );
 }
 
 
@@ -75,10 +75,10 @@ void ChannelSlider::setNumberOfChannels(
 ///
 double ChannelSlider::getDouble()
 {
-    double sliderRange = getMaximum() - getMinimum();
-    double channelIndex = (getValue() - getMinimum()) / sliderRange;
+   double sliderRange = getMaximum() - getMinimum();
+   double channelIndex = ( getValue() - getMinimum() ) / sliderRange;
 
-    return channelIndex;
+   return channelIndex;
 }
 
 
@@ -89,7 +89,7 @@ double ChannelSlider::getDouble()
 ///
 float ChannelSlider::getFloat()
 {
-    return static_cast<float>(getDouble());
+   return static_cast<float>( getDouble() );
 }
 
 
@@ -103,19 +103,16 @@ float ChannelSlider::getFloat()
 /// @return "name" of selected audio channel
 ///
 double ChannelSlider::getValueFromText(
-    const String &inputString)
+   const String& inputString )
 
 {
-    // -1 designates "all channels"
-    if (inputString == "All")
-    {
-        return -1.0;
-    }
-    // convert string to float
-    else
-    {
-        return inputString.getDoubleValue() - 1.0;
-    }
+   // -1 designates "all channels"
+   if ( inputString == "All" ) {
+      return -1.0;
+      // convert string to float
+   } else {
+      return inputString.getDoubleValue() - 1.0;
+   }
 }
 
 
@@ -129,21 +126,19 @@ double ChannelSlider::getValueFromText(
 /// @return "name" of selected audio channel
 ///
 String ChannelSlider::getTextFromValue(
-    double inputValue)
+   double inputValue )
 
 {
-    // -1 designates "all channels"
-    if (inputValue < 0)
-    {
-        return String("All");
-    }
-    // convert double to string
-    else
-    {
-        int channelIndex = math::SimpleMath::round(static_cast<float>(inputValue)) + 1;
+   // -1 designates "all channels"
+   if ( inputValue < 0 ) {
+      return String( "All" );
 
-        return String(channelIndex);
-    }
+      // convert double to string
+   } else {
+      int channelIndex = math::SimpleMath::round( static_cast<float>( inputValue ) ) + 1;
+
+      return String( channelIndex );
+   }
 }
 
 }

@@ -35,34 +35,34 @@ namespace widgets
 /// on.
 ///
 class WindowAboutContent :
-    public Component,
-    public Button::Listener
+   public Component,
+   public Button::Listener
 {
 public:
-    WindowAboutContent();
+   WindowAboutContent();
 
-    static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
+   static DialogWindow* createDialogWindow( AudioProcessorEditor* pluginEditor,
                                             int componentWidth,
                                             int componentHeight,
-                                            const StringPairArray &chapters);
+                                            const StringPairArray& chapters );
 
-    virtual void buttonClicked(Button *button);
+   virtual void buttonClicked( Button* button );
 
-    virtual void applySkin();
+   virtual void applySkin();
 
-    virtual void initialise(int componentWidth,
+   virtual void initialise( int componentWidth,
                             int componentHeight,
-                            const StringPairArray &chapters);
+                            const StringPairArray& chapters );
 
 protected:
-    virtual void addChapters(const StringPairArray &chapters);
+   virtual void addChapters( const StringPairArray& chapters );
 
-    TextEditor textEditor_;
-    TextButton buttonClose_;
-    DrawableButton buttonLicense_;
+   TextEditor textEditor_;
+   TextButton buttonClose_;
+   DrawableButton buttonLicense_;
 
 private:
-    JUCE_LEAK_DETECTOR(WindowAboutContent);
+   JUCE_LEAK_DETECTOR( WindowAboutContent );
 };
 
 }

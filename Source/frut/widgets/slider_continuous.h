@@ -32,28 +32,28 @@ namespace widgets
 {
 
 class SliderContinuous :
-    virtual public FrutSlider
+   virtual public FrutSlider
 {
 public:
-    SliderContinuous(parameters::Juggler &parameters, int parameterIndex);
+   SliderContinuous( parameters::Juggler& parameters, int parameterIndex );
 
-    virtual void visibilityChanged();
-    virtual void resized();
-    virtual void setSliderColour(const Colour &colour);
+   virtual void visibilityChanged();
+   virtual void resized();
+   virtual void setSliderColour( const Colour& colour );
 
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
+   float getRealFloat();
+   bool getBoolean();
+   int getRealInteger();
 
-    virtual double getValueFromText(const String &strText);
-    virtual String getTextFromValue(double dValue);
+   virtual double getValueFromText( const String& strText );
+   virtual String getTextFromValue( double dValue );
 
 protected:
-    Colour colourRotary_;
-    parameters::ParContinuous *parameter_;
+   Colour colourRotary_;
+   parameters::ParContinuous* parameter_;
 
 private:
-    JUCE_LEAK_DETECTOR(SliderContinuous);
+   JUCE_LEAK_DETECTOR( SliderContinuous );
 };
 
 }

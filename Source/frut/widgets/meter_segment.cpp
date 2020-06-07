@@ -32,8 +32,8 @@ namespace widgets
 ///
 MeterSegment::MeterSegment()
 {
-    // set initial orientation
-    setOrientation(widgets::Orientation::vertical);
+   // set initial orientation
+   setOrientation( widgets::Orientation::vertical );
 }
 
 
@@ -49,7 +49,7 @@ MeterSegment::~MeterSegment()
 ///
 widgets::Orientation MeterSegment::getOrientation()
 {
-    return orientation_;
+   return orientation_;
 }
 
 
@@ -58,14 +58,14 @@ widgets::Orientation MeterSegment::getOrientation()
 /// @param orientation new orientation
 ///
 void MeterSegment::setOrientation(
-    widgets::Orientation orientation)
+   widgets::Orientation orientation )
 
 {
-    // update segment's orientation
-    orientation_ = orientation;
+   // update segment's orientation
+   orientation_ = orientation;
 
-    // redraw meter segment
-    repaint();
+   // redraw meter segment
+   repaint();
 }
 
 
@@ -77,13 +77,13 @@ void MeterSegment::setOrientation(
 /// @param normalLevelPeak new normal peak level
 ///
 void MeterSegment::setNormalLevels(
-    float normalLevel, float normalLevelPeak)
+   float normalLevel, float normalLevelPeak )
 
 {
-    // lowest level of a 24-bit-signal in decibels
-    float initialLevel = -144.0f;
+   // lowest level of a 24-bit-signal in decibels
+   float initialLevel = -144.0f;
 
-    setLevels(normalLevel, normalLevelPeak, initialLevel, initialLevel);
+   setLevels( normalLevel, normalLevelPeak, initialLevel, initialLevel );
 }
 
 
@@ -95,13 +95,13 @@ void MeterSegment::setNormalLevels(
 /// @param discreteLevelPeak new discrete peak level
 ///
 void MeterSegment::setDiscreteLevels(
-    float discreteLevel, float discreteLevelPeak)
+   float discreteLevel, float discreteLevelPeak )
 
 {
-    // lowest level of a 24-bit-signal in decibels
-    float initialLevel = -144.0f;
+   // lowest level of a 24-bit-signal in decibels
+   float initialLevel = -144.0f;
 
-    setLevels(initialLevel, initialLevel, discreteLevel, discreteLevelPeak);
+   setLevels( initialLevel, initialLevel, discreteLevel, discreteLevelPeak );
 }
 
 }

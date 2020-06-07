@@ -32,37 +32,37 @@ namespace widgets
 {
 
 class SliderCombined :
-    virtual public FrutSlider
+   virtual public FrutSlider
 {
 public:
-    SliderCombined(parameters::Juggler &parameters, int nParameterIndex, int nParameterIndexSwitch);
+   SliderCombined( parameters::Juggler& parameters, int nParameterIndex, int nParameterIndexSwitch );
 
-    void visibilityChanged();
-    void resized();
+   void visibilityChanged();
+   void resized();
 
-    virtual void setSliderColour(const Colour &colour);
-    void setToggleSwitchColour(const Colour &colour);
+   virtual void setSliderColour( const Colour& colour );
+   void setToggleSwitchColour( const Colour& colour );
 
-    void addButtonListener(Button::Listener *newListener);
-    void removeListener(Button::Listener *listener);
+   void addButtonListener( Button::Listener* newListener );
+   void removeListener( Button::Listener* listener );
 
-    void updateMode();
+   void updateMode();
 
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
+   float getRealFloat();
+   bool getBoolean();
+   int getRealInteger();
 
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
+   double getValueFromText( const String& strText );
+   String getTextFromValue( double dValue );
 private:
-    JUCE_LEAK_DETECTOR(SliderCombined);
+   JUCE_LEAK_DETECTOR( SliderCombined );
 
-    std::unique_ptr<DrawableButton> toggleButton;
-    Colour colourRotary;
-    Colour colourToggleSwitch;
+   std::unique_ptr<DrawableButton> toggleButton;
+   Colour colourRotary;
+   Colour colourToggleSwitch;
 
-    parameters::ParCombined *pCombined;
-    parameters::ParBoolean *pModeSwitch;
+   parameters::ParCombined* pCombined;
+   parameters::ParBoolean* pModeSwitch;
 };
 
 }

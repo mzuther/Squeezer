@@ -36,13 +36,13 @@ namespace parameters
 ///
 /// @param newValue intial value
 ///
-ParString::ParString(const String &newValue)
+ParString::ParString( const String& newValue )
 {
-    // initialise value
-    setText(newValue);
+   // initialise value
+   setText( newValue );
 
-    // mark parameter as changed
-    setChangeFlag();
+   // mark parameter as changed
+   setChangeFlag();
 }
 
 
@@ -53,12 +53,12 @@ ParString::ParString(const String &newValue)
 ///
 /// @param updateParameter do not use
 ///
-void ParString::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParString::setDefaultRealFloat( float newRealValue, bool updateParameter )
 {
-    ignoreUnused(newRealValue, updateParameter);
+   ignoreUnused( newRealValue, updateParameter );
 
-    // do nothing till you hear from me ...
-    jassert(false);
+   // do nothing till you hear from me ...
+   jassert( false );
 }
 
 
@@ -67,12 +67,12 @@ void ParString::setDefaultRealFloat(float newRealValue, bool updateParameter)
 ///
 /// @param newValue do not use
 ///
-void ParString::setFloat(float newValue)
+void ParString::setFloat( float newValue )
 {
-    ignoreUnused(newValue);
+   ignoreUnused( newValue );
 
-    // do nothing till you hear from me ...
-    jassert(false);
+   // do nothing till you hear from me ...
+   jassert( false );
 }
 
 
@@ -81,12 +81,12 @@ void ParString::setFloat(float newValue)
 ///
 /// @param newRealValue do not use
 ///
-void ParString::setRealFloat(float newRealValue)
+void ParString::setRealFloat( float newRealValue )
 {
-    ignoreUnused(newRealValue);
+   ignoreUnused( newRealValue );
 
-    // do nothing till you hear from me ...
-    jassert(false);
+   // do nothing till you hear from me ...
+   jassert( false );
 }
 
 
@@ -96,7 +96,7 @@ void ParString::setRealFloat(float newRealValue)
 ///
 const String ParString::getText()
 {
-    return textValue;
+   return textValue;
 }
 
 
@@ -104,16 +104,15 @@ const String ParString::getText()
 ///
 /// @param newValue new parameter value
 ///
-void ParString::setText(const String &newValue)
+void ParString::setText( const String& newValue )
 {
-    // mark parameter as changed if necessary
-    if (textValue.compare(newValue) != 0)
-    {
-        setChangeFlag();
-    }
+   // mark parameter as changed if necessary
+   if ( textValue.compare( newValue ) != 0 ) {
+      setChangeFlag();
+   }
 
-    // update value
-    textValue = newValue;
+   // update value
+   textValue = newValue;
 }
 
 
@@ -124,14 +123,14 @@ void ParString::setText(const String &newValue)
 ///
 /// @return **internal** value
 ///
-float ParString::getFloatFromText(const String &newValue)
+float ParString::getFloatFromText( const String& newValue )
 {
-    ignoreUnused(newValue);
+   ignoreUnused( newValue );
 
-    // do nothing till you hear from me ...
-    jassert(false);
+   // do nothing till you hear from me ...
+   jassert( false );
 
-    return 0.0f;
+   return 0.0f;
 }
 
 
@@ -142,14 +141,14 @@ float ParString::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String ParString::getTextFromFloat(float newValue)
+const String ParString::getTextFromFloat( float newValue )
 {
-    ignoreUnused(newValue);
+   ignoreUnused( newValue );
 
-    // do nothing till you hear from me ...
-    jassert(false);
+   // do nothing till you hear from me ...
+   jassert( false );
 
-    return String();
+   return String();
 }
 
 
@@ -157,20 +156,19 @@ const String ParString::getTextFromFloat(float newValue)
 ///
 /// @param xmlDocument XML document to load from
 ///
-void ParString::loadFromXml(XmlElement *xmlDocument)
+void ParString::loadFromXml( XmlElement* xmlDocument )
 {
-    // get parameter's element from XML document
-    XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
+   // get parameter's element from XML document
+   XmlElement* xmlParameter = xmlDocument->getChildByName( getTagName() );
 
-    // parameter's element found
-    if (xmlParameter)
-    {
-        // get stored value from attribute "value" (or use empty string)
-        String newValue = xmlParameter->getStringAttribute("value", String());
+   // parameter's element found
+   if ( xmlParameter ) {
+      // get stored value from attribute "value" (or use empty string)
+      String newValue = xmlParameter->getStringAttribute( "value", String() );
 
-        // update value
-        setText(newValue);
-    }
+      // update value
+      setText( newValue );
+   }
 }
 
 
@@ -178,21 +176,20 @@ void ParString::loadFromXml(XmlElement *xmlDocument)
 ///
 /// @param xmlDocument XML document to store in
 ///
-void ParString::storeAsXml(XmlElement *xmlDocument)
+void ParString::storeAsXml( XmlElement* xmlDocument )
 {
-    // create new XML element with parameter's tag name (will be
-    // deleted by XML document)
-    XmlElement *xmlParameter = new XmlElement(getTagName());
+   // create new XML element with parameter's tag name (will be
+   // deleted by XML document)
+   XmlElement* xmlParameter = new XmlElement( getTagName() );
 
-    // XML element was successfully created
-    if (xmlParameter)
-    {
-        // set attribute "value" to current value
-        xmlParameter->setAttribute("value", getText());
+   // XML element was successfully created
+   if ( xmlParameter ) {
+      // set attribute "value" to current value
+      xmlParameter->setAttribute( "value", getText() );
 
-        // add new element to XML document
-        xmlDocument->addChildElement(xmlParameter);
-    }
+      // add new element to XML document
+      xmlDocument->addChildElement( xmlParameter );
+   }
 }
 
 }

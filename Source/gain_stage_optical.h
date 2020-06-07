@@ -33,23 +33,23 @@
 class GainStageOptical : virtual public GainStage
 {
 public:
-    explicit GainStageOptical(int nSampleRate);
+   explicit GainStageOptical( int nSampleRate );
 
-    void reset(double dCurrentGainReduction);
-    double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);
+   void reset( double dCurrentGainReduction );
+   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal );
 
 private:
-    JUCE_LEAK_DETECTOR(GainStageOptical);
+   JUCE_LEAK_DETECTOR( GainStageOptical );
 
-    double dSampleRate;
-    double dGainReduction;
+   double dSampleRate;
+   double dGainReduction;
 
-    const int nNumberOfDecibels;
-    const int nCoefficientsPerDecibel;
-    const int nNumberOfCoefficients;
+   const int nNumberOfDecibels;
+   const int nCoefficientsPerDecibel;
+   const int nNumberOfCoefficients;
 
-    Array<double> arrAttackCoefficients;
-    Array<double> arrReleaseCoefficients;
+   Array<double> arrAttackCoefficients;
+   Array<double> arrReleaseCoefficients;
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_OPTICAL_H

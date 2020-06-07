@@ -43,34 +43,34 @@ namespace widgets
 /// @see WindowSkinContent
 ///
 class SkinListBoxModel :
-    public ListBoxModel
+   public ListBoxModel
 {
 public:
-    SkinListBoxModel();
+   SkinListBoxModel();
 
-    virtual int getNumRows();
-    virtual int getRow(const String &skinNameToLookFor);
+   virtual int getNumRows();
+   virtual int getRow( const String& skinNameToLookFor );
 
-    virtual void fill(frut::skin::Skin *skin);
+   virtual void fill( frut::skin::Skin* skin );
 
-    virtual const String getSkinName(int rowNumber);
+   virtual const String getSkinName( int rowNumber );
 
-    virtual void paintListBoxItem(int rowNumber,
-                                  Graphics &g,
+   virtual void paintListBoxItem( int rowNumber,
+                                  Graphics& g,
                                   int rowWidth,
                                   int rowHeight,
-                                  bool isRowSelected);
+                                  bool isRowSelected );
 
 private:
-    frut::skin::Skin *skin_;
+   frut::skin::Skin* skin_;
 
-    WildcardFileFilter skinWildcard_;
-    TimeSliceThread directoryThread_;
+   WildcardFileFilter skinWildcard_;
+   TimeSliceThread directoryThread_;
 
-    StringArray skinNames_;
+   StringArray skinNames_;
 
 private:
-    JUCE_LEAK_DETECTOR(SkinListBoxModel);
+   JUCE_LEAK_DETECTOR( SkinListBoxModel );
 };
 
 
@@ -79,31 +79,31 @@ private:
 /// @see SkinListBoxModel
 ///
 class WindowSkinContent :
-    public Component,
-    public Button::Listener
+   public Component,
+   public Button::Listener
 {
 public:
-    WindowSkinContent();
+   WindowSkinContent();
 
-    static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
-                                            frut::skin::Skin *skin);
+   static DialogWindow* createDialogWindow( AudioProcessorEditor* pluginEditor,
+                                            frut::skin::Skin* skin );
 
-    virtual void buttonClicked(Button *button);
+   virtual void buttonClicked( Button* button );
 
-    virtual void applySkin();
+   virtual void applySkin();
 
-    virtual void initialise(frut::skin::Skin *skin);
+   virtual void initialise( frut::skin::Skin* skin );
 
 protected:
-    frut::skin::Skin *skin_;
+   frut::skin::Skin* skin_;
 
-    ListBox skinList_;
-    SkinListBoxModel listModel_;
+   ListBox skinList_;
+   SkinListBoxModel listModel_;
 
-    TextButton buttonSelect_;
+   TextButton buttonSelect_;
 
 private:
-    JUCE_LEAK_DETECTOR(WindowSkinContent);
+   JUCE_LEAK_DETECTOR( WindowSkinContent );
 };
 
 }

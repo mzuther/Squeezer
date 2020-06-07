@@ -28,64 +28,64 @@ namespace frut
 namespace widgets
 {
 
-SliderSwitchLinearBar::SliderSwitchLinearBar(parameters::Juggler &parameters, int nParameterIndex)
+SliderSwitchLinearBar::SliderSwitchLinearBar( parameters::Juggler& parameters, int nParameterIndex )
 {
-    pSwitch = dynamic_cast<parameters::ParSwitch *>(parameters.getPluginParameter(nParameterIndex));
-    jassert(pSwitch != nullptr);
+   pSwitch = dynamic_cast<parameters::ParSwitch*>( parameters.getPluginParameter( nParameterIndex ) );
+   jassert( pSwitch != nullptr );
 
-    setRange(0.0f, 1.0f, pSwitch->getStepSize());
-    setSliderStyle(Slider::LinearBar);
-    colourThumb = Colours::white;
+   setRange( 0.0f, 1.0f, pSwitch->getStepSize() );
+   setSliderStyle( Slider::LinearBar );
+   colourThumb = Colours::white;
 
-    setTextBoxIsEditable(false);
-    setDoubleClickReturnValue(true, pSwitch->getDefaultFloat());
+   setTextBoxIsEditable( false );
+   setDoubleClickReturnValue( true, pSwitch->getDefaultFloat() );
 }
 
 
 void SliderSwitchLinearBar::visibilityChanged()
 {
-    Slider::visibilityChanged();
+   Slider::visibilityChanged();
 
-    setColour(Slider::thumbColourId, colourThumb);
-    setColour(Slider::textBoxTextColourId, Colours::white);
-    setColour(Slider::backgroundColourId, Colours::darkgrey.darker(0.7f));
-    setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
+   setColour( Slider::thumbColourId, colourThumb );
+   setColour( Slider::textBoxTextColourId, Colours::white );
+   setColour( Slider::backgroundColourId, Colours::darkgrey.darker( 0.7f ) );
+   setColour( Slider::textBoxOutlineColourId, Colours::darkgrey.darker( 0.4f ) );
 }
 
 
-void SliderSwitchLinearBar::setSliderColour(const Colour &colour)
+void SliderSwitchLinearBar::setSliderColour( const Colour& colour )
 {
-    colourThumb = colour;
-    setColour(Slider::thumbColourId, colourThumb);
+   colourThumb = colour;
+   setColour( Slider::thumbColourId, colourThumb );
 }
 
 float SliderSwitchLinearBar::getRealFloat()
 {
-    return pSwitch->getRealFloat();
+   return pSwitch->getRealFloat();
 }
 
 
 bool SliderSwitchLinearBar::getBoolean()
 {
-    return pSwitch->getBoolean();
+   return pSwitch->getBoolean();
 }
 
 
 int SliderSwitchLinearBar::getRealInteger()
 {
-    return pSwitch->getRealInteger();
+   return pSwitch->getRealInteger();
 }
 
 
-double SliderSwitchLinearBar::getValueFromText(const String &strText)
+double SliderSwitchLinearBar::getValueFromText( const String& strText )
 {
-    return pSwitch->getFloatFromText(strText);
+   return pSwitch->getFloatFromText( strText );
 }
 
 
-String SliderSwitchLinearBar::getTextFromValue(double dValue)
+String SliderSwitchLinearBar::getTextFromValue( double dValue )
 {
-    return pSwitch->getTextFromFloat((float) dValue);
+   return pSwitch->getTextFromFloat( ( float ) dValue );
 }
 
 }

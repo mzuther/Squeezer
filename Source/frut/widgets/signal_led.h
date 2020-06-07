@@ -41,27 +41,27 @@ namespace widgets
 /// | >= 1.0     | *imageHigh*                         |
 ///
 class SignalLed :
-    public Component
+   public Component
 {
 public:
-    SignalLed();
+   SignalLed();
 
-    virtual void paint(Graphics &g);
+   virtual void paint( Graphics& g );
 
-    void setLevel(float level);
-    void setImages(const Image &imageOff,
-                   const Image &imageLow,
-                   const Image &imageHigh);
+   void setLevel( float level );
+   void setImages( const Image& imageOff,
+                   const Image& imageLow,
+                   const Image& imageHigh );
 
 protected:
-    float level_;
+   float level_;
 
-    Image imageOff_;
-    Image imageLow_;
-    Image imageHigh_;
+   Image imageOff_;
+   Image imageLow_;
+   Image imageHigh_;
 
 private:
-    JUCE_LEAK_DETECTOR(SignalLed);
+   JUCE_LEAK_DETECTOR( SignalLed );
 };
 
 }

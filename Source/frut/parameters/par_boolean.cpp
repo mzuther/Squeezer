@@ -39,20 +39,20 @@ namespace parameters
 /// @param state_false string that is returned when the parameter is
 ///        **false**
 ///
-ParBoolean::ParBoolean(const String &state_true, const String &state_false)
+ParBoolean::ParBoolean( const String& state_true, const String& state_false )
 {
-    // intialise string that is returned when the parameter is "true"
-    labelTrue = state_true;
+   // intialise string that is returned when the parameter is "true"
+   labelTrue = state_true;
 
-    // intialise string that is returned when the parameter is "false"
-    labelFalse = state_false;
+   // intialise string that is returned when the parameter is "false"
+   labelFalse = state_false;
 
-    // force update
-    value_ = -1.0f;
+   // force update
+   value_ = -1.0f;
 
-    // initialise internal values to "false" (marks parameter as
-    // changed)
-    setFloat(0.0f);
+   // initialise internal values to "false" (marks parameter as
+   // changed)
+   setFloat( 0.0f );
 }
 
 
@@ -60,18 +60,15 @@ ParBoolean::ParBoolean(const String &state_true, const String &state_false)
 ///
 void ParBoolean::toggleState()
 {
-    // value is "false"
-    if (value_ == 0.0f)
-    {
-        // set to "true"
-        setFloat(1.0f);
-    }
-    // value is "true"
-    else
-    {
-        // set to "false"
-        setFloat(0.0f);
-    }
+   // value is "false"
+   if ( value_ == 0.0f ) {
+      // set to "true"
+      setFloat( 1.0f );
+      // value is "true"
+   } else {
+      // set to "false"
+      setFloat( 0.0f );
+   }
 }
 
 
@@ -83,23 +80,21 @@ void ParBoolean::toggleState()
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void ParBoolean::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParBoolean::setDefaultRealFloat( float newRealValue, bool updateParameter )
 {
-    // confine to allowed values
-    if (newRealValue != 0.0f)
-    {
-        newRealValue = 1.0f;
-    }
+   // confine to allowed values
+   if ( newRealValue != 0.0f ) {
+      newRealValue = 1.0f;
+   }
 
-    // update default values
-    defaultValue_ = newRealValue;
-    defaultRealValue_ = newRealValue;
+   // update default values
+   defaultValue_ = newRealValue;
+   defaultRealValue_ = newRealValue;
 
-    // optionally, update current parameter value
-    if (updateParameter)
-    {
-        setFloat(defaultValue_);
-    }
+   // optionally, update current parameter value
+   if ( updateParameter ) {
+      setFloat( defaultValue_ );
+   }
 }
 
 
@@ -110,9 +105,9 @@ void ParBoolean::setDefaultRealFloat(float newRealValue, bool updateParameter)
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void ParBoolean::setDefaultBoolean(bool newValue, bool updateParameter)
+void ParBoolean::setDefaultBoolean( bool newValue, bool updateParameter )
 {
-    setDefaultRealFloat(newValue ? 1.0f : 0.0f, updateParameter);
+   setDefaultRealFloat( newValue ? 1.0f : 0.0f, updateParameter );
 }
 
 
@@ -121,24 +116,22 @@ void ParBoolean::setDefaultBoolean(bool newValue, bool updateParameter)
 ///
 /// @param newValue new value
 ///
-void ParBoolean::setFloat(float newValue)
+void ParBoolean::setFloat( float newValue )
 {
-    // confine to allowed values
-    if (newValue != 0.0f)
-    {
-        newValue = 1.0f;
-    }
+   // confine to allowed values
+   if ( newValue != 0.0f ) {
+      newValue = 1.0f;
+   }
 
-    // value has changed
-    if (newValue != value_)
-    {
-        // update value
-        value_ = newValue;
-        realValue_ = newValue;
+   // value has changed
+   if ( newValue != value_ ) {
+      // update value
+      value_ = newValue;
+      realValue_ = newValue;
 
-        // mark parameter as changed
-        setChangeFlag();
-    }
+      // mark parameter as changed
+      setChangeFlag();
+   }
 }
 
 
@@ -147,9 +140,9 @@ void ParBoolean::setFloat(float newValue)
 ///
 /// @param newRealValue new value
 ///
-void ParBoolean::setRealFloat(float newRealValue)
+void ParBoolean::setRealFloat( float newRealValue )
 {
-    setFloat(newRealValue);
+   setFloat( newRealValue );
 }
 
 
@@ -157,9 +150,9 @@ void ParBoolean::setRealFloat(float newRealValue)
 ///
 /// @param newValue new value
 ///
-void ParBoolean::setBoolean(bool newValue)
+void ParBoolean::setBoolean( bool newValue )
 {
-    setFloat(newValue ? 1.0f : 0.0f);
+   setFloat( newValue ? 1.0f : 0.0f );
 }
 
 
@@ -169,18 +162,15 @@ void ParBoolean::setBoolean(bool newValue)
 ///
 /// @return **internal** value
 ///
-float ParBoolean::getFloatFromText(const String &newValue)
+float ParBoolean::getFloatFromText( const String& newValue )
 {
-    // return "false" (0.0) if string matches "labelFalse"
-    if (newValue.compare(labelFalse) == 0)
-    {
-        return 0.0f;
-    }
-    // otherwise, return "true" (1.0)
-    else
-    {
-        return 1.0f;
-    }
+   // return "false" (0.0) if string matches "labelFalse"
+   if ( newValue.compare( labelFalse ) == 0 ) {
+      return 0.0f;
+      // otherwise, return "true" (1.0)
+   } else {
+      return 1.0f;
+   }
 }
 
 
@@ -190,16 +180,13 @@ float ParBoolean::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String ParBoolean::getTextFromFloat(float newValue)
+const String ParBoolean::getTextFromFloat( float newValue )
 {
-    if (newValue == 0.0f)
-    {
-        return labelFalse;
-    }
-    else
-    {
-        return labelTrue;
-    }
+   if ( newValue == 0.0f ) {
+      return labelFalse;
+   } else {
+      return labelTrue;
+   }
 }
 
 }

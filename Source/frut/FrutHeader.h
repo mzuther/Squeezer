@@ -42,52 +42,48 @@ namespace frut
 class Frut
 {
 public:
-    /// Get version number of Frut common classes.
-    ///
-    /// @return version number
-    ///
-    static const juce::String getVersion()
-    {
-        return "2.1.5";
-    }
+   /// Get version number of Frut common classes.
+   ///
+   /// @return version number
+   ///
+   static const juce::String getVersion()
+   {
+      return "2.1.5";
+   }
 
 
-    static void printVersionNumbers()
-    {
+   static void printVersionNumbers()
+   {
 #ifndef DEBUG
-        Logger::outputDebugString(SystemStats::getJUCEVersion());
+      Logger::outputDebugString( SystemStats::getJUCEVersion() );
 #endif // DEBUG
 
-        Logger::outputDebugString(String("FRUT v") + frut::Frut::getVersion());
-        Logger::outputDebugString(String("App  v") + JucePlugin_VersionString);
-        Logger::outputDebugString("");
+      Logger::outputDebugString( String( "FRUT v" ) + frut::Frut::getVersion() );
+      Logger::outputDebugString( String( "App  v" ) + JucePlugin_VersionString );
+      Logger::outputDebugString( "" );
 
-        String simd = "SIMD ";
+      String simd = "SIMD ";
 
-        if (juce::SystemStats::hasSSE())
-        {
-            simd += "SSE ";
-        }
+      if ( juce::SystemStats::hasSSE() ) {
+         simd += "SSE ";
+      }
 
-        if (juce::SystemStats::hasSSE2())
-        {
-            simd += "SSE2 ";
-        }
+      if ( juce::SystemStats::hasSSE2() ) {
+         simd += "SSE2 ";
+      }
 
-        if (juce::SystemStats::hasAVX())
-        {
-            simd += "AVX ";
-        }
+      if ( juce::SystemStats::hasAVX() ) {
+         simd += "AVX ";
+      }
 
-        if (juce::SystemStats::hasAVX2())
-        {
-            simd += "AVX2 ";
-        }
+      if ( juce::SystemStats::hasAVX2() ) {
+         simd += "AVX2 ";
+      }
 
-        Logger::outputDebugString("CPU  " + juce::SystemStats::getCpuModel());
-        Logger::outputDebugString(simd);
-        Logger::outputDebugString("");
-    }
+      Logger::outputDebugString( "CPU  " + juce::SystemStats::getCpuModel() );
+      Logger::outputDebugString( simd );
+      Logger::outputDebugString( "" );
+   }
 };
 
 }

@@ -34,47 +34,47 @@ namespace widgets
 /// Dialog window for validation settings.
 ///
 class WindowValidationContent :
-    public Component,
-    public Button::Listener
+   public Component,
+   public Button::Listener
 {
 public:
-    WindowValidationContent();
+   WindowValidationContent();
 
-    virtual void buttonClicked(Button *button);
-    virtual void closeButtonPressed();
+   virtual void buttonClicked( Button* button );
+   virtual void closeButtonPressed();
 
-    virtual void styleButton(ToggleButton &button);
-    virtual void applySkin();
+   virtual void styleButton( ToggleButton& button );
+   virtual void applySkin();
 
-    virtual void initialise(int componentWidth,
+   virtual void initialise( int componentWidth,
                             int componentHeight,
                             int numberOfInputChannels,
                             int sampleRate,
                             int selectedChannel,
-                            const File &validationFile);
+                            const File& validationFile );
 
-    /// Select a new audio file for validation.
-    ///
-    /// @param validationFile audio file for validation
-    ///
-    virtual void selectValidationFile(const File &validationFile) = 0;
+   /// Select a new audio file for validation.
+   ///
+   /// @param validationFile audio file for validation
+   ///
+   virtual void selectValidationFile( const File& validationFile ) = 0;
 
 protected:
-    File validationFile_;
+   File validationFile_;
 
-    Label labelFileSelection_;
-    Label labelSampleRate_;
-    Label labelSampleRateValue_;
+   Label labelFileSelection_;
+   Label labelSampleRate_;
+   Label labelSampleRateValue_;
 
-    TextButton buttonFileSelection_;
-    TextButton buttonValidation_;
-    TextButton buttonCancel_;
+   TextButton buttonFileSelection_;
+   TextButton buttonValidation_;
+   TextButton buttonCancel_;
 
-    Label labelSelectedChannel;
-    widgets::ChannelSlider sliderSelectChannel_;
+   Label labelSelectedChannel;
+   widgets::ChannelSlider sliderSelectChannel_;
 
 private:
-    JUCE_LEAK_DETECTOR(WindowValidationContent);
+   JUCE_LEAK_DETECTOR( WindowValidationContent );
 };
 
 }

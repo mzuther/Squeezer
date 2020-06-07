@@ -33,19 +33,18 @@ namespace widgets
 
 /// Orientation for widgets.
 ///
-enum Orientation
-{
-    /// horizontal widget (bottom to top)
-    horizontal = 0,
+enum Orientation {
+   /// horizontal widget (bottom to top)
+   horizontal = 0,
 
-    /// inverted horizontal widget (top to bottom)
-    horizontalInverted,
+   /// inverted horizontal widget (top to bottom)
+   horizontalInverted,
 
-    /// vertical widget (left to right)
-    vertical,
+   /// vertical widget (left to right)
+   vertical,
 
-    /// inverted vertical widget (right to left)
-    verticalInverted
+   /// inverted vertical widget (right to left)
+   verticalInverted
 };
 
 }

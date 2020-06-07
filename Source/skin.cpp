@@ -26,61 +26,51 @@
 #include "skin.h"
 
 
-bool Skin::loadSkin(
-    int numberOfChannels)
-
+bool Skin::loadSkin( int numberOfChannels )
 {
-    updateSkin(numberOfChannels);
+   updateSkin( numberOfChannels );
 
-    return loadFromXml("squeezer-skin", "1.2");
+   return loadFromXml( "squeezer-skin", "1.2" );
 }
 
 
-void Skin::updateSkin(
-    int numberOfChannels)
-
+void Skin::updateSkin( int numberOfChannels )
 {
-    jassert(numberOfChannels > 0);
+   jassert( numberOfChannels > 0 );
 
-    currentBackgroundName_ = "image";
+   currentBackgroundName_ = "image";
 
-    if (numberOfChannels == 1)
-    {
-        currentFallbackName_ = "mono";
-    }
-    else
-    {
-        currentFallbackName_ = "stereo";
-    }
+   if ( numberOfChannels == 1 ) {
+      currentFallbackName_ = "mono";
+   } else {
+      currentFallbackName_ = "stereo";
+   }
 
-    currentGroupName_ = currentFallbackName_;
+   currentGroupName_ = currentFallbackName_;
 
-    if (document_ != nullptr)
-    {
-        skinGroup_ = document_->getChildByName(currentGroupName_);
-        skinFallback_1_ = document_->getChildByName(currentFallbackName_);
-        skinFallback_2_ = document_->getChildByName("default");
-    }
-    else
-    {
-        skinGroup_ = nullptr;
-        skinFallback_1_ = nullptr;
-        skinFallback_2_ = nullptr;
-    }
+   if ( document_ != nullptr ) {
+      skinGroup_ = document_->getChildByName( currentGroupName_ );
+      skinFallback_1_ = document_->getChildByName( currentFallbackName_ );
+      skinFallback_2_ = document_->getChildByName( "default" );
+   } else {
+      skinGroup_ = nullptr;
+      skinFallback_1_ = nullptr;
+      skinFallback_2_ = nullptr;
+   }
 }
 
 
 File Skin::getSkinDirectory()
 {
-    auto resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
-    return resourceDirectory.getChildFile("./Skins/");
+   auto resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
+   return resourceDirectory.getChildFile( "./Skins/" );
 }
 
 
 File Skin::getSettingsFile()
 {
-    auto settingsDirectory = File::getSpecialLocation(File::userApplicationDataDirectory);
-    auto defaultSkinFile = settingsDirectory.getChildFile("Squeezer.skin");
+   auto settingsDirectory = File::getSpecialLocation( File::userApplicationDataDirectory );
+   auto defaultSkinFile = settingsDirectory.getChildFile( "Squeezer.skin" );
 
-    return defaultSkinFile;
+   return defaultSkinFile;
 }

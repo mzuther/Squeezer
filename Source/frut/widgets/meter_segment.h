@@ -36,38 +36,38 @@ namespace widgets
 /// @see MeterBar
 ///
 class MeterSegment :
-    public Component
+   public Component
 {
 public:
-    MeterSegment();
-    virtual ~MeterSegment();
+   MeterSegment();
+   virtual ~MeterSegment();
 
-    virtual void setNormalLevels(float normalLevel,
-                                 float normalLevelPeak);
+   virtual void setNormalLevels( float normalLevel,
+                                 float normalLevelPeak );
 
-    virtual void setDiscreteLevels(float discreteLevel,
-                                   float discreteLevelPeak);
+   virtual void setDiscreteLevels( float discreteLevel,
+                                   float discreteLevelPeak );
 
-    /// Set discrete (peak) and normal (average) levels.
-    ///
-    /// @param normalLevel new normal level
-    ///
-    /// @param normalLevelPeak new normal peak level
-    ///
-    /// @param discreteLevel new discrete level
-    ///
-    /// @param discreteLevelPeak new discrete peak level
-    ///
-    virtual void setLevels(float normalLevel,
+   /// Set discrete (peak) and normal (average) levels.
+   ///
+   /// @param normalLevel new normal level
+   ///
+   /// @param normalLevelPeak new normal peak level
+   ///
+   /// @param discreteLevel new discrete level
+   ///
+   /// @param discreteLevelPeak new discrete peak level
+   ///
+   virtual void setLevels( float normalLevel,
                            float normalLevelPeak,
                            float discreteLevel,
-                           float discreteLevelPeak) = 0 ;
+                           float discreteLevelPeak ) = 0 ;
 
-    virtual widgets::Orientation getOrientation();
-    virtual void setOrientation(widgets::Orientation orientation);
+   virtual widgets::Orientation getOrientation();
+   virtual void setOrientation( widgets::Orientation orientation );
 
 protected:
-    widgets::Orientation orientation_;
+   widgets::Orientation orientation_;
 
 };
 

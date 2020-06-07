@@ -34,34 +34,34 @@ namespace widgets
 /// Meter component with a needle that moves according to the input.
 ///
 class NeedleMeter :
-    public Component
+   public Component
 {
 public:
-    NeedleMeter();
+   NeedleMeter();
 
-    void setImages(const Image &imageBackground,
-                   const Image &imageNeedle,
+   void setImages( const Image& imageBackground,
+                   const Image& imageNeedle,
                    int needleSpacingLeft,
-                   int needleSpacingTop);
+                   int needleSpacingTop );
 
-    void setValue(float value);
+   void setValue( float value );
 
-    virtual void paint(Graphics &g);
-    virtual void resized();
+   virtual void paint( Graphics& g );
+   virtual void resized();
 
 protected:
-    int needlePosition_;
-    int needleTravelPath_;
-    bool isVerticalMeter_;
+   int needlePosition_;
+   int needleTravelPath_;
+   bool isVerticalMeter_;
 
-    int needleSpacingLeft_;
-    int needleSpacingTop_;
+   int needleSpacingLeft_;
+   int needleSpacingTop_;
 
-    Image imageBackground_;
-    Image imageNeedle_;
+   Image imageBackground_;
+   Image imageNeedle_;
 
 private:
-    JUCE_LEAK_DETECTOR(NeedleMeter);
+   JUCE_LEAK_DETECTOR( NeedleMeter );
 };
 
 }

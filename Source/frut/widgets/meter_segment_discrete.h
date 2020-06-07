@@ -39,46 +39,46 @@ namespace widgets
 /// @see MeterBar
 ///
 class MeterSegmentDiscrete :
-    public MeterSegment
+   public MeterSegment
 {
 public:
-    explicit MeterSegmentDiscrete(float retainSignalFactor,
-                                  float newSignalFactor);
+   explicit MeterSegmentDiscrete( float retainSignalFactor,
+                                  float newSignalFactor );
 
 
-    virtual float setThresholdAndRange(float lowerThreshold,
+   virtual float setThresholdAndRange( float lowerThreshold,
                                        float thresholdRange,
-                                       bool isTopmost);
+                                       bool isTopmost );
 
-    virtual void setColours(const Colour &segmentColour,
-                            const Colour &peakMarkerColour);
+   virtual void setColours( const Colour& segmentColour,
+                            const Colour& peakMarkerColour );
 
-    virtual void setLevels(float normalLevel,
+   virtual void setLevels( float normalLevel,
                            float normalLevelPeak,
                            float discreteLevel,
-                           float discreteLevelPeak);
+                           float discreteLevelPeak );
 
-    virtual void paint(Graphics &g);
-    virtual void visibilityChanged();
+   virtual void paint( Graphics& g );
+   virtual void visibilityChanged();
 
 protected:
-    float lowerThreshold_;
-    float upperThreshold_;
-    float thresholdRange_;
+   float lowerThreshold_;
+   float upperThreshold_;
+   float thresholdRange_;
 
-    Colour segmentColour_;
-    Colour peakMarkerColour_;
-    Colour attenuatedColour_;
+   Colour segmentColour_;
+   Colour peakMarkerColour_;
+   Colour attenuatedColour_;
 
-    float brightness_;
-    float retainSignalFactor_;
-    float newSignalFactor_;
+   float brightness_;
+   float retainSignalFactor_;
+   float newSignalFactor_;
 
-    bool displayPeakMarker_;
-    bool isTopmost_;
+   bool displayPeakMarker_;
+   bool isTopmost_;
 
 private:
-    JUCE_LEAK_DETECTOR(MeterSegmentDiscrete);
+   JUCE_LEAK_DETECTOR( MeterSegmentDiscrete );
 };
 
 }

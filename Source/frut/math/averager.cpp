@@ -28,49 +28,47 @@ namespace frut
 namespace math
 {
 
-Averager::Averager(int number_of_samples, float initial_value)
+Averager::Averager( int number_of_samples, float initial_value )
 {
-    jassert(number_of_samples > 2);
+   jassert( number_of_samples > 2 );
 
-    bIsValid = false;
-    nNumberOfSamples = number_of_samples;
-    fNumberOfSamples = float(nNumberOfSamples);
-    nCurrentSample = 0;
+   bIsValid = false;
+   nNumberOfSamples = number_of_samples;
+   fNumberOfSamples = float( nNumberOfSamples );
+   nCurrentSample = 0;
 
-    for (int n = 0; n < nNumberOfSamples; ++n)
-    {
-        fSamples.insert(n, initial_value);
-    }
+   for ( int n = 0; n < nNumberOfSamples; ++n ) {
+      fSamples.insert( n, initial_value );
+   }
 
-    fSum = initial_value * fNumberOfSamples;
+   fSum = initial_value * fNumberOfSamples;
 }
 
 
-void Averager::addSample(float newSample)
+void Averager::addSample( float newSample )
 {
-    fSum -= fSamples[nCurrentSample];
-    fSamples.set(nCurrentSample, newSample);
-    fSum += fSamples[nCurrentSample];
+   fSum -= fSamples[nCurrentSample];
+   fSamples.set( nCurrentSample, newSample );
+   fSum += fSamples[nCurrentSample];
 
-    ++nCurrentSample;
+   ++nCurrentSample;
 
-    if (nCurrentSample >= nNumberOfSamples)
-    {
-        bIsValid = true;
-        nCurrentSample = 0;
-    }
+   if ( nCurrentSample >= nNumberOfSamples ) {
+      bIsValid = true;
+      nCurrentSample = 0;
+   }
 }
 
 
 bool Averager::isValid()
 {
-    return bIsValid;
+   return bIsValid;
 }
 
 
 float Averager::getSimpleMovingAverage()
 {
-    return fSum / fNumberOfSamples;
+   return fSum / fNumberOfSamples;
 }
 
 }

@@ -39,62 +39,62 @@ namespace widgets
 /// @see MeterBar
 ///
 class MeterSegmentContinuous :
-    public MeterSegment
+   public MeterSegment
 {
 public:
-    MeterSegmentContinuous();
+   MeterSegmentContinuous();
 
-    virtual float setThresholdAndRange(float lowerThreshold,
+   virtual float setThresholdAndRange( float lowerThreshold,
                                        float thresholdRange,
                                        float nextPixelRange,
-                                       bool isTopmost);
+                                       bool isTopmost );
 
-    virtual void setColours(const Colour &segmentColour,
-                            const Colour &peakMarkerColour);
+   virtual void setColours( const Colour& segmentColour,
+                            const Colour& peakMarkerColour );
 
-    virtual void setLevels(float normalLevel,
+   virtual void setLevels( float normalLevel,
                            float normalLevelPeak,
                            float discreteLevel,
-                           float discreteLevelPeak);
+                           float discreteLevelPeak );
 
-    virtual void paint(Graphics &g);
-    virtual void resized();
-    virtual void visibilityChanged();
+   virtual void paint( Graphics& g );
+   virtual void resized();
+   virtual void visibilityChanged();
 
 protected:
-    virtual void drawBar(Graphics &g,
-                         float levelPosition);
+   virtual void drawBar( Graphics& g,
+                         float levelPosition );
 
-    virtual void drawMarker(Graphics &g,
-                            const Colour &markerColour,
-                            float levelPosition);
+   virtual void drawMarker( Graphics& g,
+                            const Colour& markerColour,
+                            float levelPosition );
 
-    float calculateLevelPosition(float level,
-                                 bool isBar);
+   float calculateLevelPosition( float level,
+                                 bool isBar );
 
-    float lowerThreshold_;
-    float upperThreshold_;
-    float thresholdRange_;
-    float nextPixelThreshold_;
+   float lowerThreshold_;
+   float upperThreshold_;
+   float thresholdRange_;
+   float nextPixelThreshold_;
 
-    Colour segmentColour_;
-    Colour backgroundColour_;
-    Colour peakMarkerColour_;
-    Colour attenuatedColour_;
+   Colour segmentColour_;
+   Colour backgroundColour_;
+   Colour peakMarkerColour_;
+   Colour attenuatedColour_;
 
-    int maximumX_;
-    int maximumY_;
+   int maximumX_;
+   int maximumY_;
 
-    float normalLevelPosition_;
-    float normalPeakPosition_;
+   float normalLevelPosition_;
+   float normalPeakPosition_;
 
-    float discreteLevelPosition_;
-    float discretePeakPosition_;
+   float discreteLevelPosition_;
+   float discretePeakPosition_;
 
-    bool isTopmost_;
+   bool isTopmost_;
 
 private:
-    JUCE_LEAK_DETECTOR(MeterSegmentContinuous);
+   JUCE_LEAK_DETECTOR( MeterSegmentContinuous );
 };
 
 }

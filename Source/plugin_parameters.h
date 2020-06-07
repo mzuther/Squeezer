@@ -31,63 +31,62 @@
 
 
 class SqueezerPluginParameters :
-    public frut::parameters::Juggler
+   public frut::parameters::Juggler
 {
 public:
-    SqueezerPluginParameters();
+   SqueezerPluginParameters();
 
-    String toString();
+   String toString();
 
-    static const File getResourceDirectory();
+   static const File getResourceDirectory();
 
-    enum Parameters  // public namespace!
-    {
-        selBypass = 0,
-        selRmsWindowSize,
-        selDesign,
-        selCurveType,
-        selGainStage,
+   enum Parameters { // public namespace!
+      selBypass = 0,
+      selRmsWindowSize,
+      selDesign,
+      selCurveType,
+      selGainStage,
 
-        selThresholdSwitch,
-        selThreshold,
-        selRatioSwitch,
-        selRatio,
-        selKneeWidth,
+      selThresholdSwitch,
+      selThreshold,
+      selRatioSwitch,
+      selRatio,
+      selKneeWidth,
 
-        selAttackRateSwitch,
-        selAttackRate,
-        selReleaseRateSwitch,
-        selReleaseRate,
+      selAttackRateSwitch,
+      selAttackRate,
+      selReleaseRateSwitch,
+      selReleaseRate,
 
-        selAutoMakeupGain,
-        selMakeupGainSwitch,
-        selMakeupGain,
-        selWetMixSwitch,
-        selWetMix,
+      selAutoMakeupGain,
+      selMakeupGainSwitch,
+      selMakeupGain,
+      selWetMixSwitch,
+      selWetMix,
 
-        selSidechainInput,
-        selSidechainHPFCutoffSwitch,
-        selSidechainHPFCutoff,
-        selSidechainLPFCutoffSwitch,
-        selSidechainLPFCutoff,
-        selSidechainListen,
+      selSidechainInput,
+      selSidechainHPFCutoffSwitch,
+      selSidechainHPFCutoff,
+      selSidechainLPFCutoffSwitch,
+      selSidechainLPFCutoff,
+      selSidechainListen,
 
-        selInputTrimSwitch,
-        selInputTrim,
-        selStereoLinkSwitch,
-        selStereoLink,
+      selInputTrimSwitch,
+      selInputTrim,
+      selStereoLinkSwitch,
+      selStereoLink,
 
-        numberOfParametersRevealed,
+      numberOfParametersRevealed,
 
-        numberOfParametersComplete = numberOfParametersRevealed,
-    };
+      numberOfParametersComplete = numberOfParametersRevealed,
+   };
 
-    virtual XmlElement *handleUpgrades(XmlElement *xmlDocument,
+   virtual XmlElement* handleUpgrades( XmlElement* xmlDocument,
                                        int oldMajorVersion,
-                                       int oldMinorVersion) override;
+                                       int oldMinorVersion ) override;
 
 private:
-    JUCE_LEAK_DETECTOR(SqueezerPluginParameters);
+   JUCE_LEAK_DETECTOR( SqueezerPluginParameters );
 };
 
 #endif  // SQUEEZER_PLUGIN_PARAMETERS_H

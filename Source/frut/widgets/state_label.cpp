@@ -31,31 +31,31 @@ namespace widgets
 /// Create a state label.
 ///
 StateLabel::StateLabel() :
-    attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+   attenuatedColour_( Colours::black.brighter( 0.15f ).withAlpha( 0.6f ) )
 
 {
-    // this component blends in with the background
-    setOpaque(false);
+   // this component blends in with the background
+   setOpaque( false );
 
-    // initialise meter state
-    state_ = State::off;
+   // initialise meter state
+   state_ = State::off;
 
-    // initialise spacing of text within text label
-    horizontalTextSpacing_ = 0;
-    verticalTextSpacing_ = 0;
+   // initialise spacing of text within text label
+   horizontalTextSpacing_ = 0;
+   verticalTextSpacing_ = 0;
 
-    // initialise widget for displaying text
-    textLabel_.setName("Text label");
-    textLabel_.setJustificationType(Justification::topRight);
-    textLabel_.setBorderSize(BorderSize<int>(0, 0, 0, 0));
-    addAndMakeVisible(textLabel_);
+   // initialise widget for displaying text
+   textLabel_.setName( "Text label" );
+   textLabel_.setJustificationType( Justification::topRight );
+   textLabel_.setBorderSize( BorderSize<int>( 0, 0, 0, 0 ) );
+   addAndMakeVisible( textLabel_ );
 
-    // initialise widget for displaying the background image
-    addAndMakeVisible(imageComponent_);
+   // initialise widget for displaying the background image
+   addAndMakeVisible( imageComponent_ );
 
-    // background images should be in the back -- I don't know why I'm
-    // even writing this ... :)
-    imageComponent_.toBack();
+   // background images should be in the back -- I don't know why I'm
+   // even writing this ... :)
+   imageComponent_.toBack();
 }
 
 
@@ -63,17 +63,17 @@ StateLabel::StateLabel() :
 ///
 void StateLabel::resized()
 {
-    // call base method
-    Component::resized();
+   // call base method
+   Component::resized();
 
-    // resize text label, taking text spacing into account
-    textLabel_.setBounds(horizontalTextSpacing_,
+   // resize text label, taking text spacing into account
+   textLabel_.setBounds( horizontalTextSpacing_,
                          verticalTextSpacing_,
                          getWidth() - 2 * horizontalTextSpacing_,
-                         getHeight() - 2 * verticalTextSpacing_);
+                         getHeight() - 2 * verticalTextSpacing_ );
 
-    // resize of background image
-    imageComponent_.setBounds(0, 0, getWidth(), getHeight());
+   // resize of background image
+   imageComponent_.setBounds( 0, 0, getWidth(), getHeight() );
 }
 
 
@@ -84,15 +84,14 @@ void StateLabel::resized()
 /// @param forceUpdate update state regardless of current state
 ///
 void StateLabel::setState(
-    int state,
-    bool forceUpdate)
+   int state,
+   bool forceUpdate )
 
 {
-    if ((state != state_) || forceUpdate)
-    {
-        state_ = state;
-        updateState();
-    }
+   if ( ( state != state_ ) || forceUpdate ) {
+      state_ = state;
+      updateState();
+   }
 }
 
 
@@ -101,24 +100,19 @@ void StateLabel::setState(
 ///
 void StateLabel::updateState()
 {
-    // "active" state
-    if (state_ == State::active)
-    {
-        imageComponent_.setImage(imageActive_);
-        setLabelColour(textColourActive_);
-    }
-    // "on" state
-    else if (state_ == State::on)
-    {
-        imageComponent_.setImage(imageOn_);
-        setLabelColour(textColourOn_);
-    }
-    // "off" state
-    else
-    {
-        imageComponent_.setImage(imageOff_);
-        setLabelColour(textColourOff_);
-    }
+   // "active" state
+   if ( state_ == State::active ) {
+      imageComponent_.setImage( imageActive_ );
+      setLabelColour( textColourActive_ );
+      // "on" state
+   } else if ( state_ == State::on ) {
+      imageComponent_.setImage( imageOn_ );
+      setLabelColour( textColourOn_ );
+      // "off" state
+   } else {
+      imageComponent_.setImage( imageOff_ );
+      setLabelColour( textColourOff_ );
+   }
 }
 
 
@@ -148,56 +142,55 @@ void StateLabel::updateState()
 /// @param fontSize font size for text label
 ///
 void StateLabel::setImages(
-    const Image &imageOff,
-    const Image &imageOn,
-    const Image &imageActive,
-    const String &textColourOff,
-    const String &textColourOn,
-    const String &textColourActive,
-    int horizontalTextSpacing,
-    int verticalTextSpacing,
-    float fontSize)
+   const Image& imageOff,
+   const Image& imageOn,
+   const Image& imageActive,
+   const String& textColourOff,
+   const String& textColourOn,
+   const String& textColourActive,
+   int horizontalTextSpacing,
+   int verticalTextSpacing,
+   float fontSize )
 
 {
-    // update text spacing in label
-    horizontalTextSpacing_ = horizontalTextSpacing;
-    verticalTextSpacing_ = verticalTextSpacing;
+   // update text spacing in label
+   horizontalTextSpacing_ = horizontalTextSpacing;
+   verticalTextSpacing_ = verticalTextSpacing;
 
-    // update font of text label (bold weight)
-    textLabel_.setFont(Font(fontSize, Font::bold));
+   // update font of text label (bold weight)
+   textLabel_.setFont( Font( fontSize, Font::bold ) );
 
-    // update colours of text label
-    textColourOff_ = Colour::fromString("ff" + textColourOff);
-    textColourOn_ = Colour::fromString("ff" + textColourOn);
-    textColourActive_ = Colour::fromString("ff" + textColourActive);
+   // update colours of text label
+   textColourOff_ = Colour::fromString( "ff" + textColourOff );
+   textColourOn_ = Colour::fromString( "ff" + textColourOn );
+   textColourActive_ = Colour::fromString( "ff" + textColourActive );
 
-    // update images (creates a copy of each image)
-    imageOff_ = imageOff.createCopy();
-    imageOn_ = imageOn.createCopy();
-    imageActive_ = imageActive.createCopy();
+   // update images (creates a copy of each image)
+   imageOff_ = imageOff.createCopy();
+   imageOn_ = imageOn.createCopy();
+   imageActive_ = imageActive.createCopy();
 
-    // attenuate colours if label is disabled
-    if (! isEnabled())
-    {
-        Graphics g1(imageOff_);
-        g1.setColour(attenuatedColour_);
-        g1.fillAll();
+   // attenuate colours if label is disabled
+   if ( ! isEnabled() ) {
+      Graphics g1( imageOff_ );
+      g1.setColour( attenuatedColour_ );
+      g1.fillAll();
 
-        Graphics g2(imageOn_);
-        g2.setColour(attenuatedColour_);
-        g2.fillAll();
+      Graphics g2( imageOn_ );
+      g2.setColour( attenuatedColour_ );
+      g2.fillAll();
 
-        Graphics g3(imageActive_);
-        g3.setColour(attenuatedColour_);
-        g3.fillAll();
-    }
+      Graphics g3( imageActive_ );
+      g3.setColour( attenuatedColour_ );
+      g3.fillAll();
+   }
 
-    // assert that all images have the same size
-    jassert(imageOff_.getBounds() == imageOn_.getBounds());
-    jassert(imageOff_.getBounds() == imageActive_.getBounds());
+   // assert that all images have the same size
+   jassert( imageOff_.getBounds() == imageOn_.getBounds() );
+   jassert( imageOff_.getBounds() == imageActive_.getBounds() );
 
-    // update component
-    updateState();
+   // update component
+   updateState();
 }
 
 
@@ -207,10 +200,10 @@ void StateLabel::setImages(
 /// @param textColour new text colour
 ///
 void StateLabel::setLabelColour(
-    const Colour &textColour)
+   const Colour& textColour )
 
 {
-    textLabel_.setColour(Label::textColourId, textColour);
+   textLabel_.setColour( Label::textColourId, textColour );
 }
 
 
@@ -219,10 +212,10 @@ void StateLabel::setLabelColour(
 /// @param text new text string
 ///
 void StateLabel::setLabelText(
-    const String &text)
+   const String& text )
 
 {
-    textLabel_.setText(text, dontSendNotification);
+   textLabel_.setText( text, dontSendNotification );
 }
 
 }

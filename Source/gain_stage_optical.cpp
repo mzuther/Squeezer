@@ -26,53 +26,52 @@
 #include "gain_stage_optical.h"
 
 
-GainStageOptical::GainStageOptical(int nSampleRate) :
-    GainStage(nSampleRate),
-    nNumberOfDecibels(37),
-    nCoefficientsPerDecibel(2),
-    nNumberOfCoefficients(nNumberOfDecibels * nCoefficientsPerDecibel)
-    /*  Constructor.
+GainStageOptical::GainStageOptical( int nSampleRate ) :
+   GainStage( nSampleRate ),
+   nNumberOfDecibels( 37 ),
+   nCoefficientsPerDecibel( 2 ),
+   nNumberOfCoefficients( nNumberOfDecibels * nCoefficientsPerDecibel )
+   /*  Constructor.
 
-        nSampleRate (integer): internal sample rate
+       nSampleRate (integer): internal sample rate
 
-        return value: none
-    */
+       return value: none
+   */
 {
-    dSampleRate = (double) nSampleRate;
+   dSampleRate = ( double ) nSampleRate;
 
-    for (int nCoefficient = 0; nCoefficient < nNumberOfCoefficients; ++nCoefficient)
-    {
-        //  0 dB:  Attack: 16 ms, Release: 160 ms
-        //  6 dB:  Attack:  5 ms, Release:  53 ms
-        // 12 dB:  Attack:  3 ms, Release:  32 ms
-        // 18 dB:  Attack:  2 ms, Release:  23 ms
-        // 24 dB:  Attack:  2 ms, Release:  18 ms
+   for ( int nCoefficient = 0; nCoefficient < nNumberOfCoefficients; ++nCoefficient ) {
+      //  0 dB:  Attack: 16 ms, Release: 160 ms
+      //  6 dB:  Attack:  5 ms, Release:  53 ms
+      // 12 dB:  Attack:  3 ms, Release:  32 ms
+      // 18 dB:  Attack:  2 ms, Release:  23 ms
+      // 24 dB:  Attack:  2 ms, Release:  18 ms
 
-        double dDecibels = double(nCoefficient) / double(nCoefficientsPerDecibel);
-        double dResistance = 480.0 / (3.0 + dDecibels);
-        double dAttackRate = dResistance / 10.0;
-        double dReleaseRate = dResistance;
+      double dDecibels = double( nCoefficient ) / double( nCoefficientsPerDecibel );
+      double dResistance = 480.0 / ( 3.0 + dDecibels );
+      double dAttackRate = dResistance / 10.0;
+      double dReleaseRate = dResistance;
 
-        // if (nCoefficient % (6 * nCoefficientsPerDecibel) == 0)
-        // {
-        //     DBG(String(dDecibels) + " dB:  Attack: " + String(dAttackRate, 1) + " ms, Release: " + String(dReleaseRate, 1) + " ms");
-        // }
+      // if (nCoefficient % (6 * nCoefficientsPerDecibel) == 0)
+      // {
+      //     DBG(String(dDecibels) + " dB:  Attack: " + String(dAttackRate, 1) + " ms, Release: " + String(dReleaseRate, 1) + " ms");
+      // }
 
-        double dAttackRateSeconds = dAttackRate / 1000.0;
-        double dReleaseRateSeconds = dReleaseRate / 1000.0;
+      double dAttackRateSeconds = dAttackRate / 1000.0;
+      double dReleaseRateSeconds = dReleaseRate / 1000.0;
 
-        // logarithmic envelopes that reach 73% of the final reading
-        // in the given attack time
-        arrAttackCoefficients.add(exp(log(0.27) / (dAttackRateSeconds * dSampleRate)));
-        arrReleaseCoefficients.add(exp(log(0.27) / (dReleaseRateSeconds * dSampleRate)));
-    }
+      // logarithmic envelopes that reach 73% of the final reading
+      // in the given attack time
+      arrAttackCoefficients.add( exp( log( 0.27 ) / ( dAttackRateSeconds * dSampleRate ) ) );
+      arrReleaseCoefficients.add( exp( log( 0.27 ) / ( dReleaseRateSeconds * dSampleRate ) ) );
+   }
 
-    // reset (i.e. initialise) all relevant variables
-    reset(0.0);
+   // reset (i.e. initialise) all relevant variables
+   reset( 0.0 );
 }
 
 
-void GainStageOptical::reset(double dCurrentGainReduction)
+void GainStageOptical::reset( double dCurrentGainReduction )
 /*  Reset all relevant variables.
 
     dCurrentGainReduction (double): current gain reduction in decibels
@@ -80,11 +79,12 @@ void GainStageOptical::reset(double dCurrentGainReduction)
     return value: none
 */
 {
-    dGainReduction = dCurrentGainReduction;
+   dGainReduction = dCurrentGainReduction;
 }
 
 
-double GainStageOptical::processGainReduction(double dGainReductionNew, double dGainReductionIdeal)
+double GainStageOptical::processGainReduction( double dGainReductionNew,
+                                               double dGainReductionIdeal )
 /*  Process current gain reduction.
 
     dGainReductionNew (double): calculated new gain reduction in
@@ -97,49 +97,40 @@ double GainStageOptical::processGainReduction(double dGainReductionNew, double d
     decibel
  */
 {
-    double dGainReductionOld = dGainReduction;
-    double dCoefficient = dGainReductionNew;
-    int nCoefficient = int(dCoefficient * double(nCoefficientsPerDecibel));
+   double dGainReductionOld = dGainReduction;
+   double dCoefficient = dGainReductionNew;
+   int nCoefficient = int( dCoefficient * double( nCoefficientsPerDecibel ) );
 
-    if (nCoefficient < 0)
-    {
-        nCoefficient = 0;
-    }
-    else if (nCoefficient > (nNumberOfCoefficients - 1))
-    {
-        nCoefficient = (nNumberOfCoefficients - 1);
-    }
+   if ( nCoefficient < 0 ) {
+      nCoefficient = 0;
+   } else if ( nCoefficient > ( nNumberOfCoefficients - 1 ) ) {
+      nCoefficient = ( nNumberOfCoefficients - 1 );
+   }
 
-    if (dGainReductionNew > dGainReduction)
-    {
-        // algorithm adapted from Giannoulis et al., "Digital Dynamic
-        // Range Compressor Design - A Tutorial and Analysis", JAES,
-        // 60(6):399-408, 2012
+   if ( dGainReductionNew > dGainReduction ) {
+      // algorithm adapted from Giannoulis et al., "Digital Dynamic
+      // Range Compressor Design - A Tutorial and Analysis", JAES,
+      // 60(6):399-408, 2012
 
-        dGainReduction = (arrAttackCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - arrAttackCoefficients[nCoefficient]) * dGainReductionNew;
-    }
-    // otherwise, apply release rate if proposed gain reduction is
-    // below old gain reduction
-    else
-    {
-        // algorithm adapted from Giannoulis et al., "Digital Dynamic
-        // Range Compressor Design - A Tutorial and Analysis", JAES,
-        // 60(6):399-408, 2012
+      dGainReduction = ( arrAttackCoefficients[nCoefficient] * dGainReductionOld ) + ( 1.0 - arrAttackCoefficients[nCoefficient] ) * dGainReductionNew;
+      // otherwise, apply release rate if proposed gain reduction is
+      // below old gain reduction
+   } else {
+      // algorithm adapted from Giannoulis et al., "Digital Dynamic
+      // Range Compressor Design - A Tutorial and Analysis", JAES,
+      // 60(6):399-408, 2012
 
-        dGainReduction = (arrReleaseCoefficients[nCoefficient] * dGainReductionOld) + (1.0 - arrReleaseCoefficients[nCoefficient]) * dGainReductionNew;
-    }
+      dGainReduction = ( arrReleaseCoefficients[nCoefficient] * dGainReductionOld ) + ( 1.0 - arrReleaseCoefficients[nCoefficient] ) * dGainReductionNew;
+   }
 
-    // saturation of optical element
-    if (dGainReduction < dGainReductionIdeal)
-    {
-        double dDiff = dGainReductionIdeal - dGainReduction;
-        double dLimit = 24.0;
+   // saturation of optical element
+   if ( dGainReduction < dGainReductionIdeal ) {
+      double dDiff = dGainReductionIdeal - dGainReduction;
+      double dLimit = 24.0;
 
-        dDiff = dLimit - dLimit / (1.0 + dDiff / dLimit);
-        return dGainReductionIdeal - dDiff;
-    }
-    else
-    {
-        return dGainReduction;
-    }
+      dDiff = dLimit - dLimit / ( 1.0 + dDiff / dLimit );
+      return dGainReductionIdeal - dDiff;
+   } else {
+      return dGainReduction;
+   }
 }

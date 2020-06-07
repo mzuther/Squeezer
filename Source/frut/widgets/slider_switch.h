@@ -32,26 +32,26 @@ namespace widgets
 {
 
 class SliderSwitch :
-    virtual public FrutSlider
+   virtual public FrutSlider
 {
 public:
-    SliderSwitch(parameters::Juggler &parameters, int nParameterIndex);
+   SliderSwitch( parameters::Juggler& parameters, int nParameterIndex );
 
-    void visibilityChanged();
-    void resized();
-    virtual void setSliderColour(const Colour &colour);
+   void visibilityChanged();
+   void resized();
+   virtual void setSliderColour( const Colour& colour );
 
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
+   float getRealFloat();
+   bool getBoolean();
+   int getRealInteger();
 
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
+   double getValueFromText( const String& strText );
+   String getTextFromValue( double dValue );
 private:
-    JUCE_LEAK_DETECTOR(SliderSwitch);
+   JUCE_LEAK_DETECTOR( SliderSwitch );
 
-    Colour colourRotary;
-    parameters::ParSwitch *pSwitch;
+   Colour colourRotary;
+   parameters::ParSwitch* pSwitch;
 };
 
 }

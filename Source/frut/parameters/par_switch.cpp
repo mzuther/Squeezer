@@ -36,22 +36,22 @@ namespace parameters
 ///
 ParSwitch::ParSwitch()
 {
-    // initialise values (invalid because parameter contains no
-    // values)
-    value_ = -1.0f;
-    realValue_ = -1.0f;
+   // initialise values (invalid because parameter contains no
+   // values)
+   value_ = -1.0f;
+   realValue_ = -1.0f;
 
-    // initialise default values (invalid because parameter contains
-    // no values)
-    defaultValue_ = -1.0f;
-    defaultRealValue_ = -1.0f;
+   // initialise default values (invalid because parameter contains
+   // no values)
+   defaultValue_ = -1.0f;
+   defaultRealValue_ = -1.0f;
 
-    // internal spacing between values (invalid because parameter
-    // contains no values)
-    stepSize = -1.0f;
+   // internal spacing between values (invalid because parameter
+   // contains no values)
+   stepSize = -1.0f;
 
-    // mark parameter as changed
-    setChangeFlag();
+   // mark parameter as changed
+   setChangeFlag();
 }
 
 
@@ -63,29 +63,26 @@ ParSwitch::ParSwitch()
 ///
 /// @param newLabel string representation
 ///
-void ParSwitch::addPreset(const float newRealValue, const String &newLabel)
+void ParSwitch::addPreset( const float newRealValue, const String& newLabel )
 {
-    // store real value in array
-    arrRealValues.add(newRealValue);
+   // store real value in array
+   arrRealValues.add( newRealValue );
 
-    // store label in array
-    arrLabels.add(newLabel);
+   // store label in array
+   arrLabels.add( newLabel );
 
-    // this is the first preset value we have added
-    if (arrRealValues.size() == 1)
-    {
-        // update default value and value
-        setDefaultRealFloat(newRealValue, true);
+   // this is the first preset value we have added
+   if ( arrRealValues.size() == 1 ) {
+      // update default value and value
+      setDefaultRealFloat( newRealValue, true );
 
-        // mark parameter as changed
-        setChangeFlag();
-    }
-    // prevent division by zero
-    else
-    {
-        // update step size
-        stepSize = 1.0f / (arrLabels.size() - 1.0f);
-    }
+      // mark parameter as changed
+      setChangeFlag();
+      // prevent division by zero
+   } else {
+      // update step size
+      stepSize = 1.0f / ( arrLabels.size() - 1.0f );
+   }
 }
 
 
@@ -95,7 +92,7 @@ void ParSwitch::addPreset(const float newRealValue, const String &newLabel)
 ///
 int ParSwitch::getNumberOfSteps()
 {
-    return arrLabels.size();
+   return arrLabels.size();
 }
 
 
@@ -105,7 +102,7 @@ int ParSwitch::getNumberOfSteps()
 ///
 float ParSwitch::getStepSize()
 {
-    return 1.0f / float(getNumberOfSteps() - 1);
+   return 1.0f / float( getNumberOfSteps() - 1 );
 }
 
 
@@ -115,23 +112,20 @@ float ParSwitch::getStepSize()
 ///
 /// @return **real** parameter value
 ///
-float ParSwitch::toRealFloat(float newValue)
+float ParSwitch::toRealFloat( float newValue )
 {
-    // confine new value to internal parameter range
-    if (newValue < 0.0f)
-    {
-        newValue = 0.0f;
-    }
-    else if (newValue > 1.0f)
-    {
-        newValue = 1.0f;
-    }
+   // confine new value to internal parameter range
+   if ( newValue < 0.0f ) {
+      newValue = 0.0f;
+   } else if ( newValue > 1.0f ) {
+      newValue = 1.0f;
+   }
 
-    // find matching index in array with real values
-    int selectedIndex = math::SimpleMath::round(newValue / stepSize);
+   // find matching index in array with real values
+   int selectedIndex = math::SimpleMath::round( newValue / stepSize );
 
-    // return real value
-    return arrRealValues[selectedIndex];
+   // return real value
+   return arrRealValues[selectedIndex];
 }
 
 
@@ -141,41 +135,38 @@ float ParSwitch::toRealFloat(float newValue)
 ///
 /// @return **internal** parameter value
 ///
-float ParSwitch::toInternalFloat(float newRealValue)
+float ParSwitch::toInternalFloat( float newRealValue )
 {
-    // try to find new value in array
-    int selectedIndex = arrRealValues.indexOf(newRealValue);
+   // try to find new value in array
+   int selectedIndex = arrRealValues.indexOf( newRealValue );
 
-    // new value not found, find nearest stored value
-    if (selectedIndex < 0)
-    {
-        // reset index
-        selectedIndex = 0;
+   // new value not found, find nearest stored value
+   if ( selectedIndex < 0 ) {
+      // reset index
+      selectedIndex = 0;
 
-        // get difference between value and first stored value
-        float oldDifference = fabs(newRealValue - arrRealValues[selectedIndex]);
+      // get difference between value and first stored value
+      float oldDifference = fabs( newRealValue - arrRealValues[selectedIndex] );
 
-        // loop over stored values
-        for (int currentIndex = 1; currentIndex < arrRealValues.size(); ++currentIndex)
-        {
-            // get difference between value and current stored value
-            float newDifference = fabs(newRealValue - arrRealValues[currentIndex]);
+      // loop over stored values
+      for ( int currentIndex = 1; currentIndex < arrRealValues.size(); ++currentIndex ) {
+         // get difference between value and current stored value
+         float newDifference = fabs( newRealValue - arrRealValues[currentIndex] );
 
-            // found smaller difference
-            if (newDifference < oldDifference)
-            {
-                // store new index and difference
-                selectedIndex = currentIndex;
-                oldDifference = newDifference;
-            }
-        }
-    }
+         // found smaller difference
+         if ( newDifference < oldDifference ) {
+            // store new index and difference
+            selectedIndex = currentIndex;
+            oldDifference = newDifference;
+         }
+      }
+   }
 
-    // convert index to internal value
-    float newValue = selectedIndex * stepSize;
+   // convert index to internal value
+   float newValue = selectedIndex * stepSize;
 
-    // return internal value
-    return newValue;
+   // return internal value
+   return newValue;
 }
 
 
@@ -187,19 +178,18 @@ float ParSwitch::toInternalFloat(float newRealValue)
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void ParSwitch::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParSwitch::setDefaultRealFloat( float newRealValue, bool updateParameter )
 {
-    // update internal default value
-    defaultValue_ = toInternalFloat(newRealValue);
+   // update internal default value
+   defaultValue_ = toInternalFloat( newRealValue );
 
-    // update real default value
-    defaultRealValue_ = toRealFloat(defaultValue_);
+   // update real default value
+   defaultRealValue_ = toRealFloat( defaultValue_ );
 
-    // optionally, update current parameter value
-    if (updateParameter)
-    {
-        setFloat(defaultValue_);
-    }
+   // optionally, update current parameter value
+   if ( updateParameter ) {
+      setFloat( defaultValue_ );
+   }
 }
 
 
@@ -208,23 +198,22 @@ void ParSwitch::setDefaultRealFloat(float newRealValue, bool updateParameter)
 ///
 /// @param newValue new value (between 0.0 and 1.0)
 ///
-void ParSwitch::setFloat(float newValue)
+void ParSwitch::setFloat( float newValue )
 {
-    // calculate internal value
-    float newRealValue = toRealFloat(newValue);
+   // calculate internal value
+   float newRealValue = toRealFloat( newValue );
 
-    // value has changed
-    if (newRealValue != realValue_)
-    {
-        // update real parameter value
-        realValue_ = newRealValue;
+   // value has changed
+   if ( newRealValue != realValue_ ) {
+      // update real parameter value
+      realValue_ = newRealValue;
 
-        // update internal parameter value
-        value_ = toInternalFloat(realValue_);
+      // update internal parameter value
+      value_ = toInternalFloat( realValue_ );
 
-        // mark parameter as changed
-        setChangeFlag();
-    }
+      // mark parameter as changed
+      setChangeFlag();
+   }
 }
 
 
@@ -233,13 +222,13 @@ void ParSwitch::setFloat(float newValue)
 ///
 /// @param newRealValue new value
 ///
-void ParSwitch::setRealFloat(float newRealValue)
+void ParSwitch::setRealFloat( float newRealValue )
 {
-    // transform real value to internal value
-    float internalValue = toInternalFloat(newRealValue);
+   // transform real value to internal value
+   float internalValue = toInternalFloat( newRealValue );
 
-    // update internal value
-    setFloat(internalValue);
+   // update internal value
+   setFloat( internalValue );
 }
 
 
@@ -249,24 +238,21 @@ void ParSwitch::setRealFloat(float newRealValue)
 ///
 /// @return **internal** value
 ///
-float ParSwitch::getFloatFromText(const String &newValue)
+float ParSwitch::getFloatFromText( const String& newValue )
 {
-    // try to find value in array
-    int selectedIndex = arrLabels.indexOf(newValue);
+   // try to find value in array
+   int selectedIndex = arrLabels.indexOf( newValue );
 
-    // new value not found
-    if (selectedIndex < 0)
-    {
-        DBG("[Juggler] text value \"" + newValue + "\" not found in \"" + getName() + "\".");
+   // new value not found
+   if ( selectedIndex < 0 ) {
+      DBG( "[Juggler] text value \"" + newValue + "\" not found in \"" + getName() + "\"." );
 
-        // return invalid value
-        return -1.0f;
-    }
-    else
-    {
-        // return internal value
-        return selectedIndex * stepSize;
-    }
+      // return invalid value
+      return -1.0f;
+   } else {
+      // return internal value
+      return selectedIndex * stepSize;
+   }
 }
 
 
@@ -276,23 +262,20 @@ float ParSwitch::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String ParSwitch::getTextFromFloat(float newValue)
+const String ParSwitch::getTextFromFloat( float newValue )
 {
-    // confine new value to internal parameter range
-    if (newValue < 0.0f)
-    {
-        newValue = 0.0f;
-    }
-    else if (newValue > 1.0f)
-    {
-        newValue = 1.0f;
-    }
+   // confine new value to internal parameter range
+   if ( newValue < 0.0f ) {
+      newValue = 0.0f;
+   } else if ( newValue > 1.0f ) {
+      newValue = 1.0f;
+   }
 
-    // find matching index in array with real values
-    int selectedIndex = math::SimpleMath::round(newValue / stepSize);
+   // find matching index in array with real values
+   int selectedIndex = math::SimpleMath::round( newValue / stepSize );
 
-    // return label
-    return arrLabels[selectedIndex];
+   // return label
+   return arrLabels[selectedIndex];
 }
 
 }

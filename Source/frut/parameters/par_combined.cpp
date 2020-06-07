@@ -63,29 +63,29 @@ namespace parameters
 ///        real value; negative values will adapt decimal places to
 ///        the value's size
 ///
-ParCombined::ParCombined(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places) :
+ParCombined::ParCombined( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places ) :
 
-    // initialise parameter for switching between "presets" and
-    // "continuous" mode
-    modeSwitch("Presets", "Continuous"),
+   // initialise parameter for switching between "presets" and
+   // "continuous" mode
+   modeSwitch( "Presets", "Continuous" ),
 
-    // initialise parameter for continuous values
-    continuousValues(real_minimum, real_maximum, real_step_size, scaling_factor, decimal_places)
+   // initialise parameter for continuous values
+   continuousValues( real_minimum, real_maximum, real_step_size, scaling_factor, decimal_places )
 
 {
-    // initialise values (invalid because the parameter itself
-    // contains no values)
-    value_ = -1.0f;
-    realValue_ = -1.0f;
+   // initialise values (invalid because the parameter itself
+   // contains no values)
+   value_ = -1.0f;
+   realValue_ = -1.0f;
 
-    // initialise default values (invalid because the parameter itself
-    // contains no values)
-    defaultValue_ = -1.0f;
-    defaultRealValue_ = -1.0f;
+   // initialise default values (invalid because the parameter itself
+   // contains no values)
+   defaultValue_ = -1.0f;
+   defaultRealValue_ = -1.0f;
 
-    // initially use preset values
-    usePresets = true;
-    modeSwitch.setBoolean(usePresets);
+   // initially use preset values
+   usePresets = true;
+   modeSwitch.setBoolean( usePresets );
 }
 
 
@@ -93,13 +93,13 @@ ParCombined::ParCombined(float real_minimum, float real_maximum, float real_step
 ///
 /// @param newParameterName new parameter name
 ///
-void ParCombined::setName(const String &newParameterName)
+void ParCombined::setName( const String& newParameterName )
 {
-    // call base class method
-    Parameter::setName(newParameterName);
+   // call base class method
+   Parameter::setName( newParameterName );
 
-    // set name of mode switch
-    modeSwitch.setName(newParameterName + " Mode");
+   // set name of mode switch
+   modeSwitch.setName( newParameterName + " Mode" );
 }
 
 
@@ -111,10 +111,10 @@ void ParCombined::setName(const String &newParameterName)
 ///
 /// @param newLabel string representation
 ///
-void ParCombined::addPreset(const float newRealValue, const String &newLabel)
+void ParCombined::addPreset( const float newRealValue, const String& newLabel )
 {
-    // add value to presets
-    presetValues.addPreset(newRealValue, newLabel);
+   // add value to presets
+   presetValues.addPreset( newRealValue, newLabel );
 }
 
 
@@ -125,7 +125,7 @@ void ParCombined::addPreset(const float newRealValue, const String &newLabel)
 ///
 bool ParCombined::getMode()
 {
-    return usePresets;
+   return usePresets;
 }
 
 
@@ -134,14 +134,13 @@ bool ParCombined::getMode()
 /// @param use_presets **true** for preset values and **false** for
 ///        continuous values
 ///
-void ParCombined::setMode(bool use_presets)
+void ParCombined::setMode( bool use_presets )
 {
-    // preset mode has changed
-    if (use_presets != usePresets)
-    {
-        // toggle preset mode
-        toggleMode();
-    }
+   // preset mode has changed
+   if ( use_presets != usePresets ) {
+      // toggle preset mode
+      toggleMode();
+   }
 }
 
 
@@ -149,30 +148,27 @@ void ParCombined::setMode(bool use_presets)
 ///
 void ParCombined::toggleMode()
 {
-    // toggle mode switch
-    modeSwitch.toggleState();
+   // toggle mode switch
+   modeSwitch.toggleState();
 
-    // use presets?
-    usePresets = modeSwitch.getBoolean();
+   // use presets?
+   usePresets = modeSwitch.getBoolean();
 
-    // new mode is "presets"
-    if (usePresets)
-    {
-        // get current continuous value
-        float newRealValue = continuousValues.getRealFloat();
+   // new mode is "presets"
+   if ( usePresets ) {
+      // get current continuous value
+      float newRealValue = continuousValues.getRealFloat();
 
-        // update preset value (rounds to nearest value)
-        presetValues.setRealFloat(newRealValue);
-    }
-    // new mode is "continuous"
-    else
-    {
-        // get current preset value
-        float newRealValue = presetValues.getRealFloat();
+      // update preset value (rounds to nearest value)
+      presetValues.setRealFloat( newRealValue );
+      // new mode is "continuous"
+   } else {
+      // get current preset value
+      float newRealValue = presetValues.getRealFloat();
 
-        // update continuous value
-        continuousValues.setRealFloat(newRealValue);
-    }
+      // update continuous value
+      continuousValues.setRealFloat( newRealValue );
+   }
 }
 
 
@@ -181,10 +177,10 @@ void ParCombined::toggleMode()
 ///
 /// @return pointer to mode switch
 ///
-parameters::ParBoolean *ParCombined::getModeSwitch()
+parameters::ParBoolean* ParCombined::getModeSwitch()
 {
-    // this pointer must not be deleted outside of this class!
-    return &modeSwitch;
+   // this pointer must not be deleted outside of this class!
+   return &modeSwitch;
 }
 
 
@@ -194,14 +190,11 @@ parameters::ParBoolean *ParCombined::getModeSwitch()
 ///
 int ParCombined::getNumberOfSteps()
 {
-    if (usePresets)
-    {
-        return presetValues.getNumberOfSteps();
-    }
-    else
-    {
-        return continuousValues.getNumberOfSteps();
-    }
+   if ( usePresets ) {
+      return presetValues.getNumberOfSteps();
+   } else {
+      return continuousValues.getNumberOfSteps();
+   }
 }
 
 
@@ -211,14 +204,11 @@ int ParCombined::getNumberOfSteps()
 ///
 float ParCombined::getStepSize()
 {
-    if (usePresets)
-    {
-        return presetValues.getStepSize();
-    }
-    else
-    {
-        return continuousValues.getStepSize();
-    }
+   if ( usePresets ) {
+      return presetValues.getStepSize();
+   } else {
+      return continuousValues.getStepSize();
+   }
 }
 
 
@@ -229,14 +219,11 @@ float ParCombined::getStepSize()
 ///
 float ParCombined::getDefaultFloat()
 {
-    if (usePresets)
-    {
-        return presetValues.getDefaultFloat();
-    }
-    else
-    {
-        return continuousValues.getDefaultFloat();
-    }
+   if ( usePresets ) {
+      return presetValues.getDefaultFloat();
+   } else {
+      return continuousValues.getDefaultFloat();
+   }
 }
 
 
@@ -247,14 +234,11 @@ float ParCombined::getDefaultFloat()
 ///
 float ParCombined::getDefaultRealFloat()
 {
-    if (usePresets)
-    {
-        return presetValues.getDefaultRealFloat();
-    }
-    else
-    {
-        return continuousValues.getDefaultRealFloat();
-    }
+   if ( usePresets ) {
+      return presetValues.getDefaultRealFloat();
+   } else {
+      return continuousValues.getDefaultRealFloat();
+   }
 }
 
 
@@ -265,14 +249,11 @@ float ParCombined::getDefaultRealFloat()
 ///
 bool ParCombined::getDefaultBoolean()
 {
-    if (usePresets)
-    {
-        return presetValues.getDefaultBoolean();
-    }
-    else
-    {
-        return continuousValues.getDefaultBoolean();
-    }
+   if ( usePresets ) {
+      return presetValues.getDefaultBoolean();
+   } else {
+      return continuousValues.getDefaultBoolean();
+   }
 }
 
 
@@ -284,14 +265,11 @@ bool ParCombined::getDefaultBoolean()
 ///
 int ParCombined::getDefaultRealInteger()
 {
-    if (usePresets)
-    {
-        return presetValues.getDefaultRealInteger();
-    }
-    else
-    {
-        return continuousValues.getDefaultRealInteger();
-    }
+   if ( usePresets ) {
+      return presetValues.getDefaultRealInteger();
+   } else {
+      return continuousValues.getDefaultRealInteger();
+   }
 }
 
 
@@ -303,25 +281,22 @@ int ParCombined::getDefaultRealInteger()
 /// @param updateParameter if this is true, the parameter's value will
 ///        be set to the new default value
 ///
-void ParCombined::setDefaultRealFloat(float newRealValue, bool updateParameter)
+void ParCombined::setDefaultRealFloat( float newRealValue, bool updateParameter )
 {
-    if (usePresets)
-    {
-        // update default preset value
-        presetValues.setDefaultRealFloat(newRealValue, updateParameter);
+   if ( usePresets ) {
+      // update default preset value
+      presetValues.setDefaultRealFloat( newRealValue, updateParameter );
 
-        // update default continuous value (do not update internal
-        // value)
-        continuousValues.setDefaultRealFloat(newRealValue, false);
-    }
-    else
-    {
-        // update default continuous value
-        continuousValues.setDefaultRealFloat(newRealValue, updateParameter);
+      // update default continuous value (do not update internal
+      // value)
+      continuousValues.setDefaultRealFloat( newRealValue, false );
+   } else {
+      // update default continuous value
+      continuousValues.setDefaultRealFloat( newRealValue, updateParameter );
 
-        // update default preset value (do not update internal value)
-        presetValues.setDefaultRealFloat(newRealValue, false);
-    }
+      // update default preset value (do not update internal value)
+      presetValues.setDefaultRealFloat( newRealValue, false );
+   }
 }
 
 
@@ -332,14 +307,11 @@ void ParCombined::setDefaultRealFloat(float newRealValue, bool updateParameter)
 ///
 float ParCombined::getFloat()
 {
-    if (usePresets)
-    {
-        return presetValues.getFloat();
-    }
-    else
-    {
-        return continuousValues.getFloat();
-    }
+   if ( usePresets ) {
+      return presetValues.getFloat();
+   } else {
+      return continuousValues.getFloat();
+   }
 }
 
 
@@ -348,16 +320,13 @@ float ParCombined::getFloat()
 ///
 /// @param newValue new value (between 0.0 and 1.0)
 ///
-void ParCombined::setFloat(float newValue)
+void ParCombined::setFloat( float newValue )
 {
-    if (usePresets)
-    {
-        presetValues.setFloat(newValue);
-    }
-    else
-    {
-        continuousValues.setFloat(newValue);
-    }
+   if ( usePresets ) {
+      presetValues.setFloat( newValue );
+   } else {
+      continuousValues.setFloat( newValue );
+   }
 }
 
 
@@ -368,14 +337,11 @@ void ParCombined::setFloat(float newValue)
 ///
 float ParCombined::getRealFloat()
 {
-    if (usePresets)
-    {
-        return presetValues.getRealFloat();
-    }
-    else
-    {
-        return continuousValues.getRealFloat();
-    }
+   if ( usePresets ) {
+      return presetValues.getRealFloat();
+   } else {
+      return continuousValues.getRealFloat();
+   }
 }
 
 
@@ -384,16 +350,13 @@ float ParCombined::getRealFloat()
 ///
 /// @param newRealValue new value
 ///
-void ParCombined::setRealFloat(float newRealValue)
+void ParCombined::setRealFloat( float newRealValue )
 {
-    if (usePresets)
-    {
-        presetValues.setRealFloat(newRealValue);
-    }
-    else
-    {
-        continuousValues.setRealFloat(newRealValue);
-    }
+   if ( usePresets ) {
+      presetValues.setRealFloat( newRealValue );
+   } else {
+      continuousValues.setRealFloat( newRealValue );
+   }
 }
 
 
@@ -405,14 +368,11 @@ void ParCombined::setRealFloat(float newRealValue)
 ///
 int ParCombined::getRealInteger()
 {
-    if (usePresets)
-    {
-        return presetValues.getRealInteger();
-    }
-    else
-    {
-        return continuousValues.getRealInteger();
-    }
+   if ( usePresets ) {
+      return presetValues.getRealInteger();
+   } else {
+      return continuousValues.getRealInteger();
+   }
 }
 
 
@@ -421,16 +381,13 @@ int ParCombined::getRealInteger()
 ///
 /// @param newRealValue new value
 ///
-void ParCombined::setRealInteger(int newRealValue)
+void ParCombined::setRealInteger( int newRealValue )
 {
-    if (usePresets)
-    {
-        presetValues.setRealInteger(newRealValue);
-    }
-    else
-    {
-        continuousValues.setRealInteger(newRealValue);
-    }
+   if ( usePresets ) {
+      presetValues.setRealInteger( newRealValue );
+   } else {
+      continuousValues.setRealInteger( newRealValue );
+   }
 }
 
 
@@ -441,14 +398,11 @@ void ParCombined::setRealInteger(int newRealValue)
 ///
 bool ParCombined::getBoolean()
 {
-    if (usePresets)
-    {
-        return presetValues.getBoolean();
-    }
-    else
-    {
-        return continuousValues.getBoolean();
-    }
+   if ( usePresets ) {
+      return presetValues.getBoolean();
+   } else {
+      return continuousValues.getBoolean();
+   }
 }
 
 
@@ -457,10 +411,10 @@ bool ParCombined::getBoolean()
 ///
 /// @param newSuffix new suffix (may be an empty string)
 ///
-void ParCombined::setSuffix(const String &newSuffix)
+void ParCombined::setSuffix( const String& newSuffix )
 {
-    // update suffix
-    continuousValues.setSuffix(newSuffix);
+   // update suffix
+   continuousValues.setSuffix( newSuffix );
 }
 
 
@@ -470,16 +424,13 @@ void ParCombined::setSuffix(const String &newSuffix)
 ///
 /// @return **internal** value
 ///
-float ParCombined::getFloatFromText(const String &newValue)
+float ParCombined::getFloatFromText( const String& newValue )
 {
-    if (usePresets)
-    {
-        return presetValues.getFloatFromText(newValue);
-    }
-    else
-    {
-        return continuousValues.getFloatFromText(newValue);
-    }
+   if ( usePresets ) {
+      return presetValues.getFloatFromText( newValue );
+   } else {
+      return continuousValues.getFloatFromText( newValue );
+   }
 }
 
 
@@ -489,16 +440,13 @@ float ParCombined::getFloatFromText(const String &newValue)
 ///
 /// @return formatted string
 ///
-const String ParCombined::getTextFromFloat(float newValue)
+const String ParCombined::getTextFromFloat( float newValue )
 {
-    if (usePresets)
-    {
-        return presetValues.getTextFromFloat(newValue);
-    }
-    else
-    {
-        return continuousValues.getTextFromFloat(newValue);
-    }
+   if ( usePresets ) {
+      return presetValues.getTextFromFloat( newValue );
+   } else {
+      return continuousValues.getTextFromFloat( newValue );
+   }
 }
 
 
@@ -509,10 +457,10 @@ const String ParCombined::getTextFromFloat(float newValue)
 ///
 bool ParCombined::hasChanged()
 {
-    bool changedPreset = presetValues.hasChanged();
-    bool changedContinuous = continuousValues.hasChanged();
+   bool changedPreset = presetValues.hasChanged();
+   bool changedContinuous = continuousValues.hasChanged();
 
-    return (changedPreset || changedContinuous);
+   return ( changedPreset || changedContinuous );
 }
 
 
@@ -520,8 +468,8 @@ bool ParCombined::hasChanged()
 ///
 void ParCombined::clearChangeFlag()
 {
-    presetValues.clearChangeFlag();
-    continuousValues.clearChangeFlag();
+   presetValues.clearChangeFlag();
+   continuousValues.clearChangeFlag();
 }
 
 
@@ -529,8 +477,8 @@ void ParCombined::clearChangeFlag()
 ///
 void ParCombined::setChangeFlag()
 {
-    // do nothing till you hear from me ...
-    jassert(false);
+   // do nothing till you hear from me ...
+   jassert( false );
 }
 
 
@@ -538,28 +486,27 @@ void ParCombined::setChangeFlag()
 ///
 /// @param xmlDocument XML document to load from
 ///
-void ParCombined::loadFromXml(XmlElement *xmlDocument)
+void ParCombined::loadFromXml( XmlElement* xmlDocument )
 {
-    // get parameter's element from XML document
-    XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
+   // get parameter's element from XML document
+   XmlElement* xmlParameter = xmlDocument->getChildByName( getTagName() );
 
-    // parameter's element found
-    if (xmlParameter)
-    {
-        // get stored preset mode from attribute "use_presets"
-        // (defaults to "true")
-        bool use_presets = xmlParameter->getBoolAttribute("use_presets", true);
+   // parameter's element found
+   if ( xmlParameter ) {
+      // get stored preset mode from attribute "use_presets"
+      // (defaults to "true")
+      bool use_presets = xmlParameter->getBoolAttribute( "use_presets", true );
 
-        // update preset mode
-        setMode(use_presets);
+      // update preset mode
+      setMode( use_presets );
 
-        // get stored value from attribute "value" (or use default
-        // real value)
-        double realValue = xmlParameter->getDoubleAttribute("value", getDefaultRealFloat());
+      // get stored value from attribute "value" (or use default
+      // real value)
+      double realValue = xmlParameter->getDoubleAttribute( "value", getDefaultRealFloat() );
 
-        // update real value
-        setRealFloat((float) realValue);
-    }
+      // update real value
+      setRealFloat( ( float ) realValue );
+   }
 }
 
 
@@ -567,27 +514,26 @@ void ParCombined::loadFromXml(XmlElement *xmlDocument)
 ///
 /// @param xmlDocument XML document to store in
 ///
-void ParCombined::storeAsXml(XmlElement *xmlDocument)
+void ParCombined::storeAsXml( XmlElement* xmlDocument )
 {
-    // create new XML element with parameter's tag name (will be
-    // deleted by XML document)
-    XmlElement *xmlParameter = new XmlElement(getTagName());
+   // create new XML element with parameter's tag name (will be
+   // deleted by XML document)
+   XmlElement* xmlParameter = new XmlElement( getTagName() );
 
-    // XML element was successfully created
-    if (xmlParameter)
-    {
-        // set attribute "use_presets" to current preset mode
-        xmlParameter->setAttribute("use_presets", usePresets ? "1" : "0");
+   // XML element was successfully created
+   if ( xmlParameter ) {
+      // set attribute "use_presets" to current preset mode
+      xmlParameter->setAttribute( "use_presets", usePresets ? "1" : "0" );
 
-        // get current real value
-        float realValue = getRealFloat();
+      // get current real value
+      float realValue = getRealFloat();
 
-        // set attribute "value" to current value
-        xmlParameter->setAttribute("value", realValue);
+      // set attribute "value" to current value
+      xmlParameter->setAttribute( "value", realValue );
 
-        // add new element to XML document
-        xmlDocument->addChildElement(xmlParameter);
-    }
+      // add new element to XML document
+      xmlDocument->addChildElement( xmlParameter );
+   }
 }
 
 }

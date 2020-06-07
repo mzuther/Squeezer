@@ -40,30 +40,30 @@ namespace parameters
 class ParSwitch : virtual public Parameter
 {
 public:
-    ParSwitch();
+   ParSwitch();
 
-    void addPreset(const float newRealValue, const String &newLabel);
-    int getNumberOfSteps();
-    float getStepSize();
+   void addPreset( const float newRealValue, const String& newLabel );
+   int getNumberOfSteps();
+   float getStepSize();
 
-    float toRealFloat(float newValue);
-    float toInternalFloat(float newRealValue);
+   float toRealFloat( float newValue );
+   float toInternalFloat( float newRealValue );
 
-    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+   virtual void setDefaultRealFloat( float newRealValue, bool updateParameter ) override;
 
-    virtual void setFloat(float newValue) override;
-    virtual void setRealFloat(float newRealValue) override;
+   virtual void setFloat( float newValue ) override;
+   virtual void setRealFloat( float newRealValue ) override;
 
-    virtual float getFloatFromText(const String &newValue) override;
-    virtual const String getTextFromFloat(float newValue) override;
+   virtual float getFloatFromText( const String& newValue ) override;
+   virtual const String getTextFromFloat( float newValue ) override;
 
 private:
-    JUCE_LEAK_DETECTOR(ParSwitch);
+   JUCE_LEAK_DETECTOR( ParSwitch );
 
-    Array<float> arrRealValues;
-    StringArray arrLabels;
+   Array<float> arrRealValues;
+   StringArray arrLabels;
 
-    float stepSize;
+   float stepSize;
 };
 
 }

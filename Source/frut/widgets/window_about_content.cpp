@@ -39,7 +39,7 @@ namespace widgets
 /// | 1      | user wants to close the window    |
 ///
 WindowAboutContent::WindowAboutContent()
-    : buttonLicense_("License", DrawableButton::ButtonStyle::ImageRaw)
+   : buttonLicense_( "License", DrawableButton::ButtonStyle::ImageRaw )
 {
 }
 
@@ -58,42 +58,42 @@ WindowAboutContent::WindowAboutContent()
 ///
 /// @return created dialog window
 ///
-DialogWindow *WindowAboutContent::createDialogWindow(
-    AudioProcessorEditor *pluginEditor,
-    int componentWidth,
-    int componentHeight,
-    const StringPairArray &chapters)
+DialogWindow* WindowAboutContent::createDialogWindow(
+   AudioProcessorEditor* pluginEditor,
+   int componentWidth,
+   int componentHeight,
+   const StringPairArray& chapters )
 
 {
-    // prepare dialog window
-    DialogWindow::LaunchOptions windowAboutLauncher;
+   // prepare dialog window
+   DialogWindow::LaunchOptions windowAboutLauncher;
 
-    // create content component
-    WindowAboutContent *contentComponent =
-        new WindowAboutContent();
+   // create content component
+   WindowAboutContent* contentComponent =
+      new WindowAboutContent();
 
-    contentComponent->initialise(componentWidth,
+   contentComponent->initialise( componentWidth,
                                  componentHeight,
-                                 chapters);
+                                 chapters );
 
-    // initialise dialog window settings
-    windowAboutLauncher.dialogTitle = String("About ") +
-                                      ProjectInfo::projectName;
+   // initialise dialog window settings
+   windowAboutLauncher.dialogTitle = String( "About " ) +
+                                     ProjectInfo::projectName;
 
-    windowAboutLauncher.dialogBackgroundColour = Colours::white;
-    windowAboutLauncher.content.setOwned(contentComponent);
-    windowAboutLauncher.componentToCentreAround = pluginEditor;
+   windowAboutLauncher.dialogBackgroundColour = Colours::white;
+   windowAboutLauncher.content.setOwned( contentComponent );
+   windowAboutLauncher.componentToCentreAround = pluginEditor;
 
-    windowAboutLauncher.escapeKeyTriggersCloseButton = true;
-    windowAboutLauncher.useNativeTitleBar = false;
-    windowAboutLauncher.resizable = false;
-    windowAboutLauncher.useBottomRightCornerResizer = false;
+   windowAboutLauncher.escapeKeyTriggersCloseButton = true;
+   windowAboutLauncher.useNativeTitleBar = false;
+   windowAboutLauncher.resizable = false;
+   windowAboutLauncher.useBottomRightCornerResizer = false;
 
-    // launch dialog window
-    DialogWindow *windowAbout = windowAboutLauncher.launchAsync();
-    windowAbout->setAlwaysOnTop(true);
+   // launch dialog window
+   DialogWindow* windowAbout = windowAboutLauncher.launchAsync();
+   windowAbout->setAlwaysOnTop( true );
 
-    return windowAbout;
+   return windowAbout;
 }
 
 
@@ -107,54 +107,54 @@ DialogWindow *WindowAboutContent::createDialogWindow(
 ///        accompanying text
 ///
 void WindowAboutContent::initialise(
-    int componentWidth,
-    int componentHeight,
-    const StringPairArray &chapters)
+   int componentWidth,
+   int componentHeight,
+   const StringPairArray& chapters )
 {
-    // set dimensions of content component
-    setSize(componentWidth, componentHeight);
+   // set dimensions of content component
+   setSize( componentWidth, componentHeight );
 
-    // initialise text editor component for displaying the plugin's
-    // settings (read-only, can display multiple lines)
-    textEditor_.setMultiLine(true, true);
-    textEditor_.setReadOnly(true);
-    addAndMakeVisible(textEditor_);
+   // initialise text editor component for displaying the plugin's
+   // settings (read-only, can display multiple lines)
+   textEditor_.setMultiLine( true, true );
+   textEditor_.setReadOnly( true );
+   addAndMakeVisible( textEditor_ );
 
-    // display plug-in description
-    addChapters(chapters);
+   // display plug-in description
+   addChapters( chapters );
 
-    // initialise "license" button which opens the license text in a
-    // web browser
-    addAndMakeVisible(buttonLicense_);
-    buttonLicense_.addListener(this);
+   // initialise "license" button which opens the license text in a
+   // web browser
+   addAndMakeVisible( buttonLicense_ );
+   buttonLicense_.addListener( this );
 
-    auto drawableOn = Drawable::createFromImageData(
-                          resources::button_gpl_on_svg,
-                          resources::button_gpl_on_svgSize);
+   auto drawableOn = Drawable::createFromImageData(
+                        resources::button_gpl_on_svg,
+                        resources::button_gpl_on_svgSize );
 
-    auto drawableOff = Drawable::createFromImageData(
-                           resources::button_gpl_off_svg,
-                           resources::button_gpl_off_svgSize);
+   auto drawableOff = Drawable::createFromImageData(
+                         resources::button_gpl_off_svg,
+                         resources::button_gpl_off_svgSize );
 
-    // set license button images
-    buttonLicense_.setImages(drawableOff.get(),
+   // set license button images
+   buttonLicense_.setImages( drawableOff.get(),
                              drawableOn.get(),
                              drawableOn.get(),
                              nullptr,
                              drawableOn.get(),
                              drawableOn.get(),
                              drawableOff.get(),
-                             nullptr);
+                             nullptr );
 
-    buttonLicense_.setBounds(0, 0, drawableOn->getWidth() + 1, drawableOn->getHeight() + 1);
+   buttonLicense_.setBounds( 0, 0, drawableOn->getWidth() + 1, drawableOn->getHeight() + 1 );
 
-    // initialise "close" button
-    buttonClose_.setButtonText("Close");
-    addAndMakeVisible(buttonClose_);
-    buttonClose_.addListener(this);
+   // initialise "close" button
+   buttonClose_.setButtonText( "Close" );
+   addAndMakeVisible( buttonClose_ );
+   buttonClose_.addListener( this );
 
-    // style and place the dialog window's components
-    applySkin();
+   // style and place the dialog window's components
+   applySkin();
 }
 
 
@@ -162,40 +162,40 @@ void WindowAboutContent::initialise(
 ///
 void WindowAboutContent::applySkin()
 {
-    // style text editor component
-    textEditor_.setColour(
-        TextEditor::backgroundColourId,
-        Colours::lightgrey);
+   // style text editor component
+   textEditor_.setColour(
+      TextEditor::backgroundColourId,
+      Colours::lightgrey );
 
-    textEditor_.applyColourToAllText(
-        Colours::black);
+   textEditor_.applyColourToAllText(
+      Colours::black );
 
-    textEditor_.setColour(
-        TextEditor::highlightColourId,
-        Colours::yellow.withAlpha(0.75f));
+   textEditor_.setColour(
+      TextEditor::highlightColourId,
+      Colours::yellow.withAlpha( 0.75f ) );
 
-    textEditor_.setColour(
-        TextEditor::highlightedTextColourId,
-        Colours::black);
-
-
-    // style "close" button
-    buttonClose_.setColour(
-        TextButton::buttonColourId,
-        Colours::yellow);
-
-    buttonClose_.setColour(
-        TextButton::textColourOffId,
-        Colours::black);
+   textEditor_.setColour(
+      TextEditor::highlightedTextColourId,
+      Colours::black );
 
 
-    // place components
-    int width = getWidth();
-    int height = getHeight();
+   // style "close" button
+   buttonClose_.setColour(
+      TextButton::buttonColourId,
+      Colours::yellow );
 
-    textEditor_.setBounds(0, 0, width, height - 47);
-    buttonLicense_.setTopLeftPosition(8, height - 39);
-    buttonClose_.setBounds(width - 70, height - 34, 60, 20);
+   buttonClose_.setColour(
+      TextButton::textColourOffId,
+      Colours::black );
+
+
+   // place components
+   int width = getWidth();
+   int height = getHeight();
+
+   textEditor_.setBounds( 0, 0, width, height - 47 );
+   buttonLicense_.setTopLeftPosition( 8, height - 39 );
+   buttonClose_.setBounds( width - 70, height - 34, 60, 20 );
 }
 
 
@@ -205,45 +205,42 @@ void WindowAboutContent::applySkin()
 ///        accompanying text
 ///
 void WindowAboutContent::addChapters(
-    const StringPairArray &chapters)
+   const StringPairArray& chapters )
 
 {
-    // set up two fonts, one for headlines and one for regular text
-    Font headlineFont(16.0f, Font::bold);
-    Font regularFont(15.0f, Font::plain);
+   // set up two fonts, one for headlines and one for regular text
+   Font headlineFont( 16.0f, Font::bold );
+   Font regularFont( 15.0f, Font::plain );
 
-    // extract (sorted!) headlines from dictionary
-    StringArray headlines = chapters.getAllKeys();
+   // extract (sorted!) headlines from dictionary
+   StringArray headlines = chapters.getAllKeys();
 
-    // loop over headlines
-    for (int n = 0; n < headlines.size(); ++n)
-    {
-        // get current headline
-        String currentHeadline = headlines[n];
+   // loop over headlines
+   for ( int n = 0; n < headlines.size(); ++n ) {
+      // get current headline
+      String currentHeadline = headlines[n];
 
-        // skip empty chapters
-        if (! chapters[currentHeadline].isEmpty())
-        {
-            // display headline
-            textEditor_.setFont(headlineFont);
-            textEditor_.insertTextAtCaret(currentHeadline + "\n");
+      // skip empty chapters
+      if ( ! chapters[currentHeadline].isEmpty() ) {
+         // display headline
+         textEditor_.setFont( headlineFont );
+         textEditor_.insertTextAtCaret( currentHeadline + "\n" );
 
-            // display accompanying text
-            textEditor_.setFont(regularFont);
-            textEditor_.insertTextAtCaret(chapters[currentHeadline]);
+         // display accompanying text
+         textEditor_.setFont( regularFont );
+         textEditor_.insertTextAtCaret( chapters[currentHeadline] );
 
-            // no newline after last chapter
-            if (n < (headlines.size() - 1))
-            {
-                textEditor_.insertTextAtCaret("\n");
-            }
-        }
-    }
+         // no newline after last chapter
+         if ( n < ( headlines.size() - 1 ) ) {
+            textEditor_.insertTextAtCaret( "\n" );
+         }
+      }
+   }
 
-    // in case the text has become too long to fit into the text
-    // editor component, scroll to the beginning
-    textEditor_.setCaretPosition(0);
-    textEditor_.scrollEditorToPositionCaret(0, 0);
+   // in case the text has become too long to fit into the text
+   // editor component, scroll to the beginning
+   textEditor_.setCaretPosition( 0 );
+   textEditor_.scrollEditorToPositionCaret( 0, 0 );
 }
 
 
@@ -252,28 +249,25 @@ void WindowAboutContent::addChapters(
 /// @param button clicked button
 ///
 void WindowAboutContent::buttonClicked(
-    Button *button)
+   Button* button )
 
 {
-    // user wants to close the window
-    if (button == &buttonClose_)
-    {
-        // get parent dialog window
-        DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();
+   // user wants to close the window
+   if ( button == &buttonClose_ ) {
+      // get parent dialog window
+      DialogWindow* dialogWindow = findParentComponentOfClass<DialogWindow>();
 
-        if (dialogWindow != nullptr)
-        {
-            // close dialog window (exit code 1)
-            dialogWindow->exitModalState(1);
-        }
-    }
-    // user wants to read the license
-    else if (button == &buttonLicense_)
-    {
-        // open license text in default web browser
-        URL url("http://www.gnu.org/licenses/gpl-3.0.html");
-        url.launchInDefaultBrowser();
-    }
+      if ( dialogWindow != nullptr ) {
+         // close dialog window (exit code 1)
+         dialogWindow->exitModalState( 1 );
+      }
+
+      // user wants to read the license
+   } else if ( button == &buttonLicense_ ) {
+      // open license text in default web browser
+      URL url( "http://www.gnu.org/licenses/gpl-3.0.html" );
+      url.launchInDefaultBrowser();
+   }
 }
 
 }

@@ -42,53 +42,52 @@ namespace audio
 ///
 template <typename Type>
 RingBuffer<Type>::RingBuffer(
-    const int numberOfChannels,
-    const int numberOfSamples,
-    const int preDelay,
-    const int chunkSize) :
+   const int numberOfChannels,
+   const int numberOfSamples,
+   const int preDelay,
+   const int chunkSize ) :
 
-    bufferPosition_(numberOfSamples, preDelay),
-    ringBufferMemTestByte_(255)
+   bufferPosition_( numberOfSamples, preDelay ),
+   ringBufferMemTestByte_( 255 )
 {
-    jassert(numberOfChannels > 0);
-    jassert(numberOfSamples > 0);
-    jassert(isPositiveAndNotGreaterThan(chunkSize,
-                                        numberOfSamples));
+   jassert( numberOfChannels > 0 );
+   jassert( numberOfSamples > 0 );
+   jassert( isPositiveAndNotGreaterThan( chunkSize,
+                                         numberOfSamples ) );
 
-    // initialize number of audio channels
-    numberOfChannels_ = numberOfChannels;
+   // initialize number of audio channels
+   numberOfChannels_ = numberOfChannels;
 
-    // get total buffer length (number of samples + pre-delay)
-    int totalLength = bufferPosition_.getTotalBufferLength();
+   // get total buffer length (number of samples + pre-delay)
+   int totalLength = bufferPosition_.getTotalBufferLength();
 
-    // every time chunkSize_ samples have been added, the ring buffer
-    // will call the function processBufferChunk of a callback class
-    // to allow further processing; disable this functionality for now
-    chunkSize_ = chunkSize;
-    this->setCallbackClass(nullptr);
+   // every time chunkSize_ samples have been added, the ring buffer
+   // will call the function processBufferChunk of a callback class
+   // to allow further processing; disable this functionality for now
+   chunkSize_ = chunkSize;
+   this->setCallbackClass( nullptr );
 
-    // allocate memory for samples and pad memory areas to allow the
-    // detection of memory leaks
-    int paddedTotalLength = totalLength + 2;
-    audioData_.calloc(numberOfChannels_ * paddedTotalLength);
+   // allocate memory for samples and pad memory areas to allow the
+   // detection of memory leaks
+   int paddedTotalLength = totalLength + 2;
+   audioData_.calloc( numberOfChannels_ * paddedTotalLength );
 
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        // initialize the memory offsets of each channel
-        int channelOffset = (channel * paddedTotalLength) + 1;
-        channelOffsets_.insert(channel, channelOffset);
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      // initialize the memory offsets of each channel
+      int channelOffset = ( channel * paddedTotalLength ) + 1;
+      channelOffsets_.insert( channel, channelOffset );
 
-        // pad each channel with a "sample" of ringBufferMemTestByte_
-        // to allow detection of memory leaks
-        int channelPadLeft = channelOffset - 1;
-        int channelPadRight = channelOffset + totalLength;
+      // pad each channel with a "sample" of ringBufferMemTestByte_
+      // to allow detection of memory leaks
+      int channelPadLeft = channelOffset - 1;
+      int channelPadRight = channelOffset + totalLength;
 
-        audioData_[channelPadLeft] = ringBufferMemTestByte_;
-        audioData_[channelPadRight] = ringBufferMemTestByte_;
-    }
+      audioData_[channelPadLeft] = ringBufferMemTestByte_;
+      audioData_[channelPadRight] = ringBufferMemTestByte_;
+   }
 
-    // clear the ring buffer
-    this->clear();
+   // clear the ring buffer
+   this->clear();
 }
 
 
@@ -97,41 +96,38 @@ RingBuffer<Type>::RingBuffer(
 template <typename Type>
 void RingBuffer<Type>::clear()
 {
-    // reset current read and write positions of the buffer
-    bufferPosition_.reset();
+   // reset current read and write positions of the buffer
+   bufferPosition_.reset();
 
-    // reset number of samples left until a chunk is full
-    samplesToFilledChunk_ = chunkSize_;
+   // reset number of samples left until a chunk is full
+   samplesToFilledChunk_ = chunkSize_;
 
-    // get total buffer length (number of samples + pre-delay)
-    int totalLength = bufferPosition_.getTotalBufferLength();
+   // get total buffer length (number of samples + pre-delay)
+   int totalLength = bufferPosition_.getTotalBufferLength();
 
-    // reset all samples
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        for (int sample = 0; sample < totalLength; ++sample)
-        {
-            audioData_[channelOffsets_[channel] + sample] = 0;
-        }
-    }
+   // reset all samples
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      for ( int sample = 0; sample < totalLength; ++sample ) {
+         audioData_[channelOffsets_[channel] + sample] = 0;
+      }
+   }
 
 #ifdef DEBUG
 
-    // detect memory leaks
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        int channelPadLeft = channelOffsets_[channel] - 1;
-        int channelPadRight = channelOffsets_[channel] + totalLength;
+   // detect memory leaks
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      int channelPadLeft = channelOffsets_[channel] - 1;
+      int channelPadRight = channelOffsets_[channel] + totalLength;
 
-        jassert(audioData_[channelPadLeft] ==
-                ringBufferMemTestByte_);
-        jassert(audioData_[channelPadLeft + 1] !=
-                ringBufferMemTestByte_);
-        jassert(audioData_[channelPadRight - 1] !=
-                ringBufferMemTestByte_);
-        jassert(audioData_[channelPadRight] ==
-                ringBufferMemTestByte_);
-    }
+      jassert( audioData_[channelPadLeft] ==
+               ringBufferMemTestByte_ );
+      jassert( audioData_[channelPadLeft + 1] !=
+               ringBufferMemTestByte_ );
+      jassert( audioData_[channelPadRight - 1] !=
+               ringBufferMemTestByte_ );
+      jassert( audioData_[channelPadRight] ==
+               ringBufferMemTestByte_ );
+   }
 
 #endif // DEBUG
 }
@@ -144,9 +140,9 @@ void RingBuffer<Type>::clear()
 ///
 template <typename Type>
 void RingBuffer<Type>::setCallbackClass(
-    RingBufferProcessor<Type> *callbackClass)
+   RingBufferProcessor<Type>* callbackClass )
 {
-    callbackClass_ = callbackClass;
+   callbackClass_ = callbackClass;
 }
 
 
@@ -157,7 +153,7 @@ void RingBuffer<Type>::setCallbackClass(
 template <typename Type>
 int RingBuffer<Type>::getNumberOfChannels() const
 {
-    return numberOfChannels_;
+   return numberOfChannels_;
 }
 
 
@@ -168,7 +164,7 @@ int RingBuffer<Type>::getNumberOfChannels() const
 template <typename Type>
 int RingBuffer<Type>::getNumberOfSamples() const
 {
-    return bufferPosition_.getNumberOfSamples();
+   return bufferPosition_.getNumberOfSamples();
 }
 
 
@@ -179,7 +175,7 @@ int RingBuffer<Type>::getNumberOfSamples() const
 template <typename Type>
 int RingBuffer<Type>::getPreDelay() const
 {
-    return bufferPosition_.getPreDelay();
+   return bufferPosition_.getPreDelay();
 }
 
 
@@ -199,147 +195,136 @@ int RingBuffer<Type>::getPreDelay() const
 ///
 template <typename Type>
 void RingBuffer<Type>::importFrom(
-    const AudioBuffer<Type> &source,
-    const int sourceStartSample,
-    const int numberOfSamples,
-    const bool updatePosition)
+   const AudioBuffer<Type>& source,
+   const int sourceStartSample,
+   const int numberOfSamples,
+   const bool updatePosition )
 {
-    jassert(source.getNumChannels() ==
-            numberOfChannels_);
-    jassert(isPositiveAndNotGreaterThan(sourceStartSample + numberOfSamples,
-                                        source.getNumSamples()));
+   jassert( source.getNumChannels() ==
+            numberOfChannels_ );
+   jassert( isPositiveAndNotGreaterThan( sourceStartSample + numberOfSamples,
+                                         source.getNumSamples() ) );
 
-    // number of processed samples
-    int processedSamples = 0;
+   // number of processed samples
+   int processedSamples = 0;
 
-    // number of samples left to process
-    int unprocessedSamples = numberOfSamples;
+   // number of samples left to process
+   int unprocessedSamples = numberOfSamples;
 
-    // keep processing until all input samples have been processed
-    while (unprocessedSamples > 0)
-    {
-        // number of samples to copy in this pass
-        int samplesToCopy;
+   // keep processing until all input samples have been processed
+   while ( unprocessedSamples > 0 ) {
+      // number of samples to copy in this pass
+      int samplesToCopy;
 
-        // positions of two sample blocks for storing samples
-        int startIndex_1, blockSize_1;
-        int startIndex_2, blockSize_2;
+      // positions of two sample blocks for storing samples
+      int startIndex_1, blockSize_1;
+      int startIndex_2, blockSize_2;
 
-        if (updatePosition)
-        {
-            // determine number of samples to copy in this pass
-            samplesToCopy = jmin(unprocessedSamples,
-                                 samplesToFilledChunk_);
+      if ( updatePosition ) {
+         // determine number of samples to copy in this pass
+         samplesToCopy = jmin( unprocessedSamples,
+                               samplesToFilledChunk_ );
 
-            // get positions of sample blocks; the write position will
-            // be updated
-            bufferPosition_.queue(
-                samplesToCopy,
-                startIndex_1, blockSize_1,
-                startIndex_2, blockSize_2);
-        }
-        else
-        {
-            // determine number of samples to copy in this pass
-            samplesToCopy = unprocessedSamples;
+         // get positions of sample blocks; the write position will
+         // be updated
+         bufferPosition_.queue(
+            samplesToCopy,
+            startIndex_1, blockSize_1,
+            startIndex_2, blockSize_2 );
+      } else {
+         // determine number of samples to copy in this pass
+         samplesToCopy = unprocessedSamples;
 
-            // get positions of sample blocks; leave write position
-            // alone
-            bufferPosition_.lookBackFromWritePosition(
-                samplesToCopy,
-                startIndex_1, blockSize_1,
-                startIndex_2, blockSize_2);
-        }
+         // get positions of sample blocks; leave write position
+         // alone
+         bufferPosition_.lookBackFromWritePosition(
+            samplesToCopy,
+            startIndex_1, blockSize_1,
+            startIndex_2, blockSize_2 );
+      }
 
-        for (int channel = 0; channel < numberOfChannels_; ++channel)
-        {
-            // determine position of first sample block
-            int sourceStart = sourceStartSample + processedSamples;
-            int channelOffset = channelOffsets_[channel];
+      for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+         // determine position of first sample block
+         int sourceStart = sourceStartSample + processedSamples;
+         int channelOffset = channelOffsets_[channel];
 
-            // get pointer to destination audio data
-            Type *destAudioData = audioData_.get();
-            jassert(destAudioData != nullptr);
-            destAudioData += channelOffset;
+         // get pointer to destination audio data
+         Type* destAudioData = audioData_.get();
+         jassert( destAudioData != nullptr );
+         destAudioData += channelOffset;
 
-            // get pointer to source audio data
-            const Type *sourceAudioData = source.getReadPointer(channel);
-            jassert(sourceAudioData != nullptr);
+         // get pointer to source audio data
+         const Type* sourceAudioData = source.getReadPointer( channel );
+         jassert( sourceAudioData != nullptr );
 
-            // copy first sample block from external buffer
-            memcpy(destAudioData + startIndex_1,
-                   sourceAudioData + sourceStart,
-                   sizeof(Type) * blockSize_1);
+         // copy first sample block from external buffer
+         memcpy( destAudioData + startIndex_1,
+                 sourceAudioData + sourceStart,
+                 sizeof( Type ) * blockSize_1 );
 
-            // do we need to copy samples to the second block?
-            if (blockSize_2 > 0)
-            {
-                // determine position of second sample block
-                sourceStart += blockSize_1;
+         // do we need to copy samples to the second block?
+         if ( blockSize_2 > 0 ) {
+            // determine position of second sample block
+            sourceStart += blockSize_1;
 
-                // copy second sample block from external buffer
-                memcpy(destAudioData + startIndex_2,
-                       sourceAudioData + sourceStart,
-                       sizeof(Type) * blockSize_2);
+            // copy second sample block from external buffer
+            memcpy( destAudioData + startIndex_2,
+                    sourceAudioData + sourceStart,
+                    sizeof( Type ) * blockSize_2 );
+         }
+      }
+
+      // increase number of processed samples
+      processedSamples += samplesToCopy;
+
+      // decrease number of samples left to process
+      unprocessedSamples -= samplesToCopy;
+
+      // update write position?
+      if ( ! updatePosition ) {
+
+         continue;
+      }
+
+      // decrease number of samples left to fill chunk
+      samplesToFilledChunk_ -= samplesToCopy;
+
+      // chunk is full
+      if ( samplesToFilledChunk_ == 0 ) {
+         // reset of samples left to fill chunk
+         samplesToFilledChunk_ = chunkSize_;
+
+         // run callback (if any)
+         if ( callbackClass_ ) {
+            AudioBuffer<Type> buffer( numberOfChannels_, chunkSize_ );
+
+            copyTo( buffer, 0, chunkSize_ );
+
+            // process buffer chunk
+            bool writeBack = callbackClass_->processBufferChunk( buffer );
+
+            if ( writeBack ) {
+               overwriteFrom( buffer, 0, chunkSize_ );
             }
-        }
-
-        // increase number of processed samples
-        processedSamples += samplesToCopy;
-
-        // decrease number of samples left to process
-        unprocessedSamples -= samplesToCopy;
-
-        // update write position?
-        if (! updatePosition)
-        {
-
-            continue;
-        }
-
-        // decrease number of samples left to fill chunk
-        samplesToFilledChunk_ -= samplesToCopy;
-
-        // chunk is full
-        if (samplesToFilledChunk_ == 0)
-        {
-            // reset of samples left to fill chunk
-            samplesToFilledChunk_ = chunkSize_;
-
-            // run callback (if any)
-            if (callbackClass_)
-            {
-                AudioBuffer<Type> buffer(numberOfChannels_, chunkSize_);
-
-                copyTo(buffer, 0, chunkSize_);
-
-                // process buffer chunk
-                bool writeBack = callbackClass_->processBufferChunk(buffer);
-
-                if (writeBack)
-                {
-                    overwriteFrom(buffer, 0, chunkSize_);
-                }
-            }
-        }
-    }
+         }
+      }
+   }
 
 #ifdef DEBUG
 
-    // get total buffer length (number of samples + pre-delay)
-    int totalLength = bufferPosition_.getTotalBufferLength();
+   // get total buffer length (number of samples + pre-delay)
+   int totalLength = bufferPosition_.getTotalBufferLength();
 
-    // detect memory leaks
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        int channelPadLeft = channelOffsets_[channel] - 1;
-        int channelPadRight = channelOffsets_[channel] + totalLength;
+   // detect memory leaks
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      int channelPadLeft = channelOffsets_[channel] - 1;
+      int channelPadRight = channelOffsets_[channel] + totalLength;
 
-        jassert(audioData_[channelPadLeft] ==
-                ringBufferMemTestByte_);
-        jassert(audioData_[channelPadRight] ==
-                ringBufferMemTestByte_);
-    }
+      jassert( audioData_[channelPadLeft] ==
+               ringBufferMemTestByte_ );
+      jassert( audioData_[channelPadRight] ==
+               ringBufferMemTestByte_ );
+   }
 
 #endif // DEBUG
 }
@@ -359,70 +344,65 @@ void RingBuffer<Type>::importFrom(
 ///
 template <typename Type>
 void RingBuffer<Type>::exportTo(
-    AudioBuffer<Type> &destination,
-    const int destStartSample,
-    const int numberOfSamples,
-    const bool updatePosition)
+   AudioBuffer<Type>& destination,
+   const int destStartSample,
+   const int numberOfSamples,
+   const bool updatePosition )
 {
-    jassert(destination.getNumChannels() ==
-            numberOfChannels_);
-    jassert(isPositiveAndNotGreaterThan(destStartSample + numberOfSamples,
-                                        destination.getNumSamples()));
+   jassert( destination.getNumChannels() ==
+            numberOfChannels_ );
+   jassert( isPositiveAndNotGreaterThan( destStartSample + numberOfSamples,
+                                         destination.getNumSamples() ) );
 
-    // positions of two sample blocks for storing samples
-    int startIndex_1, blockSize_1;
-    int startIndex_2, blockSize_2;
+   // positions of two sample blocks for storing samples
+   int startIndex_1, blockSize_1;
+   int startIndex_2, blockSize_2;
 
-    if (updatePosition)
-    {
-        // get positions of sample blocks; the read position will be
-        // updated
-        bufferPosition_.dequeue(
-            numberOfSamples,
-            startIndex_1, blockSize_1,
-            startIndex_2, blockSize_2);
-    }
-    else
-    {
-        // get positions of sample blocks; leave read position alone
-        bufferPosition_.lookBackFromWritePosition(
-            numberOfSamples,
-            startIndex_1, blockSize_1,
-            startIndex_2, blockSize_2);
-    }
+   if ( updatePosition ) {
+      // get positions of sample blocks; the read position will be
+      // updated
+      bufferPosition_.dequeue(
+         numberOfSamples,
+         startIndex_1, blockSize_1,
+         startIndex_2, blockSize_2 );
+   } else {
+      // get positions of sample blocks; leave read position alone
+      bufferPosition_.lookBackFromWritePosition(
+         numberOfSamples,
+         startIndex_1, blockSize_1,
+         startIndex_2, blockSize_2 );
+   }
 
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        // determine position of first sample block
-        int destStart = destStartSample;
-        int channelOffset = channelOffsets_[channel];
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      // determine position of first sample block
+      int destStart = destStartSample;
+      int channelOffset = channelOffsets_[channel];
 
-        // get pointer to destination audio data
-        Type *destAudioData = destination.getWritePointer(channel);
-        jassert(destAudioData != nullptr);
+      // get pointer to destination audio data
+      Type* destAudioData = destination.getWritePointer( channel );
+      jassert( destAudioData != nullptr );
 
-        // get pointer to source audio data
-        const Type *sourceAudioData = audioData_.get();
-        jassert(sourceAudioData != nullptr);
-        sourceAudioData += channelOffset;
+      // get pointer to source audio data
+      const Type* sourceAudioData = audioData_.get();
+      jassert( sourceAudioData != nullptr );
+      sourceAudioData += channelOffset;
 
-        // copy first sample block to external buffer
-        memcpy(destAudioData + destStart,
-               sourceAudioData + startIndex_1,
-               sizeof(Type) * blockSize_1);
+      // copy first sample block to external buffer
+      memcpy( destAudioData + destStart,
+              sourceAudioData + startIndex_1,
+              sizeof( Type ) * blockSize_1 );
 
-        // do we need to copy samples to the second block?
-        if (blockSize_2 > 0)
-        {
-            // determine position of second sample block
-            destStart += blockSize_1;
+      // do we need to copy samples to the second block?
+      if ( blockSize_2 > 0 ) {
+         // determine position of second sample block
+         destStart += blockSize_1;
 
-            // copy second sample block to external buffer
-            memcpy(destAudioData + destStart,
-                   sourceAudioData + startIndex_2,
-                   sizeof(Type) * blockSize_2);
-        }
-    }
+         // copy second sample block to external buffer
+         memcpy( destAudioData + destStart,
+                 sourceAudioData + startIndex_2,
+                 sizeof( Type ) * blockSize_2 );
+      }
+   }
 }
 
 
@@ -435,10 +415,10 @@ void RingBuffer<Type>::exportTo(
 ///
 template <typename Type>
 void RingBuffer<Type>::removeToNull(
-    const int numberOfSamples)
+   const int numberOfSamples )
 {
-    // simulate read (update read position)
-    bufferPosition_.simulateDequeue(numberOfSamples);
+   // simulate read (update read position)
+   bufferPosition_.simulateDequeue( numberOfSamples );
 }
 
 

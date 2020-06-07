@@ -34,124 +34,124 @@ namespace skin
 class Skin
 {
 public:
-    bool loadFromXml(const String &rootName,
-                     const String &assumedVersionNumber);
+   bool loadFromXml( const String& rootName,
+                     const String& assumedVersionNumber );
 
-    String getDefaultSkin();
-    void setDefaultSkin(const String &defaultSkinName);
+   String getDefaultSkin();
+   void setDefaultSkin( const String& defaultSkinName );
 
-    XmlElement *getSetting(const String &tagName);
+   XmlElement* getSetting( const String& tagName );
 
-    XmlElement *getComponent(const String &tagName);
+   XmlElement* getComponent( const String& tagName );
 
-    bool getBoolean(const XmlElement *xmlComponent,
-                    const String &attributeName,
-                    const bool defaultValue = false);
+   bool getBoolean( const XmlElement* xmlComponent,
+                    const String& attributeName,
+                    const bool defaultValue = false );
 
-    int getInteger(const XmlElement *xmlComponent,
-                   const String &attributeName,
-                   const int defaultValue = 0);
+   int getInteger( const XmlElement* xmlComponent,
+                   const String& attributeName,
+                   const int defaultValue = 0 );
 
-    float getFloat(const XmlElement *xmlComponent,
-                   const String &attributeName,
-                   const float defaultValue = 0.0f);
+   float getFloat( const XmlElement* xmlComponent,
+                   const String& attributeName,
+                   const float defaultValue = 0.0f );
 
-    const String getString(const XmlElement *xmlComponent,
-                           const String &attributeName,
-                           const String &defaultValue = "");
+   const String getString( const XmlElement* xmlComponent,
+                           const String& attributeName,
+                           const String& defaultValue = "" );
 
-    const Colour getColour(const XmlElement *xmlComponent,
+   const Colour getColour( const XmlElement* xmlComponent,
                            const Colour defaultColour = Colours::red,
-                           const String valuePrefix = "");
+                           const String valuePrefix = "" );
 
-    std::unique_ptr<Drawable> loadImage(const String &strFilename);
+   std::unique_ptr<Drawable> loadImage( const String& strFilename );
 
-    void loadImage(const String &strFilename,
-                   Image &image);
+   void loadImage( const String& strFilename,
+                   Image& image );
 
-    void setBackground(DrawableComposite *background,
-                       AudioProcessorEditor *editor);
+   void setBackground( DrawableComposite* background,
+                       AudioProcessorEditor* editor );
 
-    void printPosition(const String &header,
-                       Component *component);
+   void printPosition( const String& header,
+                       Component* component );
 
-    void printSize(const String &header,
-                   Component *component);
+   void printSize( const String& header,
+                   Component* component );
 
-    void printBounds(const String &header,
-                     Component *component);
+   void printBounds( const String& header,
+                     Component* component );
 
-    Point<float> getPositionFloat(const XmlElement *xmlComponent,
+   Point<float> getPositionFloat( const XmlElement* xmlComponent,
                                   const float componentHeight,
-                                  bool useRelativePosition);
+                                  bool useRelativePosition );
 
-    Point<int> getPositionInteger(const XmlElement *xmlComponent,
+   Point<int> getPositionInteger( const XmlElement* xmlComponent,
                                   const int componentHeight,
-                                  bool useRelativePosition);
+                                  bool useRelativePosition );
 
-    Rectangle<float> getBoundsFloat(const XmlElement *xmlComponent,
+   Rectangle<float> getBoundsFloat( const XmlElement* xmlComponent,
                                     float width,
                                     float height,
-                                    bool useRelativePosition);
+                                    bool useRelativePosition );
 
-    Rectangle<int> getBoundsInteger(const XmlElement *xmlComponent,
+   Rectangle<int> getBoundsInteger( const XmlElement* xmlComponent,
                                     int width,
                                     int height,
-                                    bool useRelativePosition);
+                                    bool useRelativePosition );
 
-    void placeComponent(const XmlElement *xmlComponent,
-                        Component *component);
+   void placeComponent( const XmlElement* xmlComponent,
+                        Component* component );
 
-    void placeMeterBar(const String &tagName,
-                       widgets::MeterBar *meterBar);
+   void placeMeterBar( const String& tagName,
+                       widgets::MeterBar* meterBar );
 
-    void placeAndSkinButton(const String &tagName,
-                            DrawableButton *button);
+   void placeAndSkinButton( const String& tagName,
+                            DrawableButton* button );
 
-    void placeAndSkinSlider(const String &tagName,
-                            widgets::FrutSlider *slider);
+   void placeAndSkinSlider( const String& tagName,
+                            widgets::FrutSlider* slider );
 
-    void placeAndSkinNeedleMeter(const String &tagName,
-                                 widgets::NeedleMeter *meter);
+   void placeAndSkinNeedleMeter( const String& tagName,
+                                 widgets::NeedleMeter* meter );
 
-    void placeAndSkinLabel(const String &tagName,
-                           DrawableComposite *label);
+   void placeAndSkinLabel( const String& tagName,
+                           DrawableComposite* label );
 
-    void placeAndSkinSignalLed(const String &tagName,
-                               widgets::SignalLed *label);
+   void placeAndSkinSignalLed( const String& tagName,
+                               widgets::SignalLed* label );
 
-    void placeAndSkinStateLabel(const String &tagName,
-                                widgets::StateLabel *label);
+   void placeAndSkinStateLabel( const String& tagName,
+                                widgets::StateLabel* label );
 
-    virtual File getSkinDirectory() = 0;
-    virtual File getSettingsFile() = 0;
+   virtual File getSkinDirectory() = 0;
+   virtual File getSettingsFile() = 0;
 
 
 protected:
-    std::unique_ptr<XmlElement> document_;
+   std::unique_ptr<XmlElement> document_;
 
-    std::unique_ptr<Drawable> createBogusImage(const String &warningText,
-            int width,
-            int height);
+   std::unique_ptr<Drawable> createBogusImage( const String& warningText,
+                                               int width,
+                                               int height );
 
-    XmlElement *settingsGroup_;
-    XmlElement *skinGroup_;
-    XmlElement *skinFallback_1_;
-    XmlElement *skinFallback_2_;
+   XmlElement* settingsGroup_;
+   XmlElement* skinGroup_;
+   XmlElement* skinFallback_1_;
+   XmlElement* skinFallback_2_;
 
-    File resourcePath_;
+   File resourcePath_;
 
-    String currentBackgroundName_;
-    String currentGroupName_;
-    String currentFallbackName_;
+   String currentBackgroundName_;
+   String currentGroupName_;
+   String currentFallbackName_;
 
-    bool originOfYIsBottom_;
+   bool originOfYIsBottom_;
 
-    int backgroundWidth_;
-    int backgroundHeight_;
+   int backgroundWidth_;
+   int backgroundHeight_;
 
 private:
-    JUCE_LEAK_DETECTOR(Skin);
+   JUCE_LEAK_DETECTOR( Skin );
 };
 
 }

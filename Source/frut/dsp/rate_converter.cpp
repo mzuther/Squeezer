@@ -31,20 +31,20 @@ namespace dsp
 {
 
 RateConverter::RateConverter(
-    const File resourceDirectory,
-    const int numberOfChannels,
-    const int originalFftBufferSize,
-    const int upsamplingFactor) :
+   const File resourceDirectory,
+   const int numberOfChannels,
+   const int originalFftBufferSize,
+   const int upsamplingFactor ) :
 
-    // FIXME: improve efficiency of rate conversion
-    frut::dsp::FIRFilterBox(
-        resourceDirectory, numberOfChannels, upsamplingFactor * originalFftBufferSize),
-    upsamplingFactor_(upsamplingFactor),
-    originalFftBufferSize_(originalFftBufferSize),
-    sampleBufferOriginal_(numberOfChannels_, originalFftBufferSize_)
+   // FIXME: improve efficiency of rate conversion
+   frut::dsp::FIRFilterBox(
+      resourceDirectory, numberOfChannels, upsamplingFactor * originalFftBufferSize ),
+   upsamplingFactor_( upsamplingFactor ),
+   originalFftBufferSize_( originalFftBufferSize ),
+   sampleBufferOriginal_( numberOfChannels_, originalFftBufferSize_ )
 
 {
-    calculateFilterKernel();
+   calculateFilterKernel();
 }
 
 
@@ -55,54 +55,51 @@ RateConverter::~RateConverter()
 
 void RateConverter::reset()
 {
-    FIRFilterBox::reset();
-    sampleBufferOriginal_.clear();
+   FIRFilterBox::reset();
+   sampleBufferOriginal_.clear();
 }
 
 
 void RateConverter::calculateFilterKernel()
 {
-    sampleBufferOriginal_.clear();
-    fftSampleBuffer_.clear();
-    fftOverlapAddSamples_.clear();
+   sampleBufferOriginal_.clear();
+   fftSampleBuffer_.clear();
+   fftOverlapAddSamples_.clear();
 
-    // FIXME: the filter's cutoff frequency might be a little too high
-    //
-    // interpolation filter; removes all frequencies above *original*
-    // Nyquist frequency from resampled audio; the approximated filter
-    // transition is 22 Hz for a final buffer size of 8192 samples
-    // (8 * 1024) and an initial sampling rate of 44100 Hz
-    double relativeCutoffFrequency = 0.5 / upsamplingFactor_;
+   // FIXME: the filter's cutoff frequency might be a little too high
+   //
+   // interpolation filter; removes all frequencies above *original*
+   // Nyquist frequency from resampled audio; the approximated filter
+   // transition is 22 Hz for a final buffer size of 8192 samples
+   // (8 * 1024) and an initial sampling rate of 44100 Hz
+   double relativeCutoffFrequency = 0.5 / upsamplingFactor_;
 
-    calculateKernelWindowedSincLPF(relativeCutoffFrequency);
+   calculateKernelWindowedSincLPF( relativeCutoffFrequency );
 }
 
 
 void RateConverter::upsample()
 {
-    // upsample input sample buffer by clearing it and filling every
-    // "upsamplingFactor_" sample with the original sample values
-    fftSampleBuffer_.clear();
+   // upsample input sample buffer by clearing it and filling every
+   // "upsamplingFactor_" sample with the original sample values
+   fftSampleBuffer_.clear();
 
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        int sampleUpsampled = 0;
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      int sampleUpsampled = 0;
 
-        for (int sample = 0; sample < originalFftBufferSize_; ++sample)
-        {
-            fftSampleBuffer_.copyFrom(
-                channel, sampleUpsampled, sampleBufferOriginal_,
-                channel, sample, 1);
+      for ( int sample = 0; sample < originalFftBufferSize_; ++sample ) {
+         fftSampleBuffer_.copyFrom(
+            channel, sampleUpsampled, sampleBufferOriginal_,
+            channel, sample, 1 );
 
-            sampleUpsampled += upsamplingFactor_;
-        }
-    }
+         sampleUpsampled += upsamplingFactor_;
+      }
+   }
 
-    // filter audio data (overwrites contents of sample buffer)
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        convolveWithKernel(channel, static_cast<float>(upsamplingFactor_));
-    }
+   // filter audio data (overwrites contents of sample buffer)
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      convolveWithKernel( channel, static_cast<float>( upsamplingFactor_ ) );
+   }
 }
 
 }

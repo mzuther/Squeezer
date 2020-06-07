@@ -39,96 +39,96 @@ namespace parameters
 class Juggler
 {
 public:
-    Juggler(const String &settingsID,
+   Juggler( const String& settingsID,
             int completeParameters,
-            int revealedParameters);
+            int revealedParameters );
 
-    // Destructor
-    virtual ~Juggler() {};
+   // Destructor
+   virtual ~Juggler() {};
 
-    Parameter *getPluginParameter(int index);
-    String toString();
+   Parameter* getPluginParameter( int index );
+   String toString();
 
-    void add(Parameter *parameter,
-             int index);
+   void add( Parameter* parameter,
+             int index );
 
-    void addProtected(Parameter *parameter,
-                      int index);
+   void addProtected( Parameter* parameter,
+                      int index );
 
-    void addCombined(parameters::ParCombined *parameter,
+   void addCombined( parameters::ParCombined* parameter,
                      int switchIndex,
-                     int parameterIndex);
+                     int parameterIndex );
 
-    int getNumParameters(bool includeHiddenParameters);
+   int getNumParameters( bool includeHiddenParameters );
 
-    String getName(int index);
-    void setName(int index,
-                 const String &newParameterName);
+   String getName( int index );
+   void setName( int index,
+                 const String& newParameterName );
 
-    float getDefaultFloat(int index);
-    float getDefaultRealFloat(int index);
-    bool getDefaultBoolean(int index);
-    int getDefaultRealInteger(int index);
-    void setDefaultRealFloat(int index,
+   float getDefaultFloat( int index );
+   float getDefaultRealFloat( int index );
+   bool getDefaultBoolean( int index );
+   int getDefaultRealInteger( int index );
+   void setDefaultRealFloat( int index,
                              float newRealValue,
-                             bool updateParameter);
+                             bool updateParameter );
 
-    float getFloat(int index);
-    void setFloat(int index,
-                  float newValue);
+   float getFloat( int index );
+   void setFloat( int index,
+                  float newValue );
 
-    float getRealFloat(int index);
-    void setRealFloat(int index,
-                      float newRealValue);
+   float getRealFloat( int index );
+   void setRealFloat( int index,
+                      float newRealValue );
 
-    int getRealInteger(int index);
-    void setRealInteger(int index,
-                        int newRealValue);
+   int getRealInteger( int index );
+   void setRealInteger( int index,
+                        int newRealValue );
 
-    bool getBoolean(int index);
+   bool getBoolean( int index );
 
-    String getText(int index);
-    void setText(int index, const String &newValue);
+   String getText( int index );
+   void setText( int index, const String& newValue );
 
-    bool hasChanged(int index);
-    void clearChangeFlag(int index);
+   bool hasChanged( int index );
+   void clearChangeFlag( int index );
 
-    virtual XmlElement *handleUpgrades(XmlElement *xmlDocument,
+   virtual XmlElement* handleUpgrades( XmlElement* xmlDocument,
                                        int oldMajorVersion,
-                                       int oldMinorVersion);
+                                       int oldMinorVersion );
 
-    void loadFromXml(XmlElement *xmlDocument);
-    XmlElement storeAsXml();
+   void loadFromXml( XmlElement* xmlDocument );
+   XmlElement storeAsXml();
 
 protected:
 #ifdef DEBUG
-    void assertParameter(int index,
-                         bool wantModification);
+   void assertParameter( int index,
+                         bool wantModification );
 #endif // DEBUG
 
-    int numberOfParameters_;
-    int numberOfRevealedParameters_;
+   int numberOfParameters_;
+   int numberOfRevealedParameters_;
 
-    String jugglerId_;
+   String jugglerId_;
 
-    // This array deletes the contained parameters when the class is
-    // destructed.  It holds the *real* parameter that is passed to
-    // the juggler.  *Real* and *virtual* parameters only differ for
-    // the class *CombinedParameter* which creates *two* virtual
-    // parameters (switch and continuous) instead of one.
-    OwnedArray<Parameter> garbageCollector_;
+   // This array deletes the contained parameters when the class is
+   // destructed.  It holds the *real* parameter that is passed to
+   // the juggler.  *Real* and *virtual* parameters only differ for
+   // the class *CombinedParameter* which creates *two* virtual
+   // parameters (switch and continuous) instead of one.
+   OwnedArray<Parameter> garbageCollector_;
 
-    // This array holds the *virtual* parameters.  See the
-    // documentation of garbageCollector_ for more info.
-    Array<Parameter *> virtualParameters_;
+   // This array holds the *virtual* parameters.  See the
+   // documentation of garbageCollector_ for more info.
+   Array<Parameter*> virtualParameters_;
 
-    // This array a Boolean for every *virtual* parameter.  If the
-    // Boolean is *true*, the parameter may be modified, otherwise it
-    // will be handled as a constant.
-    Array<bool> mayModify_;
+   // This array a Boolean for every *virtual* parameter.  If the
+   // Boolean is *true*, the parameter may be modified, otherwise it
+   // will be handled as a constant.
+   Array<bool> mayModify_;
 
 private:
-    JUCE_LEAK_DETECTOR(Juggler);
+   JUCE_LEAK_DETECTOR( Juggler );
 };
 
 }

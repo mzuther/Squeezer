@@ -32,42 +32,42 @@ namespace dsp
 {
 
 class IirFilterBox :
-    public BiquadFilter
+   public BiquadFilter
 {
 public:
-    IirFilterBox(const int numberOfChannels, const double sampleRate);
+   IirFilterBox( const int numberOfChannels, const double sampleRate );
 
-    double bandwidthToQualityFactor(const double octaveBandwidth);
+   double bandwidthToQualityFactor( const double octaveBandwidth );
 
-    void passFilterFirstOrder(
-        const double cutoffFrequencyInHz,
-        const bool isLowPass);
+   void passFilterFirstOrder(
+      const double cutoffFrequencyInHz,
+      const bool isLowPass );
 
-    void passFilterSecondOrder(
-        const double cutoffFrequencyInHz,
-        const double qualityFactor,
-        const bool isLowPass);
+   void passFilterSecondOrder(
+      const double cutoffFrequencyInHz,
+      const double qualityFactor,
+      const bool isLowPass );
 
-    void shelvingFilterFirstOrder(
-        const double cutoffFrequencyInHz,
-        const double gainInDecibels,
-        const bool isLowShelving);
+   void shelvingFilterFirstOrder(
+      const double cutoffFrequencyInHz,
+      const double gainInDecibels,
+      const bool isLowShelving );
 
-    void peakingFilterVariableQ(
-        const double cutoffFrequencyInHz,
-        const double gainInDecibels,
-        const double qualityFactor);
+   void peakingFilterVariableQ(
+      const double cutoffFrequencyInHz,
+      const double gainInDecibels,
+      const double qualityFactor );
 
-    void peakingFilterConstantQ(
-        const double cutoffFrequencyInHz,
-        const double gainInDecibels,
-        const double qualityFactor);
+   void peakingFilterConstantQ(
+      const double cutoffFrequencyInHz,
+      const double gainInDecibels,
+      const double qualityFactor );
 
 protected:
-    double sampleRate_;
+   double sampleRate_;
 
 private:
-    JUCE_LEAK_DETECTOR(IirFilterBox);
+   JUCE_LEAK_DETECTOR( IirFilterBox );
 };
 
 }

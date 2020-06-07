@@ -32,25 +32,25 @@ namespace widgets
 {
 
 class SliderSwitchLinearBar :
-    public FrutSlider
+   public FrutSlider
 {
 public:
-    SliderSwitchLinearBar(parameters::Juggler &parameters, int nParameterIndex);
+   SliderSwitchLinearBar( parameters::Juggler& parameters, int nParameterIndex );
 
-    void visibilityChanged();
-    void setSliderColour(const Colour &colour);
+   void visibilityChanged();
+   void setSliderColour( const Colour& colour );
 
-    float getRealFloat();
-    bool getBoolean();
-    int getRealInteger();
+   float getRealFloat();
+   bool getBoolean();
+   int getRealInteger();
 
-    double getValueFromText(const String &strText);
-    String getTextFromValue(double dValue);
+   double getValueFromText( const String& strText );
+   String getTextFromValue( double dValue );
 private:
-    JUCE_LEAK_DETECTOR(SliderSwitchLinearBar);
+   JUCE_LEAK_DETECTOR( SliderSwitchLinearBar );
 
-    Colour colourThumb;
-    parameters::ParSwitch *pSwitch;
+   Colour colourThumb;
+   parameters::ParSwitch* pSwitch;
 };
 
 }

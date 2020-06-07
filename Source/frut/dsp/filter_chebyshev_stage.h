@@ -34,38 +34,38 @@ namespace dsp
 class FilterChebyshevStage
 {
 public:
-    FilterChebyshevStage();
+   FilterChebyshevStage();
 
-    void changeParameters(double RelativeCutoffFrequency,
+   void changeParameters( double RelativeCutoffFrequency,
                           bool IsHighPass,
                           double PercentRipple,
                           int NumberOfPoles,
-                          int PolePair);
+                          int PolePair );
 
-    void reset();
-    double filterSample(double InputCurrent);
+   void reset();
+   double filterSample( double InputCurrent );
 
-    String testAlgorithm(double RelativeCutoffFrequency,
+   String testAlgorithm( double RelativeCutoffFrequency,
                          bool IsHighPass,
-                         double PercentRipple);
-    String getCoefficients();
+                         double PercentRipple );
+   String getCoefficients();
 
 private:
-    double RelativeCutoffFrequency_;
-    bool IsHighPass_;
+   double RelativeCutoffFrequency_;
+   bool IsHighPass_;
 
-    double Coeff_A0_;
-    double Coeff_A1_;
-    double Coeff_A2_;
+   double Coeff_A0_;
+   double Coeff_A1_;
+   double Coeff_A2_;
 
-    double Coeff_B1_;
-    double Coeff_B2_;
+   double Coeff_B1_;
+   double Coeff_B2_;
 
-    double InputPrevious_1_;
-    double InputPrevious_2_;
+   double InputPrevious_1_;
+   double InputPrevious_2_;
 
-    double OutputPrevious_1_;
-    double OutputPrevious_2_;
+   double OutputPrevious_1_;
+   double OutputPrevious_2_;
 };
 
 }

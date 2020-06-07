@@ -33,14 +33,14 @@
 class GainStageFET : virtual public GainStage
 {
 public:
-    explicit GainStageFET(int nSampleRate);
+   explicit GainStageFET( int nSampleRate );
 
-    void reset(double dCurrentGainReduction);
-    double processGainReduction(double dGainReductionNew, double dGainReductionIdeal);
+   void reset( double dCurrentGainReduction );
+   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal );
 private:
-    JUCE_LEAK_DETECTOR(GainStageFET);
+   JUCE_LEAK_DETECTOR( GainStageFET );
 
-    double dGainReduction;
+   double dGainReduction;
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_FET_H

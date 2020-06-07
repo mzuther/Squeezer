@@ -39,25 +39,25 @@ namespace parameters
 class ParString : virtual public Parameter
 {
 public:
-    explicit ParString(const String &newValue);
+   explicit ParString( const String& newValue );
 
-    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
-    virtual void setFloat(float newValue) override;
-    virtual void setRealFloat(float newRealValue) override;
+   virtual void setDefaultRealFloat( float newRealValue, bool updateParameter ) override;
+   virtual void setFloat( float newValue ) override;
+   virtual void setRealFloat( float newRealValue ) override;
 
-    virtual const String getText() override;
-    virtual void setText(const String &newValue) override;
+   virtual const String getText() override;
+   virtual void setText( const String& newValue ) override;
 
-    virtual float getFloatFromText(const String &newValue) override;
-    virtual const String getTextFromFloat(float newValue) override;
+   virtual float getFloatFromText( const String& newValue ) override;
+   virtual const String getTextFromFloat( float newValue ) override;
 
-    virtual void loadFromXml(XmlElement *xmlDocument) override;
-    virtual void storeAsXml(XmlElement *xmlDocument) override;
+   virtual void loadFromXml( XmlElement* xmlDocument ) override;
+   virtual void storeAsXml( XmlElement* xmlDocument ) override;
 
 private:
-    JUCE_LEAK_DETECTOR(ParString);
+   JUCE_LEAK_DETECTOR( ParString );
 
-    String textValue;
+   String textValue;
 };
 
 }

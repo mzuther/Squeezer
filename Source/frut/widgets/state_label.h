@@ -42,63 +42,62 @@ namespace widgets
 /// | active | currently dectecting an overload    |
 ///
 class StateLabel :
-    public Component
+   public Component
 {
 public:
 
-    enum State  // public namespace!
-    {
-        /// off, no overload detected yet
-        off = 0,
-        /// on, overload(s) detected in the past
-        on,
-        /// active, currently dectecting an overload
-        active,
+   enum State { // public namespace!
+      /// off, no overload detected yet
+      off = 0,
+      /// on, overload(s) detected in the past
+      on,
+      /// active, currently dectecting an overload
+      active,
 
-        numberOfStates,
-    };
+      numberOfStates,
+   };
 
 
-    StateLabel();
+   StateLabel();
 
-    virtual void resized();
-    void setState(int state,
-                  bool forceUpdate = false);
+   virtual void resized();
+   void setState( int state,
+                  bool forceUpdate = false );
 
-    void setLabelText(const String &text);
+   void setLabelText( const String& text );
 
-    void setImages(const Image &imageOff,
-                   const Image &imageOn,
-                   const Image &imageActive,
-                   const String &textColourOff,
-                   const String &textColourOn,
-                   const String &textColourActive,
+   void setImages( const Image& imageOff,
+                   const Image& imageOn,
+                   const Image& imageActive,
+                   const String& textColourOff,
+                   const String& textColourOn,
+                   const String& textColourActive,
                    int horizontalTextSpacing,
                    int verticalTextSpacing,
-                   float fontSize);
+                   float fontSize );
 
 protected:
-    void updateState();
-    void setLabelColour(const Colour &textColour);
+   void updateState();
+   void setLabelColour( const Colour& textColour );
 
-    int state_;
-    int horizontalTextSpacing_;
-    int verticalTextSpacing_;
+   int state_;
+   int horizontalTextSpacing_;
+   int verticalTextSpacing_;
 
-    Label textLabel_;
-    ImageComponent imageComponent_;
+   Label textLabel_;
+   ImageComponent imageComponent_;
 
-    Image imageOff_;
-    Image imageOn_;
-    Image imageActive_;
+   Image imageOff_;
+   Image imageOn_;
+   Image imageActive_;
 
-    Colour attenuatedColour_;
-    Colour textColourOff_;
-    Colour textColourOn_;
-    Colour textColourActive_;
+   Colour attenuatedColour_;
+   Colour textColourOff_;
+   Colour textColourOn_;
+   Colour textColourActive_;
 
 private:
-    JUCE_LEAK_DETECTOR(StateLabel);
+   JUCE_LEAK_DETECTOR( StateLabel );
 };
 
 }

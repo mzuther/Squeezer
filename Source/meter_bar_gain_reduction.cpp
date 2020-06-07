@@ -26,67 +26,63 @@
 #include "meter_bar_gain_reduction.h"
 
 
-void MeterBarGainReduction::create(frut::widgets::Orientation orientation,
-                                   bool discreteMeter,
-                                   int mainSegmentHeight,
-                                   const Colour &segmentColour)
+void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
+                                    bool discreteMeter,
+                                    int mainSegmentHeight,
+                                    const Colour& segmentColour )
 
 {
-    frut::widgets::MeterBar::create();
+   frut::widgets::MeterBar::create();
 
-    int trueLowerThreshold = 0;
-    int levelRange = 10;
-    int numberOfBars = 15;
+   int trueLowerThreshold = 0;
+   int levelRange = 10;
+   int numberOfBars = 15;
 
-    for (int n = 0; n < numberOfBars; ++n)
-    {
-        bool hasHighestLevel = (n == (numberOfBars - 1)) ? true : false;
+   for ( int n = 0; n < numberOfBars; ++n ) {
+      bool hasHighestLevel = ( n == ( numberOfBars - 1 ) ) ? true : false;
 
-        if (discreteMeter)
-        {
-            // meter segment outlines overlap
-            int spacingBefore = -1;
-            int segmentHeight = mainSegmentHeight + 1;
+      if ( discreteMeter ) {
+         // meter segment outlines overlap
+         int spacingBefore = -1;
+         int segmentHeight = mainSegmentHeight + 1;
 
-            addDiscreteSegment(
-                trueLowerThreshold * 0.1f,
-                levelRange * 0.1f,
-                0.0f,
-                1.0f,
-                hasHighestLevel,
-                segmentHeight,
-                spacingBefore,
-                segmentColour,
-                segmentColour.withMultipliedBrightness(0.7f));
-        }
-        else
-        {
-            // meter segment outlines must not overlap
-            int spacingBefore = 0;
-            int segmentHeight = mainSegmentHeight;
+         addDiscreteSegment(
+            trueLowerThreshold * 0.1f,
+            levelRange * 0.1f,
+            0.0f,
+            1.0f,
+            hasHighestLevel,
+            segmentHeight,
+            spacingBefore,
+            segmentColour,
+            segmentColour.withMultipliedBrightness( 0.7f ) );
+      } else {
+         // meter segment outlines must not overlap
+         int spacingBefore = 0;
+         int segmentHeight = mainSegmentHeight;
 
-            addContinuousSegment(
-                trueLowerThreshold * 0.1f,
-                levelRange * 0.1f,
-                (levelRange * 0.1f) / segmentHeight,
-                hasHighestLevel,
-                segmentHeight,
-                spacingBefore,
-                segmentColour,
-                segmentColour.withMultipliedBrightness(0.7f));
-        }
+         addContinuousSegment(
+            trueLowerThreshold * 0.1f,
+            levelRange * 0.1f,
+            ( levelRange * 0.1f ) / segmentHeight,
+            hasHighestLevel,
+            segmentHeight,
+            spacingBefore,
+            segmentColour,
+            segmentColour.withMultipliedBrightness( 0.7f ) );
+      }
 
-        trueLowerThreshold += levelRange;
-    }
+      trueLowerThreshold += levelRange;
+   }
 
-    // set orientation here to save some processing
-    setOrientation(orientation);
-    setUpwardExpansion(false);
+   // set orientation here to save some processing
+   setOrientation( orientation );
+   setUpwardExpansion( false );
 }
 
 
-void MeterBarGainReduction::setUpwardExpansion(bool upwardExpansion)
+void MeterBarGainReduction::setUpwardExpansion( bool upwardExpansion )
 {
-    upwardExpansion_ = upwardExpansion;
-    invertMeter(upwardExpansion_);
+   upwardExpansion_ = upwardExpansion;
+   invertMeter( upwardExpansion_ );
 }

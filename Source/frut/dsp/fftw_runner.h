@@ -36,51 +36,51 @@ namespace dsp
 class FftwRunner
 {
 public:
-    FftwRunner(const File resourceDirectory,
+   FftwRunner( const File resourceDirectory,
                const int numberOfChannels,
-               const int fftBufferSize);
+               const int fftBufferSize );
 
-    virtual ~FftwRunner();
+   virtual ~FftwRunner();
 
-    virtual void reset();
-    void convolveWithKernel(const int channel,
-                            const float oversamplingRate = 1.0f);
+   virtual void reset();
+   void convolveWithKernel( const int channel,
+                            const float oversamplingRate = 1.0f );
 
 protected:
-    DynamicLibrary dynamicLibraryFFTW;
+   DynamicLibrary dynamicLibraryFFTW;
 
-    float *filterKernel_TD_;
-    fftwf_complex *filterKernel_FD_;
-    fftwf_plan filterKernelPlan_DFT_;
+   float* filterKernel_TD_;
+   fftwf_complex* filterKernel_FD_;
+   fftwf_plan filterKernelPlan_DFT_;
 
-    float *audioSamples_TD_;
-    fftwf_complex *audioSamples_FD_;
-    fftwf_plan audioSamplesPlan_DFT_;
-    fftwf_plan audioSamplesPlan_IDFT_;
+   float* audioSamples_TD_;
+   fftwf_complex* audioSamples_FD_;
+   fftwf_plan audioSamplesPlan_DFT_;
+   fftwf_plan audioSamplesPlan_IDFT_;
 
-    int numberOfChannels_;
-    int fftBufferSize_;
+   int numberOfChannels_;
+   int fftBufferSize_;
 
-    int fftSize_;
-    int halfFftSizePlusOne_;
+   int fftSize_;
+   int halfFftSizePlusOne_;
 
-    AudioBuffer<float> fftSampleBuffer_;
-    AudioBuffer<float> fftOverlapAddSamples_;
+   AudioBuffer<float> fftSampleBuffer_;
+   AudioBuffer<float> fftOverlapAddSamples_;
 
 #if (defined (_WIN32) || defined (_WIN64))
-    float *(*fftwf_alloc_real)(size_t);
-    fftwf_complex *(*fftwf_alloc_complex)(size_t);
-    void (*fftwf_free)(void *);
+   float* ( *fftwf_alloc_real )( size_t );
+   fftwf_complex* ( *fftwf_alloc_complex )( size_t );
+   void ( *fftwf_free )( void* );
 
-    fftwf_plan(*fftwf_plan_dft_r2c_1d)(int, float *, fftwf_complex *, unsigned);
-    fftwf_plan(*fftwf_plan_dft_c2r_1d)(int, fftwf_complex *, float *, unsigned);
-    void (*fftwf_destroy_plan)(fftwf_plan);
+   fftwf_plan( *fftwf_plan_dft_r2c_1d )( int, float*, fftwf_complex*, unsigned );
+   fftwf_plan( *fftwf_plan_dft_c2r_1d )( int, fftwf_complex*, float*, unsigned );
+   void ( *fftwf_destroy_plan )( fftwf_plan );
 
-    void (*fftwf_execute)(const fftwf_plan);
+   void ( *fftwf_execute )( const fftwf_plan );
 #endif // (defined (_WIN32) || defined (_WIN64))
 
 private:
-    JUCE_LEAK_DETECTOR(FftwRunner);
+   JUCE_LEAK_DETECTOR( FftwRunner );
 };
 
 }

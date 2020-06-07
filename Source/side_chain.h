@@ -37,92 +37,91 @@
 class SideChain
 {
 public:
-    enum Parameters  // public namespace!
-    {
-        CurveLogLin = 0,
-        CurveLogSmoothDecoupled,
-        CurveLogSmoothBranching,
-        NumberOfCurves,
-    };
+   enum Parameters { // public namespace!
+      CurveLogLin = 0,
+      CurveLogSmoothDecoupled,
+      CurveLogSmoothBranching,
+      NumberOfCurves,
+   };
 
-    explicit SideChain(int nSampleRate);
+   explicit SideChain( int nSampleRate );
 
-    void reset();
+   void reset();
 
-    double getRmsWindowSize();
-    void setRmsWindowSize(double dRmsWindowSizeMilliSecondsNew);
+   double getRmsWindowSize();
+   void setRmsWindowSize( double dRmsWindowSizeMilliSecondsNew );
 
-    int getCurve();
-    void setCurve(int nCurveTypeNew);
+   int getCurve();
+   void setCurve( int nCurveTypeNew );
 
-    int getGainStage();
-    void setGainStage(int nGainStageTypeNew);
+   int getGainStage();
+   void setGainStage( int nGainStageTypeNew );
 
-    double getThreshold();
-    void setThreshold(double dThresholdNew);
+   double getThreshold();
+   void setThreshold( double dThresholdNew );
 
-    double getRatio();
-    void setRatio(double dRatioNew);
+   double getRatio();
+   void setRatio( double dRatioNew );
 
-    double getKneeWidth();
-    void setKneeWidth(double dKneeWidthNew);
+   double getKneeWidth();
+   void setKneeWidth( double dKneeWidthNew );
 
-    double getAttackRate();
-    void setAttackRate(double dAttackRateNew);
+   double getAttackRate();
+   void setAttackRate( double dAttackRateNew );
 
-    int getReleaseRate();
-    void setReleaseRate(int nReleaseRateNew);
+   int getReleaseRate();
+   void setReleaseRate( int nReleaseRateNew );
 
-    double getGainReduction(bool bAutoMakeupGain);
+   double getGainReduction( bool bAutoMakeupGain );
 
-    void processSample(double dSampleValue);
+   void processSample( double dSampleValue );
 
-    static double level2decibel(double dLevel);
-    static double decibel2level(double dDecibels);
+   static double level2decibel( double dLevel );
+   static double decibel2level( double dDecibels );
 private:
-    JUCE_LEAK_DETECTOR(SideChain);
+   JUCE_LEAK_DETECTOR( SideChain );
 
 #if DEBUG_RELEASE_RATE
-    double dTimePassed;
+   double dTimePassed;
 
-    double dDebugFinalValue90;
-    double dDebugTimeInReleasePhase;
+   double dDebugFinalValue90;
+   double dDebugTimeInReleasePhase;
 #endif // DEBUG_RELEASE_RATE
 
-    GainStageFET gainStageFET;
-    GainStageOptical gainStageOptical;
+   GainStageFET gainStageFET;
+   GainStageOptical gainStageOptical;
 
-    double dSampleRate;
-    double dAutoGainReferenceLevel;
-    double dGainReduction;
-    double dGainReductionIdeal;
-    double dGainReductionIntermediate;
-    double dGainCompensation;
+   double dSampleRate;
+   double dAutoGainReferenceLevel;
+   double dGainReduction;
+   double dGainReductionIdeal;
+   double dGainReductionIntermediate;
+   double dGainCompensation;
 
-    double dRmsWindowCoefficient;
-    double dDetectorOutputLevelSquared;
+   double dRmsWindowCoefficient;
+   double dDetectorOutputLevelSquared;
 
-    double dRmsWindowSizeMilliSeconds;
-    int nCurveType;
-    int nGainStageType;
+   double dRmsWindowSizeMilliSeconds;
+   int nCurveType;
+   int nGainStageType;
 
-    double dThreshold;
-    double dRatioInternal;
-    double dKneeWidth;
-    double dKneeWidthHalf;
-    double dKneeWidthDouble;
+   double dThreshold;
+   double dRatioInternal;
+   double dKneeWidth;
+   double dKneeWidthHalf;
+   double dKneeWidthDouble;
 
-    double dAttackRate;
-    double dAttackCoefficient;
+   double dAttackRate;
+   double dAttackCoefficient;
 
-    int nReleaseRate;
-    double dReleaseCoefficient;
+   int nReleaseRate;
+   double dReleaseCoefficient;
 
-    double queryGainComputer(double dInputLevel);
-    double applyRmsFilter(double dDetectorInputLevel);
-    void applyCurveLogLin(double dGainReductionNew);
-    void applyCurveLogSmoothDecoupled(double dGainReductionNew);
-    void applyCurveLogSmoothBranching(double dGainReductionNew);
+   double queryGainComputer( double dInputLevel );
+   double applyRmsFilter( double dDetectorInputLevel );
+   void applyCurveLogLin( double dGainReductionNew );
+   void applyCurveLogSmoothDecoupled( double dGainReductionNew );
+   void applyCurveLogSmoothBranching( double dGainReductionNew );
 };
 
 #endif  // SQUEEZER_SIDE_CHAIN_H

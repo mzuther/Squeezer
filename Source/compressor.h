@@ -33,162 +33,161 @@
 class Compressor
 {
 public:
-    enum Parameters  // public namespace!
-    {
-        DesignFeedForward = 0,
-        DesignFeedBack,
-        NumberOfDesigns,
+   enum Parameters { // public namespace!
+      DesignFeedForward = 0,
+      DesignFeedBack,
+      NumberOfDesigns,
 
-        KneeHard = 0,
-        KneeMedium,
-        KneeSoft,
-        NumberOfKneeSettings,
-    };
+      KneeHard = 0,
+      KneeMedium,
+      KneeSoft,
+      NumberOfKneeSettings,
+   };
 
-    Compressor(int channels,
-               int sample_rate);
+   Compressor( int channels,
+               int sample_rate );
 
-    void resetMeters();
+   void resetMeters();
 
-    bool getBypass();
-    void setBypass(bool CompressorIsBypassedNew);
+   bool getBypass();
+   void setBypass( bool CompressorIsBypassedNew );
 
-    double getRmsWindowSize();
-    void setRmsWindowSize(double RmsWindowSizeMilliSecondsNew);
+   double getRmsWindowSize();
+   void setRmsWindowSize( double RmsWindowSizeMilliSecondsNew );
 
-    int getDesign();
-    void setDesign(int CompressorDesignNew);
+   int getDesign();
+   void setDesign( int CompressorDesignNew );
 
-    double getInputTrim();
-    void setInputTrim(double InputTrimNew);
+   double getInputTrim();
+   void setInputTrim( double InputTrimNew );
 
-    double getThreshold();
-    void setThreshold(double ThresholdNew);
+   double getThreshold();
+   void setThreshold( double ThresholdNew );
 
-    double getRatio();
-    void setRatio(double RatioNew);
+   double getRatio();
+   void setRatio( double RatioNew );
 
-    double getKneeWidth();
-    void setKneeWidth(double KneeWidthNew);
+   double getKneeWidth();
+   void setKneeWidth( double KneeWidthNew );
 
-    double getAttackRate();
-    void setAttackRate(double AttackRateNew);
+   double getAttackRate();
+   void setAttackRate( double AttackRateNew );
 
-    int getReleaseRate();
-    void setReleaseRate(int ReleaseRateNew);
+   int getReleaseRate();
+   void setReleaseRate( int ReleaseRateNew );
 
-    int getCurve();
-    void setCurve(int CurveTypeNew);
+   int getCurve();
+   void setCurve( int CurveTypeNew );
 
-    int getGainStage();
-    void setGainStage(int GainStageTypeNew);
+   int getGainStage();
+   void setGainStage( int GainStageTypeNew );
 
-    int getStereoLink();
-    void setStereoLink(int StereoLinkPercentageNew);
+   int getStereoLink();
+   void setStereoLink( int StereoLinkPercentageNew );
 
-    bool getAutoMakeupGain();
-    void setAutoMakeupGain(bool UseAutoMakeupGainNew);
+   bool getAutoMakeupGain();
+   void setAutoMakeupGain( bool UseAutoMakeupGainNew );
 
-    double getMakeupGain();
-    void setMakeupGain(double MakeupGainNew);
+   double getMakeupGain();
+   void setMakeupGain( double MakeupGainNew );
 
-    int getWetMix();
-    void setWetMix(int WetMixPercentageNew);
+   int getWetMix();
+   void setWetMix( int WetMixPercentageNew );
 
-    bool getSidechainInput();
-    void setSidechainInput(bool EnableExternalInputNew);
+   bool getSidechainInput();
+   void setSidechainInput( bool EnableExternalInputNew );
 
-    int getSidechainHPFCutoff();
-    void setSidechainHPFCutoff(int SidechainHPFCutoff);
+   int getSidechainHPFCutoff();
+   void setSidechainHPFCutoff( int SidechainHPFCutoff );
 
-    int getSidechainLPFCutoff();
-    void setSidechainLPFCutoff(int SidechainLPFCutoff);
+   int getSidechainLPFCutoff();
+   void setSidechainLPFCutoff( int SidechainLPFCutoff );
 
-    bool getSidechainListen();
-    void setSidechainListen(bool ListenToSidechainNew);
+   bool getSidechainListen();
+   void setSidechainListen( bool ListenToSidechainNew );
 
-    double getGainReduction(int CurrentChannel);
+   double getGainReduction( int CurrentChannel );
 
-    double getPeakMeterInputLevel(int CurrentChannel);
-    double getPeakMeterOutputLevel(int CurrentChannel);
+   double getPeakMeterInputLevel( int CurrentChannel );
+   double getPeakMeterOutputLevel( int CurrentChannel );
 
-    double getAverageMeterInputLevel(int CurrentChannel);
-    double getAverageMeterOutputLevel(int CurrentChannel);
+   double getAverageMeterInputLevel( int CurrentChannel );
+   double getAverageMeterOutputLevel( int CurrentChannel );
 
-    void process(AudioBuffer<double> &MainBuffer,
-                 AudioBuffer<double> &SideChainBuffer);
+   void process( AudioBuffer<double>& MainBuffer,
+                 AudioBuffer<double>& SideChainBuffer );
 
 private:
-    JUCE_LEAK_DETECTOR(Compressor);
+   JUCE_LEAK_DETECTOR( Compressor );
 
-    const double BufferLength;
+   const double BufferLength;
 
-    void updateMeterBallistics();
+   void updateMeterBallistics();
 
-    void peakMeterBallistics(double PeakLevelCurrent,
-                             double &PeakLevelOld);
+   void peakMeterBallistics( double PeakLevelCurrent,
+                             double& PeakLevelOld );
 
-    void averageMeterBallistics(double AverageLevelCurrent,
-                                double &AverageLevelOld);
+   void averageMeterBallistics( double AverageLevelCurrent,
+                                double& AverageLevelOld );
 
-    void logMeterBallistics(double MeterInertia,
+   void logMeterBallistics( double MeterInertia,
                             double TimePassed,
                             double Level,
-                            double &Readout);
+                            double& Readout );
 
-    int NumberOfChannels;
-    int SampleRate;
-    int MeterBufferPosition;
-    int MeterBufferSize;
+   int NumberOfChannels;
+   int SampleRate;
+   int MeterBufferPosition;
+   int MeterBufferSize;
 
-    AudioBuffer<double> MeterInputBuffer;
-    AudioBuffer<double> MeterOutputBuffer;
+   AudioBuffer<double> MeterInputBuffer;
+   AudioBuffer<double> MeterOutputBuffer;
 
-    OwnedArray<SideChain> SideChainProcessor;
-    OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_HPF;
-    OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_LPF;
+   OwnedArray<SideChain> SideChainProcessor;
+   OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_HPF;
+   OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_LPF;
 
-    Array<double> InputSamples;
-    Array<double> SidechainSamples;
-    Array<double> OutputSamples;
+   Array<double> InputSamples;
+   Array<double> SidechainSamples;
+   Array<double> OutputSamples;
 
-    Array<double> PeakMeterInputLevels;
-    Array<double> PeakMeterOutputLevels;
+   Array<double> PeakMeterInputLevels;
+   Array<double> PeakMeterOutputLevels;
 
-    Array<double> AverageMeterInputLevels;
-    Array<double> AverageMeterOutputLevels;
+   Array<double> AverageMeterInputLevels;
+   Array<double> AverageMeterOutputLevels;
 
-    Array<double> GainReduction;
-    Array<double> GainReductionWithMakeup;
+   Array<double> GainReduction;
+   Array<double> GainReductionWithMakeup;
 
-    int CompressorDesign;
-    double ReleaseCoefLinear;
+   int CompressorDesign;
+   double ReleaseCoefLinear;
 
-    bool CompressorIsBypassed;
-    bool CompressorIsBypassedCombined;
-    bool DesignIsFeedForward;
-    bool UseUpwardExpansion;
+   bool CompressorIsBypassed;
+   bool CompressorIsBypassedCombined;
+   bool DesignIsFeedForward;
+   bool UseUpwardExpansion;
 
-    int StereoLinkPercentage;
-    double StereoLinkWeight;
-    double StereoLinkWeightOther;
+   int StereoLinkPercentage;
+   double StereoLinkWeight;
+   double StereoLinkWeightOther;
 
-    double InputTrim;
-    bool UseAutoMakeupGain;
-    double MakeupGain;
-    double MakeupGainDecibel;
+   double InputTrim;
+   bool UseAutoMakeupGain;
+   double MakeupGain;
+   double MakeupGainDecibel;
 
-    int WetMixPercentage;
-    double WetMix;
-    double DryMix;
+   int WetMixPercentage;
+   double WetMix;
+   double DryMix;
 
-    bool EnableExternalInput;
-    bool IsHPFEnabled;
-    bool IsLPFEnabled;
-    bool ListenToSidechain;
+   bool EnableExternalInput;
+   bool IsHPFEnabled;
+   bool IsLPFEnabled;
+   bool ListenToSidechain;
 
-    int SidechainHPFCutoff;
-    int SidechainLPFCutoff;
+   int SidechainHPFCutoff;
+   int SidechainLPFCutoff;
 };
 
 #endif  // SQUEEZER_COMPRESSOR_H

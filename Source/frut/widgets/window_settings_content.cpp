@@ -55,40 +55,40 @@ WindowSettingsContent::WindowSettingsContent()
 ///
 /// @return created dialog window
 ///
-DialogWindow *WindowSettingsContent::createDialogWindow(
-    AudioProcessorEditor *pluginEditor,
-    int componentWidth,
-    int componentHeight,
-    const String &pluginSettings)
+DialogWindow* WindowSettingsContent::createDialogWindow(
+   AudioProcessorEditor* pluginEditor,
+   int componentWidth,
+   int componentHeight,
+   const String& pluginSettings )
 
 {
-    // prepare dialog window
-    DialogWindow::LaunchOptions windowSettingsLauncher;
+   // prepare dialog window
+   DialogWindow::LaunchOptions windowSettingsLauncher;
 
-    // create content component
-    WindowSettingsContent *contentComponent =
-        new WindowSettingsContent();
+   // create content component
+   WindowSettingsContent* contentComponent =
+      new WindowSettingsContent();
 
-    contentComponent->initialise(componentWidth,
+   contentComponent->initialise( componentWidth,
                                  componentHeight,
-                                 pluginSettings);
+                                 pluginSettings );
 
-    // initialise dialog window settings
-    windowSettingsLauncher.dialogTitle = String("Plug-in Settings");
-    windowSettingsLauncher.dialogBackgroundColour = Colours::white;
-    windowSettingsLauncher.content.setOwned(contentComponent);
-    windowSettingsLauncher.componentToCentreAround = pluginEditor;
+   // initialise dialog window settings
+   windowSettingsLauncher.dialogTitle = String( "Plug-in Settings" );
+   windowSettingsLauncher.dialogBackgroundColour = Colours::white;
+   windowSettingsLauncher.content.setOwned( contentComponent );
+   windowSettingsLauncher.componentToCentreAround = pluginEditor;
 
-    windowSettingsLauncher.escapeKeyTriggersCloseButton = true;
-    windowSettingsLauncher.useNativeTitleBar = false;
-    windowSettingsLauncher.resizable = false;
-    windowSettingsLauncher.useBottomRightCornerResizer = false;
+   windowSettingsLauncher.escapeKeyTriggersCloseButton = true;
+   windowSettingsLauncher.useNativeTitleBar = false;
+   windowSettingsLauncher.resizable = false;
+   windowSettingsLauncher.useBottomRightCornerResizer = false;
 
-    // launch dialog window
-    DialogWindow *windowSettings = windowSettingsLauncher.launchAsync();
-    windowSettings->setAlwaysOnTop(true);
+   // launch dialog window
+   DialogWindow* windowSettings = windowSettingsLauncher.launchAsync();
+   windowSettings->setAlwaysOnTop( true );
 
-    return windowSettings;
+   return windowSettings;
 }
 
 
@@ -102,42 +102,42 @@ DialogWindow *WindowSettingsContent::createDialogWindow(
 ///        settings
 ///
 void WindowSettingsContent::initialise(
-    int componentWidth,
-    int componentHeight,
-    const String &pluginSettings)
+   int componentWidth,
+   int componentHeight,
+   const String& pluginSettings )
 
 {
-    // set dimensions of content component
-    setSize(componentWidth, componentHeight);
+   // set dimensions of content component
+   setSize( componentWidth, componentHeight );
 
-    // initialise text editor component for displaying the plugin's
-    // settings (read-only, can display multiple lines)
-    textEditor_.setReadOnly(true);
-    textEditor_.setMultiLine(true, true);
-    addAndMakeVisible(textEditor_);
+   // initialise text editor component for displaying the plugin's
+   // settings (read-only, can display multiple lines)
+   textEditor_.setReadOnly( true );
+   textEditor_.setMultiLine( true, true );
+   addAndMakeVisible( textEditor_ );
 
-    // display plug-in settings
-    Font fontRegular(Font::getDefaultMonospacedFontName(), 15.0f, Font::plain);
+   // display plug-in settings
+   Font fontRegular( Font::getDefaultMonospacedFontName(), 15.0f, Font::plain );
 
-    textEditor_.setFont(fontRegular);
-    textEditor_.insertTextAtCaret(pluginSettings);
+   textEditor_.setFont( fontRegular );
+   textEditor_.insertTextAtCaret( pluginSettings );
 
-    // copy settings to system clipboard
-    textEditor_.selectAll();
-    textEditor_.copy();
+   // copy settings to system clipboard
+   textEditor_.selectAll();
+   textEditor_.copy();
 
-    // in case the text has become too long to fit into the text
-    // editor component, scroll to the beginning
-    textEditor_.setCaretPosition(0);
-    textEditor_.scrollEditorToPositionCaret(0, 0);
+   // in case the text has become too long to fit into the text
+   // editor component, scroll to the beginning
+   textEditor_.setCaretPosition( 0 );
+   textEditor_.scrollEditorToPositionCaret( 0, 0 );
 
-    // initialise "close" button
-    buttonClose_.setButtonText("Close");
-    addAndMakeVisible(buttonClose_);
-    buttonClose_.addListener(this);
+   // initialise "close" button
+   buttonClose_.setButtonText( "Close" );
+   addAndMakeVisible( buttonClose_ );
+   buttonClose_.addListener( this );
 
-    // style and place the dialog window's components
-    applySkin();
+   // style and place the dialog window's components
+   applySkin();
 }
 
 
@@ -145,42 +145,42 @@ void WindowSettingsContent::initialise(
 ///
 void WindowSettingsContent::applySkin()
 {
-    // style text editor component
-    textEditor_.setColour(
-        TextEditor::backgroundColourId,
-        Colours::lightgrey);
+   // style text editor component
+   textEditor_.setColour(
+      TextEditor::backgroundColourId,
+      Colours::lightgrey );
 
-    textEditor_.applyColourToAllText(
-        Colours::black);
+   textEditor_.applyColourToAllText(
+      Colours::black );
 
-    textEditor_.setColour(
-        TextEditor::highlightColourId,
-        Colours::yellow.withAlpha(0.75f));
+   textEditor_.setColour(
+      TextEditor::highlightColourId,
+      Colours::yellow.withAlpha( 0.75f ) );
 
-    textEditor_.setColour(
-        TextEditor::highlightedTextColourId,
-        Colours::black);
+   textEditor_.setColour(
+      TextEditor::highlightedTextColourId,
+      Colours::black );
 
-    // hide cursor
-    textEditor_.setCaretVisible(false);
-
-
-    // style "close" button
-    buttonClose_.setColour(
-        TextButton::buttonColourId,
-        Colours::yellow);
-
-    buttonClose_.setColour(
-        TextButton::textColourOffId,
-        Colours::black);
+   // hide cursor
+   textEditor_.setCaretVisible( false );
 
 
-    // place components
-    int width = getWidth();
-    int height = getHeight();
+   // style "close" button
+   buttonClose_.setColour(
+      TextButton::buttonColourId,
+      Colours::yellow );
 
-    textEditor_.setBounds(0, 0, width, height - 37);
-    buttonClose_.setBounds(width / 2 - 30, height - 29, 60, 20);
+   buttonClose_.setColour(
+      TextButton::textColourOffId,
+      Colours::black );
+
+
+   // place components
+   int width = getWidth();
+   int height = getHeight();
+
+   textEditor_.setBounds( 0, 0, width, height - 37 );
+   buttonClose_.setBounds( width / 2 - 30, height - 29, 60, 20 );
 }
 
 
@@ -189,15 +189,14 @@ void WindowSettingsContent::applySkin()
 /// @param button clicked button
 ///
 void WindowSettingsContent::buttonClicked(
-    Button *button)
+   Button* button )
 
 {
-    // user wants to close the window
-    if (button == &buttonClose_)
-    {
-        // close dialog window
-        closeButtonPressed();
-    }
+   // user wants to close the window
+   if ( button == &buttonClose_ ) {
+      // close dialog window
+      closeButtonPressed();
+   }
 }
 
 
@@ -208,14 +207,13 @@ void WindowSettingsContent::buttonClicked(
 ///
 void WindowSettingsContent::closeButtonPressed()
 {
-    // get parent dialog window
-    DialogWindow *dialogWindow = findParentComponentOfClass<DialogWindow>();
+   // get parent dialog window
+   DialogWindow* dialogWindow = findParentComponentOfClass<DialogWindow>();
 
-    if (dialogWindow != nullptr)
-    {
-        // close dialog window (exit value 0)
-        dialogWindow->exitModalState(0);
-    }
+   if ( dialogWindow != nullptr ) {
+      // close dialog window (exit value 0)
+      dialogWindow->exitModalState( 0 );
+   }
 }
 
 }

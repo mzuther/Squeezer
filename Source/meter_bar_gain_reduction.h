@@ -30,22 +30,22 @@
 
 
 class MeterBarGainReduction :
-    public frut::widgets::MeterBar
+   public frut::widgets::MeterBar
 {
 public:
-    using frut::widgets::MeterBar::create;
-    void create(frut::widgets::Orientation orientation,
+   using frut::widgets::MeterBar::create;
+   void create( frut::widgets::Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
-                const Colour &segmentColour);
+                const Colour& segmentColour );
 
-    void setUpwardExpansion(bool upwardExpansion);
+   void setUpwardExpansion( bool upwardExpansion );
 
 protected:
-    bool upwardExpansion_;
+   bool upwardExpansion_;
 
 private:
-    JUCE_LEAK_DETECTOR(MeterBarGainReduction);
+   JUCE_LEAK_DETECTOR( MeterBarGainReduction );
 };
 
 #endif  // SQUEEZER_METER_BAR_GAIN_REDUCTION_H

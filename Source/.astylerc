@@ -1,24 +1,28 @@
 # indent using given number of spaces
---indent=spaces=4
-
-# indent C++ comments beginning in column one
---indent-col1-comments
+--indent=spaces=3
 
 # pad empty lines around header blocks ('if', 'for', 'while'...)
 --break-blocks
 
+# set the maximum of # spaces to indent a continuation line
+--max-continuation-indent=60
+
+# indent 'switch' blocks so that the 'case X:' statements are indented
+# in the switch block
+--indent-switches
 
 
-# break brackets from their pre-block statements
---style=break
+# opening braces are broken from namespace, class, and function
+# definitions; braces are attached to everything else
+--style=linux
 
 # add brackets to one line conditional statements ('if', 'for', 'while'...)
 --add-brackets
 
 
 
-# remove extra space padding around parentheses
---unpad-paren
+# insert space padding around paren on the inside only
+--pad-paren-in
 
 # insert space padding after paren headers only ('if', 'for', 'while'...)
 --pad-header
@@ -26,10 +30,13 @@
 # insert space padding around operators
 --pad-oper
 
-# attach pointer or reference operators (* or &) to the variable name (right)
---align-pointer=name
+# attach pointer or reference operators (* or &) to the variable type (left)
+--align-pointer=type
 
 
+
+# display optional information
+--verbose
 
 # only display changed files
 --formatted
@@ -39,3 +46,8 @@
 
 # do not retain a backup of the original file
 --suffix=none
+
+
+# Local Variables:
+# mode: conf
+# End:

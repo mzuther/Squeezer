@@ -28,74 +28,74 @@ namespace frut
 namespace widgets
 {
 
-SliderSwitch::SliderSwitch(parameters::Juggler &parameters, int nParameterIndex)
+SliderSwitch::SliderSwitch( parameters::Juggler& parameters, int nParameterIndex )
 {
-    pSwitch = dynamic_cast<parameters::ParSwitch *>(parameters.getPluginParameter(nParameterIndex));
-    jassert(pSwitch != nullptr);
+   pSwitch = dynamic_cast<parameters::ParSwitch*>( parameters.getPluginParameter( nParameterIndex ) );
+   jassert( pSwitch != nullptr );
 
-    setRange(0.0f, 1.0f, pSwitch->getStepSize());
-    setVelocityModeParameters(1.0, 1, 0.0, true);
-    setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    colourRotary = Colours::white;
+   setRange( 0.0f, 1.0f, pSwitch->getStepSize() );
+   setVelocityModeParameters( 1.0, 1, 0.0, true );
+   setSliderStyle( Slider::RotaryHorizontalVerticalDrag );
+   colourRotary = Colours::white;
 
-    setDoubleClickReturnValue(true, pSwitch->getDefaultFloat());
+   setDoubleClickReturnValue( true, pSwitch->getDefaultFloat() );
 }
 
 
 void SliderSwitch::visibilityChanged()
 {
-    Slider::visibilityChanged();
+   Slider::visibilityChanged();
 
-    setColour(Slider::rotarySliderFillColourId, colourRotary);
-    setColour(Slider::textBoxTextColourId, Colours::white);
-    setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
-    setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
+   setColour( Slider::rotarySliderFillColourId, colourRotary );
+   setColour( Slider::textBoxTextColourId, Colours::white );
+   setColour( Slider::textBoxBackgroundColourId, Colours::darkgrey.darker( 0.7f ) );
+   setColour( Slider::textBoxOutlineColourId, Colours::darkgrey.darker( 0.4f ) );
 }
 
 
 void SliderSwitch::resized()
 {
-    Slider::resized();
+   Slider::resized();
 
-    int nWidth = getBounds().getWidth();
-    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
+   int nWidth = getBounds().getWidth();
+   setTextBoxStyle( Slider::TextBoxBelow, true, nWidth, 18 );
 }
 
 
-void SliderSwitch::setSliderColour(const Colour &colour)
+void SliderSwitch::setSliderColour( const Colour& colour )
 {
-    colourRotary = colour;
-    setColour(Slider::thumbColourId, colourRotary);
-    setColour(Slider::rotarySliderFillColourId, colourRotary);
+   colourRotary = colour;
+   setColour( Slider::thumbColourId, colourRotary );
+   setColour( Slider::rotarySliderFillColourId, colourRotary );
 }
 
 float SliderSwitch::getRealFloat()
 {
-    return pSwitch->getRealFloat();
+   return pSwitch->getRealFloat();
 }
 
 
 bool SliderSwitch::getBoolean()
 {
-    return pSwitch->getBoolean();
+   return pSwitch->getBoolean();
 }
 
 
 int SliderSwitch::getRealInteger()
 {
-    return pSwitch->getRealInteger();
+   return pSwitch->getRealInteger();
 }
 
 
-double SliderSwitch::getValueFromText(const String &strText)
+double SliderSwitch::getValueFromText( const String& strText )
 {
-    return pSwitch->getFloatFromText(strText);
+   return pSwitch->getFloatFromText( strText );
 }
 
 
-String SliderSwitch::getTextFromValue(double dValue)
+String SliderSwitch::getTextFromValue( double dValue )
 {
-    return pSwitch->getTextFromFloat((float) dValue);
+   return pSwitch->getTextFromFloat( ( float ) dValue );
 }
 
 }

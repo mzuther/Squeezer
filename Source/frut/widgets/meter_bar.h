@@ -38,78 +38,78 @@ namespace widgets
 /// @see MeterSegment
 ///
 class MeterBar :
-    public Component
+   public Component
 {
 public:
-    MeterBar();
+   MeterBar();
 
-    virtual void create();
+   virtual void create();
 
-    virtual void addSegment(widgets::MeterSegment *segment,
+   virtual void addSegment( widgets::MeterSegment* segment,
                             int segmentHeight,
-                            int spacingBefore);
+                            int spacingBefore );
 
-    virtual void addDiscreteSegment(float lowerThreshold,
+   virtual void addDiscreteSegment( float lowerThreshold,
                                     float thresholdRange,
                                     float retainSignalFactor,
                                     float newSignalFactor,
                                     bool isTopmost,
                                     int segmentHeight,
                                     int spacingBefore,
-                                    const Colour &segmentColour,
-                                    const Colour &colPeakMarker);
+                                    const Colour& segmentColour,
+                                    const Colour& colPeakMarker );
 
-    virtual void addContinuousSegment(float lowerThreshold,
+   virtual void addContinuousSegment( float lowerThreshold,
                                       float thresholdRange,
                                       float nextPixelRange,
                                       bool isTopmost,
                                       int segmentHeight,
                                       int spacingBefore,
-                                      const Colour &segmentColour,
-                                      const Colour &colPeakMarker);
+                                      const Colour& segmentColour,
+                                      const Colour& colPeakMarker );
 
-    virtual widgets::Orientation getOrientation();
-    virtual void setOrientation(widgets::Orientation orientation);
+   virtual widgets::Orientation getOrientation();
+   virtual void setOrientation( widgets::Orientation orientation );
 
-    virtual void invertMeter(bool invert);
-    virtual bool isMeterInverted();
+   virtual void invertMeter( bool invert );
+   virtual bool isMeterInverted();
 
-    virtual int getSegmentWidth();
-    virtual void setSegmentWidth(int segmentWidth);
+   virtual int getSegmentWidth();
+   virtual void setSegmentWidth( int segmentWidth );
 
-    virtual void setNormalLevels(float normalLevel,
-                                 float normalLevelPeak);
+   virtual void setNormalLevels( float normalLevel,
+                                 float normalLevelPeak );
 
-    virtual void setDiscreteLevels(float discreteLevel,
-                                   float discreteLevelPeak);
+   virtual void setDiscreteLevels( float discreteLevel,
+                                   float discreteLevelPeak );
 
-    virtual void setLevels(float normalLevel,
+   virtual void setLevels( float normalLevel,
                            float normalLevelPeak,
                            float discreteLevel,
-                           float discreteLevelPeak);
+                           float discreteLevelPeak );
 
-    virtual void paint(Graphics &g);
-    virtual void resized();
+   virtual void paint( Graphics& g );
+   virtual void resized();
 
 private:
-    JUCE_LEAK_DETECTOR(MeterBar);
+   JUCE_LEAK_DETECTOR( MeterBar );
 
-    float normalLevel_;
-    float normalLevelPeak_;
+   float normalLevel_;
+   float normalLevelPeak_;
 
-    float discreteLevel_;
-    float discreteLevelPeak_;
+   float discreteLevel_;
+   float discreteLevelPeak_;
 
-    int barWidth_;
-    int barHeight_;
-    int segmentWidth_;
+   int barWidth_;
+   int barHeight_;
+   int segmentWidth_;
 
-    bool isVertical_;
-    bool isInverted_;
+   bool isVertical_;
+   bool isInverted_;
 
-    widgets::Orientation orientation_;
-    Array<int> segmentSpacing_;
-    OwnedArray<widgets::MeterSegment> meterSegments_;
+   widgets::Orientation orientation_;
+   Array<int> segmentSpacing_;
+   OwnedArray<widgets::MeterSegment> meterSegments_;
 };
 
 }

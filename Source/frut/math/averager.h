@@ -35,22 +35,22 @@ namespace math
 class Averager
 {
 public:
-    Averager(int number_of_samples, float initial_value);
+   Averager( int number_of_samples, float initial_value );
 
-    void addSample(float newSample);
-    bool isValid();
-    float getSimpleMovingAverage();
+   void addSample( float newSample );
+   bool isValid();
+   float getSimpleMovingAverage();
 
 private:
-    JUCE_LEAK_DETECTOR(Averager);
+   JUCE_LEAK_DETECTOR( Averager );
 
-    bool bIsValid;
-    int nNumberOfSamples;
-    float fNumberOfSamples;
-    int nCurrentSample;
-    float fSum;
+   bool bIsValid;
+   int nNumberOfSamples;
+   float fNumberOfSamples;
+   int nCurrentSample;
+   float fSum;
 
-    Array<float> fSamples;
+   Array<float> fSamples;
 };
 
 }

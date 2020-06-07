@@ -31,29 +31,29 @@ namespace widgets
 /// Create a new continuous meter segment, complete with peak marker.
 ///
 MeterSegmentContinuous::MeterSegmentContinuous() :
-    attenuatedColour_(Colours::black.brighter(0.15f).withAlpha(0.6f))
+   attenuatedColour_( Colours::black.brighter( 0.15f ).withAlpha( 0.6f ) )
 
 {
-    // initialise maximum x and y position of component
-    maximumX_ = -1;
-    maximumY_ = -1;
+   // initialise maximum x and y position of component
+   maximumX_ = -1;
+   maximumY_ = -1;
 
-    // initialise level positions of normal meter
-    normalLevelPosition_ = -1.0f;
-    normalPeakPosition_ = -1.0f;
+   // initialise level positions of normal meter
+   normalLevelPosition_ = -1.0f;
+   normalPeakPosition_ = -1.0f;
 
-    // initialise level positions of discrete meter
-    discreteLevelPosition_ = -1.0f;
-    discretePeakPosition_ = -1.0f;
+   // initialise level positions of discrete meter
+   discreteLevelPosition_ = -1.0f;
+   discretePeakPosition_ = -1.0f;
 
-    // lowest level of a 24-bit-signal in decibels
-    float initialLevel = -144.0f;
+   // lowest level of a 24-bit-signal in decibels
+   float initialLevel = -144.0f;
 
-    // initialise thresholds and set this segment to not be topmost
-    setThresholdAndRange(initialLevel, 1.0f, 0.0f, false);
+   // initialise thresholds and set this segment to not be topmost
+   setThresholdAndRange( initialLevel, 1.0f, 0.0f, false );
 
-    // make sure that segment is drawn after initialisation
-    setLevels(initialLevel, initialLevel, initialLevel, initialLevel);
+   // make sure that segment is drawn after initialisation
+   setLevels( initialLevel, initialLevel, initialLevel, initialLevel );
 }
 
 
@@ -75,32 +75,32 @@ MeterSegmentContinuous::MeterSegmentContinuous() :
 ///         creating continuous meters)
 ///
 float MeterSegmentContinuous::setThresholdAndRange(
-    float lowerThreshold,
-    float thresholdRange,
-    float nextPixelRange,
-    bool isTopmost)
+   float lowerThreshold,
+   float thresholdRange,
+   float nextPixelRange,
+   bool isTopmost )
 
 {
-    // set lower level threshold (in decibels)
-    lowerThreshold_ = lowerThreshold;
+   // set lower level threshold (in decibels)
+   lowerThreshold_ = lowerThreshold;
 
-    // set level range above lower threshold (in decibels)
-    thresholdRange_ = thresholdRange;
+   // set level range above lower threshold (in decibels)
+   thresholdRange_ = thresholdRange;
 
-    // set upper level threshold (in decibels)
-    upperThreshold_ = lowerThreshold_ + thresholdRange_;
+   // set upper level threshold (in decibels)
+   upperThreshold_ = lowerThreshold_ + thresholdRange_;
 
-    // set threshold that corresponds to exactly one pixel on the next
-    // segment (in decibels); "nextPixelRange" has to be halfed
-    // because of rounding in the drawing routines!
-    nextPixelThreshold_ = upperThreshold_ + (nextPixelRange / 2.0f);
+   // set threshold that corresponds to exactly one pixel on the next
+   // segment (in decibels); "nextPixelRange" has to be halfed
+   // because of rounding in the drawing routines!
+   nextPixelThreshold_ = upperThreshold_ + ( nextPixelRange / 2.0f );
 
-    // is there a meter segment beyond this?
-    isTopmost_ = isTopmost;
+   // is there a meter segment beyond this?
+   isTopmost_ = isTopmost;
 
-    // return upper threshold (may be useful for creating continuous
-    // meters)
-    return upperThreshold_;
+   // return upper threshold (may be useful for creating continuous
+   // meters)
+   return upperThreshold_;
 }
 
 
@@ -111,20 +111,20 @@ float MeterSegmentContinuous::setThresholdAndRange(
 /// @param peakMarkerColour colour of the peak marker
 ///
 void MeterSegmentContinuous::setColours(
-    const Colour &segmentColour, const Colour &peakMarkerColour)
+   const Colour& segmentColour, const Colour& peakMarkerColour )
 
 {
-    // initialise segment colour
-    segmentColour_ = segmentColour;
+   // initialise segment colour
+   segmentColour_ = segmentColour;
 
-    // initialise background colour from segment colour
-    backgroundColour_ = segmentColour_.withMultipliedBrightness(0.20f);
+   // initialise background colour from segment colour
+   backgroundColour_ = segmentColour_.withMultipliedBrightness( 0.20f );
 
-    // initialise peak marker's colour
-    peakMarkerColour_ = peakMarkerColour;
+   // initialise peak marker's colour
+   peakMarkerColour_ = peakMarkerColour;
 
-    // redraw meter segment
-    repaint();
+   // redraw meter segment
+   repaint();
 }
 
 
@@ -137,136 +137,118 @@ void MeterSegmentContinuous::setColours(
 ///        full bar)
 ///
 void MeterSegmentContinuous::drawBar(
-    Graphics &g, float levelPosition)
+   Graphics& g, float levelPosition )
 
 {
-    // avoid drawing errors
-    if (levelPosition < 0.0f)
-    {
-        levelPosition = 0.0f;
-    }
+   // avoid drawing errors
+   if ( levelPosition < 0.0f ) {
+      levelPosition = 0.0f;
+   }
 
-    // initialise drawing points
-    int pos_1 = 0;
-    int pos_2 = 0;
+   // initialise drawing points
+   int pos_1 = 0;
+   int pos_2 = 0;
 
-    // respect orientation
-    switch (orientation_)
-    {
-    case widgets::Orientation::verticalInverted:
+   // respect orientation
+   switch ( orientation_ ) {
+      case widgets::Orientation::verticalInverted:
 
-        // invert level position
-        levelPosition = 1.0f - levelPosition;
+         // invert level position
+         levelPosition = 1.0f - levelPosition;
 
-    // keep going ...
+      // keep going ...
 
-    case widgets::Orientation::vertical:
+      case widgets::Orientation::vertical:
 
-        // initialise drawing points
-        pos_1 = math::SimpleMath::round(maximumY_ * levelPosition);
-        pos_2 = maximumY_ - pos_1;
+         // initialise drawing points
+         pos_1 = math::SimpleMath::round( maximumY_ * levelPosition );
+         pos_2 = maximumY_ - pos_1;
 
-        // make sure there is something to draw
-        if (pos_2 > 0)
-        {
-            if (orientation_ == widgets::Orientation::vertical)
-            {
-                // set background colour
-                g.setColour(backgroundColour_);
-            }
-            else
-            {
-                // set segment colour
-                g.setColour(segmentColour_);
+         // make sure there is something to draw
+         if ( pos_2 > 0 ) {
+            if ( orientation_ == widgets::Orientation::vertical ) {
+               // set background colour
+               g.setColour( backgroundColour_ );
+            } else {
+               // set segment colour
+               g.setColour( segmentColour_ );
             }
 
             // draw first rectangle
-            g.fillRect(1,
-                       0,
-                       maximumX_ - 1,
-                       pos_2 + 1);
-        }
+            g.fillRect( 1,
+                        0,
+                        maximumX_ - 1,
+                        pos_2 + 1 );
+         }
 
-        // make sure there is something to draw
-        if (pos_1 > 0)
-        {
-            if (orientation_ == widgets::Orientation::vertical)
-            {
-                // set segment colour
-                g.setColour(segmentColour_);
-            }
-            else
-            {
-                // set background colour
-                g.setColour(backgroundColour_);
+         // make sure there is something to draw
+         if ( pos_1 > 0 ) {
+            if ( orientation_ == widgets::Orientation::vertical ) {
+               // set segment colour
+               g.setColour( segmentColour_ );
+            } else {
+               // set background colour
+               g.setColour( backgroundColour_ );
             }
 
             // draw second rectangle
-            g.fillRect(1,
-                       pos_2,
-                       maximumX_ - 1,
-                       pos_1 + 1);
-        }
+            g.fillRect( 1,
+                        pos_2,
+                        maximumX_ - 1,
+                        pos_1 + 1 );
+         }
 
-        break;
+         break;
 
-    case widgets::Orientation::horizontal:
+      case widgets::Orientation::horizontal:
 
-        // invert level position
-        levelPosition = 1.0f - levelPosition;
+         // invert level position
+         levelPosition = 1.0f - levelPosition;
 
-    // keep going ...
+      // keep going ...
 
-    case widgets::Orientation::horizontalInverted:
+      case widgets::Orientation::horizontalInverted:
 
-        // initialise drawing points
-        pos_1 = math::SimpleMath::round(maximumX_ * levelPosition);
-        pos_2 = maximumX_ - pos_1;
+         // initialise drawing points
+         pos_1 = math::SimpleMath::round( maximumX_ * levelPosition );
+         pos_2 = maximumX_ - pos_1;
 
-        // make sure there is something to draw
-        if (pos_2 > 0)
-        {
-            if (orientation_ == widgets::Orientation::horizontalInverted)
-            {
-                // set background colour
-                g.setColour(backgroundColour_);
-            }
-            else
-            {
-                // set segment colour
-                g.setColour(segmentColour_);
+         // make sure there is something to draw
+         if ( pos_2 > 0 ) {
+            if ( orientation_ == widgets::Orientation::horizontalInverted ) {
+               // set background colour
+               g.setColour( backgroundColour_ );
+            } else {
+               // set segment colour
+               g.setColour( segmentColour_ );
             }
 
             // draw first rectangle
-            g.fillRect(0,
-                       1,
-                       pos_2 + 1,
-                       maximumY_ - 1);
-        }
+            g.fillRect( 0,
+                        1,
+                        pos_2 + 1,
+                        maximumY_ - 1 );
+         }
 
-        // make sure there is something to draw
-        if (pos_1 > 0)
-        {
-            if (orientation_ == widgets::Orientation::horizontalInverted)
-            {
-                // set segment colour
-                g.setColour(segmentColour_);
-            }
-            else
-            {
-                // set background colour
-                g.setColour(backgroundColour_);
+         // make sure there is something to draw
+         if ( pos_1 > 0 ) {
+            if ( orientation_ == widgets::Orientation::horizontalInverted ) {
+               // set segment colour
+               g.setColour( segmentColour_ );
+            } else {
+               // set background colour
+               g.setColour( backgroundColour_ );
             }
 
             // draw second rectangle
-            g.fillRect(pos_2,
-                       1,
-                       pos_1 + 1,
-                       maximumY_ - 1);
-        }
+            g.fillRect( pos_2,
+                        1,
+                        pos_1 + 1,
+                        maximumY_ - 1 );
+         }
 
-        break;
-    }
+         break;
+   }
 }
 
 
@@ -281,96 +263,88 @@ void MeterSegmentContinuous::drawBar(
 ///        1.0: marker at top)
 ///
 void MeterSegmentContinuous::drawMarker(
-    Graphics &g, const Colour &markerColour, float levelPosition)
+   Graphics& g, const Colour& markerColour, float levelPosition )
 
 {
-    // avoid drawing errors
-    if (levelPosition < 0.0f)
-    {
-        return;
-    }
+   // avoid drawing errors
+   if ( levelPosition < 0.0f ) {
+      return;
+   }
 
-    // initialise drawing points
-    int pos_1 = 0;
-    int pos_2 = 0;
+   // initialise drawing points
+   int pos_1 = 0;
+   int pos_2 = 0;
 
-    // respect orientation
-    switch (orientation_)
-    {
-    case widgets::Orientation::verticalInverted:
+   // respect orientation
+   switch ( orientation_ ) {
+      case widgets::Orientation::verticalInverted:
 
-        // invert level position
-        levelPosition = 1.0f - levelPosition;
+         // invert level position
+         levelPosition = 1.0f - levelPosition;
 
-    // keep going ...
+      // keep going ...
 
-    case widgets::Orientation::vertical:
+      case widgets::Orientation::vertical:
 
-        // initialise drawing points
-        pos_1 = math::SimpleMath::round(maximumY_ * levelPosition);
+         // initialise drawing points
+         pos_1 = math::SimpleMath::round( maximumY_ * levelPosition );
 
-        // level overlaps into the next segment, so we have to draw
-        // the remaining marker in this segment
-        if (levelPosition > 1.0f)
-        {
+         // level overlaps into the next segment, so we have to draw
+         // the remaining marker in this segment
+         if ( levelPosition > 1.0f ) {
             pos_1 = maximumY_ + 1;
-        }
-        // otherwise, limit marker position to this segment
-        else if (pos_1 > maximumY_)
-        {
+            // otherwise, limit marker position to this segment
+         } else if ( pos_1 > maximumY_ ) {
             pos_1 = maximumY_;
-        }
+         }
 
-        pos_2 = maximumY_ - pos_1;
+         pos_2 = maximumY_ - pos_1;
 
-        // set line colour
-        g.setColour(markerColour);
+         // set line colour
+         g.setColour( markerColour );
 
-        // draw marker (two pixels high)
-        g.drawRect(1,
-                   pos_2,
-                   maximumX_ - 1,
-                   2);
+         // draw marker (two pixels high)
+         g.drawRect( 1,
+                     pos_2,
+                     maximumX_ - 1,
+                     2 );
 
-        break;
+         break;
 
-    case widgets::Orientation::horizontal:
+      case widgets::Orientation::horizontal:
 
-        // invert level position
-        levelPosition = 1.0f - levelPosition;
+         // invert level position
+         levelPosition = 1.0f - levelPosition;
 
-    // keep going ...
+      // keep going ...
 
-    case widgets::Orientation::horizontalInverted:
+      case widgets::Orientation::horizontalInverted:
 
-        // initialise drawing points
-        pos_1 = math::SimpleMath::round(maximumX_ * levelPosition);
+         // initialise drawing points
+         pos_1 = math::SimpleMath::round( maximumX_ * levelPosition );
 
-        // level overlaps into the next segment, so we have to draw
-        // the remaining marker in this segment
-        if (levelPosition > 1.0f)
-        {
+         // level overlaps into the next segment, so we have to draw
+         // the remaining marker in this segment
+         if ( levelPosition > 1.0f ) {
             pos_1 = maximumX_ + 1;
-        }
-        // otherwise, limit marker position to this segment
-        else if (pos_1 > maximumX_)
-        {
+            // otherwise, limit marker position to this segment
+         } else if ( pos_1 > maximumX_ ) {
             pos_1 = maximumX_;
-        }
+         }
 
-        pos_2 = maximumX_ - pos_1;
+         pos_2 = maximumX_ - pos_1;
 
-        // set line colour
-        g.setColour(markerColour);
+         // set line colour
+         g.setColour( markerColour );
 
-        // draw marker (two pixels wide)
-        g.drawRect(pos_2,
-                   1,
-                   2,
-                   maximumY_ - 1);
+         // draw marker (two pixels wide)
+         g.drawRect( pos_2,
+                     1,
+                     2,
+                     maximumY_ - 1 );
 
-        break;
-    }
+         break;
+   }
 }
 
 
@@ -380,36 +354,32 @@ void MeterSegmentContinuous::drawMarker(
 ///        operations
 ///
 void MeterSegmentContinuous::paint(
-    Graphics &g)
+   Graphics& g )
 
 {
-    // draw meter bar
-    drawBar(g, normalLevelPosition_);
+   // draw meter bar
+   drawBar( g, normalLevelPosition_ );
 
-    // draw discrete level marker
-    if (discreteLevelPosition_ >= 0.0f)
-    {
-        drawMarker(g, segmentColour_, discreteLevelPosition_);
-    }
+   // draw discrete level marker
+   if ( discreteLevelPosition_ >= 0.0f ) {
+      drawMarker( g, segmentColour_, discreteLevelPosition_ );
+   }
 
-    // draw normal peak marker
-    if (normalPeakPosition_ >= 0.0f)
-    {
-        drawMarker(g, peakMarkerColour_, normalPeakPosition_);
-    }
+   // draw normal peak marker
+   if ( normalPeakPosition_ >= 0.0f ) {
+      drawMarker( g, peakMarkerColour_, normalPeakPosition_ );
+   }
 
-    // draw discrete peak marker
-    if (discretePeakPosition_ >= 0.0f)
-    {
-        drawMarker(g, peakMarkerColour_, discretePeakPosition_);
-    }
+   // draw discrete peak marker
+   if ( discretePeakPosition_ >= 0.0f ) {
+      drawMarker( g, peakMarkerColour_, discretePeakPosition_ );
+   }
 
-    // attenuate colours if segment is disabled
-    if (! isEnabled())
-    {
-        g.setColour(attenuatedColour_);
-        g.fillAll();
-    }
+   // attenuate colours if segment is disabled
+   if ( ! isEnabled() ) {
+      g.setColour( attenuatedColour_ );
+      g.fillAll();
+   }
 }
 
 
@@ -427,9 +397,9 @@ void MeterSegmentContinuous::visibilityChanged()
 ///
 void MeterSegmentContinuous::resized()
 {
-    // update maximum x and y position of component
-    maximumX_ = getWidth() - 1;
-    maximumY_ = getHeight() - 1;
+   // update maximum x and y position of component
+   maximumX_ = getWidth() - 1;
+   maximumY_ = getHeight() - 1;
 }
 
 
@@ -442,51 +412,39 @@ void MeterSegmentContinuous::resized()
 /// @return new position of marker or bar
 ///
 float MeterSegmentContinuous::calculateLevelPosition(
-    float level, bool isBar)
+   float level, bool isBar )
 
 {
-    float levelPosition;
+   float levelPosition;
 
-    // discrete level lies below lower threshold
-    if (level < lowerThreshold_)
-    {
-        // hide level marker or bar
-        levelPosition = -1.0f;
-    }
-    // discrete level lies on or above lower threshold and below upper
-    // threshold, so calculate position from current level
-    else if (level < upperThreshold_)
-    {
-        levelPosition = (level - lowerThreshold_) / thresholdRange_;
-    }
-    // discrete level lies on or above upper threshold
-    else
-    {
-        // meter is a bar
-        if (isBar)
-        {
-            // draw level bar!
-            levelPosition = 1.0f;
-        }
-        // there are no meter segments beyond this
-        else if (isTopmost_)
-        {
-            // draw level marker!
-            levelPosition = 1.0f;
-        }
-        // level overlaps into the next segment
-        else if (level < nextPixelThreshold_)
-        {
-            levelPosition = 2.0f;
-        }
-        // otherwise, hide level marker!
-        else
-        {
-            levelPosition = -1.0f;
-        }
-    }
+   // discrete level lies below lower threshold
+   if ( level < lowerThreshold_ ) {
+      // hide level marker or bar
+      levelPosition = -1.0f;
+      // discrete level lies on or above lower threshold and below upper
+      // threshold, so calculate position from current level
+   } else if ( level < upperThreshold_ ) {
+      levelPosition = ( level - lowerThreshold_ ) / thresholdRange_;
+      // discrete level lies on or above upper threshold
+   } else {
+      // meter is a bar
+      if ( isBar ) {
+         // draw level bar!
+         levelPosition = 1.0f;
+         // there are no meter segments beyond this
+      } else if ( isTopmost_ ) {
+         // draw level marker!
+         levelPosition = 1.0f;
+         // level overlaps into the next segment
+      } else if ( level < nextPixelThreshold_ ) {
+         levelPosition = 2.0f;
+         // otherwise, hide level marker!
+      } else {
+         levelPosition = -1.0f;
+      }
+   }
 
-    return levelPosition;
+   return levelPosition;
 }
 
 
@@ -501,38 +459,37 @@ float MeterSegmentContinuous::calculateLevelPosition(
 /// @param discreteLevelPeak new discrete peak level
 ///
 void MeterSegmentContinuous::setLevels(
-    float normalLevel, float normalLevelPeak,
-    float discreteLevel, float discreteLevelPeak)
+   float normalLevel, float normalLevelPeak,
+   float discreteLevel, float discreteLevelPeak )
 
 {
-    // store old level positions
-    float normalLevelPositionOld = normalLevelPosition_;
-    float discreteLevelPositionOld = discreteLevelPosition_;
+   // store old level positions
+   float normalLevelPositionOld = normalLevelPosition_;
+   float discreteLevelPositionOld = discreteLevelPosition_;
 
-    // calculate new level position (is a bar!)
-    normalLevelPosition_ = calculateLevelPosition(normalLevel, true);
+   // calculate new level position (is a bar!)
+   normalLevelPosition_ = calculateLevelPosition( normalLevel, true );
 
-    // calculate new discrete level position
-    discreteLevelPosition_ = calculateLevelPosition(discreteLevel, false);
+   // calculate new discrete level position
+   discreteLevelPosition_ = calculateLevelPosition( discreteLevel, false );
 
-    // store old peak level positions
-    float normalPeakPositionOld = normalPeakPosition_;
-    float discretePeakPositionOld = discretePeakPosition_;
+   // store old peak level positions
+   float normalPeakPositionOld = normalPeakPosition_;
+   float discretePeakPositionOld = discretePeakPosition_;
 
-    // calculate new peak level position
-    normalPeakPosition_ = calculateLevelPosition(normalLevelPeak, false);
+   // calculate new peak level position
+   normalPeakPosition_ = calculateLevelPosition( normalLevelPeak, false );
 
-    // calculate new discrete peak level position
-    discretePeakPosition_ = calculateLevelPosition(discreteLevelPeak, false);
+   // calculate new discrete peak level position
+   discretePeakPosition_ = calculateLevelPosition( discreteLevelPeak, false );
 
-    // re-paint meter segment only if something has changed
-    if ((normalLevelPosition_ != normalLevelPositionOld) ||
-            (normalPeakPosition_ != normalPeakPositionOld) ||
-            (discreteLevelPosition_ != discreteLevelPositionOld) ||
-            (discretePeakPosition_ != discretePeakPositionOld))
-    {
-        repaint();
-    }
+   // re-paint meter segment only if something has changed
+   if ( ( normalLevelPosition_ != normalLevelPositionOld ) ||
+        ( normalPeakPosition_ != normalPeakPositionOld ) ||
+        ( discreteLevelPosition_ != discreteLevelPositionOld ) ||
+        ( discretePeakPosition_ != discretePeakPositionOld ) ) {
+      repaint();
+   }
 }
 
 }

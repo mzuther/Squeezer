@@ -34,29 +34,29 @@ namespace dsp
 {
 
 class RateConverter :
-    public frut::dsp::FIRFilterBox
+   public frut::dsp::FIRFilterBox
 {
 public:
-    RateConverter(
-        const File resourceDirectory,
-        const int numberOfChannels,
-        const int originalFftBufferSize,
-        const int upsamplingFactor);
+   RateConverter(
+      const File resourceDirectory,
+      const int numberOfChannels,
+      const int originalFftBufferSize,
+      const int upsamplingFactor );
 
-    virtual ~RateConverter();
-    virtual void reset();
+   virtual ~RateConverter();
+   virtual void reset();
 
 protected:
-    void calculateFilterKernel();
-    void upsample();
+   void calculateFilterKernel();
+   void upsample();
 
-    int upsamplingFactor_;
-    int originalFftBufferSize_;
+   int upsamplingFactor_;
+   int originalFftBufferSize_;
 
-    AudioBuffer<float> sampleBufferOriginal_;
+   AudioBuffer<float> sampleBufferOriginal_;
 
 private:
-    JUCE_LEAK_DETECTOR(RateConverter);
+   JUCE_LEAK_DETECTOR( RateConverter );
 };
 
 }

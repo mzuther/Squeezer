@@ -39,25 +39,25 @@ namespace parameters
 class ParBoolean : virtual public Parameter
 {
 public:
-    ParBoolean(const String &state_true, const String &state_false);
+   ParBoolean( const String& state_true, const String& state_false );
 
-    void toggleState();
+   void toggleState();
 
-    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
-    void setDefaultBoolean(bool newValue, bool updateParameter);
+   virtual void setDefaultRealFloat( float newRealValue, bool updateParameter ) override;
+   void setDefaultBoolean( bool newValue, bool updateParameter );
 
-    virtual void setFloat(float newValue) override;
-    virtual void setRealFloat(float newRealValue) override;
-    void setBoolean(bool newValue);
+   virtual void setFloat( float newValue ) override;
+   virtual void setRealFloat( float newRealValue ) override;
+   void setBoolean( bool newValue );
 
-    virtual float getFloatFromText(const String &newValue) override;
-    virtual const String getTextFromFloat(float newValue) override;
+   virtual float getFloatFromText( const String& newValue ) override;
+   virtual const String getTextFromFloat( float newValue ) override;
 
 private:
-    JUCE_LEAK_DETECTOR(ParBoolean);
+   JUCE_LEAK_DETECTOR( ParBoolean );
 
-    String labelTrue;
-    String labelFalse;
+   String labelTrue;
+   String labelFalse;
 };
 
 }

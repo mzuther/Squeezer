@@ -37,92 +37,92 @@
 
 
 class SqueezerAudioProcessorEditor :
-    public AudioProcessorEditor,
-    public Button::Listener,
-    public Slider::Listener,
-    public ActionListener
+   public AudioProcessorEditor,
+   public Button::Listener,
+   public Slider::Listener,
+   public ActionListener
 {
 public:
-    SqueezerAudioProcessorEditor(
-        SqueezerAudioProcessor &processor,
-        SqueezerPluginParameters &PluginParameters,
-        int NumberOfChannels);
+   SqueezerAudioProcessorEditor(
+      SqueezerAudioProcessor& processor,
+      SqueezerPluginParameters& PluginParameters,
+      int NumberOfChannels );
 
-    ~SqueezerAudioProcessorEditor();
+   ~SqueezerAudioProcessorEditor();
 
-    void buttonClicked(Button *Button) override;
-    void sliderValueChanged(Slider *Slider) override;
+   void buttonClicked( Button* Button ) override;
+   void sliderValueChanged( Slider* Slider ) override;
 
-    void actionListenerCallback(const String &Message) override;
-    void updateParameter(int Index);
+   void actionListenerCallback( const String& Message ) override;
+   void updateParameter( int Index );
 
-    void windowAboutCallback(int ModalResult);
-    void windowSettingsCallback(int ModalResult);
-    void windowSkinCallback(int ModalResult);
+   void windowAboutCallback( int ModalResult );
+   void windowSettingsCallback( int ModalResult );
+   void windowSkinCallback( int ModalResult );
 
-    virtual void paint(Graphics &g) override;
-    void resized() override;
+   virtual void paint( Graphics& g ) override;
+   void resized() override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SqueezerAudioProcessorEditor);
+   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR( SqueezerAudioProcessorEditor );
 
-    void applySkin_();
-    void loadSkin_();
+   void applySkin_();
+   void loadSkin_();
 
-    bool IsInitialising_;
-    int NumberOfChannels_;
+   bool IsInitialising_;
+   int NumberOfChannels_;
 
-    SqueezerAudioProcessor &PluginProcessor_;
-    Skin skin_;
+   SqueezerAudioProcessor& PluginProcessor_;
+   Skin skin_;
 
-    OwnedArray<MeterBarLevel> InputLevelMeters_;
-    OwnedArray<MeterBarLevel> OutputLevelMeters_;
-    OwnedArray<MeterBarGainReduction> GainReductionMeters_;
+   OwnedArray<MeterBarLevel> InputLevelMeters_;
+   OwnedArray<MeterBarLevel> OutputLevelMeters_;
+   OwnedArray<MeterBarGainReduction> GainReductionMeters_;
 
-    frut::skin::LookAndFeel_Frut_V3 customLookAndFeel_;
+   frut::skin::LookAndFeel_Frut_V3 customLookAndFeel_;
 
-    std::unique_ptr<frut::widgets::SliderCombined> SliderThreshold_;
-    std::unique_ptr<frut::widgets::SliderCombined> SliderRatio_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderThreshold_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderRatio_;
 
-    std::unique_ptr<frut::widgets::SliderCombined> SliderAttackRate_;
-    std::unique_ptr<frut::widgets::SliderCombined> SliderReleaseRate_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderAttackRate_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderReleaseRate_;
 
-    std::unique_ptr<frut::widgets::SliderCombined> SliderInputTrim_;
-    std::unique_ptr<frut::widgets::SliderCombined> SliderMakeupGain_;
-    std::unique_ptr<frut::widgets::SliderCombined> SliderStereoLink_;
-    std::unique_ptr<frut::widgets::SliderCombined> SliderWetMix_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderInputTrim_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderMakeupGain_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderStereoLink_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderWetMix_;
 
-    std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;
-    std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainLPFCutoff_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainHPFCutoff_;
+   std::unique_ptr<frut::widgets::SliderCombined> SliderSidechainLPFCutoff_;
 
-    DrawableButton ButtonRmsWindow_;
-    DrawableButton ButtonDesignFeedback_;
-    DrawableButton ButtonGainStageOptical_;
+   DrawableButton ButtonRmsWindow_;
+   DrawableButton ButtonDesignFeedback_;
+   DrawableButton ButtonGainStageOptical_;
 
-    DrawableButton ButtonKneeHard_;
-    DrawableButton ButtonKneeMedium_;
-    DrawableButton ButtonKneeSoft_;
+   DrawableButton ButtonKneeHard_;
+   DrawableButton ButtonKneeMedium_;
+   DrawableButton ButtonKneeSoft_;
 
-    DrawableButton ButtonCurveLinear_;
-    DrawableButton ButtonCurveSmoothDecoupled_;
-    DrawableButton ButtonCurveSmoothBranching_;
+   DrawableButton ButtonCurveLinear_;
+   DrawableButton ButtonCurveSmoothDecoupled_;
+   DrawableButton ButtonCurveSmoothBranching_;
 
-    DrawableButton ButtonAutoMakeupGain_;
-    DrawableButton ButtonSidechainExternal_;
-    DrawableButton ButtonSidechainListen_;
+   DrawableButton ButtonAutoMakeupGain_;
+   DrawableButton ButtonSidechainExternal_;
+   DrawableButton ButtonSidechainListen_;
 
-    DrawableButton ButtonBypass_;
-    DrawableButton ButtonReset_;
+   DrawableButton ButtonBypass_;
+   DrawableButton ButtonReset_;
 
-    DrawableButton ButtonSkin_;
-    DrawableButton ButtonSettings_;
-    DrawableButton ButtonAbout_;
+   DrawableButton ButtonSkin_;
+   DrawableButton ButtonSettings_;
+   DrawableButton ButtonAbout_;
 
 #ifdef DEBUG
-    DrawableComposite LabelDebug_;
+   DrawableComposite LabelDebug_;
 #endif // DEBUG
 
-    DrawableComposite DrawableBackground_;
+   DrawableComposite DrawableBackground_;
 };
 
 #endif  // SQUEEZER_PLUGIN_EDITOR_H

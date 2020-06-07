@@ -38,199 +38,199 @@ namespace audio
 class BufferPosition
 {
 public:
-    BufferPosition(const int numberOfSamples,
-                   const int preDelay);
+   BufferPosition( const int numberOfSamples,
+                   const int preDelay );
 
-    void reset();
+   void reset();
 
-    int getNumberOfSamples() const;
-    int getTotalBufferLength() const;
-    int getPreDelay() const;
+   int getNumberOfSamples() const;
+   int getTotalBufferLength() const;
+   int getPreDelay() const;
 
-    int getCurrentReadPosition() const;
-    int getCurrentWritePosition() const;
-
-
-    /// Get positions of two sample blocks for storing a specified
-    /// number of samples.  **The write position will be updated.**
-    ///
-    /// @param numberOfSamples number of samples to store in the
-    ///        buffer
-    ///
-    /// @param startIndex_1 on exit, this will contain the index
-    ///        position where the first block of data should be
-    ///        written
-    ///
-    /// @param blockSize_1 on exit, this indicates how many samples
-    ///        should be written to the first block
-    ///
-    /// @param startIndex_2 on exit, this will contain the index
-    ///        position where data that didn't fit into the first
-    ///        block should be written
-    ///
-    /// @param blockSize_2 on exit, this indicates how many samples
-    ///        (if any) should be written to the second block
-    ///
-    inline void queue(
-        const int numberOfSamples,
-        int &startIndex_1,
-        int &blockSize_1,
-        int &startIndex_2,
-        int &blockSize_2)
-    {
-        bool updatePosition = true;
-
-        store(numberOfSamples,
-              startIndex_1, blockSize_1,
-              startIndex_2, blockSize_2,
-              updatePosition);
-    }
+   int getCurrentReadPosition() const;
+   int getCurrentWritePosition() const;
 
 
-    /// Get positions of two sample blocks for storing a specified
-    /// number of samples.  **The write position will be left alone.**
-    ///
-    /// @param numberOfSamples number of samples to store in the
-    ///        buffer
-    ///
-    /// @param startIndex_1 on exit, this will contain the index
-    ///        position where the first block of data should be
-    ///        written
-    ///
-    /// @param blockSize_1 on exit, this indicates how many samples
-    ///        should be written to the first block
-    ///
-    /// @param startIndex_2 on exit, this will contain the index
-    ///        position where data that didn't fit into the first
-    ///        block should be written
-    ///
-    /// @param blockSize_2 on exit, this indicates how many samples
-    ///        (if any) should be written to the second block
-    ///
-    inline void overwrite(
-        const int numberOfSamples,
-        int &startIndex_1,
-        int &blockSize_1,
-        int &startIndex_2,
-        int &blockSize_2)
-    {
-        bool updatePosition = false;
+   /// Get positions of two sample blocks for storing a specified
+   /// number of samples.  **The write position will be updated.**
+   ///
+   /// @param numberOfSamples number of samples to store in the
+   ///        buffer
+   ///
+   /// @param startIndex_1 on exit, this will contain the index
+   ///        position where the first block of data should be
+   ///        written
+   ///
+   /// @param blockSize_1 on exit, this indicates how many samples
+   ///        should be written to the first block
+   ///
+   /// @param startIndex_2 on exit, this will contain the index
+   ///        position where data that didn't fit into the first
+   ///        block should be written
+   ///
+   /// @param blockSize_2 on exit, this indicates how many samples
+   ///        (if any) should be written to the second block
+   ///
+   inline void queue(
+      const int numberOfSamples,
+      int& startIndex_1,
+      int& blockSize_1,
+      int& startIndex_2,
+      int& blockSize_2 )
+   {
+      bool updatePosition = true;
 
-        store(numberOfSamples,
-              startIndex_1, blockSize_1,
-              startIndex_2, blockSize_2,
-              updatePosition);
-    }
-
-
-    /// Get positions of two sample blocks for retrieving a specified
-    /// number of samples.  **The read position will be updated.**
-    ///
-    /// @param numberOfSamples number of samples to retrieve from the
-    ///        buffer
-    ///
-    /// @param startIndex_1 on exit, this will contain the index
-    ///        position from where the first block of data should be
-    ///        retrieved
-    ///
-    /// @param blockSize_1 on exit, this indicates how many samples
-    ///        should be retrieved from the first block
-    ///
-    /// @param startIndex_2 on exit, this will contain the index
-    ///        position from where data that didn't fit into the first
-    ///        block should be retrieved
-    ///
-    /// @param blockSize_2 on exit, this indicates how many samples
-    ///        (if any) should be retrieved from the second block
-    ///
-    inline void dequeue(
-        const int numberOfSamples,
-        int &startIndex_1,
-        int &blockSize_1,
-        int &startIndex_2,
-        int &blockSize_2)
-    {
-        bool updatePosition = true;
-
-        retrieve(numberOfSamples,
-                 startIndex_1, blockSize_1,
-                 startIndex_2, blockSize_2,
-                 updatePosition);
-    }
+      store( numberOfSamples,
+             startIndex_1, blockSize_1,
+             startIndex_2, blockSize_2,
+             updatePosition );
+   }
 
 
-    /// Get positions of two sample blocks for retrieving a specified
-    /// number of samples.  **The read position will be left alone.**
-    ///
-    /// @param numberOfSamples number of samples to retrieve from the
-    ///        buffer
-    ///
-    /// @param startIndex_1 on exit, this will contain the index
-    ///        position from where the first block of data should be
-    ///        retrieved
-    ///
-    /// @param blockSize_1 on exit, this indicates how many samples
-    ///        should be retrieved from the first block
-    ///
-    /// @param startIndex_2 on exit, this will contain the index
-    ///        position from where data that didn't fit into the first
-    ///        block should be retrieved
-    ///
-    /// @param blockSize_2 on exit, this indicates how many samples
-    ///        (if any) should be retrieved from the second block
-    ///
-    inline void copy(
-        const int numberOfSamples,
-        int &startIndex_1,
-        int &blockSize_1,
-        int &startIndex_2,
-        int &blockSize_2)
-    {
-        bool updatePosition = false;
+   /// Get positions of two sample blocks for storing a specified
+   /// number of samples.  **The write position will be left alone.**
+   ///
+   /// @param numberOfSamples number of samples to store in the
+   ///        buffer
+   ///
+   /// @param startIndex_1 on exit, this will contain the index
+   ///        position where the first block of data should be
+   ///        written
+   ///
+   /// @param blockSize_1 on exit, this indicates how many samples
+   ///        should be written to the first block
+   ///
+   /// @param startIndex_2 on exit, this will contain the index
+   ///        position where data that didn't fit into the first
+   ///        block should be written
+   ///
+   /// @param blockSize_2 on exit, this indicates how many samples
+   ///        (if any) should be written to the second block
+   ///
+   inline void overwrite(
+      const int numberOfSamples,
+      int& startIndex_1,
+      int& blockSize_1,
+      int& startIndex_2,
+      int& blockSize_2 )
+   {
+      bool updatePosition = false;
 
-        retrieve(numberOfSamples,
-                 startIndex_1, blockSize_1,
-                 startIndex_2, blockSize_2,
-                 updatePosition);
-    }
+      store( numberOfSamples,
+             startIndex_1, blockSize_1,
+             startIndex_2, blockSize_2,
+             updatePosition );
+   }
 
 
-    void simulateDequeue(const int numberOfSamples);
+   /// Get positions of two sample blocks for retrieving a specified
+   /// number of samples.  **The read position will be updated.**
+   ///
+   /// @param numberOfSamples number of samples to retrieve from the
+   ///        buffer
+   ///
+   /// @param startIndex_1 on exit, this will contain the index
+   ///        position from where the first block of data should be
+   ///        retrieved
+   ///
+   /// @param blockSize_1 on exit, this indicates how many samples
+   ///        should be retrieved from the first block
+   ///
+   /// @param startIndex_2 on exit, this will contain the index
+   ///        position from where data that didn't fit into the first
+   ///        block should be retrieved
+   ///
+   /// @param blockSize_2 on exit, this indicates how many samples
+   ///        (if any) should be retrieved from the second block
+   ///
+   inline void dequeue(
+      const int numberOfSamples,
+      int& startIndex_1,
+      int& blockSize_1,
+      int& startIndex_2,
+      int& blockSize_2 )
+   {
+      bool updatePosition = true;
 
-    void lookBackFromWritePosition(const int numberOfSamples,
-                                   int &startIndex_1,
-                                   int &blockSize_1,
-                                   int &startIndex_2,
-                                   int &blockSize_2);
+      retrieve( numberOfSamples,
+                startIndex_1, blockSize_1,
+                startIndex_2, blockSize_2,
+                updatePosition );
+   }
+
+
+   /// Get positions of two sample blocks for retrieving a specified
+   /// number of samples.  **The read position will be left alone.**
+   ///
+   /// @param numberOfSamples number of samples to retrieve from the
+   ///        buffer
+   ///
+   /// @param startIndex_1 on exit, this will contain the index
+   ///        position from where the first block of data should be
+   ///        retrieved
+   ///
+   /// @param blockSize_1 on exit, this indicates how many samples
+   ///        should be retrieved from the first block
+   ///
+   /// @param startIndex_2 on exit, this will contain the index
+   ///        position from where data that didn't fit into the first
+   ///        block should be retrieved
+   ///
+   /// @param blockSize_2 on exit, this indicates how many samples
+   ///        (if any) should be retrieved from the second block
+   ///
+   inline void copy(
+      const int numberOfSamples,
+      int& startIndex_1,
+      int& blockSize_1,
+      int& startIndex_2,
+      int& blockSize_2 )
+   {
+      bool updatePosition = false;
+
+      retrieve( numberOfSamples,
+                startIndex_1, blockSize_1,
+                startIndex_2, blockSize_2,
+                updatePosition );
+   }
+
+
+   void simulateDequeue( const int numberOfSamples );
+
+   void lookBackFromWritePosition( const int numberOfSamples,
+                                   int& startIndex_1,
+                                   int& blockSize_1,
+                                   int& startIndex_2,
+                                   int& blockSize_2 );
 
 protected:
-    void store(const int numberOfSamples,
-               int &startIndex_1,
-               int &blockSize_1,
-               int &startIndex_2,
-               int &blockSize_2,
-               const bool updatePosition);
+   void store( const int numberOfSamples,
+               int& startIndex_1,
+               int& blockSize_1,
+               int& startIndex_2,
+               int& blockSize_2,
+               const bool updatePosition );
 
-    void retrieve(const int numberOfSamples,
-                  int &startIndex_1,
-                  int &blockSize_1,
-                  int &startIndex_2,
-                  int &blockSize_2,
-                  const bool updatePosition);
+   void retrieve( const int numberOfSamples,
+                  int& startIndex_1,
+                  int& blockSize_1,
+                  int& startIndex_2,
+                  int& blockSize_2,
+                  const bool updatePosition );
 
-    int totalBufferLength_;
-    int preDelay_;
+   int totalBufferLength_;
+   int preDelay_;
 
-    int readPosition_;
-    int writePosition_;
+   int readPosition_;
+   int writePosition_;
 
-    int readPositionToWrap_;
-    int writePositionToWrap_;
+   int readPositionToWrap_;
+   int writePositionToWrap_;
 
-    int storedSamples_;
+   int storedSamples_;
 
 private:
-    JUCE_LEAK_DETECTOR(BufferPosition);
+   JUCE_LEAK_DETECTOR( BufferPosition );
 };
 
 }

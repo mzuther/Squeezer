@@ -35,20 +35,20 @@ namespace parameters
 ///
 Parameter::Parameter()
 {
-    // initialise current value
-    value_ = 0.0f;
-    realValue_ = 0.0f;
-    valueHasChanged_ = false;
+   // initialise current value
+   value_ = 0.0f;
+   realValue_ = 0.0f;
+   valueHasChanged_ = false;
 
-    // initialise default value
-    defaultValue_ = 0.0f;
-    defaultRealValue_ = 0.0f;
+   // initialise default value
+   defaultValue_ = 0.0f;
+   defaultRealValue_ = 0.0f;
 
-    // initialise parameter name
-    parameterName_ = String();
+   // initialise parameter name
+   parameterName_ = String();
 
-    // initialise XML tag name
-    tagName_ = String();
+   // initialise XML tag name
+   tagName_ = String();
 }
 
 
@@ -58,7 +58,7 @@ Parameter::Parameter()
 ///
 String Parameter::getName()
 {
-    return parameterName_;
+   return parameterName_;
 }
 
 
@@ -66,29 +66,29 @@ String Parameter::getName()
 ///
 /// @param newParameterName new parameter name
 ///
-void Parameter::setName(const String &newParameterName)
+void Parameter::setName( const String& newParameterName )
 {
-    // set new parameter name
-    parameterName_ = newParameterName;
+   // set new parameter name
+   parameterName_ = newParameterName;
 
-    // trim leading and trailing white space
-    parameterName_ = parameterName_.trim();
+   // trim leading and trailing white space
+   parameterName_ = parameterName_.trim();
 
-    // set xml tag name from parameter name
-    tagName_ = parameterName_;
+   // set xml tag name from parameter name
+   tagName_ = parameterName_;
 
-    // convert tag name to lower case
-    tagName_ = tagName_.toLowerCase();
+   // convert tag name to lower case
+   tagName_ = tagName_.toLowerCase();
 
-    // strip all characters except a-z, numbers, underscore and space
-    tagName_ = tagName_.retainCharacters(
-                   "abcdefghijklmnopqrstuvwxyz0123456789_ ");
+   // strip all characters except a-z, numbers, underscore and space
+   tagName_ = tagName_.retainCharacters(
+                 "abcdefghijklmnopqrstuvwxyz0123456789_ " );
 
-    // change all spaces to underscores
-    tagName_ = tagName_.replace(" ", "_");
+   // change all spaces to underscores
+   tagName_ = tagName_.replace( " ", "_" );
 
-    // remove double underscores
-    tagName_ = tagName_.replace("__", "_");
+   // remove double underscores
+   tagName_ = tagName_.replace( "__", "_" );
 }
 
 
@@ -98,7 +98,7 @@ void Parameter::setName(const String &newParameterName)
 ///
 String Parameter::getTagName()
 {
-    return tagName_;
+   return tagName_;
 }
 
 
@@ -109,7 +109,7 @@ String Parameter::getTagName()
 ///
 float Parameter::getDefaultFloat()
 {
-    return defaultValue_;
+   return defaultValue_;
 }
 
 
@@ -120,7 +120,7 @@ float Parameter::getDefaultFloat()
 ///
 float Parameter::getDefaultRealFloat()
 {
-    return defaultRealValue_;
+   return defaultRealValue_;
 }
 
 
@@ -131,7 +131,7 @@ float Parameter::getDefaultRealFloat()
 ///
 bool Parameter::getDefaultBoolean()
 {
-    return getDefaultFloat() != 0.0f;
+   return getDefaultFloat() != 0.0f;
 }
 
 
@@ -143,7 +143,7 @@ bool Parameter::getDefaultBoolean()
 ///
 int Parameter::getDefaultRealInteger()
 {
-    return math::SimpleMath::round(getDefaultRealFloat());
+   return math::SimpleMath::round( getDefaultRealFloat() );
 }
 
 
@@ -154,7 +154,7 @@ int Parameter::getDefaultRealInteger()
 ///
 float Parameter::getFloat()
 {
-    return value_;
+   return value_;
 }
 
 
@@ -165,7 +165,7 @@ float Parameter::getFloat()
 ///
 float Parameter::getRealFloat()
 {
-    return realValue_;
+   return realValue_;
 }
 
 
@@ -177,7 +177,7 @@ float Parameter::getRealFloat()
 ///
 int Parameter::getRealInteger()
 {
-    return math::SimpleMath::round(getRealFloat());
+   return math::SimpleMath::round( getRealFloat() );
 }
 
 
@@ -186,9 +186,9 @@ int Parameter::getRealInteger()
 ///
 /// @param newRealValue new value
 ///
-void Parameter::setRealInteger(int newRealValue)
+void Parameter::setRealInteger( int newRealValue )
 {
-    setRealFloat((float) newRealValue);
+   setRealFloat( ( float ) newRealValue );
 }
 
 
@@ -199,7 +199,7 @@ void Parameter::setRealInteger(int newRealValue)
 ///
 bool Parameter::getBoolean()
 {
-    return getFloat() != 0.0f;
+   return getFloat() != 0.0f;
 }
 
 
@@ -209,8 +209,8 @@ bool Parameter::getBoolean()
 ///
 const String Parameter::getText()
 {
-    // transform internal value to string
-    return getTextFromFloat(getFloat());
+   // transform internal value to string
+   return getTextFromFloat( getFloat() );
 }
 
 
@@ -218,13 +218,13 @@ const String Parameter::getText()
 ///
 /// @param newValue new value as formatted string
 ///
-void Parameter::setText(const String &newValue)
+void Parameter::setText( const String& newValue )
 {
-    // transform string to internal value
-    float newInternalValue = getFloatFromText(newValue);
+   // transform string to internal value
+   float newInternalValue = getFloatFromText( newValue );
 
-    // update internal value
-    setFloat(newInternalValue);
+   // update internal value
+   setFloat( newInternalValue );
 }
 
 
@@ -235,7 +235,7 @@ void Parameter::setText(const String &newValue)
 ///
 bool Parameter::hasChanged()
 {
-    return valueHasChanged_;
+   return valueHasChanged_;
 }
 
 
@@ -243,7 +243,7 @@ bool Parameter::hasChanged()
 ///
 void Parameter::clearChangeFlag()
 {
-    valueHasChanged_ = false;
+   valueHasChanged_ = false;
 }
 
 
@@ -251,7 +251,7 @@ void Parameter::clearChangeFlag()
 ///
 void Parameter::setChangeFlag()
 {
-    valueHasChanged_ = true;
+   valueHasChanged_ = true;
 }
 
 
@@ -259,29 +259,26 @@ void Parameter::setChangeFlag()
 ///
 /// @param xmlDocument XML document to load from
 ///
-void Parameter::loadFromXml(XmlElement *xmlDocument)
+void Parameter::loadFromXml( XmlElement* xmlDocument )
 {
-    float realValue;
+   float realValue;
 
-    // get parameter's element from XML document
-    XmlElement *xmlParameter = xmlDocument->getChildByName(getTagName());
+   // get parameter's element from XML document
+   XmlElement* xmlParameter = xmlDocument->getChildByName( getTagName() );
 
-    // parameter's element found
-    if (xmlParameter)
-    {
-        // get stored value from attribute "value" (or use default
-        // real value)
-        realValue = (float) xmlParameter->getDoubleAttribute("value", getDefaultRealFloat());
-    }
-    // otherwise
-    else
-    {
-        // use default real value
-        realValue = getDefaultRealFloat();
-    }
+   // parameter's element found
+   if ( xmlParameter ) {
+      // get stored value from attribute "value" (or use default
+      // real value)
+      realValue = ( float ) xmlParameter->getDoubleAttribute( "value", getDefaultRealFloat() );
+      // otherwise
+   } else {
+      // use default real value
+      realValue = getDefaultRealFloat();
+   }
 
-    // update real value
-    setRealFloat(realValue);
+   // update real value
+   setRealFloat( realValue );
 }
 
 
@@ -289,24 +286,23 @@ void Parameter::loadFromXml(XmlElement *xmlDocument)
 ///
 /// @param xmlDocument XML document to store in
 ///
-void Parameter::storeAsXml(XmlElement *xmlDocument)
+void Parameter::storeAsXml( XmlElement* xmlDocument )
 {
-    // create new XML element with parameter's tag name (will be
-    // deleted by XML document)
-    XmlElement *xmlParameter = new XmlElement(getTagName());
+   // create new XML element with parameter's tag name (will be
+   // deleted by XML document)
+   XmlElement* xmlParameter = new XmlElement( getTagName() );
 
-    // XML element was successfully created
-    if (xmlParameter)
-    {
-        // get current real value
-        float realValue = getRealFloat();
+   // XML element was successfully created
+   if ( xmlParameter ) {
+      // get current real value
+      float realValue = getRealFloat();
 
-        // set attribute "value" to current value
-        xmlParameter->setAttribute("value", realValue);
+      // set attribute "value" to current value
+      xmlParameter->setAttribute( "value", realValue );
 
-        // add new element to XML document
-        xmlDocument->addChildElement(xmlParameter);
-    }
+      // add new element to XML document
+      xmlDocument->addChildElement( xmlParameter );
+   }
 }
 
 }

@@ -26,41 +26,40 @@
 #include "side_chain.h"
 
 
-SideChain::SideChain(
-    int nSampleRate) :
-    gainStageFET(nSampleRate),
-    gainStageOptical(nSampleRate)
-    /*  Constructor.
+SideChain::SideChain( int nSampleRate ) :
+   gainStageFET( nSampleRate ),
+   gainStageOptical( nSampleRate )
+   /*  Constructor.
 
-        nSampleRate (integer): internal sample rate
+       nSampleRate (integer): internal sample rate
 
-        return value: none
-    */
+       return value: none
+   */
 {
-    dSampleRate = (double) nSampleRate;
-    dGainReductionIdeal = 0.0;
+   dSampleRate = ( double ) nSampleRate;
+   dGainReductionIdeal = 0.0;
 
-    setThreshold(-32.0);
-    setRatio(2.0);
-    setKneeWidth(0.0);
+   setThreshold( -32.0 );
+   setRatio( 2.0 );
+   setKneeWidth( 0.0 );
 
-    setRmsWindowSize(10.0);
-    nCurveType = SideChain::CurveLogSmoothBranching;
-    nGainStageType = GainStage::FET;
+   setRmsWindowSize( 10.0 );
+   nCurveType = SideChain::CurveLogSmoothBranching;
+   nGainStageType = GainStage::FET;
 
-    setAttackRate(10.0);
-    setReleaseRate(100);
-    setCurve(nCurveType);
-    setGainStage(nGainStageType);
+   setAttackRate( 10.0 );
+   setReleaseRate( 100 );
+   setCurve( nCurveType );
+   setGainStage( nGainStageType );
 
-    // reset (i.e. initialise) all relevant variables
-    reset();
+   // reset (i.e. initialise) all relevant variables
+   reset();
 
 #if DEBUG_RELEASE_RATE
-    fTimePassed = 1.0 / double(nSampleRate);
+   fTimePassed = 1.0 / double( nSampleRate );
 
-    dDebugFinalValue90 = -1.0;
-    dDebugTimeInReleasePhase = 0.0;
+   dDebugFinalValue90 = -1.0;
+   dDebugTimeInReleasePhase = 0.0;
 #endif // DEBUG_RELEASE_RATE
 }
 
@@ -71,11 +70,11 @@ void SideChain::reset()
     return value: none
 */
 {
-    dGainReduction = 0.0;
-    dGainCompensation = 0.0;
-    dDetectorOutputLevelSquared = 0.0;
+   dGainReduction = 0.0;
+   dGainCompensation = 0.0;
+   dDetectorOutputLevelSquared = 0.0;
 
-    dAutoGainReferenceLevel = 0.0;
+   dAutoGainReferenceLevel = 0.0;
 }
 
 
@@ -86,12 +85,11 @@ double SideChain::getRmsWindowSize()
     size
 */
 {
-    return dRmsWindowSizeMilliSeconds;
+   return dRmsWindowSizeMilliSeconds;
 }
 
 
-void SideChain::setRmsWindowSize(
-    double dRmsWindowSizeMilliSecondsNew)
+void SideChain::setRmsWindowSize( double dRmsWindowSizeMilliSecondsNew )
 /*  Set new detector RMS window size.
 
     dRmsWindowSizeMilliSecondsNew (double): new detector RMS window
@@ -100,21 +98,18 @@ void SideChain::setRmsWindowSize(
     return value: none
 */
 {
-    // bypass RMS sensing
-    if (dRmsWindowSizeMilliSecondsNew <= 0.0)
-    {
-        dRmsWindowSizeMilliSeconds = 0.0;
-        dRmsWindowCoefficient = 0.0;
-    }
-    else
-    {
-        dRmsWindowSizeMilliSeconds = dRmsWindowSizeMilliSecondsNew;
-        double dRmsWindowSizeSeconds = dRmsWindowSizeMilliSeconds / 1000.0;
+   // bypass RMS sensing
+   if ( dRmsWindowSizeMilliSecondsNew <= 0.0 ) {
+      dRmsWindowSizeMilliSeconds = 0.0;
+      dRmsWindowCoefficient = 0.0;
+   } else {
+      dRmsWindowSizeMilliSeconds = dRmsWindowSizeMilliSecondsNew;
+      double dRmsWindowSizeSeconds = dRmsWindowSizeMilliSeconds / 1000.0;
 
-        // logarithmic envelope reaches 90% of the final reading
-        // in the given attack time
-        dRmsWindowCoefficient = exp(log(0.10) / (dRmsWindowSizeSeconds * dSampleRate));
-    }
+      // logarithmic envelope reaches 90% of the final reading
+      // in the given attack time
+      dRmsWindowCoefficient = exp( log( 0.10 ) / ( dRmsWindowSizeSeconds * dSampleRate ) );
+   }
 }
 
 
@@ -124,12 +119,11 @@ int SideChain::getCurve()
     return value (integer): returns compressor curve type
  */
 {
-    return nCurveType;
+   return nCurveType;
 }
 
 
-void SideChain::setCurve(
-    int nCurveTypeNew)
+void SideChain::setCurve( int nCurveTypeNew )
 /*  Set new compressor curve type.
 
     nCurveTypeNew (integer): new compressor curve type
@@ -137,11 +131,11 @@ void SideChain::setCurve(
     return value: none
  */
 {
-    nCurveType = nCurveTypeNew;
-    dGainReductionIntermediate = 0.0;
+   nCurveType = nCurveTypeNew;
+   dGainReductionIntermediate = 0.0;
 
-    setAttackRate(dAttackRate);
-    setReleaseRate(nReleaseRate);
+   setAttackRate( dAttackRate );
+   setReleaseRate( nReleaseRate );
 }
 
 
@@ -151,12 +145,11 @@ int SideChain::getGainStage()
     return value (integer): returns compressor gain stage type
  */
 {
-    return nGainStageType;
+   return nGainStageType;
 }
 
 
-void SideChain::setGainStage(
-    int nGainStageTypeNew)
+void SideChain::setGainStage( int nGainStageTypeNew )
 /*  Set new compressor gain stage type.
 
     nGainStageTypeNew (integer): new compressor gain stage type
@@ -164,19 +157,16 @@ void SideChain::setGainStage(
     return value: none
  */
 {
-    nGainStageType = nGainStageTypeNew;
+   nGainStageType = nGainStageTypeNew;
 
-    // update gain compensation
-    setThreshold(dThreshold);
+   // update gain compensation
+   setThreshold( dThreshold );
 
-    if (nGainStageType == GainStage::FET)
-    {
-        gainStageFET.reset(dGainReduction);
-    }
-    else
-    {
-        gainStageOptical.reset(dGainReduction);
-    }
+   if ( nGainStageType == GainStage::FET ) {
+      gainStageFET.reset( dGainReduction );
+   } else {
+      gainStageOptical.reset( dGainReduction );
+   }
 }
 
 
@@ -186,12 +176,11 @@ double SideChain::getThreshold()
     return value (double): returns the current threshold in decibels
  */
 {
-    return dThreshold;
+   return dThreshold;
 }
 
 
-void SideChain::setThreshold(
-    double dThresholdNew)
+void SideChain::setThreshold( double dThresholdNew )
 /*  Set new threshold.
 
     dThresholdNew (double): new threshold in decibels
@@ -199,9 +188,9 @@ void SideChain::setThreshold(
     return value: none
  */
 {
-    dThreshold = dThresholdNew;
+   dThreshold = dThresholdNew;
 
-    dGainCompensation = queryGainComputer(dAutoGainReferenceLevel) / 2.0;
+   dGainCompensation = queryGainComputer( dAutoGainReferenceLevel ) / 2.0;
 }
 
 
@@ -211,12 +200,11 @@ double SideChain::getRatio()
     return value (double): returns the current compression ratio
  */
 {
-    return 1.0 / (1.0 - dRatioInternal);
+   return 1.0 / ( 1.0 - dRatioInternal );
 }
 
 
-void SideChain::setRatio(
-    double dRatioNew)
+void SideChain::setRatio( double dRatioNew )
 /*  Set new compression ratio.
 
     dRatioNew (double): new compression ratio
@@ -224,8 +212,8 @@ void SideChain::setRatio(
     return value: none
  */
 {
-    dRatioInternal = 1.0 - (1.0 / dRatioNew);
-    dGainCompensation = queryGainComputer(dAutoGainReferenceLevel) / 2.0;
+   dRatioInternal = 1.0 - ( 1.0 / dRatioNew );
+   dGainCompensation = queryGainComputer( dAutoGainReferenceLevel ) / 2.0;
 }
 
 
@@ -235,12 +223,11 @@ double SideChain::getKneeWidth()
     return value (double): returns the current knee width in decibels
  */
 {
-    return dKneeWidth;
+   return dKneeWidth;
 }
 
 
-void SideChain::setKneeWidth(
-    double dKneeWidthNew)
+void SideChain::setKneeWidth( double dKneeWidthNew )
 /*  Set new knee width.
 
     dKneeWidthNew (double): new knee width in decibels
@@ -248,11 +235,11 @@ void SideChain::setKneeWidth(
     return value: none
  */
 {
-    dKneeWidth = dKneeWidthNew;
-    dKneeWidthHalf = dKneeWidth / 2.0;
-    dKneeWidthDouble = dKneeWidth * 2.0;
+   dKneeWidth = dKneeWidthNew;
+   dKneeWidthHalf = dKneeWidth / 2.0;
+   dKneeWidthDouble = dKneeWidth * 2.0;
 
-    dGainCompensation = queryGainComputer(dAutoGainReferenceLevel) / 2.0;
+   dGainCompensation = queryGainComputer( dAutoGainReferenceLevel ) / 2.0;
 }
 
 
@@ -263,12 +250,11 @@ double SideChain::getAttackRate()
     milliseconds
  */
 {
-    return dAttackRate;
+   return dAttackRate;
 }
 
 
-void SideChain::setAttackRate(
-    double dAttackRateNew)
+void SideChain::setAttackRate( double dAttackRateNew )
 /*  Set new attack rate.
 
     dAttackRateNew (double): new attack rate in milliseconds
@@ -276,20 +262,17 @@ void SideChain::setAttackRate(
     return value: none
  */
 {
-    dAttackRate = dAttackRateNew;
+   dAttackRate = dAttackRateNew;
 
-    if (dAttackRate <= 0.0)
-    {
-        dAttackCoefficient = 0.0;
-    }
-    else
-    {
-        double dAttackRateSeconds = dAttackRate / 1000.0;
+   if ( dAttackRate <= 0.0 ) {
+      dAttackCoefficient = 0.0;
+   } else {
+      double dAttackRateSeconds = dAttackRate / 1000.0;
 
-        // logarithmic envelope reaches 90% of the final reading in
-        // the given attack time
-        dAttackCoefficient = exp(log(0.10) / (dAttackRateSeconds * dSampleRate));
-    }
+      // logarithmic envelope reaches 90% of the final reading in
+      // the given attack time
+      dAttackCoefficient = exp( log( 0.10 ) / ( dAttackRateSeconds * dSampleRate ) );
+   }
 }
 
 
@@ -300,12 +283,11 @@ int SideChain::getReleaseRate()
     milliseconds
  */
 {
-    return nReleaseRate;
+   return nReleaseRate;
 }
 
 
-void SideChain::setReleaseRate(
-    int nReleaseRateNew)
+void SideChain::setReleaseRate( int nReleaseRateNew )
 /*  Set new release rate.
 
     nReleaseRateNew (integer): new release rate in milliseconds
@@ -313,34 +295,27 @@ void SideChain::setReleaseRate(
     return value: none
  */
 {
-    nReleaseRate = nReleaseRateNew;
+   nReleaseRate = nReleaseRateNew;
 
-    if (nReleaseRate <= 0)
-    {
-        dReleaseCoefficient = 0.0;
-    }
-    else
-    {
-        double dReleaseRateSeconds = nReleaseRate / 1000.0;
+   if ( nReleaseRate <= 0 ) {
+      dReleaseCoefficient = 0.0;
+   } else {
+      double dReleaseRateSeconds = nReleaseRate / 1000.0;
 
-        if (nCurveType == SideChain::CurveLogLin)
-        {
-            // fall time: falls 10 dB per interval defined in release
-            // rate (linear)
-            dReleaseCoefficient = 10.0 / (dReleaseRateSeconds * dSampleRate);
-        }
-        else
-        {
-            // logarithmic envelope reaches 90% of the final reading
-            // in the given release time
-            dReleaseCoefficient = exp(log(0.10) / (dReleaseRateSeconds * dSampleRate));
-        }
-    }
+      if ( nCurveType == SideChain::CurveLogLin ) {
+         // fall time: falls 10 dB per interval defined in release
+         // rate (linear)
+         dReleaseCoefficient = 10.0 / ( dReleaseRateSeconds * dSampleRate );
+      } else {
+         // logarithmic envelope reaches 90% of the final reading
+         // in the given release time
+         dReleaseCoefficient = exp( log( 0.10 ) / ( dReleaseRateSeconds * dSampleRate ) );
+      }
+   }
 }
 
 
-double SideChain::getGainReduction(
-    bool bAutoMakeupGain)
+double SideChain::getGainReduction( bool bAutoMakeupGain )
 /*  Get current gain reduction.
 
     bAutoMakeupGain (boolean): determines whether the gain reduction
@@ -350,31 +325,24 @@ double SideChain::getGainReduction(
     decibel
  */
 {
-    double dGainReductionTemp;
+   double dGainReductionTemp;
 
-    if (nGainStageType == GainStage::FET)
-    {
-        dGainReductionTemp = gainStageFET.processGainReduction(dGainReduction, dGainReductionIdeal);
-    }
-    else
-    {
-        dGainReductionTemp = gainStageOptical.processGainReduction(dGainReduction, dGainReductionIdeal);
-    }
+   if ( nGainStageType == GainStage::FET ) {
+      dGainReductionTemp = gainStageFET.processGainReduction( dGainReduction, dGainReductionIdeal );
+   } else {
+      dGainReductionTemp = gainStageOptical.processGainReduction( dGainReduction, dGainReductionIdeal );
+   }
 
-    if (bAutoMakeupGain)
-    {
+   if ( bAutoMakeupGain ) {
 
-        return dGainReductionTemp - dGainCompensation;
-    }
-    else
-    {
-        return dGainReductionTemp;
-    }
+      return dGainReductionTemp - dGainCompensation;
+   } else {
+      return dGainReductionTemp;
+   }
 }
 
 
-double SideChain::queryGainComputer(
-    double dInputLevel)
+double SideChain::queryGainComputer( double dInputLevel )
 /*  Calculate gain reduction and envelopes from input level.
 
     dInputLevel (double): current input level in decibels
@@ -382,45 +350,33 @@ double SideChain::queryGainComputer(
     return value: calculated gain reduction in decibels
  */
 {
-    double dAboveThreshold = dInputLevel - dThreshold;
+   double dAboveThreshold = dInputLevel - dThreshold;
 
-    if (dKneeWidth == 0.0)
-    {
-        if (dInputLevel <= dThreshold)
-        {
-            return 0.0;
-        }
-        else
-        {
-            return dAboveThreshold * dRatioInternal;
-        }
-    }
-    else
-    {
-        // algorithm adapted from Giannoulis et al., "Digital Dynamic
-        // Range Compressor Design - A Tutorial and Analysis", JAES,
-        // 60(6):399-408, 2012
-        if (dAboveThreshold < -dKneeWidthHalf)
-        {
-            return 0.0;
-        }
-        else if (dAboveThreshold > dKneeWidthHalf)
-        {
-            return dAboveThreshold * dRatioInternal;
-        }
-        else
-        {
-            double dFactor = dAboveThreshold + dKneeWidthHalf;
-            double dFactorSquared = dFactor * dFactor;
+   if ( dKneeWidth == 0.0 ) {
+      if ( dInputLevel <= dThreshold ) {
+         return 0.0;
+      } else {
+         return dAboveThreshold * dRatioInternal;
+      }
+   } else {
+      // algorithm adapted from Giannoulis et al., "Digital Dynamic
+      // Range Compressor Design - A Tutorial and Analysis", JAES,
+      // 60(6):399-408, 2012
+      if ( dAboveThreshold < -dKneeWidthHalf ) {
+         return 0.0;
+      } else if ( dAboveThreshold > dKneeWidthHalf ) {
+         return dAboveThreshold * dRatioInternal;
+      } else {
+         double dFactor = dAboveThreshold + dKneeWidthHalf;
+         double dFactorSquared = dFactor * dFactor;
 
-            return dFactorSquared / dKneeWidthDouble * dRatioInternal;
-        }
-    }
+         return dFactorSquared / dKneeWidthDouble * dRatioInternal;
+      }
+   }
 }
 
 
-void SideChain::processSample(
-    double dInputLevel)
+void SideChain::processSample( double dInputLevel )
 /*  Process a single audio sample value.
 
     dInputLevel (double): current audio sample value in decibels
@@ -428,101 +384,87 @@ void SideChain::processSample(
     return value: current gain reduction in decibels
 */
 {
-    // feed input level to gain computer
-    dGainReductionIdeal = queryGainComputer(dInputLevel);
+   // feed input level to gain computer
+   dGainReductionIdeal = queryGainComputer( dInputLevel );
 
-    // filter calculated gain reduction through level detection filter
-    double dGainReductionNew = applyRmsFilter(dGainReductionIdeal);
+   // filter calculated gain reduction through level detection filter
+   double dGainReductionNew = applyRmsFilter( dGainReductionIdeal );
 
-    // feed output from gain computer to level detector
-    switch (nCurveType)
-    {
-    case SideChain::CurveLogLin:
-        applyCurveLogLin(dGainReductionNew);
-        break;
+   // feed output from gain computer to level detector
+   switch ( nCurveType ) {
+      case SideChain::CurveLogLin:
+         applyCurveLogLin( dGainReductionNew );
+         break;
 
-    case SideChain::CurveLogSmoothDecoupled:
-        applyCurveLogSmoothDecoupled(dGainReductionNew);
-        break;
+      case SideChain::CurveLogSmoothDecoupled:
+         applyCurveLogSmoothDecoupled( dGainReductionNew );
+         break;
 
-    case SideChain::CurveLogSmoothBranching:
-        applyCurveLogSmoothBranching(dGainReductionNew);
-        break;
+      case SideChain::CurveLogSmoothBranching:
+         applyCurveLogSmoothBranching( dGainReductionNew );
+         break;
 
-    default:
-        DBG("[Squeezer] sidechain::processSample ==> invalid detector");
-        break;
-    }
+      default:
+         DBG( "[Squeezer] sidechain::processSample ==> invalid detector" );
+         break;
+   }
 
 #if DEBUG_RELEASE_RATE
 
-    // reset things during attack phase
-    if (dGainReductionNew > dGainReduction)
-    {
-        dDebugFinalValue90 = -1.0;
-        dDebugTimeInReleasePhase = 0.0;
-    }
-    // we're in release phase
-    else
-    {
-        // release phase has just started
-        if (dDebugFinalValue90 < 0.0)
-        {
-            // only measure "real" data
-            if (dGainReduction >= 1.0)
-            {
-                // determine time when the envelope reaches 90% of the
-                // final reading
-                dDebugFinalValue90 = dGainReduction * 0.1;
+   // reset things during attack phase
+   if ( dGainReductionNew > dGainReduction ) {
+      dDebugFinalValue90 = -1.0;
+      dDebugTimeInReleasePhase = 0.0;
+      // we're in release phase
+   } else {
+      // release phase has just started
+      if ( dDebugFinalValue90 < 0.0 ) {
+         // only measure "real" data
+         if ( dGainReduction >= 1.0 ) {
+            // determine time when the envelope reaches 90% of the
+            // final reading
+            dDebugFinalValue90 = dGainReduction * 0.1;
 
-                // reset time measurement
-                dDebugTimeInReleasePhase = 0.0;
-            }
-        }
-        // test for 90% of the final reading
-        else if (dGainReduction <= dDebugFinalValue90)
-        {
-            // display measured time
-            DBG(String(dDebugTimeInReleasePhase * 1000.0, 1) + " ms");
-
-            // reset things
-            dDebugFinalValue90 = -1.0;
+            // reset time measurement
             dDebugTimeInReleasePhase = 0.0;
-        }
-        // update time since start of release phase
-        else
-        {
-            dDebugTimeInReleasePhase += dTimePassed;
-        }
-    }
+         }
+
+         // test for 90% of the final reading
+      } else if ( dGainReduction <= dDebugFinalValue90 ) {
+         // display measured time
+         DBG( String( dDebugTimeInReleasePhase * 1000.0, 1 ) + " ms" );
+
+         // reset things
+         dDebugFinalValue90 = -1.0;
+         dDebugTimeInReleasePhase = 0.0;
+         // update time since start of release phase
+      } else {
+         dDebugTimeInReleasePhase += dTimePassed;
+      }
+   }
 
 #endif // DEBUG_RELEASE_RATE
 }
 
 
-double SideChain::applyRmsFilter(
-    double dDetectorInputLevel)
+double SideChain::applyRmsFilter( double dDetectorInputLevel )
 {
-    // bypass RMS sensing
-    if (dRmsWindowSizeMilliSeconds <= 0.0)
-    {
-        return dDetectorInputLevel;
-    }
-    else
-    {
-        double dDetectorInputLevelSquared = dDetectorInputLevel * dDetectorInputLevel;
-        double dDetectorOutputLevelSquaredOld = dDetectorOutputLevelSquared;
+   // bypass RMS sensing
+   if ( dRmsWindowSizeMilliSeconds <= 0.0 ) {
+      return dDetectorInputLevel;
+   } else {
+      double dDetectorInputLevelSquared = dDetectorInputLevel * dDetectorInputLevel;
+      double dDetectorOutputLevelSquaredOld = dDetectorOutputLevelSquared;
 
-        dDetectorOutputLevelSquared = (dRmsWindowCoefficient * dDetectorOutputLevelSquaredOld) + (1.0 - dRmsWindowCoefficient) * dDetectorInputLevelSquared;
+      dDetectorOutputLevelSquared = ( dRmsWindowCoefficient * dDetectorOutputLevelSquaredOld ) + ( 1.0 - dRmsWindowCoefficient ) * dDetectorInputLevelSquared;
 
-        double dDetectorOutputLevel = sqrt(dDetectorOutputLevelSquared);
-        return dDetectorOutputLevel;
-    }
+      double dDetectorOutputLevel = sqrt( dDetectorOutputLevelSquared );
+      return dDetectorOutputLevel;
+   }
 }
 
 
-void SideChain::applyCurveLogLin(
-    double dGainReductionNew)
+void SideChain::applyCurveLogLin( double dGainReductionNew )
 /*  Calculate detector with logarithmic attack and linear release
     ("Linear").
 
@@ -532,47 +474,37 @@ void SideChain::applyCurveLogLin(
     return value: none
 */
 {
-    // apply attack rate if proposed gain reduction is above old gain
-    // reduction
-    if (dGainReductionNew >= dGainReduction)
-    {
-        if (dAttackCoefficient == 0.0)
-        {
-            dGainReduction = dGainReductionNew;
-        }
-        else
-        {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
+   // apply attack rate if proposed gain reduction is above old gain
+   // reduction
+   if ( dGainReductionNew >= dGainReduction ) {
+      if ( dAttackCoefficient == 0.0 ) {
+         dGainReduction = dGainReductionNew;
+      } else {
+         // algorithm adapted from Giannoulis et al., "Digital
+         // Dynamic Range Compressor Design - A Tutorial and
+         // Analysis", JAES, 60(6):399-408, 2012
 
-            double dGainReductionOld = dGainReduction;
-            dGainReduction = (dAttackCoefficient * dGainReductionOld) + (1.0 - dAttackCoefficient) * dGainReductionNew;
-        }
-    }
-    // otherwise, apply release rate if proposed gain reduction is
-    // below old gain reduction
-    else
-    {
-        if (dReleaseCoefficient == 0.0)
-        {
-            dGainReduction = dGainReductionNew;
-        }
-        else
-        {
-            dGainReduction -= dReleaseCoefficient;
+         double dGainReductionOld = dGainReduction;
+         dGainReduction = ( dAttackCoefficient * dGainReductionOld ) + ( 1.0 - dAttackCoefficient ) * dGainReductionNew;
+      }
 
-            if (dGainReduction < dGainReductionNew)
-            {
-                dGainReduction = dGainReductionNew;
-            }
-        }
-    }
+      // otherwise, apply release rate if proposed gain reduction is
+      // below old gain reduction
+   } else {
+      if ( dReleaseCoefficient == 0.0 ) {
+         dGainReduction = dGainReductionNew;
+      } else {
+         dGainReduction -= dReleaseCoefficient;
+
+         if ( dGainReduction < dGainReductionNew ) {
+            dGainReduction = dGainReductionNew;
+         }
+      }
+   }
 }
 
 
-void SideChain::applyCurveLogSmoothDecoupled(
-    double dGainReductionNew)
+void SideChain::applyCurveLogSmoothDecoupled( double dGainReductionNew )
 /*  Calculate smooth decoupled detector ("Smooth").
 
     dGainReductionNew (double): calculated gain reduction in decibels
@@ -580,42 +512,34 @@ void SideChain::applyCurveLogSmoothDecoupled(
     return value: none
 */
 {
-    // algorithm adapted from Giannoulis et al., "Digital Dynamic
-    // Range Compressor Design - A Tutorial and Analysis", JAES,
-    // 60(6):399-408, 2012
-    //
-    // apply release envelope
-    if (dReleaseCoefficient == 0.0)
-    {
-        dGainReductionIntermediate = dGainReductionNew;
-    }
-    else
-    {
-        double dGainReductionIntermediateOld = dGainReductionIntermediate;
-        dGainReductionIntermediate = (dReleaseCoefficient * dGainReductionIntermediateOld) + (1.0 - dReleaseCoefficient) * dGainReductionNew;
+   // algorithm adapted from Giannoulis et al., "Digital Dynamic
+   // Range Compressor Design - A Tutorial and Analysis", JAES,
+   // 60(6):399-408, 2012
+   //
+   // apply release envelope
+   if ( dReleaseCoefficient == 0.0 ) {
+      dGainReductionIntermediate = dGainReductionNew;
+   } else {
+      double dGainReductionIntermediateOld = dGainReductionIntermediate;
+      dGainReductionIntermediate = ( dReleaseCoefficient * dGainReductionIntermediateOld ) + ( 1.0 - dReleaseCoefficient ) * dGainReductionNew;
 
-        // maximally fast peak detection
-        if (dGainReductionNew > dGainReductionIntermediate)
-        {
-            dGainReductionIntermediate = dGainReductionNew;
-        }
-    }
+      // maximally fast peak detection
+      if ( dGainReductionNew > dGainReductionIntermediate ) {
+         dGainReductionIntermediate = dGainReductionNew;
+      }
+   }
 
-    // apply attack envelope
-    if (dAttackCoefficient == 0.0)
-    {
-        dGainReduction = dGainReductionIntermediate;
-    }
-    else
-    {
-        double dGainReductionOld = dGainReduction;
-        dGainReduction = (dAttackCoefficient * dGainReductionOld) + (1.0 - dAttackCoefficient) * dGainReductionIntermediate;
-    }
+   // apply attack envelope
+   if ( dAttackCoefficient == 0.0 ) {
+      dGainReduction = dGainReductionIntermediate;
+   } else {
+      double dGainReductionOld = dGainReduction;
+      dGainReduction = ( dAttackCoefficient * dGainReductionOld ) + ( 1.0 - dAttackCoefficient ) * dGainReductionIntermediate;
+   }
 }
 
 
-void SideChain::applyCurveLogSmoothBranching(
-    double dGainReductionNew)
+void SideChain::applyCurveLogSmoothBranching( double dGainReductionNew )
 /*  Calculate smooth branching detector ("Logarithmic").
 
     dGainReductionNew (double): calculated gain reduction in decibels
@@ -623,47 +547,38 @@ void SideChain::applyCurveLogSmoothBranching(
     return value: none
 */
 {
-    // apply attack rate if proposed gain reduction is above old gain
-    // reduction
-    if (dGainReductionNew > dGainReduction)
-    {
-        if (dAttackCoefficient == 0.0)
-        {
-            dGainReduction = dGainReductionNew;
-        }
-        else
-        {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
+   // apply attack rate if proposed gain reduction is above old gain
+   // reduction
+   if ( dGainReductionNew > dGainReduction ) {
+      if ( dAttackCoefficient == 0.0 ) {
+         dGainReduction = dGainReductionNew;
+      } else {
+         // algorithm adapted from Giannoulis et al., "Digital
+         // Dynamic Range Compressor Design - A Tutorial and
+         // Analysis", JAES, 60(6):399-408, 2012
 
-            double dGainReductionOld = dGainReduction;
-            dGainReduction = (dAttackCoefficient * dGainReductionOld) + (1.0 - dAttackCoefficient) * dGainReductionNew;
-        }
-    }
-    // otherwise, apply release rate if proposed gain reduction is
-    // below old gain reduction
-    else
-    {
-        if (dReleaseCoefficient == 0.0)
-        {
-            dGainReduction = dGainReductionNew;
-        }
-        else
-        {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
+         double dGainReductionOld = dGainReduction;
+         dGainReduction = ( dAttackCoefficient * dGainReductionOld ) + ( 1.0 - dAttackCoefficient ) * dGainReductionNew;
+      }
 
-            double dGainReductionOld = dGainReduction;
-            dGainReduction = (dReleaseCoefficient * dGainReductionOld) + (1.0 - dReleaseCoefficient) * dGainReductionNew;
-        }
-    }
+      // otherwise, apply release rate if proposed gain reduction is
+      // below old gain reduction
+   } else {
+      if ( dReleaseCoefficient == 0.0 ) {
+         dGainReduction = dGainReductionNew;
+      } else {
+         // algorithm adapted from Giannoulis et al., "Digital
+         // Dynamic Range Compressor Design - A Tutorial and
+         // Analysis", JAES, 60(6):399-408, 2012
+
+         double dGainReductionOld = dGainReduction;
+         dGainReduction = ( dReleaseCoefficient * dGainReductionOld ) + ( 1.0 - dReleaseCoefficient ) * dGainReductionNew;
+      }
+   }
 }
 
 
-double SideChain::level2decibel(
-    double dLevel)
+double SideChain::level2decibel( double dLevel )
 /*  Convert level from linear scale to decibels (dB).
 
     dLevel (double): audio level
@@ -672,37 +587,30 @@ double SideChain::level2decibel(
     above "dMeterMinimumDecibel", otherwise "dMeterMinimumDecibel"
 */
 {
-    // just an inch below the meter's lowest segment
-    double dMeterMinimumDecibel = -70.01;
+   // just an inch below the meter's lowest segment
+   double dMeterMinimumDecibel = -70.01;
 
-    // log(0) is not defined, so return "fMeterMinimumDecibel"
-    if (dLevel == 0.0)
-    {
-        return dMeterMinimumDecibel;
-    }
-    else
-    {
-        // calculate decibels from audio level (a factor of 20.0 is
-        // needed to calculate *level* ratios, whereas 10.0 is needed
-        // for *power* ratios!)
-        double dDecibels = 20.0 * log10(dLevel);
+   // log(0) is not defined, so return "fMeterMinimumDecibel"
+   if ( dLevel == 0.0 ) {
+      return dMeterMinimumDecibel;
+   } else {
+      // calculate decibels from audio level (a factor of 20.0 is
+      // needed to calculate *level* ratios, whereas 10.0 is needed
+      // for *power* ratios!)
+      double dDecibels = 20.0 * log10( dLevel );
 
-        // to make meter ballistics look nice for low levels, do not
-        // return levels below "fMeterMinimumDecibel"
-        if (dDecibels < dMeterMinimumDecibel)
-        {
-            return dMeterMinimumDecibel;
-        }
-        else
-        {
-            return dDecibels;
-        }
-    }
+      // to make meter ballistics look nice for low levels, do not
+      // return levels below "fMeterMinimumDecibel"
+      if ( dDecibels < dMeterMinimumDecibel ) {
+         return dMeterMinimumDecibel;
+      } else {
+         return dDecibels;
+      }
+   }
 }
 
 
-double SideChain::decibel2level(
-    double dDecibels)
+double SideChain::decibel2level( double dDecibels )
 /*  Convert level from decibels (dB) to linear scale.
 
     dLevel (double): audio level in decibels (dB)
@@ -710,9 +618,9 @@ double SideChain::decibel2level(
     return value (double): given level in linear scale
 */
 {
-    // calculate audio level from decibels (a divisor of 20.0 is
-    // needed to calculate *level* ratios, whereas 10.0 is needed for
-    // *power* ratios!)
-    double dLevel = pow(10.0, dDecibels / 20.0);
-    return dLevel;
+   // calculate audio level from decibels (a divisor of 20.0 is
+   // needed to calculate *level* ratios, whereas 10.0 is needed for
+   // *power* ratios!)
+   double dLevel = pow( 10.0, dDecibels / 20.0 );
+   return dLevel;
 }

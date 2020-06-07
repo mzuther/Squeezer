@@ -31,11 +31,11 @@ namespace dsp
 {
 
 FIRFilterBox::FIRFilterBox(
-    const File resourceDirectory,
-    const int numberOfChannels,
-    const int fftBufferSize) :
+   const File resourceDirectory,
+   const int numberOfChannels,
+   const int fftBufferSize ) :
 
-    frut::dsp::FftwRunner(resourceDirectory, numberOfChannels, fftBufferSize)
+   frut::dsp::FftwRunner( resourceDirectory, numberOfChannels, fftBufferSize )
 {
 }
 
@@ -47,54 +47,47 @@ FIRFilterBox::~FIRFilterBox()
 
 void FIRFilterBox::reset()
 {
-    FftwRunner::reset();
+   FftwRunner::reset();
 }
 
 
 // calculate filter kernel for windowed-sinc low-pass filter
 void FIRFilterBox::calculateKernelWindowedSincLPF(
-    const double relativeCutoffFrequency)
+   const double relativeCutoffFrequency )
 {
-    int samples = fftBufferSize_ + 1;
-    double samplesHalf = samples / 2.0;
+   int samples = fftBufferSize_ + 1;
+   double samplesHalf = samples / 2.0;
 
-    // calculate filter kernel
-    for (int i = 0; i < samples; ++i)
-    {
-        if (i == samplesHalf)
-        {
-            filterKernel_TD_[i] = static_cast<float>(
-                                      2.0 * M_PI * relativeCutoffFrequency);
-        }
-        else
-        {
-            filterKernel_TD_[i] = static_cast<float>(
-                                      sin(2.0 * M_PI * relativeCutoffFrequency * (i - samplesHalf)) / (i - samplesHalf) * (0.42 - 0.5 * cos(2.0 * M_PI * i / samples) + 0.08 * cos(4.0 * M_PI * i / samples)));
-        }
-    }
+   // calculate filter kernel
+   for ( int i = 0; i < samples; ++i ) {
+      if ( i == samplesHalf ) {
+         filterKernel_TD_[i] = static_cast<float>(
+                                  2.0 * M_PI * relativeCutoffFrequency );
+      } else {
+         filterKernel_TD_[i] = static_cast<float>(
+                                  sin( 2.0 * M_PI * relativeCutoffFrequency * ( i - samplesHalf ) ) / ( i - samplesHalf ) * ( 0.42 - 0.5 * cos( 2.0 * M_PI * i / samples ) + 0.08 * cos( 4.0 * M_PI * i / samples ) ) );
+      }
+   }
 
-    // normalise filter kernel for unity gain at DC
-    double kernelSum = 0.0;
+   // normalise filter kernel for unity gain at DC
+   double kernelSum = 0.0;
 
-    for (int i = 0; i < samples; ++i)
-    {
-        kernelSum += filterKernel_TD_[i];
-    }
+   for ( int i = 0; i < samples; ++i ) {
+      kernelSum += filterKernel_TD_[i];
+   }
 
-    for (int i = 0; i < samples; ++i)
-    {
-        filterKernel_TD_[i] = static_cast<float>(
-                                  filterKernel_TD_[i] / kernelSum);
-    }
+   for ( int i = 0; i < samples; ++i ) {
+      filterKernel_TD_[i] = static_cast<float>(
+                               filterKernel_TD_[i] / kernelSum );
+   }
 
-    // pad filter kernel with zeros
-    for (int i = samples; i < fftSize_; ++i)
-    {
-        filterKernel_TD_[i] = 0.0f;
-    }
+   // pad filter kernel with zeros
+   for ( int i = samples; i < fftSize_; ++i ) {
+      filterKernel_TD_[i] = 0.0f;
+   }
 
-    // calculate DFT of filter kernel
-    fftwf_execute(filterKernelPlan_DFT_);
+   // calculate DFT of filter kernel
+   fftwf_execute( filterKernelPlan_DFT_ );
 }
 
 }

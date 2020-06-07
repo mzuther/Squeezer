@@ -43,141 +43,141 @@ template <typename Type>
 class RingBuffer
 {
 public:
-    RingBuffer(const int numberOfChannels,
+   RingBuffer( const int numberOfChannels,
                const int numberOfSamples,
                const int preDelay,
-               const int chunkSize);
+               const int chunkSize );
 
-    void clear();
-    void setCallbackClass(RingBufferProcessor<Type> *callbackClass);
+   void clear();
+   void setCallbackClass( RingBufferProcessor<Type>* callbackClass );
 
-    int getNumberOfChannels() const;
-    int getNumberOfSamples() const;
-    int getPreDelay() const;
-
-
-    /// Add audio samples from an AudioBuffer.  **This function will
-    /// call the callback function every time the total number of
-    /// samples added to this buffer (now or before) exceeds the
-    /// "chunk" size.  The write position will be moved.**
-    ///
-    /// @param source source buffer
-    ///
-    /// @param sourceStartSample the index in the source buffer to
-    ///        start reading from
-    ///
-    /// @param numberOfSamples number of samples to copy
-    ///
-    inline void addFrom(
-        const AudioBuffer<Type> &source,
-        const int sourceStartSample,
-        const int numberOfSamples)
-    {
-        bool updatePosition = true;
-
-        importFrom(source, sourceStartSample,
-                   numberOfSamples,
-                   updatePosition);
-    }
+   int getNumberOfChannels() const;
+   int getNumberOfSamples() const;
+   int getPreDelay() const;
 
 
-    /// Overwrite audio samples from an AudioBuffer.  **This function
-    /// will not call the callback function and leave the write
-    /// position alone.**
-    ///
-    /// @param source source buffer
-    ///
-    /// @param sourceStartSample the index in the source buffer to
-    ///        start reading from
-    ///
-    /// @param numberOfSamples number of samples to copy
-    ///
-    inline void overwriteFrom(
-        const AudioBuffer<Type> &source,
-        const int sourceStartSample,
-        const int numberOfSamples)
-    {
-        bool updatePosition = false;
+   /// Add audio samples from an AudioBuffer.  **This function will
+   /// call the callback function every time the total number of
+   /// samples added to this buffer (now or before) exceeds the
+   /// "chunk" size.  The write position will be moved.**
+   ///
+   /// @param source source buffer
+   ///
+   /// @param sourceStartSample the index in the source buffer to
+   ///        start reading from
+   ///
+   /// @param numberOfSamples number of samples to copy
+   ///
+   inline void addFrom(
+      const AudioBuffer<Type>& source,
+      const int sourceStartSample,
+      const int numberOfSamples )
+   {
+      bool updatePosition = true;
 
-        importFrom(source, sourceStartSample,
-                   numberOfSamples,
-                   updatePosition);
-    }
-
-
-    /// Remove audio samples from this ring buffer to an AudioBuffer.
-    /// **The read position will be moved.**
-    ///
-    /// @param destination destination buffer
-    ///
-    /// @param destStartSample the index in the destination buffer to
-    ///        start writing to
-    ///
-    /// @param numberOfSamples number of samples to copy
-    ///
-    inline void removeTo(
-        AudioBuffer<Type> &destination,
-        const int destStartSample,
-        const int numberOfSamples)
-    {
-        bool updatePosition = true;
-
-        exportTo(destination, destStartSample,
-                 numberOfSamples,
-                 updatePosition);
-    }
+      importFrom( source, sourceStartSample,
+                  numberOfSamples,
+                  updatePosition );
+   }
 
 
-    /// Copy audio samples to an AudioBuffer.  **This function will
-    /// leave the read position alone.**
-    ///
-    /// @param destination destination buffer
-    ///
-    /// @param destStartSample the index in the destination buffer to
-    ///        start writing to
-    ///
-    /// @param numberOfSamples number of samples to copy
-    ///
-    inline void copyTo(
-        AudioBuffer<Type> &destination,
-        const int destStartSample,
-        const int numberOfSamples)
-    {
-        bool updatePosition = false;
+   /// Overwrite audio samples from an AudioBuffer.  **This function
+   /// will not call the callback function and leave the write
+   /// position alone.**
+   ///
+   /// @param source source buffer
+   ///
+   /// @param sourceStartSample the index in the source buffer to
+   ///        start reading from
+   ///
+   /// @param numberOfSamples number of samples to copy
+   ///
+   inline void overwriteFrom(
+      const AudioBuffer<Type>& source,
+      const int sourceStartSample,
+      const int numberOfSamples )
+   {
+      bool updatePosition = false;
 
-        exportTo(destination, destStartSample,
-                 numberOfSamples,
-                 updatePosition);
-    }
+      importFrom( source, sourceStartSample,
+                  numberOfSamples,
+                  updatePosition );
+   }
 
 
-    void removeToNull(const int numberOfSamples);
+   /// Remove audio samples from this ring buffer to an AudioBuffer.
+   /// **The read position will be moved.**
+   ///
+   /// @param destination destination buffer
+   ///
+   /// @param destStartSample the index in the destination buffer to
+   ///        start writing to
+   ///
+   /// @param numberOfSamples number of samples to copy
+   ///
+   inline void removeTo(
+      AudioBuffer<Type>& destination,
+      const int destStartSample,
+      const int numberOfSamples )
+   {
+      bool updatePosition = true;
+
+      exportTo( destination, destStartSample,
+                numberOfSamples,
+                updatePosition );
+   }
+
+
+   /// Copy audio samples to an AudioBuffer.  **This function will
+   /// leave the read position alone.**
+   ///
+   /// @param destination destination buffer
+   ///
+   /// @param destStartSample the index in the destination buffer to
+   ///        start writing to
+   ///
+   /// @param numberOfSamples number of samples to copy
+   ///
+   inline void copyTo(
+      AudioBuffer<Type>& destination,
+      const int destStartSample,
+      const int numberOfSamples )
+   {
+      bool updatePosition = false;
+
+      exportTo( destination, destStartSample,
+                numberOfSamples,
+                updatePosition );
+   }
+
+
+   void removeToNull( const int numberOfSamples );
 
 protected:
-    void importFrom(const AudioBuffer<Type> &source,
+   void importFrom( const AudioBuffer<Type>& source,
                     const int sourceStartSample,
                     const int numberOfSamples,
-                    const bool updatePosition);
+                    const bool updatePosition );
 
-    void exportTo(AudioBuffer<Type> &destination,
+   void exportTo( AudioBuffer<Type>& destination,
                   const int destStartSample,
                   const int numberOfSamples,
-                  const bool updatePosition);
+                  const bool updatePosition );
 
-    RingBufferProcessor<Type> *callbackClass_;
-    BufferPosition bufferPosition_;
+   RingBufferProcessor<Type>* callbackClass_;
+   BufferPosition bufferPosition_;
 
-    Array<int> channelOffsets_;
-    HeapBlock<Type> audioData_;
+   Array<int> channelOffsets_;
+   HeapBlock<Type> audioData_;
 
-    int numberOfChannels_;
-    int chunkSize_;
-    int samplesToFilledChunk_;
+   int numberOfChannels_;
+   int chunkSize_;
+   int samplesToFilledChunk_;
 
 private:
-    JUCE_LEAK_DETECTOR(RingBuffer);
+   JUCE_LEAK_DETECTOR( RingBuffer );
 
-    const Type ringBufferMemTestByte_;
+   const Type ringBufferMemTestByte_;
 };
 
 
@@ -188,15 +188,15 @@ template <typename Type>
 class RingBufferProcessor
 {
 public:
-    /// Called every time a certain number of samples have been added
-    /// to a RingBuffer.
-    ///
-    /// @param buffer audio buffer with filled "chunk"
-    ///
-    /// @return determines whether the audio buffer's contents should
-    ///         be copied back to the original RingBuffer.
-    ///
-    virtual bool processBufferChunk(AudioBuffer<Type> &buffer) = 0;
+   /// Called every time a certain number of samples have been added
+   /// to a RingBuffer.
+   ///
+   /// @param buffer audio buffer with filled "chunk"
+   ///
+   /// @return determines whether the audio buffer's contents should
+   ///         be copied back to the original RingBuffer.
+   ///
+   virtual bool processBufferChunk( AudioBuffer<Type>& buffer ) = 0;
 };
 
 }

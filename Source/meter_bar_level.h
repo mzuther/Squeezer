@@ -30,32 +30,31 @@
 
 
 class MeterBarLevel :
-    public frut::widgets::MeterBar
+   public frut::widgets::MeterBar
 {
 public:
-    using frut::widgets::MeterBar::create;
-    void create(int crestFactor,
+   using frut::widgets::MeterBar::create;
+   void create( int crestFactor,
                 frut::widgets::Orientation orientation,
                 bool discreteMeter,
                 int mainSegmentHeight,
-                const Array<Colour> &segmentColours);
+                const Array<Colour>& segmentColours );
 
 protected:
-    /// Colour ID selector for meter segments.
-    enum colourSelector  // protected namespace
-    {
-        /// overload (usually red)
-        overload = 0,
+   /// Colour ID selector for meter segments.
+   enum colourSelector { // protected namespace
+      /// overload (usually red)
+      overload = 0,
 
-        /// warning (usually yellow)
-        warning,
+      /// warning (usually yellow)
+      warning,
 
-        /// fine (usually green)
-        fine,
-    };
+      /// fine (usually green)
+      fine,
+   };
 
 private:
-    JUCE_LEAK_DETECTOR(MeterBarLevel);
+   JUCE_LEAK_DETECTOR( MeterBarLevel );
 };
 
 #endif  // SQUEEZER_METER_BAR_LEVEL_H

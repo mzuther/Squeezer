@@ -32,92 +32,92 @@
 
 
 class SqueezerAudioProcessor :
-    public AudioProcessor,
-    public ActionBroadcaster
+   public AudioProcessor,
+   public ActionBroadcaster
 {
 public:
-    SqueezerAudioProcessor();
-    ~SqueezerAudioProcessor();
+   SqueezerAudioProcessor();
+   ~SqueezerAudioProcessor();
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-    bool isBusesLayoutSupported(const BusesLayout &layouts) const override;
+   bool isBusesLayoutSupported( const BusesLayout& layouts ) const override;
 #endif // JucePlugin_PreferredChannelConfigurations
 
-    void prepareToPlay(double sampleRate, int samplesPerBlock) override;
-    void releaseResources() override;
-    void reset() override;
+   void prepareToPlay( double sampleRate, int samplesPerBlock ) override;
+   void releaseResources() override;
+   void reset() override;
 
-    void processBlock(AudioBuffer<float> &buffer,
-                      MidiBuffer &midiMessages) override;
-    void processBlock(AudioBuffer<double> &buffer,
-                      MidiBuffer &midiMessages) override;
-    void process(AudioBuffer<double> &buffer);
+   void processBlock( AudioBuffer<float>& buffer,
+                      MidiBuffer& midiMessages ) override;
+   void processBlock( AudioBuffer<double>& buffer,
+                      MidiBuffer& midiMessages ) override;
+   void process( AudioBuffer<double>& buffer );
 
-    AudioProcessorEditor *createEditor() override;
-    bool hasEditor() const override;
+   AudioProcessorEditor* createEditor() override;
+   bool hasEditor() const override;
 
-    int getNumParameters() override;
-    const String getParameterName(int nIndex) override;
-    const String getParameterText(int nIndex) override;
+   int getNumParameters() override;
+   const String getParameterName( int nIndex ) override;
+   const String getParameterText( int nIndex ) override;
 
-    String getParameters();
-    float getParameter(int nIndex) override;
-    void changeParameter(int nIndex, float fValue);
-    void setParameter(int nIndex, float fValue) override;
+   String getParameters();
+   float getParameter( int nIndex ) override;
+   void changeParameter( int nIndex, float fValue );
+   void setParameter( int nIndex, float fValue ) override;
 
-    void clearChangeFlag(int nIndex);
-    bool hasChanged(int nIndex);
-    void updateParameters(bool bIncludeHiddenParameters);
+   void clearChangeFlag( int nIndex );
+   bool hasChanged( int nIndex );
+   void updateParameters( bool bIncludeHiddenParameters );
 
-    void resetMeters();
+   void resetMeters();
 
-    float getGainReduction(int nChannel);
+   float getGainReduction( int nChannel );
 
-    float getPeakMeterInputLevel(int nChannel);
-    float getPeakMeterOutputLevel(int nChannel);
+   float getPeakMeterInputLevel( int nChannel );
+   float getPeakMeterOutputLevel( int nChannel );
 
-    float getAverageMeterInputLevel(int nChannel);
-    float getAverageMeterOutputLevel(int nChannel);
+   float getAverageMeterInputLevel( int nChannel );
+   float getAverageMeterOutputLevel( int nChannel );
 
-    const String getName() const override;
+   const String getName() const override;
 
-    bool acceptsMidi() const override;
-    bool producesMidi() const override;
-    bool isMidiEffect() const override;
+   bool acceptsMidi() const override;
+   bool producesMidi() const override;
+   bool isMidiEffect() const override;
 
-    double getTailLengthSeconds() const override;
+   double getTailLengthSeconds() const override;
 
-    StringArray getAlternateDisplayNames() const override;
+   StringArray getAlternateDisplayNames() const override;
 
-    int getNumPrograms() override;
+   int getNumPrograms() override;
 
-    int getCurrentProgram() override;
-    void setCurrentProgram(int nIndex) override;
+   int getCurrentProgram() override;
+   void setCurrentProgram( int nIndex ) override;
 
-    const String getProgramName(int nIndex) override;
-    void changeProgramName(int nIndex, const String &newName) override;
+   const String getProgramName( int nIndex ) override;
+   void changeProgramName( int nIndex, const String& newName ) override;
 
-    void getStateInformation(MemoryBlock &destData) override;
-    void setStateInformation(const void *data, int sizeInBytes) override;
+   void getStateInformation( MemoryBlock& destData ) override;
+   void setStateInformation( const void* data, int sizeInBytes ) override;
 
 private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SqueezerAudioProcessor);
+   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR( SqueezerAudioProcessor );
 
-    static BusesProperties getBusesProperties();
+   static BusesProperties getBusesProperties();
 
-    AudioBuffer<double> mainInput_;
-    AudioBuffer<double> sideChainInput_;
+   AudioBuffer<double> mainInput_;
+   AudioBuffer<double> sideChainInput_;
 
-    frut::dsp::Dither dither_;
+   frut::dsp::Dither dither_;
 
-    bool hasSideChain_;
+   bool hasSideChain_;
 
-    SqueezerPluginParameters pluginParameters_;
-    std::unique_ptr<Compressor> compressor_;
+   SqueezerPluginParameters pluginParameters_;
+   std::unique_ptr<Compressor> compressor_;
 
-    bool sampleRateIsValid_;
+   bool sampleRateIsValid_;
 };
 
-AudioProcessor *JUCE_CALLTYPE createPluginFilter();
+AudioProcessor* JUCE_CALLTYPE createPluginFilter();
 
 #endif  // SQUEEZER_PLUGIN_PROCESSOR_H

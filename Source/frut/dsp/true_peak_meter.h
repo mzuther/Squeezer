@@ -34,29 +34,29 @@ namespace dsp
 {
 
 class TruePeakMeter :
-    public frut::dsp::RateConverter
+   public frut::dsp::RateConverter
 {
 public:
-    TruePeakMeter(const File resourceDirectory,
+   TruePeakMeter( const File resourceDirectory,
                   const int numberOfChannels,
                   const int originalFftBufferSize,
-                  const int upsamplingFactor);
+                  const int upsamplingFactor );
 
-    virtual ~TruePeakMeter();
-    virtual void reset();
+   virtual ~TruePeakMeter();
+   virtual void reset();
 
-    float getLevel(const int channel);
+   float getLevel( const int channel );
 
-    void copyFrom(const AudioBuffer<float> &source,
-                  const int numberOfSamples);
+   void copyFrom( const AudioBuffer<float>& source,
+                  const int numberOfSamples );
 
 protected:
-    void processInput();
+   void processInput();
 
-    Array<float> truePeakLevels_;
+   Array<float> truePeakLevels_;
 
 private:
-    JUCE_LEAK_DETECTOR(TruePeakMeter);
+   JUCE_LEAK_DETECTOR( TruePeakMeter );
 };
 
 }

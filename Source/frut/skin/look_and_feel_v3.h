@@ -32,17 +32,17 @@ namespace skin
 {
 
 class LookAndFeel_Frut_V3 :
-    public LookAndFeel_V3
+   public LookAndFeel_V3
 {
 public:
-    LookAndFeel_Frut_V3() {};
-    ~LookAndFeel_Frut_V3() {};
+   LookAndFeel_Frut_V3() {};
+   ~LookAndFeel_Frut_V3() {};
 
-    void drawRotarySlider(Graphics &g, int x, int y, int width, int height,
+   void drawRotarySlider( Graphics& g, int x, int y, int width, int height,
                           float sliderPosProportional, float rotaryStartAngle,
-                          float rotaryEndAngle, Slider &) override;
+                          float rotaryEndAngle, Slider& ) override;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LookAndFeel_Frut_V3)
+   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR( LookAndFeel_Frut_V3 )
 };
 
 }

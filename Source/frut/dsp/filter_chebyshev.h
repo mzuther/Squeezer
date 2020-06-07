@@ -34,24 +34,24 @@ namespace dsp
 class FilterChebyshev
 {
 public:
-    FilterChebyshev(double RelativeCutoffFrequency,
+   FilterChebyshev( double RelativeCutoffFrequency,
                     bool IsHighPass,
                     double PercentRipple,
-                    int NumberOfPoles);
+                    int NumberOfPoles );
 
-    void changeParameters(double RelativeCutoffFrequency,
-                          bool IsHighPass);
+   void changeParameters( double RelativeCutoffFrequency,
+                          bool IsHighPass );
 
-    void reset();
+   void reset();
 
-    double filterSample(double InputCurrent);
-    void testAlgorithm(bool IsHighPass);
+   double filterSample( double InputCurrent );
+   void testAlgorithm( bool IsHighPass );
 
 private:
-    OwnedArray<FilterChebyshevStage> FilterStages_;
+   OwnedArray<FilterChebyshevStage> FilterStages_;
 
-    int NumberOfPoles_;
-    double PercentRipple_;
+   int NumberOfPoles_;
+   double PercentRipple_;
 };
 
 }

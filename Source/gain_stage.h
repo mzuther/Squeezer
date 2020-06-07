@@ -32,24 +32,23 @@
 class GainStage
 {
 public:
-    enum Parameters  // public namespace!
-    {
-        FET = 0,
-        Optical,
-        NumberOfGainStages,
-    };
+   enum Parameters { // public namespace!
+      FET = 0,
+      Optical,
+      NumberOfGainStages,
+   };
 
-    // Destructor.
-    virtual ~GainStage() {};
+   // Destructor.
+   virtual ~GainStage() {};
 
-    virtual void reset(double dCurrentGainReduction) = 0;
-    virtual double processGainReduction(double dGainReductionNew, double dGainReductionIdeal) = 0;
+   virtual void reset( double dCurrentGainReduction ) = 0;
+   virtual double processGainReduction( double dGainReductionNew, double dGainReductionIdeal ) = 0;
 
 protected:
-    explicit GainStage(int nSampleRate)
-    {
-        ignoreUnused(nSampleRate);
-    };
+   explicit GainStage( int nSampleRate )
+   {
+      ignoreUnused( nSampleRate );
+   };
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_H

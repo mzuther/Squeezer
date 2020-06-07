@@ -34,21 +34,21 @@ namespace dsp
 {
 
 class FIRFilterBox :
-    public FftwRunner
+   public FftwRunner
 {
 public:
-    FIRFilterBox(const File resourceDirectory,
+   FIRFilterBox( const File resourceDirectory,
                  const int numberOfChannels,
-                 const int fftBufferSize);
+                 const int fftBufferSize );
 
-    virtual ~FIRFilterBox();
+   virtual ~FIRFilterBox();
 
-    virtual void reset();
-    void calculateKernelWindowedSincLPF(
-        const double relativeCutoffFrequency);
+   virtual void reset();
+   void calculateKernelWindowedSincLPF(
+      const double relativeCutoffFrequency );
 
 private:
-    JUCE_LEAK_DETECTOR(FIRFilterBox);
+   JUCE_LEAK_DETECTOR( FIRFilterBox );
 };
 
 }

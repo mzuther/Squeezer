@@ -34,33 +34,33 @@ namespace widgets
 /// Dialog window for displaying plugin-settings.
 ///
 class WindowSettingsContent :
-    public Component,
-    public Button::Listener
+   public Component,
+   public Button::Listener
 {
 public:
-    WindowSettingsContent();
+   WindowSettingsContent();
 
-    static DialogWindow *createDialogWindow(AudioProcessorEditor *pluginEditor,
+   static DialogWindow* createDialogWindow( AudioProcessorEditor* pluginEditor,
                                             int componentWidth,
                                             int componentHeight,
-                                            const String &pluginSettings);
+                                            const String& pluginSettings );
 
-    virtual void buttonClicked(Button *button);
+   virtual void buttonClicked( Button* button );
 
-    virtual void closeButtonPressed();
+   virtual void closeButtonPressed();
 
-    virtual void applySkin();
+   virtual void applySkin();
 
-    virtual void initialise(int componentWidth,
+   virtual void initialise( int componentWidth,
                             int componentHeight,
-                            const String &pluginSettings);
+                            const String& pluginSettings );
 
 protected:
-    TextEditor textEditor_;
-    TextButton buttonClose_;
+   TextEditor textEditor_;
+   TextButton buttonClose_;
 
 private:
-    JUCE_LEAK_DETECTOR(WindowSettingsContent);
+   JUCE_LEAK_DETECTOR( WindowSettingsContent );
 };
 
 }

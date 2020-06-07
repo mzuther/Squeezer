@@ -40,40 +40,40 @@ namespace parameters
 class ParContinuous : virtual public Parameter
 {
 public:
-    ParContinuous(float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places);
+   ParContinuous( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places );
 
-    int getNumberOfSteps();
-    float getStepSize();
+   int getNumberOfSteps();
+   float getStepSize();
 
-    virtual void setDefaultRealFloat(float newRealValue, bool updateParameter) override;
+   virtual void setDefaultRealFloat( float newRealValue, bool updateParameter ) override;
 
-    virtual void setFloat(float newValue) override;
-    virtual void setRealFloat(float newRealValue) override;
+   virtual void setFloat( float newValue ) override;
+   virtual void setRealFloat( float newRealValue ) override;
 
-    void setSuffix(const String &newSuffix);
+   void setSuffix( const String& newSuffix );
 
-    virtual float getFloatFromText(const String &newValue) override;
-    virtual const String getTextFromFloat(float newValue) override;
+   virtual float getFloatFromText( const String& newValue ) override;
+   virtual const String getTextFromFloat( float newValue ) override;
 
 private:
-    JUCE_LEAK_DETECTOR(ParContinuous);
+   JUCE_LEAK_DETECTOR( ParContinuous );
 
-    float toRealFloat(float newValue);
-    float toInternalFloat(float newRealValue);
+   float toRealFloat( float newValue );
+   float toInternalFloat( float newRealValue );
 
-    float realMinimum;
-    float realMaximum;
-    float realRange;
+   float realMinimum;
+   float realMaximum;
+   float realRange;
 
-    int numberOfSteps;
-    int decimalPlaces;
-    bool adaptDecimalPlaces;
-    String valueSuffix;
+   int numberOfSteps;
+   int decimalPlaces;
+   bool adaptDecimalPlaces;
+   String valueSuffix;
 
-    bool isNonlinear;
-    bool isBipolar;
-    float scalingFactor;
-    float scalingConstantFactor;
+   bool isNonlinear;
+   bool isBipolar;
+   float scalingFactor;
+   float scalingConstantFactor;
 };
 
 }

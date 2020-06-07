@@ -29,85 +29,85 @@ namespace widgets
 {
 
 SliderContinuous::SliderContinuous(
-    parameters::Juggler &parameters,
-    int parameterIndex)
+   parameters::Juggler& parameters,
+   int parameterIndex )
 
 {
-    parameter_ = dynamic_cast<parameters::ParContinuous *>(
-                     parameters.getPluginParameter(parameterIndex));
+   parameter_ = dynamic_cast<parameters::ParContinuous*>(
+                   parameters.getPluginParameter( parameterIndex ) );
 
-    jassert(parameter_ != nullptr);
+   jassert( parameter_ != nullptr );
 
-    setRange(0.0f, 1.0f, parameter_->getStepSize());
-    setVelocityModeParameters(1.0, 1, 0.0, true);
-    setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    colourRotary_ = Colours::white;
+   setRange( 0.0f, 1.0f, parameter_->getStepSize() );
+   setVelocityModeParameters( 1.0, 1, 0.0, true );
+   setSliderStyle( Slider::RotaryHorizontalVerticalDrag );
+   colourRotary_ = Colours::white;
 
-    setDoubleClickReturnValue(true, parameter_->getDefaultFloat());
+   setDoubleClickReturnValue( true, parameter_->getDefaultFloat() );
 }
 
 
 void SliderContinuous::visibilityChanged()
 {
-    Slider::visibilityChanged();
+   Slider::visibilityChanged();
 
-    setColour(Slider::rotarySliderFillColourId, colourRotary_);
-    setColour(Slider::textBoxTextColourId, Colours::white);
-    setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
-    setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
+   setColour( Slider::rotarySliderFillColourId, colourRotary_ );
+   setColour( Slider::textBoxTextColourId, Colours::white );
+   setColour( Slider::textBoxBackgroundColourId, Colours::darkgrey.darker( 0.7f ) );
+   setColour( Slider::textBoxOutlineColourId, Colours::darkgrey.darker( 0.4f ) );
 }
 
 
 void SliderContinuous::resized()
 {
-    Slider::resized();
+   Slider::resized();
 
-    int nWidth = getBounds().getWidth();
-    setTextBoxStyle(Slider::TextBoxBelow, true, nWidth, 18);
+   int nWidth = getBounds().getWidth();
+   setTextBoxStyle( Slider::TextBoxBelow, true, nWidth, 18 );
 }
 
 
 void SliderContinuous::setSliderColour(
-    const Colour &colour)
+   const Colour& colour )
 
 {
-    colourRotary_ = colour;
-    setColour(Slider::thumbColourId, colourRotary_);
-    setColour(Slider::rotarySliderFillColourId, colourRotary_);
+   colourRotary_ = colour;
+   setColour( Slider::thumbColourId, colourRotary_ );
+   setColour( Slider::rotarySliderFillColourId, colourRotary_ );
 }
 
 
 float SliderContinuous::getRealFloat()
 {
-    return parameter_->getRealFloat();
+   return parameter_->getRealFloat();
 }
 
 
 bool SliderContinuous::getBoolean()
 {
-    return parameter_->getBoolean();
+   return parameter_->getBoolean();
 }
 
 
 int SliderContinuous::getRealInteger()
 {
-    return parameter_->getRealInteger();
+   return parameter_->getRealInteger();
 }
 
 
 double SliderContinuous::getValueFromText(
-    const String &strText)
+   const String& strText )
 
 {
-    return parameter_->getFloatFromText(strText);
+   return parameter_->getFloatFromText( strText );
 }
 
 
 String SliderContinuous::getTextFromValue(
-    double dValue)
+   double dValue )
 
 {
-    return parameter_->getTextFromFloat(static_cast<float>(dValue));
+   return parameter_->getTextFromFloat( static_cast<float>( dValue ) );
 }
 
 }

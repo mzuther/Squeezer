@@ -34,52 +34,52 @@ namespace dsp
 class BiquadFilter
 {
 public:
-    explicit BiquadFilter(const int numberOfChannels);
-    ~BiquadFilter();
+   explicit BiquadFilter( const int numberOfChannels );
+   ~BiquadFilter();
 
-    void neutral();
-    void resetDelays();
+   void neutral();
+   void resetDelays();
 
-    void processSample(double &sampleValue, const int channel);
-    void processInPlace(AudioBuffer<double> &buffer);
-    AudioBuffer<double> process(const AudioBuffer<double> &inputBuffer);
+   void processSample( double& sampleValue, const int channel );
+   void processInPlace( AudioBuffer<double>& buffer );
+   AudioBuffer<double> process( const AudioBuffer<double>& inputBuffer );
 
-    void setCoefficients(const double a0, const double a1, const double a2,
+   void setCoefficients( const double a0, const double a1, const double a2,
                          const double b1, const double b2,
-                         const bool showCoefficients = false);
+                         const bool showCoefficients = false );
 
-    void setCoefficients(const double a0, const double a1, const double a2,
+   void setCoefficients( const double a0, const double a1, const double a2,
                          const double b1, const double b2,
                          const double c0, const double d0,
-                         const bool showCoefficients = false);
+                         const bool showCoefficients = false );
 
 protected:
-    void processSampleInternal(double &sampleValue,
-                               double &x0, double &x1, double &x2,
-                               double &y1, double &y2);
+   void processSampleInternal( double& sampleValue,
+                               double& x0, double& x1, double& x2,
+                               double& y1, double& y2 );
 
 private:
-    int numberOfChannels_;
+   int numberOfChannels_;
 
-    double a0_;
-    double a1_;
-    double a2_;
+   double a0_;
+   double a1_;
+   double a2_;
 
-    double b1_;
-    double b2_;
+   double b1_;
+   double b2_;
 
-    // necessary for some audio filters
-    double c0_;
-    double d0_;
+   // necessary for some audio filters
+   double c0_;
+   double d0_;
 
-    Array<double> x0_;
-    Array<double> x1_;
-    Array<double> x2_;
+   Array<double> x0_;
+   Array<double> x1_;
+   Array<double> x2_;
 
-    Array<double> y1_;
-    Array<double> y2_;
+   Array<double> y1_;
+   Array<double> y2_;
 
-    JUCE_LEAK_DETECTOR(BiquadFilter);
+   JUCE_LEAK_DETECTOR( BiquadFilter );
 };
 
 }

@@ -31,18 +31,18 @@
 
 
 class Skin :
-    public frut::skin::Skin
+   public frut::skin::Skin
 {
 public:
-    bool loadSkin(int numberOfChannels);
+   bool loadSkin( int numberOfChannels );
 
-    void updateSkin(int numberOfChannels);
+   void updateSkin( int numberOfChannels );
 
-    virtual File getSkinDirectory() override;
-    virtual File getSettingsFile() override;
+   virtual File getSkinDirectory() override;
+   virtual File getSettingsFile() override;
 
 private:
-    JUCE_LEAK_DETECTOR(Skin);
+   JUCE_LEAK_DETECTOR( Skin );
 };
 
 #endif  // SQUEEZER_SKIN_H

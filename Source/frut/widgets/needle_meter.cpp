@@ -32,22 +32,22 @@ namespace widgets
 ///
 NeedleMeter::NeedleMeter()
 {
-    // this component does not have any transparent areas (increases
-    // performance on redrawing)
-    setOpaque(true);
+   // this component does not have any transparent areas (increases
+   // performance on redrawing)
+   setOpaque( true );
 
-    // initialise needle position
-    needlePosition_ = -1;
+   // initialise needle position
+   needlePosition_ = -1;
 
-    // initialise the length the needle can travel
-    needleTravelPath_ = 1;
+   // initialise the length the needle can travel
+   needleTravelPath_ = 1;
 
-    // initialise spacing between needle and image border
-    needleSpacingLeft_ = 0;
-    needleSpacingTop_ = 0;
+   // initialise spacing between needle and image border
+   needleSpacingLeft_ = 0;
+   needleSpacingTop_ = 0;
 
-    // initialise meter orientation
-    isVerticalMeter_ = false;
+   // initialise meter orientation
+   isVerticalMeter_ = false;
 }
 
 
@@ -56,21 +56,18 @@ NeedleMeter::NeedleMeter()
 /// @param g graphics context
 ///
 void NeedleMeter::paint(
-    Graphics &g)
+   Graphics& g )
 
 {
-    // draw background image
-    g.drawImageAt(imageBackground_, 0, 0, false);
+   // draw background image
+   g.drawImageAt( imageBackground_, 0, 0, false );
 
-    // draw needle according to orientation
-    if (isVerticalMeter_)
-    {
-        g.drawImageAt(imageNeedle_, needleSpacingLeft_, needlePosition_, false);
-    }
-    else
-    {
-        g.drawImageAt(imageNeedle_, needlePosition_, needleSpacingTop_, false);
-    }
+   // draw needle according to orientation
+   if ( isVerticalMeter_ ) {
+      g.drawImageAt( imageNeedle_, needleSpacingLeft_, needlePosition_, false );
+   } else {
+      g.drawImageAt( imageNeedle_, needlePosition_, needleSpacingTop_, false );
+   }
 }
 
 
@@ -78,25 +75,22 @@ void NeedleMeter::paint(
 ///
 void NeedleMeter::resized()
 {
-    // get component size
-    int width = getWidth();
-    int height = getHeight();
+   // get component size
+   int width = getWidth();
+   int height = getHeight();
 
-    // determine meter orientation (will prefer horizontal if height
-    // and width are the same)
-    isVerticalMeter_ = (height > width);
+   // determine meter orientation (will prefer horizontal if height
+   // and width are the same)
+   isVerticalMeter_ = ( height > width );
 
-    // calculate the length the needle can travel
-    if (isVerticalMeter_)
-    {
-        needleTravelPath_ = height - 2 * needleSpacingTop_;
-        needleTravelPath_ -= imageNeedle_.getHeight();
-    }
-    else
-    {
-        needleTravelPath_ = width - 2 * needleSpacingLeft_;
-        needleTravelPath_ -= imageNeedle_.getWidth();
-    }
+   // calculate the length the needle can travel
+   if ( isVerticalMeter_ ) {
+      needleTravelPath_ = height - 2 * needleSpacingTop_;
+      needleTravelPath_ -= imageNeedle_.getHeight();
+   } else {
+      needleTravelPath_ = width - 2 * needleSpacingLeft_;
+      needleTravelPath_ -= imageNeedle_.getWidth();
+   }
 }
 
 
@@ -105,29 +99,25 @@ void NeedleMeter::resized()
 /// @param value new value
 ///
 void NeedleMeter::setValue(
-    float value)
+   float value )
 
 {
-    // store old needle position
-    int needlePositionOld = needlePosition_;
+   // store old needle position
+   int needlePositionOld = needlePosition_;
 
-    // calculate new needle position
-    needlePosition_ = math::SimpleMath::round(value * needleTravelPath_);
+   // calculate new needle position
+   needlePosition_ = math::SimpleMath::round( value * needleTravelPath_ );
 
-    if (isVerticalMeter_)
-    {
-        needlePosition_ += needleSpacingTop_;
-    }
-    else
-    {
-        needlePosition_ += needleSpacingLeft_;
-    }
+   if ( isVerticalMeter_ ) {
+      needlePosition_ += needleSpacingTop_;
+   } else {
+      needlePosition_ += needleSpacingLeft_;
+   }
 
-    // update of needle position is necessary
-    if (needlePosition_ != needlePositionOld)
-    {
-        repaint(getLocalBounds());
-    }
+   // update of needle position is necessary
+   if ( needlePosition_ != needlePositionOld ) {
+      repaint( getLocalBounds() );
+   }
 }
 
 
@@ -144,22 +134,22 @@ void NeedleMeter::setValue(
 ///        image border
 ///
 void NeedleMeter::setImages(
-    const Image &imageBackground,
-    const Image &imageNeedle,
-    int needleSpacingLeft,
-    int needleSpacingTop)
+   const Image& imageBackground,
+   const Image& imageNeedle,
+   int needleSpacingLeft,
+   int needleSpacingTop )
 
 {
-    // update images (creates a copy of each image)
-    imageBackground_ = imageBackground.createCopy();
-    imageNeedle_ = imageNeedle.createCopy();
+   // update images (creates a copy of each image)
+   imageBackground_ = imageBackground.createCopy();
+   imageNeedle_ = imageNeedle.createCopy();
 
-    // update needle spacing
-    needleSpacingLeft_ = needleSpacingLeft;
-    needleSpacingTop_ = needleSpacingTop;
+   // update needle spacing
+   needleSpacingLeft_ = needleSpacingLeft;
+   needleSpacingTop_ = needleSpacingTop;
 
-    // update dimensions of meter
-    resized();
+   // update dimensions of meter
+   resized();
 }
 
 }

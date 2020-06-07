@@ -31,15 +31,15 @@ namespace dsp
 {
 
 TruePeakMeter::TruePeakMeter(
-    const File resourceDirectory,
-    const int numberOfChannels,
-    const int originalFftBufferSize,
-    const int upsamplingFactor) :
+   const File resourceDirectory,
+   const int numberOfChannels,
+   const int originalFftBufferSize,
+   const int upsamplingFactor ) :
 
-    frut::dsp::RateConverter(resourceDirectory,
+   frut::dsp::RateConverter( resourceDirectory,
                              numberOfChannels,
                              originalFftBufferSize,
-                             upsamplingFactor)
+                             upsamplingFactor )
 {
 }
 
@@ -51,59 +51,57 @@ TruePeakMeter::~TruePeakMeter()
 
 void TruePeakMeter::reset()
 {
-    RateConverter::reset();
+   RateConverter::reset();
 
-    truePeakLevels_.clear();
+   truePeakLevels_.clear();
 }
 
 
 float TruePeakMeter::getLevel(
-    const int channel)
+   const int channel )
 {
-    jassert(isPositiveAndBelow(channel, numberOfChannels_));
+   jassert( isPositiveAndBelow( channel, numberOfChannels_ ) );
 
-    return truePeakLevels_[channel];
+   return truePeakLevels_[channel];
 }
 
 
 void TruePeakMeter::copyFrom(
-    const AudioBuffer<float> &source,
-    const int numberOfSamples)
+   const AudioBuffer<float>& source,
+   const int numberOfSamples )
 {
-    jassert(source.getNumChannels() ==
-            numberOfChannels_);
-    jassert(source.getNumSamples() >=
-            numberOfSamples);
-    jassert(originalFftBufferSize_ ==
-            numberOfSamples);
+   jassert( source.getNumChannels() ==
+            numberOfChannels_ );
+   jassert( source.getNumSamples() >=
+            numberOfSamples );
+   jassert( originalFftBufferSize_ ==
+            numberOfSamples );
 
-    // copy data from external buffer
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        sampleBufferOriginal_.copyFrom(channel, 0,
-                                       source,
-                                       channel, 0,
-                                       numberOfSamples);
-    }
+   // copy data from external buffer
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      sampleBufferOriginal_.copyFrom( channel, 0,
+                                      source,
+                                      channel, 0,
+                                      numberOfSamples );
+   }
 
-    // process input data
-    processInput();
+   // process input data
+   processInput();
 }
 
 
 void TruePeakMeter::processInput()
 {
-    // upsample buffer (overwrites contents of sample buffer)
-    upsample();
+   // upsample buffer (overwrites contents of sample buffer)
+   upsample();
 
-    // evaluate true peak level
-    for (int channel = 0; channel < numberOfChannels_; ++channel)
-    {
-        float truePeakLevel = fftSampleBuffer_.getMagnitude(
-                                  channel, 0, fftBufferSize_);
+   // evaluate true peak level
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      float truePeakLevel = fftSampleBuffer_.getMagnitude(
+                               channel, 0, fftBufferSize_ );
 
-        truePeakLevels_.set(channel, truePeakLevel);
-    }
+      truePeakLevels_.set( channel, truePeakLevel );
+   }
 }
 
 }

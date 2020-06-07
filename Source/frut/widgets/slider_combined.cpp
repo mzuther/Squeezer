@@ -29,178 +29,174 @@ namespace widgets
 {
 
 SliderCombined::SliderCombined(
-    parameters::Juggler &parameters,
-    int nParameterIndex,
-    int nParameterIndexSwitch)
+   parameters::Juggler& parameters,
+   int nParameterIndex,
+   int nParameterIndexSwitch )
 
-    : FrutSlider(Slider::RotaryHorizontalVerticalDrag,
-                 TextEntryBoxPosition::TextBoxBelow)
+   : FrutSlider( Slider::RotaryHorizontalVerticalDrag,
+                 TextEntryBoxPosition::TextBoxBelow )
 {
-    pCombined = dynamic_cast<parameters::ParCombined *>(parameters.getPluginParameter(nParameterIndex));
-    jassert(pCombined != nullptr);
+   pCombined = dynamic_cast<parameters::ParCombined*>( parameters.getPluginParameter( nParameterIndex ) );
+   jassert( pCombined != nullptr );
 
-    pModeSwitch = dynamic_cast<parameters::ParBoolean *>(parameters.getPluginParameter(nParameterIndexSwitch));
-    jassert(pModeSwitch != nullptr);
+   pModeSwitch = dynamic_cast<parameters::ParBoolean*>( parameters.getPluginParameter( nParameterIndexSwitch ) );
+   jassert( pModeSwitch != nullptr );
 
-    setRange(0.0f, 1.0f, pCombined->getStepSize());
-    setVelocityModeParameters(1.0, 1, 0.0, true);
-    setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
+   setRange( 0.0f, 1.0f, pCombined->getStepSize() );
+   setVelocityModeParameters( 1.0, 1, 0.0, true );
+   setDoubleClickReturnValue( true, pCombined->getDefaultFloat() );
 
-    toggleButton = std::make_unique<DrawableButton>(
-                       "Parameter Switch #" + String(nParameterIndexSwitch),
-                       DrawableButton::ImageFitted);
+   toggleButton = std::make_unique<DrawableButton>(
+                     "Parameter Switch #" + String( nParameterIndexSwitch ),
+                     DrawableButton::ImageFitted );
 
-    toggleButton->setClickingTogglesState(true);
-    toggleButton->setToggleState(pModeSwitch->getBoolean(), dontSendNotification);
-    toggleButton->setColour(DrawableButton::backgroundColourId, Colours::transparentBlack);
-    toggleButton->setColour(DrawableButton::backgroundOnColourId, Colours::transparentBlack);
+   toggleButton->setClickingTogglesState( true );
+   toggleButton->setToggleState( pModeSwitch->getBoolean(), dontSendNotification );
+   toggleButton->setColour( DrawableButton::backgroundColourId, Colours::transparentBlack );
+   toggleButton->setColour( DrawableButton::backgroundOnColourId, Colours::transparentBlack );
 
-    addAndMakeVisible(toggleButton.get());
+   addAndMakeVisible( toggleButton.get() );
 
-    setSliderColour(Colours::white);
-    setToggleSwitchColour(Colours::white);
+   setSliderColour( Colours::white );
+   setToggleSwitchColour( Colours::white );
 }
 
 
 void SliderCombined::visibilityChanged()
 {
-    Slider::visibilityChanged();
+   Slider::visibilityChanged();
 
-    setColour(Slider::rotarySliderFillColourId, colourRotary);
-    setColour(Slider::textBoxTextColourId, Colours::white);
-    setColour(Slider::textBoxBackgroundColourId, Colours::darkgrey.darker(0.7f));
-    setColour(Slider::textBoxOutlineColourId, Colours::darkgrey.darker(0.4f));
+   setColour( Slider::rotarySliderFillColourId, colourRotary );
+   setColour( Slider::textBoxTextColourId, Colours::white );
+   setColour( Slider::textBoxBackgroundColourId, Colours::darkgrey.darker( 0.7f ) );
+   setColour( Slider::textBoxOutlineColourId, Colours::darkgrey.darker( 0.4f ) );
 }
 
 
 void SliderCombined::resized()
 {
-    Slider::resized();
+   Slider::resized();
 
-    int nWidth = getBounds().getWidth();
-    int nSwitchWidth = math::SimpleMath::round(nWidth / 3.75f);
-    int nSwitchX = nWidth - nSwitchWidth + 3;
-    int nSwitchY = -3;
+   int nWidth = getBounds().getWidth();
+   int nSwitchWidth = math::SimpleMath::round( nWidth / 3.75f );
+   int nSwitchX = nWidth - nSwitchWidth + 3;
+   int nSwitchY = -3;
 
-    toggleButton->setBounds(nSwitchX, nSwitchY, nSwitchWidth, nSwitchWidth);
+   toggleButton->setBounds( nSwitchX, nSwitchY, nSwitchWidth, nSwitchWidth );
 }
 
 
-void SliderCombined::setSliderColour(const Colour &colour)
+void SliderCombined::setSliderColour( const Colour& colour )
 {
-    colourRotary = colour;
-    setColour(Slider::thumbColourId, colourRotary);
-    setColour(Slider::rotarySliderFillColourId, colourRotary);
+   colourRotary = colour;
+   setColour( Slider::thumbColourId, colourRotary );
+   setColour( Slider::rotarySliderFillColourId, colourRotary );
 }
 
 
-void SliderCombined::setToggleSwitchColour(const Colour &colour)
+void SliderCombined::setToggleSwitchColour( const Colour& colour )
 {
-    colourToggleSwitch = colour;
+   colourToggleSwitch = colour;
 
-    Path pathCircle;
-    pathCircle.addEllipse(0.0f, 0.0f, 8.0f, 8.0f);
+   Path pathCircle;
+   pathCircle.addEllipse( 0.0f, 0.0f, 8.0f, 8.0f );
 
-    DrawablePath drawCircleOff;
-    drawCircleOff.setFill(FillType(colourToggleSwitch.darker(0.2f)));
-    drawCircleOff.setStrokeFill(FillType(Colours::black));
+   DrawablePath drawCircleOff;
+   drawCircleOff.setFill( FillType( colourToggleSwitch.darker( 0.2f ) ) );
+   drawCircleOff.setStrokeFill( FillType( Colours::black ) );
 
-    drawCircleOff.setStrokeType(PathStrokeType(1.0f));
-    drawCircleOff.setPath(pathCircle);
+   drawCircleOff.setStrokeType( PathStrokeType( 1.0f ) );
+   drawCircleOff.setPath( pathCircle );
 
-    DrawablePath drawCircleOn(drawCircleOff);
-    drawCircleOn.setFill(FillType(colourToggleSwitch.darker(2.0f)));
+   DrawablePath drawCircleOn( drawCircleOff );
+   drawCircleOn.setFill( FillType( colourToggleSwitch.darker( 2.0f ) ) );
 
-    DrawablePath drawCircleOffOver(drawCircleOff);
-    drawCircleOffOver.setFill(FillType(colourToggleSwitch));
+   DrawablePath drawCircleOffOver( drawCircleOff );
+   drawCircleOffOver.setFill( FillType( colourToggleSwitch ) );
 
-    DrawablePath drawCircleOnOver(drawCircleOff);
-    drawCircleOnOver.setFill(FillType(colourToggleSwitch.darker(0.8f)));
+   DrawablePath drawCircleOnOver( drawCircleOff );
+   drawCircleOnOver.setFill( FillType( colourToggleSwitch.darker( 0.8f ) ) );
 
-    toggleButton->setImages(&drawCircleOff, &drawCircleOffOver,
+   toggleButton->setImages( &drawCircleOff, &drawCircleOffOver,
                             &drawCircleOnOver, nullptr,
                             &drawCircleOn, &drawCircleOnOver,
-                            &drawCircleOffOver, nullptr);
+                            &drawCircleOffOver, nullptr );
 }
 
 
 void SliderCombined::updateMode()
 {
-    bool inContinuousMode = pModeSwitch->getBoolean();
-    toggleButton->setToggleState(inContinuousMode, dontSendNotification);
+   bool inContinuousMode = pModeSwitch->getBoolean();
+   toggleButton->setToggleState( inContinuousMode, dontSendNotification );
 
-    setRange(0.0f, 1.0f, pCombined->getStepSize());
-    // disable velocity mode in step mode
-    setVelocityModeParameters(1.0, 1, 0.0, !inContinuousMode);
-    setDoubleClickReturnValue(true, pCombined->getDefaultFloat());
+   setRange( 0.0f, 1.0f, pCombined->getStepSize() );
+   // disable velocity mode in step mode
+   setVelocityModeParameters( 1.0, 1, 0.0, !inContinuousMode );
+   setDoubleClickReturnValue( true, pCombined->getDefaultFloat() );
 
-    float fNewValue = pCombined->getFloat();
-    float fCurrentValue = (float) getValue();
+   float fNewValue = pCombined->getFloat();
+   float fCurrentValue = ( float ) getValue();
 
-    // make sure that the associated parameter gets updated even when
-    // the slider doesn't change its position on mode change
-    if (fNewValue == fCurrentValue)
-    {
-        float fMinimum = (float) getMinimum();
-        float fMaximum = (float) getMaximum();
+   // make sure that the associated parameter gets updated even when
+   // the slider doesn't change its position on mode change
+   if ( fNewValue == fCurrentValue ) {
+      float fMinimum = ( float ) getMinimum();
+      float fMaximum = ( float ) getMaximum();
 
-        // temporally set to nonsense value WITHOUT notification
-        if (fNewValue == fMinimum)
-        {
-            setValue(fMaximum, dontSendNotification);
-        }
-        else
-        {
-            setValue(fMinimum, dontSendNotification);
-        }
-    }
+      // temporally set to nonsense value WITHOUT notification
+      if ( fNewValue == fMinimum ) {
+         setValue( fMaximum, dontSendNotification );
+      } else {
+         setValue( fMinimum, dontSendNotification );
+      }
+   }
 
-    // set to new value WITH notification
-    setValue(fNewValue, sendNotificationAsync);
+   // set to new value WITH notification
+   setValue( fNewValue, sendNotificationAsync );
 
-    repaint();
+   repaint();
 }
 
 
-void SliderCombined::addButtonListener(Button::Listener *newListener)
+void SliderCombined::addButtonListener( Button::Listener* newListener )
 {
-    toggleButton->addListener(newListener);
+   toggleButton->addListener( newListener );
 }
 
 
-void SliderCombined::removeListener(Button::Listener *listener)
+void SliderCombined::removeListener( Button::Listener* listener )
 {
-    toggleButton->removeListener(listener);
+   toggleButton->removeListener( listener );
 }
 
 
 float SliderCombined::getRealFloat()
 {
-    return pCombined->getRealFloat();
+   return pCombined->getRealFloat();
 }
 
 
 bool SliderCombined::getBoolean()
 {
-    return pCombined->getBoolean();
+   return pCombined->getBoolean();
 }
 
 
 int SliderCombined::getRealInteger()
 {
-    return pCombined->getRealInteger();
+   return pCombined->getRealInteger();
 }
 
 
-double SliderCombined::getValueFromText(const String &strText)
+double SliderCombined::getValueFromText( const String& strText )
 {
-    return pCombined->getFloatFromText(strText);
+   return pCombined->getFloatFromText( strText );
 }
 
 
-String SliderCombined::getTextFromValue(double dValue)
+String SliderCombined::getTextFromValue( double dValue )
 {
-    return pCombined->getTextFromFloat((float) dValue);
+   return pCombined->getTextFromFloat( ( float ) dValue );
 }
 
 }

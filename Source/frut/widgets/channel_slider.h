@@ -35,25 +35,25 @@ namespace widgets
 /// can either select a distinct channel or all channels at once.
 ///
 class ChannelSlider :
-    public Slider
+   public Slider
 {
 public:
-    ChannelSlider();
+   ChannelSlider();
 
-    int getNumberOfChannels();
-    void setNumberOfChannels(int numberOfChannels);
+   int getNumberOfChannels();
+   void setNumberOfChannels( int numberOfChannels );
 
-    double getDouble();
-    float getFloat();
+   double getDouble();
+   float getFloat();
 
-    virtual double getValueFromText(const String &inputString);
-    virtual String getTextFromValue(double inputValue);
+   virtual double getValueFromText( const String& inputString );
+   virtual String getTextFromValue( double inputValue );
 
 protected:
-    int numberOfChannels_;
+   int numberOfChannels_;
 
 private:
-    JUCE_LEAK_DETECTOR(ChannelSlider);
+   JUCE_LEAK_DETECTOR( ChannelSlider );
 };
 
 }

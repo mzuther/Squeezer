@@ -29,206 +29,199 @@ namespace dsp
 {
 
 FilterChebyshev::FilterChebyshev(
-    double RelativeCutoffFrequency,
-    bool IsHighPass,
-    double PercentRipple,
-    int NumberOfPoles)
+   double RelativeCutoffFrequency,
+   bool IsHighPass,
+   double PercentRipple,
+   int NumberOfPoles )
 {
-    PercentRipple_ = PercentRipple;
-    NumberOfPoles_ = NumberOfPoles;
+   PercentRipple_ = PercentRipple;
+   NumberOfPoles_ = NumberOfPoles;
 
-    // each filter stage consists of a pair of poles
-    jassert(NumberOfPoles_ % 2 == 0);
-    int NumberOfStages = NumberOfPoles_ / 2;
+   // each filter stage consists of a pair of poles
+   jassert( NumberOfPoles_ % 2 == 0 );
+   int NumberOfStages = NumberOfPoles_ / 2;
 
-    for (int Stage = 0; Stage < NumberOfStages; ++Stage)
-    {
-        FilterStages_.add(new FilterChebyshevStage());
-    }
+   for ( int Stage = 0; Stage < NumberOfStages; ++Stage ) {
+      FilterStages_.add( new FilterChebyshevStage() );
+   }
 
-    changeParameters(RelativeCutoffFrequency, IsHighPass);
-    reset();
+   changeParameters( RelativeCutoffFrequency, IsHighPass );
+   reset();
 
-    // testAlgorithm(false);
+   // testAlgorithm(false);
 }
 
 
 void FilterChebyshev::changeParameters(
-    double RelativeCutoffFrequency,
-    bool IsHighPass)
+   double RelativeCutoffFrequency,
+   bool IsHighPass )
 {
-    for (int Stage = 0; Stage < FilterStages_.size(); ++Stage)
-    {
-        // pole pairs start with index 1!
-        int PolePair = Stage + 1;
+   for ( int Stage = 0; Stage < FilterStages_.size(); ++Stage ) {
+      // pole pairs start with index 1!
+      int PolePair = Stage + 1;
 
-        FilterStages_[Stage]->changeParameters(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple_,
-            NumberOfPoles_,
-            PolePair);
-    }
+      FilterStages_[Stage]->changeParameters(
+         RelativeCutoffFrequency,
+         IsHighPass,
+         PercentRipple_,
+         NumberOfPoles_,
+         PolePair );
+   }
 }
 
 
 void FilterChebyshev::reset()
 {
-    for (int Stage = 0; Stage < FilterStages_.size(); ++Stage)
-    {
-        FilterStages_[Stage]->reset();
-    }
+   for ( int Stage = 0; Stage < FilterStages_.size(); ++Stage ) {
+      FilterStages_[Stage]->reset();
+   }
 }
 
 
 double FilterChebyshev::filterSample(
-    double InputCurrent)
+   double InputCurrent )
 {
-    double OutputCurrent = InputCurrent;
+   double OutputCurrent = InputCurrent;
 
-    for (int Stage = 0; Stage < FilterStages_.size(); ++Stage)
-    {
-        OutputCurrent = FilterStages_[Stage]->filterSample(
-                            OutputCurrent);
-    }
+   for ( int Stage = 0; Stage < FilterStages_.size(); ++Stage ) {
+      OutputCurrent = FilterStages_[Stage]->filterSample(
+                         OutputCurrent );
+   }
 
-    // output is already de-normalised
-    return OutputCurrent;
+   // output is already de-normalised
+   return OutputCurrent;
 }
 
 
 void FilterChebyshev::testAlgorithm(
-    bool IsHighPass)
+   bool IsHighPass )
 {
-    jassert(FilterStages_.size() > 0);
+   jassert( FilterStages_.size() > 0 );
 
-    double PercentRipple = 0.5;
-    double RelativeCutoffFrequency;
+   double PercentRipple = 0.5;
+   double RelativeCutoffFrequency;
 
-    ignoreUnused(PercentRipple);
+   ignoreUnused( PercentRipple );
 
-    DBG("");
-    DBG("Chebyshev Filter Coefficients");
-    DBG("=============================");
+   DBG( "" );
+   DBG( "Chebyshev Filter Coefficients" );
+   DBG( "=============================" );
 
-    if (IsHighPass)
-    {
-        DBG("Highpass filter, " + String(PercentRipple, 1) + "% ripple");
-    }
-    else
-    {
-        DBG("Lowpass filter, " + String(PercentRipple, 1) + "% ripple");
-    }
+   if ( IsHighPass ) {
+      DBG( "Highpass filter, " + String( PercentRipple, 1 ) + "% ripple" );
+   } else {
+      DBG( "Lowpass filter, " + String( PercentRipple, 1 ) + "% ripple" );
+   }
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.010;
+   RelativeCutoffFrequency = 0.010;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.025;
+   RelativeCutoffFrequency = 0.025;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.050;
+   RelativeCutoffFrequency = 0.050;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.075;
+   RelativeCutoffFrequency = 0.075;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.100;
+   RelativeCutoffFrequency = 0.100;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.150;
+   RelativeCutoffFrequency = 0.150;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.200;
+   RelativeCutoffFrequency = 0.200;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.250;
+   RelativeCutoffFrequency = 0.250;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.300;
+   RelativeCutoffFrequency = 0.300;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.350;
+   RelativeCutoffFrequency = 0.350;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.400;
+   RelativeCutoffFrequency = 0.400;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 
-    RelativeCutoffFrequency = 0.450;
+   RelativeCutoffFrequency = 0.450;
 
-    DBG(FilterStages_[0]->testAlgorithm(
-            RelativeCutoffFrequency,
-            IsHighPass,
-            PercentRipple));
+   DBG( FilterStages_[0]->testAlgorithm(
+           RelativeCutoffFrequency,
+           IsHighPass,
+           PercentRipple ) );
 
-    DBG("");
+   DBG( "" );
 }
 
 }
