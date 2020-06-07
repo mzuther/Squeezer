@@ -38,7 +38,8 @@ namespace widgets
 /// | 0      | window has been closed "by force" |
 /// | 1      | user has selected a skin          |
 ///
-WindowSkinContent::WindowSkinContent()
+WindowSkinContent::WindowSkinContent() :
+    skin_(nullptr)
 {
 }
 
@@ -176,9 +177,10 @@ void WindowSkinContent::buttonClicked(
 
 /// Create a list box model for a WindowSkinContent.
 ///
-SkinListBoxModel::SkinListBoxModel()
-   : skinWildcard_( "*.skin", String(), "Skin files" ),
-     directoryThread_( "Skin directory scanner" )
+SkinListBoxModel::SkinListBoxModel() :
+   skin_( nullptr ),
+   skinWildcard_( "*.skin", String(), "Skin files" ),
+   directoryThread_( "Skin directory scanner" )
 {
 }
 
