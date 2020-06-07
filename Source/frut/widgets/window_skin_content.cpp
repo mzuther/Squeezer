@@ -39,7 +39,7 @@ namespace widgets
 /// | 1      | user has selected a skin          |
 ///
 WindowSkinContent::WindowSkinContent() :
-    skin_(nullptr)
+   skin_( nullptr )
 {
 }
 

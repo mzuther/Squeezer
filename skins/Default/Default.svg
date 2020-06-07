@@ -28,7 +28,7 @@
      inkscape:cx="555.0005"
      inkscape:cy="140"
      inkscape:document-units="px"
-     inkscape:current-layer="layer6"
+     inkscape:current-layer="g13041"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
@@ -1566,6 +1566,81 @@
         </g>
       </g>
     </g>
+  </g>
+  <g
+     style="display:inline"
+     inkscape:label="Meters Mono"
+     id="layer3"
+     inkscape:groupmode="layer">
+    <rect
+       y="36"
+       x="600"
+       height="120.99999"
+       width="24"
+       id="export-meter-gain-reduction-mono"
+       style="color:#000000;overflow:visible;fill:#666666;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;enable-background:new;stop-color:#000000" />
+    <rect
+       style="color:#000000;overflow:visible;fill:#666666;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;enable-background:new;stop-color:#000000"
+       id="export-meter-input-mono"
+       width="24"
+       height="120.99999"
+       x="696"
+       y="36" />
+    <rect
+       y="36"
+       x="728"
+       height="120.99999"
+       width="24"
+       id="export-meter-output-mono"
+       style="color:#000000;overflow:visible;fill:#666666;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;enable-background:new;stop-color:#000000" />
+  </g>
+  <g
+     style="display:inline"
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Meters">
+    <rect
+       style="color:#000000;overflow:visible;fill:#808080;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-meter-input-left"
+       width="12"
+       height="120.99999"
+       x="696"
+       y="36" />
+    <rect
+       y="36"
+       x="708"
+       height="120.99999"
+       width="12"
+       id="export-meter-input-right"
+       style="color:#000000;overflow:visible;fill:#999999;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;stop-color:#000000" />
+    <rect
+       y="36"
+       x="728"
+       height="120.99999"
+       width="12"
+       id="export-meter-output-left"
+       style="color:#000000;overflow:visible;fill:#808080;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;stop-color:#000000" />
+    <rect
+       style="color:#000000;overflow:visible;fill:#999999;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-meter-output-right"
+       width="12"
+       height="120.99999"
+       x="740"
+       y="36" />
+    <rect
+       style="color:#000000;overflow:visible;fill:#808080;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;stop-color:#000000"
+       id="export-meter-gain-reduction-left"
+       width="12"
+       height="120.99999"
+       x="600"
+       y="36" />
+    <rect
+       y="36"
+       x="612"
+       height="120.99999"
+       width="12"
+       id="export-meter-gain-reduction-right"
+       style="color:#000000;overflow:visible;fill:#999999;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;stop-color:#000000" />
   </g>
   <g
      inkscape:groupmode="layer"

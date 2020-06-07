@@ -37,9 +37,8 @@ namespace skin
 // * skinFallback_1_
 // * skinFallback_2_
 //
-bool Skin::loadFromXml(
-   const String& rootName,
-   const String& assumedVersionNumber )
+bool Skin::loadFromXml( const String& rootName,
+                        const String& assumedVersionNumber )
 {
    settingsGroup_ = nullptr;
    skinGroup_ = nullptr;
@@ -150,8 +149,7 @@ String Skin::getDefaultSkin()
 }
 
 
-void Skin::setDefaultSkin(
-   const String& defaultSkinName )
+void Skin::setDefaultSkin( const String& defaultSkinName )
 {
    auto settingsFile = this->getSettingsFile();
 
@@ -160,8 +158,7 @@ void Skin::setDefaultSkin(
 }
 
 
-XmlElement* Skin::getSetting(
-   const String& tagName )
+XmlElement* Skin::getSetting( const String& tagName )
 {
    if ( document_ == nullptr ) {
       return nullptr;
@@ -189,8 +186,7 @@ XmlElement* Skin::getSetting(
 }
 
 
-XmlElement* Skin::getComponent(
-   const String& tagName )
+XmlElement* Skin::getComponent( const String& tagName )
 {
    XmlElement* xmlComponent;
 
@@ -219,10 +215,9 @@ XmlElement* Skin::getComponent(
 }
 
 
-bool Skin::getBoolean(
-   const XmlElement* xmlComponent,
-   const String& attributeName,
-   const bool defaultValue )
+bool Skin::getBoolean( const XmlElement* xmlComponent,
+                       const String& attributeName,
+                       const bool defaultValue )
 {
    if ( xmlComponent == nullptr ) {
       return defaultValue;
@@ -232,10 +227,9 @@ bool Skin::getBoolean(
 }
 
 
-int Skin::getInteger(
-   const XmlElement* xmlComponent,
-   const String& attributeName,
-   const int defaultValue )
+int Skin::getInteger( const XmlElement* xmlComponent,
+                      const String& attributeName,
+                      const int defaultValue )
 {
    if ( xmlComponent == nullptr ) {
       return defaultValue;
@@ -245,10 +239,9 @@ int Skin::getInteger(
 }
 
 
-float Skin::getFloat(
-   const XmlElement* xmlComponent,
-   const String& attributeName,
-   const float defaultValue )
+float Skin::getFloat( const XmlElement* xmlComponent,
+                      const String& attributeName,
+                      const float defaultValue )
 {
    if ( xmlComponent == nullptr ) {
       return defaultValue;
@@ -261,10 +254,9 @@ float Skin::getFloat(
 }
 
 
-const String Skin::getString(
-   const XmlElement* xmlComponent,
-   const String& attributeName,
-   const String& defaultValue )
+const String Skin::getString( const XmlElement* xmlComponent,
+                              const String& attributeName,
+                              const String& defaultValue )
 {
    if ( xmlComponent == nullptr ) {
       return defaultValue;
@@ -274,10 +266,9 @@ const String Skin::getString(
 }
 
 
-const Colour Skin::getColour(
-   const XmlElement* xmlComponent,
-   const Colour defaultColour,
-   const String valuePrefix )
+const Colour Skin::getColour( const XmlElement* xmlComponent,
+                              const Colour defaultColour,
+                              const String valuePrefix )
 {
    if ( xmlComponent == nullptr ) {
       return Colours::white;
@@ -304,10 +295,9 @@ const Colour Skin::getColour(
 }
 
 
-std::unique_ptr<Drawable> Skin::createBogusImage(
-   const String& warningText,
-   int width,
-   int height )
+std::unique_ptr<Drawable> Skin::createBogusImage( const String& warningText,
+                                                  int width,
+                                                  int height )
 {
    auto drawable = new DrawableComposite();
    auto boundingBox = Rectangle<float>(
@@ -339,8 +329,7 @@ std::unique_ptr<Drawable> Skin::createBogusImage(
 }
 
 
-std::unique_ptr<Drawable> Skin::loadImage(
-   const String& strFilename )
+std::unique_ptr<Drawable> Skin::loadImage( const String& strFilename )
 {
    File fileImage = resourcePath_.getChildFile( strFilename );
    std::unique_ptr<Drawable> component;
@@ -369,9 +358,8 @@ std::unique_ptr<Drawable> Skin::loadImage(
 }
 
 
-void Skin::loadImage(
-   const String& strFilename,
-   Image& image )
+void Skin::loadImage( const String& strFilename,
+                      Image& image )
 {
    auto drawable = loadImage( strFilename );
 
@@ -385,9 +373,8 @@ void Skin::loadImage(
 }
 
 
-void Skin::setBackground(
-   DrawableComposite* background,
-   AudioProcessorEditor* editor )
+void Skin::setBackground( DrawableComposite* background,
+                          AudioProcessorEditor* editor )
 {
    background->deleteAllChildren(); //FIXME
    std::unique_ptr<Drawable> drawable;
@@ -455,10 +442,9 @@ void Skin::setBackground(
 }
 
 
-Point<float> Skin::getPositionFloat(
-   const XmlElement* xmlComponent,
-   const float componentHeight,
-   bool useRelativePosition )
+Point<float> Skin::getPositionFloat( const XmlElement* xmlComponent,
+                                     const float componentHeight,
+                                     bool useRelativePosition )
 {
    jassert( componentHeight >= 0.0f );
 
@@ -473,10 +459,9 @@ Point<float> Skin::getPositionFloat(
 }
 
 
-Point<int> Skin::getPositionInteger(
-   const XmlElement* xmlComponent,
-   const int componentHeight,
-   bool useRelativePosition )
+Point<int> Skin::getPositionInteger( const XmlElement* xmlComponent,
+                                     const int componentHeight,
+                                     bool useRelativePosition )
 {
    auto position = getPositionFloat( xmlComponent,
                                      static_cast<float>( componentHeight ),
@@ -487,9 +472,8 @@ Point<int> Skin::getPositionInteger(
 }
 
 
-void Skin::printPosition(
-   const String& header,
-   Component* component )
+void Skin::printPosition( const String& header,
+                          Component* component )
 {
    auto output = header;
    output << component->getX() << ", " << component->getY();
@@ -498,9 +482,8 @@ void Skin::printPosition(
 }
 
 
-void Skin::printSize(
-   const String& header,
-   Component* component )
+void Skin::printSize( const String& header,
+                      Component* component )
 {
    auto output = header;
    output << component->getWidth() << " x " << component->getHeight();
@@ -509,9 +492,8 @@ void Skin::printSize(
 }
 
 
-void Skin::printBounds(
-   const String& header,
-   Component* component )
+void Skin::printBounds( const String& header,
+                        Component* component )
 {
    auto bounds = component->getBounds();
    auto output = header;
@@ -526,11 +508,10 @@ void Skin::printBounds(
 }
 
 
-Rectangle<float> Skin::getBoundsFloat(
-   const XmlElement* xmlComponent,
-   float width,
-   float height,
-   bool useRelativePosition )
+Rectangle<float> Skin::getBoundsFloat( const XmlElement* xmlComponent,
+                                       float width,
+                                       float height,
+                                       bool useRelativePosition )
 {
    jassert( width >= 0.0f );
    jassert( height >= 0.0f );
@@ -545,11 +526,10 @@ Rectangle<float> Skin::getBoundsFloat(
 }
 
 
-Rectangle<int> Skin::getBoundsInteger(
-   const XmlElement* xmlComponent,
-   int width,
-   int height,
-   bool useRelativePosition )
+Rectangle<int> Skin::getBoundsInteger( const XmlElement* xmlComponent,
+                                       int width,
+                                       int height,
+                                       bool useRelativePosition )
 {
    auto bounds = getBoundsFloat( xmlComponent,
                                  static_cast<float>( width ),
@@ -563,9 +543,8 @@ Rectangle<int> Skin::getBoundsInteger(
 }
 
 
-void Skin::placeComponent(
-   const XmlElement* xmlComponent,
-   Component* component )
+void Skin::placeComponent( const XmlElement* xmlComponent,
+                           Component* component )
 {
    jassert( component != nullptr );
 
@@ -578,9 +557,8 @@ void Skin::placeComponent(
 }
 
 
-void Skin::placeMeterBar(
-   const String& tagName,
-   widgets::MeterBar* meterBar )
+void Skin::placeMeterBar( const String& tagName,
+                          widgets::MeterBar* meterBar )
 {
    jassert( meterBar != nullptr );
 
@@ -588,42 +566,59 @@ void Skin::placeMeterBar(
       return;
    }
 
-   XmlElement* xmlComponent = getComponent( tagName );
+   auto xmlComponent = getComponent( tagName );
 
-   if ( xmlComponent != nullptr ) {
+   if ( xmlComponent == nullptr ) {
+      return;
+   }
+
+   auto fileName = getString( xmlComponent, "image" );
+   int segmentWidth = 0;
+   bool isVertical = true;
+
+   if ( fileName.isNotEmpty() ) {
+      auto drawable = loadImage( fileName );
+
+      if ( drawable ) {
+         auto bounds = drawable->getDrawableBounds();
+         auto boundsInteger = bounds.getSmallestIntegerContainer();
+         segmentWidth = boundsInteger.getWidth();
+         isVertical = boundsInteger.getHeight() > boundsInteger.getWidth();
+
+         meterBar->setBounds( boundsInteger );
+      }
+   } else {
       int height = meterBar->getHeight();
       Point<int> position = getPositionInteger( xmlComponent, height, true );
+      segmentWidth = getInteger( xmlComponent, "segment_width", 0 );
+      isVertical = getBoolean( xmlComponent, "vertical", true );
 
       meterBar->setTopLeftPosition( position );
+   }
 
-      int segment_width = getInteger( xmlComponent, "segment_width", 0 );
-      bool isVertical = getBoolean( xmlComponent, "vertical", true );
+   if ( segmentWidth < 4 ) {
+      Logger::outputDebugString(
+         String( "[Skin] segment width for \"" ) +
+         tagName +
+         "\" not set" );
 
-      if ( segment_width < 4 ) {
-         Logger::outputDebugString(
-            String( "[Skin] segment width for \"" ) +
-            tagName +
-            "\" not set" );
+      segmentWidth = 8;
+   }
 
-         segment_width = 8;
-      }
+   meterBar->setSegmentWidth( segmentWidth );
 
-      meterBar->setSegmentWidth( segment_width );
-
-      // vertical bar
-      if ( isVertical ) {
-         meterBar->setOrientation( widgets::Orientation::vertical );
-         // horizontal bar
-      } else {
-         meterBar->setOrientation( widgets::Orientation::horizontal );
-      }
+   // vertical bar
+   if ( isVertical ) {
+      meterBar->setOrientation( widgets::Orientation::vertical );
+      // horizontal bar
+   } else {
+      meterBar->setOrientation( widgets::Orientation::horizontal );
    }
 }
 
 
-void Skin::placeAndSkinButton(
-   const String& tagName,
-   DrawableButton* button )
+void Skin::placeAndSkinButton( const String& tagName,
+                               DrawableButton* button )
 {
    jassert( button != nullptr );
 
@@ -681,9 +676,8 @@ void Skin::placeAndSkinButton(
 }
 
 
-void Skin::placeAndSkinSlider(
-   const String& tagName,
-   widgets::FrutSlider* slider )
+void Skin::placeAndSkinSlider( const String& tagName,
+                               widgets::FrutSlider* slider )
 {
    if ( document_ == nullptr ) {
       return;
@@ -720,7 +714,8 @@ void Skin::placeAndSkinSlider(
          }
 
          auto bounds = firstDrawableShape->getDrawableBounds();
-         slider->setBounds( bounds.getSmallestIntegerContainer() );
+         auto boundsInteger = bounds.getSmallestIntegerContainer();
+         slider->setBounds( boundsInteger );
       }
    } else {
       sliderColour = getColour( xmlComponent );
@@ -739,9 +734,8 @@ void Skin::placeAndSkinSlider(
 }
 
 
-void Skin::placeAndSkinNeedleMeter(
-   const String& tagName,
-   widgets::NeedleMeter* meter )
+void Skin::placeAndSkinNeedleMeter( const String& tagName,
+                                    widgets::NeedleMeter* meter )
 {
    jassert( meter != nullptr );
 
@@ -779,9 +773,8 @@ void Skin::placeAndSkinNeedleMeter(
 }
 
 
-void Skin::placeAndSkinLabel(
-   const String& tagName,
-   DrawableComposite* label )
+void Skin::placeAndSkinLabel( const String& tagName,
+                              DrawableComposite* label )
 {
    label->deleteAllChildren(); //FIXME
    XmlElement* xmlComponent = getComponent( tagName );
@@ -797,9 +790,8 @@ void Skin::placeAndSkinLabel(
 }
 
 
-void Skin::placeAndSkinSignalLed(
-   const String& tagName,
-   widgets::SignalLed* label )
+void Skin::placeAndSkinSignalLed( const String& tagName,
+                                  widgets::SignalLed* label )
 {
    jassert( label != nullptr );
 
@@ -853,9 +845,8 @@ void Skin::placeAndSkinSignalLed(
 }
 
 
-void Skin::placeAndSkinStateLabel(
-   const String& tagName,
-   widgets::StateLabel* label )
+void Skin::placeAndSkinStateLabel( const String& tagName,
+                                   widgets::StateLabel* label )
 {
    jassert( label != nullptr );
 
