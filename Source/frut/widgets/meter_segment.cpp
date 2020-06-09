@@ -33,7 +33,7 @@ namespace widgets
 MeterSegment::MeterSegment()
 {
    // set initial orientation
-   setOrientation( widgets::Orientation::vertical );
+   setOrientation( widgets::Orientation() );
 }
 
 
@@ -57,9 +57,7 @@ widgets::Orientation MeterSegment::getOrientation()
 ///
 /// @param orientation new orientation
 ///
-void MeterSegment::setOrientation(
-   widgets::Orientation orientation )
-
+void MeterSegment::setOrientation( const widgets::Orientation& orientation )
 {
    // update segment's orientation
    orientation_ = orientation;
@@ -76,9 +74,8 @@ void MeterSegment::setOrientation(
 ///
 /// @param normalLevelPeak new normal peak level
 ///
-void MeterSegment::setNormalLevels(
-   float normalLevel, float normalLevelPeak )
-
+void MeterSegment::setNormalLevels( float normalLevel,
+                                    float normalLevelPeak )
 {
    // lowest level of a 24-bit-signal in decibels
    float initialLevel = -144.0f;
@@ -94,9 +91,8 @@ void MeterSegment::setNormalLevels(
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void MeterSegment::setDiscreteLevels(
-   float discreteLevel, float discreteLevelPeak )
-
+void MeterSegment::setDiscreteLevels( float discreteLevel,
+                                      float discreteLevelPeak )
 {
    // lowest level of a 24-bit-signal in decibels
    float initialLevel = -144.0f;

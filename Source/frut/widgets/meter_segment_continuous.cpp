@@ -150,7 +150,7 @@ void MeterSegmentContinuous::drawBar(
    int pos_2 = 0;
 
    // respect orientation
-   switch ( orientation_ ) {
+   switch ( orientation_.getOrientation() ) {
       case widgets::Orientation::verticalInverted:
 
          // invert level position
@@ -248,6 +248,11 @@ void MeterSegmentContinuous::drawBar(
          }
 
          break;
+
+      case widgets::Orientation::other:
+
+         // nothing to be done, really
+         break;
    }
 }
 
@@ -276,7 +281,7 @@ void MeterSegmentContinuous::drawMarker(
    int pos_2 = 0;
 
    // respect orientation
-   switch ( orientation_ ) {
+   switch ( orientation_.getOrientation() ) {
       case widgets::Orientation::verticalInverted:
 
          // invert level position
@@ -344,6 +349,12 @@ void MeterSegmentContinuous::drawMarker(
                      maximumY_ - 1 );
 
          break;
+
+      case widgets::Orientation::other:
+
+         // nothing to be done, really
+         break;
+
    }
 }
 

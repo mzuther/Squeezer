@@ -64,7 +64,7 @@ public:
                            float discreteLevelPeak ) = 0 ;
 
    virtual widgets::Orientation getOrientation();
-   virtual void setOrientation( widgets::Orientation orientation );
+   virtual void setOrientation( const widgets::Orientation& orientation );
 
 protected:
    widgets::Orientation orientation_;

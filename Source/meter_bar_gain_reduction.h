@@ -39,10 +39,12 @@ public:
                 int mainSegmentHeight,
                 const Colour& segmentColour );
 
+   virtual void setOrientation( const frut::widgets::Orientation& orientation );
    void setUpwardExpansion( bool upwardExpansion );
 
 protected:
    bool upwardExpansion_;
+   frut::widgets::Orientation originalOrientation_;
 
 private:
    JUCE_LEAK_DETECTOR( MeterBarGainReduction );

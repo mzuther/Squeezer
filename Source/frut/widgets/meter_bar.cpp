@@ -58,13 +58,13 @@ void MeterBar::create()
    discreteLevelPeak_ = initialLevel;
 
    // initialise meter dimensions
-   barWidth_ = 0;
-   barHeight_ = 0;
+   barWidth_ = getWidth();
+   barHeight_ = getHeight();
 
    // initialise segment width (we always use the coordinates for a
    // vertical meter, so this corresponds to the segment height in
    // horizontal meters)
-   segmentWidth_ = 10;
+   segmentWidth_ = barWidth_;
 
    // clear array with meter segments
    meterSegments_.clear();
@@ -73,7 +73,6 @@ void MeterBar::create()
    segmentSpacing_.clear();
 
    // set initial orientation
-   orientation_ = widgets::Orientation::vertical;
    isVertical_ = true;
    isInverted_ = false;
 }
@@ -89,11 +88,9 @@ void MeterBar::create()
 ///
 /// @param spacingBefore spacing before the segment (in pixels)
 ///
-void MeterBar::addSegment(
-   widgets::MeterSegment* segment,
-   int segmentHeight,
-   int spacingBefore )
-
+void MeterBar::addSegment( widgets::MeterSegment* segment,
+                           int segmentHeight,
+                           int spacingBefore )
 {
    // set levels to current levels; prevents blinking on (re)load
    segment->setLevels( normalLevel_, normalLevelPeak_,
@@ -103,7 +100,7 @@ void MeterBar::addSegment(
    widgets::Orientation orientationOld = orientation_;
 
    // set to standard orientation to easily add a new meter segment
-   setOrientation( widgets::Orientation::vertical );
+   setOrientation( widgets::Orientation() );
 
    // add spacing to meter bar's height (no spacing before first
    // meter segment!)
@@ -168,17 +165,15 @@ void MeterBar::addSegment(
 ///
 /// @param peakMarkerColour colour of the peak marker
 ///
-void MeterBar::addDiscreteSegment(
-   float lowerThreshold,
-   float thresholdRange,
-   float retainSignalFactor,
-   float newSignalFactor,
-   bool isTopmost,
-   int segmentHeight,
-   int spacingBefore,
-   const Colour& segmentColour,
-   const Colour& peakMarkerColour )
-
+void MeterBar::addDiscreteSegment( float lowerThreshold,
+                                   float thresholdRange,
+                                   float retainSignalFactor,
+                                   float newSignalFactor,
+                                   bool isTopmost,
+                                   int segmentHeight,
+                                   int spacingBefore,
+                                   const Colour& segmentColour,
+                                   const Colour& peakMarkerColour )
 {
    // create new discrete meter segment (will be deleted
    // automatically)
@@ -226,16 +221,14 @@ void MeterBar::addDiscreteSegment(
 ///
 /// @param peakMarkerColour colour of the peak marker
 ///
-void MeterBar::addContinuousSegment(
-   float lowerThreshold,
-   float thresholdRange,
-   float nextPixelRange,
-   bool isTopmost,
-   int segmentHeight,
-   int spacingBefore,
-   const Colour& segmentColour,
-   const Colour& peakMarkerColour )
-
+void MeterBar::addContinuousSegment( float lowerThreshold,
+                                     float thresholdRange,
+                                     float nextPixelRange,
+                                     bool isTopmost,
+                                     int segmentHeight,
+                                     int spacingBefore,
+                                     const Colour& segmentColour,
+                                     const Colour& peakMarkerColour )
 {
    // create new continuous meter segment (will be deleted
    // automatically)
@@ -285,9 +278,7 @@ widgets::Orientation MeterBar::getOrientation()
 ///
 /// @param orientation new meter orientation
 ///
-void MeterBar::setOrientation(
-   widgets::Orientation orientation )
-
+void MeterBar::setOrientation( const widgets::Orientation& orientation )
 {
    // fast-forward ...
    if ( orientation == orientation_ ) {
@@ -301,7 +292,7 @@ void MeterBar::setOrientation(
    // update orientation
    orientation_ = orientation;
 
-   switch ( orientation_ ) {
+   switch ( orientation_.getOrientation() ) {
       case widgets::Orientation::vertical:
 
          // vertical meter
@@ -345,6 +336,15 @@ void MeterBar::setOrientation(
          isInverted_ = false;
 
          break;
+
+      case widgets::Orientation::other:
+
+         // nothing to be done, really
+         isVertical_ = false;
+         isInverted_ = false;
+
+         break;
+
    }
 
    // changed from vertical to horizontal orientation or vice versa
@@ -435,45 +435,6 @@ void MeterBar::setOrientation(
 }
 
 
-/// Invert the current meter.  In order to save some processing power,
-/// you should use this function after all meter segments have been
-/// added.
-///
-/// @param invert **true** inverts the meter, **false** reverts to
-///        normal orientation
-///
-void MeterBar::invertMeter(
-   bool invert )
-
-{
-   // convert boolean to enum
-   if ( isVertical_ ) {
-      if ( invert ) {
-         setOrientation( widgets::Orientation::verticalInverted );
-      } else {
-         setOrientation( widgets::Orientation::vertical );
-      }
-   } else {
-      if ( invert ) {
-         setOrientation( widgets::Orientation::horizontalInverted );
-      } else {
-         setOrientation( widgets::Orientation::horizontal );
-      }
-   }
-}
-
-
-/// Find out if the current meter is inverted.
-///
-/// @return **true** if meter is inverted, **false** if meter has
-///         normal orientation
-///
-bool MeterBar::isMeterInverted()
-{
-   return isInverted_;
-}
-
-
 /// Get current segment width.
 ///
 /// @return segment width for vertical meters and segment height for
@@ -490,9 +451,7 @@ int MeterBar::getSegmentWidth()
 ///
 /// @param segmentWidth new segment width (or height, see above)
 ///
-void MeterBar::setSegmentWidth(
-   int segmentWidth )
-
+void MeterBar::setSegmentWidth( int segmentWidth )
 {
    // update segment width
    segmentWidth_ = segmentWidth;
@@ -523,9 +482,7 @@ void MeterBar::setSegmentWidth(
 ///
 /// @param g graphics context
 ///
-void MeterBar::paint(
-   Graphics& g )
-
+void MeterBar::paint( Graphics& g )
 {
    // fill background with black (disabled peak markers will be drawn
    // in black)
@@ -554,9 +511,8 @@ void MeterBar::resized()
 ///
 /// @param normalLevelPeak new normal peak level
 ///
-void MeterBar::setNormalLevels(
-   float normalLevel, float normalLevelPeak )
-
+void MeterBar::setNormalLevels( float normalLevel,
+                                float normalLevelPeak )
 {
    // "normal" levels have changed
    if ( ( normalLevel_ != normalLevel ) ||
@@ -584,9 +540,8 @@ void MeterBar::setNormalLevels(
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void MeterBar::setDiscreteLevels(
-   float discreteLevel, float discreteLevelPeak )
-
+void MeterBar::setDiscreteLevels( float discreteLevel,
+                                  float discreteLevelPeak )
 {
    // "discrete" levels have changed
    if ( ( discreteLevel_ != discreteLevel ) ||
@@ -617,10 +572,10 @@ void MeterBar::setDiscreteLevels(
 ///
 /// @param discreteLevelPeak new discrete peak level
 ///
-void MeterBar::setLevels(
-   float normalLevel, float normalLevelPeak,
-   float discreteLevel, float discreteLevelPeak )
-
+void MeterBar::setLevels( float normalLevel,
+                          float normalLevelPeak,
+                          float discreteLevel,
+                          float discreteLevelPeak )
 {
    // "normal" or "discrete" levels have changed
    if ( ( normalLevel_ != normalLevel ) ||

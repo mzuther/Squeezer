@@ -440,9 +440,13 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
    bool IsDiscreteMeter = true;
    int CrestFactor = 0;
+   bool UseUpwardExpansion = ( SliderRatio_->getRealFloat() < 1.0f );
 
-   auto MeterOrientation = frut::widgets::Orientation::vertical;
-   auto GainReductionMeterOrientation = frut::widgets::Orientation::verticalInverted;
+   auto MeterOrientation = frut::widgets::Orientation (
+                              frut::widgets::Orientation::vertical );
+
+   auto GainReductionMeterOrientation = frut::widgets::Orientation (
+                                           frut::widgets::Orientation::verticalInverted );
 
    for ( int Channel = 0; Channel < NumberOfChannels_; ++Channel ) {
       MeterBarLevel* InputLevelMeter = InputLevelMeters_.add(
@@ -478,6 +482,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
          ColourReduction );
 
       addAndMakeVisible( GainReductionMeter );
+      GainReductionMeter->setUpwardExpansion( UseUpwardExpansion );
    }
 
    if ( NumberOfChannels_ == 1 ) {

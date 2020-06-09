@@ -69,10 +69,7 @@ public:
                                       const Colour& colPeakMarker );
 
    virtual widgets::Orientation getOrientation();
-   virtual void setOrientation( widgets::Orientation orientation );
-
-   virtual void invertMeter( bool invert );
-   virtual bool isMeterInverted();
+   virtual void setOrientation( const widgets::Orientation& orientation );
 
    virtual int getSegmentWidth();
    virtual void setSegmentWidth( int segmentWidth );

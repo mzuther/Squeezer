@@ -606,14 +606,6 @@ void Skin::placeMeterBar( const String& tagName,
    }
 
    meterBar->setSegmentWidth( segmentWidth );
-
-   // vertical bar
-   if ( isVertical ) {
-      meterBar->setOrientation( widgets::Orientation::vertical );
-      // horizontal bar
-   } else {
-      meterBar->setOrientation( widgets::Orientation::horizontal );
-   }
 }
 
 
