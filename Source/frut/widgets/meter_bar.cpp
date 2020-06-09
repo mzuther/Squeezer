@@ -292,59 +292,13 @@ void MeterBar::setOrientation( const widgets::Orientation& orientation )
    // update orientation
    orientation_ = orientation;
 
-   switch ( orientation_.getOrientation() ) {
-      case widgets::Orientation::vertical:
+   isVertical_ = orientation_.isVertical();
+   isInverted_ = orientation_.isInverted();
 
-         // vertical meter
-         isVertical_ = true;
-
-         // meter is *not* inverted
-         isInverted_ = false;
-
-         break;
-
-      case widgets::Orientation::verticalInverted:
-
-         // vertical meter
-         isVertical_ = true;
-
-         // meter *is* inverted
-         isInverted_ = true;
-
-         break;
-
-      case widgets::Orientation::horizontal:
-
-         // horizontal meter
-         isVertical_ = false;
-
-         // meter is *not* inverted; however, we have to set this to
-         // "true", otherwise the meter segments will be drawn the
-         // wrong way round
-         isInverted_ = true;
-
-         break;
-
-      case widgets::Orientation::horizontalInverted:
-
-         // horizontal meter
-         isVertical_ = false;
-
-         // meter *is* inverted; however, we have to set this to
-         // "false", otherwise the meter segments will be drawn the
-         // wrong way round
-         isInverted_ = false;
-
-         break;
-
-      case widgets::Orientation::other:
-
-         // nothing to be done, really
-         isVertical_ = false;
-         isInverted_ = false;
-
-         break;
-
+   // we have to invert this Boolean for horizontal meters, otherwise
+   // it will be drawn the wrong way round
+   if ( ! isVertical_ ) {
+      isInverted_ = ! isInverted_;
    }
 
    // changed from vertical to horizontal orientation or vice versa
