@@ -1,1 +1,85 @@
-../.astylerc
+#  ----------------------------------------------------------------------------
+#  
+#  FrutJUCE
+#  ========
+#  Common classes for use with the JUCE library
+#  
+#  Copyright (c) 2010-2020 Martin Zuther (http://www.mzuther.de/)
+#  
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#  
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#  
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  
+#  Thank you for using free software!
+#  
+#  ----------------------------------------------------------------------------
+
+
+###############################################################################
+#
+#  WARNING: this file is auto-generated, please do not edit!
+#
+###############################################################################
+
+# indent using given number of spaces
+--indent=spaces=3
+
+# pad empty lines around header blocks ('if', 'for', 'while'...)
+--break-blocks
+
+# set the maximum of # spaces to indent a continuation line
+--max-continuation-indent=60
+
+# indent 'switch' blocks so that the 'case X:' statements are indented
+# in the switch block
+--indent-switches
+
+
+# opening braces are broken from namespace, class, and function
+# definitions; braces are attached to everything else
+--style=linux
+
+# add brackets to one line conditional statements ('if', 'for', 'while'...)
+--add-braces
+
+
+
+# insert space padding around paren on the inside only
+--pad-paren-in
+
+# insert space padding after paren headers only ('if', 'for', 'while'...)
+--pad-header
+
+# insert space padding around operators
+--pad-oper
+
+# attach pointer or reference operators (* or &) to the variable type (left)
+--align-pointer=type
+
+
+
+# display optional information
+--verbose
+
+# only display changed files
+--formatted
+
+# force Linux-style line endings (LF)
+--lineend=linux
+
+# do not retain a backup of the original file
+--suffix=none
+
+
+# Local Variables:
+# mode: conf
+# End:

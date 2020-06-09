@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\build_id.h">
+      <Filter>Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\compressor.h">
       <Filter>Source</Filter>
     </ClInclude>

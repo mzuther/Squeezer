@@ -24,44 +24,71 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{% macro preamble(copyright, includes) %}
+{% macro preamble(copyright, indentation) %}
 {% for line in copyright -%}
-;;  {{ line }}
+#  {{ line }}
 {% endfor %}
 
 
-;;  ############################################################################
-;;
-;;  WARNING: this file is auto-generated, please do not edit!
-;;
-;;  ############################################################################
+###############################################################################
+#
+#  WARNING: this file is auto-generated, please do not edit!
+#
+###############################################################################
 
-(
- (nil . ((eval . (let* ((relative-root "")
-                        (root (concat (projectile-project-root) relative-root))
-                        (language-standard "c++14")
-                        (include-path (list
-{% for line in includes.paths + includes.paths_unittest %}
-                                       (concat root "{{ line }}/")
-{% endfor %}
-                                       ))
-                        (includes (list
-{% for line in includes.files + includes.files_unittest %}
-                                   (concat root "{{ line }}")
-{% endfor %}
-                                   )))
+# indent using given number of spaces
+--indent=spaces={{ indentation }}
 
-                   (setq-local flycheck-clang-language-standard language-standard)
-                   (setq-local flycheck-clang-include-path include-path)
-                   (setq-local flycheck-clang-includes includes)
+# pad empty lines around header blocks ('if', 'for', 'while'...)
+--break-blocks
 
-                   (setq-local flycheck-gcc-language-standard language-standard)
-                   (setq-local flycheck-gcc-include-path include-path)
-                   (setq-local flycheck-gcc-includes includes)))))
- (c-mode . ((mode . c++)
-            ( c-basic-offset . 3)))
- (c++-mode (c-basic-offset . 3))
- )
+# set the maximum of # spaces to indent a continuation line
+--max-continuation-indent=60
+
+# indent 'switch' blocks so that the 'case X:' statements are indented
+# in the switch block
+--indent-switches
+
+
+# opening braces are broken from namespace, class, and function
+# definitions; braces are attached to everything else
+--style=linux
+
+# add brackets to one line conditional statements ('if', 'for', 'while'...)
+--add-braces
+
+
+
+# insert space padding around paren on the inside only
+--pad-paren-in
+
+# insert space padding after paren headers only ('if', 'for', 'while'...)
+--pad-header
+
+# insert space padding around operators
+--pad-oper
+
+# attach pointer or reference operators (* or &) to the variable type (left)
+--align-pointer=type
+
+
+
+# display optional information
+--verbose
+
+# only display changed files
+--formatted
+
+# force Linux-style line endings (LF)
+--lineend=linux
+
+# do not retain a backup of the original file
+--suffix=none
+
+
+# Local Variables:
+# mode: conf
+# End:
 {% endmacro %}
 
 

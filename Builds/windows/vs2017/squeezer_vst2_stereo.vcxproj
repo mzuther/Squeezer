@@ -190,6 +190,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\build_id.h" />
     <ClInclude Include="..\..\..\Source\compressor.h" />
     <ClInclude Include="..\..\..\Source\frut\FrutHeader.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_audio.h" />

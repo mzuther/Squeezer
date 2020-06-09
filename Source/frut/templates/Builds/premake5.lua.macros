@@ -94,6 +94,10 @@ workspace "{{ name.short }}"
         "../JuceLibraryCode/include_juce_video.cpp"
     }
 
+    removefiles {
+        "../Source/*-COPY.*",
+    }
+
     includedirs {
 {% for line in includes.paths %}
         "../{{ line }}/",
