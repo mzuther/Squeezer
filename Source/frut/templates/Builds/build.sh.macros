@@ -188,7 +188,7 @@ if [ "$MAKEFILE" != "clean" ]; then
 fi
 
 # compile target
-make --directory=linux/gmake/ --no-print-directory config=$PLATFORM $MAKEFILE $* 2>&1
+make --directory=linux/gmake/ --no-print-directory --output-sync config=$PLATFORM $MAKEFILE $* 2>&1
 
 # compilation was successful
 if [ $? -eq 0 ]; then

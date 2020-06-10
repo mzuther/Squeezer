@@ -27,8 +27,8 @@ ifeq ($(config),debug_x32)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -g -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -g -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
@@ -62,8 +62,8 @@ ifeq ($(config),debug_x64)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fno-inline -ggdb
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -g -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
@@ -97,8 +97,8 @@ ifeq ($(config),release_x32)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
@@ -132,8 +132,8 @@ ifeq ($(config),release_x64)
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
-  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
-  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fvisibility=hidden -pipe -Wno-deprecated
+  ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
+  ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -Wall -Wextra -std=c++14 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=

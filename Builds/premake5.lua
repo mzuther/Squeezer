@@ -173,7 +173,7 @@ workspace "squeezer"
         symbols "On"
 
     filter { "system:linux" }
-        buildoptions { "-DHAVE_LROUND", "-fmessage-length=78" }
+        buildoptions { "-DHAVE_LROUND", "-fmessage-length=78", "-fcolor-diagnostics" }
 
     filter { "system:linux", "configurations:Debug" }
         warnings "Extra"
