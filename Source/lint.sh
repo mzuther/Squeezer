@@ -33,16 +33,17 @@
 ###############################################################################
 
 project_home=$(pwd)/..
-parallel_threads=12
 
 
 function lint_file
 {
     filename="$1"
     dirname=$(dirname "$1")
+    project_home="$2"
+
     printf "%s\n" "$filename"
 
-    /usr/bin/clang \
+    clang \
         -x c++ - \
         -include "$project_home/Source/frut/FrutHeader.h" \
         -I "$project_home/JuceLibraryCode" \
@@ -53,47 +54,51 @@ function lint_file
         -I "$dirname" \
         -fsyntax-only \
         -fno-caret-diagnostics \
+        -fcolor-diagnostics \
         -std=c++14 \
         -Wall \
         < "$filename"
 
-    /usr/bin/cppcheck \
+    cppcheck \
         --template=gcc \
+        --library="$project_home/Source/frut/cppcheck_googletest.cfg" \
         --enable=style \
         --include="$project_home/Source/frut/FrutHeader.h" \
         --inline-suppr \
         --language=c++ \
+        --force \
         --quiet \
-        "$filename"
+        "$filename" 2>&1 | \
+    sed -Ee 's/[^:]+://' | \
+    GREP_COLORS="mt=01;31" grep --extended-regexp --colour=always \
+                                --label "$filename" --with-filename \
+               '[^0-9:].*'
 
     # find error-like codetags
-    GREP_COLORS="mt=01;31" /bin/grep \
-               --extended-regexp --colour \
+    GREP_COLORS="mt=01;31" grep --extended-regexp --colour=always \
+                                --with-filename --line-number \
                '\<(BUG|FIXME|XXX)\>' \
                "$filename"
 
     # find warning-like codetags
-    GREP_COLORS="mt=01;33" /bin/grep \
-               --extended-regexp --colour \
+    GREP_COLORS="mt=01;33" grep --extended-regexp --colour=always \
+                                --with-filename --line-number \
                '\<(HACK|TODO|@todo)\>' \
                "$filename"
 }
 
 
+export -f lint_file
 printf "\n"
 
-for filename in $(find . -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort); do
-    # use parallel threads to improve performance; adapted from
-    # https://unix.stackexchange.com/a/216475
-    ((i=i%parallel_threads)); ((i++==0)) && wait
-    lint_file "$filename" &
-done
+find . -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | \
+    sort | \
+    parallel --will-cite --group \
+             lint_file {} "$project_home"
 
-for filename in $(find ./frut/amalgamated -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | sort); do
-    # use parallel threads to improve performance; adapted from
-    # https://unix.stackexchange.com/a/216475
-    ((i=i%parallel_threads)); ((i++==0)) && wait
-    lint_file "$filename" &
-done
+find ./frut/amalgamated -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | \
+    sort | \
+    parallel --will-cite --group \
+             lint_file {} "$project_home"
 
 printf "\n"

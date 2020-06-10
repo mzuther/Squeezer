@@ -376,7 +376,7 @@ void Skin::loadImage( const String& strFilename,
 void Skin::setBackground( DrawableComposite* background,
                           AudioProcessorEditor* editor )
 {
-   background->deleteAllChildren(); //FIXME
+   background->deleteAllChildren(); // FIXME
    std::unique_ptr<Drawable> drawable;
 
    if ( skinGroup_ != nullptr ) {
@@ -574,7 +574,6 @@ void Skin::placeMeterBar( const String& tagName,
 
    auto fileName = getString( xmlComponent, "image" );
    int segmentWidth = 0;
-   bool isVertical = true;
 
    if ( fileName.isNotEmpty() ) {
       auto drawable = loadImage( fileName );
@@ -583,7 +582,6 @@ void Skin::placeMeterBar( const String& tagName,
          auto bounds = drawable->getDrawableBounds();
          auto boundsInteger = bounds.getSmallestIntegerContainer();
          segmentWidth = boundsInteger.getWidth();
-         isVertical = boundsInteger.getHeight() > boundsInteger.getWidth();
 
          meterBar->setBounds( boundsInteger );
       }
@@ -591,7 +589,6 @@ void Skin::placeMeterBar( const String& tagName,
       int height = meterBar->getHeight();
       Point<int> position = getPositionInteger( xmlComponent, height, true );
       segmentWidth = getInteger( xmlComponent, "segment_width", 0 );
-      isVertical = getBoolean( xmlComponent, "vertical", true );
 
       meterBar->setTopLeftPosition( position );
    }
@@ -768,7 +765,7 @@ void Skin::placeAndSkinNeedleMeter( const String& tagName,
 void Skin::placeAndSkinLabel( const String& tagName,
                               DrawableComposite* label )
 {
-   label->deleteAllChildren(); //FIXME
+   label->deleteAllChildren(); // FIXME
    XmlElement* xmlComponent = getComponent( tagName );
 
    if ( xmlComponent == nullptr ) {
