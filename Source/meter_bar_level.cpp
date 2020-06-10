@@ -38,8 +38,8 @@ void MeterBarLevel::create( int crestFactor,
 
    crestFactor *= 10;
 
-   int levelRange = 20;
-   int trueLowerThreshold = 0;
+   int levelRange = 30;
+   int trueLowerThreshold = -levelRange;
    int lowerThreshold = trueLowerThreshold + crestFactor;
 
    for ( int n = 0; n < numberOfBars; ++n ) {
@@ -47,7 +47,7 @@ void MeterBarLevel::create( int crestFactor,
       int segmentHeight;
       int spacingBefore = 0;
 
-      if ( trueLowerThreshold >= -40 ) {
+      if ( trueLowerThreshold >= -60 ) {
          colourId = colourSelector::overload;
          segmentHeight = mainSegmentHeight;
       } else if ( trueLowerThreshold >= -120 ) {
@@ -59,15 +59,9 @@ void MeterBarLevel::create( int crestFactor,
       }
 
       bool hasHighestLevel = ( n == 0 );
-      bool hasLowestLevel = ( n == ( numberOfBars - 1 ) );
 
-      if ( ( ! discreteMeter ) && ( ! hasHighestLevel ) ) {
+      if ( ! discreteMeter ) {
          // meter segment outlines must not overlap
-
-         // prevent border overlap (the lowest segment is too large)
-         if ( hasLowestLevel ) {
-            segmentHeight -= 1;
-         }
 
          addContinuousSegment(
             lowerThreshold * 0.1f,
