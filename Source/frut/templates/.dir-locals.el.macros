@@ -24,7 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{% macro preamble(copyright, includes) %}
+{% macro preamble(copyright, includes, root_path) %}
 {% for line in copyright -%}
 ;;  {{ line }}
 {% endfor %}
@@ -37,7 +37,7 @@
 ;;  ############################################################################
 
 (
- (nil . ((eval . (let* ((relative-root "")
+ (nil . ((eval . (let* ((relative-root "{{ root_path }}")
                         (root (concat (projectile-project-root) relative-root))
                         (language-standard "c++14")
                         (include-path (list

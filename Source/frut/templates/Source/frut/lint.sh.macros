@@ -77,13 +77,13 @@ function lint_file
     # find error-like codetags
     GREP_COLORS="mt=01;31" /bin/grep \
                --extended-regexp --colour \
-               '\<(FIXME|BUG)\>' \
+               '\<(BUG|FIXME|XXX)\>' \
                "$filename"
 
     # find warning-like codetags
     GREP_COLORS="mt=01;33" /bin/grep \
                --extended-regexp --colour \
-               '\<(TODO|@todo)\>' \
+               '\<(HACK|TODO|@todo)\>' \
                "$filename"
 }
 

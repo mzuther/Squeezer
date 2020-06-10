@@ -28,6 +28,6 @@
 {%- import 'settings.jinja' as settings -%}
 {%- import '.dir-locals.el.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.includes) }}
+{{ render.preamble(settings.copyright, settings.includes, "") }}
 
 {{- render.postamble() }}
