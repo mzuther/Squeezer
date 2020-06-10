@@ -59,9 +59,15 @@ void MeterBarLevel::create( int crestFactor,
       }
 
       bool hasHighestLevel = ( n == 0 );
+      bool hasLowestLevel = ( n == ( numberOfBars - 1 ) );
 
       if ( ( ! discreteMeter ) && ( ! hasHighestLevel ) ) {
          // meter segment outlines must not overlap
+
+         // prevent border overlap (the lowest segment is too large)
+         if ( hasLowestLevel ) {
+            segmentHeight -= 1;
+         }
 
          addContinuousSegment(
             lowerThreshold * 0.1f,
