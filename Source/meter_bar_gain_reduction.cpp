@@ -30,10 +30,9 @@
 ///
 MeterBarGainReduction::MeterBarGainReduction() :
    MeterBar(),
+   upwardExpansion_( false ),
    originalOrientation_( frut::widgets::Orientation::orientations::bottomToTop )
 {
-   // initialize variables
-   create();
 };
 
 
@@ -87,7 +86,6 @@ void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
    }
 
    // set orientation here to save some processing
-   upwardExpansion_ = false;
    setOrientation( orientation );
 }
 
