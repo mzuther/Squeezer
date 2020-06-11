@@ -767,6 +767,7 @@ void Compressor::process( AudioBuffer<double>& MainBuffer,
 
                // apply feedback-loop
                SideChainSample *= SideChain::decibel2level( LastGainReduction );
+
                // "normal" feed-back mode (external side chain not
                // supported)
             } else {

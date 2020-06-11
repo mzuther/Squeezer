@@ -37,17 +37,10 @@ class Orientation
 {
 public:
    enum orientations { // public namespace!
-      /// vertical widget (bottom to top)
-      vertical = 0,
-
-      /// horizontal widget (left to right)
-      horizontal = 90,
-
-      /// inverted vertical widget (top to bottom)
-      verticalInverted = 180,
-
-      /// inverted horizontal widget (right to left)
-      horizontalInverted = 270,
+      bottomToTop = 0,
+      leftToRight = 90,
+      topToBottom = 180,
+      rightToLeft = 270,
 
       /// widget's orientation does not match any direction
       other = -1

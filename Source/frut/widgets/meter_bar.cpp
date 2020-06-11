@@ -100,7 +100,8 @@ void MeterBar::addSegment( widgets::MeterSegment* segment,
    widgets::Orientation orientationOld = orientation_;
 
    // set to standard orientation to easily add a new meter segment
-   setOrientation( widgets::Orientation() );
+   setOrientation( widgets::Orientation(
+                      Orientation::orientations::bottomToTop ) );
 
    // add spacing to meter bar's height (no spacing before first
    // meter segment!)

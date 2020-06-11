@@ -151,14 +151,14 @@ void MeterSegmentContinuous::drawBar(
 
    // respect orientation
    switch ( orientation_.getOrientation() ) {
-      case widgets::Orientation::verticalInverted:
+      case widgets::Orientation::topToBottom:
 
          // invert level position
          levelPosition = 1.0f - levelPosition;
 
       // keep going ...
 
-      case widgets::Orientation::vertical:
+      case widgets::Orientation::bottomToTop:
 
          // initialise drawing points
          pos_1 = math::SimpleMath::round( maximumY_ * levelPosition );
@@ -166,7 +166,7 @@ void MeterSegmentContinuous::drawBar(
 
          // make sure there is something to draw
          if ( pos_2 > 0 ) {
-            if ( orientation_ == widgets::Orientation::vertical ) {
+            if ( orientation_ == widgets::Orientation::bottomToTop ) {
                // set background colour
                g.setColour( backgroundColour_ );
             } else {
@@ -183,7 +183,7 @@ void MeterSegmentContinuous::drawBar(
 
          // make sure there is something to draw
          if ( pos_1 > 0 ) {
-            if ( orientation_ == widgets::Orientation::vertical ) {
+            if ( orientation_ == widgets::Orientation::bottomToTop ) {
                // set segment colour
                g.setColour( segmentColour_ );
             } else {
@@ -200,14 +200,14 @@ void MeterSegmentContinuous::drawBar(
 
          break;
 
-      case widgets::Orientation::horizontal:
+      case widgets::Orientation::leftToRight:
 
          // invert level position
          levelPosition = 1.0f - levelPosition;
 
       // keep going ...
 
-      case widgets::Orientation::horizontalInverted:
+      case widgets::Orientation::rightToLeft:
 
          // initialise drawing points
          pos_1 = math::SimpleMath::round( maximumX_ * levelPosition );
@@ -215,7 +215,7 @@ void MeterSegmentContinuous::drawBar(
 
          // make sure there is something to draw
          if ( pos_2 > 0 ) {
-            if ( orientation_ == widgets::Orientation::horizontalInverted ) {
+            if ( orientation_ == widgets::Orientation::rightToLeft ) {
                // set background colour
                g.setColour( backgroundColour_ );
             } else {
@@ -232,7 +232,7 @@ void MeterSegmentContinuous::drawBar(
 
          // make sure there is something to draw
          if ( pos_1 > 0 ) {
-            if ( orientation_ == widgets::Orientation::horizontalInverted ) {
+            if ( orientation_ == widgets::Orientation::rightToLeft ) {
                // set segment colour
                g.setColour( segmentColour_ );
             } else {
@@ -282,14 +282,14 @@ void MeterSegmentContinuous::drawMarker(
 
    // respect orientation
    switch ( orientation_.getOrientation() ) {
-      case widgets::Orientation::verticalInverted:
+      case widgets::Orientation::topToBottom:
 
          // invert level position
          levelPosition = 1.0f - levelPosition;
 
       // keep going ...
 
-      case widgets::Orientation::vertical:
+      case widgets::Orientation::bottomToTop:
 
          // initialise drawing points
          pos_1 = math::SimpleMath::round( maximumY_ * levelPosition );
@@ -316,14 +316,14 @@ void MeterSegmentContinuous::drawMarker(
 
          break;
 
-      case widgets::Orientation::horizontal:
+      case widgets::Orientation::leftToRight:
 
          // invert level position
          levelPosition = 1.0f - levelPosition;
 
       // keep going ...
 
-      case widgets::Orientation::horizontalInverted:
+      case widgets::Orientation::rightToLeft:
 
          // initialise drawing points
          pos_1 = math::SimpleMath::round( maximumX_ * levelPosition );

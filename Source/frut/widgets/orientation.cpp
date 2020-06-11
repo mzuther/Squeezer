@@ -32,7 +32,7 @@ namespace widgets
 ///
 Orientation::Orientation()
 {
-   setAngle( Orientation::orientations::vertical );
+   setAngle( Orientation::orientations::bottomToTop );
 };
 
 
@@ -51,24 +51,24 @@ Orientation::Orientation( int newAngle )
 Orientation::orientations Orientation::getOrientation() const
 {
    switch ( angle ) {
-      case Orientation::orientations::vertical:
+      case Orientation::orientations::bottomToTop:
 
-         return Orientation::orientations::vertical;
+         return Orientation::orientations::bottomToTop;
          break;
 
-      case Orientation::orientations::horizontal:
+      case Orientation::orientations::leftToRight:
 
-         return Orientation::orientations::horizontal;
+         return Orientation::orientations::leftToRight;
          break;
 
-      case Orientation::orientations::verticalInverted:
+      case Orientation::orientations::topToBottom:
 
-         return Orientation::orientations::verticalInverted;
+         return Orientation::orientations::topToBottom;
          break;
 
-      case Orientation::orientations::horizontalInverted:
+      case Orientation::orientations::rightToLeft:
 
-         return Orientation::orientations::horizontalInverted;
+         return Orientation::orientations::rightToLeft;
          break;
 
       default:
@@ -100,12 +100,12 @@ void Orientation::setAngle( int newAngle )
 bool Orientation::isVertical() const
 {
    switch ( angle ) {
-      case Orientation::orientations::vertical:
+      case Orientation::orientations::bottomToTop:
 
          return true;
          break;
 
-      case Orientation::orientations::verticalInverted:
+      case Orientation::orientations::topToBottom:
 
          return true;
          break;
@@ -121,12 +121,12 @@ bool Orientation::isVertical() const
 bool Orientation::isInverted() const
 {
    switch ( angle ) {
-      case Orientation::orientations::verticalInverted:
+      case Orientation::orientations::topToBottom:
 
          return true;
          break;
 
-      case Orientation::orientations::horizontalInverted:
+      case Orientation::orientations::rightToLeft:
 
          return true;
          break;
@@ -159,7 +159,7 @@ Orientation Orientation::turnRight()
 
 AffineTransform Orientation::getTransform( Rectangle<int> bounds ) const
 {
-   if ( angle == Orientation::orientations::vertical ) {
+   if ( angle == Orientation::orientations::bottomToTop ) {
       return AffineTransform();
    }
 
@@ -177,24 +177,24 @@ Orientation::operator String() const
    String output = "Orientation: " + String( angle ) + "°";
 
    switch ( angle ) {
-      case Orientation::orientations::vertical:
+      case Orientation::orientations::bottomToTop:
 
-         output += " (vertical)";
+         output += " (bottom to top)";
          break;
 
-      case Orientation::orientations::horizontal:
+      case Orientation::orientations::leftToRight:
 
-         output += " (horizontal)";
+         output += " (left to right)";
          break;
 
-      case Orientation::orientations::verticalInverted:
+      case Orientation::orientations::topToBottom:
 
-         output += " (vertical inverted)";
+         output += " (top to bottom)";
          break;
 
-      case Orientation::orientations::horizontalInverted:
+      case Orientation::orientations::rightToLeft:
 
-         output += " (horizontal inverted)";
+         output += " (right to left)";
          break;
 
       default:

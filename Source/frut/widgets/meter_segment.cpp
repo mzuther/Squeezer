@@ -33,7 +33,8 @@ namespace widgets
 MeterSegment::MeterSegment()
 {
    // set initial orientation
-   setOrientation( widgets::Orientation() );
+   setOrientation( widgets::Orientation(
+                      Orientation::orientations::bottomToTop ) );
 }
 
 

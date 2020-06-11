@@ -443,10 +443,10 @@ void SqueezerAudioProcessorEditor::applySkin_()
    bool UseUpwardExpansion = ( SliderRatio_->getRealFloat() < 1.0f );
 
    auto MeterOrientation = frut::widgets::Orientation (
-                              frut::widgets::Orientation::vertical );
+                              frut::widgets::Orientation::bottomToTop );
 
    auto GainReductionMeterOrientation = frut::widgets::Orientation (
-                                           frut::widgets::Orientation::verticalInverted );
+                                           frut::widgets::Orientation::topToBottom );
 
    for ( int Channel = 0; Channel < NumberOfChannels_; ++Channel ) {
       MeterBarLevel* InputLevelMeter = InputLevelMeters_.add(
