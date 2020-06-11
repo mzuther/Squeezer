@@ -101,9 +101,6 @@ private:
    int barHeight_;
    int segmentWidth_;
 
-   bool isVertical_;
-   bool isInverted_;
-
    widgets::Orientation orientation_;
    Array<int> segmentSpacing_;
    OwnedArray<widgets::MeterSegment> meterSegments_;
