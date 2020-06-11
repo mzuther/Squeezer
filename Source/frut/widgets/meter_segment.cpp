@@ -30,11 +30,9 @@ namespace widgets
 
 /// Create a new base meter segment.
 ///
-MeterSegment::MeterSegment()
+MeterSegment::MeterSegment() :
+   orientation_( Orientation::orientations::bottomToTop )
 {
-   // set initial orientation
-   setOrientation( widgets::Orientation(
-                      Orientation::orientations::bottomToTop ) );
 }
 
 

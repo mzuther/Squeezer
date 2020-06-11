@@ -26,6 +26,17 @@
 #include "meter_bar_gain_reduction.h"
 
 
+/// Default constructor.
+///
+MeterBarGainReduction::MeterBarGainReduction() :
+   MeterBar(),
+   originalOrientation_( frut::widgets::Orientation::orientations::bottomToTop )
+{
+   // initialize variables
+   create();
+};
+
+
 void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
                                     bool discreteMeter,
                                     int mainSegmentHeight,

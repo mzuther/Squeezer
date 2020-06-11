@@ -30,7 +30,8 @@ namespace widgets
 
 /// Default constructor.
 ///
-MeterBar::MeterBar()
+MeterBar::MeterBar() :
+   orientation_( Orientation::orientations::bottomToTop )
 {
    // initialize variables
    create();

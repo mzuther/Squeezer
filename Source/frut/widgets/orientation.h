@@ -46,15 +46,14 @@ public:
       other = -1
    };
 
-   Orientation();
-   explicit Orientation( Orientation::orientations newOrientation );
-   explicit Orientation( int newAngle );
+   explicit Orientation( Orientation::orientations ori );
+   explicit Orientation( int angle );
 
    Orientation::orientations getOrientation() const;
-   void setOrientation( Orientation::orientations newOrientation );
+   void setOrientation( Orientation::orientations ori );
 
    int getAngle() const;
-   void setAngle( int newAngle );
+   void setAngle( int angle );
 
    bool isVertical() const;
    bool isInverted() const;
@@ -63,11 +62,11 @@ public:
    Orientation turnLeft();
    Orientation turnRight();
 
-   AffineTransform getTransform( Rectangle<int> bounds ) const;
+   AffineTransform getTransform( Rectangle<int> widgetBounds ) const;
    operator String() const;
 
 private:
-   int angle;
+   int angle_;
 };
 
 bool operator==( const Orientation& a,

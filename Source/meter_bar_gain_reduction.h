@@ -33,6 +33,7 @@ class MeterBarGainReduction :
    public frut::widgets::MeterBar
 {
 public:
+   MeterBarGainReduction();
    using frut::widgets::MeterBar::create;
    void create( frut::widgets::Orientation orientation,
                 bool discreteMeter,

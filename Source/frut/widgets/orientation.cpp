@@ -28,145 +28,149 @@ namespace frut
 namespace widgets
 {
 
-/// Default constructor.
-///
-Orientation::Orientation()
+Orientation::Orientation( Orientation::orientations ori )
 {
-   setAngle( Orientation::orientations::bottomToTop );
+   setOrientation( ori );
 };
 
 
-Orientation::Orientation( Orientation::orientations newOrientation )
+Orientation::Orientation( int angle )
 {
-   setOrientation( newOrientation );
-};
-
-
-Orientation::Orientation( int newAngle )
-{
-   setAngle( newAngle );
+   setAngle( angle );
 };
 
 
 Orientation::orientations Orientation::getOrientation() const
 {
-   switch ( angle ) {
+   Orientation::orientations result;
+
+   switch ( angle_ ) {
       case Orientation::orientations::bottomToTop:
 
-         return Orientation::orientations::bottomToTop;
+         result = Orientation::orientations::bottomToTop;
          break;
 
       case Orientation::orientations::leftToRight:
 
-         return Orientation::orientations::leftToRight;
+         result = Orientation::orientations::leftToRight;
          break;
 
       case Orientation::orientations::topToBottom:
 
-         return Orientation::orientations::topToBottom;
+         result = Orientation::orientations::topToBottom;
          break;
 
       case Orientation::orientations::rightToLeft:
 
-         return Orientation::orientations::rightToLeft;
+         result = Orientation::orientations::rightToLeft;
          break;
 
       default:
 
-         return Orientation::orientations::other;
+         result = Orientation::orientations::other;
          break;
    }
+
+   return result;
 }
 
 
-void Orientation::setOrientation( Orientation::orientations newOrientation )
+void Orientation::setOrientation( Orientation::orientations ori )
 {
-   setAngle( static_cast<int>( newOrientation ) );
+   setAngle( static_cast<int>( ori ) );
 };
 
 
 int Orientation::getAngle() const
 {
-   return angle;
+   return angle_;
 };
 
 
-void Orientation::setAngle( int newAngle )
+void Orientation::setAngle( int angle )
 {
-   angle = newAngle % 360;
+   angle_ = angle % 360;
 };
 
 
 bool Orientation::isVertical() const
 {
-   switch ( angle ) {
+   bool result;
+
+   switch ( angle_ ) {
       case Orientation::orientations::bottomToTop:
 
-         return true;
+         result = true;
          break;
 
       case Orientation::orientations::topToBottom:
 
-         return true;
+         result = true;
          break;
 
       default:
 
-         return false;
+         result = false;
          break;
    }
+
+   return result;
 }
 
 
 bool Orientation::isInverted() const
 {
-   switch ( angle ) {
+   bool result;
+
+   switch ( angle_ ) {
       case Orientation::orientations::topToBottom:
 
-         return true;
+         result = true;
          break;
 
       case Orientation::orientations::rightToLeft:
 
-         return true;
+         result = true;
          break;
 
       default:
 
-         return false;
+         result = false;
          break;
    }
+
+   return result;
 }
 
 
 Orientation Orientation::mirror()
 {
-   return Orientation( angle + 180 );
+   return Orientation( angle_ + 180 );
 };
 
 
 Orientation Orientation::turnLeft()
 {
-   return Orientation( angle + 90 );
+   return Orientation( angle_ + 90 );
 };
 
 
 Orientation Orientation::turnRight()
 {
-   return Orientation( angle - 90 );
+   return Orientation( angle_ - 90 );
 };
 
 
-AffineTransform Orientation::getTransform( Rectangle<int> bounds ) const
+AffineTransform Orientation::getTransform( Rectangle<int> widgetBounds ) const
 {
-   if ( angle == Orientation::orientations::bottomToTop ) {
+   if ( angle_ == Orientation::orientations::bottomToTop ) {
       return AffineTransform();
    }
 
-   auto pivot = bounds.getCentre().toFloat();
+   auto pivot = widgetBounds.getCentre().toFloat();
 
    return AffineTransform::rotation(
-             degreesToRadians( static_cast<float>( angle ) ),
+             degreesToRadians( static_cast<float>( angle_ ) ),
              pivot.getX(),
              pivot.getY() );
 }
@@ -174,9 +178,9 @@ AffineTransform Orientation::getTransform( Rectangle<int> bounds ) const
 
 Orientation::operator String() const
 {
-   String output = "Orientation: " + String( angle ) + "°";
+   String output = "Orientation: " + String( angle_ ) + "°";
 
-   switch ( angle ) {
+   switch ( angle_ ) {
       case Orientation::orientations::bottomToTop:
 
          output += " (bottom to top)";
@@ -233,7 +237,6 @@ bool operator!=( const Orientation& a,
 {
    return ! ( a == ori );
 }
-
 
 }
 }
