@@ -45,8 +45,8 @@
      style="display:inline"
      id="layer6">
     <path
-       d="m 220,38 h 48 v 62 h -48 z"
+       id="export-slider-stereo-link"
        style="color:#000000;overflow:visible;fill:#00b2ff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
-       id="export-slider-stereo-link" />
+       d="m 220,38 h 48 v 62 h -48 z" />
   </g>
 </svg>

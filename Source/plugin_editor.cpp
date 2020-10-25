@@ -413,30 +413,34 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
    Array<Colour> ColoursLevelMeter;
 
-   XmlElement* xmlSetting = skin_.getSetting( "meter_colour_high" );
-   Colour ColourHigh = skin_.getColour( xmlSetting,
-                                        Colour( 0.00f, 1.0f, 1.0f, 1.0f ) );
+   Colour segmentStroke;
+   Colour segmentFill;
+   Rectangle<int> segmentBounds;
 
-   xmlSetting = skin_.getSetting( "meter_colour_medium" );
-   Colour ColourMedium = skin_.getColour( xmlSetting,
-                                          Colour( 0.18f, 1.0f, 1.0f, 1.0f ) );
+   skin_.getAttributesFromSvgFile(
+      "meter_colour_overload", "image", segmentStroke, segmentFill, segmentBounds );
 
-   xmlSetting = skin_.getSetting( "meter_colour_low" );
-   Colour ColourLow = skin_.getColour( xmlSetting,
-                                       Colour( 0.30f, 1.0f, 1.0f, 1.0f ) );
+   Colour ColourOverload ( segmentStroke );
+   int SegmentHeight = segmentBounds.getHeight();
 
-   ColoursLevelMeter.add( ColourHigh );  // overload
-   ColoursLevelMeter.add( ColourMedium ); // warning
-   ColoursLevelMeter.add( ColourLow );   // fine
+   skin_.getAttributesFromSvgFile(
+      "meter_colour_warning", "image", segmentStroke, segmentFill, segmentBounds );
 
-   xmlSetting = skin_.getSetting( "meter_gain_reduction_normal" );
-   Colour ColourReduction = skin_.getColour( xmlSetting,
-                                             Colour( 0.58f, 1.0f, 1.0f, 1.0f ) );
+   Colour ColourWarning = segmentStroke;
 
-   xmlSetting = skin_.getSetting( "meter_segment" );
-   int SegmentHeight = skin_.getInteger( xmlSetting,
-                                         "height",
-                                         5 );
+   skin_.getAttributesFromSvgFile(
+      "meter_colour_normal", "image", segmentStroke, segmentFill, segmentBounds );
+
+   Colour ColourNormal = segmentStroke;
+
+   ColoursLevelMeter.add( ColourOverload );
+   ColoursLevelMeter.add( ColourWarning );
+   ColoursLevelMeter.add( ColourNormal );
+
+   skin_.getAttributesFromSvgFile(
+      "meter_gain_reduction", "image", segmentStroke, segmentFill, segmentBounds );
+
+   Colour ColourReduction = segmentStroke;
 
    bool IsDiscreteMeter = true;
    int CrestFactor = 0;

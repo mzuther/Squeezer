@@ -45,8 +45,8 @@
      id="layer2"
      style="display:inline">
     <path
-       d="m 708,36 h 12 v 120.99999 h -12 z"
+       id="export-meter-input-right"
        style="color:#000000;overflow:visible;fill:#999999;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;stop-color:#000000"
-       id="export-meter-input-right" />
+       d="m 708,36 h 12 v 120.99999 h -12 z" />
   </g>
 </svg>

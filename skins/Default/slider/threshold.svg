@@ -45,8 +45,8 @@
      style="display:inline"
      id="layer6">
     <path
-       d="m 88,38 h 48 v 62 H 88 Z"
+       id="export-slider-threshold"
        style="color:#000000;overflow:visible;fill:#ff00ff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
-       id="export-slider-threshold" />
+       d="m 88,38 h 48 v 62 H 88 Z" />
   </g>
 </svg>

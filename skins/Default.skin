@@ -8,32 +8,19 @@
     origin_of_y="top"
     version="1.2">
 
-  <settings>
-    <meter_segment
-        height="8" />
-
-    <meter_colour_high
-        hue="0.00"
-        saturation="1.00"
-        brightness="0.97" />
-
-    <meter_colour_medium
-        hue="0.18"
-        saturation="1.00"
-        brightness="0.97" />
-
-    <meter_colour_low
-        hue="0.30"
-        saturation="1.00"
-        brightness="0.97" />
-
-    <meter_gain_reduction_normal
-        hue="0.58"
-        saturation="1.00"
-        brightness="0.97" />
-  </settings>
-
   <default>
+    <meter_colour_overload
+        image="meter/segment_level_overload.svg" />
+
+    <meter_colour_warning
+        image="meter/segment_level_warning.svg" />
+
+    <meter_colour_normal
+        image="meter/segment_level_normal.svg" />
+
+    <meter_gain_reduction
+        image="meter/segment_gain_reduction.svg" />
+
     <slider_input_trim
         image="slider/input_trim.svg" />
 

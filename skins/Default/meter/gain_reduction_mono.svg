@@ -45,8 +45,8 @@
      id="layer3"
      style="display:inline">
     <path
-       d="m 600,36 h 24 v 120.99999 h -24 z"
+       id="export-meter-gain-reduction-mono"
        style="color:#000000;overflow:visible;fill:#666666;stroke:none;stroke-width:4.00002;stroke-linecap:square;paint-order:stroke fill markers;enable-background:new;stop-color:#000000"
-       id="export-meter-gain-reduction-mono" />
+       d="m 600,36 h 24 v 120.99999 h -24 z" />
   </g>
 </svg>

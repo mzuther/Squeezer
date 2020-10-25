@@ -45,8 +45,8 @@
      style="display:inline"
      id="layer6">
     <path
-       d="m 16,38 h 48 v 62 H 16 Z"
+       id="export-slider-input-trim"
        style="color:#000000;overflow:visible;fill:#ffffff;fill-opacity:1;stroke:#ff6600;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
-       id="export-slider-input-trim" />
+       d="m 16,38 h 48 v 62 H 16 Z" />
   </g>
 </svg>
