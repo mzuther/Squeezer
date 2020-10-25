@@ -295,6 +295,68 @@ const Colour Skin::getColour( const XmlElement* xmlComponent,
 }
 
 
+// recursively search SVG for drawable and get its colours and bounds;
+// return "true" when successful and "false" when not
+bool Skin::getAttributesFromSvg( const XmlElement* xmlComponent,
+                                 const String& attributeName,
+                                 Colour& strokeColour,
+                                 Colour& fillColour,
+                                 Rectangle<int>& bounds )
+{
+   auto fileName = getString( xmlComponent, attributeName );
+
+   if ( fileName.isEmpty() ) {
+      return false;
+   }
+
+   auto drawable = loadImage( fileName );
+   Component* recursiveChild = drawable.get();
+   DrawableShape* firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
+
+   // recursively search SVG children for a "DrawableShape"
+   while ( ( recursiveChild != nullptr ) && ( firstDrawableShape == nullptr ) ) {
+      recursiveChild = recursiveChild->getChildComponent( 0 );
+      firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
+   }
+
+   if ( firstDrawableShape == nullptr ) {
+      return false;
+   }
+
+   strokeColour = firstDrawableShape->getStrokeFill().colour;
+   fillColour = firstDrawableShape->getFill().colour;
+
+   auto boundsFloat = firstDrawableShape->getDrawableBounds();
+   bounds = boundsFloat.getSmallestIntegerContainer();
+
+   return true;
+}
+
+
+// return "true" when successful and "false" when not
+bool Skin::getAttributesFromSvgFile( const String& tagName,
+                                     const String& attributeName,
+                                     Colour& strokeColour,
+                                     Colour& fillColour,
+                                     Rectangle<int>& bounds )
+{
+   if ( document_ == nullptr ) {
+      return false;
+   }
+
+   auto xmlComponent = getComponent( tagName );
+
+   if ( xmlComponent == nullptr ) {
+      return false;
+   }
+
+   bool foundDrawable = getAttributesFromSvg( xmlComponent, attributeName,
+                                              strokeColour, fillColour, bounds );
+
+   return foundDrawable;
+}
+
+
 std::unique_ptr<Drawable> Skin::createBogusImage( const String& warningText,
                                                   int width,
                                                   int height )
@@ -678,34 +740,20 @@ void Skin::placeAndSkinSlider( const String& tagName,
       return;
    }
 
-   auto fileName = getString( xmlComponent, "image" );
    Colour sliderColour;
    Colour toggleSwitchColour;
+   Rectangle<int> bounds;
 
-   if ( fileName.isNotEmpty() ) {
-      auto drawable = loadImage( fileName );
-      Component* recursiveChild = drawable.get();
-      DrawableShape* firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
+   bool foundDrawable = getAttributesFromSvg( xmlComponent, "image",
+                                              toggleSwitchColour, sliderColour, bounds );
 
-      // recursively search SVG children for a "DrawableShape"
-      while ( ( recursiveChild != nullptr ) && ( firstDrawableShape == nullptr ) ) {
-         recursiveChild = recursiveChild->getChildComponent( 0 );
-         firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
+   if ( foundDrawable ) {
+      // fallback in case the drawable has no stroke fill
+      if ( toggleSwitchColour.getBrightness() < 0.2f ) {
+         toggleSwitchColour = Colours::red;
       }
 
-      if ( firstDrawableShape ) {
-         sliderColour = firstDrawableShape->getFill().colour;
-         toggleSwitchColour = firstDrawableShape->getStrokeFill().colour;
-
-         // fallback in case the drawable has no stroke fill
-         if ( toggleSwitchColour.getBrightness() < 0.2f ) {
-            toggleSwitchColour = Colours::red;
-         }
-
-         auto bounds = firstDrawableShape->getDrawableBounds();
-         auto boundsInteger = bounds.getSmallestIntegerContainer();
-         slider->setBounds( boundsInteger );
-      }
+      slider->setBounds( bounds );
    } else {
       sliderColour = getColour( xmlComponent );
       toggleSwitchColour = getColour( xmlComponent, sliderColour, "toggle_" );

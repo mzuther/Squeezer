@@ -64,6 +64,18 @@ public:
                            const Colour defaultColour = Colours::red,
                            const String valuePrefix = "" );
 
+   bool getAttributesFromSvg( const XmlElement* xmlComponent,
+                              const String& attributeName,
+                              Colour& strokeColour,
+                              Colour& fillColour,
+                              Rectangle<int>& bounds );
+
+   bool getAttributesFromSvgFile( const String& tagName,
+                                  const String& attributeName,
+                                  Colour& strokeColour,
+                                  Colour& fillColour,
+                                  Rectangle<int>& bounds );
+
    std::unique_ptr<Drawable> loadImage( const String& strFilename );
 
    void loadImage( const String& strFilename,
