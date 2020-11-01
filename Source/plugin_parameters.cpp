@@ -313,18 +313,18 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    ParameterWetMix->setName( "Wet Mix" );
 
    ParameterWetMix->addPreset( 0.0f,   "Bypass" );
-   ParameterWetMix->addPreset( 5.0f,      "5 %" );
-   ParameterWetMix->addPreset( 10.0f,    "10 %" );
-   ParameterWetMix->addPreset( 15.0f,    "15 %" );
-   ParameterWetMix->addPreset( 20.0f,    "20 %" );
-   ParameterWetMix->addPreset( 25.0f,    "25 %" );
-   ParameterWetMix->addPreset( 30.0f,    "30 %" );
-   ParameterWetMix->addPreset( 40.0f,    "40 %" );
-   ParameterWetMix->addPreset( 50.0f,    "50 %" );
-   ParameterWetMix->addPreset( 75.0f,    "75 %" );
-   ParameterWetMix->addPreset( 100.0f,  "100 %" );
+   ParameterWetMix->addPreset( 5.0f,       "5%" );
+   ParameterWetMix->addPreset( 10.0f,     "10%" );
+   ParameterWetMix->addPreset( 15.0f,     "15%" );
+   ParameterWetMix->addPreset( 20.0f,     "20%" );
+   ParameterWetMix->addPreset( 25.0f,     "25%" );
+   ParameterWetMix->addPreset( 30.0f,     "30%" );
+   ParameterWetMix->addPreset( 40.0f,     "40%" );
+   ParameterWetMix->addPreset( 50.0f,     "50%" );
+   ParameterWetMix->addPreset( 75.0f,     "75%" );
+   ParameterWetMix->addPreset( 100.0f,   "100%" );
 
-   ParameterWetMix->setSuffix( " %" );
+   ParameterWetMix->setSuffix( "%" );
    ParameterWetMix->setDefaultRealFloat( 100.0f, true );
    addCombined( ParameterWetMix, selWetMixSwitch, selWetMix );
 
@@ -472,15 +472,15 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
       new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterStereoLink->setName( "Stereo Link" );
 
-   ParameterStereoLink->addPreset( 0.0f, "0 %" );
-   ParameterStereoLink->addPreset( 25.0f, "25 %" );
-   ParameterStereoLink->addPreset( 50.0f, "50 %" );
-   ParameterStereoLink->addPreset( 70.0f, "70 %" );
-   ParameterStereoLink->addPreset( 80.0f, "80 %" );
-   ParameterStereoLink->addPreset( 90.0f, "90 %" );
-   ParameterStereoLink->addPreset( 100.0f, "100 %" );
+   ParameterStereoLink->addPreset( 0.0f,     "0%" );
+   ParameterStereoLink->addPreset( 25.0f,   "25%" );
+   ParameterStereoLink->addPreset( 50.0f,   "50%" );
+   ParameterStereoLink->addPreset( 70.0f,   "70%" );
+   ParameterStereoLink->addPreset( 80.0f,   "80%" );
+   ParameterStereoLink->addPreset( 90.0f,   "90%" );
+   ParameterStereoLink->addPreset( 100.0f, "100%" );
 
-   ParameterStereoLink->setSuffix( " %" );
+   ParameterStereoLink->setSuffix( "%" );
    ParameterStereoLink->setDefaultRealFloat( 100.0f, true );
    addCombined( ParameterStereoLink, selStereoLinkSwitch, selStereoLink );
 }
