@@ -80,7 +80,7 @@ DialogWindow* WindowAboutContent::createDialogWindow(
    windowAboutLauncher.dialogTitle = String( "About " ) +
                                      ProjectInfo::projectName;
 
-   windowAboutLauncher.dialogBackgroundColour = Colours::white;
+   windowAboutLauncher.dialogBackgroundColour = Colours::black.brighter( 0.2f );
    windowAboutLauncher.content.setOwned( contentComponent );
    windowAboutLauncher.componentToCentreAround = pluginEditor;
 
@@ -165,14 +165,18 @@ void WindowAboutContent::applySkin()
    // style text editor component
    textEditor_.setColour(
       TextEditor::backgroundColourId,
-      Colours::lightgrey );
+      Colours::darkgrey );
+
+   textEditor_.setColour(
+      TextEditor::outlineColourId,
+      Colours::black );
 
    textEditor_.applyColourToAllText(
-      Colours::black );
+      Colours::white );
 
    textEditor_.setColour(
       TextEditor::highlightColourId,
-      Colours::yellow.withAlpha( 0.75f ) );
+      Colours::yellow.withAlpha( 0.85f ) );
 
    textEditor_.setColour(
       TextEditor::highlightedTextColourId,
@@ -193,7 +197,7 @@ void WindowAboutContent::applySkin()
    int width = getWidth();
    int height = getHeight();
 
-   textEditor_.setBounds( 0, 0, width, height - 47 );
+   textEditor_.setBounds( 4, 6, width - 8, height - 51 );
    buttonLicense_.setTopLeftPosition( 8, height - 39 );
    buttonClose_.setBounds( width - 70, height - 34, 60, 20 );
 }

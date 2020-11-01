@@ -48,8 +48,7 @@ bool Skin::loadFromXml( const String& rootName,
    backgroundWidth_ = 0;
    backgroundHeight_ = 0;
 
-   auto skinFile = getSkinDirectory().getChildFile(
-                      getDefaultSkin() + ".skin" );
+   auto skinFile = getSkinDirectory().getChildFile( "Default.skin" );
 
    Logger::outputDebugString(
       String( "[Skin] loading file \"" ) +
@@ -124,37 +123,34 @@ bool Skin::loadFromXml( const String& rootName,
 }
 
 
-String Skin::getDefaultSkin()
+float Skin::getUiScale()
 {
-   auto settingsFile = this->getSettingsFile();
+   FileInputStream in ( this->getSettingsFile() );
 
-   // make sure settings file exists
-   if ( ! settingsFile.existsAsFile() ) {
-      settingsFile.create();
-
-      // use "Default" skin by default, as it comes with the plug-in
-      setDefaultSkin( "Default" );
+   if ( in.openedOk() ) {
+      auto json = JSON::parse( in );
+      return json.getProperty( "ui_scale", 1.0f );
    }
 
-   auto skinName = settingsFile.loadFileAsString();
-   auto skinFile = getSkinDirectory().getChildFile(
-                      skinName + ".skin" );
-
-   // use "Default" skin if specified skin file does not exist
-   if ( ! skinFile.existsAsFile() ) {
-      skinName = "Default";
-   }
-
-   return skinName;
+   return 1.0f;
 }
 
 
-void Skin::setDefaultSkin( const String& defaultSkinName )
+void Skin::setUiScale( float newScale )
 {
-   auto settingsFile = this->getSettingsFile();
+   FileOutputStream out ( this->getSettingsFile() );
 
-   // uses Unicode encoding
-   settingsFile.replaceWithText( defaultSkinName, true, true );
+   if ( out.openedOk() ) {
+      // overwrite old settings
+      out.setPosition ( 0 );
+      out.truncate();
+
+      auto settings = new DynamicObject();
+      settings->setProperty( "ui_scale", var( newScale ) );
+
+      auto json = var( settings );
+      JSON::writeToStream( out, json );
+   }
 }
 
 

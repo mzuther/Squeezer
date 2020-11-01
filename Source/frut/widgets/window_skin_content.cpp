@@ -38,8 +38,7 @@ namespace widgets
 /// | 0      | window has been closed "by force" |
 /// | 1      | user has selected a skin          |
 ///
-WindowSkinContent::WindowSkinContent() :
-   skin_( nullptr )
+WindowSkinContent::WindowSkinContent()
 {
 }
 
@@ -55,19 +54,18 @@ WindowSkinContent::WindowSkinContent() :
 ///
 DialogWindow* WindowSkinContent::createDialogWindow(
    AudioProcessorEditor* pluginEditor,
-   frut::skin::Skin* skin )
+   int scale )
 
 {
    DialogWindow::LaunchOptions windowSkinLauncher;
 
    WindowSkinContent* contentComponent =
       new WindowSkinContent();
-
-   contentComponent->initialise( skin );
+   contentComponent->initialise( scale );
 
    // initialise dialog window settings
-   windowSkinLauncher.dialogTitle = "Select skin";
-   windowSkinLauncher.dialogBackgroundColour = Colours::white;
+   windowSkinLauncher.dialogTitle = "Select UI scale";
+   windowSkinLauncher.dialogBackgroundColour = Colours::black.brighter( 0.2f );
    windowSkinLauncher.content.setOwned( contentComponent );
    windowSkinLauncher.componentToCentreAround = pluginEditor;
 
@@ -89,24 +87,52 @@ DialogWindow* WindowSkinContent::createDialogWindow(
 /// @param skin currently used skin
 ///
 void WindowSkinContent::initialise(
-   frut::skin::Skin* skin )
+   int scale )
 
 {
-   skin_ = skin;
-   listModel_.fill( skin );
+   button100_.setRadioGroupId( 1 );
+   button100_.setButtonText( "100%" );
+   addAndMakeVisible( button100_ );
+   button100_.addListener( this );
 
-   skinList_.setModel( &listModel_ );
-   addAndMakeVisible( skinList_ );
+   button125_.setRadioGroupId( 1 );
+   button125_.setButtonText( "125%" );
+   addAndMakeVisible( button125_ );
+   button125_.addListener( this );
 
-   skinList_.setMultipleSelectionEnabled( false );
+   button150_.setRadioGroupId( 1 );
+   button150_.setButtonText( "150%" );
+   addAndMakeVisible( button150_ );
+   button150_.addListener( this );
 
-   // select current skin in list box
-   int row = listModel_.getRow( skin->getDefaultSkin() );
-   skinList_.selectRow( row );
+   button175_.setRadioGroupId( 1 );
+   button175_.setButtonText( "175%" );
+   addAndMakeVisible( button175_ );
+   button175_.addListener( this );
 
-   buttonSelect_.setButtonText( "Select" );
-   addAndMakeVisible( buttonSelect_ );
-   buttonSelect_.addListener( this );
+   button200_.setRadioGroupId( 1 );
+   button200_.setButtonText( "200%" );
+   addAndMakeVisible( button200_ );
+   button200_.addListener( this );
+
+   button225_.setRadioGroupId( 1 );
+   button225_.setButtonText( "225%" );
+   addAndMakeVisible( button225_ );
+   button225_.addListener( this );
+
+   if ( scale == 125 ) {
+      button125_.setToggleState( true, dontSendNotification );
+   } else if ( scale == 150 ) {
+      button150_.setToggleState( true, dontSendNotification );
+   } else if ( scale == 175 ) {
+      button175_.setToggleState( true, dontSendNotification );
+   } else if ( scale == 200 ) {
+      button200_.setToggleState( true, dontSendNotification );
+   } else if ( scale == 225 ) {
+      button225_.setToggleState( true, dontSendNotification );
+   } else {
+      button100_.setToggleState( true, dontSendNotification );
+   }
 
    // style and place the dialog window's components
    applySkin();
@@ -117,36 +143,105 @@ void WindowSkinContent::initialise(
 ///
 void WindowSkinContent::applySkin()
 {
-   skinList_.setOutlineThickness( 1 );
-
-   skinList_.setColour(
-      ListBox::backgroundColourId,
-      Colours::white );
-
-   skinList_.setColour(
-      ListBox::outlineColourId,
-      Colours::grey );
-
-
-   buttonSelect_.setColour(
-      TextButton::buttonColourId,
+   button100_.setColour(
+      TextButton::buttonOnColourId,
       Colours::yellow );
 
-   buttonSelect_.setColour(
-      TextButton::textColourOffId,
+   button100_.setColour(
+      TextButton::buttonColourId,
+      Colours::darkgrey );
+
+   button100_.setColour(
+      TextButton::textColourOnId,
       Colours::black );
 
+   button125_.setColour(
+      TextButton::buttonOnColourId,
+      Colours::yellow );
 
-   int width = 150;
-   int height = 50;
+   button125_.setColour(
+      TextButton::buttonColourId,
+      Colours::darkgrey );
 
-   int listBoxHeight = listModel_.getNumRows() * skinList_.getRowHeight() + 2;
-   height += listBoxHeight;
+   button125_.setColour(
+      TextButton::textColourOnId,
+      Colours::black );
 
-   setSize( width, height );
+   button150_.setColour(
+      TextButton::buttonOnColourId,
+      Colours::yellow );
 
-   skinList_.setBounds( 10, 10, width - 20, listBoxHeight );
-   buttonSelect_.setBounds( ( width / 2 ) - 30, height - 30, 60, 20 );
+   button150_.setColour(
+      TextButton::buttonColourId,
+      Colours::darkgrey );
+
+   button150_.setColour(
+      TextButton::textColourOnId,
+      Colours::black );
+
+   button175_.setColour(
+      TextButton::buttonOnColourId,
+      Colours::yellow );
+
+   button175_.setColour(
+      TextButton::buttonColourId,
+      Colours::darkgrey );
+
+   button175_.setColour(
+      TextButton::textColourOnId,
+      Colours::black );
+
+   button200_.setColour(
+      TextButton::buttonOnColourId,
+      Colours::yellow );
+
+   button200_.setColour(
+      TextButton::buttonColourId,
+      Colours::darkgrey );
+
+   button200_.setColour(
+      TextButton::textColourOnId,
+      Colours::black );
+
+   button225_.setColour(
+      TextButton::buttonOnColourId,
+      Colours::yellow );
+
+   button225_.setColour(
+      TextButton::buttonColourId,
+      Colours::darkgrey );
+
+   button225_.setColour(
+      TextButton::textColourOnId,
+      Colours::black );
+
+   setSize( 250, 110 );
+
+   grid_.templateRows = {
+      Grid::TrackInfo ( Grid::Fr ( 1 ) ),
+      Grid::TrackInfo ( Grid::Fr ( 1 ) ),
+   };
+
+   grid_.templateColumns = {
+      Grid::TrackInfo ( Grid::Fr ( 1 ) ),
+      Grid::TrackInfo ( Grid::Fr ( 1 ) ),
+      Grid::TrackInfo ( Grid::Fr ( 1 ) )
+   };
+
+   grid_.items = {
+      juce::GridItem ( button100_ ),
+      juce::GridItem ( button125_ ),
+      juce::GridItem ( button150_ ),
+      juce::GridItem ( button175_ ),
+      juce::GridItem ( button200_ ),
+      juce::GridItem ( button225_ )
+   };
+
+   grid_.autoFlow = Grid::AutoFlow::column;
+   grid_.rowGap = Grid::Px ( 10 );
+   grid_.columnGap = Grid::Px ( 10 );
+
+   grid_.performLayout ( getLocalBounds().reduced( 10 ) );
 }
 
 
@@ -158,146 +253,29 @@ void WindowSkinContent::buttonClicked(
    Button* button )
 
 {
-   if ( button == &buttonSelect_ ) {
-      auto selectedRow = skinList_.getSelectedRow( 0 );
-      auto newSkinName = listModel_.getSkinName( selectedRow );
+   int scale = 100;
 
-      auto dialogWindow = findParentComponentOfClass<DialogWindow>();
+   if ( button == &button125_ ) {
+      scale = 125;
+   } else if ( button == &button150_ ) {
+      scale = 150;
+   } else if ( button == &button175_ ) {
+      scale = 175;
+   } else if ( button == &button200_ ) {
+      scale = 200;
+   } else if ( button == &button225_ ) {
+      scale = 225;
+   }
 
-      if ( dialogWindow != nullptr ) {
-         // store selected skin
-         skin_->setDefaultSkin( newSkinName );
+   auto dialogWindow = findParentComponentOfClass<DialogWindow>();
 
-         // close dialog window (exit code 1)
-         dialogWindow->exitModalState( 1 );
-      }
+   if ( dialogWindow != nullptr ) {
+      // close dialog window (exit value is positive and corresponds
+      // to new UI scaling)
+      dialogWindow->exitModalState( scale );
    }
 }
 
-
-/// Create a list box model for a WindowSkinContent.
-///
-SkinListBoxModel::SkinListBoxModel() :
-   skin_( nullptr ),
-   skinWildcard_( "*.skin", String(), "Skin files" ),
-   directoryThread_( "Skin directory scanner" )
-{
-}
-
-
-/// Fill list box model with all skins in a given directory.
-///
-/// @param skin currently used skin
-///
-void SkinListBoxModel::fill(
-   frut::skin::Skin* skin )
-
-{
-   skin_ = skin;
-
-   DirectoryContentsList skinFiles( &skinWildcard_, directoryThread_ );
-   skinFiles.setDirectory( skin_->getSkinDirectory(), false, true );
-   directoryThread_.startThread();
-
-   // wait for directory scan
-   while ( skinFiles.isStillLoading() ) {
-      // keep Visual C++ from optimising (and thus breaking) the loop
-      Thread::sleep( 20 );
-   }
-
-   for ( auto n = 0; n < skinFiles.getNumFiles(); ++n ) {
-      auto skinFile = skinFiles.getFile( n );
-
-      // strip file extension
-      auto skinName = skinFile.getFileNameWithoutExtension();
-      skinNames_.add( skinName );
-   }
-}
-
-
-/// Get the number of skin names in the list box.
-///
-/// @return number of skin names
-///
-int SkinListBoxModel::getNumRows()
-{
-   return skinNames_.size();
-}
-
-
-/// Get the index of the first row that matches the given skin name.
-///
-/// @param skinNameToLookFor skin name to look for
-///
-/// @return index of the first matching element
-///
-int SkinListBoxModel::getRow(
-   const String& skinNameToLookFor )
-
-{
-   return skinNames_.indexOf( skinNameToLookFor );
-}
-
-
-/// Return one of the skin names in the list box.
-///
-/// @param rowNumber zero-based row number to retrieve
-///
-/// @return skin name
-///
-const String SkinListBoxModel::getSkinName(
-   int rowNumber )
-
-{
-   // valid index
-   if ( rowNumber < skinNames_.size() ) {
-      return skinNames_[rowNumber];
-      // invalid index
-   } else {
-      return String();
-   }
-}
-
-
-/// Draws a row of the list.
-///
-/// @param rowNumber index of row to draw
-///
-/// @param g graphics context
-///
-/// @param rowWidth row width
-///
-/// @param rowHeight row height
-///
-/// @param isRowSelected indicates whether row is currently selected
-///
-void SkinListBoxModel::paintListBoxItem(
-   int rowNumber,
-   Graphics& g,
-   int rowWidth,
-   int rowHeight,
-   bool isRowSelected )
-
-{
-   if ( isRowSelected ) {
-      g.fillAll( Colours::lightblue );
-   }
-
-   auto skinName = getSkinName( rowNumber );
-
-   // draw default skin name in bold font
-   if ( skinName == skin_->getDefaultSkin() ) {
-      g.setFont( Font( 14.0f, Font::bold ) );
-   } else {
-      g.setFont( Font( 14.0f, Font::plain ) );
-   }
-
-   g.setColour( Colours::black );
-   g.drawText( skinName,
-               2, 0, rowWidth - 4, rowHeight,
-               Justification::centredLeft,
-               true );
-}
 
 }
 }

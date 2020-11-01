@@ -70,7 +70,7 @@ File Skin::getSkinDirectory()
 File Skin::getSettingsFile()
 {
    auto settingsDirectory = File::getSpecialLocation( File::userApplicationDataDirectory );
-   auto defaultSkinFile = settingsDirectory.getChildFile( "Squeezer.skin" );
+   auto settingsFile = settingsDirectory.getChildFile( "Squeezer.settings" );
 
-   return defaultSkinFile;
+   return settingsFile;
 }

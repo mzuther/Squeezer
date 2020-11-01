@@ -37,8 +37,8 @@ public:
    bool loadFromXml( const String& rootName,
                      const String& assumedVersionNumber );
 
-   String getDefaultSkin();
-   void setDefaultSkin( const String& defaultSkinName );
+   float getUiScale();
+   void setUiScale( float newScale );
 
    XmlElement* getSetting( const String& tagName );
 

@@ -331,6 +331,9 @@ void SqueezerAudioProcessorEditor::applySkin_()
    // update skin
    skin_.updateSkin( NumberOfChannels_ );
 
+   // update UI scale
+   Desktop::getInstance().setGlobalScaleFactor( skin_.getUiScale() );
+
    // moves background image to the back of the editor's z-plane;
    // will also resize plug-in editor
    skin_.setBackground( &DrawableBackground_, this );
@@ -548,6 +551,9 @@ void SqueezerAudioProcessorEditor::windowSkinCallback( int ModalResult )
 
    // user has selected a skin
    if ( ModalResult > 0 ) {
+      // store new UI scale
+      skin_.setUiScale( ModalResult / 100.0f );
+
       // apply skin to plug-in editor
       loadSkin_();
    }
@@ -869,7 +875,7 @@ void SqueezerAudioProcessorEditor::buttonClicked( Button* Button )
                               dontSendNotification );
 
       int Width = 440;
-      int Height = 155;
+      int Height = 160;
       String PluginSettings = PluginProcessor_.getParameters().trim();
 
       // prepare and launch dialog window
@@ -889,9 +895,12 @@ void SqueezerAudioProcessorEditor::buttonClicked( Button* Button )
       // window callback)
       Button->setToggleState( true, dontSendNotification );
 
+      // get and convert new UI scale
+      int scale = int ( 100.0f * skin_.getUiScale() );
+
       // prepare and launch dialog window
       DialogWindow* WindowSkin =
-         frut::widgets::WindowSkinContent::createDialogWindow( this, &skin_ );
+         frut::widgets::WindowSkinContent::createDialogWindow( this, scale );
 
       // attach callback to dialog window
       ModalComponentManager::getInstance()->attachCallback(
@@ -994,7 +1003,7 @@ void SqueezerAudioProcessorEditor::buttonClicked( Button* Button )
 
       // prepare and launch dialog window
       int Width = 270;
-      int Height = 540;
+      int Height = 410;
 
       DialogWindow* windowAbout =
          frut::widgets::WindowAboutContent::createDialogWindow(

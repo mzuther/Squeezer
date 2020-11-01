@@ -75,7 +75,7 @@ DialogWindow* WindowSettingsContent::createDialogWindow(
 
    // initialise dialog window settings
    windowSettingsLauncher.dialogTitle = String( "Plug-in Settings" );
-   windowSettingsLauncher.dialogBackgroundColour = Colours::white;
+   windowSettingsLauncher.dialogBackgroundColour = Colours::black.brighter( 0.2f );
    windowSettingsLauncher.content.setOwned( contentComponent );
    windowSettingsLauncher.componentToCentreAround = pluginEditor;
 
@@ -148,14 +148,18 @@ void WindowSettingsContent::applySkin()
    // style text editor component
    textEditor_.setColour(
       TextEditor::backgroundColourId,
-      Colours::lightgrey );
+      Colours::darkgrey );
+
+   textEditor_.setColour(
+      TextEditor::outlineColourId,
+      Colours::black );
 
    textEditor_.applyColourToAllText(
-      Colours::black );
+      Colours::white );
 
    textEditor_.setColour(
       TextEditor::highlightColourId,
-      Colours::yellow.withAlpha( 0.75f ) );
+      Colours::yellow.withAlpha( 0.85f ) );
 
    textEditor_.setColour(
       TextEditor::highlightedTextColourId,
@@ -179,7 +183,7 @@ void WindowSettingsContent::applySkin()
    int width = getWidth();
    int height = getHeight();
 
-   textEditor_.setBounds( 0, 0, width, height - 37 );
+   textEditor_.setBounds( 4, 6, width - 8, height - 43 );
    buttonClose_.setBounds( width / 2 - 30, height - 29, 60, 20 );
 }
 

@@ -29,54 +29,10 @@
 namespace frut
 {
 
-namespace skin
-{
-class Skin;
-}
-
-
 namespace widgets
 {
 
-/// List box model that lists all available GUI skins.
-///
-/// @see WindowSkinContent
-///
-class SkinListBoxModel :
-   public ListBoxModel
-{
-public:
-   SkinListBoxModel();
-
-   virtual int getNumRows();
-   virtual int getRow( const String& skinNameToLookFor );
-
-   virtual void fill( frut::skin::Skin* skin );
-
-   virtual const String getSkinName( int rowNumber );
-
-   virtual void paintListBoxItem( int rowNumber,
-                                  Graphics& g,
-                                  int rowWidth,
-                                  int rowHeight,
-                                  bool isRowSelected );
-
-private:
-   frut::skin::Skin* skin_;
-
-   WildcardFileFilter skinWildcard_;
-   TimeSliceThread directoryThread_;
-
-   StringArray skinNames_;
-
-private:
-   JUCE_LEAK_DETECTOR( SkinListBoxModel );
-};
-
-
 /// Dialog window for selecting a GUI skin.
-///
-/// @see SkinListBoxModel
 ///
 class WindowSkinContent :
    public Component,
@@ -85,22 +41,23 @@ class WindowSkinContent :
 public:
    WindowSkinContent();
 
-   static DialogWindow* createDialogWindow( AudioProcessorEditor* pluginEditor,
-                                            frut::skin::Skin* skin );
+   static DialogWindow* createDialogWindow(
+      AudioProcessorEditor* pluginEditor,
+      int scale );
 
+   virtual void initialise( int scale );
+   virtual void applySkin();
    virtual void buttonClicked( Button* button );
 
-   virtual void applySkin();
-
-   virtual void initialise( frut::skin::Skin* skin );
-
 protected:
-   frut::skin::Skin* skin_;
+   juce::Grid grid_;
 
-   ListBox skinList_;
-   SkinListBoxModel listModel_;
-
-   TextButton buttonSelect_;
+   TextButton button100_;
+   TextButton button125_;
+   TextButton button150_;
+   TextButton button175_;
+   TextButton button200_;
+   TextButton button225_;
 
 private:
    JUCE_LEAK_DETECTOR( WindowSkinContent );

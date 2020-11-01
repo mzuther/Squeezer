@@ -6,10 +6,10 @@
 namespace resources
 {
     extern const char*  button_gpl_on_svg;
-    const int           button_gpl_on_svgSize = 35544;
+    const int           button_gpl_on_svgSize = 37393;
 
     extern const char*  button_gpl_off_svg;
-    const int           button_gpl_off_svgSize = 34844;
+    const int           button_gpl_off_svgSize = 36213;
 
 }
 
