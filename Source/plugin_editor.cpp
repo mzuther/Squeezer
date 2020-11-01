@@ -332,6 +332,11 @@ void SqueezerAudioProcessorEditor::applySkin_()
    skin_.updateSkin( NumberOfChannels_ );
 
    // update UI scale
+   Logger::outputDebugString(
+      String( "[Skin] set UI scale to " ) +
+      String( int ( 100.0f * skin_.getUiScale() ) ) +
+      "%" );
+
    Desktop::getInstance().setGlobalScaleFactor( skin_.getUiScale() );
 
    // moves background image to the back of the editor's z-plane;
