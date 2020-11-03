@@ -37,8 +37,7 @@ public:
    void create( int crestFactor,
                 frut::widgets::Orientation orientation,
                 bool discreteMeter,
-                int mainSegmentHeight,
-                const Array<Colour>& segmentColours );
+                frut::skin::Skin& skin );
 
 protected:
    /// Colour ID selector for meter segments.

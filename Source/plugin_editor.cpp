@@ -418,38 +418,6 @@ void SqueezerAudioProcessorEditor::applySkin_()
    OutputLevelMeters_.clear( true );
    GainReductionMeters_.clear( true );
 
-
-   Array<Colour> ColoursLevelMeter;
-
-   Colour segmentStroke;
-   Colour segmentFill;
-   Rectangle<int> segmentBounds;
-
-   skin_.getAttributesFromSvgFile(
-      "meter_colour_overload", "image", segmentStroke, segmentFill, segmentBounds );
-
-   Colour ColourOverload ( segmentStroke );
-   int SegmentHeight = segmentBounds.getHeight();
-
-   skin_.getAttributesFromSvgFile(
-      "meter_colour_warning", "image", segmentStroke, segmentFill, segmentBounds );
-
-   Colour ColourWarning = segmentStroke;
-
-   skin_.getAttributesFromSvgFile(
-      "meter_colour_normal", "image", segmentStroke, segmentFill, segmentBounds );
-
-   Colour ColourNormal = segmentStroke;
-
-   ColoursLevelMeter.add( ColourOverload );
-   ColoursLevelMeter.add( ColourWarning );
-   ColoursLevelMeter.add( ColourNormal );
-
-   skin_.getAttributesFromSvgFile(
-      "meter_gain_reduction", "image", segmentStroke, segmentFill, segmentBounds );
-
-   Colour ColourReduction = segmentStroke;
-
    bool IsDiscreteMeter = true;
    int CrestFactor = 0;
    bool UseUpwardExpansion = ( SliderRatio_->getRealFloat() < 1.0f );
@@ -467,8 +435,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
       InputLevelMeter->create( CrestFactor,
                                MeterOrientation,
                                IsDiscreteMeter,
-                               SegmentHeight,
-                               ColoursLevelMeter );
+                               skin_ );
 
       addAndMakeVisible( InputLevelMeter );
 
@@ -478,8 +445,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
       OutputLevelMeter->create( CrestFactor,
                                 MeterOrientation,
                                 IsDiscreteMeter,
-                                SegmentHeight,
-                                ColoursLevelMeter );
+                                skin_ );
 
       addAndMakeVisible( OutputLevelMeter );
 
@@ -490,8 +456,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
       GainReductionMeter->create(
          GainReductionMeterOrientation,
          IsDiscreteMeter,
-         SegmentHeight,
-         ColourReduction );
+         skin_ );
 
       addAndMakeVisible( GainReductionMeter );
       GainReductionMeter->setUpwardExpansion( UseUpwardExpansion );

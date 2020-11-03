@@ -76,10 +76,8 @@ public:
                                   Colour& fillColour,
                                   Rectangle<int>& bounds );
 
-   std::unique_ptr<Drawable> loadImage( const String& strFilename );
-
-   void loadImage( const String& strFilename,
-                   Image& image );
+   std::unique_ptr<Drawable> loadImageAsDrawable( const String& strFilename );
+   Image loadImage( const String& strFilename );
 
    void setBackground( DrawableComposite* background,
                        AudioProcessorEditor* editor );

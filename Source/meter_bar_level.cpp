@@ -29,10 +29,35 @@
 void MeterBarLevel::create( int crestFactor,
                             frut::widgets::Orientation orientation,
                             bool discreteMeter,
-                            int mainSegmentHeight,
-                            const Array<Colour>& segmentColours )
+                            frut::skin::Skin& skin )
 {
    frut::widgets::MeterBar::create();
+
+   Colour segmentStroke;
+   Colour segmentFill;
+   Rectangle<int> segmentBounds;
+
+   skin.getAttributesFromSvgFile(
+      "meter_colour_normal", "image", segmentStroke, segmentFill, segmentBounds );
+
+   Colour ColourNormal = segmentStroke;
+   int mainSegmentHeight = segmentBounds.getHeight();
+
+   skin.getAttributesFromSvgFile(
+      "meter_colour_warning", "image", segmentStroke, segmentFill, segmentBounds );
+
+   Colour ColourWarning = segmentStroke;
+
+   skin.getAttributesFromSvgFile(
+      "meter_colour_overload", "image", segmentStroke, segmentFill, segmentBounds );
+
+   Colour ColourOverload = segmentStroke;
+
+   Array<Colour> segmentColours;
+
+   segmentColours.add( ColourOverload );
+   segmentColours.add( ColourWarning );
+   segmentColours.add( ColourNormal );
 
    int numberOfBars = 15;
 

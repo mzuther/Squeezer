@@ -305,7 +305,7 @@ bool Skin::getAttributesFromSvg( const XmlElement* xmlComponent,
       return false;
    }
 
-   auto drawable = loadImage( fileName );
+   auto drawable = loadImageAsDrawable( fileName );
    Component* recursiveChild = drawable.get();
    DrawableShape* firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
 
@@ -387,7 +387,7 @@ std::unique_ptr<Drawable> Skin::createBogusImage( const String& warningText,
 }
 
 
-std::unique_ptr<Drawable> Skin::loadImage( const String& strFilename )
+std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& strFilename )
 {
    File fileImage = resourcePath_.getChildFile( strFilename );
    std::unique_ptr<Drawable> component;
@@ -416,18 +416,19 @@ std::unique_ptr<Drawable> Skin::loadImage( const String& strFilename )
 }
 
 
-void Skin::loadImage( const String& strFilename,
-                      Image& image )
+Image Skin::loadImage( const String& strFilename )
 {
-   auto drawable = loadImage( strFilename );
+   auto drawable = loadImageAsDrawable( strFilename );
 
-   image = Image( Image::PixelFormat::ARGB,
-                  drawable->getWidth(),
-                  drawable->getHeight(),
-                  true );
+   Image image( Image::PixelFormat::ARGB,
+                drawable->getWidth(),
+                drawable->getHeight(),
+                true );
 
    Graphics g( image );
    drawable->draw( g, 1.0f );
+
+   return image;
 }
 
 
@@ -443,7 +444,7 @@ void Skin::setBackground( DrawableComposite* background,
       if ( xmlBackground != nullptr ) {
          String imageFilename = getString( xmlBackground,
                                            currentBackgroundName_ );
-         drawable = loadImage( imageFilename );
+         drawable = loadImageAsDrawable( imageFilename );
 
          if ( ! background ) {
             auto message = "No background specified";
@@ -480,7 +481,7 @@ void Skin::setBackground( DrawableComposite* background,
                                          "meter_graduation" ) {
          String imageFilename = getString( xmlMeterGraduation,
                                            currentBackgroundName_ );
-         auto drawableGraduation = loadImage( imageFilename );
+         auto drawableGraduation = loadImageAsDrawable( imageFilename );
 
          auto position = getPositionFloat(
                             xmlMeterGraduation,
@@ -634,7 +635,7 @@ void Skin::placeMeterBar( const String& tagName,
    int segmentWidth = 0;
 
    if ( fileName.isNotEmpty() ) {
-      auto drawable = loadImage( fileName );
+      auto drawable = loadImageAsDrawable( fileName );
 
       if ( drawable ) {
          auto bounds = drawable->getDrawableBounds();
@@ -677,14 +678,14 @@ void Skin::placeAndSkinButton( const String& tagName,
 
    if ( xmlComponent != nullptr ) {
       auto fileNameOn = getString( xmlComponent, "image_on" );
-      auto drawableOn = loadImage( fileNameOn );
+      auto drawableOn = loadImageAsDrawable( fileNameOn );
 
       auto fileNameOff = getString( xmlComponent, "image_off" );
-      auto drawableOff = loadImage( fileNameOff );
+      auto drawableOff = loadImageAsDrawable( fileNameOff );
 
       // a missing "image_over" is handled gracefully by "setImages"
       auto fileNameOver = getString( xmlComponent, "image_over" );
-      auto drawableOver = loadImage( fileNameOver );
+      auto drawableOver = loadImageAsDrawable( fileNameOver );
 
       auto bounds = drawableOn->getDrawableBounds();
       auto boundsZero = bounds.withZeroOrigin();
@@ -779,15 +780,11 @@ void Skin::placeAndSkinNeedleMeter( const String& tagName,
    XmlElement* xmlComponent = getComponent( tagName );
 
    if ( xmlComponent != nullptr ) {
-      Image imageBackground;
       String strImageFilenameBackground = getString( xmlComponent, "image" );
+      Image imageBackground = loadImage( strImageFilenameBackground );
 
-      loadImage( strImageFilenameBackground, imageBackground );
-
-      Image imageNeedle;
       String strImageFilenameNeedle = getString( xmlComponent, "image_needle" );
-
-      loadImage( strImageFilenameNeedle, imageNeedle );
+      Image imageNeedle = loadImage( strImageFilenameNeedle );
 
       int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
       int spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
@@ -817,7 +814,7 @@ void Skin::placeAndSkinLabel( const String& tagName,
    }
 
    auto fileName = getString( xmlComponent, "image" );
-   auto drawable = loadImage( fileName );
+   auto drawable = loadImageAsDrawable( fileName );
 
    label->addAndMakeVisible( drawable.release() );
 }
@@ -835,20 +832,14 @@ void Skin::placeAndSkinSignalLed( const String& tagName,
    XmlElement* xmlComponent = getComponent( tagName );
 
    if ( xmlComponent != nullptr ) {
-      Image imageOff;
       String strImageFilenameOff = getString( xmlComponent, "image_off" );
+      Image imageOff = loadImage( strImageFilenameOff );
 
-      loadImage( strImageFilenameOff, imageOff );
-
-      Image imageLow;
       String strImageFilenameLow = getString( xmlComponent, "image_low" );
+      Image imageLow = loadImage( strImageFilenameLow );
 
-      loadImage( strImageFilenameLow, imageLow );
-
-      Image imageHigh;
       String strImageFilenameHigh = getString( xmlComponent, "image_high" );
-
-      loadImage( strImageFilenameHigh, imageHigh );
+      Image imageHigh = loadImage( strImageFilenameHigh );
 
       label->setImages( imageOff, imageLow, imageHigh );
 
@@ -890,22 +881,18 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
    XmlElement* xmlComponent = getComponent( tagName );
 
    if ( xmlComponent != nullptr ) {
-      Image imageOff;
       String strImageFilenameOff = getString( xmlComponent, "image_off" );
+      Image imageOff = loadImage( strImageFilenameOff );
 
-      loadImage( strImageFilenameOff, imageOff );
-
-      Image imageOn;
       String strImageFilenameOn = getString( xmlComponent, "image_on" );
+      Image imageOn = loadImage( strImageFilenameOn );
 
-      loadImage( strImageFilenameOn, imageOn );
-
-      Image imageActive;
       String strImageFilenameActive = getString( xmlComponent, "image_active" );
+      Image imageActive;
 
       // use "image_on" if "image_active" does not exist
       if ( ! strImageFilenameActive.isEmpty() ) {
-         loadImage( strImageFilenameActive, imageActive );
+         imageActive = loadImage( strImageFilenameActive );
       } else {
          imageActive = imageOn.createCopy();
       }

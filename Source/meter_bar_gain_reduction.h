@@ -37,8 +37,7 @@ public:
    using frut::widgets::MeterBar::create;
    void create( frut::widgets::Orientation orientation,
                 bool discreteMeter,
-                int mainSegmentHeight,
-                const Colour& segmentColour );
+                frut::skin::Skin& skin );
 
    virtual void setOrientation( const frut::widgets::Orientation& orientation );
    void setUpwardExpansion( bool upwardExpansion );
