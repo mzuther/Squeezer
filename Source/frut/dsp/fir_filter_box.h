@@ -43,7 +43,7 @@ public:
 
    virtual ~FIRFilterBox();
 
-   virtual void reset();
+   virtual void reset() override;
    void calculateKernelWindowedSincLPF(
       const double relativeCutoffFrequency );
 

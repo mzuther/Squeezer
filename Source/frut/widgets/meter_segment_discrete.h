@@ -42,9 +42,9 @@ class MeterSegmentDiscrete :
    public MeterSegment
 {
 public:
-   explicit MeterSegmentDiscrete( float retainSignalFactor,
-                                  float newSignalFactor );
-
+   MeterSegmentDiscrete();
+   void init( float retainSignalFactor,
+              float newSignalFactor );
 
    virtual float setThresholdAndRange( float lowerThreshold,
                                        float thresholdRange,
@@ -56,10 +56,10 @@ public:
    virtual void setLevels( float normalLevel,
                            float normalLevelPeak,
                            float discreteLevel,
-                           float discreteLevelPeak );
+                           float discreteLevelPeak ) override;
 
-   virtual void paint( Graphics& g );
-   virtual void visibilityChanged();
+   virtual void paint( Graphics& g ) override;
+   virtual void visibilityChanged() override;
 
 protected:
    float lowerThreshold_;

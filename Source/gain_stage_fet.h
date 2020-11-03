@@ -35,8 +35,8 @@ class GainStageFET : virtual public GainStage
 public:
    explicit GainStageFET( int nSampleRate );
 
-   void reset( double dCurrentGainReduction );
-   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal );
+   void reset( double dCurrentGainReduction ) override;
+   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal ) override;
 private:
    JUCE_LEAK_DETECTOR( GainStageFET );
 

@@ -60,7 +60,7 @@ public:
 
    StateLabel();
 
-   virtual void resized();
+   virtual void resized() override;
    void setState( int state,
                   bool forceUpdate = false );
 

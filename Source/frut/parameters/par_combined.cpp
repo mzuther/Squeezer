@@ -38,6 +38,14 @@ namespace parameters
 /// exponential or logarithmic scalings using **scaling_factor**.
 /// **Internal** values simply range from 0.0 to 1.0.
 ///
+ParCombined::ParCombined() :
+   usePresets( true )
+{
+}
+
+
+/// Initialise parameter.
+///
 /// @param real_minimum **real** parameter minimum (may be less than
 ///        **real_maximum**)
 ///
@@ -63,16 +71,15 @@ namespace parameters
 ///        real value; negative values will adapt decimal places to
 ///        the value's size
 ///
-ParCombined::ParCombined( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places ) :
-
+void ParCombined::init( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places )
+{
    // initialise parameter for switching between "presets" and
    // "continuous" mode
-   modeSwitch( "Presets", "Continuous" ),
+   modeSwitch.init( "Presets", "Continuous" );
 
    // initialise parameter for continuous values
-   continuousValues( real_minimum, real_maximum, real_step_size, scaling_factor, decimal_places )
+   continuousValues.init( real_minimum, real_maximum, real_step_size, scaling_factor, decimal_places );
 
-{
    // initialise values (invalid because the parameter itself
    // contains no values)
    value_ = -1.0f;

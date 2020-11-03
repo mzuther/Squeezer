@@ -31,8 +31,25 @@ namespace widgets
 /// Create a new continuous meter segment, complete with peak marker.
 ///
 MeterSegmentContinuous::MeterSegmentContinuous() :
-   attenuatedColour_( Colours::black.brighter( 0.15f ).withAlpha( 0.6f ) )
+   lowerThreshold_( 0.0f ),
+   upperThreshold_( 0.0f ),
+   thresholdRange_( 0.0f ),
+   nextPixelThreshold_( 0.0f ),
+   attenuatedColour_( Colours::black.brighter( 0.15f ).withAlpha( 0.6f ) ),
+   maximumX_( -1 ),
+   maximumY_( -1 ),
+   normalLevelPosition_( -1.0f ),
+   normalPeakPosition_( -1.0f ),
+   discreteLevelPosition_( -1.0f ),
+   discretePeakPosition_( -1.0f ),
+   isTopmost_( false )
+{
+}
 
+
+/// Initialise meter segment.
+///
+void MeterSegmentContinuous::init()
 {
    // initialise maximum x and y position of component
    maximumX_ = -1;
@@ -79,7 +96,6 @@ float MeterSegmentContinuous::setThresholdAndRange(
    float thresholdRange,
    float nextPixelRange,
    bool isTopmost )
-
 {
    // set lower level threshold (in decibels)
    lowerThreshold_ = lowerThreshold;
@@ -112,7 +128,6 @@ float MeterSegmentContinuous::setThresholdAndRange(
 ///
 void MeterSegmentContinuous::setColours(
    const Colour& segmentColour, const Colour& peakMarkerColour )
-
 {
    // initialise segment colour
    segmentColour_ = segmentColour;
@@ -138,7 +153,6 @@ void MeterSegmentContinuous::setColours(
 ///
 void MeterSegmentContinuous::drawBar(
    Graphics& g, float levelPosition )
-
 {
    // avoid drawing errors
    if ( levelPosition < 0.0f ) {
@@ -269,7 +283,6 @@ void MeterSegmentContinuous::drawBar(
 ///
 void MeterSegmentContinuous::drawMarker(
    Graphics& g, const Colour& markerColour, float levelPosition )
-
 {
    // avoid drawing errors
    if ( levelPosition < 0.0f ) {
@@ -366,7 +379,6 @@ void MeterSegmentContinuous::drawMarker(
 ///
 void MeterSegmentContinuous::paint(
    Graphics& g )
-
 {
    // draw meter bar
    drawBar( g, normalLevelPosition_ );
@@ -424,7 +436,6 @@ void MeterSegmentContinuous::resized()
 ///
 float MeterSegmentContinuous::calculateLevelPosition(
    float level, bool isBar )
-
 {
    float levelPosition;
 
@@ -472,7 +483,6 @@ float MeterSegmentContinuous::calculateLevelPosition(
 void MeterSegmentContinuous::setLevels(
    float normalLevel, float normalLevelPeak,
    float discreteLevel, float discreteLevelPeak )
-
 {
    // store old level positions
    float normalLevelPositionOld = normalLevelPosition_;

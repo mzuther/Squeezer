@@ -39,7 +39,8 @@ namespace parameters
 class ParString : virtual public Parameter
 {
 public:
-   explicit ParString( const String& newValue );
+   ParString();
+   void init( const String& newValue );
 
    virtual void setDefaultRealFloat( float newRealValue, bool updateParameter ) override;
    virtual void setFloat( float newValue ) override;

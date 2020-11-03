@@ -43,7 +43,7 @@ public:
                   const int upsamplingFactor );
 
    virtual ~TruePeakMeter();
-   virtual void reset();
+   virtual void reset() override;
 
    float getLevel( const int channel );
 

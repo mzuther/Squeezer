@@ -31,10 +31,15 @@ namespace widgets
 /// Default constructor.
 ///
 MeterBar::MeterBar() :
+   normalLevel_( 0.0f ),
+   normalLevelPeak_( 0.0f ),
+   discreteLevel_( 0.0f ),
+   discreteLevelPeak_( 0.0f ),
+   barWidth_ ( 0 ),
+   barHeight_ ( 0 ),
+   segmentWidth_ ( 0 ),
    orientation_( Orientation::orientations::bottomToTop )
 {
-   // initialize variables
-   create();
 };
 
 
@@ -176,8 +181,10 @@ void MeterBar::addDiscreteSegment( float lowerThreshold,
    // create new discrete meter segment (will be deleted
    // automatically)
    widgets::MeterSegmentDiscrete* segment =
-      new widgets::MeterSegmentDiscrete( retainSignalFactor,
-                                         newSignalFactor );
+      new widgets::MeterSegmentDiscrete();
+
+   segment->init( retainSignalFactor,
+                  newSignalFactor );
 
    // set segment's lower threshold and display range (both in
    // decibels) and whether it is the topmost segment
@@ -232,6 +239,8 @@ void MeterBar::addContinuousSegment( float lowerThreshold,
    // automatically)
    widgets::MeterSegmentContinuous* segment =
       new widgets::MeterSegmentContinuous();
+
+   segment->init();
 
    // set segment's lower threshold and display range (both in
    // decibels) and whether it is the topmost segment

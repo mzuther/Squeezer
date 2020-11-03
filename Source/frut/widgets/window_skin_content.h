@@ -47,7 +47,7 @@ public:
 
    virtual void initialise( int scale );
    virtual void applySkin();
-   virtual void buttonClicked( Button* button );
+   virtual void buttonClicked( Button* button ) override;
 
 protected:
    juce::Grid grid_;

@@ -33,18 +33,22 @@ namespace parameters
 
 /// Create a Boolean parameter.
 ///
+ParBoolean::ParBoolean()
+{
+}
+
+
+/// Initialise parameter.
+///
 /// @param state_true string that is returned when the parameter is
 ///        **true**
 ///
 /// @param state_false string that is returned when the parameter is
 ///        **false**
 ///
-ParBoolean::ParBoolean( const String& state_true, const String& state_false )
+void ParBoolean::init( const String& state_true, const String& state_false )
 {
-   // intialise string that is returned when the parameter is "true"
    labelTrue = state_true;
-
-   // intialise string that is returned when the parameter is "false"
    labelFalse = state_false;
 
    // force update

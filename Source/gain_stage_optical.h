@@ -35,8 +35,8 @@ class GainStageOptical : virtual public GainStage
 public:
    explicit GainStageOptical( int nSampleRate );
 
-   void reset( double dCurrentGainReduction );
-   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal );
+   void reset( double dCurrentGainReduction ) override;
+   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal ) override;
 
 private:
    JUCE_LEAK_DETECTOR( GainStageOptical );

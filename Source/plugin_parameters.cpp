@@ -37,16 +37,16 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    // parameters created here will be deleted in
    // "frut::parameters::Juggler"!
 
-   frut::parameters::ParBoolean* ParameterBypass =
-      new frut::parameters::ParBoolean( "Bypassed", "Active" );
+   auto ParameterBypass = new frut::parameters::ParBoolean();
+   ParameterBypass->init( "Bypassed", "Active" );
    ParameterBypass->setName( "Bypass" );
    ParameterBypass->setDefaultBoolean( false, true );
    add( ParameterBypass, selBypass );
 
 
    // old name: "RMS Filter" (v2.5.x and below)
-   frut::parameters::ParSwitch* ParameterRmsWindowSize =
-      new frut::parameters::ParSwitch();
+   auto ParameterRmsWindowSize = new frut::parameters::ParSwitch();
+   ParameterRmsWindowSize->init();
    ParameterRmsWindowSize->setName( "RMS Window Size" );
 
    ParameterRmsWindowSize->addPreset( 0.0f,  "Peak (0 ms)" );
@@ -56,8 +56,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    add( ParameterRmsWindowSize, selRmsWindowSize );
 
 
-   frut::parameters::ParSwitch* ParameterDesign =
-      new frut::parameters::ParSwitch();
+   auto ParameterDesign = new frut::parameters::ParSwitch();
+   ParameterDesign->init();
    ParameterDesign->setName( "Design" );
 
    ParameterDesign->addPreset( Compressor::DesignFeedForward, "Feed-Forward" );
@@ -68,8 +68,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
 
 
    // old name: "Detector" (v2.5.x and below)
-   frut::parameters::ParSwitch* ParameterCurveType =
-      new frut::parameters::ParSwitch();
+   auto ParameterCurveType = new frut::parameters::ParSwitch();
+   ParameterCurveType->init();
    ParameterCurveType->setName( "Curve Type" );
 
    ParameterCurveType->addPreset( SideChain::CurveLogLin,             "Linear" );
@@ -80,8 +80,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    add( ParameterCurveType, selCurveType );
 
 
-   frut::parameters::ParSwitch* ParameterGainStage =
-      new frut::parameters::ParSwitch();
+   auto ParameterGainStage = new frut::parameters::ParSwitch();
+   ParameterGainStage->init();
    ParameterGainStage->setName( "Gain Stage" );
 
    ParameterGainStage->addPreset( GainStage::FET,     "FET" );
@@ -98,8 +98,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    float scalingFactor = 0.0f;
    int decimalPlaces = 0;
 
-   frut::parameters::ParCombined* ParameterThreshold =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterThreshold = new frut::parameters::ParCombined();
+   ParameterThreshold->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterThreshold->setName( "Threshold" );
 
    ParameterThreshold->addPreset( -56.0f, "-56 dB" );
@@ -143,8 +143,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 2.0f;
    decimalPlaces = -2;
 
-   frut::parameters::ParCombined* ParameterRatio =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterRatio = new frut::parameters::ParCombined();
+   ParameterRatio->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterRatio->setName( "Ratio" );
 
    ParameterRatio->addPreset( 0.50f, "0.50:1" );
@@ -170,8 +170,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    addCombined( ParameterRatio, selRatioSwitch, selRatio );
 
 
-   frut::parameters::ParSwitch* ParameterKneeWidth =
-      new frut::parameters::ParSwitch();
+   auto ParameterKneeWidth = new frut::parameters::ParSwitch();
+   ParameterKneeWidth->init();
    ParameterKneeWidth->setName( "Knee Width" );
 
    ParameterKneeWidth->addPreset( 0.0f,  "Hard (0 dB)" );
@@ -188,8 +188,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 5.0f;
    decimalPlaces = -2;
 
-   frut::parameters::ParCombined* ParameterAttackRate =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterAttackRate = new frut::parameters::ParCombined();
+   ParameterAttackRate->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterAttackRate->setName( "Attack Rate" );
 
    ParameterAttackRate->addPreset( 0.02f,    "20 us" ); // 0.9 samples at 44.1 kHz
@@ -218,8 +218,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 4.0f;
    decimalPlaces = -1;
 
-   frut::parameters::ParCombined* ParameterReleaseRate =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterReleaseRate = new frut::parameters::ParCombined();
+   ParameterReleaseRate->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterReleaseRate->setName( "Release Rate" );
 
    ParameterReleaseRate->addPreset( 50.0f,    "50 ms" );
@@ -242,8 +242,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    addCombined( ParameterReleaseRate, selReleaseRateSwitch, selReleaseRate );
 
 
-   frut::parameters::ParBoolean* ParameterAutoMakeupGain =
-      new frut::parameters::ParBoolean( "Auto", "Manual" );
+   auto ParameterAutoMakeupGain = new frut::parameters::ParBoolean();
+   ParameterAutoMakeupGain->init( "Auto", "Manual" );
    ParameterAutoMakeupGain->setName( "Auto Make-Up Gain" );
    ParameterAutoMakeupGain->setDefaultBoolean( false, true );
    add( ParameterAutoMakeupGain, selAutoMakeupGain );
@@ -255,8 +255,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 0.0f;
    decimalPlaces = 1;
 
-   frut::parameters::ParCombined* ParameterMakeupGain =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterMakeupGain = new frut::parameters::ParCombined();
+   ParameterMakeupGain->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterMakeupGain->setName( "Make-Up Gain" );
 
    ParameterMakeupGain->addPreset( -18.0f, "-18 dB" );
@@ -308,8 +308,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 1.0f;
    decimalPlaces = 0;
 
-   frut::parameters::ParCombined* ParameterWetMix =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterWetMix = new frut::parameters::ParCombined();
+   ParameterWetMix->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterWetMix->setName( "Wet Mix" );
 
    ParameterWetMix->addPreset( 0.0f,   "Bypass" );
@@ -329,8 +329,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    addCombined( ParameterWetMix, selWetMixSwitch, selWetMix );
 
 
-   frut::parameters::ParBoolean* ParameterSidechainInput =
-      new frut::parameters::ParBoolean( "External", "Internal" );
+   auto ParameterSidechainInput = new frut::parameters::ParBoolean();
+   ParameterSidechainInput->init( "External", "Internal" );
    ParameterSidechainInput->setName( "SC Input" );
    ParameterSidechainInput->setDefaultBoolean( false, true );
    add( ParameterSidechainInput, selSidechainInput );
@@ -342,8 +342,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 1.8f;
    decimalPlaces = 0;
 
-   frut::parameters::ParCombined* ParameterSidechainHPFCutoff =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterSidechainHPFCutoff = new frut::parameters::ParCombined();
+   ParameterSidechainHPFCutoff->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterSidechainHPFCutoff->setName( "SC HPF Cutoff Frequency" );
 
    // E6 series: 1.0, 1.5, 2.2, 3.3, 4.7, 6.8
@@ -375,8 +375,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 1.8f;
    decimalPlaces = 0;
 
-   frut::parameters::ParCombined* ParameterSidechainLPFCutoff =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterSidechainLPFCutoff = new frut::parameters::ParCombined();
+   ParameterSidechainLPFCutoff->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterSidechainLPFCutoff->setName( "SC LPF Cutoff Frequency" );
 
    // E6 series: 1.0, 1.5, 2.2, 3.3, 4.7, 6.8
@@ -402,8 +402,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    addCombined( ParameterSidechainLPFCutoff, selSidechainLPFCutoffSwitch, selSidechainLPFCutoff );
 
 
-   frut::parameters::ParBoolean* ParameterSidechainListen =
-      new frut::parameters::ParBoolean( "Side-Chain", "Compressor" );
+   auto ParameterSidechainListen = new frut::parameters::ParBoolean();
+   ParameterSidechainListen->init( "Side-Chain", "Compressor" );
    ParameterSidechainListen->setName( "SC Listen" );
    ParameterSidechainListen->setDefaultBoolean( false, true );
    add( ParameterSidechainListen, selSidechainListen );
@@ -415,8 +415,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = 0.0f;
    decimalPlaces = 1;
 
-   frut::parameters::ParCombined* ParameterInputTrim =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterInputTrim = new frut::parameters::ParCombined();
+   ParameterInputTrim->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterInputTrim->setName( "Input Trim" );
 
    ParameterInputTrim->addPreset( -18.0f, "-18 dB" );
@@ -468,8 +468,8 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    scalingFactor = -0.5f;
    decimalPlaces = 0;
 
-   frut::parameters::ParCombined* ParameterStereoLink =
-      new frut::parameters::ParCombined( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
+   auto ParameterStereoLink = new frut::parameters::ParCombined();
+   ParameterStereoLink->init( realMinimum, realMaximum, stepSize, scalingFactor, decimalPlaces );
    ParameterStereoLink->setName( "Stereo Link" );
 
    ParameterStereoLink->addPreset( 0.0f,     "0%" );

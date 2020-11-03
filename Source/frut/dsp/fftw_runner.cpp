@@ -48,8 +48,6 @@ FftwRunner::FftwRunner(
    jassert( numberOfChannels_ > 0 );
 
 #if (defined (_WIN32) || defined (_WIN64))
-   File currentExecutableFile = File::getSpecialLocation(
-                                   File::currentExecutableFile );
 
 #ifdef _WIN64
    File dynamicLibraryFftwFile = resourceDirectory.getChildFile(

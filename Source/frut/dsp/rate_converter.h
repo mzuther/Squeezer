@@ -44,7 +44,7 @@ public:
       const int upsamplingFactor );
 
    virtual ~RateConverter();
-   virtual void reset();
+   virtual void reset() override;
 
 protected:
    void calculateFilterKernel();

@@ -42,15 +42,12 @@ namespace parameters
 Juggler::Juggler(
    const String& settingsID,
    int completeParameters,
-   int revealedParameters )
-
-{
+   int revealedParameters ) :
+   numberOfParameters_ ( completeParameters ),
+   numberOfRevealedParameters_( revealedParameters ),
    // store parameter file ID
-   jugglerId_ = settingsID;
-
-   // store number of parameters
-   numberOfParameters_ = completeParameters;
-   numberOfRevealedParameters_ = revealedParameters;
+   jugglerId_( settingsID )
+{
 }
 
 

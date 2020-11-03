@@ -255,7 +255,7 @@ void RingBuffer<Type>::importFrom(
 
          // get pointer to source audio data
          const Type* sourceAudioData = source.getReadPointer( channel );
-         jassert( sourceAudioData != nullptr );
+         jassert( sourceAudioData );
 
          // copy first sample block from external buffer
          memcpy( destAudioData + startIndex_1,
@@ -380,7 +380,7 @@ void RingBuffer<Type>::exportTo(
 
       // get pointer to destination audio data
       Type* destAudioData = destination.getWritePointer( channel );
-      jassert( destAudioData != nullptr );
+      jassert( destAudioData );
 
       // get pointer to source audio data
       const Type* sourceAudioData = audioData_.get();

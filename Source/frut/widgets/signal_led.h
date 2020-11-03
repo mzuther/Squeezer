@@ -46,7 +46,7 @@ class SignalLed :
 public:
    SignalLed();
 
-   virtual void paint( Graphics& g );
+   virtual void paint( Graphics& g ) override;
 
    void setLevel( float level );
    void setImages( const Image& imageOff,

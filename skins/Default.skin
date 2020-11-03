@@ -10,16 +10,24 @@
 
   <default>
     <meter_colour_overload
-        image="meter/segment_level_overload.svg" />
+        image_on="meter/segment_level_overload_on.svg"
+        image_over="meter/segment_level_overload_over.svg"
+        image_off="meter/segment_level_overload_off.svg" />
 
     <meter_colour_warning
-        image="meter/segment_level_warning.svg" />
+        image_on="meter/segment_level_warning_on.svg"
+        image_over="meter/segment_level_warning_over.svg"
+        image_off="meter/segment_level_warning_off.svg" />
 
     <meter_colour_normal
-        image="meter/segment_level_normal.svg" />
+        image_on="meter/segment_level_normal_on.svg"
+        image_over="meter/segment_level_normal_over.svg"
+        image_off="meter/segment_level_normal_off.svg" />
 
     <meter_gain_reduction
-        image="meter/segment_gain_reduction.svg" />
+        image_on="meter/segment_gain_reduction_on.svg"
+        image_over="meter/segment_gain_reduction_over.svg"
+        image_off="meter/segment_gain_reduction_off.svg" />
 
     <slider_input_trim
         image="slider/input_trim.svg" />

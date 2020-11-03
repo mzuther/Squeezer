@@ -47,10 +47,10 @@ void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
    Rectangle<int> segmentBounds;
 
    skin.getAttributesFromSvgFile(
-      "meter_gain_reduction", "image", segmentColour, segmentFill, segmentBounds );
+      "meter_gain_reduction", "image_on", segmentColour, segmentFill, segmentBounds );
 
    int numberOfBars = 15;
-   int mainSegmentHeight = segmentBounds.getHeight();
+   int mainSegmentHeight = segmentBounds.getHeight() + 1;
 
    int levelRange = 10;
    int trueLowerThreshold = ( numberOfBars - 1 ) * levelRange;

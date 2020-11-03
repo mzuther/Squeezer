@@ -43,6 +43,7 @@ class MeterSegmentContinuous :
 {
 public:
    MeterSegmentContinuous();
+   void init();
 
    virtual float setThresholdAndRange( float lowerThreshold,
                                        float thresholdRange,
@@ -55,11 +56,11 @@ public:
    virtual void setLevels( float normalLevel,
                            float normalLevelPeak,
                            float discreteLevel,
-                           float discreteLevelPeak );
+                           float discreteLevelPeak ) override;
 
-   virtual void paint( Graphics& g );
-   virtual void resized();
-   virtual void visibilityChanged();
+   virtual void paint( Graphics& g )  override;
+   virtual void resized() override;
+   virtual void visibilityChanged() override;
 
 protected:
    virtual void drawBar( Graphics& g,

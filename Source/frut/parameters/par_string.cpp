@@ -34,9 +34,16 @@ namespace parameters
 /// Create a parameter for storing a string.  **Note: several
 /// functions must not be used -- see below!**
 ///
+ParString::ParString()
+{
+}
+
+
+/// Initialise parameter.
+///
 /// @param newValue intial value
 ///
-ParString::ParString( const String& newValue )
+void ParString::init( const String& newValue )
 {
    // initialise value
    setText( newValue );

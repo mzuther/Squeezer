@@ -34,7 +34,15 @@ namespace parameters
 /// Create a stepped parameter that can be filled with arbitrary
 /// preset values.  **Internal** values simply range from 0.0 to 1.0.
 ///
-ParSwitch::ParSwitch()
+ParSwitch::ParSwitch() :
+   stepSize( -1.0f )
+{
+}
+
+
+/// Initialise parameter.
+///
+void ParSwitch::init()
 {
    // initialise values (invalid because parameter contains no
    // values)

@@ -46,8 +46,8 @@ public:
 
    void setValue( float value );
 
-   virtual void paint( Graphics& g );
-   virtual void resized();
+   virtual void paint( Graphics& g ) override;
+   virtual void resized() override;
 
 protected:
    int needlePosition_;

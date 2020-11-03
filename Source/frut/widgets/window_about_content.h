@@ -46,7 +46,7 @@ public:
                                             int componentHeight,
                                             const StringPairArray& chapters );
 
-   virtual void buttonClicked( Button* button );
+   virtual void buttonClicked( Button* button ) override;
 
    virtual void applySkin();
 

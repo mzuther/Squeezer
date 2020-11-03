@@ -36,6 +36,9 @@ SideChain::SideChain( int nSampleRate ) :
        return value: none
    */
 {
+   gainStageFET.reset( 0.0 );
+   gainStageOptical.reset( 0.0 );
+
    dSampleRate = ( double ) nSampleRate;
    dGainReductionIdeal = 0.0;
 

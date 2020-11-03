@@ -40,7 +40,8 @@ namespace parameters
 class ParCombined : virtual public Parameter
 {
 public:
-   ParCombined( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places );
+   ParCombined();
+   void init( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places );
 
    virtual void setName( const String& newParameterName ) override;
 

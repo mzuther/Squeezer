@@ -33,22 +33,13 @@ namespace parameters
 
 /// Constructor.
 ///
-Parameter::Parameter()
+Parameter::Parameter() :
+   value_( 0.0f ),
+   realValue_( 0.0f ),
+   defaultValue_( 0.0f ),
+   defaultRealValue_( 0.0f ),
+   valueHasChanged_( false )
 {
-   // initialise current value
-   value_ = 0.0f;
-   realValue_ = 0.0f;
-   valueHasChanged_ = false;
-
-   // initialise default value
-   defaultValue_ = 0.0f;
-   defaultRealValue_ = 0.0f;
-
-   // initialise parameter name
-   parameterName_ = String();
-
-   // initialise XML tag name
-   tagName_ = String();
 }
 
 

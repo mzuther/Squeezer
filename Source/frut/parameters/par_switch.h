@@ -41,6 +41,7 @@ class ParSwitch : virtual public Parameter
 {
 public:
    ParSwitch();
+   void init();
 
    void addPreset( const float newRealValue, const String& newLabel );
    int getNumberOfSteps();

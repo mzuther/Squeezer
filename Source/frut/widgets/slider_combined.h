@@ -37,10 +37,10 @@ class SliderCombined :
 public:
    SliderCombined( parameters::Juggler& parameters, int nParameterIndex, int nParameterIndexSwitch );
 
-   void visibilityChanged();
-   void resized();
+   void visibilityChanged() override;
+   void resized() override;
 
-   virtual void setSliderColour( const Colour& colour );
+   virtual void setSliderColour( const Colour& colour ) override;
    void setToggleSwitchColour( const Colour& colour );
 
    void addButtonListener( Button::Listener* newListener );
@@ -52,8 +52,8 @@ public:
    bool getBoolean();
    int getRealInteger();
 
-   double getValueFromText( const String& strText );
-   String getTextFromValue( double dValue );
+   double getValueFromText( const String& strText ) override;
+   String getTextFromValue( double dValue ) override;
 private:
    JUCE_LEAK_DETECTOR( SliderCombined );
 

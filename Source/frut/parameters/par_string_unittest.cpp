@@ -35,7 +35,8 @@ class ParString :
 protected:
    void SetUp() override
    {
-      p1 = std::make_unique<frut::parameters::ParBoolean>( "state_true", "state_off" );
+      p1 = std::make_unique<frut::parameters::ParBoolean>();
+      p1->init( "state_true", "state_off" );
       p1->setName( "p1" );
       p1->setDefaultBoolean( false, true );
    }

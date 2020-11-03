@@ -39,7 +39,8 @@ namespace parameters
 class ParBoolean : virtual public Parameter
 {
 public:
-   ParBoolean( const String& state_true, const String& state_false );
+   ParBoolean();
+   void init( const String& state_true, const String& state_false );
 
    void toggleState();
 

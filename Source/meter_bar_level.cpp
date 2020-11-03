@@ -38,18 +38,18 @@ void MeterBarLevel::create( int crestFactor,
    Rectangle<int> segmentBounds;
 
    skin.getAttributesFromSvgFile(
-      "meter_colour_normal", "image", segmentStroke, segmentFill, segmentBounds );
+      "meter_colour_normal", "image_on", segmentStroke, segmentFill, segmentBounds );
 
    Colour ColourNormal = segmentStroke;
-   int mainSegmentHeight = segmentBounds.getHeight();
+   int mainSegmentHeight = segmentBounds.getHeight() + 1;
 
    skin.getAttributesFromSvgFile(
-      "meter_colour_warning", "image", segmentStroke, segmentFill, segmentBounds );
+      "meter_colour_warning", "image_on", segmentStroke, segmentFill, segmentBounds );
 
    Colour ColourWarning = segmentStroke;
 
    skin.getAttributesFromSvgFile(
-      "meter_colour_overload", "image", segmentStroke, segmentFill, segmentBounds );
+      "meter_colour_overload", "image_on", segmentStroke, segmentFill, segmentBounds );
 
    Colour ColourOverload = segmentStroke;
 

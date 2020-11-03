@@ -40,7 +40,7 @@ class WindowValidationContent :
 public:
    WindowValidationContent();
 
-   virtual void buttonClicked( Button* button );
+   virtual void buttonClicked( Button* button ) override;
    virtual void closeButtonPressed();
 
    virtual void styleButton( ToggleButton& button );

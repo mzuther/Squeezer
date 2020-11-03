@@ -28,6 +28,7 @@
 
 GainStageOptical::GainStageOptical( int nSampleRate ) :
    GainStage( nSampleRate ),
+   dGainReduction( 0.0 ),
    nNumberOfDecibels( 37 ),
    nCoefficientsPerDecibel( 2 ),
    nNumberOfCoefficients( nNumberOfDecibels * nCoefficientsPerDecibel )
@@ -65,9 +66,6 @@ GainStageOptical::GainStageOptical( int nSampleRate ) :
       arrAttackCoefficients.add( exp( log( 0.27 ) / ( dAttackRateSeconds * dSampleRate ) ) );
       arrReleaseCoefficients.add( exp( log( 0.27 ) / ( dReleaseRateSeconds * dSampleRate ) ) );
    }
-
-   // reset (i.e. initialise) all relevant variables
-   reset( 0.0 );
 }
 
 

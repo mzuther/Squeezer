@@ -37,6 +37,23 @@ namespace parameters
 /// exponential or logarithmic scalings using **scaling_factor**.
 /// **Internal** values simply range from 0.0 to 1.0.
 ///
+ParContinuous::ParContinuous() :
+   realMinimum( -1.0f ),
+   realMaximum( -1.0f ),
+   realRange( -1.0f ),
+   numberOfSteps( -1 ),
+   decimalPlaces( -1 ),
+   adaptDecimalPlaces( false ),
+   isNonlinear( false ),
+   isBipolar( false ),
+   scalingFactor( -1.0f ),
+   scalingConstantFactor( -1.0f )
+{
+}
+
+
+/// Initialise parameter.
+///
 /// @param real_minimum **real** parameter minimum (may be less than
 ///        **real_maximum**)
 ///
@@ -62,7 +79,7 @@ namespace parameters
 ///        real value; negative values will adapt decimal places to
 ///        the value's size
 ///
-ParContinuous::ParContinuous( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places )
+void ParContinuous::init( float real_minimum, float real_maximum, float real_step_size, float scaling_factor, int decimal_places )
 {
    // minimum and maximum real parameter value
    realMinimum = real_minimum;

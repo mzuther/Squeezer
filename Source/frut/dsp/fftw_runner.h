@@ -42,7 +42,7 @@ public:
 
    virtual ~FftwRunner();
 
-   virtual void reset();
+   virtual void reset() override;
    void convolveWithKernel( const int channel,
                             const float oversamplingRate = 1.0f );
 

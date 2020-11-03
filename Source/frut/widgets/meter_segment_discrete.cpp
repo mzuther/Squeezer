@@ -62,6 +62,21 @@ namespace widgets
 /// > threshold).  If **isTopmost** is **true**, however, the
 /// > segment's peak marker is lit when any level peak reaches or
 /// > exceeds the lower threshold.
+MeterSegmentDiscrete::MeterSegmentDiscrete() :
+   lowerThreshold_( 0.0f ),
+   upperThreshold_( 0.0f ),
+   thresholdRange_( 0.0f ),
+   attenuatedColour_( Colours::black.brighter( 0.15f ).withAlpha( 0.6f ) ),
+   brightness_( 0.0f ),
+   retainSignalFactor_( 0.0f ),
+   newSignalFactor_( 0.0f ),
+   displayPeakMarker_( true ),
+   isTopmost_( false )
+{
+}
+
+
+/// Initialise meter segment.
 ///
 /// @param retainSignalFactor if set to value other than 0.0, the segment
 ///        automatically fades out and all segments with lower
@@ -73,11 +88,9 @@ namespace widgets
 ///        than 0.0, this factor determines how much of the new signal
 ///        is added to the brightness (range: 0.0 to 1.0).
 ///
-MeterSegmentDiscrete::MeterSegmentDiscrete(
+void MeterSegmentDiscrete::init(
    float retainSignalFactor,
-   float newSignalFactor ) :
-   attenuatedColour_( Colours::black.brighter( 0.15f ).withAlpha( 0.6f ) )
-
+   float newSignalFactor )
 {
    // initialise segment's brightness (ranging from 0 to 1)
    brightness_ = 0.0f;
@@ -120,7 +133,6 @@ MeterSegmentDiscrete::MeterSegmentDiscrete(
 ///
 float MeterSegmentDiscrete::setThresholdAndRange(
    float lowerThreshold, float thresholdRange, bool isTopmost )
-
 {
    // set lower level threshold (in decibels)
    lowerThreshold_ = lowerThreshold;
@@ -151,7 +163,6 @@ float MeterSegmentDiscrete::setThresholdAndRange(
 ///
 void MeterSegmentDiscrete::setColours(
    const Colour& segmentColour, const Colour& peakMarkerColour )
-
 {
    // initialise segment colour
    segmentColour_ = segmentColour;
@@ -171,7 +182,6 @@ void MeterSegmentDiscrete::setColours(
 ///
 void MeterSegmentDiscrete::paint(
    Graphics& g )
-
 {
    // to look well, meter segments should be left with some
    // colour and not have maximum brightness
@@ -241,7 +251,6 @@ void MeterSegmentDiscrete::visibilityChanged()
 void MeterSegmentDiscrete::setLevels(
    float normalLevel, float normalLevelPeak,
    float discreteLevel, float discreteLevelPeak )
-
 {
    // store old brightness and peak marker value
    float brightnessOld = brightness_;

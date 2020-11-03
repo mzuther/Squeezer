@@ -37,15 +37,15 @@ class SliderSwitchLinearBar :
 public:
    SliderSwitchLinearBar( parameters::Juggler& parameters, int nParameterIndex );
 
-   void visibilityChanged();
-   void setSliderColour( const Colour& colour );
+   void visibilityChanged() override;
+   void setSliderColour( const Colour& colour ) override;
 
    float getRealFloat();
    bool getBoolean();
    int getRealInteger();
 
-   double getValueFromText( const String& strText );
-   String getTextFromValue( double dValue );
+   double getValueFromText( const String& strText ) override;
+   String getTextFromValue( double dValue ) override;
 private:
    JUCE_LEAK_DETECTOR( SliderSwitchLinearBar );
 

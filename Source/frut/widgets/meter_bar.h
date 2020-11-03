@@ -43,7 +43,7 @@ class MeterBar :
 public:
    MeterBar();
 
-   virtual void create();
+   void create();
 
    virtual void addSegment( widgets::MeterSegment* segment,
                             int segmentHeight,
@@ -85,8 +85,8 @@ public:
                            float discreteLevel,
                            float discreteLevelPeak );
 
-   virtual void paint( Graphics& g );
-   virtual void resized();
+   virtual void paint( Graphics& g ) override;
+   virtual void resized() override;
 
 private:
    JUCE_LEAK_DETECTOR( MeterBar );

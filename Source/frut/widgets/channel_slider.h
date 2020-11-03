@@ -46,8 +46,8 @@ public:
    double getDouble();
    float getFloat();
 
-   virtual double getValueFromText( const String& inputString );
-   virtual String getTextFromValue( double inputValue );
+   virtual double getValueFromText( const String& inputString ) override;
+   virtual String getTextFromValue( double inputValue ) override;
 
 protected:
    int numberOfChannels_;

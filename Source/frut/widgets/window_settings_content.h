@@ -45,7 +45,7 @@ public:
                                             int componentHeight,
                                             const String& pluginSettings );
 
-   virtual void buttonClicked( Button* button );
+   virtual void buttonClicked( Button* button ) override;
 
    virtual void closeButtonPressed();
 

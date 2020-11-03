@@ -26,7 +26,9 @@
 #include "gain_stage_fet.h"
 
 
-GainStageFET::GainStageFET( int nSampleRate ) : GainStage( nSampleRate )
+GainStageFET::GainStageFET( int nSampleRate ) :
+   GainStage( nSampleRate ),
+   dGainReduction( 0.0 )
    /*  Constructor.
 
        nSampleRate (integer): internal sample rate
@@ -34,8 +36,6 @@ GainStageFET::GainStageFET( int nSampleRate ) : GainStage( nSampleRate )
        return value: none
    */
 {
-   // reset (i.e. initialise) all relevant variables
-   reset( 0.0 );
 }
 
 

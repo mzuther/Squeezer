@@ -37,16 +37,16 @@ class SliderContinuous :
 public:
    SliderContinuous( parameters::Juggler& parameters, int parameterIndex );
 
-   virtual void visibilityChanged();
-   virtual void resized();
-   virtual void setSliderColour( const Colour& colour );
+   virtual void visibilityChanged() override;
+   virtual void resized() override;
+   virtual void setSliderColour( const Colour& colour ) override;
 
    float getRealFloat();
    bool getBoolean();
    int getRealInteger();
 
-   virtual double getValueFromText( const String& strText );
-   virtual String getTextFromValue( double dValue );
+   virtual double getValueFromText( const String& strText ) override;
+   virtual String getTextFromValue( double dValue ) override;
 
 protected:
    Colour colourRotary_;
