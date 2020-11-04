@@ -31,7 +31,7 @@ python.exe "../Source/frut/templates/render_templates.py"
 
 
 @echo.
-@premake5 --os=windows vs2017
+@premake5 --os=windows vs2019
 
 @echo.
 @premake5 --cc=clang --os=linux gmake

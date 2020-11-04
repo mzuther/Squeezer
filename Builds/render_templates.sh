@@ -32,7 +32,7 @@ python3 "../Source/frut/templates/render_templates.py"
 
 
 printf "\n"
-premake5 --os=windows vs2017
+premake5 --os=windows vs2019
 
 printf "\n"
 premake5 --cc=clang --os=linux gmake

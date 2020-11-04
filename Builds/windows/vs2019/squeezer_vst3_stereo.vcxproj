@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,11 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BBAB8EB5-271A-E434-7003-9F34DCB0D9D0}</ProjectGuid>
+    <ProjectGuid>{19AA6278-0539-EC41-AE57-003D9AC5FCE7}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>squeezer_vst2_stereo_no_sidechain</RootNamespace>
-    <LatestTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
+    <RootNamespace>squeezer_vst3_stereo</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -69,38 +68,38 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>D:\Plugins\32-bit\Categories\Dynamics\Compressor\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_stereo_no_sidechain_debug\x32\</IntDir>
-    <TargetName>Squeezer (Stereo, no side-chain, Debug)</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <OutDir>C:\Program Files (x86)\Common Files\VST3\radix\squeezer.vst3\Contents\x86-win\</OutDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst3_stereo_debug\x32\</IntDir>
+    <TargetName>Squeezer (Stereo, Debug)</TargetName>
+    <TargetExt>.vst3</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>D:\Plugins\64-bit\Categories\Dynamics\Compressor\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_stereo_no_sidechain_debug\x64\</IntDir>
-    <TargetName>Squeezer (Stereo, no side-chain x64, Debug)</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <OutDir>C:\Program Files\Common Files\VST3\radix\squeezer.vst3\Contents\x86_64-win\</OutDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst3_stereo_debug\x64\</IntDir>
+    <TargetName>Squeezer (Stereo x64, Debug)</TargetName>
+    <TargetExt>.vst3</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\bin\vst2\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_stereo_no_sidechain_release\x32\</IntDir>
-    <TargetName>Squeezer (Stereo, no side-chain)</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <OutDir>..\..\..\bin\vst3\squeezer.vst3\Contents\x86-win\</OutDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst3_stereo_release\x32\</IntDir>
+    <TargetName>Squeezer (Stereo)</TargetName>
+    <TargetExt>.vst3</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\bin\vst2\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\vst2_stereo_no_sidechain_release\x64\</IntDir>
-    <TargetName>Squeezer (Stereo, no side-chain x64)</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <OutDir>..\..\..\bin\vst3\squeezer.vst3\Contents\x86_64-win\</OutDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\vst3_stereo_release\x64\</IntDir>
+    <TargetName>Squeezer (Stereo x64)</TargetName>
+    <TargetExt>.vst3</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;..\..\..\libraries\vst3\VST3_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -113,15 +112,15 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>D:\Plugins\32-bit\Categories\Dynamics\Compressor\Squeezer (Stereo, no side-chain, Debug).lib</ImportLibrary>
+      <ImportLibrary>C:\Program Files (x86)\Common Files\VST3\radix\squeezer.vst3\Contents\x86-win\Squeezer (Stereo, Debug).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;..\..\..\libraries\vst3\VST3_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -133,15 +132,15 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>D:\Plugins\64-bit\Categories\Dynamics\Compressor\Squeezer (Stereo, no side-chain x64, Debug).lib</ImportLibrary>
+      <ImportLibrary>C:\Program Files\Common Files\VST3\radix\squeezer.vst3\Contents\x86_64-win\Squeezer (Stereo x64, Debug).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;..\..\..\libraries\vst3\VST3_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -160,15 +159,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\..\..\bin\vst2\Squeezer (Stereo, no side-chain).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\bin\vst3\squeezer.vst3\Contents\x86-win\Squeezer (Stereo).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_STEREO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;..\..\..\libraries\vst3\VST3_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -186,7 +185,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\..\..\bin\vst2\Squeezer (Stereo, no side-chain x64).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\bin\vst3\squeezer.vst3\Contents\x86_64-win\Squeezer (Stereo x64).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -214,7 +213,7 @@
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_basics.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_devices.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_formats.cpp" />
-    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_plugin_client_VST2.cpp" />
+    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_plugin_client_VST3.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_plugin_client_utils.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_processors.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_utils.cpp" />
