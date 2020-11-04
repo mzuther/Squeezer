@@ -411,7 +411,7 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& tagName,
    if ( imageFilename.isEmpty() ) {
       Logger::outputDebugString(
          String( "[Skin] attribute \"" ) +
-         attributeName +
+         tagName + "/" + attributeName +
          "\" not found" );
 
       return createBogusImage( "Attribute not found", 200, 200 );

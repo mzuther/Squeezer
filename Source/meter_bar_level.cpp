@@ -43,27 +43,27 @@ void MeterBarLevel::create( int crestFactor,
    if ( discreteMeter ) {
       Array<Image> imagesOn;
       imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                               "meter_colour_normal", "image_on" ) ) );
+                                               "meter_segment_level_normal", "image_on" ) ) );
       imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                               "meter_colour_warning", "image_on" ) ) );
+                                               "meter_segment_level_warning", "image_on" ) ) );
       imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                               "meter_colour_overload", "image_on" ) ) );
+                                               "meter_segment_level_overload", "image_on" ) ) );
 
       Array<Image> imagesOff;
       imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_colour_normal", "image_off" ) ) );
+                                                "meter_segment_level_normal", "image_off" ) ) );
       imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_colour_warning", "image_off" ) ) );
+                                                "meter_segment_level_warning", "image_off" ) ) );
       imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_colour_overload", "image_off" ) ) );
+                                                "meter_segment_level_overload", "image_off" ) ) );
 
       Array<Image> imagesPeak;
       imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_colour_normal", "image_peak" ) ) );
+                                                 "meter_segment_level_normal", "image_peak" ) ) );
       imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_colour_warning", "image_peak" ) ) );
+                                                 "meter_segment_level_warning", "image_peak" ) ) );
       imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_colour_overload", "image_peak" ) ) );
+                                                 "meter_segment_level_overload", "image_peak" ) ) );
 
       Point<int> segmentTopLeft( 1, 1 );
       Point<int> peakTopLeft( 0, 0 );
@@ -107,20 +107,20 @@ void MeterBarLevel::create( int crestFactor,
       Rectangle<int> segmentBounds;
 
       skin.getAttributesFromSvgFile(
-         "meter_colour_normal", "image_on",
+         "meter_segment_level_normal", "image_on",
          segmentStroke, segmentFill, segmentBounds );
 
       Colour ColourNormal = segmentStroke;
       int segmentHeight = segmentBounds.getHeight() + 1;
 
       skin.getAttributesFromSvgFile(
-         "meter_colour_warning", "image_on",
+         "meter_segment_level_warning", "image_on",
          segmentStroke, segmentFill, segmentBounds );
 
       Colour ColourWarning = segmentStroke;
 
       skin.getAttributesFromSvgFile(
-         "meter_colour_overload", "image_on",
+         "meter_segment_level_overload", "image_on",
          segmentStroke, segmentFill, segmentBounds );
 
       Colour ColourOverload = segmentStroke;

@@ -48,11 +48,11 @@ void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
 
    if ( discreteMeter ) {
       auto imageOff = skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_gain_reduction", "image_off" ) );
+                                                 "meter_segment_gain_reduction", "image_off" ) );
       auto imageOn = skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_gain_reduction", "image_on" ) );
+                                                "meter_segment_gain_reduction", "image_on" ) );
       auto imagePeak = skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                  "meter_gain_reduction", "image_peak" ) );
+                                                  "meter_segment_gain_reduction", "image_peak" ) );
 
       Point<int> segmentTopLeft( 1, 1 );
       Point<int> peakTopLeft( 0, 0 );
@@ -85,7 +85,7 @@ void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
       Rectangle<int> segmentBounds;
 
       skin.getAttributesFromSvgFile(
-         "meter_gain_reduction", "image_on", segmentColour, segmentFill, segmentBounds );
+         "meter_segment_gain_reduction", "image_on", segmentColour, segmentFill, segmentBounds );
 
       int segmentHeight = segmentBounds.getHeight() + 1;
 
