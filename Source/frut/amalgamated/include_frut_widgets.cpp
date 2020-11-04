@@ -34,6 +34,7 @@
 #include "../widgets/meter_segment.cpp"
 #include "../widgets/meter_segment_continuous.cpp"
 #include "../widgets/meter_segment_discrete.cpp"
+#include "../widgets/meter_segment_discrete_image.cpp"
 #include "../widgets/needle_meter.cpp"
 #include "../widgets/orientation.cpp"
 #include "../widgets/resources/resources.cpp"

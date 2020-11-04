@@ -49,6 +49,19 @@ public:
                             int segmentHeight,
                             int spacingBefore );
 
+   virtual void addDiscreteImageSegment( float lowerThreshold,
+                                         float thresholdRange,
+                                         float retainSignalFactor,
+                                         float newSignalFactor,
+                                         bool isTopmost,
+                                         int spacingBefore,
+                                         Image imageOn,
+                                         Point<int> topLeftImageOn,
+                                         Image imageOff,
+                                         Point<int> topLeftImageOff,
+                                         Image imagePeak,
+                                         Point<int> topLeftImagePeak );
+
    virtual void addDiscreteSegment( float lowerThreshold,
                                     float thresholdRange,
                                     float retainSignalFactor,

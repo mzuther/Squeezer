@@ -33,59 +33,117 @@ void MeterBarLevel::create( int crestFactor,
 {
    frut::widgets::MeterBar::create();
 
-   Colour segmentStroke;
-   Colour segmentFill;
-   Rectangle<int> segmentBounds;
-
-   skin.getAttributesFromSvgFile(
-      "meter_colour_normal", "image_on", segmentStroke, segmentFill, segmentBounds );
-
-   Colour ColourNormal = segmentStroke;
-   int mainSegmentHeight = segmentBounds.getHeight() + 1;
-
-   skin.getAttributesFromSvgFile(
-      "meter_colour_warning", "image_on", segmentStroke, segmentFill, segmentBounds );
-
-   Colour ColourWarning = segmentStroke;
-
-   skin.getAttributesFromSvgFile(
-      "meter_colour_overload", "image_on", segmentStroke, segmentFill, segmentBounds );
-
-   Colour ColourOverload = segmentStroke;
-
-   Array<Colour> segmentColours;
-
-   segmentColours.add( ColourOverload );
-   segmentColours.add( ColourWarning );
-   segmentColours.add( ColourNormal );
-
    int numberOfBars = 15;
-
    crestFactor *= 10;
 
    int levelRange = 30;
    int trueLowerThreshold = -levelRange;
    int lowerThreshold = trueLowerThreshold + crestFactor;
 
-   for ( int n = 0; n < numberOfBars; ++n ) {
-      int colourId;
-      int segmentHeight;
-      int spacingBefore = 0;
+   if ( discreteMeter ) {
+      Array<Image> imagesOn;
+      imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                               "meter_colour_normal", "image_on" ) ) );
+      imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                               "meter_colour_warning", "image_on" ) ) );
+      imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                               "meter_colour_overload", "image_on" ) ) );
 
-      if ( trueLowerThreshold >= -60 ) {
-         colourId = colourSelector::overload;
-         segmentHeight = mainSegmentHeight;
-      } else if ( trueLowerThreshold >= -120 ) {
-         colourId = colourSelector::warning;
-         segmentHeight = mainSegmentHeight;
-      } else {
-         colourId = colourSelector::fine;
-         segmentHeight = mainSegmentHeight;
+      Array<Image> imagesOff;
+      imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                "meter_colour_normal", "image_off" ) ) );
+      imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                "meter_colour_warning", "image_off" ) ) );
+      imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                "meter_colour_overload", "image_off" ) ) );
+
+      Array<Image> imagesPeak;
+      imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                 "meter_colour_normal", "image_peak" ) ) );
+      imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                 "meter_colour_warning", "image_peak" ) ) );
+      imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                 "meter_colour_overload", "image_peak" ) ) );
+
+      Point<int> segmentTopLeft( 1, 1 );
+      Point<int> peakTopLeft( 0, 0 );
+
+      for ( int n = 0; n < numberOfBars; ++n ) {
+         int colourId;
+
+         if ( trueLowerThreshold >= -60 ) {
+            colourId = colourSelector::overload;
+         } else if ( trueLowerThreshold >= -120 ) {
+            colourId = colourSelector::warning;
+         } else {
+            colourId = colourSelector::normal;
+         }
+
+         bool hasHighestLevel = ( n == 0 );
+
+         // meter segment outlines overlap by 1 pixel
+         int spacingBefore = -1;
+
+         addDiscreteImageSegment(
+            lowerThreshold * 0.1f,
+            levelRange * 0.1f,
+            0.0f,
+            1.0f,
+            hasHighestLevel,
+            spacingBefore,
+            imagesOn[colourId],
+            segmentTopLeft,
+            imagesOff[colourId],
+            segmentTopLeft,
+            imagesPeak[colourId],
+            peakTopLeft );
+
+         trueLowerThreshold -= levelRange;
+         lowerThreshold = trueLowerThreshold + crestFactor;
       }
+   } else {
+      Colour segmentStroke;
+      Colour segmentFill;
+      Rectangle<int> segmentBounds;
 
-      bool hasHighestLevel = ( n == 0 );
+      skin.getAttributesFromSvgFile(
+         "meter_colour_normal", "image_on",
+         segmentStroke, segmentFill, segmentBounds );
 
-      if ( ! discreteMeter ) {
+      Colour ColourNormal = segmentStroke;
+      int segmentHeight = segmentBounds.getHeight() + 1;
+
+      skin.getAttributesFromSvgFile(
+         "meter_colour_warning", "image_on",
+         segmentStroke, segmentFill, segmentBounds );
+
+      Colour ColourWarning = segmentStroke;
+
+      skin.getAttributesFromSvgFile(
+         "meter_colour_overload", "image_on",
+         segmentStroke, segmentFill, segmentBounds );
+
+      Colour ColourOverload = segmentStroke;
+
+      Array<Colour> segmentColours;
+      segmentColours.add( ColourNormal );
+      segmentColours.add( ColourWarning );
+      segmentColours.add( ColourOverload );
+
+      for ( int n = 0; n < numberOfBars; ++n ) {
+         int colourId;
+         int spacingBefore = 0;
+
+         if ( trueLowerThreshold >= -60 ) {
+            colourId = colourSelector::overload;
+         } else if ( trueLowerThreshold >= -120 ) {
+            colourId = colourSelector::warning;
+         } else {
+            colourId = colourSelector::normal;
+         }
+
+         bool hasHighestLevel = ( n == 0 );
+
          // meter segment outlines must not overlap
 
          addContinuousSegment(
@@ -97,25 +155,10 @@ void MeterBarLevel::create( int crestFactor,
             spacingBefore,
             segmentColours[colourId],
             segmentColours[colourId].withMultipliedBrightness( 0.7f ) );
-      } else {
-         // meter segment outlines overlap
-         spacingBefore -= 1;
-         segmentHeight += 1;
 
-         addDiscreteSegment(
-            lowerThreshold * 0.1f,
-            levelRange * 0.1f,
-            0.0f,
-            1.0f,
-            hasHighestLevel,
-            segmentHeight,
-            spacingBefore,
-            segmentColours[colourId],
-            segmentColours[colourId].withMultipliedBrightness( 0.7f ) );
+         trueLowerThreshold -= levelRange;
+         lowerThreshold = trueLowerThreshold + crestFactor;
       }
-
-      trueLowerThreshold -= levelRange;
-      lowerThreshold = trueLowerThreshold + crestFactor;
    }
 
    // set orientation here to save some processing

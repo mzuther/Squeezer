@@ -42,41 +42,58 @@ void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
 {
    frut::widgets::MeterBar::create();
 
-   Colour segmentColour;
-   Colour segmentFill;
-   Rectangle<int> segmentBounds;
-
-   skin.getAttributesFromSvgFile(
-      "meter_gain_reduction", "image_on", segmentColour, segmentFill, segmentBounds );
-
    int numberOfBars = 15;
-   int mainSegmentHeight = segmentBounds.getHeight() + 1;
-
    int levelRange = 10;
    int trueLowerThreshold = ( numberOfBars - 1 ) * levelRange;
 
-   for ( int n = 0; n < numberOfBars; ++n ) {
-      bool hasHighestLevel = ( n == 0 );
+   if ( discreteMeter ) {
+      auto imageOff = skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                 "meter_gain_reduction", "image_off" ) );
+      auto imageOn = skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                "meter_gain_reduction", "image_on" ) );
+      auto imagePeak = skin.imageFromDrawable( skin.loadImageAsDrawable(
+                                                  "meter_gain_reduction", "image_peak" ) );
 
-      if ( discreteMeter ) {
-         // meter segment outlines overlap
+      Point<int> segmentTopLeft( 1, 1 );
+      Point<int> peakTopLeft( 0, 0 );
+
+      for ( int n = 0; n < numberOfBars; ++n ) {
+         bool hasHighestLevel = ( n == 0 );
+
+         // meter segment outlines overlap by 1 pixel
          int spacingBefore = -1;
-         int segmentHeight = mainSegmentHeight + 1;
 
-         addDiscreteSegment(
+         addDiscreteImageSegment(
             trueLowerThreshold * 0.1f,
             levelRange * 0.1f,
             0.0f,
             1.0f,
             hasHighestLevel,
-            segmentHeight,
             spacingBefore,
-            segmentColour,
-            segmentColour.withMultipliedBrightness( 0.7f ) );
-      } else {
+            imageOn,
+            segmentTopLeft,
+            imageOff,
+            segmentTopLeft,
+            imagePeak,
+            peakTopLeft );
+
+         trueLowerThreshold -= levelRange;
+      }
+   } else {
+      Colour segmentColour;
+      Colour segmentFill;
+      Rectangle<int> segmentBounds;
+
+      skin.getAttributesFromSvgFile(
+         "meter_gain_reduction", "image_on", segmentColour, segmentFill, segmentBounds );
+
+      int segmentHeight = segmentBounds.getHeight() + 1;
+
+      for ( int n = 0; n < numberOfBars; ++n ) {
+         bool hasHighestLevel = ( n == 0 );
+
          // meter segment outlines must not overlap
          int spacingBefore = 0;
-         int segmentHeight = mainSegmentHeight;
 
          addContinuousSegment(
             trueLowerThreshold * 0.1f,
@@ -87,9 +104,9 @@ void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
             spacingBefore,
             segmentColour,
             segmentColour.withMultipliedBrightness( 0.7f ) );
-      }
 
-      trueLowerThreshold -= levelRange;
+         trueLowerThreshold -= levelRange;
+      }
    }
 
    // set orientation here to save some processing

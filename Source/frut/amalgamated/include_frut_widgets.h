@@ -37,6 +37,7 @@
 #include "../widgets/meter_segment.h"
 #include "../widgets/meter_segment_continuous.h"
 #include "../widgets/meter_segment_discrete.h"
+#include "../widgets/meter_segment_discrete_image.h"
 #include "../widgets/needle_meter.h"
 #include "../widgets/signal_led.h"
 #include "../widgets/slider_combined.h"

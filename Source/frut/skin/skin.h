@@ -64,12 +64,6 @@ public:
                            const Colour defaultColour = Colours::red,
                            const String valuePrefix = "" );
 
-   bool getAttributesFromSvg( const XmlElement* xmlComponent,
-                              const String& attributeName,
-                              Colour& strokeColour,
-                              Colour& fillColour,
-                              Rectangle<int>& bounds );
-
    bool getAttributesFromSvgFile( const String& tagName,
                                   const String& attributeName,
                                   Colour& strokeColour,
@@ -77,7 +71,14 @@ public:
                                   Rectangle<int>& bounds );
 
    std::unique_ptr<Drawable> loadImageAsDrawable( const String& strFilename );
+   std::unique_ptr<Drawable> loadImageAsDrawable( const String& tagName,
+                                                  const String& attributeName );
+
    Image loadImage( const String& strFilename );
+   Image loadImage( const String& tagName,
+                    const String& attributeName );
+
+   Image imageFromDrawable( std::unique_ptr<Drawable> drawable );
 
    void setBackground( DrawableComposite* background,
                        AudioProcessorEditor* editor );

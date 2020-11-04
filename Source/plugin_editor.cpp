@@ -333,7 +333,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
 
    // update UI scale
    Logger::outputDebugString(
-      String( "[Skin] set UI scale to " ) +
+      String( "[Skin] scaling UI to " ) +
       String( int ( 100.0f * skin_.getUiScale() ) ) +
       "%" );
 

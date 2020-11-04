@@ -138,6 +138,79 @@ void MeterBar::addSegment( widgets::MeterSegment* segment,
 }
 
 
+/// Add a discrete meter segment composed of images to the meter.
+/// This function runs fastest if you change the meter's orientation
+/// after all meter segments have been added.
+///
+/// @param lowerThreshold lower threshold level (in decibels)
+///
+/// @param thresholdRange difference between lower and upper level
+///        threshold (in decibels)
+///
+/// @param retainSignalFactor if set to value other than 0.0, the segment
+///        automatically fades out and all segments with lower
+///        thresholds remain dark.  This factor determines how much of
+///        the original brightness remains between updates (range: 0.0
+///        to 1.0).
+///
+/// @param newSignalFactor if retainSignalFactor is set to a value other
+///        than 0.0, this factor determines how much of the new signal
+///        is added to the brightness (range: 0.0 to 1.0).
+///
+/// @param isTopmost if set to **true**, the segment has no upper
+///        level threshold
+///
+/// @param spacingBefore spacing before the segment (in pixels)
+///
+/// @param imageOn image of fully lit segment
+///
+/// @param topLeftOn relative position of fully lit segment
+///
+/// @param imageOff image of dark segment
+///
+/// @param topLeftOff relative position of dark segment
+///
+/// @param imagePeak image of peak segment
+///
+/// @param topLeftPeak relative position of peak segment
+///
+void MeterBar::addDiscreteImageSegment( float lowerThreshold,
+                                        float thresholdRange,
+                                        float retainSignalFactor,
+                                        float newSignalFactor,
+                                        bool isTopmost,
+                                        int spacingBefore,
+                                        Image imageOn,
+                                        Point<int> topLeftImageOn,
+                                        Image imageOff,
+                                        Point<int> topLeftImageOff,
+                                        Image imagePeak,
+                                        Point<int> topLeftImagePeak )
+{
+   // create new discrete meter segment (will be deleted
+   // automatically)
+   auto segment = new widgets::MeterSegmentDiscreteImage();
+
+   segment->init( retainSignalFactor, newSignalFactor,
+                  imageOn, topLeftImageOn,
+                  imageOff, topLeftImageOff,
+                  imagePeak, topLeftImagePeak );
+
+   // set segment's lower threshold and display range (both in
+   // decibels) and whether it is the topmost segment
+   segment->setThresholdAndRange( lowerThreshold,
+                                  thresholdRange,
+                                  isTopmost );
+
+   // add segment to meter; assume that peak image is the largest of
+   // all images
+   addSegment(
+      segment,
+      imagePeak.getHeight(),
+      spacingBefore );
+}
+
+
 /// Add a discrete meter segment to the meter.  This function runs
 /// fastest if you change the meter's orientation after all meter
 /// segments have been added.
@@ -180,11 +253,8 @@ void MeterBar::addDiscreteSegment( float lowerThreshold,
 {
    // create new discrete meter segment (will be deleted
    // automatically)
-   widgets::MeterSegmentDiscrete* segment =
-      new widgets::MeterSegmentDiscrete();
-
-   segment->init( retainSignalFactor,
-                  newSignalFactor );
+   auto segment = new widgets::MeterSegmentDiscrete();
+   segment->init( retainSignalFactor, newSignalFactor );
 
    // set segment's lower threshold and display range (both in
    // decibels) and whether it is the topmost segment
@@ -237,9 +307,7 @@ void MeterBar::addContinuousSegment( float lowerThreshold,
 {
    // create new continuous meter segment (will be deleted
    // automatically)
-   widgets::MeterSegmentContinuous* segment =
-      new widgets::MeterSegmentContinuous();
-
+   auto segment = new widgets::MeterSegmentContinuous();
    segment->init();
 
    // set segment's lower threshold and display range (both in

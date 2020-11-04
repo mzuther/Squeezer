@@ -184,13 +184,14 @@ XmlElement* Skin::getSetting( const String& tagName )
 
 XmlElement* Skin::getComponent( const String& tagName )
 {
+   if ( document_ == nullptr ) {
+      return nullptr;
+   }
+
    XmlElement* xmlComponent;
 
-   // suppress unnecessary warnings and save some time
-   if ( document_ == nullptr ) {
-      xmlComponent = nullptr;
-   } else if ( ( skinGroup_ != nullptr ) &&
-               ( skinGroup_->getChildByName( tagName ) != nullptr ) ) {
+   if ( ( skinGroup_ != nullptr ) &&
+        ( skinGroup_->getChildByName( tagName ) != nullptr ) ) {
       xmlComponent = skinGroup_->getChildByName( tagName );
    } else if ( ( skinFallback_1_ != nullptr ) &&
                ( skinFallback_1_->getChildByName( tagName ) != nullptr ) ) {
@@ -293,19 +294,13 @@ const Colour Skin::getColour( const XmlElement* xmlComponent,
 
 // recursively search SVG for drawable and get its colours and bounds;
 // return "true" when successful and "false" when not
-bool Skin::getAttributesFromSvg( const XmlElement* xmlComponent,
-                                 const String& attributeName,
-                                 Colour& strokeColour,
-                                 Colour& fillColour,
-                                 Rectangle<int>& bounds )
+bool Skin::getAttributesFromSvgFile( const String& tagName,
+                                     const String& attributeName,
+                                     Colour& strokeColour,
+                                     Colour& fillColour,
+                                     Rectangle<int>& bounds )
 {
-   auto fileName = getString( xmlComponent, attributeName );
-
-   if ( fileName.isEmpty() ) {
-      return false;
-   }
-
-   auto drawable = loadImageAsDrawable( fileName );
+   auto drawable = loadImageAsDrawable( tagName, attributeName );
    Component* recursiveChild = drawable.get();
    DrawableShape* firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
 
@@ -326,30 +321,6 @@ bool Skin::getAttributesFromSvg( const XmlElement* xmlComponent,
    bounds = boundsFloat.getSmallestIntegerContainer();
 
    return true;
-}
-
-
-// return "true" when successful and "false" when not
-bool Skin::getAttributesFromSvgFile( const String& tagName,
-                                     const String& attributeName,
-                                     Colour& strokeColour,
-                                     Colour& fillColour,
-                                     Rectangle<int>& bounds )
-{
-   if ( document_ == nullptr ) {
-      return false;
-   }
-
-   auto xmlComponent = getComponent( tagName );
-
-   if ( xmlComponent == nullptr ) {
-      return false;
-   }
-
-   bool foundDrawable = getAttributesFromSvg( xmlComponent, attributeName,
-                                              strokeColour, fillColour, bounds );
-
-   return foundDrawable;
 }
 
 
@@ -416,9 +387,60 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& strFilename )
 }
 
 
+std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& tagName,
+                                                     const String& attributeName )
+{
+   if ( document_ == nullptr ) {
+      Logger::outputDebugString( "[Skin] invalid skin" );
+      return createBogusImage( "Invalid skin", 200, 200 );
+   }
+
+   auto xmlComponent = getComponent( tagName );
+
+   if ( xmlComponent == nullptr ) {
+      Logger::outputDebugString(
+         String( "[Skin] tag \"" ) +
+         tagName +
+         "\" not found" );
+
+      return createBogusImage( "Tag not found", 200, 200 );
+   }
+
+   String imageFilename = getString( xmlComponent, attributeName );
+
+   if ( imageFilename.isEmpty() ) {
+      Logger::outputDebugString(
+         String( "[Skin] attribute \"" ) +
+         attributeName +
+         "\" not found" );
+
+      return createBogusImage( "Attribute not found", 200, 200 );
+   }
+
+   return loadImageAsDrawable( imageFilename );
+}
+
+
 Image Skin::loadImage( const String& strFilename )
 {
    auto drawable = loadImageAsDrawable( strFilename );
+
+   Image image( Image::PixelFormat::ARGB,
+                drawable->getWidth(),
+                drawable->getHeight(),
+                true );
+
+   Graphics g( image );
+   drawable->draw( g, 1.0f );
+
+   return image;
+}
+
+
+Image Skin::loadImage( const String& tagName,
+                       const String& attributeName )
+{
+   auto drawable = loadImageAsDrawable( tagName, attributeName );
 
    Image image( Image::PixelFormat::ARGB,
                 drawable->getWidth(),
@@ -498,6 +520,29 @@ void Skin::setBackground( DrawableComposite* background,
    background->toBack();
 
    editor->setSize( backgroundWidth_, backgroundHeight_ );
+}
+
+
+Image Skin::imageFromDrawable( std::unique_ptr<Drawable> drawable )
+{
+   auto bounds = drawable->getDrawableBounds();
+   auto boundsZero = bounds.withZeroOrigin();
+
+   // FIXME: SVG files with implied position
+   if ( bounds != boundsZero ) {
+      drawable->setTransformToFit( boundsZero, RectanglePlacement(
+                                      RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
+   }
+
+   auto image = Image( Image::PixelFormat::ARGB,
+                       drawable->getWidth(),
+                       drawable->getHeight(),
+                       true );
+
+   Graphics g( image );
+   drawable->draw( g, 1.0f );
+
+   return image;
 }
 
 
@@ -607,7 +652,7 @@ void Skin::placeComponent( const XmlElement* xmlComponent,
 {
    jassert( component != nullptr );
 
-   if ( document_ == nullptr ) {
+   if ( xmlComponent == nullptr ) {
       return;
    }
 
@@ -621,42 +666,19 @@ void Skin::placeMeterBar( const String& tagName,
 {
    jassert( meterBar != nullptr );
 
-   if ( document_ == nullptr ) {
-      return;
-   }
+   auto drawable = loadImageAsDrawable( tagName, "image" );
 
-   auto xmlComponent = getComponent( tagName );
+   auto bounds = drawable->getDrawableBounds();
+   auto boundsInteger = bounds.getSmallestIntegerContainer();
+   int segmentWidth = boundsInteger.getWidth();
 
-   if ( xmlComponent == nullptr ) {
-      return;
-   }
-
-   auto fileName = getString( xmlComponent, "image" );
-   int segmentWidth = 0;
-
-   if ( fileName.isNotEmpty() ) {
-      auto drawable = loadImageAsDrawable( fileName );
-
-      if ( drawable ) {
-         auto bounds = drawable->getDrawableBounds();
-         auto boundsInteger = bounds.getSmallestIntegerContainer();
-         segmentWidth = boundsInteger.getWidth();
-
-         meterBar->setBounds( boundsInteger );
-      }
-   } else {
-      int height = meterBar->getHeight();
-      Point<int> position = getPositionInteger( xmlComponent, height, true );
-      segmentWidth = getInteger( xmlComponent, "segment_width", 0 );
-
-      meterBar->setTopLeftPosition( position );
-   }
+   meterBar->setBounds( boundsInteger );
 
    if ( segmentWidth < 4 ) {
       Logger::outputDebugString(
          String( "[Skin] segment width for \"" ) +
          tagName +
-         "\" not set" );
+         "\" too small" );
 
       segmentWidth = 8;
    }
@@ -670,67 +692,50 @@ void Skin::placeAndSkinButton( const String& tagName,
 {
    jassert( button != nullptr );
 
-   if ( document_ == nullptr ) {
-      return;
+   auto drawableOn = loadImageAsDrawable( tagName, "image_on" );
+   auto drawableOff = loadImageAsDrawable( tagName, "image_off" );
+   auto drawableOver = loadImageAsDrawable( tagName, "image_over" );
+
+   auto bounds = drawableOn->getDrawableBounds();
+   auto boundsZero = bounds.withZeroOrigin();
+
+   // FIXME: SVG files with implied position
+   if ( bounds != boundsZero ) {
+      drawableOn->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
+      drawableOver->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
+      drawableOff->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
+
+      button->setTopLeftPosition( drawableOn->getX(), drawableOn->getY() );
    }
+
+   button->setImages( drawableOff.get(),
+                      drawableOver.get(),
+                      drawableOn.get(),
+                      nullptr,
+                      drawableOn.get(),
+                      drawableOn.get(),
+                      drawableOff.get(),
+                      nullptr );
+
+   button->setColour( DrawableButton::backgroundOnColourId, Colours::transparentBlack );
 
    auto xmlComponent = getComponent( tagName );
+   int width = drawableOn->getWidth();
+   int height = drawableOn->getHeight();
 
-   if ( xmlComponent != nullptr ) {
-      auto fileNameOn = getString( xmlComponent, "image_on" );
-      auto drawableOn = loadImageAsDrawable( fileNameOn );
-
-      auto fileNameOff = getString( xmlComponent, "image_off" );
-      auto drawableOff = loadImageAsDrawable( fileNameOff );
-
-      // a missing "image_over" is handled gracefully by "setImages"
-      auto fileNameOver = getString( xmlComponent, "image_over" );
-      auto drawableOver = loadImageAsDrawable( fileNameOver );
-
-      auto bounds = drawableOn->getDrawableBounds();
-      auto boundsZero = bounds.withZeroOrigin();
-
-      // FIXME: SVG files with implied position
-      if ( bounds != boundsZero ) {
-         drawableOn->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
-         drawableOver->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
-         drawableOff->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
-
-         button->setTopLeftPosition( drawableOn->getX(), drawableOn->getY() );
-      }
-
-      button->setImages( drawableOff.get(),
-                         drawableOver.get(),
-                         drawableOn.get(),
-                         nullptr,
-                         drawableOn.get(),
-                         drawableOn.get(),
-                         drawableOff.get(),
-                         nullptr );
-
-      button->setColour( DrawableButton::backgroundOnColourId, Colours::transparentBlack );
-
-      int width = drawableOn->getWidth();
-      int height = drawableOn->getHeight();
-
-      // FIXME: image files with position from XML
-      if ( bounds == boundsZero ) {
-         Point<int> position = getPositionInteger( xmlComponent, height, true );
-         button->setTopLeftPosition( position );
-      }
-
-      button->setSize( width, height );
+   // FIXME: image files with position from XML
+   if ( xmlComponent && bounds == boundsZero ) {
+      Point<int> position = getPositionInteger( xmlComponent, height, true );
+      button->setTopLeftPosition( position );
    }
+
+   button->setSize( width, height );
 }
 
 
 void Skin::placeAndSkinSlider( const String& tagName,
                                widgets::FrutSlider* slider )
 {
-   if ( document_ == nullptr ) {
-      return;
-   }
-
    auto xmlComponent = getComponent( tagName );
 
    if ( xmlComponent == nullptr ) {
@@ -741,8 +746,8 @@ void Skin::placeAndSkinSlider( const String& tagName,
    Colour toggleSwitchColour;
    Rectangle<int> bounds;
 
-   bool foundDrawable = getAttributesFromSvg( xmlComponent, "image",
-                                              toggleSwitchColour, sliderColour, bounds );
+   bool foundDrawable = getAttributesFromSvgFile( tagName, "image",
+                                                  toggleSwitchColour, sliderColour, bounds );
 
    if ( foundDrawable ) {
       // fallback in case the drawable has no stroke fill
@@ -773,33 +778,28 @@ void Skin::placeAndSkinNeedleMeter( const String& tagName,
 {
    jassert( meter != nullptr );
 
-   if ( document_ == nullptr ) {
+   auto xmlComponent = getComponent( tagName );
+
+   if ( xmlComponent == nullptr ) {
       return;
    }
 
-   XmlElement* xmlComponent = getComponent( tagName );
+   Image imageBackground = loadImage( tagName, "image" );
+   Image imageNeedle = loadImage( tagName, "image_needle" );
 
-   if ( xmlComponent != nullptr ) {
-      String strImageFilenameBackground = getString( xmlComponent, "image" );
-      Image imageBackground = loadImage( strImageFilenameBackground );
+   int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
+   int spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
 
-      String strImageFilenameNeedle = getString( xmlComponent, "image_needle" );
-      Image imageNeedle = loadImage( strImageFilenameNeedle );
+   meter->setImages( imageBackground,
+                     imageNeedle,
+                     spacing_left,
+                     spacing_top );
 
-      int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
-      int spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
+   int width = imageBackground.getWidth();
+   int height = imageBackground.getHeight();
 
-      meter->setImages( imageBackground,
-                        imageNeedle,
-                        spacing_left,
-                        spacing_top );
-
-      int width = imageBackground.getWidth();
-      int height = imageBackground.getHeight();
-
-      Rectangle<int> bounds = getBoundsInteger( xmlComponent, width, height, true );
-      meter->setBounds( bounds );
-   }
+   Rectangle<int> bounds = getBoundsInteger( xmlComponent, width, height, true );
+   meter->setBounds( bounds );
 }
 
 
@@ -807,15 +807,8 @@ void Skin::placeAndSkinLabel( const String& tagName,
                               DrawableComposite* label )
 {
    label->deleteAllChildren(); // FIXME
-   XmlElement* xmlComponent = getComponent( tagName );
 
-   if ( xmlComponent == nullptr ) {
-      return;
-   }
-
-   auto fileName = getString( xmlComponent, "image" );
-   auto drawable = loadImageAsDrawable( fileName );
-
+   auto drawable = loadImageAsDrawable( tagName, "image" );
    label->addAndMakeVisible( drawable.release() );
 }
 
@@ -823,46 +816,35 @@ void Skin::placeAndSkinLabel( const String& tagName,
 void Skin::placeAndSkinSignalLed( const String& tagName,
                                   widgets::SignalLed* label )
 {
-   jassert( label != nullptr );
+   auto imageOff = loadImage( tagName, "image_off" );
+   auto imageLow = loadImage( tagName, "image_low" );
+   auto imageHigh = loadImage( tagName, "image_high" );
 
-   if ( document_ == nullptr ) {
-      return;
+   label->setImages( imageOff, imageLow, imageHigh );
+
+   int width = imageOff.getWidth();
+
+   if ( ( width != imageLow.getWidth() ) ||
+        ( width != imageHigh.getWidth() ) ) {
+      Logger::outputDebugString(
+         String( "[Skin] width of image files for \"" ) +
+         tagName +
+         "\" differs" );
+   }
+
+   int height = imageOff.getHeight();
+
+   if ( ( height != imageLow.getHeight() ) ||
+        ( height != imageHigh.getHeight() ) ) {
+      Logger::outputDebugString(
+         String( "[Skin] height of image files for \"" ) +
+         tagName +
+         "\" differs" );
    }
 
    XmlElement* xmlComponent = getComponent( tagName );
 
-   if ( xmlComponent != nullptr ) {
-      String strImageFilenameOff = getString( xmlComponent, "image_off" );
-      Image imageOff = loadImage( strImageFilenameOff );
-
-      String strImageFilenameLow = getString( xmlComponent, "image_low" );
-      Image imageLow = loadImage( strImageFilenameLow );
-
-      String strImageFilenameHigh = getString( xmlComponent, "image_high" );
-      Image imageHigh = loadImage( strImageFilenameHigh );
-
-      label->setImages( imageOff, imageLow, imageHigh );
-
-      int width = imageOff.getWidth();
-
-      if ( ( width != imageLow.getWidth() ) ||
-           ( width != imageHigh.getWidth() ) ) {
-         Logger::outputDebugString(
-            String( "[Skin] width of image files for \"" ) +
-            tagName +
-            "\" differs" );
-      }
-
-      int height = imageOff.getHeight();
-
-      if ( ( height != imageLow.getHeight() ) ||
-           ( height != imageHigh.getHeight() ) ) {
-         Logger::outputDebugString(
-            String( "[Skin] height of image files for \"" ) +
-            tagName +
-            "\" differs" );
-      }
-
+   if ( xmlComponent ) {
       Rectangle<int> bounds = getBoundsInteger( xmlComponent, width, height, true );
       label->setBounds( bounds );
    }
@@ -874,68 +856,59 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
 {
    jassert( label != nullptr );
 
-   if ( document_ == nullptr ) {
+   XmlElement* xmlComponent = getComponent( tagName );
+
+   if ( xmlComponent == nullptr ) {
       return;
    }
 
-   XmlElement* xmlComponent = getComponent( tagName );
+   auto imageOff = loadImage( tagName, "image_off" );
+   auto imageOn = loadImage( tagName, "image_on" );
+   auto imageActive = loadImage( tagName, "image_active" );
 
-   if ( xmlComponent != nullptr ) {
-      String strImageFilenameOff = getString( xmlComponent, "image_off" );
-      Image imageOff = loadImage( strImageFilenameOff );
-
-      String strImageFilenameOn = getString( xmlComponent, "image_on" );
-      Image imageOn = loadImage( strImageFilenameOn );
-
-      String strImageFilenameActive = getString( xmlComponent, "image_active" );
-      Image imageActive;
-
-      // use "image_on" if "image_active" does not exist
-      if ( ! strImageFilenameActive.isEmpty() ) {
-         imageActive = loadImage( strImageFilenameActive );
-      } else {
-         imageActive = imageOn.createCopy();
-      }
-
-      int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
-      int spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
-      int font_size = getInteger( xmlComponent, "font_size", 12 );
-
-      String strColourOff = getString( xmlComponent, "colour_off", "ffffff" );
-      String strColourOn = getString( xmlComponent, "colour_on", "ffffff" );
-      String strColourActive = getString( xmlComponent, "colour_active", "ffffff" );
-
-      label->setImages( imageOff,
-                        imageOn,
-                        imageActive,
-                        strColourOff,
-                        strColourOn,
-                        strColourActive,
-                        spacing_left,
-                        spacing_top,
-                        static_cast<float>( font_size ) );
-
-      int width = imageOff.getWidth();
-
-      if ( width != imageActive.getWidth() ) {
-         Logger::outputDebugString(
-            String( "[Skin] width of image files for \"" ) +
-            tagName +
-            "\" differs" );
-      }
-
-      int height = imageOff.getHeight();
-
-      if ( height != imageActive.getHeight() ) {
-         Logger::outputDebugString(
-            String( "[Skin] height of image files for \"" ) +
-            tagName +
-            "\" differs" );
-      }
-
-      Rectangle<int> bounds = getBoundsInteger( xmlComponent, width, height, true );
-      label->setBounds( bounds );
+   // use "image_on" if "image_active" does not exist
+   if ( getString( xmlComponent, "image_active" ).isEmpty() ) {
+      imageActive = imageOn.createCopy();
    }
+
+   int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
+   int spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
+   int font_size = getInteger( xmlComponent, "font_size", 12 );
+
+   String strColourOff = getString( xmlComponent, "colour_off", "ffffff" );
+   String strColourOn = getString( xmlComponent, "colour_on", "ffffff" );
+   String strColourActive = getString( xmlComponent, "colour_active", "ffffff" );
+
+   label->setImages( imageOff,
+                     imageOn,
+                     imageActive,
+                     strColourOff,
+                     strColourOn,
+                     strColourActive,
+                     spacing_left,
+                     spacing_top,
+                     static_cast<float>( font_size ) );
+
+   int width = imageOff.getWidth();
+
+   if ( width != imageActive.getWidth() ) {
+      Logger::outputDebugString(
+         String( "[Skin] width of image files for \"" ) +
+         tagName +
+         "\" differs" );
+   }
+
+   int height = imageOff.getHeight();
+
+   if ( height != imageActive.getHeight() ) {
+      Logger::outputDebugString(
+         String( "[Skin] height of image files for \"" ) +
+         tagName +
+         "\" differs" );
+   }
+
+   Rectangle<int> bounds = getBoundsInteger( xmlComponent, width, height, true );
+   label->setBounds( bounds );
 }
 
 }

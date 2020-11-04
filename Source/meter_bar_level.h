@@ -42,14 +42,14 @@ public:
 protected:
    /// Colour ID selector for meter segments.
    enum colourSelector { // protected namespace
-      /// overload (usually red)
-      overload = 0,
+      /// normal (usually green)
+      normal = 0,
 
       /// warning (usually yellow)
       warning,
 
-      /// fine (usually green)
-      fine,
+      /// overload (usually red)
+      overload,
    };
 
 private:
