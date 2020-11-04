@@ -141,24 +141,24 @@
         image="meter/gain_reduction_mono.svg" />
 
     <meter_segment_level_overload
-        image_on="meter/segment_level_overload_on.svg"
-        image_peak="meter/segment_level_overload_peak.svg"
-        image_off="meter/segment_level_overload_off.svg" />
+        image_on="meter/segment_mono_level_overload_on.svg"
+        image_peak="meter/segment_mono_level_overload_peak.svg"
+        image_off="meter/segment_mono_level_overload_off.svg" />
 
     <meter_segment_level_warning
-        image_on="meter/segment_level_warning_on.svg"
-        image_peak="meter/segment_level_warning_peak.svg"
-        image_off="meter/segment_level_warning_off.svg" />
+        image_on="meter/segment_mono_level_warning_on.svg"
+        image_peak="meter/segment_mono_level_warning_peak.svg"
+        image_off="meter/segment_mono_level_warning_off.svg" />
 
     <meter_segment_level_normal
-        image_on="meter/segment_level_normal_on.svg"
-        image_peak="meter/segment_level_normal_peak.svg"
-        image_off="meter/segment_level_normal_off.svg" />
+        image_on="meter/segment_mono_level_normal_on.svg"
+        image_peak="meter/segment_mono_level_normal_peak.svg"
+        image_off="meter/segment_mono_level_normal_off.svg" />
 
     <meter_segment_gain_reduction
-        image_on="meter/segment_gain_reduction_on.svg"
-        image_peak="meter/segment_gain_reduction_peak.svg"
-        image_off="meter/segment_gain_reduction_off.svg" />
+        image_on="meter/segment_mono_gain_reduction_on.svg"
+        image_peak="meter/segment_mono_gain_reduction_peak.svg"
+        image_off="meter/segment_mono_gain_reduction_off.svg" />
   </mono>
 
   <stereo>
@@ -184,25 +184,24 @@
         image="meter/gain_reduction_right.svg" />
 
     <meter_segment_level_overload
-        image_on="meter/segment_level_overload_on.svg"
-        image_peak="meter/segment_level_overload_peak.svg"
-        image_off="meter/segment_level_overload_off.svg" />
+        image_on="meter/segment_stereo_level_overload_on.svg"
+        image_peak="meter/segment_stereo_level_overload_peak.svg"
+        image_off="meter/segment_stereo_level_overload_off.svg" />
 
     <meter_segment_level_warning
-        image_on="meter/segment_level_warning_on.svg"
-        image_peak="meter/segment_level_warning_peak.svg"
-        image_off="meter/segment_level_warning_off.svg" />
+        image_on="meter/segment_stereo_level_warning_on.svg"
+        image_peak="meter/segment_stereo_level_warning_peak.svg"
+        image_off="meter/segment_stereo_level_warning_off.svg" />
 
     <meter_segment_level_normal
-        image_on="meter/segment_level_normal_on.svg"
-        image_peak="meter/segment_level_normal_peak.svg"
-        image_off="meter/segment_level_normal_off.svg" />
+        image_on="meter/segment_stereo_level_normal_on.svg"
+        image_peak="meter/segment_stereo_level_normal_peak.svg"
+        image_off="meter/segment_stereo_level_normal_off.svg" />
 
     <meter_segment_gain_reduction
-        image_on="meter/segment_gain_reduction_on.svg"
-        image_peak="meter/segment_gain_reduction_peak.svg"
-        image_off="meter/segment_gain_reduction_off.svg" />
-
+        image_on="meter/segment_stereo_gain_reduction_on.svg"
+        image_peak="meter/segment_stereo_gain_reduction_peak.svg"
+        image_off="meter/segment_stereo_gain_reduction_off.svg" />
   </stereo>
 
 </squeezer-skin>
