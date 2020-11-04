@@ -153,15 +153,6 @@ change into this directory and run:
   cd googletest/build
 \end{VerbatimBoth}
 
-\begin{Verbatim32}
-  rm -f ./CMakeCache.txt
-  cmake ..
-  make
-  mkdir -p lib/linux/i386/
-  mv lib/*.a lib/linux/i386/
-  make clean
-\end{Verbatim32}
-
 \begin{Verbatim64}
   rm -f ./CMakeCache.txt
   cmake ..
@@ -171,8 +162,6 @@ change into this directory and run:
   make clean
 \end{Verbatim64}
 
-\newpage %% layout
-
 \section{General preparation}
 \label{sec:general_preparation}
 
@@ -181,14 +170,20 @@ Copy \path{Source/build_id-COPY.h} to \path{Source/build_id.h}.
 Edit the copied file to add a custom build ID to the "About" dialog.
 Or set up Git hooks that update the file for you.
 
+\newpage %% layout
+
 \section{GNU/Linux}
 
 \subsection{Environment}
 
+\emph{Supporting 32-bit Linux has become very tedious in the last
+  years, so I have officially dropped it.  But it should be easy to
+  adapt these instructions to 32-bit systems.}
+
 To build this application yourself, I recommend setting up a
 \texttt{chroot} environment.  This is fast and easy to do on
 Debian-based systems and might save you a \textbf{lot} of trouble.  At
-the time of writing, I'm using Linux Mint 19, but the procedure should
+the time of writing, I'm using Linux Mint 20, but the procedure should
 be similar on your distribution of choice.
 
 Start by installing the necessary packages:
@@ -200,17 +195,10 @@ Start by installing the necessary packages:
 Then install the \texttt{chroot} base system by executing the
 following statements:
 
-\begin{Verbatim32}
-  sudo debootstrap --variant=buildd \
-    --arch i386 bionic \
-    /srv/chroot/bionic_i386 \
-    http://archive.ubuntu.com/ubuntu
-\end{Verbatim32}
-
 \begin{Verbatim64}
   sudo debootstrap --variant=buildd \
-    --arch amd64 bionic \
-    /srv/chroot/bionic_amd64 \
+    --arch amd64 focal \
+    /srv/chroot/focal_amd64 \
     http://archive.ubuntu.com/ubuntu
 \end{Verbatim64}
 
@@ -219,55 +207,49 @@ following lines to \path{/etc/schroot/schroot.conf} (make sure you
 remove all preceding white space so that each line begins in the first
 column):
 
-\begin{VerbatimBoth}
-  [bionic-i386]
-  description=Ubuntu bionic (i386)
-  directory=/srv/chroot/bionic_i386
-  profile=default
-  personality=linux32
-  type=directory
-  users=username
-
-  [bionic-amd64]
-  description=Ubuntu bionic (amd64)
-  directory=/srv/chroot/bionic_amd64
+\begin{Verbatim64}
+  [focal-amd64]
+  description=Ubuntu focal (amd64)
+  directory=/srv/chroot/focal_amd64
   profile=default
   personality=linux
   type=directory
   users=username
-\end{VerbatimBoth}
+\end{Verbatim64}
 
 Please make the necessary changes to \texttt{username}.  If you
-experience problems, you can try to change \texttt{bionic} to a
-release name such as \texttt{wheezy}.
+experience problems, you can try to change \texttt{focal} to a
+release name such as \texttt{buster}.
 
 When \path{debootstrap} is done, log in as superuser:
 
-\begin{Verbatim32}
-  sudo schroot -c bionic-i386
-\end{Verbatim32}
-
 \begin{Verbatim64}
-  sudo schroot -c bionic-amd64
+  sudo schroot -c focal-amd64
 \end{Verbatim64}
 
-You'll have to change the file \path{/etc/apt/sources.list} first
-(ignore the line break, it should be a single line):
-
-\begin{VerbatimBoth}
-  deb http://archive.ubuntu.com/ubuntu bionic
-  main restricted universe
-\end{VerbatimBoth}
-
-Now install a few packages -- \path{less} and \path{vim} are optional,
-but might come in handy:
+First, install a few packages (\path{less}, \path{mc} and \path{vim}
+are optional, but might come in handy):
 
 \begin{VerbatimBoth}
   apt update
-  apt -y install bash-completion clang \
-    cmake libasound2-dev libjack-jackd2-dev \
-    libpthread-workqueue-dev mesa-common-dev \
-    xorg-dev less vim
+  apt -y install bash-completion less vim
+\end{VerbatimBoth}
+
+Then, use \path{vim} to change a line in \path{/etc/apt/sources.list}
+(please ignore the line break, it should be a single line):
+
+\begin{VerbatimBoth}
+  deb http://archive.ubuntu.com/ubuntu focal
+  main restricted universe
+\end{VerbatimBoth}
+
+Now install the remaining packages:
+
+\begin{VerbatimBoth}
+  apt update
+  apt -y install clang cmake mc libasound2-dev \
+    libjack-jackd2-dev libpthread-workqueue-dev \
+    mesa-common-dev xorg-dev
   apt clean
 \end{VerbatimBoth}
 
@@ -283,29 +265,23 @@ file \path{/etc/bash.bashrc} and unquote these lines:
 
 Finally, log out and log in as normal user:
 
-\begin{Verbatim32}
-  schroot -c bionic-i386
-\end{Verbatim32}
-
 \begin{Verbatim64}
-  schroot -c bionic-amd64
+  schroot -c focal-amd64
 \end{Verbatim64}
 
 In this \path{chroot} shell, install the dependencies
 (\ref{sec:dependencies}).  Congratulations -- you are now ready to
 build!
 
+\newpage %% layout
+
 \subsection{Build}
 
 After preparing the dependencies, start your \texttt{chroot}
 environment
 
-\begin{Verbatim32}
-  schroot -c bionic-i386
-\end{Verbatim32}
-
 \begin{Verbatim64}
-  schroot -c bionic-amd64
+  schroot -c focal-amd64
 \end{Verbatim64}
 
 change into the directory \path{Builds} and execute
@@ -315,8 +291,7 @@ change into the directory \path{Builds} and execute
   make config=CFG TARGET
 \end{VerbatimBoth}
 
-where \application{CFG} is one of \application{debug\_x32},
-\application{debug\_x64}, \application{release\_x32} and
+where \application{CFG} is \application{debug\_x64}, or
 \application{release\_x64}, and \application{TARGET} is the version
 you want to compile, such as \application{linux\_standalone\_stereo}.
 
@@ -325,6 +300,8 @@ opening the file \texttt{run\_premake.sh} and using the premake
 options \texttt{--cc=clang} or \texttt{--cc=gcc}.
 
 The compiled binaries will end up in the directory \path{bin}.
+
+\newpage %% layout
 
 \section{Microsoft Windows}
 
