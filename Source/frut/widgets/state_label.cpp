@@ -185,10 +185,6 @@ void StateLabel::setImages(
       g3.fillAll();
    }
 
-   // assert that all images have the same size
-   jassert( imageOff_.getBounds() == imageOn_.getBounds() );
-   jassert( imageOff_.getBounds() == imageActive_.getBounds() );
-
    // update component
    updateState();
 }

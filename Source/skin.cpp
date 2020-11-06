@@ -30,7 +30,7 @@ bool Skin::loadSkin( int numberOfChannels )
 {
    updateSkin( numberOfChannels );
 
-   return loadFromXml( "squeezer-skin", "1.2" );
+   return loadFromXml( "squeezer-skin", "1.3" );
 }
 
 

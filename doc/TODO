@@ -1,8 +1,7 @@
-* [mzuther] implement UI scaling
 
-* [mzuther] fix gain difference between F.Frwrd. and F.Back mode
+o [mzuther] fix gain difference between F.Frwrd. and F.Back mode
 
-* [mzuther] add over-sampling
+o [mzuther] add over-sampling
 
 * separate buttons for peak / RMS, FET / Opto, F.Frwrd. / F.Back
 

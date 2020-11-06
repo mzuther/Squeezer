@@ -47,12 +47,16 @@ void MeterBarGainReduction::create( frut::widgets::Orientation orientation,
    int trueLowerThreshold = ( numberOfBars - 1 ) * levelRange;
 
    if ( discreteMeter ) {
-      auto imageOff = skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_segment_gain_reduction", "image_off" ) );
-      auto imageOn = skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_segment_gain_reduction", "image_on" ) );
-      auto imagePeak = skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                  "meter_segment_gain_reduction", "image_peak" ) );
+      auto drawableOff = skin.loadImageAsDrawable(
+                            "meter_segment_gain_reduction", "image_off" );
+      auto drawableOn = skin.loadImageAsDrawable(
+                           "meter_segment_gain_reduction", "image_on" );
+      auto drawablePeak = skin.loadImageAsDrawable(
+                             "meter_segment_gain_reduction", "image_peak" );
+
+      auto imageOff = skin.imageFromDrawable( drawableOff );
+      auto imageOn = skin.imageFromDrawable( drawableOn );
+      auto imagePeak = skin.imageFromDrawable( drawablePeak );
 
       Point<int> segmentTopLeft( 1, 1 );
       Point<int> peakTopLeft( 0, 0 );

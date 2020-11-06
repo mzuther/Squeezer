@@ -42,28 +42,46 @@ void MeterBarLevel::create( int crestFactor,
 
    if ( discreteMeter ) {
       Array<Image> imagesOn;
-      imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                               "meter_segment_level_normal", "image_on" ) ) );
-      imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                               "meter_segment_level_warning", "image_on" ) ) );
-      imagesOn.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                               "meter_segment_level_overload", "image_on" ) ) );
+
+      auto drawableOn = skin.loadImageAsDrawable(
+                           "meter_segment_level_normal", "image_on" );
+      imagesOn.add( skin.imageFromDrawable( drawableOn ) );
+
+      drawableOn = skin.loadImageAsDrawable(
+                      "meter_segment_level_warning", "image_on" );
+      imagesOn.add( skin.imageFromDrawable( drawableOn ) );
+
+      drawableOn = skin.loadImageAsDrawable(
+                      "meter_segment_level_overload", "image_on" );
+      imagesOn.add( skin.imageFromDrawable( drawableOn ) );
 
       Array<Image> imagesOff;
-      imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_segment_level_normal", "image_off" ) ) );
-      imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_segment_level_warning", "image_off" ) ) );
-      imagesOff.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                "meter_segment_level_overload", "image_off" ) ) );
+
+      auto drawableOff = skin.loadImageAsDrawable(
+                            "meter_segment_level_normal", "image_off" );
+      imagesOff.add( skin.imageFromDrawable( drawableOff ) );
+
+      drawableOff = skin.loadImageAsDrawable(
+                       "meter_segment_level_warning", "image_off" );
+      imagesOff.add( skin.imageFromDrawable( drawableOff ) );
+
+      drawableOff = skin.loadImageAsDrawable(
+                       "meter_segment_level_overload", "image_off" );
+      imagesOff.add( skin.imageFromDrawable( drawableOff ) );
 
       Array<Image> imagesPeak;
-      imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_segment_level_normal", "image_peak" ) ) );
-      imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_segment_level_warning", "image_peak" ) ) );
-      imagesPeak.add( skin.imageFromDrawable( skin.loadImageAsDrawable(
-                                                 "meter_segment_level_overload", "image_peak" ) ) );
+
+      auto drawablePeak = skin.loadImageAsDrawable(
+                             "meter_segment_level_normal", "image_peak" );
+      imagesPeak.add( skin.imageFromDrawable( drawablePeak ) );
+
+      drawablePeak = skin.loadImageAsDrawable(
+                        "meter_segment_level_warning", "image_peak" );
+      imagesPeak.add( skin.imageFromDrawable( drawablePeak ) );
+
+      drawablePeak = skin.loadImageAsDrawable(
+                        "meter_segment_level_overload", "image_peak" );
+      imagesPeak.add( skin.imageFromDrawable( drawablePeak ) );
 
       Point<int> segmentTopLeft( 1, 1 );
       Point<int> peakTopLeft( 0, 0 );

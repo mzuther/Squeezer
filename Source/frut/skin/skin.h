@@ -78,7 +78,7 @@ public:
    Image loadImage( const String& tagName,
                     const String& attributeName );
 
-   Image imageFromDrawable( std::unique_ptr<Drawable> drawable );
+   Image imageFromDrawable( std::unique_ptr<Drawable>& drawable );
 
    void setBackground( DrawableComposite* background,
                        AudioProcessorEditor* editor );

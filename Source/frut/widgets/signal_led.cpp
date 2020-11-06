@@ -111,10 +111,6 @@ void SignalLed::setImages(
    imageLow_ = imageLow.createCopy();
    imageHigh_ = imageHigh.createCopy();
 
-   // assert that all images have the same size
-   jassert( imageOff_.getBounds() == imageLow_.getBounds() );
-   jassert( imageOff_.getBounds() == imageHigh_.getBounds() );
-
    // redraw component
    repaint( getLocalBounds() );
 }

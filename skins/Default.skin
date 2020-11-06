@@ -4,7 +4,7 @@
     name="Default"
     path="Default"
     origin_of_y="top"
-    version="1.2">
+    version="1.3">
 
   <default>
     <slider_input_trim
