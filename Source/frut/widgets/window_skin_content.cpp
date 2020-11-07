@@ -105,31 +105,31 @@ void WindowSkinContent::initialise(
    addAndMakeVisible( button150_ );
    button150_.addListener( this );
 
-   button175_.setRadioGroupId( 1 );
-   button175_.setButtonText( "175%" );
-   addAndMakeVisible( button175_ );
-   button175_.addListener( this );
-
    button200_.setRadioGroupId( 1 );
    button200_.setButtonText( "200%" );
    addAndMakeVisible( button200_ );
    button200_.addListener( this );
 
-   button225_.setRadioGroupId( 1 );
-   button225_.setButtonText( "225%" );
-   addAndMakeVisible( button225_ );
-   button225_.addListener( this );
+   button250_.setRadioGroupId( 1 );
+   button250_.setButtonText( "250%" );
+   addAndMakeVisible( button250_ );
+   button250_.addListener( this );
+
+   button300_.setRadioGroupId( 1 );
+   button300_.setButtonText( "300%" );
+   addAndMakeVisible( button300_ );
+   button300_.addListener( this );
 
    if ( scale == 125 ) {
       button125_.setToggleState( true, dontSendNotification );
    } else if ( scale == 150 ) {
       button150_.setToggleState( true, dontSendNotification );
-   } else if ( scale == 175 ) {
-      button175_.setToggleState( true, dontSendNotification );
    } else if ( scale == 200 ) {
       button200_.setToggleState( true, dontSendNotification );
-   } else if ( scale == 225 ) {
-      button225_.setToggleState( true, dontSendNotification );
+   } else if ( scale == 250 ) {
+      button250_.setToggleState( true, dontSendNotification );
+   } else if ( scale == 300 ) {
+      button300_.setToggleState( true, dontSendNotification );
    } else {
       button100_.setToggleState( true, dontSendNotification );
    }
@@ -179,18 +179,6 @@ void WindowSkinContent::applySkin()
       TextButton::textColourOnId,
       Colours::black );
 
-   button175_.setColour(
-      TextButton::buttonOnColourId,
-      Colours::yellow );
-
-   button175_.setColour(
-      TextButton::buttonColourId,
-      Colours::darkgrey );
-
-   button175_.setColour(
-      TextButton::textColourOnId,
-      Colours::black );
-
    button200_.setColour(
       TextButton::buttonOnColourId,
       Colours::yellow );
@@ -203,15 +191,27 @@ void WindowSkinContent::applySkin()
       TextButton::textColourOnId,
       Colours::black );
 
-   button225_.setColour(
+   button250_.setColour(
       TextButton::buttonOnColourId,
       Colours::yellow );
 
-   button225_.setColour(
+   button250_.setColour(
       TextButton::buttonColourId,
       Colours::darkgrey );
 
-   button225_.setColour(
+   button250_.setColour(
+      TextButton::textColourOnId,
+      Colours::black );
+
+   button300_.setColour(
+      TextButton::buttonOnColourId,
+      Colours::yellow );
+
+   button300_.setColour(
+      TextButton::buttonColourId,
+      Colours::darkgrey );
+
+   button300_.setColour(
       TextButton::textColourOnId,
       Colours::black );
 
@@ -232,12 +232,12 @@ void WindowSkinContent::applySkin()
       juce::GridItem ( button100_ ),
       juce::GridItem ( button125_ ),
       juce::GridItem ( button150_ ),
-      juce::GridItem ( button175_ ),
       juce::GridItem ( button200_ ),
-      juce::GridItem ( button225_ )
+      juce::GridItem ( button250_ ),
+      juce::GridItem ( button300_ )
    };
 
-   grid_.autoFlow = Grid::AutoFlow::column;
+   grid_.autoFlow = Grid::AutoFlow::row;
    grid_.rowGap = Grid::Px ( 10 );
    grid_.columnGap = Grid::Px ( 10 );
 
@@ -259,12 +259,12 @@ void WindowSkinContent::buttonClicked(
       scale = 125;
    } else if ( button == &button150_ ) {
       scale = 150;
-   } else if ( button == &button175_ ) {
-      scale = 175;
    } else if ( button == &button200_ ) {
       scale = 200;
-   } else if ( button == &button225_ ) {
-      scale = 225;
+   } else if ( button == &button250_ ) {
+      scale = 250;
+   } else if ( button == &button300_ ) {
+      scale = 300;
    }
 
    auto dialogWindow = findParentComponentOfClass<DialogWindow>();

@@ -55,9 +55,9 @@ protected:
    TextButton button100_;
    TextButton button125_;
    TextButton button150_;
-   TextButton button175_;
    TextButton button200_;
-   TextButton button225_;
+   TextButton button250_;
+   TextButton button300_;
 
 private:
    JUCE_LEAK_DETECTOR( WindowSkinContent );
