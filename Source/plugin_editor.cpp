@@ -334,15 +334,16 @@ void SqueezerAudioProcessorEditor::applySkin_()
    // update UI scale
    Logger::outputDebugString(
       String( "[Skin] scaling UI to " ) +
-      String( int ( 100.0f * skin_.getUiScale() ) ) +
-      "%" );
+      String( skin_.getUiScale() ) + "%" );
+
+   float scale = skin_.getUiScale() / 100.0f;
 
    // FIXME: should be fixed in JUCE by now (see
    // https://forum.juce.com/t/ui-scaling/15930/15)
    if ( PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_Standalone ) {
-      Desktop::getInstance().setGlobalScaleFactor( skin_.getUiScale() );
+      Desktop::getInstance().setGlobalScaleFactor( scale );
    } else {
-      setScaleFactor( skin_.getUiScale() );
+      setScaleFactor( scale );
    }
 
    // moves background image to the back of the editor's z-plane;
@@ -528,7 +529,7 @@ void SqueezerAudioProcessorEditor::windowSkinCallback( int ModalResult )
    // user has selected a skin
    if ( ModalResult > 0 ) {
       // store new UI scale
-      skin_.setUiScale( ModalResult / 100.0f );
+      skin_.setUiScale( ModalResult );
 
       // apply skin to plug-in editor
       loadSkin_();
@@ -871,16 +872,13 @@ void SqueezerAudioProcessorEditor::buttonClicked( Button* Button )
       // window callback)
       Button->setToggleState( true, dontSendNotification );
 
-      // get and convert new UI scale
-      int scale = int ( 100.0f * skin_.getUiScale() );
-
       // prepare and launch dialog window
-      DialogWindow* WindowSkin =
-         frut::widgets::WindowSkinContent::createDialogWindow( this, scale );
+      DialogWindow* windowSkin = frut::widgets::WindowSkinContent::createDialogWindow(
+                                    this, skin_.getUiScale() );
 
       // attach callback to dialog window
       ModalComponentManager::getInstance()->attachCallback(
-         WindowSkin, ModalCallbackFunction::forComponent(
+         windowSkin, ModalCallbackFunction::forComponent(
             window_skin_callback, this ) );
    } else if ( Button == &ButtonAbout_ ) {
       // manually activate button (will be deactivated in dialog

@@ -123,20 +123,20 @@ bool Skin::loadFromXml( const String& rootName,
 }
 
 
-float Skin::getUiScale()
+int Skin::getUiScale()
 {
    FileInputStream in ( this->getSettingsFile() );
 
    if ( in.openedOk() ) {
       auto json = JSON::parse( in );
-      return json.getProperty( "ui_scale", 1.0f );
+      return json.getProperty( "ui_scale", 100 );
    }
 
-   return 1.0f;
+   return 100;
 }
 
 
-void Skin::setUiScale( float newScale )
+void Skin::setUiScale( int scale )
 {
    FileOutputStream out ( this->getSettingsFile() );
 
@@ -146,7 +146,7 @@ void Skin::setUiScale( float newScale )
       out.truncate();
 
       auto settings = std::make_unique<DynamicObject>();
-      settings->setProperty( "ui_scale", var( newScale ) );
+      settings->setProperty( "ui_scale", var( scale ) );
 
       auto json = var( settings.release() );
       JSON::writeToStream( out, json );
