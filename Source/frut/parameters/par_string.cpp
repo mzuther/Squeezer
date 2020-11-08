@@ -166,7 +166,7 @@ const String ParString::getTextFromFloat( float newValue )
 void ParString::loadFromXml( XmlElement* xmlDocument )
 {
    // get parameter's element from XML document
-   XmlElement* xmlParameter = xmlDocument->getChildByName( getTagName() );
+   auto xmlParameter = xmlDocument->getChildByName( getTagName() );
 
    // parameter's element found
    if ( xmlParameter ) {
@@ -187,7 +187,7 @@ void ParString::storeAsXml( XmlElement* xmlDocument )
 {
    // create new XML element with parameter's tag name (will be
    // deleted by XML document)
-   XmlElement* xmlParameter = new XmlElement( getTagName() );
+   auto xmlParameter = std::make_unique<XmlElement>( getTagName() );
 
    // XML element was successfully created
    if ( xmlParameter ) {
@@ -195,7 +195,7 @@ void ParString::storeAsXml( XmlElement* xmlDocument )
       xmlParameter->setAttribute( "value", getText() );
 
       // add new element to XML document
-      xmlDocument->addChildElement( xmlParameter );
+      xmlDocument->addChildElement( xmlParameter.release() );
    }
 }
 

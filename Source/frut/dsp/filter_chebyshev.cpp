@@ -42,7 +42,7 @@ FilterChebyshev::FilterChebyshev(
    int NumberOfStages = NumberOfPoles_ / 2;
 
    for ( int Stage = 0; Stage < NumberOfStages; ++Stage ) {
-      FilterStages_.add( new FilterChebyshevStage() );
+      FilterStages_.add( std::make_unique<FilterChebyshevStage>() );
    }
 
    changeParameters( RelativeCutoffFrequency, IsHighPass );
