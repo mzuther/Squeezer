@@ -72,7 +72,8 @@ public:
 
    std::unique_ptr<Drawable> loadImageAsDrawable( const String& strFilename );
    std::unique_ptr<Drawable> loadImageAsDrawable( const String& tagName,
-                                                  const String& attributeName );
+                                                  const String& attributeName,
+                                                  Drawable* alternativeDrawable = nullptr );
 
    Image loadImage( const String& strFilename );
    Image loadImage( const String& tagName,

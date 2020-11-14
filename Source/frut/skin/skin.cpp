@@ -389,7 +389,8 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& strFilename )
 
 
 std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& tagName,
-                                                     const String& attributeName )
+                                                     const String& attributeName,
+                                                     Drawable* alternativeDrawable )
 {
    if ( document_ == nullptr ) {
       Logger::outputDebugString( "[Skin] invalid skin" );
@@ -398,7 +399,12 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& tagName,
 
    auto xmlComponent = getComponent( tagName );
 
+   // use alternative if attribute does not exist
    if ( xmlComponent == nullptr ) {
+      if ( alternativeDrawable ) {
+         return alternativeDrawable->createCopy();
+      }
+
       Logger::outputDebugString(
          String( "[Skin] tag \"" ) +
          tagName +
@@ -410,6 +416,10 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& tagName,
    String imageFilename = getString( xmlComponent, attributeName );
 
    if ( imageFilename.isEmpty() ) {
+      if ( alternativeDrawable ) {
+         return alternativeDrawable->createCopy();
+      }
+
       Logger::outputDebugString(
          String( "[Skin] attribute \"" ) +
          tagName + "/" + attributeName +
@@ -694,7 +704,7 @@ void Skin::placeAndSkinButton( const String& tagName,
 
    auto drawableOn = loadImageAsDrawable( tagName, "image_on" );
    auto drawableOff = loadImageAsDrawable( tagName, "image_off" );
-   auto drawableOver = loadImageAsDrawable( tagName, "image_over" );
+   auto drawableOver = loadImageAsDrawable( tagName, "image_over", drawableOn.get() );
 
    auto bounds = drawableOn->getDrawableBounds();
    auto boundsZero = bounds.withZeroOrigin();
@@ -846,7 +856,7 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
 
    auto drawableOff = loadImageAsDrawable( tagName, "image_off" );
    auto drawableOn = loadImageAsDrawable( tagName, "image_on" );
-   auto drawableActive = loadImageAsDrawable( tagName, "image_active" );
+   auto drawableActive = loadImageAsDrawable( tagName, "image_active", drawableOn.get() );
 
    auto bounds = drawableOn->getDrawableBounds();
    auto boundsZero = bounds.withZeroOrigin();
@@ -857,11 +867,6 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
       drawableActive->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
 
       label->setTopLeftPosition( drawableOn->getX(), drawableOn->getY() );
-   }
-
-   // use "image_on" if "image_active" does not exist
-   if ( getString( xmlComponent, "image_active" ).isEmpty() ) {
-      drawableActive = drawableOn->createCopy();
    }
 
    int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );

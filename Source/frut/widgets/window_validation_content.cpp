@@ -126,11 +126,11 @@ void WindowValidationContent::styleButton(
 {
    button.setColour(
       ToggleButton::textColourId,
-      Colours::black );
+      Colours::white );
 
    button.setColour(
       ToggleButton::tickColourId,
-      Colours::black );
+      Colours::white );
 
    button.setColour(
       ToggleButton::tickDisabledColourId,
@@ -147,7 +147,11 @@ void WindowValidationContent::applySkin()
 
    labelFileSelection_.setColour(
       Label::textColourId,
-      Colours::black );
+      Colours::white );
+
+   labelFileSelection_.setColour(
+      Label::backgroundColourId,
+      Colours::black.brighter( 0.3f ) );
 
    labelFileSelection_.setColour(
       Label::outlineColourId,
@@ -157,7 +161,7 @@ void WindowValidationContent::applySkin()
    // style helper label
    labelSampleRate_.setColour(
       Label::textColourId,
-      Colours::black );
+      Colours::white );
 
 
    // style label for displaying the sample rate
@@ -165,7 +169,11 @@ void WindowValidationContent::applySkin()
 
    labelSampleRateValue_.setColour(
       Label::textColourId,
-      Colours::black );
+      Colours::white );
+
+   labelSampleRateValue_.setColour(
+      Label::backgroundColourId,
+      Colours::black.brighter( 0.3f ) );
 
    labelSampleRateValue_.setColour(
       Label::outlineColourId,
@@ -175,16 +183,20 @@ void WindowValidationContent::applySkin()
    // style helper label
    labelSelectedChannel.setColour(
       Label::textColourId,
-      Colours::black );
+      Colours::white );
 
 
    // style label for displaying the current audio channel
    sliderSelectChannel_.setColour(
-      widgets::ChannelSlider::textBoxTextColourId,
-      Colours::black );
+      Slider::textBoxTextColourId,
+      Colours::white );
 
    sliderSelectChannel_.setColour(
-      widgets::ChannelSlider::textBoxOutlineColourId,
+      Slider::textBoxBackgroundColourId,
+      Colours::black.brighter( 0.3f ) );
+
+   sliderSelectChannel_.setColour(
+      Slider::textBoxOutlineColourId,
       Colours::grey );
 
 

@@ -526,7 +526,7 @@ void SqueezerAudioProcessorEditor::windowSkinCallback( int ModalResult )
    // manually deactivate skin button
    ButtonSkin_.setToggleState( false, dontSendNotification );
 
-   // user has selected a skin
+   // user has selected a UI scale
    if ( ModalResult > 0 ) {
       // store new UI scale
       skin_.setUiScale( ModalResult );
