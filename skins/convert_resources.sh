@@ -43,4 +43,4 @@ printf "\n"
 
 "$BINARY_BUILDER_DIR/BinaryBuilder" "$SOURCEDIR" "$TARGETDIR" "$CLASSNAME"
 
-printf "\n"
+printf "\nDone.\n\n"
