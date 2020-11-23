@@ -26,9 +26,7 @@
 #ifndef FRUT_PARAMETER_PARBOOLEAN_H
 #define FRUT_PARAMETER_PARBOOLEAN_H
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 /// Plug-in parameter for storing a Boolean value.
@@ -61,7 +59,6 @@ private:
    String labelFalse;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_PARAMETER_PARBOOLEAN_H

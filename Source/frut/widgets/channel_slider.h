@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_CHANNEL_SLIDER_H
 #define FRUT_WIDGETS_CHANNEL_SLIDER_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Slider component for selecting an audio channel.  This component
@@ -56,7 +54,6 @@ private:
    JUCE_LEAK_DETECTOR( ChannelSlider );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_CHANNEL_SLIDER_H

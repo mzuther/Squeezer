@@ -26,9 +26,6 @@
 #include "unittest.h"
 
 
-namespace
-{
-
 class ParString :
    public ::testing::Test
 {
@@ -350,5 +347,3 @@ TEST_F( ParString, XmlStoreAndRetrieve )
    p1->loadFromXml( &xml2 );
    EXPECT_FLOAT_EQ( p1->getRealFloat(), 1.0f );
 }
-
-}  // namespace

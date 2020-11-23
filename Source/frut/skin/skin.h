@@ -26,9 +26,7 @@
 #ifndef FRUT_SKIN_SKIN_H
 #define FRUT_SKIN_SKIN_H
 
-namespace frut
-{
-namespace skin
+namespace frut::skin
 {
 
 class Skin
@@ -40,8 +38,8 @@ public:
    int getUiScale();
    void setUiScale( int scale );
 
+   String getQualifiedTag( XmlElement* xml );
    XmlElement* getSetting( const String& tagName );
-
    XmlElement* getComponent( const String& tagName );
 
    bool getBoolean( const XmlElement* xmlComponent,
@@ -166,7 +164,6 @@ private:
    JUCE_LEAK_DETECTOR( Skin );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_SKIN_SKIN_H

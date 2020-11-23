@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace skin
+namespace frut::skin
 {
 
 // adapted from juce::LookAndFeel_V2
@@ -97,5 +95,4 @@ void LookAndFeel_Frut_V3::drawRotarySlider(
    }
 }
 
-}
-}
+} // namespace

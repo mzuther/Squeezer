@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 FilterChebyshev::FilterChebyshev(
@@ -224,5 +222,4 @@ void FilterChebyshev::testAlgorithm(
    DBG( "" );
 }
 
-}
-}
+} // namespace

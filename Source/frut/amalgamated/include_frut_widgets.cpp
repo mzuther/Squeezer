@@ -37,7 +37,12 @@
 #include "../widgets/meter_segment_discrete_image.cpp"
 #include "../widgets/needle_meter.cpp"
 #include "../widgets/orientation.cpp"
+
+namespace frut::widgets
+{
 #include "../widgets/resources/resources.cpp"
+}
+
 #include "../widgets/signal_led.cpp"
 #include "../widgets/slider_combined.cpp"
 #include "../widgets/slider_continuous.cpp"

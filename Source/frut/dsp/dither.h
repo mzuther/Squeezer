@@ -26,9 +26,7 @@
 #ifndef FRUT_DSP_DITHER_H
 #define FRUT_DSP_DITHER_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class Dither
@@ -79,7 +77,6 @@ private:
    double wordLengthInverted_;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_DITHER_H

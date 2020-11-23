@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Default constructor.
@@ -635,5 +633,4 @@ void MeterBar::setLevels( float normalLevel,
    }
 }
 
-}
-}
+} // namespace

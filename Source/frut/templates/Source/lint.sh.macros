@@ -61,7 +61,7 @@ function lint_file
         -fsyntax-only \
         -fno-caret-diagnostics \
         -fcolor-diagnostics \
-        -std=c++14 \
+        -std=c++17 \
         -Wall \
         < "$filename"
 

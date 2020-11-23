@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 SliderSwitchLinearBar::SliderSwitchLinearBar( parameters::Juggler& parameters, int nParameterIndex )
@@ -88,5 +86,4 @@ String SliderSwitchLinearBar::getTextFromValue( double dValue )
    return pSwitch->getTextFromFloat( ( float ) dValue );
 }
 
-}
-}
+} // namespace

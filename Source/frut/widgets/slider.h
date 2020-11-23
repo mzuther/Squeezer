@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_SLIDER_H
 #define FRUT_WIDGETS_SLIDER_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 class FrutSlider :
@@ -51,7 +49,6 @@ public:
    virtual void setSliderColour( const Colour& colour ) = 0;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_SLIDER_H

@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_WINDOW_VALIDATION_CONTENT_H
 #define FRUT_WIDGETS_WINDOW_VALIDATION_CONTENT_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Dialog window for validation settings.
@@ -77,7 +75,6 @@ private:
    JUCE_LEAK_DETECTOR( WindowValidationContent );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_WINDOW_VALIDATION_CONTENT_H

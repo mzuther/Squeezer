@@ -26,9 +26,7 @@
 #ifndef FRUT_MATH_AVERAGER_H
 #define FRUT_MATH_AVERAGER_H
 
-namespace frut
-{
-namespace math
+namespace frut::math
 {
 
 
@@ -53,7 +51,6 @@ private:
    Array<float> fSamples;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_MATH_AVERAGER_H

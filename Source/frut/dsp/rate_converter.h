@@ -28,9 +28,7 @@
 #ifndef FRUT_DSP_RATE_CONVERTER_H
 #define FRUT_DSP_RATE_CONVERTER_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class RateConverter :
@@ -59,8 +57,7 @@ private:
    JUCE_LEAK_DETECTOR( RateConverter );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_RATE_CONVERTER_H
 

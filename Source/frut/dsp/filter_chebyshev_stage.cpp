@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 FilterChebyshevStage::FilterChebyshevStage()
@@ -250,5 +248,4 @@ String FilterChebyshevStage::getCoefficients()
    return Result;
 }
 
-}
-}
+} // namespace

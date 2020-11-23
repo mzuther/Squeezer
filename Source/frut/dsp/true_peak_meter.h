@@ -28,9 +28,7 @@
 #ifndef FRUT_DSP_TRUE_PEAK_METER_H
 #define FRUT_DSP_TRUE_PEAK_METER_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class TruePeakMeter :
@@ -59,8 +57,7 @@ private:
    JUCE_LEAK_DETECTOR( TruePeakMeter );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_TRUE_PEAK_METER_H
 

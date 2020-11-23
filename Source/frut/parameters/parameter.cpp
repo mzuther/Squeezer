@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 // The methods of this class may be called on the audio thread, so
@@ -296,5 +294,4 @@ void Parameter::storeAsXml( XmlElement* xmlDocument )
    }
 }
 
-}
-}
+} // namespace

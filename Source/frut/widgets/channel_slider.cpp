@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a new channel slider.
@@ -141,5 +139,4 @@ String ChannelSlider::getTextFromValue(
    }
 }
 
-}
-}
+} // namespace

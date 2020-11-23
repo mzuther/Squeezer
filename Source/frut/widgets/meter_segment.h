@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_METER_SEGMENT_H
 #define FRUT_WIDGETS_METER_SEGMENT_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Base class for meter segment components.
@@ -71,7 +69,6 @@ protected:
 
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_METER_SEGMENT_H

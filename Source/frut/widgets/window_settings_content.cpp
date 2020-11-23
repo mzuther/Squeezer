@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create content component for dialog window with validation settings.
@@ -220,5 +218,4 @@ void WindowSettingsContent::closeButtonPressed()
    }
 }
 
-}
-}
+} // namespace

@@ -26,9 +26,7 @@
 #ifndef FRUT_AUDIO_RING_BUFFER_H
 #define FRUT_AUDIO_RING_BUFFER_H
 
-namespace frut
-{
-namespace audio
+namespace frut::audio
 {
 
 template <typename Type>
@@ -199,7 +197,6 @@ public:
    virtual bool processBufferChunk( AudioBuffer<Type>& buffer ) = 0;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_AUDIO_RING_BUFFER_H

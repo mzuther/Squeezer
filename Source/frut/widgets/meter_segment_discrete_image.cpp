@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a new discrete meter segment composed of images, complete
@@ -320,5 +318,4 @@ void MeterSegmentDiscreteImage::setLevels(
    }
 }
 
-}
-}
+} // namespace

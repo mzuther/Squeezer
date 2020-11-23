@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a signal LED.
@@ -115,5 +113,4 @@ void SignalLed::setImages(
    repaint( getLocalBounds() );
 }
 
-}
-}
+} // namespace

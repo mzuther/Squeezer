@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_SLIDER_CONTINUOUS_H
 #define FRUT_WIDGETS_SLIDER_CONTINUOUS_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 class SliderContinuous :
@@ -56,7 +54,6 @@ private:
    JUCE_LEAK_DETECTOR( SliderContinuous );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_SLIDER_CONTINUOUS_H

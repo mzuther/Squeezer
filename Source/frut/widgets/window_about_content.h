@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_WINDOW_ABOUT_CONTENT_H
 #define FRUT_WIDGETS_WINDOW_ABOUT_CONTENT_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Dialog window for displaying version, copyright, license and so
@@ -65,7 +63,6 @@ private:
    JUCE_LEAK_DETECTOR( WindowAboutContent );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_WINDOW_ABOUT_CONTENT_H

@@ -95,7 +95,7 @@ workspace "squeezer"
         "../Source/frut/",
     }
 
-    cppdialect "C++14"
+    cppdialect "C++17"
 
     filter { "system:linux" }
         defines {

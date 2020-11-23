@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_SLIDER_COMBINED_H
 #define FRUT_WIDGETS_SLIDER_COMBINED_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 class SliderCombined :
@@ -65,7 +63,6 @@ private:
    parameters::ParBoolean* pModeSwitch;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_SLIDER_COMBINED_H

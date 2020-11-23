@@ -25,9 +25,7 @@
 
 #if FRUT_DSP_USE_FFTW
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 RateConverter::RateConverter(
@@ -102,7 +100,6 @@ void RateConverter::upsample()
    }
 }
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_USE_FFTW

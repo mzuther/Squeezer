@@ -33,7 +33,7 @@
 (
  (nil . ((eval . (let* ((relative-root "")
                         (root (concat (projectile-project-root) relative-root))
-                        (language-standard "c++14")
+                        (language-standard "c++17")
                         (include-path (list
                                        (concat root "JuceLibraryCode/")
                                        (concat root "libraries/")

@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 Dither::Dither() :
@@ -312,5 +310,4 @@ void Dither::ditherToFloat(
    }
 }
 
-}
-}
+} // namespace

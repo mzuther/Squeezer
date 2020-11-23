@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_METER_SEGMENT_DISCRETE_IMAGE_H
 #define FRUT_WIDGETS_METER_SEGMENT_DISCRETE_IMAGE_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Discrete meter segment component.  This widget consists of a
@@ -88,7 +86,6 @@ private:
    JUCE_LEAK_DETECTOR( MeterSegmentDiscreteImage );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_METER_SEGMENT_DISCRETE_IMAGE_H

@@ -29,7 +29,12 @@
 
 // pre includes
 #include "../widgets/orientation.h"
+
+namespace frut::widgets
+{
 #include "../widgets/resources/resources.h"
+}
+
 #include "../widgets/slider.h"
 
 // normal includes

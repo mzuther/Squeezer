@@ -26,9 +26,7 @@
 #ifndef FRUT_DSP_FILTER_CHEBYSHEV_H
 #define FRUT_DSP_FILTER_CHEBYSHEV_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class FilterChebyshev
@@ -54,7 +52,6 @@ private:
    double PercentRipple_;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_FILTER_CHEBYSHEV_H

@@ -26,9 +26,7 @@
 #ifndef FRUT_PARAMETER_PARCOMBINED_H
 #define FRUT_PARAMETER_PARCOMBINED_H
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 /// Plug-in parameter for storing a floating-point value (can be
@@ -95,7 +93,6 @@ private:
    parameters::ParContinuous continuousValues;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_PARAMETER_PARCOMBINED_H

@@ -26,10 +26,7 @@
 #ifndef FRUT_WIDGETS_WINDOW_SKIN_CONTENT_H
 #define FRUT_WIDGETS_WINDOW_SKIN_CONTENT_H
 
-namespace frut
-{
-
-namespace widgets
+namespace frut::widgets
 {
 
 /// Dialog window for selecting a GUI skin.
@@ -63,7 +60,6 @@ private:
    JUCE_LEAK_DETECTOR( WindowSkinContent );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_WINDOW_SKIN_CONTENT_H

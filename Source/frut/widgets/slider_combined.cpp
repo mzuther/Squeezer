@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 SliderCombined::SliderCombined(
@@ -199,5 +197,4 @@ String SliderCombined::getTextFromValue( double dValue )
    return pCombined->getTextFromFloat( ( float ) dValue );
 }
 
-}
-}
+} // namespace

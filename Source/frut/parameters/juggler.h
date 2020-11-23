@@ -26,9 +26,7 @@
 #ifndef FRUT_PARAMETER_JUGGLER_H
 #define FRUT_PARAMETER_JUGGLER_H
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 /// Container for all parameters of a plug-in.
@@ -131,7 +129,6 @@ private:
    JUCE_LEAK_DETECTOR( Juggler );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_PARAMETER_JUGGLER_H

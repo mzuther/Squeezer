@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace math
+namespace frut::math
 {
 
 Averager::Averager( int number_of_samples, float initial_value )
@@ -71,5 +69,4 @@ float Averager::getSimpleMovingAverage()
    return fSum / fNumberOfSamples;
 }
 
-}
-}
+} // namespace

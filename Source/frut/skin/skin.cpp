@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace skin
+namespace frut::skin
 {
 
 // The following class members are initialized in the derived class:
@@ -154,6 +152,19 @@ void Skin::setUiScale( int scale )
 }
 
 
+String Skin::getQualifiedTag( XmlElement* xml )
+{
+   auto output = document_->getTagName();
+
+   while ( xml != nullptr ) {
+      output = xml->getTagName() + "/" + output;
+      xml = document_->findParentElementOf( xml );
+   }
+
+   return output;
+}
+
+
 XmlElement* Skin::getSetting( const String& tagName )
 {
    if ( document_ == nullptr ) {
@@ -167,7 +178,7 @@ XmlElement* Skin::getSetting( const String& tagName )
       return nullptr;
    }
 
-   XmlElement* xmlSetting = settingsGroup_->getChildByName( tagName );
+   auto xmlSetting = settingsGroup_->getChildByName( tagName );
 
    if ( xmlSetting == nullptr ) {
       Logger::outputDebugString(
@@ -243,8 +254,8 @@ float Skin::getFloat( const XmlElement* xmlComponent,
    if ( xmlComponent == nullptr ) {
       return defaultValue;
    } else {
-      double result = xmlComponent->getDoubleAttribute(
-                         attributeName, defaultValue );
+      auto result = xmlComponent->getDoubleAttribute(
+                       attributeName, defaultValue );
 
       return static_cast<float>( result );
    }
@@ -271,21 +282,21 @@ const Colour Skin::getColour( const XmlElement* xmlComponent,
       return Colours::white;
    }
 
-   float hue = getFloat( xmlComponent,
-                         valuePrefix + "hue",
-                         defaultColour.getHue() );
+   auto hue = getFloat( xmlComponent,
+                        valuePrefix + "hue",
+                        defaultColour.getHue() );
 
-   float saturation = getFloat( xmlComponent,
-                                valuePrefix + "saturation",
-                                defaultColour.getSaturation() );
+   auto saturation = getFloat( xmlComponent,
+                               valuePrefix + "saturation",
+                               defaultColour.getSaturation() );
 
-   float brightness = getFloat( xmlComponent,
-                                valuePrefix + "brightness",
-                                defaultColour.getBrightness() );
+   auto brightness = getFloat( xmlComponent,
+                               valuePrefix + "brightness",
+                               defaultColour.getBrightness() );
 
-   float alpha = getFloat( xmlComponent,
-                           valuePrefix + "alpha",
-                           defaultColour.getFloatAlpha() );
+   auto alpha = getFloat( xmlComponent,
+                          valuePrefix + "alpha",
+                          defaultColour.getFloatAlpha() );
 
    // initialise HSBA colour
    return Colour( hue, saturation, brightness, alpha );
@@ -302,7 +313,7 @@ bool Skin::getAttributesFromSvgFile( const String& tagName,
 {
    auto drawable = loadImageAsDrawable( tagName, attributeName );
    Component* recursiveChild = drawable.get();
-   DrawableShape* firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
+   auto firstDrawableShape = dynamic_cast<DrawableShape*>( recursiveChild );
 
    // recursively search SVG children for a "DrawableShape"
    while ( ( recursiveChild != nullptr ) && ( firstDrawableShape == nullptr ) ) {
@@ -413,7 +424,7 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& tagName,
       return createBogusImage( "Tag not found", 200, 200 );
    }
 
-   String imageFilename = getString( xmlComponent, attributeName );
+   auto imageFilename = getString( xmlComponent, attributeName );
 
    if ( imageFilename.isEmpty() ) {
       if ( alternativeDrawable ) {
@@ -422,8 +433,9 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& tagName,
 
       Logger::outputDebugString(
          String( "[Skin] attribute \"" ) +
-         tagName + "/" + attributeName +
-         "\" not found" );
+         attributeName + "\" not found in tag \"" +
+         getQualifiedTag( xmlComponent ) + "\""
+      );
 
       return createBogusImage( "Attribute not found", 200, 200 );
    }
@@ -472,11 +484,11 @@ void Skin::setBackground( DrawableComposite* background,
    std::unique_ptr<Drawable> drawable;
 
    if ( skinGroup_ != nullptr ) {
-      XmlElement* xmlBackground = skinGroup_->getChildByName( "background" );
+      auto xmlBackground = skinGroup_->getChildByName( "background" );
 
       if ( xmlBackground != nullptr ) {
-         String imageFilename = getString( xmlBackground,
-                                           currentBackgroundName_ );
+         auto imageFilename = getString( xmlBackground,
+                                         currentBackgroundName_ );
          drawable = loadImageAsDrawable( imageFilename );
 
          if ( ! background ) {
@@ -512,8 +524,8 @@ void Skin::setBackground( DrawableComposite* background,
       forEachXmlChildElementWithTagName( *skinGroup_,
                                          xmlMeterGraduation,
                                          "meter_graduation" ) {
-         String imageFilename = getString( xmlMeterGraduation,
-                                           currentBackgroundName_ );
+         auto imageFilename = getString( xmlMeterGraduation,
+                                         currentBackgroundName_ );
          auto drawableGraduation = loadImageAsDrawable( imageFilename );
 
          auto position = getPositionFloat(
@@ -562,8 +574,8 @@ Point<float> Skin::getPositionFloat( const XmlElement* xmlComponent,
 {
    jassert( componentHeight >= 0.0f );
 
-   float x = getFloat( xmlComponent, "x", 0.0f );
-   float y = getFloat( xmlComponent, "y", 0.0f );
+   auto x = getFloat( xmlComponent, "x", 0.0f );
+   auto y = getFloat( xmlComponent, "y", 0.0f );
 
    if ( useRelativePosition && originOfYIsBottom_ ) {
       y = backgroundHeight_ - ( y + componentHeight );
@@ -666,7 +678,7 @@ void Skin::placeComponent( const XmlElement* xmlComponent,
       return;
    }
 
-   Rectangle<int> bounds = getBoundsInteger( xmlComponent, 10, 10, true );
+   auto bounds = getBoundsInteger( xmlComponent, 10, 10, true );
    component->setBounds( bounds );
 }
 
@@ -680,7 +692,7 @@ void Skin::placeMeterBar( const String& tagName,
 
    auto bounds = drawable->getDrawableBounds();
    auto boundsInteger = bounds.getSmallestIntegerContainer();
-   int segmentWidth = boundsInteger.getWidth();
+   auto segmentWidth = boundsInteger.getWidth();
 
    meterBar->setBounds( boundsInteger );
 
@@ -747,10 +759,10 @@ void Skin::placeAndSkinSlider( const String& tagName,
    Colour toggleSwitchColour;
    Rectangle<int> bounds;
 
-   bool foundDrawable = getAttributesFromSvgFile( tagName, "image",
-                                                  toggleSwitchColour, sliderColour, bounds );
+   auto success = getAttributesFromSvgFile( tagName, "image",
+                                            toggleSwitchColour, sliderColour, bounds );
 
-   if ( foundDrawable ) {
+   if ( success ) {
       // fallback in case the drawable has no stroke fill
       if ( toggleSwitchColour.getBrightness() < 0.2f ) {
          toggleSwitchColour = Colours::red;
@@ -785,22 +797,27 @@ void Skin::placeAndSkinNeedleMeter( const String& tagName,
       return;
    }
 
-   Image imageBackground = loadImage( tagName, "image" );
-   Image imageNeedle = loadImage( tagName, "image_needle" );
+   auto drawableBackground = loadImageAsDrawable( tagName, "image" );
+   auto drawableNeedle = loadImageAsDrawable( tagName, "image_needle" );
 
-   int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
-   int spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
+   auto bounds = drawableBackground->getDrawableBounds();
+   auto boundsZero = bounds.withZeroOrigin();
 
-   meter->setImages( imageBackground,
-                     imageNeedle,
+   if ( bounds != boundsZero ) {
+      drawableBackground->setTransformToFit( boundsZero, RectanglePlacement( RectanglePlacement::xLeft | RectanglePlacement::yTop ) );
+      meter->setTopLeftPosition( drawableBackground->getX(), drawableBackground->getY() );
+   }
+
+   auto spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
+   auto spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
+
+   meter->setImages( imageFromDrawable( drawableBackground ),
+                     imageFromDrawable( drawableNeedle ),
                      spacing_left,
                      spacing_top );
 
-   int width = imageBackground.getWidth();
-   int height = imageBackground.getHeight();
-
-   Rectangle<int> bounds = getBoundsInteger( xmlComponent, width, height, true );
-   meter->setBounds( bounds );
+   meter->setSize( drawableBackground->getWidth(),
+                   drawableBackground->getHeight() );
 }
 
 
@@ -848,7 +865,7 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
 {
    jassert( label != nullptr );
 
-   XmlElement* xmlComponent = getComponent( tagName );
+   auto xmlComponent = getComponent( tagName );
 
    if ( xmlComponent == nullptr ) {
       return;
@@ -869,13 +886,13 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
       label->setTopLeftPosition( drawableOn->getX(), drawableOn->getY() );
    }
 
-   int spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
-   int spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
-   int font_size = getInteger( xmlComponent, "font_size", 12 );
+   auto spacing_left = getInteger( xmlComponent, "spacing_left", 0 );
+   auto spacing_top = getInteger( xmlComponent, "spacing_top", 0 );
+   auto font_size = getInteger( xmlComponent, "font_size", 12 );
 
-   String textColourOff = getString( xmlComponent, "text_colour_off", "ffffff" );
-   String textColourOn = getString( xmlComponent, "text_colour_on", "ffffff" );
-   String textColourActive = getString( xmlComponent, "text_colour_active", "ffffff" );
+   auto textColourOff = getString( xmlComponent, "text_colour_off", "ffffff" );
+   auto textColourOn = getString( xmlComponent, "text_colour_on", "ffffff" );
+   auto textColourActive = getString( xmlComponent, "text_colour_active", "ffffff" );
 
    label->setImages( imageFromDrawable( drawableOff ),
                      imageFromDrawable ( drawableOn ),
@@ -891,5 +908,4 @@ void Skin::placeAndSkinStateLabel( const String& tagName,
                    drawableOff->getHeight() );
 }
 
-}
-}
+} // namespace

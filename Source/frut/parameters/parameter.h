@@ -26,9 +26,7 @@
 #ifndef FRUT_PARAMETER_PARAMETER_H
 #define FRUT_PARAMETER_PARAMETER_H
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 /// Common base class for plug-in parameters.
@@ -131,7 +129,6 @@ protected:
    String tagName_;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_PARAMETER_PARAMETER_H

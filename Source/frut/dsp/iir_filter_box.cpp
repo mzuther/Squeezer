@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 IirFilterBox::IirFilterBox(
@@ -263,5 +261,4 @@ void IirFilterBox::peakingFilterConstantQ(
    }
 }
 
-}
-}
+} // namespace

@@ -25,9 +25,7 @@
 
 #if FRUT_DSP_USE_FFTW
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 FIRFilterBox::FIRFilterBox(
@@ -90,7 +88,6 @@ void FIRFilterBox::calculateKernelWindowedSincLPF(
    fftwf_execute( filterKernelPlan_DFT_ );
 }
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_USE_FFTW

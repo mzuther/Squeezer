@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create content component for dialog window that allows selecting a
@@ -277,5 +275,4 @@ void WindowSkinContent::buttonClicked(
 }
 
 
-}
-}
+} // namespace

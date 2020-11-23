@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_STATE_LABEL_H
 #define FRUT_WIDGETS_STATE_LABEL_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// State label component.  This widget loads three images of the same
@@ -100,7 +98,6 @@ private:
    JUCE_LEAK_DETECTOR( StateLabel );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_STATE_LABEL_H

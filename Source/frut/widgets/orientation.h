@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_ORIENTATION_H
 #define FRUT_WIDGETS_ORIENTATION_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Orientation for widgets.
@@ -81,7 +79,6 @@ bool operator==( const Orientation& a,
 bool operator!=( const Orientation& a,
                  Orientation::orientations ori );
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_ORIENTATION_H

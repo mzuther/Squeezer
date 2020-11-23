@@ -28,9 +28,7 @@
 #ifndef FRUT_DSP_FFTW_RUNNER_H
 #define FRUT_DSP_FFTW_RUNNER_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class FftwRunner
@@ -83,8 +81,8 @@ private:
    JUCE_LEAK_DETECTOR( FftwRunner );
 };
 
-}
-}
+} // namespace
+
 
 #endif  // FRUT_DSP_FFTW_RUNNER_H
 

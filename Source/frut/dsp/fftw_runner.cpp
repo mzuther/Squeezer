@@ -25,9 +25,7 @@
 
 #if FRUT_DSP_USE_FFTW
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 FftwRunner::FftwRunner(
@@ -199,7 +197,6 @@ void FftwRunner::convolveWithKernel(
                                    fftBufferSize_ );
 }
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_USE_FFTW

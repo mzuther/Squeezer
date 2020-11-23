@@ -26,9 +26,7 @@
 #ifndef FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H
 #define FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class FilterChebyshevStage
@@ -68,7 +66,7 @@ private:
    double OutputPrevious_2_;
 };
 
-}
-}
+} // namespace
+
 
 #endif  // FRUT_DSP_FILTER_CHEBYSHEV_STAGE_H

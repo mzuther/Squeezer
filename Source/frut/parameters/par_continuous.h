@@ -26,9 +26,7 @@
 #ifndef FRUT_PARAMETER_PARCONTINUOUS_H
 #define FRUT_PARAMETER_PARCONTINUOUS_H
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 /// Plug-in parameter for storing a floating-point value (continuous
@@ -77,7 +75,6 @@ private:
    float scalingConstantFactor;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_PARAMETER_PARCONTINUOUS_H

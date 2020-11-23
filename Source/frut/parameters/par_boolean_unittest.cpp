@@ -26,9 +26,6 @@
 #include "unittest.h"
 
 
-namespace
-{
-
 class ParBoolean :
    public ::testing::Test
 {
@@ -350,5 +347,3 @@ TEST_F( ParBoolean, XmlStoreAndRetrieve )
    p1->loadFromXml( &xml2 );
    EXPECT_FLOAT_EQ( p1->getRealFloat(), 1.0f );
 }
-
-}  // namespace

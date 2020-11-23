@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 Orientation::Orientation( Orientation::orientations ori )
@@ -238,5 +236,4 @@ bool operator!=( const Orientation& a,
    return ! ( a == ori );
 }
 
-}
-}
+} // namespace

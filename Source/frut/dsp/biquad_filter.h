@@ -26,9 +26,7 @@
 #ifndef FRUT_DSP_BIQUAD_FILTER_H
 #define FRUT_DSP_BIQUAD_FILTER_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class BiquadFilter
@@ -82,7 +80,6 @@ private:
    JUCE_LEAK_DETECTOR( BiquadFilter );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_BIQUAD_FILTER_H

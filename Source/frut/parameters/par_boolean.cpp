@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 // The methods of this class may be called on the audio thread, so
@@ -193,5 +191,4 @@ const String ParBoolean::getTextFromFloat( float newValue )
    }
 }
 
-}
-}
+} // namespace

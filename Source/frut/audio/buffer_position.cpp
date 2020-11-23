@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace audio
+namespace frut::audio
 {
 
 /// Create helper class instance.
@@ -332,6 +330,4 @@ void BufferPosition::lookBackFromWritePosition(
    blockSize_2 = numberOfSamples - blockSize_1;
 }
 
-
-}
-}
+} // namespace

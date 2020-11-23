@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 BiquadFilter::BiquadFilter( const int numberOfChannels )
@@ -226,5 +224,4 @@ AudioBuffer<double> BiquadFilter::process(
    return outputBuffer;
 }
 
-}
-}
+} // namespace

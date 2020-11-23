@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a new base meter segment.
@@ -99,5 +97,4 @@ void MeterSegment::setDiscreteLevels( float discreteLevel,
    setLevels( initialLevel, initialLevel, discreteLevel, discreteLevelPeak );
 }
 
-}
-}
+} // namespace

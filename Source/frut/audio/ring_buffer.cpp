@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace audio
+namespace frut::audio
 {
 
 /// Create a new audio ring buffer.
@@ -426,5 +424,5 @@ void RingBuffer<Type>::removeToNull(
 template class RingBuffer<float>;
 template class RingBuffer<double>;
 
-}
-}
+} // namespace
+

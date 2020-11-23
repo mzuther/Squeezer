@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a new continuous meter segment, complete with peak marker.
@@ -513,5 +511,4 @@ void MeterSegmentContinuous::setLevels(
    }
 }
 
-}
-}
+} // namespace

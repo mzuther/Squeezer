@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_SLIDER_SWITCH_H
 #define FRUT_WIDGETS_SLIDER_SWITCH_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 class SliderSwitch :
@@ -54,7 +52,6 @@ private:
    parameters::ParSwitch* pSwitch;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_SLIDER_SWITCH_H

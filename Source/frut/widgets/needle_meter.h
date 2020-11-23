@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_NEEDLE_METER_H
 #define FRUT_WIDGETS_NEEDLE_METER_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Meter component with a needle that moves according to the input.
@@ -64,7 +62,6 @@ private:
    JUCE_LEAK_DETECTOR( NeedleMeter );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_NEEDLE_METER_H

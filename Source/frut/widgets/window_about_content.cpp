@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create content component for dialog window showing version,
@@ -129,12 +127,12 @@ void WindowAboutContent::initialise(
    buttonLicense_.addListener( this );
 
    auto drawableOn = Drawable::createFromImageData(
-                        resources::button_gpl_on_svg,
-                        resources::button_gpl_on_svgSize );
+                        frut::widgets::resources::button_gpl_on_svg,
+                        frut::widgets::resources::button_gpl_on_svgSize );
 
    auto drawableOff = Drawable::createFromImageData(
-                         resources::button_gpl_off_svg,
-                         resources::button_gpl_off_svgSize );
+                         frut::widgets::resources::button_gpl_off_svg,
+                         frut::widgets::resources::button_gpl_off_svgSize );
 
    // set license button images
    buttonLicense_.setImages( drawableOff.get(),
@@ -274,5 +272,4 @@ void WindowAboutContent::buttonClicked(
    }
 }
 
-}
-}
+} // namespace

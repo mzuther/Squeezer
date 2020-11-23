@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a meter with a needle.
@@ -152,5 +150,4 @@ void NeedleMeter::setImages(
    resized();
 }
 
-}
-}
+} // namespace

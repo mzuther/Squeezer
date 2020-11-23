@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_SIGNAL_LED_H
 #define FRUT_WIDGETS_SIGNAL_LED_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Signal LED component.  This widget loads three images of the same
@@ -64,7 +62,6 @@ private:
    JUCE_LEAK_DETECTOR( SignalLed );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_SIGNAL_LED_H

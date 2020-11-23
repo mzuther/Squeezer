@@ -28,9 +28,9 @@
 
 BINARY_BUILDER_DIR="../../../../libraries/juce/extras/BinaryBuilder/Builds/LinuxMakefile/build"
 
-INPUT_DIR="."
-OUTPUT_DIR="."
-NAMESPACE="resources"
+SOURCEDIR="."
+TARGETDIR="."
+CLASSNAME="resources"
 
 
 if [ ! -x "$BINARY_BUILDER_DIR/BinaryBuilder" ]; then
@@ -41,6 +41,6 @@ fi
 cd "$(dirname "$0")" || exit
 printf "\n"
 
-"$BINARY_BUILDER_DIR/BinaryBuilder" "$INPUT_DIR" "$OUTPUT_DIR" "$NAMESPACE" '*.svg'
+"$BINARY_BUILDER_DIR/BinaryBuilder" "$SOURCEDIR" "$TARGETDIR" "$CLASSNAME" '*.svg'
 
 printf "\n"

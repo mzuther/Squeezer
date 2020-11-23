@@ -104,7 +104,7 @@ workspace "{{ name.short }}"
 {% endfor %}
     }
 
-    cppdialect "C++14"
+    cppdialect "C++17"
 {{ additions }}
     filter { "system:linux" }
         defines {

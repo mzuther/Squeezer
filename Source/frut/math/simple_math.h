@@ -26,9 +26,7 @@
 #ifndef FRUT_MATH_SIMPLE_MATH_H
 #define FRUT_MATH_SIMPLE_MATH_H
 
-namespace frut
-{
-namespace math
+namespace frut::math
 {
 
 /// Simple class for common math functions.
@@ -232,7 +230,6 @@ public:
    }
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_MATH_SIMPLE_MATH_H

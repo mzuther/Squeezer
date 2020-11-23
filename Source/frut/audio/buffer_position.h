@@ -26,9 +26,7 @@
 #ifndef FRUT_AUDIO_BUFFER_POSITION_H
 #define FRUT_AUDIO_BUFFER_POSITION_H
 
-namespace frut
-{
-namespace audio
+namespace frut::audio
 {
 
 /// Helper class for audio RingBuffer.  This class keeps track of the
@@ -233,7 +231,6 @@ private:
    JUCE_LEAK_DETECTOR( BufferPosition );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_AUDIO_BUFFER_POSITION_H

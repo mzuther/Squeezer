@@ -26,9 +26,7 @@
 #ifndef FRUT_PARAMETER_PARSWITCH_H
 #define FRUT_PARAMETER_PARSWITCH_H
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 /// Plug-in parameter for storing a floating-point value (filled with
@@ -67,7 +65,6 @@ private:
    float stepSize;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_PARAMETER_PARSWITCH_H

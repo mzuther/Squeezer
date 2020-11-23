@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_METER_BAR_H
 #define FRUT_WIDGETS_METER_BAR_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Meter bar component.  This widget is an empty container that can
@@ -119,7 +117,6 @@ private:
    OwnedArray<widgets::MeterSegment> meterSegments_;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_METER_BAR_H

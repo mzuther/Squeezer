@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a new discrete meter segment, complete with peak marker.
@@ -344,5 +342,4 @@ void MeterSegmentDiscrete::setLevels(
    }
 }
 
-}
-}
+} // namespace

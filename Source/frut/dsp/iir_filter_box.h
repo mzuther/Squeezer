@@ -26,9 +26,7 @@
 #ifndef FRUT_DSP_IIR_FILTER_BOX_H
 #define FRUT_DSP_IIR_FILTER_BOX_H
 
-namespace frut
-{
-namespace dsp
+namespace frut::dsp
 {
 
 class IirFilterBox :
@@ -70,7 +68,6 @@ private:
    JUCE_LEAK_DETECTOR( IirFilterBox );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_DSP_IIR_FILTER_BOX_H

@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_METER_SEGMENT_CONTINUOUS_H
 #define FRUT_WIDGETS_METER_SEGMENT_CONTINUOUS_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Continuous meter segment component.  This widget consists of a
@@ -98,7 +96,6 @@ private:
    JUCE_LEAK_DETECTOR( MeterSegmentContinuous );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_METER_SEGMENT_CONTINUOUS_H

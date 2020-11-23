@@ -26,9 +26,7 @@
 #ifndef FRUT_WIDGETS_METER_SEGMENT_DISCRETE_H
 #define FRUT_WIDGETS_METER_SEGMENT_DISCRETE_H
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Discrete meter segment component.  This widget consists of a
@@ -81,7 +79,6 @@ private:
    JUCE_LEAK_DETECTOR( MeterSegmentDiscrete );
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_WIDGETS_METER_SEGMENT_DISCRETE_H

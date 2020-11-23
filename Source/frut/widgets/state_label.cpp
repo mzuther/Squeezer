@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 /// Create a state label.
@@ -214,5 +212,4 @@ void StateLabel::setLabelText(
    textLabel_.setText( text, dontSendNotification );
 }
 
-}
-}
+} // namespace

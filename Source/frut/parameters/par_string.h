@@ -26,9 +26,7 @@
 #ifndef FRUT_PARAMETER_PARSTRING_H
 #define FRUT_PARAMETER_PARSTRING_H
 
-namespace frut
-{
-namespace parameters
+namespace frut::parameters
 {
 
 /// Plug-in parameter for storing a String value.
@@ -61,7 +59,6 @@ private:
    String textValue;
 };
 
-}
-}
+} // namespace
 
 #endif  // FRUT_PARAMETER_PARSTRING_H

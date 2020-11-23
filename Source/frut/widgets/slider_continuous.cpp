@@ -23,9 +23,7 @@
 
 ---------------------------------------------------------------------------- */
 
-namespace frut
-{
-namespace widgets
+namespace frut::widgets
 {
 
 SliderContinuous::SliderContinuous(
@@ -110,5 +108,4 @@ String SliderContinuous::getTextFromValue(
    return parameter_->getTextFromFloat( static_cast<float>( dValue ) );
 }
 
-}
-}
+} // namespace
