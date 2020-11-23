@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<squeezer-skin
+    version="1.3"
+    origin_of_y="top" >
+
+  <default>
+    <slider_input_trim
+        image="slider/input_trim.svg" />
+
+    <slider_makeup_gain
+        image="slider/makeup_gain.svg" />
+
+    <slider_threshold
+        image="slider/threshold.svg" />
+
+    <slider_ratio
+        image="slider/ratio.svg" />
+
+    <slider_attack_rate
+        image="slider/attack_rate.svg" />
+
+    <slider_release_rate
+        image="slider/release_rate.svg" />
+
+    <slider_stereo_link
+        image="slider/stereo_link.svg" />
+
+    <slider_wet_mix
+        image="slider/wet_mix.svg" />
+
+    <slider_sidechain_hpf_cutoff
+        image="slider/sidechain_hpf_cutoff.svg" />
+
+    <slider_sidechain_lpf_cutoff
+        image="slider/sidechain_lpf_cutoff.svg"
+        />
+
+    <button_curve_smooth_branching
+        image_on="button/curve_smooth_branching_on.svg"
+        image_over="button/curve_smooth_branching_over.svg"
+        image_off="button/curve_smooth_branching_off.svg" />
+
+    <button_curve_smooth_decoupled
+        image_on="button/curve_smooth_decoupled_on.svg"
+        image_over="button/curve_smooth_decoupled_over.svg"
+        image_off="button/curve_smooth_decoupled_off.svg" />
+
+    <button_curve_linear
+        image_on="button/curve_linear_on.svg"
+        image_over="button/curve_linear_over.svg"
+        image_off="button/curve_linear_off.svg" />
+
+    <button_design_feedback
+        image_on="button/design_feedback_on.svg"
+        image_over="button/design_feedback_over.svg"
+        image_off="button/design_feedback_off.svg" />
+
+    <button_gainstage_optical
+        image_on="button/gainstage_optical_on.svg"
+        image_over="button/gainstage_optical_over.svg"
+        image_off="button/gainstage_optical_off.svg" />
+
+    <button_rms_window
+        image_on="button/rms_window_on.svg"
+        image_over="button/rms_window_over.svg"
+        image_off="button/rms_window_off.svg" />
+
+    <button_knee_hard
+        image_on="button/knee_hard_on.svg"
+        image_over="button/knee_hard_over.svg"
+        image_off="button/knee_hard_off.svg" />
+
+    <button_knee_medium
+        image_on="button/knee_medium_on.svg"
+        image_over="button/knee_medium_over.svg"
+        image_off="button/knee_medium_off.svg" />
+
+    <button_knee_soft
+        image_on="button/knee_soft_on.svg"
+        image_over="button/knee_soft_over.svg"
+        image_off="button/knee_soft_off.svg" />
+
+    <button_sidechain_external
+        image_on="button/sidechain_external_on.svg"
+        image_over="button/sidechain_external_over.svg"
+        image_off="button/sidechain_external_off.svg" />
+
+    <button_sidechain_listen
+        image_on="button/sidechain_listen_on.svg"
+        image_over="button/sidechain_listen_over.svg"
+        image_off="button/sidechain_listen_off.svg" />
+
+    <button_auto_makeup_gain
+        image_on="button/auto_makeup_gain_on.svg"
+        image_over="button/auto_makeup_gain_over.svg"
+        image_off="button/auto_makeup_gain_off.svg" />
+
+    <button_bypass
+        image_on="button/bypass_on.svg"
+        image_over="button/bypass_over.svg"
+        image_off="button/bypass_off.svg" />
+
+    <button_settings
+        image_on="button/settings_on.svg"
+        image_over="button/settings_over.svg"
+        image_off="button/settings_off.svg" />
+
+    <button_about
+        image_on="button/about_on.svg"
+        image_over="button/about_over.svg"
+        image_off="button/about_off.svg" />
+
+    <button_skin
+        image_on="button/skin_on.svg"
+        image_over="button/skin_over.svg"
+        image_off="button/skin_off.svg" />
+
+    <button_reset
+        image_on="button/reset_on.svg"
+        image_over="button/reset_over.svg"
+        image_off="button/reset_off.svg" />
+
+    <label_debug
+        image="label/debug.svg" />
+  </default>
+
+  <mono>
+    <background
+        image="background/background.svg" />
+
+    <meter_input
+        image="meter/input_mono.svg" />
+
+    <meter_output
+        image="meter/output_mono.svg" />
+
+    <meter_gain_reduction
+        image="meter/gain_reduction_mono.svg" />
+
+    <meter_segment_level_overload
+        image_on="meter/segment_mono_level_overload_on.svg"
+        image_peak="meter/segment_mono_level_overload_peak.svg"
+        image_off="meter/segment_mono_level_overload_off.svg" />
+
+    <meter_segment_level_warning
+        image_on="meter/segment_mono_level_warning_on.svg"
+        image_peak="meter/segment_mono_level_warning_peak.svg"
+        image_off="meter/segment_mono_level_warning_off.svg" />
+
+    <meter_segment_level_normal
+        image_on="meter/segment_mono_level_normal_on.svg"
+        image_peak="meter/segment_mono_level_normal_peak.svg"
+        image_off="meter/segment_mono_level_normal_off.svg" />
+
+    <meter_segment_gain_reduction
+        image_on="meter/segment_mono_gain_reduction_on.svg"
+        image_peak="meter/segment_mono_gain_reduction_peak.svg"
+        image_off="meter/segment_mono_gain_reduction_off.svg" />
+  </mono>
+
+  <stereo>
+    <background
+        image="background/background.svg" />
+
+    <meter_input_left
+        image="meter/input_left.svg" />
+
+    <meter_input_right
+        image="meter/input_right.svg" />
+
+    <meter_output_left
+        image="meter/output_left.svg" />
+
+    <meter_output_right
+        image="meter/output_right.svg" />
+
+    <meter_gain_reduction_left
+        image="meter/gain_reduction_left.svg" />
+
+    <meter_gain_reduction_right
+        image="meter/gain_reduction_right.svg" />
+
+    <meter_segment_level_overload
+        image_on="meter/segment_stereo_level_overload_on.svg"
+        image_peak="meter/segment_stereo_level_overload_peak.svg"
+        image_off="meter/segment_stereo_level_overload_off.svg" />
+
+    <meter_segment_level_warning
+        image_on="meter/segment_stereo_level_warning_on.svg"
+        image_peak="meter/segment_stereo_level_warning_peak.svg"
+        image_off="meter/segment_stereo_level_warning_off.svg" />
+
+    <meter_segment_level_normal
+        image_on="meter/segment_stereo_level_normal_on.svg"
+        image_peak="meter/segment_stereo_level_normal_peak.svg"
+        image_off="meter/segment_stereo_level_normal_off.svg" />
+
+    <meter_segment_gain_reduction
+        image_on="meter/segment_stereo_gain_reduction_on.svg"
+        image_peak="meter/segment_stereo_gain_reduction_peak.svg"
+        image_off="meter/segment_stereo_gain_reduction_off.svg" />
+  </stereo>
+
+</squeezer-skin>

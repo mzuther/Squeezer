@@ -46,11 +46,23 @@ bool Skin::loadFromXml( const String& rootName,
    backgroundWidth_ = 0;
    backgroundHeight_ = 0;
 
-   auto skinFile = getSkinDirectory().getChildFile( "Default.skin" );
+   resourcePath_ = getSkinDirectory().getChildFile( "./Resources/" );
+
+   if ( ! resourcePath_.isDirectory() ) {
+      Logger::outputDebugString(
+         String( "[Skin] directory \"" ) +
+         resourcePath_.getFullPathName() +
+         "\" not found" );
+
+      document_ = nullptr;
+      return false;
+   }
+
+   auto skinFile = resourcePath_.getChildFile( "Skin.xml" );
 
    Logger::outputDebugString(
       String( "[Skin] loading file \"" ) +
-      skinFile.getFileName() + "\"" );
+      skinFile.getFullPathName() + "\"" );
 
    document_ = juce::parseXML( skinFile );
 
@@ -99,19 +111,6 @@ bool Skin::loadFromXml( const String& rootName,
       }
 
       skinFallback_1_ = document_->getChildByName( currentFallbackName_ );
-
-      auto resourcePathName = getString( document_.get(), "path" );
-      resourcePath_ = File( skinFile.getSiblingFile( resourcePathName ) );
-
-      if ( ! resourcePath_.isDirectory() ) {
-         Logger::outputDebugString(
-            String( "[Skin] directory \"" ) +
-            resourcePath_.getFullPathName() +
-            "\" not found" );
-
-         document_ = nullptr;
-         return false;
-      }
    }
 
    auto originOfY = getString( document_.get(), "origin_of_y", "top" );

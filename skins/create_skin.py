@@ -45,7 +45,7 @@ def payload():
 if __name__ == '__main__':
     watchmanager = pyinotify.WatchManager()
 
-    watchmanager.add_watch(['Default/Default.svg'],
+    watchmanager.add_watch(['Original/'],
                            pyinotify.IN_CLOSE_WRITE,
                            rec=True,
                            auto_add=True,
