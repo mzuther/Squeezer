@@ -7,7 +7,9 @@ default : Resources/Skin.xml Resources/background/background.svg Source/skin.h
 
 
 Resources/Skin.xml : Original/Skin.xml
+	@echo
 	@echo "Copying \"Skin.xml\"..."
+	@mkdir -p Resources/
 	@cp Original/Skin.xml Resources/Skin.xml
 	@echo "Done."
 	@echo
@@ -17,7 +19,8 @@ Resources/background/background.svg : Original/Skin.svg
 	@cd ${mkfile_dir} ; ./inkscape2skin.py Original/Skin.svg Resources/
 
 
-Source/skin.h : Resources/background/background.svg
+Source/skin.h : Resources/background/background.svg Resources/Skin.xml
+	@mkdir -p Source/
 	@cd ${mkfile_dir} ; ./convert_resources.sh
 
 
