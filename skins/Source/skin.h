@@ -1,490 +1,297 @@
-/* (Auto-generated binary data file). */
+// WARNING: this binary file was auto-generated, please do not edit!
 
 #pragma once
 
 namespace skin
 {
-  #ifdef METER
-    extern const char*  segment_mono_gain_reduction_peak_svg;
-    const int           segment_mono_gain_reduction_peak_svgSize = 2184;
-
-  #endif
-  #ifdef METER
-    extern const char*  output_right_svg;
-    const int           output_right_svgSize = 1773;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_warning_off_svg;
-    const int           segment_mono_level_warning_off_svgSize = 2193;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_overload_peak_svg;
-    const int           segment_stereo_level_overload_peak_svgSize = 2187;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_overload_peak_svg;
-    const int           segment_mono_level_overload_peak_svgSize = 2184;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_normal_off_svg;
-    const int           segment_mono_level_normal_off_svgSize = 2192;
-
-  #endif
-  #ifdef METER
-    extern const char*  input_left_svg;
-    const int           input_left_svgSize = 1771;
-
-  #endif
-  #ifdef METER
-    extern const char*  gain_reduction_right_svg;
-    const int           gain_reduction_right_svgSize = 1781;
-
-  #endif
-  #ifdef METER
-    extern const char*  input_mono_svg;
-    const int           input_mono_svgSize = 1793;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_overload_on_svg;
-    const int           segment_stereo_level_overload_on_svgSize = 2193;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_warning_peak_svg;
-    const int           segment_stereo_level_warning_peak_svgSize = 2187;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_normal_on_svg;
-    const int           segment_mono_level_normal_on_svgSize = 2191;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_overload_off_svg;
-    const int           segment_stereo_level_overload_off_svgSize = 2194;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_gain_reduction_off_svg;
-    const int           segment_stereo_gain_reduction_off_svgSize = 2194;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_normal_on_svg;
-    const int           segment_stereo_level_normal_on_svgSize = 2191;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_overload_off_svg;
-    const int           segment_mono_level_overload_off_svgSize = 2194;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_warning_peak_svg;
-    const int           segment_mono_level_warning_peak_svgSize = 2189;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_normal_peak_svg;
-    const int           segment_mono_level_normal_peak_svgSize = 2182;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_warning_on_svg;
-    const int           segment_mono_level_warning_on_svgSize = 2192;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_normal_peak_svg;
-    const int           segment_stereo_level_normal_peak_svgSize = 2186;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_gain_reduction_on_svg;
-    const int           segment_mono_gain_reduction_on_svgSize = 2193;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_gain_reduction_off_svg;
-    const int           segment_mono_gain_reduction_off_svgSize = 2194;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_warning_on_svg;
-    const int           segment_stereo_level_warning_on_svgSize = 2192;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_gain_reduction_peak_svg;
-    const int           segment_stereo_gain_reduction_peak_svgSize = 2183;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_mono_level_overload_on_svg;
-    const int           segment_mono_level_overload_on_svgSize = 2193;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_normal_off_svg;
-    const int           segment_stereo_level_normal_off_svgSize = 2192;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_level_warning_off_svg;
-    const int           segment_stereo_level_warning_off_svgSize = 2193;
-
-  #endif
-  #ifdef METER
-    extern const char*  input_right_svg;
-    const int           input_right_svgSize = 1772;
-
-  #endif
-  #ifdef METER
-    extern const char*  gain_reduction_mono_svg;
-    const int           gain_reduction_mono_svgSize = 1802;
-
-  #endif
-  #ifdef METER
-    extern const char*  output_mono_svg;
-    const int           output_mono_svgSize = 1794;
-
-  #endif
-  #ifdef METER
-    extern const char*  gain_reduction_left_svg;
-    const int           gain_reduction_left_svgSize = 1780;
-
-  #endif
-  #ifdef METER
-    extern const char*  output_left_svg;
-    const int           output_left_svgSize = 1772;
-
-  #endif
-  #ifdef METER
-    extern const char*  segment_stereo_gain_reduction_on_svg;
-    const int           segment_stereo_gain_reduction_on_svgSize = 2193;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  sidechain_lpf_cutoff_svg;
-    const int           sidechain_lpf_cutoff_svgSize = 1808;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  input_trim_svg;
-    const int           input_trim_svgSize = 1795;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  stereo_link_svg;
-    const int           stereo_link_svgSize = 1798;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  attack_rate_svg;
-    const int           attack_rate_svgSize = 1797;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  ratio_svg;
-    const int           ratio_svgSize = 1792;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  threshold_svg;
-    const int           threshold_svgSize = 1794;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  wet_mix_svg;
-    const int           wet_mix_svgSize = 1794;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  makeup_gain_svg;
-    const int           makeup_gain_svgSize = 1797;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  sidechain_hpf_cutoff_svg;
-    const int           sidechain_hpf_cutoff_svgSize = 1808;
-
-  #endif
-  #ifdef SLIDER
-    extern const char*  release_rate_svg;
-    const int           release_rate_svgSize = 1800;
-
-  #endif
-  #ifdef LABEL
-    extern const char*  debug_svg;
-    const int           debug_svgSize = 4110;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_smooth_branching_over_svg;
-    const int           curve_smooth_branching_over_svgSize = 4856;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_medium_over_svg;
-    const int           knee_medium_over_svgSize = 6753;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  settings_off_svg;
-    const int           settings_off_svgSize = 16074;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_hard_on_svg;
-    const int           knee_hard_on_svgSize = 5412;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  skin_on_svg;
-    const int           skin_on_svgSize = 5291;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  settings_over_svg;
-    const int           settings_over_svgSize = 8700;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_hard_off_svg;
-    const int           knee_hard_off_svgSize = 9520;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_medium_off_svg;
-    const int           knee_medium_off_svgSize = 12483;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  settings_on_svg;
-    const int           settings_on_svgSize = 8699;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  sidechain_listen_on_svg;
-    const int           sidechain_listen_on_svgSize = 6620;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  sidechain_external_over_svg;
-    const int           sidechain_external_over_svgSize = 7516;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_soft_on_svg;
-    const int           knee_soft_on_svgSize = 5617;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_smooth_decoupled_over_svg;
-    const int           curve_smooth_decoupled_over_svgSize = 7093;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  design_feedback_on_svg;
-    const int           design_feedback_on_svgSize = 6561;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_linear_over_svg;
-    const int           curve_linear_over_svgSize = 6494;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  bypass_over_svg;
-    const int           bypass_over_svgSize = 7611;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  skin_over_svg;
-    const int           skin_over_svgSize = 5292;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  auto_makeup_gain_on_svg;
-    const int           auto_makeup_gain_on_svgSize = 6603;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  sidechain_listen_off_svg;
-    const int           sidechain_listen_off_svgSize = 12322;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_smooth_branching_on_svg;
-    const int           curve_smooth_branching_on_svgSize = 4856;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  sidechain_listen_over_svg;
-    const int           sidechain_listen_over_svgSize = 6627;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_soft_off_svg;
-    const int           knee_soft_off_svgSize = 9731;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  skin_off_svg;
-    const int           skin_off_svgSize = 9404;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  about_over_svg;
-    const int           about_over_svgSize = 5930;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  about_off_svg;
-    const int           about_off_svgSize = 10844;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  sidechain_external_off_svg;
-    const int           sidechain_external_off_svgSize = 14855;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  bypass_off_svg;
-    const int           bypass_off_svgSize = 13354;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  bypass_on_svg;
-    const int           bypass_on_svgSize = 7610;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  rms_window_over_svg;
-    const int           rms_window_over_svgSize = 4840;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_linear_off_svg;
-    const int           curve_linear_off_svgSize = 12225;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  sidechain_external_on_svg;
-    const int           sidechain_external_on_svgSize = 7515;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_linear_on_svg;
-    const int           curve_linear_on_svgSize = 6494;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  rms_window_off_svg;
-    const int           rms_window_off_svgSize = 8130;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  gainstage_optical_over_svg;
-    const int           gainstage_optical_over_svgSize = 5583;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  gainstage_optical_on_svg;
-    const int           gainstage_optical_on_svgSize = 5583;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  auto_makeup_gain_over_svg;
-    const int           auto_makeup_gain_over_svgSize = 6604;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  reset_on_svg;
-    const int           reset_on_svgSize = 6529;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  auto_makeup_gain_off_svg;
-    const int           auto_makeup_gain_off_svgSize = 13140;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  design_feedback_over_svg;
-    const int           design_feedback_over_svgSize = 6561;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_smooth_branching_off_svg;
-    const int           curve_smooth_branching_off_svgSize = 8150;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_smooth_decoupled_on_svg;
-    const int           curve_smooth_decoupled_on_svgSize = 7093;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  reset_over_svg;
-    const int           reset_over_svgSize = 6531;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  design_feedback_off_svg;
-    const int           design_feedback_off_svgSize = 12290;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  about_on_svg;
-    const int           about_on_svgSize = 5929;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  reset_off_svg;
-    const int           reset_off_svgSize = 11448;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  curve_smooth_decoupled_off_svg;
-    const int           curve_smooth_decoupled_off_svgSize = 12856;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  rms_window_on_svg;
-    const int           rms_window_on_svgSize = 4840;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  gainstage_optical_off_svg;
-    const int           gainstage_optical_off_svgSize = 9699;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_medium_on_svg;
-    const int           knee_medium_on_svgSize = 6753;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_hard_over_svg;
-    const int           knee_hard_over_svgSize = 5412;
-
-  #endif
-  #ifdef BUTTON
-    extern const char*  knee_soft_over_svg;
-    const int           knee_soft_over_svgSize = 5617;
-
-  #endif
-  #ifdef BACKGROUND
-    extern const char*  background_svg;
-    const int           background_svgSize = 262053;
-
-  #endif
     extern const char*  Skin_xml;
-    const int           Skin_xmlSize = 6420;
+    const int           Skin_xml_len = 6420;
 
+    extern const char*  background_background_svg;
+    const int           background_background_svg_len = 262053;
+
+    extern const char*  button_about_off_svg;
+    const int           button_about_off_svg_len = 10844;
+
+    extern const char*  button_about_on_svg;
+    const int           button_about_on_svg_len = 5929;
+
+    extern const char*  button_about_over_svg;
+    const int           button_about_over_svg_len = 5930;
+
+    extern const char*  button_auto_makeup_gain_off_svg;
+    const int           button_auto_makeup_gain_off_svg_len = 13140;
+
+    extern const char*  button_auto_makeup_gain_on_svg;
+    const int           button_auto_makeup_gain_on_svg_len = 6603;
+
+    extern const char*  button_auto_makeup_gain_over_svg;
+    const int           button_auto_makeup_gain_over_svg_len = 6604;
+
+    extern const char*  button_bypass_off_svg;
+    const int           button_bypass_off_svg_len = 13354;
+
+    extern const char*  button_bypass_on_svg;
+    const int           button_bypass_on_svg_len = 7610;
+
+    extern const char*  button_bypass_over_svg;
+    const int           button_bypass_over_svg_len = 7611;
+
+    extern const char*  button_curve_linear_off_svg;
+    const int           button_curve_linear_off_svg_len = 12225;
+
+    extern const char*  button_curve_linear_on_svg;
+    const int           button_curve_linear_on_svg_len = 6494;
+
+    extern const char*  button_curve_linear_over_svg;
+    const int           button_curve_linear_over_svg_len = 6494;
+
+    extern const char*  button_curve_smooth_branching_off_svg;
+    const int           button_curve_smooth_branching_off_svg_len = 8150;
+
+    extern const char*  button_curve_smooth_branching_on_svg;
+    const int           button_curve_smooth_branching_on_svg_len = 4856;
+
+    extern const char*  button_curve_smooth_branching_over_svg;
+    const int           button_curve_smooth_branching_over_svg_len = 4856;
+
+    extern const char*  button_curve_smooth_decoupled_off_svg;
+    const int           button_curve_smooth_decoupled_off_svg_len = 12856;
+
+    extern const char*  button_curve_smooth_decoupled_on_svg;
+    const int           button_curve_smooth_decoupled_on_svg_len = 7093;
+
+    extern const char*  button_curve_smooth_decoupled_over_svg;
+    const int           button_curve_smooth_decoupled_over_svg_len = 7093;
+
+    extern const char*  button_design_feedback_off_svg;
+    const int           button_design_feedback_off_svg_len = 12290;
+
+    extern const char*  button_design_feedback_on_svg;
+    const int           button_design_feedback_on_svg_len = 6561;
+
+    extern const char*  button_design_feedback_over_svg;
+    const int           button_design_feedback_over_svg_len = 6561;
+
+    extern const char*  button_gainstage_optical_off_svg;
+    const int           button_gainstage_optical_off_svg_len = 9699;
+
+    extern const char*  button_gainstage_optical_on_svg;
+    const int           button_gainstage_optical_on_svg_len = 5583;
+
+    extern const char*  button_gainstage_optical_over_svg;
+    const int           button_gainstage_optical_over_svg_len = 5583;
+
+    extern const char*  button_knee_hard_off_svg;
+    const int           button_knee_hard_off_svg_len = 9520;
+
+    extern const char*  button_knee_hard_on_svg;
+    const int           button_knee_hard_on_svg_len = 5412;
+
+    extern const char*  button_knee_hard_over_svg;
+    const int           button_knee_hard_over_svg_len = 5412;
+
+    extern const char*  button_knee_medium_off_svg;
+    const int           button_knee_medium_off_svg_len = 12483;
+
+    extern const char*  button_knee_medium_on_svg;
+    const int           button_knee_medium_on_svg_len = 6753;
+
+    extern const char*  button_knee_medium_over_svg;
+    const int           button_knee_medium_over_svg_len = 6753;
+
+    extern const char*  button_knee_soft_off_svg;
+    const int           button_knee_soft_off_svg_len = 9731;
+
+    extern const char*  button_knee_soft_on_svg;
+    const int           button_knee_soft_on_svg_len = 5617;
+
+    extern const char*  button_knee_soft_over_svg;
+    const int           button_knee_soft_over_svg_len = 5617;
+
+    extern const char*  button_reset_off_svg;
+    const int           button_reset_off_svg_len = 11448;
+
+    extern const char*  button_reset_on_svg;
+    const int           button_reset_on_svg_len = 6529;
+
+    extern const char*  button_reset_over_svg;
+    const int           button_reset_over_svg_len = 6531;
+
+    extern const char*  button_rms_window_off_svg;
+    const int           button_rms_window_off_svg_len = 8130;
+
+    extern const char*  button_rms_window_on_svg;
+    const int           button_rms_window_on_svg_len = 4840;
+
+    extern const char*  button_rms_window_over_svg;
+    const int           button_rms_window_over_svg_len = 4840;
+
+    extern const char*  button_settings_off_svg;
+    const int           button_settings_off_svg_len = 16074;
+
+    extern const char*  button_settings_on_svg;
+    const int           button_settings_on_svg_len = 8699;
+
+    extern const char*  button_settings_over_svg;
+    const int           button_settings_over_svg_len = 8700;
+
+    extern const char*  button_sidechain_external_off_svg;
+    const int           button_sidechain_external_off_svg_len = 14855;
+
+    extern const char*  button_sidechain_external_on_svg;
+    const int           button_sidechain_external_on_svg_len = 7515;
+
+    extern const char*  button_sidechain_external_over_svg;
+    const int           button_sidechain_external_over_svg_len = 7516;
+
+    extern const char*  button_sidechain_listen_off_svg;
+    const int           button_sidechain_listen_off_svg_len = 12322;
+
+    extern const char*  button_sidechain_listen_on_svg;
+    const int           button_sidechain_listen_on_svg_len = 6620;
+
+    extern const char*  button_sidechain_listen_over_svg;
+    const int           button_sidechain_listen_over_svg_len = 6627;
+
+    extern const char*  button_skin_off_svg;
+    const int           button_skin_off_svg_len = 9404;
+
+    extern const char*  button_skin_on_svg;
+    const int           button_skin_on_svg_len = 5291;
+
+    extern const char*  button_skin_over_svg;
+    const int           button_skin_over_svg_len = 5292;
+
+    extern const char*  label_debug_svg;
+    const int           label_debug_svg_len = 4110;
+
+    extern const char*  meter_gain_reduction_left_svg;
+    const int           meter_gain_reduction_left_svg_len = 1780;
+
+    extern const char*  meter_gain_reduction_mono_svg;
+    const int           meter_gain_reduction_mono_svg_len = 1802;
+
+    extern const char*  meter_gain_reduction_right_svg;
+    const int           meter_gain_reduction_right_svg_len = 1781;
+
+    extern const char*  meter_input_left_svg;
+    const int           meter_input_left_svg_len = 1771;
+
+    extern const char*  meter_input_mono_svg;
+    const int           meter_input_mono_svg_len = 1793;
+
+    extern const char*  meter_input_right_svg;
+    const int           meter_input_right_svg_len = 1772;
+
+    extern const char*  meter_output_left_svg;
+    const int           meter_output_left_svg_len = 1772;
+
+    extern const char*  meter_output_mono_svg;
+    const int           meter_output_mono_svg_len = 1794;
+
+    extern const char*  meter_output_right_svg;
+    const int           meter_output_right_svg_len = 1773;
+
+    extern const char*  meter_segment_mono_gain_reduction_off_svg;
+    const int           meter_segment_mono_gain_reduction_off_svg_len = 2194;
+
+    extern const char*  meter_segment_mono_gain_reduction_on_svg;
+    const int           meter_segment_mono_gain_reduction_on_svg_len = 2193;
+
+    extern const char*  meter_segment_mono_gain_reduction_peak_svg;
+    const int           meter_segment_mono_gain_reduction_peak_svg_len = 2184;
+
+    extern const char*  meter_segment_mono_level_normal_off_svg;
+    const int           meter_segment_mono_level_normal_off_svg_len = 2192;
+
+    extern const char*  meter_segment_mono_level_normal_on_svg;
+    const int           meter_segment_mono_level_normal_on_svg_len = 2191;
+
+    extern const char*  meter_segment_mono_level_normal_peak_svg;
+    const int           meter_segment_mono_level_normal_peak_svg_len = 2182;
+
+    extern const char*  meter_segment_mono_level_overload_off_svg;
+    const int           meter_segment_mono_level_overload_off_svg_len = 2194;
+
+    extern const char*  meter_segment_mono_level_overload_on_svg;
+    const int           meter_segment_mono_level_overload_on_svg_len = 2193;
+
+    extern const char*  meter_segment_mono_level_overload_peak_svg;
+    const int           meter_segment_mono_level_overload_peak_svg_len = 2184;
+
+    extern const char*  meter_segment_mono_level_warning_off_svg;
+    const int           meter_segment_mono_level_warning_off_svg_len = 2193;
+
+    extern const char*  meter_segment_mono_level_warning_on_svg;
+    const int           meter_segment_mono_level_warning_on_svg_len = 2192;
+
+    extern const char*  meter_segment_mono_level_warning_peak_svg;
+    const int           meter_segment_mono_level_warning_peak_svg_len = 2189;
+
+    extern const char*  meter_segment_stereo_gain_reduction_off_svg;
+    const int           meter_segment_stereo_gain_reduction_off_svg_len = 2194;
+
+    extern const char*  meter_segment_stereo_gain_reduction_on_svg;
+    const int           meter_segment_stereo_gain_reduction_on_svg_len = 2193;
+
+    extern const char*  meter_segment_stereo_gain_reduction_peak_svg;
+    const int           meter_segment_stereo_gain_reduction_peak_svg_len = 2183;
+
+    extern const char*  meter_segment_stereo_level_normal_off_svg;
+    const int           meter_segment_stereo_level_normal_off_svg_len = 2192;
+
+    extern const char*  meter_segment_stereo_level_normal_on_svg;
+    const int           meter_segment_stereo_level_normal_on_svg_len = 2191;
+
+    extern const char*  meter_segment_stereo_level_normal_peak_svg;
+    const int           meter_segment_stereo_level_normal_peak_svg_len = 2186;
+
+    extern const char*  meter_segment_stereo_level_overload_off_svg;
+    const int           meter_segment_stereo_level_overload_off_svg_len = 2194;
+
+    extern const char*  meter_segment_stereo_level_overload_on_svg;
+    const int           meter_segment_stereo_level_overload_on_svg_len = 2193;
+
+    extern const char*  meter_segment_stereo_level_overload_peak_svg;
+    const int           meter_segment_stereo_level_overload_peak_svg_len = 2187;
+
+    extern const char*  meter_segment_stereo_level_warning_off_svg;
+    const int           meter_segment_stereo_level_warning_off_svg_len = 2193;
+
+    extern const char*  meter_segment_stereo_level_warning_on_svg;
+    const int           meter_segment_stereo_level_warning_on_svg_len = 2192;
+
+    extern const char*  meter_segment_stereo_level_warning_peak_svg;
+    const int           meter_segment_stereo_level_warning_peak_svg_len = 2187;
+
+    extern const char*  slider_attack_rate_svg;
+    const int           slider_attack_rate_svg_len = 1797;
+
+    extern const char*  slider_input_trim_svg;
+    const int           slider_input_trim_svg_len = 1795;
+
+    extern const char*  slider_makeup_gain_svg;
+    const int           slider_makeup_gain_svg_len = 1797;
+
+    extern const char*  slider_ratio_svg;
+    const int           slider_ratio_svg_len = 1792;
+
+    extern const char*  slider_release_rate_svg;
+    const int           slider_release_rate_svg_len = 1800;
+
+    extern const char*  slider_sidechain_hpf_cutoff_svg;
+    const int           slider_sidechain_hpf_cutoff_svg_len = 1808;
+
+    extern const char*  slider_sidechain_lpf_cutoff_svg;
+    const int           slider_sidechain_lpf_cutoff_svg_len = 1808;
+
+    extern const char*  slider_stereo_link_svg;
+    const int           slider_stereo_link_svg_len = 1798;
+
+    extern const char*  slider_threshold_svg;
+    const int           slider_threshold_svg_len = 1794;
+
+    extern const char*  slider_wet_mix_svg;
+    const int           slider_wet_mix_svg_len = 1794;
 }

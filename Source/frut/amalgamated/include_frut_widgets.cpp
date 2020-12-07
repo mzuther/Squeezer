@@ -29,6 +29,8 @@
 
 #include "../FrutHeader.h"
 
+#include "../widgets/resources/frut_widgets_resources.cpp"
+
 #include "../widgets/channel_slider.cpp"
 #include "../widgets/meter_bar.cpp"
 #include "../widgets/meter_segment.cpp"
@@ -37,12 +39,6 @@
 #include "../widgets/meter_segment_discrete_image.cpp"
 #include "../widgets/needle_meter.cpp"
 #include "../widgets/orientation.cpp"
-
-namespace frut::widgets
-{
-#include "../widgets/resources/resources.cpp"
-}
-
 #include "../widgets/signal_led.cpp"
 #include "../widgets/slider_combined.cpp"
 #include "../widgets/slider_continuous.cpp"
