@@ -13,12 +13,6 @@
     <Filter Include="Source\frut\amalgamated">
       <UniqueIdentifier>{E38B799E-4FC3-C135-58CD-2559C483E82E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="skins">
-      <UniqueIdentifier>{ED7B5C10-5990-84C1-2212-28218EE580F2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="skins\Source">
-      <UniqueIdentifier>{4D3DBED6-39A0-4D7B-E225-8631CE6719FE}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\build_id.h">
@@ -78,8 +72,8 @@
     <ClInclude Include="..\..\..\Source\skin.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\skins\Source\squeezer_skin.h">
-      <Filter>skins\Source</Filter>
+    <ClInclude Include="..\..\..\Source\squeezer_skin.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,8 +173,8 @@
     <ClCompile Include="..\..\..\Source\skin.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\skins\Source\squeezer_skin.cpp">
-      <Filter>skins\Source</Filter>
+    <ClCompile Include="..\..\..\Source\squeezer_skin.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

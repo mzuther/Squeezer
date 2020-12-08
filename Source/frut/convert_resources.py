@@ -67,6 +67,9 @@ def process_directory(resource_dir, output_dir, namespace):
 
 #include "FrutHeader.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+
 namespace {0}
 {{
 
@@ -79,6 +82,8 @@ const char* getResource( const String& resourceName, int& numberOfBytes );
 std::unique_ptr<Drawable> getDrawable( const String& resourceName );
 String getStringUTF8( const String& resourceName );
 }}
+
+#pragma clang diagnostic pop
 '''.format(namespace,
            '\n'.join(header_entries).rstrip()))
 
@@ -110,8 +115,15 @@ bool {0}::resourceExists(
    const String& resourceName )
 {{
    int numberOfBytes;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+
    // cppcheck-suppress unreadVariable
    auto ignore_this = getResource( resourceName, numberOfBytes );
+
+#pragma clang diagnostic pop
+
    return numberOfBytes > 0;
 }}
 

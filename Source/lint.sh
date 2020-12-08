@@ -46,8 +46,6 @@ function lint_file
     clang \
         -x c++ - \
         -include "$project_home/Source/frut/FrutHeader.h" \
-        -include "$project_home/skins/Source/squeezer_skin.h" \
-        -include "$project_home/skins/Source/squeezer_skin.cpp" \
         -I "$project_home/JuceLibraryCode" \
         -I "$project_home/libraries" \
         -I "$project_home/libraries/juce/modules" \
@@ -66,8 +64,6 @@ function lint_file
         --library="$project_home/Source/frut/cppcheck_googletest.cfg" \
         --enable=style \
         --include="$project_home/Source/frut/FrutHeader.h" \
-        --include="$project_home/skins/Source/squeezer_skin.h" \
-        --include="$project_home/skins/Source/squeezer_skin.cpp" \
         --inline-suppr \
         --language=c++ \
         --force \

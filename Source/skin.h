@@ -28,7 +28,7 @@
 
 #include "FrutHeader.h"
 #include "plugin_parameters.h"
-#include "../skins/Source/squeezer_skin.h"
+#include "squeezer_skin.h"
 
 
 class Skin :

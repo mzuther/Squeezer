@@ -6173,8 +6173,15 @@ bool frut::widgets::resources::resourceExists(
    const String& resourceName )
 {
    int numberOfBytes;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+
    // cppcheck-suppress unreadVariable
    auto ignore_this = getResource( resourceName, numberOfBytes );
+
+#pragma clang diagnostic pop
+
    return numberOfBytes > 0;
 }
 
