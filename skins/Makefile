@@ -24,7 +24,7 @@ Resources/background/background.svg : Original/Skin.svg
 Source/skin.h : Resources/background/background.svg \
                 Resources/Skin.xml
 	@mkdir -p "${mkfile_dir}/Source"
-	@cd ${mkfile_dir} ; ../Source/frut/convert_resources.py "Resources" "Source" "skin"
+	@cd ${mkfile_dir} ; ../Source/frut/convert_resources.py "Resources" "Source" "squeezer::skin"
 
 
 clean :

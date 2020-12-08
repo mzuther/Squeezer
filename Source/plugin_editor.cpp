@@ -319,7 +319,8 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 
 void SqueezerAudioProcessorEditor::loadSkin_()
 {
-   skin_.loadSkin( NumberOfChannels_ );
+   bool loadExternalResources = false;
+   skin_.loadSkin( NumberOfChannels_, loadExternalResources );
 
    // moves background image to the back of the editor's z-plane
    applySkin_();

@@ -126,13 +126,8 @@ void WindowAboutContent::initialise(
    addAndMakeVisible( buttonLicense_ );
    buttonLicense_.addListener( this );
 
-   auto drawableOn = Drawable::createFromImageData(
-                        frut::widgets::resources::button_gpl_on_svg,
-                        frut::widgets::resources::button_gpl_on_svg_len );
-
-   auto drawableOff = Drawable::createFromImageData(
-                         frut::widgets::resources::button_gpl_off_svg,
-                         frut::widgets::resources::button_gpl_off_svg_len );
+   auto drawableOn = frut::widgets::resources::getDrawable( "button_gpl_on.svg" );
+   auto drawableOff = frut::widgets::resources::getDrawable( "button_gpl_off.svg" );
 
    // set license button images
    buttonLicense_.setImages( drawableOff.get(),

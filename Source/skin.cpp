@@ -24,19 +24,44 @@
 ---------------------------------------------------------------------------- */
 
 #include "skin.h"
+#include "../skins/Source/squeezer_skin.h"
 
 
-bool Skin::loadSkin( int numberOfChannels )
+bool Skin::loadSkin(
+   int numberOfChannels,
+   bool loadExternalResources )
 {
+   loadExternalResources_ = loadExternalResources;
+
+   if ( loadExternalResources_ ) {
+      Logger::outputDebugString( "" );
+      Logger::outputDebugString( "********************************************************************************" );
+      Logger::outputDebugString( "*                                                                              *" );
+      Logger::outputDebugString( "*  Loading resources from external file.  Please turn off before committing!   *" );
+      Logger::outputDebugString( "*                                                                              *" );
+      Logger::outputDebugString( "********************************************************************************" );
+      Logger::outputDebugString( "" );
+   }
+
    updateSkin( numberOfChannels );
 
    return loadFromXml( "squeezer-skin", "1.3" );
 }
 
 
-void Skin::updateSkin( int numberOfChannels )
+void Skin::updateSkin(
+   int numberOfChannels )
 {
    jassert( numberOfChannels > 0 );
+
+   if ( loadExternalResources_ && ! getSkinDirectory().isDirectory() ) {
+      Logger::outputDebugString(
+         String( "[Skin] directory \"" ) +
+         getSkinDirectory().getFullPathName() +
+         "\" not found" );
+
+      document_ = nullptr;
+   }
 
    currentBackgroundName_ = "image";
 
@@ -62,8 +87,10 @@ void Skin::updateSkin( int numberOfChannels )
 
 File Skin::getSkinDirectory()
 {
+   jassert( loadExternalResources_ ) ;
+
    auto resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
-   return resourceDirectory.getChildFile( "./Skins/" );
+   return resourceDirectory.getChildFile( "./Skins/Resources/" );
 }
 
 
@@ -73,4 +100,38 @@ File Skin::getSettingsFile()
    auto settingsFile = settingsDirectory.getChildFile( "Squeezer.settings" );
 
    return settingsFile;
+}
+
+
+bool Skin::resourceExists( const String& strFilename )
+{
+   if ( loadExternalResources_ ) {
+      auto fileImage = getSkinDirectory().getChildFile( strFilename );
+      return fileImage.existsAsFile();
+   } else {
+      return squeezer::skin::resourceExists( strFilename );
+   }
+}
+
+
+std::unique_ptr<Drawable> Skin::loadDrawable( const String& strFilename )
+{
+   if ( loadExternalResources_ ) {
+      auto fileImage = getSkinDirectory().getChildFile( strFilename );
+      return Drawable::createFromImageFile( fileImage );
+   } else {
+      return squeezer::skin::getDrawable( strFilename );
+   }
+}
+
+
+std::unique_ptr<XmlElement> Skin::loadXML( const String& strFilename )
+{
+   if ( loadExternalResources_ ) {
+      auto skinFile = getSkinDirectory().getChildFile( strFilename );
+      return juce::parseXML( skinFile );
+   } else {
+      auto xmlData = squeezer::skin::getStringUTF8( strFilename );
+      return juce::parseXML( xmlData );
+   }
 }

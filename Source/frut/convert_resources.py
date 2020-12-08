@@ -32,7 +32,8 @@ import sys
 
 def process_directory(resource_dir, output_dir, namespace):
     header_entries = []
-    source_entries = []
+    source_dump_entries = []
+    source_getter_entries = []
     ns_filename = namespace.replace('::', '_')
 
     # change working directory to enable addressing via relative file paths
@@ -48,30 +49,93 @@ def process_directory(resource_dir, output_dir, namespace):
             filepath = os.path.join(root_directory, filename)
             filepath = os.path.relpath(filepath, resource_dir)
 
-            header, source = process_file(filepath, namespace)
+            header, source_dump, source_getter = process_file(
+                filepath, namespace)
             header_entries.append(header)
-            source_entries.append(source)
+            source_dump_entries.append(source_dump)
+            source_getter_entries.append(source_getter)
 
     # write binary header file
     with open(os.path.join(output_dir, ns_filename + '.h'), mode='w') as f:
-        f.write('''// WARNING: this binary file was auto-generated, please do not edit!
+        f.write('''// ----------------------------------------------------------------------------
+//
+//  WARNING: this file was auto-generated, please do not edit!
+//
+// ----------------------------------------------------------------------------
 
 #pragma once
 
-namespace {}
+#include "FrutHeader.h"
+
+namespace {0}
 {{
-{}
-}}'''.format(namespace,
-             '\n'.join(header_entries).rstrip()))
+
+{1}
+
+
+bool resourceExists( const String& resourceName );
+const char* getResource( const String& resourceName, int& numberOfBytes );
+
+std::unique_ptr<Drawable> getDrawable( const String& resourceName );
+String getStringUTF8( const String& resourceName );
+}}
+'''.format(namespace,
+           '\n'.join(header_entries).rstrip()))
 
     # write binary source file
     with open(os.path.join(output_dir, ns_filename + '.cpp'), mode='w') as f:
-        f.write('''// WARNING: this binary file was auto-generated, please do not edit!
+        f.write('''// ----------------------------------------------------------------------------
+//
+//  WARNING: this file was auto-generated, please do not edit!
+//
+// ----------------------------------------------------------------------------
 
-#include "{}.h"
+#include "{1}.h"
 
-{}'''.format(ns_filename,
-             '\n'.join(source_entries).rstrip()))
+{2}
+
+
+const char* {0}::getResource(
+   const String& resourceName,
+   int& numberOfBytes )
+{{
+{3}
+
+   numberOfBytes = -1;
+   return nullptr;
+}}
+
+
+bool {0}::resourceExists(
+   const String& resourceName )
+{{
+   int numberOfBytes;
+   auto ignore_this = getResource( resourceName, numberOfBytes );
+   return numberOfBytes > 0;
+}}
+
+
+std::unique_ptr<Drawable> {0}::getDrawable(
+   const String& resourceName )
+{{
+   int numberOfBytes;
+   auto data = getResource( resourceName, numberOfBytes );
+   return Drawable::createFromImageData( data, numberOfBytes );
+}}
+
+
+String {0}::getStringUTF8(
+   const String& resourceName )
+{{
+   int numberOfBytes;
+   auto data = getResource( resourceName, numberOfBytes );
+
+   return String ( CharPointer_UTF8 ( data ), numberOfBytes );
+}}
+'''.format(namespace,
+           ns_filename,
+           '\n'.join(source_dump_entries).rstrip(),
+           '\n'.join(source_getter_entries).rstrip()))
 
 
 def process_file(filepath, namespace):
@@ -88,31 +152,43 @@ def process_file(filepath, namespace):
         print(stderr)
         exit(2)
 
-    resource, resource_length, ignore_this = stdout.split(';')
+    resource, resource_size, ignore_this = stdout.split(';')
 
-    header_extern = resource.strip()
-    header_extern = header_extern.split('[] =')[0]
-    header_extern = header_extern.replace('unsigned char',
-                                          '    extern const char* ')
+    # extract variable name
+    variable_name = resource.split('[]')[0]
+    variable_name = variable_name.split(' ')[-1]
 
-    header_length = resource_length.strip()
-    header_length = header_length.replace('unsigned int',
-                                          '    const int          ')
+    # extract resource size in bytes
+    resource_size = resource_size.split(' ')[-1]
+    resource_size = resource_size.strip(' ;')
 
-    header = ';\n'.join([header_extern, header_length, ''])
+    # re-format dumped resource
+    resource_dump = resource.strip()
+    resource_dump = 'static const ' + resource_dump.replace('[]', '_temp[]')
+    resource_dump = '\n '.join(resource_dump.split('\n'))
+    resource_dump = resource_dump.replace(' }', '}')
 
-    source_variable_name = resource.split('[]')[0]
-    source_variable_name = source_variable_name.split(' ')[-1]
+    # prepare entry for header file
+    header = '''extern const char*  {0};
+const String        {0}_name( "{1}" );
+const int           {0}_len = {2};
+'''.format(
+        variable_name, filepath, resource_size)
 
-    source_temp = resource.strip()
-    source_temp = 'static const ' + source_temp.replace('[] =', '_temp[] =')
+    # prepare entry for source file (dump)
+    source_dump = '''{0};
+const char* {1}::{2} = ( const char* ) {2}_temp;
+'''.format(
+        resource_dump, namespace, variable_name)
 
-    source_extern = 'const char* {}::{} = (const char*) {}_temp'.format(
-        namespace, source_variable_name, source_variable_name)
+    # prepare entry for source file (resource getter)
+    source_getter = '''   if ( resourceName == {0}_name ) {{
+      numberOfBytes = {0}_len;
+      return {0};
+   }}
+'''.format(variable_name)
 
-    source = ';\n'.join([source_temp, source_extern, ''])
-
-    return [header, source]
+    return [header, source_dump, source_getter]
 
 
 def print_usage(error_message):
@@ -137,10 +213,10 @@ if __name__ == '__main__':
     namespace = sys.argv[3]
 
     if not os.path.isdir(resource_dir):
-        print_usage('"{}" is not a directory.'.format(resource_dir))
+        print_usage('"{0}" is not a directory.'.format(resource_dir))
 
     if not os.path.isdir(output_dir):
-        print_usage('"{}" is not a directory.'.format(output_dir))
+        print_usage('"{0}" is not a directory.'.format(output_dir))
 
     print('')
     print('Converting resources...')

@@ -28,14 +28,14 @@
 
 ###############################################################################
 #
-#  WARNING: this file is auto-generated, please do not edit!
+#  WARNING: this file was auto-generated, please do not edit!
 #
 ###############################################################################
 
-astyle --recursive --exclude="resources" --options=./.astylerc \
+astyle --recursive --options=./.astylerc \
        "*.cpp"
 
 printf "\n"
 
-astyle --recursive --exclude="resources" --options=./.astylerc \
+astyle --recursive --options=./.astylerc \
        "*.h"

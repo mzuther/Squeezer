@@ -28,7 +28,7 @@ rem  ---------------------------------------------------------------------------
 
 rem  ############################################################################
 rem
-rem  WARNING: this file is auto-generated, please do not edit!
+rem  WARNING: this file was auto-generated, please do not edit!
 rem
 rem  ############################################################################
 

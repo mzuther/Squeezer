@@ -184,6 +184,7 @@ OBJECTS := \
 	$(OBJDIR)/plugin_processor.o \
 	$(OBJDIR)/side_chain.o \
 	$(OBJDIR)/skin.o \
+	$(OBJDIR)/squeezer_skin.o \
 
 RESOURCES := \
 
@@ -339,6 +340,9 @@ $(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/skin.o: ../../../Source/skin.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/squeezer_skin.o: ../../../skins/Source/squeezer_skin.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

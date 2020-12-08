@@ -46,31 +46,20 @@ bool Skin::loadFromXml( const String& rootName,
    backgroundWidth_ = 0;
    backgroundHeight_ = 0;
 
-   resourcePath_ = getSkinDirectory().getChildFile( "./Resources/" );
-
-   if ( ! resourcePath_.isDirectory() ) {
-      Logger::outputDebugString(
-         String( "[Skin] directory \"" ) +
-         resourcePath_.getFullPathName() +
-         "\" not found" );
-
-      document_ = nullptr;
-      return false;
-   }
-
-   auto skinFile = resourcePath_.getChildFile( "Skin.xml" );
+   String xmlFilename = "Skin.xml";
 
    Logger::outputDebugString(
       String( "[Skin] loading file \"" ) +
-      skinFile.getFullPathName() + "\"" );
+      xmlFilename +
+      "\"" );
 
-   document_ = juce::parseXML( skinFile );
+   document_ = loadXML( xmlFilename );
 
    // this should not happen!
    if ( document_ == nullptr ) {
       Logger::outputDebugString(
          String( "[Skin] file \"" ) +
-         skinFile.getFullPathName() +
+         xmlFilename +
          "\" not found" );
 
       return false;
@@ -81,7 +70,7 @@ bool Skin::loadFromXml( const String& rootName,
    if ( skinVersion.compare( assumedVersionNumber ) != 0 ) {
       Logger::outputDebugString(
          String( "[Skin] file \"" ) +
-         skinFile.getFileName() +
+         xmlFilename +
          "\" has incompatible version number \"" +
          skinVersion +
          "\"" );
@@ -253,8 +242,7 @@ float Skin::getFloat( const XmlElement* xmlComponent,
    if ( xmlComponent == nullptr ) {
       return defaultValue;
    } else {
-      auto result = xmlComponent->getDoubleAttribute(
-                       attributeName, defaultValue );
+      auto result = xmlComponent->getDoubleAttribute( attributeName, defaultValue );
 
       return static_cast<float>( result );
    }
@@ -371,16 +359,15 @@ std::unique_ptr<Drawable> Skin::createBogusImage( const String& warningText,
 
 std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& strFilename )
 {
-   File fileImage = resourcePath_.getChildFile( strFilename );
    std::unique_ptr<Drawable> component;
 
-   if ( fileImage.existsAsFile() ) {
-      component = Drawable::createFromImageFile( fileImage );
+   if ( resourceExists( strFilename ) ) {
+      component = loadDrawable( strFilename );
 
       if ( ! component ) {
          Logger::outputDebugString(
             String( "[Skin] image file \"" ) +
-            fileImage.getFullPathName() +
+            strFilename +
             "\" not loaded" );
 
          component = createBogusImage( "Image file not loaded", 200, 200 );
@@ -388,7 +375,7 @@ std::unique_ptr<Drawable> Skin::loadImageAsDrawable( const String& strFilename )
    } else {
       Logger::outputDebugString(
          String( "[Skin] image file \"" ) +
-         fileImage.getFullPathName() +
+         strFilename +
          "\" not found" );
 
       component = createBogusImage( "Image file not found", 200, 200 );

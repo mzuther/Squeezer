@@ -28,6 +28,6 @@
 {%- import 'settings.jinja' as settings -%}
 {%- import 'lint.sh.macros' as render -%}
 
-{{ render.preamble(frut.copyright, settings.includes) }}
+{{ render.preamble(frut.copyright, frut.includes) }}
 
 {{- render.postamble() }}

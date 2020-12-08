@@ -138,6 +138,10 @@ public:
 
 
 protected:
+   virtual bool resourceExists( const String& strFilename ) = 0;
+   virtual std::unique_ptr<Drawable> loadDrawable( const String& strFilename ) = 0;
+   virtual std::unique_ptr<XmlElement> loadXML( const String& strFilename ) = 0;
+
    std::unique_ptr<XmlElement> document_;
 
    std::unique_ptr<Drawable> createBogusImage( const String& warningText,
@@ -148,8 +152,6 @@ protected:
    XmlElement* skinGroup_;
    XmlElement* skinFallback_1_;
    XmlElement* skinFallback_2_;
-
-   File resourcePath_;
 
    String currentBackgroundName_;
    String currentGroupName_;

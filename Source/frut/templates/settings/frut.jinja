@@ -24,3 +24,21 @@
   '',
   '----------------------------------------------------------------------------'
 ] %}
+
+
+{% set includes = {
+  'paths': [
+    "JuceLibraryCode",
+    "libraries",
+    "libraries/juce/modules",
+    "Source/frut"
+  ],
+  'paths_unittest': [
+    "libraries/googletest/googletest/include"
+  ],
+  'files': [
+    "Source/frut/FrutHeader.h"
+  ],
+  'files_unittest': [
+  ]
+} %}
