@@ -87,7 +87,7 @@ void Skin::updateSkin(
 
 File Skin::getSkinDirectory()
 {
-   jassert( loadExternalResources_ ) ;
+   jassert( loadExternalResources_ );
 
    auto resourceDirectory = SqueezerPluginParameters::getResourceDirectory();
    return resourceDirectory.getChildFile( "./Skins/Resources/" );

@@ -110,6 +110,7 @@ bool {0}::resourceExists(
    const String& resourceName )
 {{
    int numberOfBytes;
+   // cppcheck-suppress unreadVariable
    auto ignore_this = getResource( resourceName, numberOfBytes );
    return numberOfBytes > 0;
 }}
