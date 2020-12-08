@@ -24,7 +24,6 @@
 ---------------------------------------------------------------------------- */
 
 #include "skin.h"
-#include "../skins/Source/squeezer_skin.h"
 
 
 bool Skin::loadSkin(
