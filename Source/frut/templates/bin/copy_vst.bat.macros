@@ -90,7 +90,7 @@ echo.
 {% for variant in variants %}
 call :CopyVst       "vst2/{{ name.real }} ({{variant.real}}{{platform}}).dll" "%{{outdir}}%"
 {% endfor %}
-call :CopyVst       "../doc/{{ name.short }}.pdf" "%{{outdir}}%"
+call :CopyVst       "vst2/Documentation/{{ name.real }}.pdf" "%{{outdir}}%"
 {% endmacro %}
 
 

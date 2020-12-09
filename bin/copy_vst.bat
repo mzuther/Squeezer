@@ -54,7 +54,7 @@ call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32%"
-call :CopyVst       "../doc/squeezer.pdf" "%vst2_32%"
+call :CopyVst       "vst2/Documentation/Squeezer.pdf" "%vst2_32%"
 
 echo.
 echo VST2 (32 bit, Categories)
@@ -64,7 +64,7 @@ call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32_categories%"
-call :CopyVst       "../doc/squeezer.pdf" "%vst2_32_categories%"
+call :CopyVst       "vst2/Documentation/Squeezer.pdf" "%vst2_32_categories%"
 
 
 echo.
@@ -82,7 +82,7 @@ call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64%"
-call :CopyVst       "../doc/squeezer.pdf" "%vst2_64%"
+call :CopyVst       "vst2/Documentation/Squeezer.pdf" "%vst2_64%"
 
 echo.
 echo VST2 (64 bit, Categories)
@@ -92,7 +92,7 @@ call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64_categories%"
-call :CopyVst       "../doc/squeezer.pdf" "%vst2_64_categories%"
+call :CopyVst       "vst2/Documentation/Squeezer.pdf" "%vst2_64_categories%"
 
 
 echo.
