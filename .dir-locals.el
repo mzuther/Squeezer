@@ -48,6 +48,8 @@
                    (setq-local flycheck-clang-language-standard language-standard)
                    (setq-local flycheck-clang-include-path include-path)
                    (setq-local flycheck-clang-includes includes)
+                   (setq-local flycheck-clang-warnings `(,@flycheck-clang-warnings
+                                                         "no-pragma-once-outside-header"))
 
                    (setq-local flycheck-gcc-language-standard language-standard)
                    (setq-local flycheck-gcc-include-path include-path)

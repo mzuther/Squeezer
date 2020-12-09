@@ -6173,14 +6173,8 @@ bool frut::widgets::resources::resourceExists(
    const String& resourceName )
 {
    int numberOfBytes;
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
-
-   // cppcheck-suppress unreadVariable
-   auto ignore_this = getResource( resourceName, numberOfBytes );
-
-#pragma clang diagnostic pop
+   auto data = getResource( resourceName, numberOfBytes );
+   ignoreUnused( data );
 
    return numberOfBytes > 0;
 }
@@ -6191,6 +6185,7 @@ std::unique_ptr<Drawable> frut::widgets::resources::getDrawable(
 {
    int numberOfBytes;
    auto data = getResource( resourceName, numberOfBytes );
+
    return Drawable::createFromImageData( data, numberOfBytes );
 }
 

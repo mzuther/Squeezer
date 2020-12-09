@@ -57,6 +57,7 @@ function lint_file
         -fcolor-diagnostics \
         -std=c++17 \
         -Wall \
+        -Wno-pragma-once-outside-header \
         < "$filename"
 
     cppcheck \

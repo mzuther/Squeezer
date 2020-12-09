@@ -63,7 +63,8 @@ def process_directory(resource_dir, output_dir, namespace):
 //
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef {1}
+#define {1}
 
 #include "FrutHeader.h"
 
@@ -73,7 +74,7 @@ def process_directory(resource_dir, output_dir, namespace):
 namespace {0}
 {{
 
-{1}
+{2}
 
 
 bool resourceExists( const String& resourceName );
@@ -84,7 +85,10 @@ String getStringUTF8( const String& resourceName );
 }}
 
 #pragma clang diagnostic pop
+
+#endif  // {1}
 '''.format(namespace,
+           'RESOURCES_' + ns_filename.upper() + '_H',
            '\n'.join(header_entries).rstrip()))
 
     # write binary source file
@@ -115,14 +119,8 @@ bool {0}::resourceExists(
    const String& resourceName )
 {{
    int numberOfBytes;
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
-
-   // cppcheck-suppress unreadVariable
-   auto ignore_this = getResource( resourceName, numberOfBytes );
-
-#pragma clang diagnostic pop
+   auto data = getResource( resourceName, numberOfBytes );
+   ignoreUnused( data );
 
    return numberOfBytes > 0;
 }}
@@ -133,6 +131,7 @@ std::unique_ptr<Drawable> {0}::getDrawable(
 {{
    int numberOfBytes;
    auto data = getResource( resourceName, numberOfBytes );
+
    return Drawable::createFromImageData( data, numberOfBytes );
 }}
 

@@ -4,7 +4,8 @@
 //
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef RESOURCES_SQUEEZER_SKIN_H
+#define RESOURCES_SQUEEZER_SKIN_H
 
 #include "FrutHeader.h"
 
@@ -411,3 +412,5 @@ String getStringUTF8( const String& resourceName );
 }
 
 #pragma clang diagnostic pop
+
+#endif  // RESOURCES_SQUEEZER_SKIN_H

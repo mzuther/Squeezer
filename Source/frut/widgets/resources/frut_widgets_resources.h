@@ -4,7 +4,8 @@
 //
 // ----------------------------------------------------------------------------
 
-#pragma once
+#ifndef RESOURCES_FRUT_WIDGETS_RESOURCES_H
+#define RESOURCES_FRUT_WIDGETS_RESOURCES_H
 
 #include "FrutHeader.h"
 
@@ -31,3 +32,5 @@ String getStringUTF8( const String& resourceName );
 }
 
 #pragma clang diagnostic pop
+
+#endif  // RESOURCES_FRUT_WIDGETS_RESOURCES_H
