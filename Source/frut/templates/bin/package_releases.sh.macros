@@ -233,7 +233,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_add "$binary_dir/standalone/{{ name.short }}_{{variant.short}}{{platform}}" ""
 {% endfor %}
 
-{% for scope in ['default', 'standalone_linux_' + bits] %}
+{% for scope in ['default', 'standalone', 'standalone_linux_' + bits] %}
 {% for line in additions[scope] %}
     {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', name.short) }}
 {% endfor -%}
@@ -260,7 +260,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_add "$binary_dir/vst2/{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" ""
 {% endfor %}
 
-{% for scope in ['default', 'vst2_linux_' + bits] %}
+{% for scope in ['default', 'vst2', 'vst2_linux_' + bits] %}
 {% for line in additions[scope] %}
     {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', name.short) }}
 {% endfor -%}
@@ -291,7 +291,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 {% endif %}
 {% endfor %}
 
-{% for scope in ['default', 'vst3_linux_' + bits] %}
+{% for scope in ['default', 'vst3', 'vst3_linux_' + bits] %}
 {% for line in additions[scope] %}
     {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', name.short + '.vst3/Contents/Resources') }}
 {% endfor -%}
@@ -318,7 +318,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_add "$binary_dir/standalone/{{ name.real }} ({{variant.real}}{{platform}}).exe" ""
 {% endfor %}
 
-{% for scope in ['default', 'standalone_windows_' + bits] %}
+{% for scope in ['default', 'standalone', 'standalone_windows_' + bits] %}
 {% for line in additions[scope] %}
     {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', name.short) }}
 {% endfor -%}
@@ -345,7 +345,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_add "$binary_dir/vst2/{{ name.real }} ({{variant.real}}{{platform}}).dll" ""
 {% endfor %}
 
-{% for scope in ['default', 'vst2_windows_' + bits] %}
+{% for scope in ['default', 'vst2', 'vst2_windows_' + bits] %}
 {% for line in additions[scope] %}
     {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', name.short) }}
 {% endfor -%}
@@ -372,7 +372,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_add "$binary_dir/vst3/{{ name.short }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "{{ name.short }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
 {% endfor %}
 
-{% for scope in ['default', 'vst3_windows_' + bits] %}
+{% for scope in ['default', 'vst3', 'vst3_windows_' + bits] %}
 {% for line in additions[scope] %}
     {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', name.short + '.vst3/Contents/Resources') }}
 {% endfor -%}

@@ -31,7 +31,7 @@
 {{ render.preamble(settings.copyright) -}}
 
 
-{% for platform in ['', '_x64'] -%}
+{% for platform in ['_x64', ] -%}
 
 {% for variant in settings.variants %}
 {{ render.standalone_linux(settings.name, variant, platform) -}}

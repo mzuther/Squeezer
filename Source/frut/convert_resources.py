@@ -68,8 +68,10 @@ def process_directory(resource_dir, output_dir, namespace):
 
 #include "FrutHeader.h"
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 
 namespace {0}
 {{
@@ -84,7 +86,9 @@ std::unique_ptr<Drawable> getDrawable( const String& resourceName );
 String getStringUTF8( const String& resourceName );
 }}
 
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif
 
 #endif  // {1}
 '''.format(namespace,

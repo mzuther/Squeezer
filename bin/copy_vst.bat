@@ -37,10 +37,10 @@ setlocal
 set rsync_path="E:\Documents\System\Tools\rsync\bin"
 set rsync_cmd="%rsync_path%\rsync.exe" --archive
 
-set vst2_32="/cygdrive/c/Program Files (x86)/Steinberg/VSTPlugins/radix/"
-set vst3_32="/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/"
-set vst2_64="/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/"
-set vst3_64="/cygdrive/c/Program Files/Common Files/VST3/radix/"
+set vst2_32=/cygdrive/c/Program Files (x86)/Steinberg/VSTPlugins/radix/
+set vst3_32=/cygdrive/c/Program Files (x86)/Common Files/VST3/radix/
+set vst2_64=/cygdrive/c/Program Files/Steinberg/VSTPlugins/radix/
+set vst3_64=/cygdrive/c/Program Files/Common Files/VST3/radix/
 
 set vst2_32_categories="/cygdrive/d/Plugins/32-bit/Categories/Dynamics/Compressor"
 set vst2_64_categories="/cygdrive/d/Plugins/64-bit/Categories/Dynamics/Compressor"
@@ -54,8 +54,7 @@ call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32%"
-call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_32%"
-call :CopyVstDelete "vst2/squeezer" "%vst2_32%"
+call :CopyVst       "../doc/squeezer.pdf" "%vst2_32%"
 
 echo.
 echo VST2 (32 bit, Categories)
@@ -65,8 +64,7 @@ call :CopyVst       "vst2/Squeezer (Stereo).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Mono).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain).dll" "%vst2_32_categories%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain).dll" "%vst2_32_categories%"
-call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_32_categories%"
-call :CopyVstDelete "vst2/squeezer" "%vst2_32_categories%"
+call :CopyVst       "../doc/squeezer.pdf" "%vst2_32_categories%"
 
 
 echo.
@@ -84,8 +82,7 @@ call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64%"
-call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_64%"
-call :CopyVstDelete "vst2/squeezer" "%vst2_64%"
+call :CopyVst       "../doc/squeezer.pdf" "%vst2_64%"
 
 echo.
 echo VST2 (64 bit, Categories)
@@ -95,8 +92,7 @@ call :CopyVst       "vst2/Squeezer (Stereo x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Mono x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Stereo, no side-chain x64).dll" "%vst2_64_categories%"
 call :CopyVst       "vst2/Squeezer (Mono, no side-chain x64).dll" "%vst2_64_categories%"
-call :CopyVst       "vst2/squeezer/Documentation/squeezer.pdf" "%vst2_64_categories%"
-call :CopyVstDelete "vst2/squeezer" "%vst2_64_categories%"
+call :CopyVst       "../doc/squeezer.pdf" "%vst2_64_categories%"
 
 
 echo.

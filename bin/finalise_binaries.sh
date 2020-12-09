@@ -77,14 +77,6 @@ printf "\n  === Finalising binaries ===\n\n"
 
 mkdir -p "$binary_dir/debug_symbols"
 
-finalise_binary  "standalone/squeezer_stereo"
-finalise_binary  "standalone/squeezer_mono"
-
-finalise_binary  "vst2/squeezer_stereo_vst2.so"
-finalise_binary  "vst2/squeezer_mono_vst2.so"
-finalise_binary  "vst2/squeezer_stereo_no_sidechain_vst2.so"
-finalise_binary  "vst2/squeezer_mono_no_sidechain_vst2.so"
-
 finalise_binary  "standalone/squeezer_stereo_x64"
 finalise_binary  "standalone/squeezer_mono_x64"
 

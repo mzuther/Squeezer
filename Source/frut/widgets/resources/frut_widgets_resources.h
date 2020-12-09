@@ -9,8 +9,10 @@
 
 #include "FrutHeader.h"
 
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 
 namespace frut::widgets::resources
 {
@@ -31,6 +33,8 @@ std::unique_ptr<Drawable> getDrawable( const String& resourceName );
 String getStringUTF8( const String& resourceName );
 }
 
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif
 
 #endif  // RESOURCES_FRUT_WIDGETS_RESOURCES_H

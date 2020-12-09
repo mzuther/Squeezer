@@ -88,9 +88,9 @@
 
 {% set additions_packaging = {
   'default': [
-    'archive_add "RESOURCE_INPUT/Documentation/squeezer.pdf" ""',
+    'archive_add "$binary_dir/Documentation" ""',
+  ],
+  'vst3': [
     'archive_add "RESOURCE_INPUT/Documentation" "RESOURCE_OUTPUT"',
-    'archive_add "RESOURCE_INPUT/Skins/Default" "RESOURCE_OUTPUT/Skins"',
-    'archive_add "RESOURCE_INPUT/Skins/Default.skin" "RESOURCE_OUTPUT/Skins"'
   ]
 } %}

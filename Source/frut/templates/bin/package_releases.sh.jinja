@@ -30,7 +30,7 @@
 
 {{ render.preamble(settings.name, settings.copyright, settings.version) }}
 
-{% for platform, bits in [['', '32'], ['_x64', '64']] -%}
+{% for platform, bits in [['_x64', '64'], ] -%}
 
 {{ render.standalone_linux(settings.name, settings.variants, settings.additions_packaging, platform, bits) }}
 
