@@ -649,6 +649,6 @@ const File SqueezerPluginParameters::getResourceDirectory()
 #if JucePlugin_Build_VST3
    return applicationDirectory.getChildFile( "../Resources/" );
 #else // JucePlugin_Build_VST3
-   return applicationDirectory.getChildFile( "./squeezer/" );
+   return applicationDirectory;
 #endif // JucePlugin_Build_VST3
 }
