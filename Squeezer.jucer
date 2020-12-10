@@ -7,15 +7,14 @@
               pluginCode="sqzr" pluginChannelConfigs="" pluginIsSynth="0" pluginWantsMidiIn="0"
               pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="1" pluginTailLength="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="SqueezerAU"
-              pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="2" jucerVersion="5.4.7"
-              companyName="Martin Zuther" aaxIdentifier="de.mzuther.Squeezer"
-              pluginAAXCategory="2" includeBinaryInAppConfig="1" buildVST3="0"
-              buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
+              pluginAUViewClass="SqueezerAU_V1" pluginRTASCategory="2" companyName="Martin Zuther"
+              aaxIdentifier="de.mzuther.Squeezer" pluginAAXCategory="2" includeBinaryInAppConfig="1"
+              buildVST3="0" buildAAX="0" pluginManufacturerEmail="support@yourcompany.com"
               companyWebsite="http://code.mzuther.de/" pluginVSTCategory="kPlugCategEffect"
               pluginIsMidiEffectPlugin="0" buildAUv3="0" displaySplashScreen="0"
               reportAppUsage="0" splashScreenColour="Dark" buildStandalone="1"
               enableIAA="0" pluginFormats="buildStandalone" pluginVST3Category="Dynamics,Fx"
-              cppLanguageStandard="17">
+              cppLanguageStandard="17" jucerFormatVersion="1">
   <MAINGROUP id="BIo7Gh" name="Squeezer">
     <GROUP id="{4CE73505-B0FA-5007-4F6D-3B0DF0B3B899}" name="frut">
       <GROUP id="{EC7F313B-E670-963C-46E0-1374EC6969B1}" name="amalgamated">

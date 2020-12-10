@@ -338,14 +338,7 @@ void SqueezerAudioProcessorEditor::applySkin_()
       String( skin_.getUiScale() ) + "%" );
 
    float scale = skin_.getUiScale() / 100.0f;
-
-   // FIXME: should be fixed in JUCE by now (see
-   // https://forum.juce.com/t/ui-scaling/15930/15)
-   if ( PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_Standalone ) {
-      Desktop::getInstance().setGlobalScaleFactor( scale );
-   } else {
-      setScaleFactor( scale );
-   }
+   Desktop::getInstance().setGlobalScaleFactor( scale );
 
    // moves background image to the back of the editor's z-plane;
    // will also resize plug-in editor

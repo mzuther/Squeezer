@@ -42,7 +42,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{paralist}
 \usepackage{ucs}
-\usepackage[obeyall]{siunitx}
+\usepackage[detect-all]{siunitx}
 \usepackage[hyphens,obeyspaces]{url}
 \usepackage{varioref}
 \usepackage{wrapfig}  % must be included after package "float"
@@ -111,18 +111,18 @@
 \setlength{\intextsep}{0.2\baselineskip}
 
 %% package "siunitx"
-\sisetup{per=slash,trapambigfrac,locale=UK}
+\sisetup{per-mode=symbol,locale=UK}
 
-\newunit[unitspace=space]{\bits}{bits}
-\newunit[unitspace=space]{\dB}{dB}
-\newunit[unitspace=space]{\dBFS}{dB\,FS}
-\newunit[unitspace=space]{\dBr}{dBr}
-\newunit[unitspace=space]{\dBSPL}{dB\,SPL}
-\newunit[unitspace=space]{\dBu}{dBu}
-\newunit[unitspace=space]{\LK}{LK}
-\newunit[unitspace=space]{\LKFS}{LKFS}
-\newunit[unitspace=space]{\VRMS}{V\textsubscript{RMS}}
-\newunit[unitspace=space]{\VU}{VU}
+\DeclareSIUnit[]\bits{bits}
+\DeclareSIUnit[]\dB{dB}
+\DeclareSIUnit[]\dBFS{dB\,FS}
+\DeclareSIUnit[]\dBr{dBr}
+\DeclareSIUnit[]\dBSPL{dB\,SPL}
+\DeclareSIUnit[]\dBu{dBu}
+\DeclareSIUnit[]\LK{LK}
+\DeclareSIUnit[]\LKFS{LKFS}
+\DeclareSIUnit[]\VRMS{V\textsubscript{RMS}}
+\DeclareSIUnit[]\VU{VU}
 
 %% scaling of screenshots
 \newcommand{\screenshotscale}{0.7}
