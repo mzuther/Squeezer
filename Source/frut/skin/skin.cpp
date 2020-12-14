@@ -466,7 +466,6 @@ Image Skin::loadImage( const String& tagName,
 void Skin::setBackground( DrawableComposite* background,
                           AudioProcessorEditor* editor )
 {
-   background->deleteAllChildren(); // FIXME
    std::unique_ptr<Drawable> drawable;
 
    if ( skinGroup_ != nullptr ) {
@@ -810,8 +809,6 @@ void Skin::placeAndSkinNeedleMeter( const String& tagName,
 void Skin::placeAndSkinLabel( const String& tagName,
                               DrawableComposite* label )
 {
-   label->deleteAllChildren(); // FIXME
-
    auto drawable = loadImageAsDrawable( tagName, "image" );
    label->addAndMakeVisible( drawable.release() );
 }
