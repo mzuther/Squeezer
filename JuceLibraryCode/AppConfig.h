@@ -44,21 +44,21 @@
 ---------------------------------------------------------------------------- */
 
 #ifdef SQUEEZER_MONO
-  #if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+  #if JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
     #define JucePlugin_PluginCode  'sqzM'
-    #define JucePlugin_Name        "Squeezer (Mono)"
-  #else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_Name        "Squeezer (side-chain, mono)"
+  #else // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
     #define JucePlugin_PluginCode  'sqzN'
-    #define JucePlugin_Name        "Squeezer (Mono, no side-chain)"
-  #endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_Name        "Squeezer (mono)"
+  #endif // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
 #else // SQUEEZER_MONO
-  #if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+  #if JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
     #define JucePlugin_PluginCode  'sqzr'
-    #define JucePlugin_Name        "Squeezer (Stereo)"
-  #else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_Name        "Squeezer (side-chain)"
+  #else // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
     #define JucePlugin_PluginCode  'sqzS'
-    #define JucePlugin_Name        "Squeezer (Stereo, no side-chain)"
-  #endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+    #define JucePlugin_Name        "Squeezer"
+  #endif // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
 #endif // SQUEEZER_MONO
 
 #define JUCE_JACK_CLIENT_NAME JucePlugin_Name
