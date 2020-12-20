@@ -111,6 +111,7 @@ private:
    frut::dsp::Dither dither_;
 
    bool hasSideChain_;
+   int numberOfChannels_;
 
    SqueezerPluginParameters pluginParameters_;
    std::unique_ptr<Compressor> compressor_;

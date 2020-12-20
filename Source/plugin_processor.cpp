@@ -64,79 +64,79 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 {
 #ifdef SQUEEZER_MONO
 
-#if JucePlugin_Build_VST
-
 #if SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
+#if JucePlugin_Build_VST
+
    return BusesProperties()
-          .withInput( "Main / SC In",
+          .withInput( "Main + S-C",
                       AudioChannelSet::discreteChannels( 2 ) )
-          .withOutput( "Main Out",
+          .withOutput( "Main",
                        AudioChannelSet::mono() )
-          .withInput( "Disabled In",
+          .withInput( "(Disabled)",
                       AudioChannelSet::disabled() );
-
-#else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-   return BusesProperties()
-          .withInput( "Main In",
-                      AudioChannelSet::mono() )
-          .withOutput( "Main Out",
-                       AudioChannelSet::mono() )
-          .withInput( "Disabled In",
-                      AudioChannelSet::disabled() );
-
-#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
 #else // JucePlugin_Build_VST
 
    return BusesProperties()
-          .withInput( "Main In",
+          .withInput( "Main",
                       AudioChannelSet::mono() )
-          .withOutput( "Main Out",
+          .withOutput( "Main",
                        AudioChannelSet::mono() )
-          .withInput( "Side-Chain In",
+          .withInput( "Side-Chain",
                       AudioChannelSet::mono() );
 
 #endif // JucePlugin_Build_VST
 
-#else // SQUEEZER_MONO
-
-#if JucePlugin_Build_VST
-
-#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-   return BusesProperties()
-          .withInput( "Main / SC In",
-                      AudioChannelSet::discreteChannels( 4 ) )
-          .withOutput( "Main Out",
-                       AudioChannelSet::stereo() )
-          .withInput( "Disabled In",
-                      AudioChannelSet::disabled() );
-
 #else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
    return BusesProperties()
-          .withInput( "Main In",
-                      AudioChannelSet::stereo() )
-          .withOutput( "Main Out",
-                       AudioChannelSet::stereo() )
-          .withInput( "Disabled In",
+          .withInput( "Main",
+                      AudioChannelSet::mono() )
+          .withOutput( "Main",
+                       AudioChannelSet::mono() )
+          .withInput( "(Disabled)",
                       AudioChannelSet::disabled() );
 
 #endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
+#else // SQUEEZER_MONO
+
+#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+#if JucePlugin_Build_VST
+
+   return BusesProperties()
+          .withInput( "Main + S-C",
+                      AudioChannelSet::discreteChannels( 4 ) )
+          .withOutput( "Main",
+                       AudioChannelSet::stereo() )
+          .withInput( "(Disabled)",
+                      AudioChannelSet::disabled() );
+
 #else // JucePlugin_Build_VST
 
    return BusesProperties()
-          .withInput( "Main In",
+          .withInput( "Main",
                       AudioChannelSet::stereo() )
-          .withOutput( "Main Out",
+          .withOutput( "Main",
                        AudioChannelSet::stereo() )
-          .withInput( "Side-Chain In",
+          .withInput( "Side-Chain",
                       AudioChannelSet::stereo() );
 
 #endif // JucePlugin_Build_VST
+
+#else // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+   return BusesProperties()
+          .withInput( "Main",
+                      AudioChannelSet::stereo() )
+          .withOutput( "Main",
+                       AudioChannelSet::stereo() )
+          .withInput( "(Disabled)",
+                      AudioChannelSet::disabled() );
+
+#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
 #endif // SQUEEZER_MONO
 }
@@ -145,11 +145,6 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool SqueezerAudioProcessor::isBusesLayoutSupported( const BusesLayout& layouts ) const
 {
-   // main bus: do not allow disabling of input channels
-   if ( layouts.getMainInputChannelSet().isDisabled() ) {
-      return false;
-   }
-
 #ifdef SQUEEZER_MONO
 
    // main output must be mono
@@ -157,77 +152,56 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported( const BusesLayout& layouts 
       return false;
    }
 
-   // main input is mono
-   if ( layouts.getMainInputChannelSet() == AudioChannelSet::mono() ) {
-
-#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-      // side chain input is mono ==> okay
-      if ( layouts.getChannelSet( true, 1 ) == AudioChannelSet::mono() ) {
-         return true;
-      }
-
-#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-      // no side chain input ==> okay
-      if ( layouts.getChannelSet( true, 1 ) == AudioChannelSet::disabled() ) {
-         return true;
-      }
-   }
-
-#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-   // main input has two channels
-   if ( layouts.getMainInputChannelSet().size() == 2 ) {
-      // no side chain input ==> okay
-      if ( layouts.getChannelSet( true, 1 ) == AudioChannelSet::disabled() ) {
-         return true;
-      }
-   }
-
-#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
 #else // SQUEEZER_MONO
+
+#ifdef SQUEEZER_STEREO
 
    // main output must be stereo
    if ( layouts.getMainOutputChannelSet() != AudioChannelSet::stereo() ) {
       return false;
    }
 
-   // main input is stereo
-   if ( layouts.getMainInputChannelSet() == AudioChannelSet::stereo() ) {
+#else // SQUEEZER_STEREO
 
-#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-      // side chain input is stereo ==> okay
-      if ( layouts.getChannelSet( true, 1 ) == AudioChannelSet::stereo() ) {
-         return true;
-      }
-
-#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-      // no side chain input ==> okay
-      if ( layouts.getChannelSet( true, 1 ) == AudioChannelSet::disabled() ) {
-         return true;
-      }
+   // main output can be either mono or stereo
+   if ( ( layouts.getMainOutputChannelSet() != AudioChannelSet::mono() ) &&
+        ( layouts.getMainOutputChannelSet() != AudioChannelSet::stereo() ) ) {
+      return false;
    }
 
-#if SQUEEZER_EXTERNAL_SIDECHAIN == 1
-
-   // main input has four channels
-   if ( layouts.getMainInputChannelSet().size() == 4 ) {
-      // no side chain input ==> okay
-      if ( layouts.getChannelSet( true, 1 ) == AudioChannelSet::disabled() ) {
-         return true;
-      }
-   }
-
-#endif // SQUEEZER_EXTERNAL_SIDECHAIN == 1
+#endif // SQUEEZER_STEREO
 
 #endif // SQUEEZER_MONO
 
-   // current channel layout is not allowed
-   return false;
+   // main input must be enabled
+   if ( layouts.getMainInputChannelSet().isDisabled() ) {
+      return false;
+   }
+
+   // optional side chain input must correspond to main input
+   if ( ( layouts.getChannelSet( true, 1 ) != AudioChannelSet::disabled() ) &&
+        ( layouts.getChannelSet( true, 1 ) != layouts.getMainInputChannelSet() ) ) {
+      return false;
+   }
+
+#if JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+   // VST2 with side chain: add additional channels to main input
+   if ( layouts.getMainInputChannelSet().size() != 2 * layouts.getMainOutputChannelSet().size() ) {
+      return false;
+   }
+
+#else // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+   // main input and main output must be identical
+   if ( layouts.getMainInputChannelSet() != layouts.getMainOutputChannelSet() ) {
+      return false;
+   }
+
+#endif // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+   // valid channel layout
+   return true;
 }
 #endif // JucePlugin_PreferredChannelConfigurations
 
@@ -816,16 +790,16 @@ void SqueezerAudioProcessor::prepareToPlay(
                               SqueezerPluginParameters::selSidechainListen );
 
 #ifdef SQUEEZER_MONO
-   int numberOfChannels = 1;
+   numberOfChannels_ = 1;
 #else // SQUEEZER_MONO
-   int numberOfChannels = 2;
+   numberOfChannels_ = 2;
 #endif // SQUEEZER_MONO
 
    dither_.initialise( jmax( getMainBusNumInputChannels(),
                              getMainBusNumOutputChannels() ),
                        24 );
 
-   compressor_ = std::make_unique<Compressor>( numberOfChannels, ( int ) sampleRate );
+   compressor_ = std::make_unique<Compressor>( numberOfChannels_, ( int ) sampleRate );
 
    compressor_->setBypass( bBypassCompressor );
    compressor_->setRmsWindowSize( fRmsWindowSizeMilliSeconds );
@@ -936,10 +910,10 @@ void SqueezerAudioProcessor::process(
       return;
    }
 
-#ifdef SQUEEZER_MONO
+   mainInput_ = AudioBuffer<double>( numberOfChannels_, nNumSamples );
+   sideChainInput_ = AudioBuffer<double>( numberOfChannels_, nNumSamples );
 
-   mainInput_ = AudioBuffer<double>( 1, nNumSamples );
-   sideChainInput_ = AudioBuffer<double>( 1, nNumSamples );
+#ifdef SQUEEZER_MONO
 
    if ( getChannelLayoutOfBus( true, 0 ) == AudioChannelSet::mono() ) {
       mainInput_ = getBusBuffer( buffer, true, 0 );
@@ -967,9 +941,6 @@ void SqueezerAudioProcessor::process(
    }
 
 #else // SQUEEZER_MONO
-
-   mainInput_ = AudioBuffer<double>( 2, nNumSamples );
-   sideChainInput_ = AudioBuffer<double>( 2, nNumSamples );
 
    if ( getChannelLayoutOfBus( true, 0 ) == AudioChannelSet::stereo() ) {
       mainInput_ = getBusBuffer( buffer, true, 0 );
@@ -1004,19 +975,10 @@ void SqueezerAudioProcessor::process(
 
    compressor_->process( mainInput_, sideChainInput_ );
 
-#ifdef SQUEEZER_MONO
-
-   buffer.copyFrom( 0, 0, mainInput_,
-                    0, 0, nNumSamples );
-
-#else // SQUEEZER_MONO
-
-   buffer.copyFrom( 0, 0, mainInput_,
-                    0, 0, nNumSamples );
-   buffer.copyFrom( 1, 0, mainInput_,
-                    1, 0, nNumSamples );
-
-#endif // SQUEEZER_MONO
+   for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+      buffer.copyFrom( channel, 0, mainInput_,
+                       channel, 0, nNumSamples );
+   }
 
    // "UM" ==> update meters
    sendActionMessage( "UM" );
@@ -1025,11 +987,7 @@ void SqueezerAudioProcessor::process(
 
 AudioProcessorEditor* SqueezerAudioProcessor::createEditor()
 {
-#ifdef SQUEEZER_MONO
-   return new SqueezerAudioProcessorEditor( *this, pluginParameters_, 1 );
-#else // SQUEEZER_MONO
-   return new SqueezerAudioProcessorEditor( *this, pluginParameters_, 2 );
-#endif // SQUEEZER_MONO
+   return new SqueezerAudioProcessorEditor( *this, pluginParameters_, numberOfChannels_ );
 }
 
 

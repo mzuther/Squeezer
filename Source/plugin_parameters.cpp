@@ -491,11 +491,6 @@ String SqueezerPluginParameters::toString()
    String parameterValues;
 
    parameterValues = String( ProjectInfo::projectName ) + " " + String( JucePlugin_VersionString );
-#ifdef SQUEEZER_MONO
-   parameterValues += " (Mono)";
-#else // SQUEEZER_MONO
-   parameterValues += " (Stereo)";
-#endif // SQUEEZER_MONO
 
    int stringLength = parameterValues.length();
    parameterValues += "\n";
