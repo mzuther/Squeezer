@@ -85,6 +85,8 @@ finalise_binary  "vst2/squeezer_mono_vst2_x64.so"
 finalise_binary  "vst2/squeezer_stereo_no_sidechain_vst2_x64.so"
 finalise_binary  "vst2/squeezer_mono_no_sidechain_vst2_x64.so"
 
+finalise_binary  "vst3/Squeezer.vst3/Contents/x86_64-linux/Squeezer.so"
+
 finalise_binary  "standalone/Squeezer (Stereo).exe"
 finalise_symbols "standalone/Squeezer (Stereo).pdb"
 finalise_binary  "standalone/Squeezer (Mono).exe"
@@ -99,10 +101,8 @@ finalise_symbols "vst2/Squeezer (Stereo, no side-chain).pdb"
 finalise_binary  "vst2/Squeezer (Mono, no side-chain).dll"
 finalise_symbols "vst2/Squeezer (Mono, no side-chain).pdb"
 
-finalise_binary  "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Stereo).vst3"
-finalise_symbols "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Stereo).pdb"
-finalise_binary  "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Mono).vst3"
-finalise_symbols "vst3/squeezer.vst3/Contents/x86-win/Squeezer (Mono).pdb"
+finalise_binary  "vst3/Squeezer.vst3/Contents/x86-win/Squeezer.vst3"
+finalise_symbols "vst3/Squeezer.vst3/Contents/x86-win/Squeezer.pdb"
 
 finalise_binary  "standalone/Squeezer (Stereo x64).exe"
 finalise_symbols "standalone/Squeezer (Stereo x64).pdb"
@@ -118,9 +118,7 @@ finalise_symbols "vst2/Squeezer (Stereo, no side-chain x64).pdb"
 finalise_binary  "vst2/Squeezer (Mono, no side-chain x64).dll"
 finalise_symbols "vst2/Squeezer (Mono, no side-chain x64).pdb"
 
-finalise_binary  "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Stereo x64).vst3"
-finalise_symbols "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Stereo x64).pdb"
-finalise_binary  "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Mono x64).vst3"
-finalise_symbols "vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Mono x64).pdb"
+finalise_binary  "vst3/Squeezer.vst3/Contents/x86_64-win/Squeezer.vst3"
+finalise_symbols "vst3/Squeezer.vst3/Contents/x86_64-win/Squeezer.pdb"
 
 printf "  Done.\n\n\n"

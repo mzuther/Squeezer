@@ -342,10 +342,7 @@ workspace "{{ name.short }}"
 
 
 {% macro vst3(name, variant) %}
--- create VST3 projects on Windows only
-if os.target() == "windows" then
-
-    project ("{{ name.short }}_vst3_{{ variant.short }}")
+    project ("{{ name.short }}_vst3")
         kind "SharedLib"
 
         defines {
@@ -374,40 +371,43 @@ if os.target() == "windows" then
         }
 
         filter { "system:linux" }
-            targetname "{{ name.short }}_{{ variant.short }}_vst3"
+            targetname "{{ name.real }}"
 
         filter { "system:linux", "platforms:x32" }
-            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/i386-linux/"
+            targetdir "../bin/vst3/{{ name.real }}.vst3/Contents/i386-linux/"
 
         filter { "system:linux", "platforms:x64" }
-            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/x86_64-linux/"
+            targetdir "../bin/vst3/{{ name.real }}.vst3/Contents/x86_64-linux/"
 
         filter { "system:windows" }
-            targetname "{{ name.real }} ({{ variant.real }}"
+            targetname "{{ name.real }}"
             targetextension (".vst3")
 
         filter { "system:windows", "platforms:x32" }
-            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/x86-win/"
+            targetdir "../bin/vst3/{{ name.real }}.vst3/Contents/x86-win/"
 
         filter { "system:windows", "platforms:x64" }
-            targetdir "../bin/vst3/{{ name.short }}.vst3/Contents/x86_64-win/"
+            targetdir "../bin/vst3/{{ name.real }}.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_{{ variant.short }}_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/{{ name.short }}.vst3/Contents/x86-win/"
+            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/{{ name.real }}.vst3/Contents/x86-win/"
             debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
 
         filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "C:/Program Files/Common Files/VST3/radix/{{ name.short }}.vst3/Contents/x86_64-win/"
+            targetdir "C:/Program Files/Common Files/VST3/radix/{{ name.real }}.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
-        filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_{{ variant.short }}_release")
+        filter { "system:linux", "configurations:Debug" }
+            targetsuffix " (Debug)"
 
--- create VST3 projects on Windows only
-end
+        filter { "system:linux", "configurations:Release" }
+            targetsuffix ""
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_release")
 {% endmacro %}
 
 

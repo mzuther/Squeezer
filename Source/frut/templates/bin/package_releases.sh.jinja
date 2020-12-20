@@ -36,10 +36,8 @@
 
 {{ render.vst2_linux(settings.name, settings.variants_vst2, settings.additions_packaging, platform, bits) }}
 
-{# VST3 Linux support
-{{ render.vst3_linux(settings.name, settings.variants, settings.additions_packaging, platform, bits) }}
+{{ render.vst3_linux(settings.name, settings.variants_vst3, settings.additions_packaging, platform, bits) }}
 
-#}
 {% endfor -%}
 
 
@@ -49,7 +47,7 @@
 
 {{ render.vst2_windows(settings.name, settings.variants_vst2, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst3_windows(settings.name, settings.variants, settings.additions_packaging, platform, bits) }}
+{{ render.vst3_windows(settings.name, settings.variants_vst3, settings.additions_packaging, platform, bits) }}
 
 {% endfor %}
 

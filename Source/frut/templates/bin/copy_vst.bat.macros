@@ -100,5 +100,5 @@ echo.
 echo VST3 ({{bits}} bit)
 echo.
 
-call :CopyVstDelete "vst3/{{ name.short }}.vst3" "%vst3_{{bits}}%"
+call :CopyVstDelete "vst3/{{ name.real }}.vst3" "%vst3_{{bits}}%"
 {% endmacro %}

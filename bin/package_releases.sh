@@ -39,7 +39,7 @@ release_dir="./releases"
 
 resource_dir_standalone="./standalone/squeezer"
 resource_dir_vst2="./vst2/squeezer"
-resource_dir_vst3="./vst3/squeezer.vst3/Contents/Resources"
+resource_dir_vst3="./vst3/Squeezer.vst3/Contents/Resources"
 
 
 function archive_is_missing
@@ -227,6 +227,25 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 fi
 
 
+# ----- GNU/Linux VST3 (64 bit) -----
+
+archive_dir="squeezer-linux64-vst3_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux VST3 %s (64 bit) ---\n\n" "$version"
+
+    archive_create
+
+    archive_add "$binary_dir/vst3/Squeezer.vst3/Contents/x86_64-linux/Squeezer.so" "squeezer.vst3/Contents/x86_64-linux"
+
+    archive_add "$binary_dir/Documentation" ""
+    archive_add "$resource_dir_vst3/Documentation" "squeezer.vst3/Contents/Resources"
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/$version/linux"
+fi
+
+
 # ----- Windows Standalone (32 bit) -----
 
 archive_dir="squeezer-w32-standalone_$version"
@@ -276,8 +295,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86-win/Squeezer (Stereo).vst3" "squeezer.vst3/Contents/x86-win"
-    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86-win/Squeezer (Mono).vst3" "squeezer.vst3/Contents/x86-win"
+    archive_add "$binary_dir/vst3/Squeezer.vst3/Contents/x86-win/Squeezer.vst3" "Squeezer.vst3/Contents/x86-win"
 
     archive_add "$binary_dir/Documentation" ""
     archive_add "$resource_dir_vst3/Documentation" "squeezer.vst3/Contents/Resources"
@@ -336,8 +354,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Stereo x64).vst3" "squeezer.vst3/Contents/x86_64-win"
-    archive_add "$binary_dir/vst3/squeezer.vst3/Contents/x86_64-win/Squeezer (Mono x64).vst3" "squeezer.vst3/Contents/x86_64-win"
+    archive_add "$binary_dir/vst3/Squeezer.vst3/Contents/x86_64-win/Squeezer.vst3" "Squeezer.vst3/Contents/x86_64-win"
 
     archive_add "$binary_dir/Documentation" ""
     archive_add "$resource_dir_vst3/Documentation" "squeezer.vst3/Contents/Resources"

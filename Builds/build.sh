@@ -124,6 +124,10 @@ case $1 in
         MAKEFILE="squeezer_vst2_mono_no_sidechain"
         MAKEFILE_PRINT="VST2 plug-in (Mono, no side-chain)"
         ;;
+    7)
+        MAKEFILE="squeezer_vst3"
+        MAKEFILE_PRINT="VST3 plug-in"
+        ;;
     *)
         print_line "  Target:    ..."
         print_line ""
@@ -138,6 +142,8 @@ case $1 in
         print_line "  4: VST2 plug-in (Mono)"
         print_line "  5: VST2 plug-in (Stereo, no side-chain)"
         print_line "  6: VST2 plug-in (Mono, no side-chain)"
+        print_line ""
+        print_line "  7: VST3 plug-in"
         print_line ""
 
         exit

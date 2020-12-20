@@ -45,7 +45,7 @@ release_dir="./releases"
 
 resource_dir_standalone="./standalone/{{ name.short }}"
 resource_dir_vst2="./vst2/{{ name.short }}"
-resource_dir_vst3="./vst3/{{ name.short }}.vst3/Contents/Resources"
+resource_dir_vst3="./vst3/{{ name.real }}.vst3/Contents/Resources"
 
 
 function archive_is_missing
@@ -285,9 +285,9 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
 {% for variant in variants %}
 {% if platform == '_x64' %}
-    archive_add "$binary_dir/vst3/{{ name.short }}.vst3/Contents/x86_64-linux/{{ name.short }}_{{ variant.short }}_vst3_x64.so" "squeezer.vst3/Contents/x86_64-linux"
+    archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/x86_64-linux/{{ name.real }}.so" "squeezer.vst3/Contents/x86_64-linux"
 {% else %}
-    archive_add "$binary_dir/vst3/{{ name.short }}.vst3/Contents/i386-linux/{{ name.short }}_{{ variant.short }}_vst3.so" "squeezer.vst3/Contents/i386-linux"
+    archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/i386-linux/{{ name.real }}.so" "squeezer.vst3/Contents/i386-linux"
 {% endif %}
 {% endfor %}
 
@@ -369,7 +369,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for variant in variants %}
-    archive_add "$binary_dir/vst3/{{ name.short }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }} ({{variant.real}}{{platform}}).vst3" "{{ name.short }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
+    archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }}.vst3" "{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
 {% endfor %}
 
 {% for scope in ['default', 'vst3', 'vst3_windows_' + bits] %}
