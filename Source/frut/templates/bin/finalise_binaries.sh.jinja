@@ -33,16 +33,16 @@
 
 {% for platform in ['_x64', ] -%}
 
-{% for variant in settings.variants %}
-{{ render.standalone_linux(settings.name, variant, platform) -}}
+{% for target in settings.targets.standalone %}
+{{ render.standalone_linux(settings.name, target, platform) -}}
 {% endfor %}
 
-{% for variant in settings.variants_vst2 %}
-{{ render.vst2_linux(settings.name, variant, platform) -}}
+{% for target in settings.targets.vst2 %}
+{{ render.vst2_linux(settings.name, target, platform) -}}
 {% endfor %}
 
-{% for variant in settings.variants_vst3 %}
-{{ render.vst3_linux(settings.name, variant, platform) -}}
+{% for target in settings.targets.vst3 %}
+{{ render.vst3_linux(settings.name, target, platform) -}}
 {% endfor %}
 
 {% endfor -%}
@@ -50,16 +50,16 @@
 
 {% for platform in ['', ' x64'] -%}
 
-{% for variant in settings.variants %}
-{{ render.standalone_windows(settings.name, variant, platform) -}}
+{% for target in settings.targets.standalone %}
+{{ render.standalone_windows(settings.name, target, platform) -}}
 {% endfor %}
 
-{% for variant in settings.variants_vst2 %}
-{{ render.vst2_windows(settings.name, variant, platform) -}}
+{% for target in settings.targets.vst2 %}
+{{ render.vst2_windows(settings.name, target, platform) -}}
 {% endfor %}
 
-{% for variant in settings.variants_vst3 %}
-{{ render.vst3_windows(settings.name, variant, platform) -}}
+{% for target in settings.targets.vst3 %}
+{{ render.vst3_windows(settings.name, target, platform) -}}
 {% endfor %}
 
 {% endfor %}

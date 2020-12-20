@@ -34,34 +34,40 @@
 
 
 
-{% for variant in settings.variants %}
+{% for target in settings.targets.standalone %}
 
 --------------------------------------------------------------------------------
 
-{{ render.standalone(settings.name, variant) -}}
+{{ render.standalone(settings.name, target) -}}
 
 {% endfor -%}
 
 
 
-{% for variant in settings.variants_vst2 %}
+{% for target in settings.targets.vst2 %}
 
 --------------------------------------------------------------------------------
 
-{{ render.vst2(settings.name, variant, settings.vst2_category) -}}
+{{ render.vst2(settings.name, target, settings.vst2_category) -}}
 
 {% endfor -%}
 
 
 
-{% for variant in settings.variants_vst3 %}
+{% for target in settings.targets.vst3 %}
 
 --------------------------------------------------------------------------------
 
-{{ render.vst3(settings.name, variant) -}}
+{{ render.vst3(settings.name, target) -}}
+
+{% endfor -%}
+
+
+
+{% for target in settings.targets.unittest %}
+
+--------------------------------------------------------------------------------
+
+{{ render.unittest(settings.name, target, settings.includes) -}}
 
 {% endfor %}
-
---------------------------------------------------------------------------------
-
-{{ render.unittest(settings.name, settings.variants.0, settings.includes) -}}

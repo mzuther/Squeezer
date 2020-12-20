@@ -219,7 +219,7 @@ printf "  Done.\n\n\n"
 
 
 
-{% macro standalone_linux(name, variants, additions, platform, bits) %}
+{% macro standalone_linux(name, targets, additions, platform, bits) %}
 # ----- GNU/Linux Standalone ({{bits}} bit) -----
 
 archive_dir="{{ name.short }}-linux{{bits}}-standalone_$version"
@@ -229,8 +229,8 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-{% for variant in variants %}
-    archive_add "$binary_dir/standalone/{{ name.short }}_{{variant.short}}{{platform}}" ""
+{% for target in targets %}
+    archive_add "$binary_dir/standalone/{{ name.short }}_{{target.short}}{{platform}}" ""
 {% endfor %}
 
 {% for scope in ['default', 'standalone', 'standalone_linux_' + bits] %}
@@ -246,7 +246,7 @@ fi
 
 
 
-{% macro vst2_linux(name, variants, additions, platform, bits) %}
+{% macro vst2_linux(name, targets, additions, platform, bits) %}
 # ----- GNU/Linux VST2 ({{bits}} bit) -----
 
 archive_dir="{{ name.short }}-linux{{bits}}-vst2_$version"
@@ -256,8 +256,8 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-{% for variant in variants %}
-    archive_add "$binary_dir/vst2/{{ name.short }}_{{variant.short}}_vst2{{platform}}.so" ""
+{% for target in targets %}
+    archive_add "$binary_dir/vst2/{{ name.short }}_{{target.short}}_vst2{{platform}}.so" ""
 {% endfor %}
 
 {% for scope in ['default', 'vst2', 'vst2_linux_' + bits] %}
@@ -273,7 +273,7 @@ fi
 
 
 
-{% macro vst3_linux(name, variants, additions, platform, bits) %}
+{% macro vst3_linux(name, targets, additions, platform, bits) %}
 # ----- GNU/Linux VST3 ({{bits}} bit) -----
 
 archive_dir="{{ name.short }}-linux{{bits}}-vst3_$version"
@@ -283,7 +283,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-{% for variant in variants %}
+{% for target in targets %}
 {% if platform == '_x64' %}
     archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/x86_64-linux/{{ name.real }}.so" "squeezer.vst3/Contents/x86_64-linux"
 {% else %}
@@ -304,7 +304,7 @@ fi
 
 
 
-{% macro standalone_windows(name, variants, additions, platform, bits) %}
+{% macro standalone_windows(name, targets, additions, platform, bits) %}
 # ----- Windows Standalone ({{bits}} bit) -----
 
 archive_dir="{{ name.short }}-w{{bits}}-standalone_$version"
@@ -314,8 +314,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-{% for variant in variants %}
-    archive_add "$binary_dir/standalone/{{ name.real }} ({{variant.real}}{{platform}}).exe" ""
+{% for target in targets %}
+    archive_add "$binary_dir/standalone/{{ name.real }} ({{target.real}}{{platform}}).exe" ""
 {% endfor %}
 
 {% for scope in ['default', 'standalone', 'standalone_windows_' + bits] %}
@@ -331,7 +331,7 @@ fi
 
 
 
-{% macro vst2_windows(name, variants, additions, platform, bits) %}
+{% macro vst2_windows(name, targets, additions, platform, bits) %}
 # ----- Windows VST2 ({{bits}} bit) -----
 
 archive_dir="{{ name.short }}-w{{bits}}-vst2_$version"
@@ -341,8 +341,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-{% for variant in variants %}
-    archive_add "$binary_dir/vst2/{{ name.real }} ({{variant.real}}{{platform}}).dll" ""
+{% for target in targets %}
+    archive_add "$binary_dir/vst2/{{ name.real }} ({{target.real}}{{platform}}).dll" ""
 {% endfor %}
 
 {% for scope in ['default', 'vst2', 'vst2_windows_' + bits] %}
@@ -358,7 +358,7 @@ fi
 
 
 
-{% macro vst3_windows(name, variants, additions, platform, bits) %}
+{% macro vst3_windows(name, targets, additions, platform, bits) %}
 # ----- Windows VST3 ({{bits}} bit) -----
 
 archive_dir="{{ name.short }}-w{{bits}}-vst3_$version"
@@ -368,7 +368,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-{% for variant in variants %}
+{% for target in targets %}
     archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }}.vst3" "{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
 {% endfor %}
 

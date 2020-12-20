@@ -95,7 +95,7 @@ shift 1
 
 
 
-{% macro target_menu(name, standalone, vst2, vst3) %}
+{% macro target_menu(name, targets) %}
 # select target
 case $1 in
     a)
@@ -111,7 +111,7 @@ case $1 in
         MAKEFILE_PRINT="Unit tests"
         EXECUTABLE="unittest/unittest"
         ;;
-{% for item in standalone %}
+{% for item in targets.standalone %}
     {{ loop.index }})
         MAKEFILE="{{ name.short }}_standalone_{{ item.short }}"
         MAKEFILE_PRINT="Standalone ({{ item.real }})"
@@ -119,15 +119,15 @@ case $1 in
         ;;
 {% endfor -%}
 
-{% for item in vst2 %}
-    {{ loop.index + (standalone | length) }})
+{% for item in targets.vst2 %}
+    {{ loop.index + (targets.standalone | length) }})
         MAKEFILE="{{ name.short }}_vst2_{{ item.short }}"
         MAKEFILE_PRINT="VST2 plug-in ({{ item.real }})"
         ;;
 {% endfor -%}
 
-{% for item in vst3 %}
-    {{ loop.index + (standalone | length) + (vst2 | length) }})
+{% for item in targets.vst3 %}
+    {{ loop.index + (targets.standalone | length) + (targets.vst2 | length) }})
         MAKEFILE="{{ name.short }}_vst3"
         MAKEFILE_PRINT="VST3 plug-in"
         ;;
@@ -139,16 +139,16 @@ case $1 in
         print_line "  c: Clean targets"
         print_line "  u: Unit tests"
         print_line ""
-{% for item in standalone %}
+{% for item in targets.standalone %}
         print_line "  {{ loop.index }}: Standalone ({{ item.real }})"
 {% endfor %}
         print_line ""
-{% for item in vst2 %}
-        print_line "  {{ loop.index + (standalone | length) }}: VST2 plug-in ({{ item.real }})"
+{% for item in targets.vst2 %}
+        print_line "  {{ loop.index + (targets.standalone | length) }}: VST2 plug-in ({{ item.real }})"
 {% endfor %}
         print_line ""
-{% for item in vst3 %}
-        print_line "  {{ loop.index + (standalone | length) +  + (vst2 | length) }}: VST3 plug-in"
+{% for item in targets.vst3 %}
+        print_line "  {{ loop.index + (targets.standalone | length) +  + (targets.vst2 | length) }}: VST3 plug-in"
 {% endfor %}
         print_line ""
 

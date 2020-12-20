@@ -93,19 +93,19 @@ printf "  Done.\n\n\n"
 
 
 
-{% macro standalone_linux(name, variant, platform) %}
-finalise_binary  "standalone/{{ name.short }}_{{ variant.short }}{{platform}}"
+{% macro standalone_linux(name, target, platform) %}
+finalise_binary  "standalone/{{ name.short }}_{{ target.short }}{{platform}}"
 {% endmacro %}
 
 
 
-{% macro vst2_linux(name, variant, platform) %}
-finalise_binary  "vst2/{{ name.short }}_{{ variant.short }}_vst2{{platform}}.so"
+{% macro vst2_linux(name, target, platform) %}
+finalise_binary  "vst2/{{ name.short }}_{{ target.short }}_vst2{{platform}}.so"
 {% endmacro %}
 
 
 
-{% macro vst3_linux(name, variant, platform) %}
+{% macro vst3_linux(name, target, platform) %}
 {% if platform == '_x64' %}
 finalise_binary  "vst3/{{ name.real }}.vst3/Contents/x86_64-linux/{{ name.real }}.so"
 {% else %}
@@ -115,21 +115,21 @@ finalise_binary  "vst3/{{ name.real }}.vst3/Contents/i386-linux/{{ name.real }}.
 
 
 
-{% macro standalone_windows(name, variant, platform) %}
-finalise_binary  "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).exe"
-finalise_symbols "standalone/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
+{% macro standalone_windows(name, target, platform) %}
+finalise_binary  "standalone/{{ name.real }} ({{ target.real }}{{platform}}).exe"
+finalise_symbols "standalone/{{ name.real }} ({{ target.real }}{{platform}}).pdb"
 {% endmacro %}
 
 
 
-{% macro vst2_windows(name, variant, platform) %}
-finalise_binary  "vst2/{{ name.real }} ({{ variant.real }}{{platform}}).dll"
-finalise_symbols "vst2/{{ name.real }} ({{ variant.real }}{{platform}}).pdb"
+{% macro vst2_windows(name, target, platform) %}
+finalise_binary  "vst2/{{ name.real }} ({{ target.real }}{{platform}}).dll"
+finalise_symbols "vst2/{{ name.real }} ({{ target.real }}{{platform}}).pdb"
 {% endmacro %}
 
 
 
-{% macro vst3_windows(name, variant, platform) %}
+{% macro vst3_windows(name, target, platform) %}
 finalise_binary  "vst3/{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }}.vst3"
 finalise_symbols "vst3/{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }}.pdb"
 {% endmacro %}

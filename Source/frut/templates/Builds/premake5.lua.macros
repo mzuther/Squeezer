@@ -234,13 +234,13 @@ workspace "{{ name.short }}"
 
 
 
-{% macro standalone(name, variant) %}
-    project ("{{ name.short }}_standalone_{{ variant.short }}")
+{% macro standalone(name, target) %}
+    project ("{{ name.short }}_standalone_{{ target.short }}")
         kind "WindowedApp"
         targetdir "../bin/standalone/"
 
         defines {
-            {% for define in variant.defines -%}
+            {% for define in target.defines -%}
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=1",
@@ -255,7 +255,7 @@ workspace "{{ name.short }}"
         }
 
         filter { "system:linux" }
-            targetname "{{ name.short }}_{{ variant.short }}"
+            targetname "{{ name.short }}_{{ target.short }}"
 
             defines {
                 "JUCE_ALSA=1",
@@ -269,7 +269,7 @@ workspace "{{ name.short }}"
             }
 
         filter { "system:windows" }
-            targetname "{{ name.real }} ({{ variant.real }}"
+            targetname "{{ name.real }} ({{ target.real }}"
             targetextension (".exe")
 
             defines {
@@ -280,21 +280,21 @@ workspace "{{ name.short }}"
             }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_{{ variant.short }}_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_{{ target.short }}_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_{{ variant.short }}_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_{{ target.short }}_release")
 {% endmacro %}
 
 
 
-{% macro vst2(name, variant, vst2_category) %}
-    project ("{{ name.short }}_vst2_{{ variant.short }}")
+{% macro vst2(name, target, vst2_category) %}
+    project ("{{ name.short }}_vst2_{{ target.short }}")
         kind "SharedLib"
         targetdir "../bin/vst2/"
 
         defines {
-            {% for define in variant.defines -%}
+            {% for define in target.defines -%}
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=0",
@@ -318,14 +318,14 @@ workspace "{{ name.short }}"
         }
 
         filter { "system:linux" }
-            targetname "{{ name.short }}_{{ variant.short }}_vst2"
+            targetname "{{ name.short }}_{{ target.short }}_vst2"
 
         filter { "system:windows" }
-            targetname "{{ name.real }} ({{ variant.real }}"
+            targetname "{{ name.real }} ({{ target.real }}"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_{{ variant.short }}_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_{{ target.short }}_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/{{vst2_category}}"
@@ -336,17 +336,17 @@ workspace "{{ name.short }}"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_{{ variant.short }}_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_{{ target.short }}_release")
 {% endmacro %}
 
 
 
-{% macro vst3(name, variant) %}
+{% macro vst3(name, target) %}
     project ("{{ name.short }}_vst3")
         kind "SharedLib"
 
         defines {
-            {% for define in variant.defines -%}
+            {% for define in target.defines -%}
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=0",
@@ -412,7 +412,7 @@ workspace "{{ name.short }}"
 
 
 
-{% macro unittest(name, variant, includes) %}
+{% macro unittest(name, target, includes) %}
 -- create unit tests on Linux only
 if os.target() == "linux" then
 
@@ -421,7 +421,7 @@ if os.target() == "linux" then
         targetdir "../bin/unittest/"
 
         defines {
-            {% for define in variant.defines -%}
+            {% for define in target.defines -%}
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=1",
