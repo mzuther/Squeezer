@@ -54,14 +54,22 @@ find  "$destination_dir" -iname "*_x64.so" -print -execdir rm {} \; | \
     sort
 
 
-printf "\nLinking resource directory"
-printf "\n==========================\n"
-printf "%s\n" "$resource_dir"
-
 if [ $use_final_binaries -eq 0 ]; then
-    ln -sf "$source_dir_current/$resource_dir" "$destination_dir"
+    if [ -d "$source_dir_current/$resource_dir" ]; then
+        printf "\nLinking resource directory"
+        printf "\n==========================\n"
+        printf "%s\n" "$resource_dir"
+
+        ln -sf "$source_dir_current/$resource_dir" "$destination_dir"
+    fi
 else
-    ln -sf "$source_dir_final/$resource_dir" "$destination_dir"
+    if [ -d "$source_dir_final/$resource_dir" ]; then
+        printf "\nLinking resource directory"
+        printf "\n==========================\n"
+        printf "%s\n" "$resource_dir"
+
+        ln -sf "$source_dir_final/$resource_dir" "$destination_dir"
+    fi
 fi
 
 
