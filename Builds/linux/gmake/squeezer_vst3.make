@@ -21,7 +21,7 @@ ifeq ($(config),debug_x32)
     AR = ar
   endif
   TARGETDIR = ../../../bin/vst3/Squeezer.vst3/Contents/i386-linux
-  TARGET = $(TARGETDIR)/Squeezer Debug.so
+  TARGET = $(TARGETDIR)/Squeezer\ Debug.so
   OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst3_debug/x32
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MULTIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/vst3/VST3_SDK
@@ -32,7 +32,7 @@ ifeq ($(config),debug_x32)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname="Squeezer Debug.so" -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname="Squeezer\ Debug.so" -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -56,7 +56,7 @@ ifeq ($(config),debug_x64)
     AR = ar
   endif
   TARGETDIR = ../../../bin/vst3/Squeezer.vst3/Contents/x86_64-linux
-  TARGET = $(TARGETDIR)/Squeezer Debug.so
+  TARGET = $(TARGETDIR)/Squeezer\ Debug.so
   OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst3_debug/x64
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MULTIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/vst3/VST3_SDK
@@ -67,7 +67,7 @@ ifeq ($(config),debug_x64)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname="Squeezer Debug.so" -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname="Squeezer\ Debug.so" -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef

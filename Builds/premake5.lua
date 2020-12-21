@@ -573,15 +573,20 @@ workspace "squeezer"
             targetdir "../bin/vst3/Squeezer.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
-            targetsuffix " Debug"
             objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst3_debug")
 
+        filter { "system:linux", "configurations:Debug" }
+            targetsuffix "\\ Debug"
+
+        filter { "system:windows", "configurations:Debug" }
+            targetsuffix " Debug"
+
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "C:/Program Files (x86)/Common Files/VST3/radix/Squeezer.vst3/Contents/x86-win/"
+            targetdir "C:/Program Files (x86)/Common Files/VST3/mzuther/Squeezer.vst3/Contents/x86-win/"
             debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
 
         filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "C:/Program Files/Common Files/VST3/radix/Squeezer.vst3/Contents/x86_64-win/"
+            targetdir "C:/Program Files/Common Files/VST3/mzuther/Squeezer.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }

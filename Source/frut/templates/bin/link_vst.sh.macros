@@ -38,69 +38,87 @@
 #
 ###############################################################################
 
-destination_dir="$HOME/.vst/{{ project.name_lower }}"
+vst2_dir="$HOME/.vst/{{ project.name_lower }}"
+vst3_dir="$HOME/.vst3/mzuther"
 use_final_binaries=0
 
 resource_dir="{{ project.name_lower }}"
-source_dir_current=$(realpath "$(dirname "$0")/vst2")
+source_dir_current=$(realpath "$(dirname "$0")")
 source_dir_final=$(realpath "$(dirname "$0")/final")
 
 
-printf "\nCreating VST2 directory"
+printf "\nCreating VST directories"
+printf "\n========================\n"
+
+printf "%s\n" "$vst2_dir"
+mkdir -p "$vst2_dir"
+
+printf "%s\n" "$vst3_dir"
+mkdir -p "$vst3_dir"
+
+
+printf "\nUnlinking VST2 binaries"
 printf "\n=======================\n"
-printf "%s\n" "$destination_dir"
 
-mkdir -p "$destination_dir"
-
-
-printf "\nUnlinking binaries"
-printf "\n==================\n"
-
-find  "$destination_dir" -iname "*_x64.so" -print -execdir rm {} \; | \
+find  "$vst2_dir" -iname "{{ project.name_lower }}_vst2_*.so" -print -execdir rm {} \; | \
     sort
 
 
 if [ $use_final_binaries -eq 0 ]; then
-    if [ -d "$source_dir_current/$resource_dir" ]; then
+    if [ -d "$source_dir_current/vst2/$resource_dir" ]; then
         printf "\nLinking resource directory"
         printf "\n==========================\n"
         printf "%s\n" "$resource_dir"
 
-        ln -sf "$source_dir_current/$resource_dir" "$destination_dir"
+        ln -sf "$source_dir_current/vst2/$resource_dir" "$vst2_dir"
     fi
 else
-    if [ -d "$source_dir_final/$resource_dir" ]; then
+    if [ -d "$source_dir_final/vst2/$resource_dir" ]; then
         printf "\nLinking resource directory"
         printf "\n==========================\n"
         printf "%s\n" "$resource_dir"
 
-        ln -sf "$source_dir_final/$resource_dir" "$destination_dir"
+        ln -sf "$source_dir_final/vst2/$resource_dir" "$vst2_dir"
     fi
 fi
 
 
-printf "\nLinking debug binaries"
-printf "\n======================\n"
+printf "\nLinking VST2 debug binaries"
+printf "\n===========================\n"
 
-find "$source_dir_current" -iname "*vst2_debug_x64.so" -printf "%f\n" | \
+find "$source_dir_current/vst2" -iname "{{ project.name_lower }}_vst2*_x64_debug.so" -printf "%f\n" | \
     tee /dev/tty | \
-    xargs "-d\n" -I{} ln -sf "$source_dir_current"/{} "$destination_dir"/{} | \
+    xargs "-d\n" -I{} ln -sf "$source_dir_current/vst2"/{} "$vst2_dir"/{} | \
     sort
 
 
-printf "\nLinking release binaries"
-printf "\n========================\n"
+printf "\nLinking VST2 release binaries"
+printf "\n=============================\n"
 
 if [ $use_final_binaries -eq 0 ]; then
-    find "$source_dir_current" -iname "*vst2_x64.so" -printf "%f\n" | \
+    find "$source_dir_current/vst2" -iname "{{ project.name_lower }}_vst2*_x64.so" -printf "%f\n" | \
         tee /dev/tty | \
-        xargs "-d\n" -I{} ln -sf "$source_dir_current"/{} "$destination_dir"/{} | \
+        xargs "-d\n" -I{} ln -sf "$source_dir_current/vst2"/{} "$vst2_dir"/{} | \
         sort
 else
-    find "$source_dir_final" -iname "*vst2_x64.so" -printf "%f\n" | \
+    find "$source_dir_final/vst2" -iname "{{ project.name_lower }}_vst2*_x64.so" -printf "%f\n" | \
         tee /dev/tty | \
-        xargs "-d\n" -I{} ln -sf "$source_dir_final"/{} "$destination_dir"/{} | \
+        xargs "-d\n" -I{} ln -sf "$source_dir_final/vst2"/{} "$vst2_dir"/{} | \
         sort
+fi
+
+
+printf "\nLinking VST3 directory"
+printf "\n======================\n"
+
+if [ $use_final_binaries -eq 0 ]; then
+    printf "%s\n" "$source_dir_current/vst3/{{ project.name }}.vst3"
+
+    ln -sf "$source_dir_current/vst3/{{ project.name }}.vst3" "$vst3_dir/"
+else
+    printf "%s\n" "$source_dir_final/vst3/{{ project.name }}.vst3"
+
+    ln -sf "$source_dir_final/vst3/{{ project.name }}.vst3" "$vst3_dir/"
 fi
 
 
