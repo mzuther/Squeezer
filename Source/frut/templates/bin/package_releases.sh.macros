@@ -24,7 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{% macro preamble(name, copyright, version) %}
+{% macro preamble(project, copyright, version) %}
 #! /usr/bin/env bash
 
 {% for line in copyright -%}
@@ -43,9 +43,9 @@ version="$(git describe --first-parent)"
 binary_dir="./final"
 release_dir="./releases"
 
-resource_dir_standalone="./standalone/{{ name.short }}"
-resource_dir_vst2="./vst2/{{ name.short }}"
-resource_dir_vst3="./vst3/{{ name.real }}.vst3/Contents/Resources"
+resource_dir_standalone="./standalone/{{ project.name_lower }}"
+resource_dir_vst2="./vst2/{{ project.name_lower }}"
+resource_dir_vst3="./vst3/{{ project.name }}.vst3/Contents/Resources"
 
 
 function archive_is_missing
@@ -219,10 +219,10 @@ printf "  Done.\n\n\n"
 
 
 
-{% macro standalone_linux(name, targets, additions, platform, bits) %}
+{% macro standalone_linux(project, targets, additions, platform, bits) %}
 # ----- GNU/Linux Standalone ({{bits}} bit) -----
 
-archive_dir="{{ name.short }}-linux{{bits}}-standalone_$version"
+archive_dir="{{ project.name_lower }}-linux{{bits}}-standalone_$version"
 
 if archive_is_missing "gzip" "$release_dir/linux" ; then
     printf "  --- GNU/Linux Standalone %s ({{bits}} bit) ---\n\n" "$version"
@@ -230,12 +230,12 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_create
 
 {% for target in targets %}
-    archive_add "$binary_dir/standalone/{{ name.short }}_{{target.short}}{{platform}}" ""
+    archive_add "$binary_dir/standalone/{{ target.binary_linux }}{{platform}}" ""
 {% endfor %}
 
 {% for scope in ['default', 'standalone', 'standalone_linux_' + bits] %}
 {% for line in additions[scope] %}
-    {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', name.short) }}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', project.name_lower) }}
 {% endfor -%}
 {% endfor %}
 
@@ -246,10 +246,10 @@ fi
 
 
 
-{% macro vst2_linux(name, targets, additions, platform, bits) %}
+{% macro vst2_linux(project, targets, additions, platform, bits) %}
 # ----- GNU/Linux VST2 ({{bits}} bit) -----
 
-archive_dir="{{ name.short }}-linux{{bits}}-vst2_$version"
+archive_dir="{{ project.name_lower }}-linux{{bits}}-vst2_$version"
 
 if archive_is_missing "gzip" "$release_dir/linux" ; then
     printf "  --- GNU/Linux VST2 %s ({{bits}} bit) ---\n\n" "$version"
@@ -257,12 +257,12 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
     archive_create
 
 {% for target in targets %}
-    archive_add "$binary_dir/vst2/{{ name.short }}_{{target.short}}_vst2{{platform}}.so" ""
+    archive_add "$binary_dir/vst2/{{ target.binary_linux }}{{platform}}.so" ""
 {% endfor %}
 
 {% for scope in ['default', 'vst2', 'vst2_linux_' + bits] %}
 {% for line in additions[scope] %}
-    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', name.short) }}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', project.name_lower) }}
 {% endfor -%}
 {% endfor %}
 
@@ -273,10 +273,10 @@ fi
 
 
 
-{% macro vst3_linux(name, targets, additions, platform, bits) %}
+{% macro vst3_linux(project, targets, additions, platform, bits) %}
 # ----- GNU/Linux VST3 ({{bits}} bit) -----
 
-archive_dir="{{ name.short }}-linux{{bits}}-vst3_$version"
+archive_dir="{{ project.name_lower }}-linux{{bits}}-vst3_$version"
 
 if archive_is_missing "gzip" "$release_dir/linux" ; then
     printf "  --- GNU/Linux VST3 %s ({{bits}} bit) ---\n\n" "$version"
@@ -285,15 +285,15 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
 {% for target in targets %}
 {% if platform == '_x64' %}
-    archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/x86_64-linux/{{ name.real }}.so" "squeezer.vst3/Contents/x86_64-linux"
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86_64-linux/{{ target.binary_linux }}.so" "squeezer.vst3/Contents/x86_64-linux"
 {% else %}
-    archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/i386-linux/{{ name.real }}.so" "squeezer.vst3/Contents/i386-linux"
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/i386-linux/{{ target.binary_linux }}.so" "squeezer.vst3/Contents/i386-linux"
 {% endif %}
 {% endfor %}
 
 {% for scope in ['default', 'vst3', 'vst3_linux_' + bits] %}
 {% for line in additions[scope] %}
-    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', name.short + '.vst3/Contents/Resources') }}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', project.name_lower + '.vst3/Contents/Resources') }}
 {% endfor -%}
 {% endfor %}
 
@@ -304,10 +304,10 @@ fi
 
 
 
-{% macro standalone_windows(name, targets, additions, platform, bits) %}
+{% macro standalone_windows(project, targets, additions, platform, bits) %}
 # ----- Windows Standalone ({{bits}} bit) -----
 
-archive_dir="{{ name.short }}-w{{bits}}-standalone_$version"
+archive_dir="{{ project.name_lower }}-w{{bits}}-standalone_$version"
 
 if archive_is_missing "zip" "$release_dir/windows" ; then
     printf "  --- Windows Standalone %s ({{bits}} bit) ---\n\n" "$version"
@@ -315,12 +315,12 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for target in targets %}
-    archive_add "$binary_dir/standalone/{{ name.real }} ({{target.real}}{{platform}}).exe" ""
+    archive_add "$binary_dir/standalone/{{ target.binary_windows }}{{platform}}.exe" ""
 {% endfor %}
 
 {% for scope in ['default', 'standalone', 'standalone_windows_' + bits] %}
 {% for line in additions[scope] %}
-    {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', name.short) }}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', project.name_lower) }}
 {% endfor -%}
 {% endfor %}
 
@@ -331,10 +331,10 @@ fi
 
 
 
-{% macro vst2_windows(name, targets, additions, platform, bits) %}
+{% macro vst2_windows(project, targets, additions, platform, bits) %}
 # ----- Windows VST2 ({{bits}} bit) -----
 
-archive_dir="{{ name.short }}-w{{bits}}-vst2_$version"
+archive_dir="{{ project.name_lower }}-w{{bits}}-vst2_$version"
 
 if archive_is_missing "zip" "$release_dir/windows" ; then
     printf "  --- Windows VST2 %s ({{bits}} bit) ---\n\n" "$version"
@@ -342,12 +342,12 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for target in targets %}
-    archive_add "$binary_dir/vst2/{{ name.real }} ({{target.real}}{{platform}}).dll" ""
+    archive_add "$binary_dir/vst2/{{ target.binary_windows }}{{platform}}.dll" ""
 {% endfor %}
 
 {% for scope in ['default', 'vst2', 'vst2_windows_' + bits] %}
 {% for line in additions[scope] %}
-    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', name.short) }}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', project.name_lower) }}
 {% endfor -%}
 {% endfor %}
 
@@ -358,10 +358,10 @@ fi
 
 
 
-{% macro vst3_windows(name, targets, additions, platform, bits) %}
+{% macro vst3_windows(project, targets, additions, platform, bits) %}
 # ----- Windows VST3 ({{bits}} bit) -----
 
-archive_dir="{{ name.short }}-w{{bits}}-vst3_$version"
+archive_dir="{{ project.name_lower }}-w{{bits}}-vst3_$version"
 
 if archive_is_missing "zip" "$release_dir/windows" ; then
     printf "  --- Windows VST3 %s ({{bits}} bit) ---\n\n" "$version"
@@ -369,12 +369,12 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for target in targets %}
-    archive_add "$binary_dir/vst3/{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ name.real }}.vst3" "{{ name.real }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ target.binary_windows }}.vst3" "{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
 {% endfor %}
 
 {% for scope in ['default', 'vst3', 'vst3_windows_' + bits] %}
 {% for line in additions[scope] %}
-    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', name.short + '.vst3/Contents/Resources') }}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', project.name_lower + '.vst3/Contents/Resources') }}
 {% endfor -%}
 {% endfor %}
 

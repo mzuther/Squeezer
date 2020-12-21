@@ -34,15 +34,15 @@
 {% for platform in ['_x64', ] -%}
 
 {% for target in settings.targets.standalone %}
-{{ render.standalone_linux(settings.name, target, platform) -}}
+{{ render.standalone_linux(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst2 %}
-{{ render.vst2_linux(settings.name, target, platform) -}}
+{{ render.vst2_linux(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst3 %}
-{{ render.vst3_linux(settings.name, target, platform) -}}
+{{ render.vst3_linux(settings.project, target, platform) -}}
 {% endfor %}
 
 {% endfor -%}
@@ -51,15 +51,15 @@
 {% for platform in ['', ' x64'] -%}
 
 {% for target in settings.targets.standalone %}
-{{ render.standalone_windows(settings.name, target, platform) -}}
+{{ render.standalone_windows(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst2 %}
-{{ render.vst2_windows(settings.name, target, platform) -}}
+{{ render.vst2_windows(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst3 %}
-{{ render.vst3_windows(settings.name, target, platform) -}}
+{{ render.vst3_windows(settings.project, target, platform) -}}
 {% endfor %}
 
 {% endfor %}

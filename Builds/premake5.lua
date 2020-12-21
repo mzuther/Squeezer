@@ -194,7 +194,7 @@ workspace "squeezer"
         targetsuffix ", Debug)"
 
     filter { "system:windows", "configurations:Debug", "platforms:x64" }
-        targetsuffix " x64, Debug)"
+        targetsuffix ", Debug) x64"
 
     filter { "configurations:Release" }
         defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
@@ -220,7 +220,7 @@ workspace "squeezer"
         targetsuffix ")"
 
     filter { "system:windows", "configurations:Release", "platforms:x64" }
-        targetsuffix " x64)"
+        targetsuffix ") x64"
 
 --------------------------------------------------------------------------------
 
@@ -268,10 +268,10 @@ workspace "squeezer"
             }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_standalone_stereo_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_standalone_stereo_release")
 
 --------------------------------------------------------------------------------
 
@@ -319,10 +319,10 @@ workspace "squeezer"
             }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_standalone_mono_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/standalone_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_standalone_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -361,7 +361,7 @@ workspace "squeezer"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_stereo_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
@@ -372,7 +372,7 @@ workspace "squeezer"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_stereo_release")
 
 --------------------------------------------------------------------------------
 
@@ -411,7 +411,7 @@ workspace "squeezer"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
@@ -422,7 +422,7 @@ workspace "squeezer"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_release")
 
 --------------------------------------------------------------------------------
 
@@ -461,7 +461,7 @@ workspace "squeezer"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_no_sidechain_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_stereo_no_sidechain_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
@@ -472,7 +472,7 @@ workspace "squeezer"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_stereo_no_sidechain_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_stereo_no_sidechain_release")
 
 --------------------------------------------------------------------------------
 
@@ -511,7 +511,7 @@ workspace "squeezer"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_no_sidechain_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
@@ -522,7 +522,7 @@ workspace "squeezer"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst2_mono_no_sidechain_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_no_sidechain_release")
 
 --------------------------------------------------------------------------------
 
@@ -573,7 +573,7 @@ workspace "squeezer"
             targetdir "../bin/vst3/Squeezer.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst3_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "C:/Program Files (x86)/Common Files/VST3/radix/Squeezer.vst3/Contents/x86-win/"
@@ -590,14 +590,14 @@ workspace "squeezer"
             targetsuffix ""
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/vst3_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst3_release")
 
 --------------------------------------------------------------------------------
 
 -- create unit tests on Linux only
 if os.target() == "linux" then
 
-    project ("unittest")
+    project ("squeezer_unittest")
         kind "ConsoleApp"
         targetdir "../bin/unittest/"
 
@@ -620,7 +620,7 @@ if os.target() == "linux" then
         }
 
         filter { "system:linux" }
-            targetname "unittest"
+            targetname "squeezer_unittest"
 
             defines {
                 "JUCE_ALSA=0",
@@ -644,10 +644,10 @@ if os.target() == "linux" then
         }
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_unittest_debug")
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/unittest_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_unittest_release")
 
 -- create unit tests on Linux only
 end

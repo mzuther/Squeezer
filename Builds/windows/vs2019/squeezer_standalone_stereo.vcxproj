@@ -69,29 +69,29 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bin\standalone\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\standalone_stereo_debug\x32\</IntDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\squeezer_standalone_stereo_debug\x32\</IntDir>
     <TargetName>Squeezer (Stereo, Debug)</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bin\standalone\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\standalone_stereo_debug\x64\</IntDir>
-    <TargetName>Squeezer (Stereo x64, Debug)</TargetName>
+    <IntDir>..\..\..\bin\.intermediate_windows\squeezer_standalone_stereo_debug\x64\</IntDir>
+    <TargetName>Squeezer (Stereo, Debug) x64</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\standalone\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\standalone_stereo_release\x32\</IntDir>
+    <IntDir>..\..\..\bin\.intermediate_windows\squeezer_standalone_stereo_release\x32\</IntDir>
     <TargetName>Squeezer (Stereo)</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\standalone\</OutDir>
-    <IntDir>..\..\..\bin\.intermediate_windows\standalone_stereo_release\x64\</IntDir>
-    <TargetName>Squeezer (Stereo x64)</TargetName>
+    <IntDir>..\..\..\bin\.intermediate_windows\squeezer_standalone_stereo_release\x64\</IntDir>
+    <TargetName>Squeezer (Stereo) x64</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

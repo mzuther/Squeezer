@@ -28,26 +28,26 @@
 {%- import 'settings.jinja' as settings -%}
 {%- import 'package_releases.sh.macros' as render -%}
 
-{{ render.preamble(settings.name, settings.copyright, settings.version) }}
+{{ render.preamble(settings.project, settings.copyright, settings.version) }}
 
 {% for platform, bits in [['_x64', '64'], ] -%}
 
-{{ render.standalone_linux(settings.name, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
+{{ render.standalone_linux(settings.project, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst2_linux(settings.name, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
+{{ render.vst2_linux(settings.project, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst3_linux(settings.name, settings.targets.vst3, settings.additions_packaging, platform, bits) }}
+{{ render.vst3_linux(settings.project, settings.targets.vst3, settings.additions_packaging, platform, bits) }}
 
 {% endfor -%}
 
 
 {% for platform, bits in [['', '32'], [' x64', '64']] -%}
 
-{{ render.standalone_windows(settings.name, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
+{{ render.standalone_windows(settings.project, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst2_windows(settings.name, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
+{{ render.vst2_windows(settings.project, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst3_windows(settings.name, settings.targets.vst3, settings.additions_packaging, platform, bits) }}
+{{ render.vst3_windows(settings.project, settings.targets.vst3, settings.additions_packaging, platform, bits) }}
 
 {% endfor %}
 

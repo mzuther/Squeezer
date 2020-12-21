@@ -30,65 +30,92 @@
 {% set code_indentation = '3' %}
 
 
-{% set name = {'real': 'Squeezer', 'short': 'squeezer'} %}
+{% set project = {
+   'name':       'Squeezer',
+   'name_lower': 'squeezer'}
+%}
 
 
 {% set targets = {
    'standalone': [
-      {'real':    'Stereo',
-       'short':   'stereo',
+      {
+       'name':            'squeezer_standalone_stereo',
+       'description':     'Standalone (Stereo)',
+       'binary_linux':    'squeezer_stereo',
+       'binary_windows':  'Squeezer (Stereo)',
        'defines': [
           'SQUEEZER_STEREO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
       ]},
 
-      {'real':    'Mono',
-       'short':   'mono',
+      {
+       'name':            'squeezer_standalone_mono',
+       'description':     'Standalone (Mono)',
+       'binary_linux':    'squeezer_mono',
+       'binary_windows':  'Squeezer (Mono)',
        'defines': [
           'SQUEEZER_MONO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
       ]},
    ],
    'unittest': [
-      {'real':    '(undefined)',
-       'short':   '(undefined)',
+      {
+       'name':            'squeezer_unittest',
+       'description':     'Unittest',
+       'binary_linux':    'squeezer_unittest',
+       'binary_windows':  'Squeezer (Unittest)',
        'defines': [
           'SQUEEZER_STEREO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
       ]},
    ],
    'vst2': [
-      {'real':    'Stereo',
-       'short':   'stereo',
+      {
+       'name':            'squeezer_vst2_stereo',
+       'description':     'VST2 plug-in (Stereo)',
+       'binary_linux':    'squeezer_stereo_vst2',
+       'binary_windows':  'Squeezer (Stereo)',
        'defines': [
           'SQUEEZER_STEREO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
       ]},
 
-      {'real':    'Mono',
-       'short':   'mono',
+      {
+       'name':            'squeezer_vst2_mono',
+       'description':     'VST2 plug-in (Mono)',
+       'binary_linux':    'squeezer_mono_vst2',
+       'binary_windows':  'Squeezer (Mono)',
        'defines': [
           'SQUEEZER_MONO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
       ]},
 
-      {'real':    'Stereo, no side-chain',
-       'short':   'stereo_no_sidechain',
+      {
+       'name':            'squeezer_vst2_stereo_no_sidechain',
+       'description':     'VST2 plug-in (Stereo, no side-chain)',
+       'binary_linux':    'squeezer_stereo_no_sidechain_vst2',
+       'binary_windows':  'Squeezer (Stereo, no side-chain)',
        'defines': [
           'SQUEEZER_STEREO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=0',
       ]},
 
-      {'real':    'Mono, no side-chain',
-       'short':   'mono_no_sidechain',
+      {
+       'name':            'squeezer_vst2_mono_no_sidechain',
+       'description':     'VST2 plug-in (Mono, no side-chain)',
+       'binary_linux':    'squeezer_mono_no_sidechain_vst2',
+       'binary_windows':  'Squeezer (Mono, no side-chain)',
        'defines': [
           'SQUEEZER_MONO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=0',
       ]},
    ],
    'vst3': [
-      {'real':    '(undefined)',
-       'short':   '(undefined)',
+      {
+       'name':            'squeezer_vst3',
+       'description':     'VST3 plug-in',
+       'binary_linux':    'Squeezer',
+       'binary_windows':  'Squeezer',
        'defines': [
           'SQUEEZER_MULTIBUS=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',

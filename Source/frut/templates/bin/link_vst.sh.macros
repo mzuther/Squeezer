@@ -24,7 +24,7 @@
 {# -------------------------------------------------------------------------- #}
 
 
-{% macro preamble(copyright, name) %}
+{% macro preamble(copyright, project) %}
 #! /usr/bin/env bash
 
 {% for line in copyright -%}
@@ -38,10 +38,10 @@
 #
 ###############################################################################
 
-destination_dir="$HOME/.vst/{{ name.short }}"
+destination_dir="$HOME/.vst/{{ project.name_lower }}"
 use_final_binaries=0
 
-resource_dir="{{ name.short }}"
+resource_dir="{{ project.name_lower }}"
 source_dir_current=$(realpath "$(dirname "$0")/vst2")
 source_dir_final=$(realpath "$(dirname "$0")/final")
 

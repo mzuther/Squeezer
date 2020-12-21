@@ -82,23 +82,23 @@ exit /b 0
 
 
 
-{% macro vst2_windows(name, targets, platform, bits, outdir, header) %}
+{% macro vst2_windows(project, targets, platform, bits, outdir, header) %}
 echo.
 echo VST2 ({{header}})
 echo.
 
 {% for target in targets %}
-call :CopyVst       "vst2/{{ name.real }} ({{target.real}}{{platform}}).dll" "%{{outdir}}%"
+call :CopyVst       "vst2/{{target.binary_windows}}{{platform}}.dll" "%{{outdir}}%"
 {% endfor %}
-call :CopyVst       "vst2/Documentation/{{ name.real }}.pdf" "%{{outdir}}%"
+call :CopyVst       "vst2/Documentation/{{ project.name }}.pdf" "%{{outdir}}%"
 {% endmacro %}
 
 
 
-{% macro vst3_windows(name, targets, platform, bits) %}
+{% macro vst3_windows(project, targets, platform, bits) %}
 echo.
 echo VST3 ({{bits}} bit)
 echo.
 
-call :CopyVstDelete "vst3/{{ name.real }}.vst3" "%vst3_{{bits}}%"
+call :CopyVstDelete "vst3/{{ project.name }}.vst3" "%vst3_{{bits}}%"
 {% endmacro %}

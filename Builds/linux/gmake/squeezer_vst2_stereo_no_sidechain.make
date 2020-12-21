@@ -22,7 +22,7 @@ ifeq ($(config),debug_x32)
   endif
   TARGETDIR = ../../../bin/vst2
   TARGET = $(TARGETDIR)/squeezer_stereo_no_sidechain_vst2_debug.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_stereo_no_sidechain_debug/x32
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst2_stereo_no_sidechain_debug/x32
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
@@ -57,7 +57,7 @@ ifeq ($(config),debug_x64)
   endif
   TARGETDIR = ../../../bin/vst2
   TARGET = $(TARGETDIR)/squeezer_stereo_no_sidechain_vst2_debug_x64.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_stereo_no_sidechain_debug/x64
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst2_stereo_no_sidechain_debug/x64
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
@@ -92,7 +92,7 @@ ifeq ($(config),release_x32)
   endif
   TARGETDIR = ../../../bin/vst2
   TARGET = $(TARGETDIR)/squeezer_stereo_no_sidechain_vst2.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_stereo_no_sidechain_release/x32
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst2_stereo_no_sidechain_release/x32
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
@@ -127,7 +127,7 @@ ifeq ($(config),release_x64)
   endif
   TARGETDIR = ../../../bin/vst2
   TARGET = $(TARGETDIR)/squeezer_stereo_no_sidechain_vst2_x64.so
-  OBJDIR = ../../../bin/.intermediate_linux/vst2_stereo_no_sidechain_release/x64
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst2_stereo_no_sidechain_release/x64
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=

@@ -21,8 +21,8 @@ ifeq ($(config),debug_x32)
     AR = ar
   endif
   TARGETDIR = ../../../bin/unittest
-  TARGET = $(TARGETDIR)/unittest_debug
-  OBJDIR = ../../../bin/.intermediate_linux/unittest_debug/x32
+  TARGET = $(TARGETDIR)/squeezer_unittest_debug
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_unittest_debug/x32
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
@@ -56,8 +56,8 @@ ifeq ($(config),debug_x64)
     AR = ar
   endif
   TARGETDIR = ../../../bin/unittest
-  TARGET = $(TARGETDIR)/unittest_debug_x64
-  OBJDIR = ../../../bin/.intermediate_linux/unittest_debug/x64
+  TARGET = $(TARGETDIR)/squeezer_unittest_debug_x64
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_unittest_debug/x64
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
@@ -91,8 +91,8 @@ ifeq ($(config),release_x32)
     AR = ar
   endif
   TARGETDIR = ../../../bin/unittest
-  TARGET = $(TARGETDIR)/unittest
-  OBJDIR = ../../../bin/.intermediate_linux/unittest_release/x32
+  TARGET = $(TARGETDIR)/squeezer_unittest
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_unittest_release/x32
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
@@ -126,8 +126,8 @@ ifeq ($(config),release_x64)
     AR = ar
   endif
   TARGETDIR = ../../../bin/unittest
-  TARGET = $(TARGETDIR)/unittest_x64
-  OBJDIR = ../../../bin/.intermediate_linux/unittest_release/x64
+  TARGET = $(TARGETDIR)/squeezer_unittest_x64
+  OBJDIR = ../../../bin/.intermediate_linux/squeezer_unittest_release/x64
   DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/googletest/googletest/include
   FORCE_INCLUDE +=
@@ -196,7 +196,7 @@ ifeq (.exe,$(findstring .exe,$(ComSpec)))
 endif
 
 $(TARGET): $(GCH) ${CUSTOMFILES} $(OBJECTS) $(LDDEPS) $(RESOURCES) | $(TARGETDIR)
-	@echo Linking unittest
+	@echo Linking squeezer_unittest
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -219,7 +219,7 @@ else
 endif
 
 clean:
-	@echo Cleaning unittest
+	@echo Cleaning squeezer_unittest
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)

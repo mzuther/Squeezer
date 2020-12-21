@@ -30,7 +30,7 @@
 
 {{ render.copyright(settings.copyright) }}
 
-{{ render.solution(settings.name, settings.additions_solution, settings.includes) -}}
+{{ render.solution(settings.project, settings.additions_solution, settings.includes) -}}
 
 
 
@@ -38,7 +38,7 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.standalone(settings.name, target) -}}
+{{ render.standalone(settings.project, target) -}}
 
 {% endfor -%}
 
@@ -48,7 +48,7 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.vst2(settings.name, target, settings.vst2_category) -}}
+{{ render.vst2(settings.project, target, settings.vst2_category) -}}
 
 {% endfor -%}
 
@@ -58,7 +58,7 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.vst3(settings.name, target) -}}
+{{ render.vst3(settings.project, target) -}}
 
 {% endfor -%}
 
@@ -68,6 +68,6 @@
 
 --------------------------------------------------------------------------------
 
-{{ render.unittest(settings.name, target, settings.includes) -}}
+{{ render.unittest(settings.project, target, settings.includes) -}}
 
 {% endfor %}

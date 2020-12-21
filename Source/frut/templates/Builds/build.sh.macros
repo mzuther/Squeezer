@@ -111,25 +111,25 @@ case $1 in
         MAKEFILE_PRINT="Unit tests"
         EXECUTABLE="unittest/unittest"
         ;;
-{% for item in targets.standalone %}
+{% for target in targets.standalone %}
     {{ loop.index }})
-        MAKEFILE="{{ name.short }}_standalone_{{ item.short }}"
-        MAKEFILE_PRINT="Standalone ({{ item.real }})"
-        EXECUTABLE="standalone/{{ name.short }}_{{ item.short }}"
+        MAKEFILE="{{ target.name }}"
+        MAKEFILE_PRINT="{{ target.description }}"
+        EXECUTABLE="standalone/{{ target.binary_linux }}"
         ;;
 {% endfor -%}
 
-{% for item in targets.vst2 %}
+{% for target in targets.vst2 %}
     {{ loop.index + (targets.standalone | length) }})
-        MAKEFILE="{{ name.short }}_vst2_{{ item.short }}"
-        MAKEFILE_PRINT="VST2 plug-in ({{ item.real }})"
+        MAKEFILE="{{ target.name }}"
+        MAKEFILE_PRINT="{{ target.description }}"
         ;;
 {% endfor -%}
 
-{% for item in targets.vst3 %}
+{% for target in targets.vst3 %}
     {{ loop.index + (targets.standalone | length) + (targets.vst2 | length) }})
-        MAKEFILE="{{ name.short }}_vst3"
-        MAKEFILE_PRINT="VST3 plug-in"
+        MAKEFILE="{{ target.name }}"
+        MAKEFILE_PRINT="{{ target.description }}"
         ;;
 {% endfor %}
     *)
@@ -139,16 +139,16 @@ case $1 in
         print_line "  c: Clean targets"
         print_line "  u: Unit tests"
         print_line ""
-{% for item in targets.standalone %}
-        print_line "  {{ loop.index }}: Standalone ({{ item.real }})"
+{% for target in targets.standalone %}
+        print_line "  {{ loop.index }}: {{ target.description }}"
 {% endfor %}
         print_line ""
-{% for item in targets.vst2 %}
-        print_line "  {{ loop.index + (targets.standalone | length) }}: VST2 plug-in ({{ item.real }})"
+{% for target in targets.vst2 %}
+        print_line "  {{ loop.index + (targets.standalone | length) }}: {{ target.description }}"
 {% endfor %}
         print_line ""
-{% for item in targets.vst3 %}
-        print_line "  {{ loop.index + (targets.standalone | length) +  + (targets.vst2 | length) }}: VST3 plug-in"
+{% for target in targets.vst3 %}
+        print_line "  {{ loop.index + (targets.standalone | length) +  + (targets.vst2 | length) }}: {{ target.description }}"
 {% endfor %}
         print_line ""
 
