@@ -40,9 +40,9 @@
    'standalone': [
       {
        'name':            'squeezer_standalone_stereo',
-       'description':     'Standalone (Stereo)',
-       'binary_linux':    'squeezer_stereo',
-       'binary_windows':  'Squeezer (Stereo)',
+       'binary_linux':    'squeezer',
+       'binary_windows':  'Squeezer',
+       'description':     'Standalone (stereo)',
        'defines': [
           'SQUEEZER_STEREO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
@@ -50,9 +50,9 @@
 
       {
        'name':            'squeezer_standalone_mono',
-       'description':     'Standalone (Mono)',
        'binary_linux':    'squeezer_mono',
-       'binary_windows':  'Squeezer (Mono)',
+       'binary_windows':  'Squeezer (mono)',
+       'description':     'Standalone (mono)',
        'defines': [
           'SQUEEZER_MONO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
@@ -61,9 +61,9 @@
    'unittest': [
       {
        'name':            'squeezer_unittest',
-       'description':     'Unittest',
        'binary_linux':    'squeezer_unittest',
-       'binary_windows':  'Squeezer (Unittest)',
+       'binary_windows':  'Squeezer (unit test)',
+       'description':     'Unittest',
        'defines': [
           'SQUEEZER_STEREO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
@@ -72,50 +72,50 @@
    'vst2': [
       {
        'name':            'squeezer_vst2_stereo',
-       'description':     'VST2 plug-in (Stereo)',
-       'binary_linux':    'squeezer_stereo_vst2',
-       'binary_windows':  'Squeezer (Stereo)',
+       'binary_linux':    'squeezer_vst2',
+       'binary_windows':  'Squeezer',
+       'description':     'VST2 plug-in (stereo)',
        'defines': [
           'SQUEEZER_STEREO=1',
-          'SQUEEZER_EXTERNAL_SIDECHAIN=1',
+          'SQUEEZER_EXTERNAL_SIDECHAIN=0',
       ]},
 
       {
        'name':            'squeezer_vst2_mono',
-       'description':     'VST2 plug-in (Mono)',
-       'binary_linux':    'squeezer_mono_vst2',
-       'binary_windows':  'Squeezer (Mono)',
+       'binary_linux':    'squeezer_vst2_mono',
+       'binary_windows':  'Squeezer (mono)',
+       'description':     'VST2 plug-in (mono)',
        'defines': [
           'SQUEEZER_MONO=1',
+          'SQUEEZER_EXTERNAL_SIDECHAIN=0',
+      ]},
+
+      {
+       'name':            'squeezer_vst2_sidechain_stereo',
+       'binary_linux':    'squeezer_vst2_sidechain',
+       'binary_windows':  'Squeezer (side-chain)',
+       'description':     'VST2 plug-in (side-chain, stereo)',
+       'defines': [
+          'SQUEEZER_STEREO=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',
       ]},
 
       {
-       'name':            'squeezer_vst2_stereo_no_sidechain',
-       'description':     'VST2 plug-in (Stereo, no side-chain)',
-       'binary_linux':    'squeezer_stereo_no_sidechain_vst2',
-       'binary_windows':  'Squeezer (Stereo, no side-chain)',
-       'defines': [
-          'SQUEEZER_STEREO=1',
-          'SQUEEZER_EXTERNAL_SIDECHAIN=0',
-      ]},
-
-      {
-       'name':            'squeezer_vst2_mono_no_sidechain',
-       'description':     'VST2 plug-in (Mono, no side-chain)',
-       'binary_linux':    'squeezer_mono_no_sidechain_vst2',
-       'binary_windows':  'Squeezer (Mono, no side-chain)',
+       'name':            'squeezer_vst2_sidechain_mono',
+       'binary_linux':    'squeezer_vst2_sidechain_mono',
+       'binary_windows':  'Squeezer (side-chain, mono)',
+       'description':     'VST2 plug-in (side-chain, mono)',
        'defines': [
           'SQUEEZER_MONO=1',
-          'SQUEEZER_EXTERNAL_SIDECHAIN=0',
+          'SQUEEZER_EXTERNAL_SIDECHAIN=1',
       ]},
    ],
    'vst3': [
       {
        'name':            'squeezer_vst3',
-       'description':     'VST3 plug-in',
        'binary_linux':    'Squeezer',
        'binary_windows':  'Squeezer',
+       'description':     'VST3 plug-in',
        'defines': [
           'SQUEEZER_MULTIBUS=1',
           'SQUEEZER_EXTERNAL_SIDECHAIN=1',

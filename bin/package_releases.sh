@@ -196,7 +196,7 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "$binary_dir/standalone/squeezer_stereo_x64" ""
+    archive_add "$binary_dir/standalone/squeezer_x64" ""
     archive_add "$binary_dir/standalone/squeezer_mono_x64" ""
 
     archive_add "$binary_dir/Documentation" ""
@@ -215,10 +215,10 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst2/squeezer_stereo_vst2_x64.so" ""
-    archive_add "$binary_dir/vst2/squeezer_mono_vst2_x64.so" ""
-    archive_add "$binary_dir/vst2/squeezer_stereo_no_sidechain_vst2_x64.so" ""
-    archive_add "$binary_dir/vst2/squeezer_mono_no_sidechain_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_vst2_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_vst2_mono_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_vst2_sidechain_x64.so" ""
+    archive_add "$binary_dir/vst2/squeezer_vst2_sidechain_mono_x64.so" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -255,8 +255,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/standalone/Squeezer (Stereo).exe" ""
-    archive_add "$binary_dir/standalone/Squeezer (Mono).exe" ""
+    archive_add "$binary_dir/standalone/Squeezer.exe" ""
+    archive_add "$binary_dir/standalone/Squeezer (mono).exe" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -274,10 +274,10 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst2/Squeezer (Stereo).dll" ""
-    archive_add "$binary_dir/vst2/Squeezer (Mono).dll" ""
-    archive_add "$binary_dir/vst2/Squeezer (Stereo, no side-chain).dll" ""
-    archive_add "$binary_dir/vst2/Squeezer (Mono, no side-chain).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer.dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (mono).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (side-chain).dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (side-chain, mono).dll" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -314,8 +314,8 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/standalone/Squeezer (Stereo) x64.exe" ""
-    archive_add "$binary_dir/standalone/Squeezer (Mono) x64.exe" ""
+    archive_add "$binary_dir/standalone/Squeezer x64.exe" ""
+    archive_add "$binary_dir/standalone/Squeezer (mono) x64.exe" ""
 
     archive_add "$binary_dir/Documentation" ""
 
@@ -333,10 +333,10 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
 
     archive_create
 
-    archive_add "$binary_dir/vst2/Squeezer (Stereo) x64.dll" ""
-    archive_add "$binary_dir/vst2/Squeezer (Mono) x64.dll" ""
-    archive_add "$binary_dir/vst2/Squeezer (Stereo, no side-chain) x64.dll" ""
-    archive_add "$binary_dir/vst2/Squeezer (Mono, no side-chain) x64.dll" ""
+    archive_add "$binary_dir/vst2/Squeezer x64.dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (mono) x64.dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (side-chain) x64.dll" ""
+    archive_add "$binary_dir/vst2/Squeezer (side-chain, mono) x64.dll" ""
 
     archive_add "$binary_dir/Documentation" ""
 

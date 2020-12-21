@@ -285,9 +285,9 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
 {% for target in targets %}
 {% if platform == '_x64' %}
-    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86_64-linux/{{ target.binary_linux }}.so" "squeezer.vst3/Contents/x86_64-linux"
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86_64-linux/{{ project.name }}.so" "squeezer.vst3/Contents/x86_64-linux"
 {% else %}
-    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/i386-linux/{{ target.binary_linux }}.so" "squeezer.vst3/Contents/i386-linux"
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/i386-linux/{{ project.name }}.so" "squeezer.vst3/Contents/i386-linux"
 {% endif %}
 {% endfor %}
 
@@ -369,7 +369,7 @@ if archive_is_missing "zip" "$release_dir/windows" ; then
     archive_create
 
 {% for target in targets %}
-    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ target.binary_windows }}.vst3" "{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ project.name }}.vst3" "{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
 {% endfor %}
 
 {% for scope in ['default', 'vst3', 'vst3_windows_' + bits] %}

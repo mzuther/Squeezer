@@ -70,35 +70,35 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>D:\Plugins\32-bit\Categories\Dynamics\Compressor\</OutDir>
     <IntDir>..\..\..\bin\.intermediate_windows\squeezer_vst2_mono_debug\x32\</IntDir>
-    <TargetName>Squeezer (Mono, Debug)</TargetName>
+    <TargetName>Squeezer (mono, Debug)</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>D:\Plugins\64-bit\Categories\Dynamics\Compressor\</OutDir>
     <IntDir>..\..\..\bin\.intermediate_windows\squeezer_vst2_mono_debug\x64\</IntDir>
-    <TargetName>Squeezer (Mono, Debug) x64</TargetName>
+    <TargetName>Squeezer (mono, Debug) x64</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\vst2\</OutDir>
     <IntDir>..\..\..\bin\.intermediate_windows\squeezer_vst2_mono_release\x32\</IntDir>
-    <TargetName>Squeezer (Mono)</TargetName>
+    <TargetName>Squeezer (mono)</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\..\bin\vst2\</OutDir>
     <IntDir>..\..\..\bin\.intermediate_windows\squeezer_vst2_mono_release\x64\</IntDir>
-    <TargetName>Squeezer (Mono) x64</TargetName>
+    <TargetName>Squeezer (mono) x64</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -112,14 +112,14 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>D:\Plugins\32-bit\Categories\Dynamics\Compressor\Squeezer (Mono, Debug).lib</ImportLibrary>
+      <ImportLibrary>D:\Plugins\32-bit\Categories\Dynamics\Compressor\Squeezer (mono, Debug).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;_DEBUG=1;DEBUG=1;JUCE_CHECK_MEMORY_LEAKS=1;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -132,14 +132,14 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>D:\Plugins\64-bit\Categories\Dynamics\Compressor\Squeezer (Mono, Debug) x64.lib</ImportLibrary>
+      <ImportLibrary>D:\Plugins\64-bit\Categories\Dynamics\Compressor\Squeezer (mono, Debug) x64.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN32=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -159,14 +159,14 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\..\..\bin\vst2\Squeezer (Mono).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\bin\vst2\Squeezer (mono).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=1;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS=1;_USE_MATH_DEFINES=1;WIN64=1;NDEBUG=1;JUCE_CHECK_MEMORY_LEAKS=0;SQUEEZER_MONO=1;SQUEEZER_EXTERNAL_SIDECHAIN=0;JucePlugin_Build_Standalone=0;JucePlugin_Build_VST=1;JucePlugin_Build_VST3=0;JUCE_ALSA=0;JUCE_JACK=0;JUCE_WASAPI=0;JUCE_DIRECTSOUND=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\JuceLibraryCode;..\..\..\libraries;..\..\..\libraries\juce\modules;..\..\..\Source\frut;..\..\..\libraries\vst2\VST2_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
@@ -185,7 +185,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\..\..\bin\vst2\Squeezer (Mono) x64.lib</ImportLibrary>
+      <ImportLibrary>..\..\..\bin\vst2\Squeezer (mono) x64.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

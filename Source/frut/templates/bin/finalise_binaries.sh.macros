@@ -107,9 +107,9 @@ finalise_binary  "vst2/{{ target.binary_linux }}{{platform}}.so"
 
 {% macro vst3_linux(project, target, platform) %}
 {% if platform == '_x64' %}
-finalise_binary  "vst3/{{ project.name }}.vst3/Contents/x86_64-linux/{{ target.binary_linux }}.so"
+finalise_binary  "vst3/{{ project.name }}.vst3/Contents/x86_64-linux/{{ project.name }}.so"
 {% else %}
-finalise_binary  "vst3/{{ project.name }}.vst3/Contents/i386-linux/{{ target.binary_linux }}.so"
+finalise_binary  "vst3/{{ project.name }}.vst3/Contents/i386-linux/{{ project.name }}.so"
 {% endif %}
 {% endmacro %}
 
@@ -130,6 +130,6 @@ finalise_symbols "vst2/{{ target.binary_windows }}{{platform}}.pdb"
 
 
 {% macro vst3_windows(project, target, platform) %}
-finalise_binary  "vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ target.binary_windows }}.vst3"
-finalise_symbols "vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ target.binary_windows }}.pdb"
+finalise_binary  "vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ project.name }}.vst3"
+finalise_symbols "vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ project.name }}.pdb"
 {% endmacro %}

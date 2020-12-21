@@ -371,7 +371,7 @@ workspace "{{ project.name_lower }}"
         }
 
         filter { "system:linux" }
-            targetname "{{ target.binary_linux }}"
+            targetname "{{ project.name }}"
 
         filter { "system:linux", "platforms:x32" }
             targetdir "../bin/vst3/{{ project.name }}.vst3/Contents/i386-linux/"
@@ -380,7 +380,7 @@ workspace "{{ project.name_lower }}"
             targetdir "../bin/vst3/{{ project.name }}.vst3/Contents/x86_64-linux/"
 
         filter { "system:windows" }
-            targetname "{{ target.binary_windows.rstrip(')') }}"
+            targetname "{{ project.name }}"
             targetextension (".vst3")
 
         filter { "system:windows", "platforms:x32" }

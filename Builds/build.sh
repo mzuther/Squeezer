@@ -100,29 +100,29 @@ case $1 in
         ;;
     1)
         MAKEFILE="squeezer_standalone_stereo"
-        MAKEFILE_PRINT="Standalone (Stereo)"
-        EXECUTABLE="standalone/squeezer_stereo"
+        MAKEFILE_PRINT="Standalone (stereo)"
+        EXECUTABLE="standalone/squeezer"
         ;;
     2)
         MAKEFILE="squeezer_standalone_mono"
-        MAKEFILE_PRINT="Standalone (Mono)"
+        MAKEFILE_PRINT="Standalone (mono)"
         EXECUTABLE="standalone/squeezer_mono"
         ;;
     3)
         MAKEFILE="squeezer_vst2_stereo"
-        MAKEFILE_PRINT="VST2 plug-in (Stereo)"
+        MAKEFILE_PRINT="VST2 plug-in (stereo)"
         ;;
     4)
         MAKEFILE="squeezer_vst2_mono"
-        MAKEFILE_PRINT="VST2 plug-in (Mono)"
+        MAKEFILE_PRINT="VST2 plug-in (mono)"
         ;;
     5)
-        MAKEFILE="squeezer_vst2_stereo_no_sidechain"
-        MAKEFILE_PRINT="VST2 plug-in (Stereo, no side-chain)"
+        MAKEFILE="squeezer_vst2_sidechain_stereo"
+        MAKEFILE_PRINT="VST2 plug-in (side-chain, stereo)"
         ;;
     6)
-        MAKEFILE="squeezer_vst2_mono_no_sidechain"
-        MAKEFILE_PRINT="VST2 plug-in (Mono, no side-chain)"
+        MAKEFILE="squeezer_vst2_sidechain_mono"
+        MAKEFILE_PRINT="VST2 plug-in (side-chain, mono)"
         ;;
     7)
         MAKEFILE="squeezer_vst3"
@@ -135,13 +135,13 @@ case $1 in
         print_line "  c: Clean targets"
         print_line "  u: Unit tests"
         print_line ""
-        print_line "  1: Standalone (Stereo)"
-        print_line "  2: Standalone (Mono)"
+        print_line "  1: Standalone (stereo)"
+        print_line "  2: Standalone (mono)"
         print_line ""
-        print_line "  3: VST2 plug-in (Stereo)"
-        print_line "  4: VST2 plug-in (Mono)"
-        print_line "  5: VST2 plug-in (Stereo, no side-chain)"
-        print_line "  6: VST2 plug-in (Mono, no side-chain)"
+        print_line "  3: VST2 plug-in (stereo)"
+        print_line "  4: VST2 plug-in (mono)"
+        print_line "  5: VST2 plug-in (side-chain, stereo)"
+        print_line "  6: VST2 plug-in (side-chain, mono)"
         print_line ""
         print_line "  7: VST3 plug-in"
         print_line ""

@@ -243,7 +243,7 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_stereo"
+            targetname "squeezer"
 
             defines {
                 "JUCE_ALSA=1",
@@ -257,7 +257,7 @@ workspace "squeezer"
             }
 
         filter { "system:windows" }
-            targetname "Squeezer (Stereo"
+            targetname "Squeezer"
             targetextension (".exe")
 
             defines {
@@ -308,7 +308,7 @@ workspace "squeezer"
             }
 
         filter { "system:windows" }
-            targetname "Squeezer (Mono"
+            targetname "Squeezer (mono"
             targetextension (".exe")
 
             defines {
@@ -332,7 +332,7 @@ workspace "squeezer"
 
         defines {
             "SQUEEZER_STEREO=1",
-            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=0",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
@@ -354,10 +354,10 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_stereo_vst2"
+            targetname "squeezer_vst2"
 
         filter { "system:windows" }
-            targetname "Squeezer (Stereo"
+            targetname "Squeezer"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
@@ -382,6 +382,56 @@ workspace "squeezer"
 
         defines {
             "SQUEEZER_MONO=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=0",
+            "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_VST=1",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
+        }
+
+        defines {
+            "JUCE_ALSA=0",
+            "JUCE_JACK=0",
+            "JUCE_WASAPI=0",
+            "JUCE_DIRECTSOUND=0"
+        }
+
+        includedirs {
+            "../libraries/vst2/VST2_SDK"
+        }
+
+        filter { "system:linux" }
+            targetname "squeezer_vst2_mono"
+
+        filter { "system:windows" }
+            targetname "Squeezer (mono"
+            targetextension (".dll")
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_debug")
+
+        filter { "system:windows", "configurations:Debug", "platforms:x32" }
+            targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
+
+        filter { "system:windows", "configurations:Debug", "platforms:x64" }
+            targetdir "D:/Plugins/64-bit/Categories/Dynamics/Compressor"
+            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_release")
+
+--------------------------------------------------------------------------------
+
+    project ("squeezer_vst2_sidechain_stereo")
+        kind "SharedLib"
+        targetdir "../bin/vst2/"
+
+        defines {
+            "SQUEEZER_STEREO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=1",
@@ -404,14 +454,14 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_mono_vst2"
+            targetname "squeezer_vst2_sidechain"
 
         filter { "system:windows" }
-            targetname "Squeezer (Mono"
+            targetname "Squeezer (side-chain"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_sidechain_stereo_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
@@ -422,67 +472,17 @@ workspace "squeezer"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_sidechain_stereo_release")
 
 --------------------------------------------------------------------------------
 
-    project ("squeezer_vst2_stereo_no_sidechain")
-        kind "SharedLib"
-        targetdir "../bin/vst2/"
-
-        defines {
-            "SQUEEZER_STEREO=1",
-            "SQUEEZER_EXTERNAL_SIDECHAIN=0",
-            "JucePlugin_Build_Standalone=0",
-            "JucePlugin_Build_VST=1",
-            "JucePlugin_Build_VST3=0"
-        }
-
-        files {
-              "../JuceLibraryCode/include_juce_audio_plugin_client_VST2.cpp"
-        }
-
-        defines {
-            "JUCE_ALSA=0",
-            "JUCE_JACK=0",
-            "JUCE_WASAPI=0",
-            "JUCE_DIRECTSOUND=0"
-        }
-
-        includedirs {
-            "../libraries/vst2/VST2_SDK"
-        }
-
-        filter { "system:linux" }
-            targetname "squeezer_stereo_no_sidechain_vst2"
-
-        filter { "system:windows" }
-            targetname "Squeezer (Stereo, no side-chain"
-            targetextension (".dll")
-
-        filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_stereo_no_sidechain_debug")
-
-        filter { "system:windows", "configurations:Debug", "platforms:x32" }
-            targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
-            debugcommand "C:/Program Files (x86)/REAPER/reaper.exe"
-
-        filter { "system:windows", "configurations:Debug", "platforms:x64" }
-            targetdir "D:/Plugins/64-bit/Categories/Dynamics/Compressor"
-            debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
-
-        filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_stereo_no_sidechain_release")
-
---------------------------------------------------------------------------------
-
-    project ("squeezer_vst2_mono_no_sidechain")
+    project ("squeezer_vst2_sidechain_mono")
         kind "SharedLib"
         targetdir "../bin/vst2/"
 
         defines {
             "SQUEEZER_MONO=1",
-            "SQUEEZER_EXTERNAL_SIDECHAIN=0",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
@@ -504,14 +504,14 @@ workspace "squeezer"
         }
 
         filter { "system:linux" }
-            targetname "squeezer_mono_no_sidechain_vst2"
+            targetname "squeezer_vst2_sidechain_mono"
 
         filter { "system:windows" }
-            targetname "Squeezer (Mono, no side-chain"
+            targetname "Squeezer (side-chain, mono"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_no_sidechain_debug")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_sidechain_mono_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
             targetdir "D:/Plugins/32-bit/Categories/Dynamics/Compressor"
@@ -522,7 +522,7 @@ workspace "squeezer"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
         filter { "configurations:Release" }
-            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_mono_no_sidechain_release")
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst2_sidechain_mono_release")
 
 --------------------------------------------------------------------------------
 
