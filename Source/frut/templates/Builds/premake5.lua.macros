@@ -192,7 +192,7 @@ workspace "{{ project.name_lower }}"
         targetsuffix "_debug"
 
     filter { "system:linux", "configurations:Debug", "platforms:x64" }
-        targetsuffix "_debug_x64"
+        targetsuffix "_x64_debug"
 
     filter { "system:windows", "configurations:Debug" }
        symbols "Full"
@@ -200,10 +200,10 @@ workspace "{{ project.name_lower }}"
        buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
-        targetsuffix ", Debug)"
+        targetsuffix " Debug"
 
     filter { "system:windows", "configurations:Debug", "platforms:x64" }
-        targetsuffix ", Debug) x64"
+        targetsuffix " x64 Debug"
 
     filter { "configurations:Release" }
         defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
@@ -226,10 +226,10 @@ workspace "{{ project.name_lower }}"
        buildoptions { "/wd4996" }
 
     filter { "system:windows", "configurations:Release", "platforms:x32" }
-        targetsuffix ")"
+        targetsuffix ""
 
     filter { "system:windows", "configurations:Release", "platforms:x64" }
-        targetsuffix ") x64"
+        targetsuffix " x64"
 {% endmacro %}
 
 
@@ -269,7 +269,7 @@ workspace "{{ project.name_lower }}"
             }
 
         filter { "system:windows" }
-            targetname "{{ target.binary_windows.rstrip(')') }}"
+            targetname "{{ target.binary_windows }}"
             targetextension (".exe")
 
             defines {
@@ -321,7 +321,7 @@ workspace "{{ project.name_lower }}"
             targetname "{{ target.binary_linux }}"
 
         filter { "system:windows" }
-            targetname "{{ target.binary_windows.rstrip(')') }}"
+            targetname "{{ target.binary_windows }}"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
@@ -390,6 +390,7 @@ workspace "{{ project.name_lower }}"
             targetdir "../bin/vst3/{{ project.name }}.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
+            targetsuffix " Debug"
             objdir ("../bin/.intermediate_" .. os.target() .. "/{{ target.name }}_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
@@ -400,13 +401,8 @@ workspace "{{ project.name_lower }}"
             targetdir "C:/Program Files/Common Files/VST3/radix/{{ project.name }}.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
-        filter { "system:linux", "configurations:Debug" }
-            targetsuffix " (Debug)"
-
-        filter { "system:linux", "configurations:Release" }
-            targetsuffix ""
-
         filter { "configurations:Release" }
+            targetsuffix ""
             objdir ("../bin/.intermediate_" .. os.target() .. "/{{ target.name }}_release")
 {% endmacro %}
 

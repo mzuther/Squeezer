@@ -70,14 +70,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bin\standalone\</OutDir>
     <IntDir>..\..\..\bin\.intermediate_windows\squeezer_standalone_mono_debug\x32\</IntDir>
-    <TargetName>Squeezer (mono, Debug)</TargetName>
+    <TargetName>Squeezer (mono) Debug</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bin\standalone\</OutDir>
     <IntDir>..\..\..\bin\.intermediate_windows\squeezer_standalone_mono_debug\x64\</IntDir>
-    <TargetName>Squeezer (mono, Debug) x64</TargetName>
+    <TargetName>Squeezer (mono) x64 Debug</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

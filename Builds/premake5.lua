@@ -183,7 +183,7 @@ workspace "squeezer"
         targetsuffix "_debug"
 
     filter { "system:linux", "configurations:Debug", "platforms:x64" }
-        targetsuffix "_debug_x64"
+        targetsuffix "_x64_debug"
 
     filter { "system:windows", "configurations:Debug" }
        symbols "Full"
@@ -191,10 +191,10 @@ workspace "squeezer"
        buildoptions { "/bigobj" }
 
     filter { "system:windows", "configurations:Debug", "platforms:x32" }
-        targetsuffix ", Debug)"
+        targetsuffix " Debug"
 
     filter { "system:windows", "configurations:Debug", "platforms:x64" }
-        targetsuffix ", Debug) x64"
+        targetsuffix " x64 Debug"
 
     filter { "configurations:Release" }
         defines { "NDEBUG=1", "JUCE_CHECK_MEMORY_LEAKS=0" }
@@ -217,10 +217,10 @@ workspace "squeezer"
        buildoptions { "/wd4996" }
 
     filter { "system:windows", "configurations:Release", "platforms:x32" }
-        targetsuffix ")"
+        targetsuffix ""
 
     filter { "system:windows", "configurations:Release", "platforms:x64" }
-        targetsuffix ") x64"
+        targetsuffix " x64"
 
 --------------------------------------------------------------------------------
 
@@ -308,7 +308,7 @@ workspace "squeezer"
             }
 
         filter { "system:windows" }
-            targetname "Squeezer (mono"
+            targetname "Squeezer (mono)"
             targetextension (".exe")
 
             defines {
@@ -407,7 +407,7 @@ workspace "squeezer"
             targetname "squeezer_vst2_mono"
 
         filter { "system:windows" }
-            targetname "Squeezer (mono"
+            targetname "Squeezer (mono)"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
@@ -457,7 +457,7 @@ workspace "squeezer"
             targetname "squeezer_vst2_sidechain"
 
         filter { "system:windows" }
-            targetname "Squeezer (side-chain"
+            targetname "Squeezer (side-chain)"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
@@ -507,7 +507,7 @@ workspace "squeezer"
             targetname "squeezer_vst2_sidechain_mono"
 
         filter { "system:windows" }
-            targetname "Squeezer (side-chain, mono"
+            targetname "Squeezer (side-chain, mono)"
             targetextension (".dll")
 
         filter { "configurations:Debug" }
@@ -573,6 +573,7 @@ workspace "squeezer"
             targetdir "../bin/vst3/Squeezer.vst3/Contents/x86_64-win/"
 
         filter { "configurations:Debug" }
+            targetsuffix " Debug"
             objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst3_debug")
 
         filter { "system:windows", "configurations:Debug", "platforms:x32" }
@@ -583,13 +584,8 @@ workspace "squeezer"
             targetdir "C:/Program Files/Common Files/VST3/radix/Squeezer.vst3/Contents/x86_64-win/"
             debugcommand "C:/Program Files/REAPER (x64)/reaper.exe"
 
-        filter { "system:linux", "configurations:Debug" }
-            targetsuffix " (Debug)"
-
-        filter { "system:linux", "configurations:Release" }
-            targetsuffix ""
-
         filter { "configurations:Release" }
+            targetsuffix ""
             objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_vst3_release")
 
 --------------------------------------------------------------------------------

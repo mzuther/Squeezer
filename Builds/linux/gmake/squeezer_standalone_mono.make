@@ -56,7 +56,7 @@ ifeq ($(config),debug_x64)
     AR = ar
   endif
   TARGETDIR = ../../../bin/standalone
-  TARGET = $(TARGETDIR)/squeezer_mono_debug_x64
+  TARGET = $(TARGETDIR)/squeezer_mono_x64_debug
   OBJDIR = ../../../bin/.intermediate_linux/squeezer_standalone_mono_debug/x64
   DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_MONO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=1 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=1 -DJUCE_JACK=1 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2
