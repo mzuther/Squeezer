@@ -41,6 +41,7 @@ public:
 
 #ifndef JucePlugin_PreferredChannelConfigurations
    bool isBusesLayoutSupported( const BusesLayout& layouts ) const override;
+   void processorLayoutsChanged() override;
 #endif // JucePlugin_PreferredChannelConfigurations
 
    void prepareToPlay( double sampleRate, int samplesPerBlock ) override;
@@ -104,10 +105,6 @@ private:
    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR( SqueezerAudioProcessor );
 
    static BusesProperties getBusesProperties();
-
-   AudioBuffer<double> mainInput_;
-   AudioBuffer<double> sideChainInput_;
-
    frut::dsp::Dither dither_;
 
    bool hasSideChain_;
@@ -117,6 +114,7 @@ private:
    std::unique_ptr<Compressor> compressor_;
 
    bool sampleRateIsValid_;
+   bool reloadEditor_;
 };
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter();

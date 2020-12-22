@@ -41,9 +41,13 @@ Flow of parameter processing:
 ==============================================================================*/
 
 SqueezerAudioProcessor::SqueezerAudioProcessor()
+
 #ifndef JucePlugin_PreferredChannelConfigurations
+
    : AudioProcessor( getBusesProperties() )
+
 #endif // JucePlugin_PreferredChannelConfigurations
+
 {
    frut::Frut::printVersionNumbers();
 
@@ -55,6 +59,7 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
 
    sampleRateIsValid_ = false;
    hasSideChain_ = false;
+   reloadEditor_ = false;
 
    setLatencySamples( 0 );
 }
@@ -149,6 +154,7 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 
 
 #ifndef JucePlugin_PreferredChannelConfigurations
+
 bool SqueezerAudioProcessor::isBusesLayoutSupported( const BusesLayout& layouts ) const
 {
 #ifdef SQUEEZER_MONO
@@ -209,6 +215,18 @@ bool SqueezerAudioProcessor::isBusesLayoutSupported( const BusesLayout& layouts 
    // valid channel layout
    return true;
 }
+
+#endif // JucePlugin_PreferredChannelConfigurations
+
+
+#ifndef JucePlugin_PreferredChannelConfigurations
+
+void SqueezerAudioProcessor::processorLayoutsChanged()
+{
+   reloadEditor_ = true;
+   numberOfChannels_ = getMainBusNumOutputChannels();
+}
+
 #endif // JucePlugin_PreferredChannelConfigurations
 
 
@@ -752,6 +770,15 @@ void SqueezerAudioProcessor::prepareToPlay(
    Logger::outputDebugString( "[Squeezer] number of main/aux input channels:  " + String( getMainBusNumInputChannels() ) + "/" + String( getTotalNumInputChannels() - getMainBusNumInputChannels() ) );
    Logger::outputDebugString( "[Squeezer] number of main/aux output channels: " + String( getMainBusNumOutputChannels() ) + "/" + String( getTotalNumOutputChannels() - getMainBusNumOutputChannels() ) );
 
+   if ( reloadEditor_ ) {
+      reloadEditor_ = false;
+      auto editor = dynamic_cast<SqueezerAudioProcessorEditor*>( getActiveEditor() );
+
+      if ( editor != nullptr ) {
+         editor->setNumberOfChannels( numberOfChannels_, true );
+      }
+   }
+
    bool bBypassCompressor = pluginParameters_.getBoolean(
                                SqueezerPluginParameters::selBypass );
    float fRmsWindowSizeMilliSeconds = pluginParameters_.getRealFloat(
@@ -855,11 +882,8 @@ void SqueezerAudioProcessor::processBlock(
    // temporarily disable denormals
    ScopedNoDenormals noDenormals;
 
-   int numberOfChannels = buffer.getNumChannels();
-   int numberOfSamples = buffer.getNumSamples();
-
    // create temporary buffer
-   AudioBuffer<double> processBuffer( numberOfChannels, numberOfSamples );
+   AudioBuffer<double> processBuffer( buffer.getNumChannels(), buffer.getNumSamples() );
 
    // copy input to temporary buffer and convert to double;
    // de-normalize samples
@@ -888,8 +912,6 @@ void SqueezerAudioProcessor::processBlock(
 void SqueezerAudioProcessor::process(
    AudioBuffer<double>& buffer )
 {
-   int nNumSamples = buffer.getNumSamples();
-
    if ( ! sampleRateIsValid_ ) {
       buffer.clear();
       return;
@@ -898,11 +920,8 @@ void SqueezerAudioProcessor::process(
    // In case we have more main outputs than inputs, we'll clear any
    // output channels that didn't contain input data, because these
    // aren't guaranteed to be empty -- they may contain garbage.
-
-   for ( int nChannel = getMainBusNumInputChannels();
-         nChannel < getMainBusNumOutputChannels();
-         ++nChannel ) {
-      buffer.clear( nChannel, 0, nNumSamples );
+   for ( int nChannel = numberOfChannels_; nChannel < getMainBusNumOutputChannels(); ++nChannel ) {
+      buffer.clear( nChannel, 0, buffer.getNumSamples() );
    }
 
    if ( getMainBusNumInputChannels() < 1 ) {
@@ -910,59 +929,47 @@ void SqueezerAudioProcessor::process(
       return;
    }
 
-   mainInput_ = AudioBuffer<double>( numberOfChannels_, nNumSamples );
-   sideChainInput_ = AudioBuffer<double>( numberOfChannels_, nNumSamples );
+   AudioBuffer<double> mainInput_( numberOfChannels_, buffer.getNumSamples() );
+   AudioBuffer<double> sideChainInput_( numberOfChannels_, buffer.getNumSamples() );
+
+#if JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+   hasSideChain_ = true;
 
 #ifdef SQUEEZER_MONO
 
-   if ( getChannelLayoutOfBus( true, 0 ) == AudioChannelSet::mono() ) {
-      mainInput_ = getBusBuffer( buffer, true, 0 );
+   mainInput_.copyFrom( 0, 0, buffer,
+                        0, 0, buffer.getNumSamples() );
 
-      if ( getChannelLayoutOfBus( true, 1 ) == AudioChannelSet::mono() ) {
-         hasSideChain_ = true;
-         sideChainInput_ = getBusBuffer( buffer, true, 1 );
-      } else {
-         hasSideChain_ = false;
-         sideChainInput_ = getBusBuffer( buffer, true, 0 );
-      }
-   } else if ( getChannelLayoutOfBus( true, 0 ).size() == 2 ) {
-      hasSideChain_ = true;
-      mainInput_.copyFrom( 0, 0, buffer,
-                           0, 0, nNumSamples );
-
-      sideChainInput_.copyFrom( 0, 0, buffer,
-                                1, 0, nNumSamples );
-   } else {
-      DBG( "clearing main input and side chain" );
-
-      hasSideChain_ = false;
-      mainInput_.clear();
-      sideChainInput_.clear();
-   }
+   sideChainInput_.copyFrom( 0, 0, buffer,
+                             1, 0, buffer.getNumSamples() );
 
 #else // SQUEEZER_MONO
 
-   if ( getChannelLayoutOfBus( true, 0 ) == AudioChannelSet::stereo() ) {
+   mainInput_.copyFrom( 0, 0, buffer,
+                        0, 0, buffer.getNumSamples() );
+   mainInput_.copyFrom( 1, 0, buffer,
+                        1, 0, buffer.getNumSamples() );
+
+   sideChainInput_.copyFrom( 0, 0, buffer,
+                             2, 0, buffer.getNumSamples() );
+   sideChainInput_.copyFrom( 1, 0, buffer,
+                             3, 0, buffer.getNumSamples() );
+
+#endif // SQUEEZER_MONO
+
+#else // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+   if ( getChannelLayoutOfBus( true, 0 ).size() == numberOfChannels_ ) {
       mainInput_ = getBusBuffer( buffer, true, 0 );
 
-      if ( getChannelLayoutOfBus( true, 1 ) == AudioChannelSet::stereo() ) {
+      if ( getChannelLayoutOfBus( true, 1 ).size() == numberOfChannels_ ) {
          hasSideChain_ = true;
          sideChainInput_ = getBusBuffer( buffer, true, 1 );
       } else {
          hasSideChain_ = false;
          sideChainInput_ = getBusBuffer( buffer, true, 0 );
       }
-   } else if ( getChannelLayoutOfBus( true, 0 ).size() == 4 ) {
-      hasSideChain_ = true;
-      mainInput_.copyFrom( 0, 0, buffer,
-                           0, 0, nNumSamples );
-      mainInput_.copyFrom( 1, 0, buffer,
-                           1, 0, nNumSamples );
-
-      sideChainInput_.copyFrom( 0, 0, buffer,
-                                2, 0, nNumSamples );
-      sideChainInput_.copyFrom( 1, 0, buffer,
-                                3, 0, nNumSamples );
    } else {
       DBG( "clearing main input and side chain" );
 
@@ -971,13 +978,13 @@ void SqueezerAudioProcessor::process(
       sideChainInput_.clear();
    }
 
-#endif // SQUEEZER_MONO
+#endif // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
    compressor_->process( mainInput_, sideChainInput_ );
 
    for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
       buffer.copyFrom( channel, 0, mainInput_,
-                       channel, 0, nNumSamples );
+                       channel, 0, buffer.getNumSamples() );
    }
 
    // "UM" ==> update meters

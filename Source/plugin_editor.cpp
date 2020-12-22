@@ -97,7 +97,7 @@ SqueezerAudioProcessorEditor::SqueezerAudioProcessorEditor( SqueezerAudioProcess
 
    PluginProcessor_.addActionListener( this );
 
-   NumberOfChannels_ = NumberOfChannels;
+   setNumberOfChannels( NumberOfChannels, false );
 
    SliderThreshold_ = std::make_unique<frut::widgets::SliderCombined>(
                          PluginParameters,
@@ -314,6 +314,19 @@ SqueezerAudioProcessorEditor::~SqueezerAudioProcessorEditor()
 
    // release look and feel
    setLookAndFeel( nullptr );
+}
+
+
+void SqueezerAudioProcessorEditor::setNumberOfChannels(
+   int NumberOfChannels,
+   bool UpdateSkin )
+{
+   NumberOfChannels_ = NumberOfChannels;
+
+   if ( UpdateSkin ) {
+      // apply skin to plug-in editor
+      loadSkin_();
+   }
 }
 
 

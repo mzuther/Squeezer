@@ -50,6 +50,10 @@ public:
 
    ~SqueezerAudioProcessorEditor();
 
+   void setNumberOfChannels(
+      int NumberOfChannels,
+      bool UpdateSkin );
+
    void buttonClicked( Button* Button ) override;
    void sliderValueChanged( Slider* Slider ) override;
 
