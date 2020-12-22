@@ -96,7 +96,7 @@ File Skin::getSkinDirectory()
 File Skin::getSettingsFile()
 {
    auto settingsDirectory = File::getSpecialLocation( File::userApplicationDataDirectory );
-   auto settingsFile = settingsDirectory.getChildFile( "Squeezer.settings" );
+   auto settingsFile = settingsDirectory.getChildFile( "Squeezer.json" );
 
    return settingsFile;
 }
