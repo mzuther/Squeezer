@@ -32,7 +32,7 @@
 #
 ###############################################################################
 
-vst2_dir="$HOME/.vst/squeezer"
+vst2_dir="$HOME/.vst/mzuther"
 vst3_dir="$HOME/.vst3/mzuther"
 use_final_binaries=0
 

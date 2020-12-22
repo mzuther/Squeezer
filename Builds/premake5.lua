@@ -530,7 +530,7 @@ workspace "squeezer"
         kind "SharedLib"
 
         defines {
-            "SQUEEZER_MULTIBUS=1",
+            "SQUEEZER_VARIBUS=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=0",
             "JucePlugin_Build_VST=0",
