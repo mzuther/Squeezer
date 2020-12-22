@@ -43,7 +43,7 @@ case $1 in
     1)
         PLATFORM="debug_x64"
         PLATFORM_PRINT="64-bit (Debug)"
-        EXECUTABLE_EXTENSION="_debug_x64"
+        EXECUTABLE_EXTENSION="_x64_debug"
         ;;
     2)
         PLATFORM="release_x64"
