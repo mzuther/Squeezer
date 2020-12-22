@@ -47,6 +47,12 @@ SqueezerAudioProcessor::SqueezerAudioProcessor()
 {
    frut::Frut::printVersionNumbers();
 
+#ifdef SQUEEZER_MONO
+   numberOfChannels_ = 1;
+#else // SQUEEZER_MONO
+   numberOfChannels_ = 2;
+#endif // SQUEEZER_MONO
+
    sampleRateIsValid_ = false;
    hasSideChain_ = false;
 
@@ -788,12 +794,6 @@ void SqueezerAudioProcessor::prepareToPlay(
                                 SqueezerPluginParameters::selSidechainLPFCutoff );
    bool bSidechainListen = pluginParameters_.getBoolean(
                               SqueezerPluginParameters::selSidechainListen );
-
-#ifdef SQUEEZER_MONO
-   numberOfChannels_ = 1;
-#else // SQUEEZER_MONO
-   numberOfChannels_ = 2;
-#endif // SQUEEZER_MONO
 
    dither_.initialise( jmax( getMainBusNumInputChannels(),
                              getMainBusNumOutputChannels() ),
