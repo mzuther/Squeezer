@@ -767,8 +767,12 @@ void SqueezerAudioProcessor::prepareToPlay(
       sampleRateIsValid_ = true;
    }
 
-   Logger::outputDebugString( "[Squeezer] number of main/aux input channels:  " + String( getMainBusNumInputChannels() ) + "/" + String( getTotalNumInputChannels() - getMainBusNumInputChannels() ) );
-   Logger::outputDebugString( "[Squeezer] number of main/aux output channels: " + String( getMainBusNumOutputChannels() ) + "/" + String( getTotalNumOutputChannels() - getMainBusNumOutputChannels() ) );
+   Logger::outputDebugString( "[Squeezer] number of main/aux input channels:  " +
+                              String( getMainBusNumInputChannels() ) + "/" +
+                              String( getTotalNumInputChannels() - getMainBusNumInputChannels() ) );
+   Logger::outputDebugString( "[Squeezer] number of main/aux output channels: " +
+                              String( getMainBusNumOutputChannels() ) + "/" +
+                              String( getTotalNumOutputChannels() - getMainBusNumOutputChannels() ) );
 
    if ( reloadEditor_ ) {
       reloadEditor_ = false;
@@ -920,7 +924,7 @@ void SqueezerAudioProcessor::process(
    // In case we have more main outputs than inputs, we'll clear any
    // output channels that didn't contain input data, because these
    // aren't guaranteed to be empty -- they may contain garbage.
-   for ( int nChannel = numberOfChannels_; nChannel < getMainBusNumOutputChannels(); ++nChannel ) {
+   for ( int nChannel = getMainBusNumInputChannels(); nChannel < getMainBusNumOutputChannels(); ++nChannel ) {
       buffer.clear( nChannel, 0, buffer.getNumSamples() );
    }
 
