@@ -18,6 +18,8 @@ bin/unittest/
 bin/standalone/Squeezer*.exe
 bin/standalone/squeezer_*
 
+bin/lv2/squeezer_*.so
+
 bin/vst2/Squeezer*.dll
 bin/vst2/squeezer_*.so
 

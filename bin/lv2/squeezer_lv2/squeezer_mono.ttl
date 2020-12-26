@@ -1,0 +1,549 @@
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix epp:  <http://lv2plug.in/ns/dev/extportinfo#> .
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pg:   <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix ue:   <http://lv2plug.in/ns/extensions/units#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+@prefix unit: <http://lv2plug.in/ns/extensions/units#> .
+
+<http://code.mzuther.de/squeezer/mono>
+    a lv2:CompressorPlugin, lv2:Plugin ;
+    lv2:requiredFeature <http://lv2plug.in/ns/ext/buf-size#boundedBlockLength> ,
+                        <http://lv2plug.in/ns/ext/urid#map> ;
+    lv2:extensionData <http://lv2plug.in/ns/ext/options#interface> ,
+                      <http://kxstudio.sf.net/ns/lv2ext/programs#Interface> ;
+
+    lv2:microVersion 7 ;
+    lv2:minorVersion 3 ;
+
+    ui:ui <http://code.mzuther.de/squeezer/mono#ExternalUI> ,
+          <http://code.mzuther.de/squeezer/mono#ParentUI> ;
+
+    doap:name "Squeezer (mono)" ;
+    doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+    doap:shortdesc "Flexible general-purpose audio compressor with a touch of citrus" ;
+
+    doap:creator [
+        foaf:name "Martin Zuther";
+        foaf:homepage <http://www.mzuther.de/>;
+        ];
+
+    doap:developer [
+        foaf:name "Martin Zuther";
+        foaf:homepage <http://www.mzuther.de/>;
+        ];
+
+    doap:maintainer [
+        foaf:name "Martin Zuther" ;
+        foaf:homepage <http://www.mzuther.de/>;
+    ];
+
+    lv2:port [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 0 ;
+        lv2:symbol "lv2_freewheel" ;
+        lv2:name "Freewheel" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:designation <http://lv2plug.in/ns/lv2core#freeWheeling> ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:OutputPort, lv2:ControlPort ;
+        lv2:index 1 ;
+        lv2:symbol "lv2_latency" ;
+        lv2:name "Latency" ;
+        lv2:designation <http://lv2plug.in/ns/lv2core#latency> ;
+        lv2:portProperty lv2:reportsLatency, lv2:integer ;
+    ] ;
+
+    lv2:port [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 2 ;
+        lv2:symbol "main_in" ;
+        lv2:name "Main In" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:mainInput ;
+            pg:group pg:MonoGroup ;
+            pg:role pg:center ;
+        ];
+    ] ;
+
+    lv2:port [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 3 ;
+        lv2:symbol "sidechain_in" ;
+        lv2:name "Sidechain In" ;
+        pg:membership [
+            pg:group pg:InputGroup ;
+            pg:group pg:sideChainOf ;
+            pg:group pg:MonoGroup ;
+            pg:role pg:center ;
+        ];
+    ] ;
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 4 ;
+        lv2:symbol "audio_out" ;
+        lv2:name "Audio Out" ;
+        pg:membership [
+            pg:group pg:OutputGroup ;
+            pg:group pg:mainOutput ;
+            pg:group pg:MonoGroup ;
+            pg:role pg:center ;
+        ];
+    ] ;
+
+    lv2:port [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 5 ;
+        lv2:symbol "bypass" ;
+        lv2:name "Bypass" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 6 ;
+        lv2:symbol "rms_filter" ;
+        lv2:name "RMS Filter" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Peak" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "RMS (30 ms)" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 7 ;
+        lv2:symbol "design" ;
+        lv2:name "Design" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Feed-Forward" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Feed-Back" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 8 ;
+        lv2:symbol "detector" ;
+        lv2:name "Detector" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Linear" ;
+        ] ,
+        [
+            rdf:value 0.5 ;
+            rdfs:label "S-Curve" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Logarithmic" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 9 ;
+        lv2:symbol "gain_stage" ;
+        lv2:name "Gain Stage" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "FET" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Optical" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 10 ;
+        lv2:symbol "threshold_mode" ;
+        lv2:name "Threshold Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 11 ;
+        lv2:symbol "threshold" ;
+        lv2:name "Threshold" ;
+        lv2:default 0.444 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 12 ;
+        lv2:symbol "ratio_mode" ;
+        lv2:name "Ratio Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 13 ;
+        lv2:symbol "ratio" ;
+        lv2:name "Ratio" ;
+        lv2:default 0.625 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 14 ;
+        lv2:symbol "knee_width" ;
+        lv2:name "Knee Width" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Hard (0 dB)" ;
+        ] ,
+        [
+            rdf:value 0.5 ;
+            rdfs:label "Medium (24 dB)" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Soft (48 dB)" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 15 ;
+        lv2:symbol "attack_rate_mode" ;
+        lv2:name "Attack Rate Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 16 ;
+        lv2:symbol "attack_rate" ;
+        lv2:name "Attack Rate" ;
+        lv2:default 0.615 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 17 ;
+        lv2:symbol "release_rate_mode" ;
+        lv2:name "Release Rate Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 18 ;
+        lv2:symbol "release_rate" ;
+        lv2:name "Release Rate" ;
+        lv2:default 0.385 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 19 ;
+        lv2:symbol "auto_make_up_gain" ;
+        lv2:name "Auto Make-Up Gain" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:toggled ;
+        lv2:portProperty epp:hasStrictBounds;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 20 ;
+        lv2:symbol "make_up_gain_mode" ;
+        lv2:name "Make-Up Gain Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 21 ;
+        lv2:symbol "make_up_gain" ;
+        lv2:name "Make-Up Gain" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 22 ;
+        lv2:symbol "wet_mix_mode" ;
+        lv2:name "Wet Mix Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 23 ;
+        lv2:symbol "wet_mix" ;
+        lv2:name "Wet Mix" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 24 ;
+        lv2:symbol "sc_input" ;
+        lv2:name "SC Input" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Internal" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "External" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 25 ;
+        lv2:symbol "sc_hpf_cutoff_frequency_mode" ;
+        lv2:name "SC HPF Cutoff Frequency Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 26 ;
+        lv2:symbol "sc_hpf_cutoff_frequency" ;
+        lv2:name "SC HPF Cutoff Frequency" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 27 ;
+        lv2:symbol "sc_lpf_cutoff_frequency_mode" ;
+        lv2:name "SC LPF Cutoff Frequency Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 28 ;
+        lv2:symbol "sc_lpf_cutoff_frequency" ;
+        lv2:name "SC LPF Cutoff Frequency" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 29 ;
+        lv2:symbol "sc_listen" ;
+        lv2:name "SC Listen" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Compressor" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Side-Chain" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 30 ;
+        lv2:symbol "input_trim_mode" ;
+        lv2:name "Input Trim Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 31 ;
+        lv2:symbol "input_trim" ;
+        lv2:name "Input Trim" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 32 ;
+        lv2:symbol "stereo_link_mode" ;
+        lv2:name "Stereo Link Mode" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:portProperty lv2:enumeration ;
+        lv2:portProperty epp:hasStrictBounds;
+        lv2:scalePoint [
+            rdf:value 0.0 ;
+            rdfs:label "Continuous" ;
+        ] ,
+        [
+            rdf:value 1.0 ;
+            rdfs:label "Discrete" ;
+        ] ;
+    ] ,
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 33 ;
+        lv2:symbol "stereo_link" ;
+        lv2:name "Stereo Link" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] .

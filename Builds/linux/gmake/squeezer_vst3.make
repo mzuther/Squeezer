@@ -23,7 +23,7 @@ ifeq ($(config),debug_x32)
   TARGETDIR = ../../../bin/vst3/Squeezer.vst3/Contents/i386-linux
   TARGET = $(TARGETDIR)/Squeezer\ Debug.so
   OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst3_debug/x32
-  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/vst3/VST3_SDK
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -58,7 +58,7 @@ ifeq ($(config),debug_x64)
   TARGETDIR = ../../../bin/vst3/Squeezer.vst3/Contents/x86_64-linux
   TARGET = $(TARGETDIR)/Squeezer\ Debug.so
   OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst3_debug/x64
-  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/vst3/VST3_SDK
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -93,7 +93,7 @@ ifeq ($(config),release_x32)
   TARGETDIR = ../../../bin/vst3/Squeezer.vst3/Contents/i386-linux
   TARGET = $(TARGETDIR)/Squeezer.so
   OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst3_release/x32
-  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/vst3/VST3_SDK
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
@@ -128,7 +128,7 @@ ifeq ($(config),release_x64)
   TARGETDIR = ../../../bin/vst3/Squeezer.vst3/Contents/x86_64-linux
   TARGET = $(TARGETDIR)/Squeezer.so
   OBJDIR = ../../../bin/.intermediate_linux/squeezer_vst3_release/x64
-  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
+  DEFINES += -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/vst3/VST3_SDK
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)

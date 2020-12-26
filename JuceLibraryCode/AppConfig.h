@@ -61,6 +61,40 @@
   #endif // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
 #endif // SQUEEZER_MONO
 
+#if JucePlugin_Build_LV2
+  #ifdef SQUEEZER_MONO
+    #ifdef DEBUG
+      #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/mono/debug"
+    #else // DEBUG
+      #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/mono"
+    #endif // DEBUG
+  #else // SQUEEZER_MONO
+    #ifdef DEBUG
+      #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo/debug"
+    #else // DEBUG
+      #define JucePlugin_LV2URI "http://code.mzuther.de/squeezer/stereo"
+    #endif // DEBUG
+  #endif // SQUEEZER_MONO
+
+  #define JucePlugin_LV2Category "AnalyserPlugin"
+
+  #define JucePlugin_WantsLV2FixedBlockSize  0
+  #define JucePlugin_WantsLV2State           0
+  #define JucePlugin_WantsLV2StateString     0
+  #define JucePlugin_WantsLV2Presets         0
+  #define JucePlugin_WantsLV2TimePos         0
+
+  #ifdef SQUEEZER_MONO
+    #define JucePlugin_MaxNumInputChannels   2
+    #define JucePlugin_MaxNumOutputChannels  1
+    #define JucePlugin_PreferredChannelConfigurations   {2, 1}
+  #else // SQUEEZER_MONO
+    #define JucePlugin_MaxNumInputChannels   4
+    #define JucePlugin_MaxNumOutputChannels  2
+    #define JucePlugin_PreferredChannelConfigurations   {4, 2}
+  #endif // SQUEEZER_MONO
+#endif // JucePlugin_Build_LV2
+
 #define JUCE_JACK_CLIENT_NAME JucePlugin_Name
 #define JUCE_VST3_CAN_REPLACE_VST2 1
 

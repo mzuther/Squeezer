@@ -232,6 +232,7 @@ workspace "squeezer"
             "SQUEEZER_STEREO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }
@@ -283,6 +284,7 @@ workspace "squeezer"
             "SQUEEZER_MONO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }
@@ -334,6 +336,7 @@ workspace "squeezer"
             "SQUEEZER_STEREO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=0",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
         }
@@ -384,6 +387,7 @@ workspace "squeezer"
             "SQUEEZER_MONO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=0",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
         }
@@ -434,6 +438,7 @@ workspace "squeezer"
             "SQUEEZER_STEREO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
         }
@@ -484,6 +489,7 @@ workspace "squeezer"
             "SQUEEZER_MONO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
         }
@@ -533,6 +539,7 @@ workspace "squeezer"
             "SQUEEZER_VARIBUS=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=1"
         }
@@ -595,6 +602,88 @@ workspace "squeezer"
 
 --------------------------------------------------------------------------------
 
+-- create LV2 projects on Linux only
+if os.target() == "linux" then
+
+    project ("squeezer_lv2_stereo")
+        kind "SharedLib"
+        targetdir "../bin/lv2/"
+
+        defines {
+            "SQUEEZER_STEREO=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
+            "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=1",
+            "JucePlugin_Build_VST=0",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../JuceLibraryCode/include_juce_audio_plugin_client_LV2.cpp"
+        }
+
+        defines {
+            "JUCE_ALSA=0",
+            "JUCE_JACK=0",
+            "JUCE_WASAPI=0",
+            "JUCE_DIRECTSOUND=0"
+        }
+
+        filter { "system:linux" }
+            targetname "squeezer_lv2_stereo"
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_lv2_stereo_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_lv2_stereo_release")
+
+-- create LV2 projects on Linux only
+end
+
+--------------------------------------------------------------------------------
+
+-- create LV2 projects on Linux only
+if os.target() == "linux" then
+
+    project ("squeezer_lv2_mono")
+        kind "SharedLib"
+        targetdir "../bin/lv2/"
+
+        defines {
+            "SQUEEZER_MONO=1",
+            "SQUEEZER_EXTERNAL_SIDECHAIN=1",
+            "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=1",
+            "JucePlugin_Build_VST=0",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../JuceLibraryCode/include_juce_audio_plugin_client_LV2.cpp"
+        }
+
+        defines {
+            "JUCE_ALSA=0",
+            "JUCE_JACK=0",
+            "JUCE_WASAPI=0",
+            "JUCE_DIRECTSOUND=0"
+        }
+
+        filter { "system:linux" }
+            targetname "squeezer_lv2_mono"
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_lv2_mono_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/squeezer_lv2_mono_release")
+
+-- create LV2 projects on Linux only
+end
+
+--------------------------------------------------------------------------------
+
 -- create unit tests on Linux only
 if os.target() == "linux" then
 
@@ -606,6 +695,7 @@ if os.target() == "linux" then
             "SQUEEZER_STEREO=1",
             "SQUEEZER_EXTERNAL_SIDECHAIN=1",
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }

@@ -64,6 +64,16 @@
 
 
 
+{% for target in settings.targets.lv2 %}
+
+--------------------------------------------------------------------------------
+
+{{ render.lv2(settings.project, target) -}}
+
+{% endfor -%}
+
+
+
 {% for target in settings.targets.unittest %}
 
 --------------------------------------------------------------------------------

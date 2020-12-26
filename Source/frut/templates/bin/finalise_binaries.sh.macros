@@ -99,6 +99,12 @@ finalise_binary  "standalone/{{ target.binary_linux }}{{platform}}"
 
 
 
+{% macro lv2_linux(project, target, platform) %}
+finalise_binary  "lv2/{{ target.binary_linux }}{{platform}}.so"
+{% endmacro %}
+
+
+
 {% macro vst2_linux(project, target, platform) %}
 finalise_binary  "vst2/{{ target.binary_linux }}{{platform}}.so"
 {% endmacro %}

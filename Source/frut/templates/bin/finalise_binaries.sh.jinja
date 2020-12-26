@@ -37,6 +37,10 @@
 {{ render.standalone_linux(settings.project, target, platform) -}}
 {% endfor %}
 
+{% for target in settings.targets.lv2 %}
+{{ render.lv2_linux(settings.project, target, platform) -}}
+{% endfor %}
+
 {% for target in settings.targets.vst2 %}
 {{ render.vst2_linux(settings.project, target, platform) -}}
 {% endfor %}

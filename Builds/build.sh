@@ -109,22 +109,30 @@ case $1 in
         EXECUTABLE="standalone/squeezer_mono"
         ;;
     3)
+        MAKEFILE="squeezer_lv2_stereo"
+        MAKEFILE_PRINT="LV2 plug-in (stereo)"
+        ;;
+    4)
+        MAKEFILE="squeezer_lv2_mono"
+        MAKEFILE_PRINT="LV2 plug-in (mono)"
+        ;;
+    5)
         MAKEFILE="squeezer_vst2_stereo"
         MAKEFILE_PRINT="VST2 plug-in (stereo)"
         ;;
-    4)
+    6)
         MAKEFILE="squeezer_vst2_mono"
         MAKEFILE_PRINT="VST2 plug-in (mono)"
         ;;
-    5)
+    7)
         MAKEFILE="squeezer_vst2_sidechain_stereo"
         MAKEFILE_PRINT="VST2 plug-in (side-chain, stereo)"
         ;;
-    6)
+    8)
         MAKEFILE="squeezer_vst2_sidechain_mono"
         MAKEFILE_PRINT="VST2 plug-in (side-chain, mono)"
         ;;
-    7)
+    9)
         MAKEFILE="squeezer_vst3"
         MAKEFILE_PRINT="VST3 plug-in"
         ;;
@@ -138,12 +146,15 @@ case $1 in
         print_line "  1: Standalone (stereo)"
         print_line "  2: Standalone (mono)"
         print_line ""
-        print_line "  3: VST2 plug-in (stereo)"
-        print_line "  4: VST2 plug-in (mono)"
-        print_line "  5: VST2 plug-in (side-chain, stereo)"
-        print_line "  6: VST2 plug-in (side-chain, mono)"
+        print_line "  3: LV2 plug-in (stereo)"
+        print_line "  4: LV2 plug-in (mono)"
         print_line ""
-        print_line "  7: VST3 plug-in"
+        print_line "  5: VST2 plug-in (stereo)"
+        print_line "  6: VST2 plug-in (mono)"
+        print_line "  7: VST2 plug-in (side-chain, stereo)"
+        print_line "  8: VST2 plug-in (side-chain, mono)"
+        print_line ""
+        print_line "  9: VST3 plug-in"
         print_line ""
 
         exit

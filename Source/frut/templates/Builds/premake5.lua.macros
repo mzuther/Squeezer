@@ -244,6 +244,7 @@ workspace "{{ project.name_lower }}"
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }
@@ -298,6 +299,7 @@ workspace "{{ project.name_lower }}"
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=1",
             "JucePlugin_Build_VST3=0"
         }
@@ -350,6 +352,7 @@ workspace "{{ project.name_lower }}"
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=1"
         }
@@ -412,6 +415,48 @@ workspace "{{ project.name_lower }}"
 {% endmacro %}
 
 
+{% macro lv2(project, target) %}
+-- create LV2 projects on Linux only
+if os.target() == "linux" then
+
+    project ("{{ target.name }}")
+        kind "SharedLib"
+        targetdir "../bin/lv2/"
+
+        defines {
+            {% for define in target.defines -%}
+            "{{ define }}",
+            {% endfor -%}
+            "JucePlugin_Build_Standalone=0",
+            "JucePlugin_Build_LV2=1",
+            "JucePlugin_Build_VST=0",
+            "JucePlugin_Build_VST3=0"
+        }
+
+        files {
+              "../JuceLibraryCode/include_juce_audio_plugin_client_LV2.cpp"
+        }
+
+        defines {
+            "JUCE_ALSA=0",
+            "JUCE_JACK=0",
+            "JUCE_WASAPI=0",
+            "JUCE_DIRECTSOUND=0"
+        }
+
+        filter { "system:linux" }
+            targetname "{{ target.binary_linux }}"
+
+        filter { "configurations:Debug" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/{{ target.name }}_debug")
+
+        filter { "configurations:Release" }
+            objdir ("../bin/.intermediate_" .. os.target() .. "/{{ target.name }}_release")
+
+-- create LV2 projects on Linux only
+end
+{% endmacro %}
+
 
 {% macro unittest(project, target, includes) %}
 -- create unit tests on Linux only
@@ -426,6 +471,7 @@ if os.target() == "linux" then
             "{{ define }}",
             {% endfor -%}
             "JucePlugin_Build_Standalone=1",
+            "JucePlugin_Build_LV2=0",
             "JucePlugin_Build_VST=0",
             "JucePlugin_Build_VST3=0"
         }

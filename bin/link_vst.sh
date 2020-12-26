@@ -32,6 +32,7 @@
 #
 ###############################################################################
 
+lv2_dir="$HOME/.lv2"
 vst2_dir="$HOME/.vst/mzuther"
 vst3_dir="$HOME/.vst3/mzuther"
 use_final_binaries=0
@@ -41,14 +42,31 @@ source_dir_current=$(realpath "$(dirname "$0")")
 source_dir_final=$(realpath "$(dirname "$0")/final")
 
 
-printf "\nCreating VST directories"
-printf "\n========================\n"
+printf "\nCreating directories"
+printf "\n====================\n"
+
+printf "%s\n" "$lv2_dir"
+mkdir -p "$lv2_dir"
 
 printf "%s\n" "$vst2_dir"
 mkdir -p "$vst2_dir"
 
 printf "%s\n" "$vst3_dir"
 mkdir -p "$vst3_dir"
+
+
+printf "\nLinking LV2 directory"
+printf "\n=====================\n"
+
+if [ $use_final_binaries -eq 0 ]; then
+    printf "%s\n" "$source_dir_current/lv2/squeezer_lv2"
+
+    ln -sf "$source_dir_current/lv2/squeezer_lv2" "$lv2_dir/"
+else
+    printf "%s\n" "$source_dir_final/lv2/squeezer_lv2"
+
+    ln -sf "$source_dir_final/lv2/squeezer_lv2" "$lv2_dir/"
+fi
 
 
 printf "\nUnlinking VST2 binaries"

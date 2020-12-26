@@ -119,15 +119,22 @@ case $1 in
         ;;
 {% endfor -%}
 
-{% for target in targets.vst2 %}
+{% for target in targets.lv2 %}
     {{ loop.index + (targets.standalone | length) }})
         MAKEFILE="{{ target.name }}"
         MAKEFILE_PRINT="{{ target.description }}"
         ;;
 {% endfor -%}
 
+{% for target in targets.vst2 %}
+    {{ loop.index + (targets.standalone | length) + (targets.lv2 | length) }})
+        MAKEFILE="{{ target.name }}"
+        MAKEFILE_PRINT="{{ target.description }}"
+        ;;
+{% endfor -%}
+
 {% for target in targets.vst3 %}
-    {{ loop.index + (targets.standalone | length) + (targets.vst2 | length) }})
+    {{ loop.index + (targets.standalone | length) + (targets.lv2 | length) + (targets.vst2 | length) }})
         MAKEFILE="{{ target.name }}"
         MAKEFILE_PRINT="{{ target.description }}"
         ;;
@@ -143,12 +150,16 @@ case $1 in
         print_line "  {{ loop.index }}: {{ target.description }}"
 {% endfor %}
         print_line ""
-{% for target in targets.vst2 %}
+{% for target in targets.lv2 %}
         print_line "  {{ loop.index + (targets.standalone | length) }}: {{ target.description }}"
 {% endfor %}
         print_line ""
+{% for target in targets.vst2 %}
+        print_line "  {{ loop.index + (targets.standalone | length) + (targets.lv2 | length) }}: {{ target.description }}"
+{% endfor %}
+        print_line ""
 {% for target in targets.vst3 %}
-        print_line "  {{ loop.index + (targets.standalone | length) +  + (targets.vst2 | length) }}: {{ target.description }}"
+        print_line "  {{ loop.index + (targets.standalone | length) + (targets.lv2 | length) + (targets.vst2 | length) }}: {{ target.description }}"
 {% endfor %}
         print_line ""
 
