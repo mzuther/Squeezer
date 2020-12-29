@@ -975,7 +975,7 @@ void SqueezerAudioProcessor::process(
          sideChainInput_ = getBusBuffer( buffer, true, 0 );
       }
    } else {
-      DBG( "clearing main input and side chain" );
+      Logger::outputDebugString( "clearing main input and side chain" );
 
       hasSideChain_ = false;
       mainInput_.clear();
