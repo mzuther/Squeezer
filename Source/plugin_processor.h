@@ -104,7 +104,10 @@ public:
 private:
    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR( SqueezerAudioProcessor );
 
+#ifndef JucePlugin_PreferredChannelConfigurations
    static BusesProperties getBusesProperties();
+#endif // JucePlugin_PreferredChannelConfigurations
+
    frut::dsp::Dither dither_;
 
    bool hasSideChain_;

@@ -71,6 +71,8 @@ SqueezerAudioProcessor::~SqueezerAudioProcessor()
 }
 
 
+#ifndef JucePlugin_PreferredChannelConfigurations
+
 AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 {
 #ifdef SQUEEZER_MONO
@@ -151,6 +153,8 @@ AudioProcessor::BusesProperties SqueezerAudioProcessor::getBusesProperties()
 
 #endif // SQUEEZER_MONO
 }
+
+#endif // JucePlugin_PreferredChannelConfigurations
 
 
 #ifndef JucePlugin_PreferredChannelConfigurations
