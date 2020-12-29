@@ -76,7 +76,7 @@
     #endif // DEBUG
   #endif // SQUEEZER_MONO
 
-  #define JucePlugin_LV2Category "AnalyserPlugin"
+  #define JucePlugin_LV2Category "Dynamics Processor.Compressor"
 
   #define JucePlugin_WantsLV2FixedBlockSize  0
   #define JucePlugin_WantsLV2State           0
