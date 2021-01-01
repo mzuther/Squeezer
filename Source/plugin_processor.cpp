@@ -912,6 +912,8 @@ void SqueezerAudioProcessor::processBlock(
    jassert( isUsingDoublePrecision() );
    ignoreUnused( midiMessages );
 
+   DBG( "[Squeezer] using double precision" );
+
    // process input samples
    process( buffer );
 }
@@ -937,61 +939,52 @@ void SqueezerAudioProcessor::process(
       return;
    }
 
-   AudioBuffer<double> mainInput_( numberOfChannels_, buffer.getNumSamples() );
-   AudioBuffer<double> sideChainInput_( numberOfChannels_, buffer.getNumSamples() );
+   AudioBuffer<double> MainPlusSideChain( 2 * numberOfChannels_,
+                                          buffer.getNumSamples() );
 
 #if JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
    hasSideChain_ = true;
-
-#ifdef SQUEEZER_MONO
-
-   mainInput_.copyFrom( 0, 0, buffer,
-                        0, 0, buffer.getNumSamples() );
-
-   sideChainInput_.copyFrom( 0, 0, buffer,
-                             1, 0, buffer.getNumSamples() );
-
-#else // SQUEEZER_MONO
-
-   mainInput_.copyFrom( 0, 0, buffer,
-                        0, 0, buffer.getNumSamples() );
-   mainInput_.copyFrom( 1, 0, buffer,
-                        1, 0, buffer.getNumSamples() );
-
-   sideChainInput_.copyFrom( 0, 0, buffer,
-                             2, 0, buffer.getNumSamples() );
-   sideChainInput_.copyFrom( 1, 0, buffer,
-                             3, 0, buffer.getNumSamples() );
-
-#endif // SQUEEZER_MONO
+   MainPlusSideChain.makeCopyOf( buffer );
 
 #else // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
+   // check number of main output channels
    if ( getChannelLayoutOfBus( true, 0 ).size() == numberOfChannels_ ) {
-      mainInput_ = getBusBuffer( buffer, true, 0 );
+      // check number of side-chain channels
+      hasSideChain_ = getChannelLayoutOfBus( true, 1 ).size() == numberOfChannels_;
 
-      if ( getChannelLayoutOfBus( true, 1 ).size() == numberOfChannels_ ) {
-         hasSideChain_ = true;
-         sideChainInput_ = getBusBuffer( buffer, true, 1 );
-      } else {
-         hasSideChain_ = false;
-         sideChainInput_ = getBusBuffer( buffer, true, 0 );
+      // get main input
+      AudioBuffer<double> MainBuffer = getBusBuffer( buffer, true, 0 );
+
+      // duplicate main input or use external side-chain input
+      AudioBuffer<double> SideChainBuffer = getBusBuffer( buffer, true, hasSideChain_ ? 1 : 0 );
+
+      for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
+         int mainChannel = channel;
+         int sideChannel = channel + numberOfChannels_;
+
+         // copy main input and side-chain
+         MainPlusSideChain.copyFrom( mainChannel, 0, MainBuffer,
+                                     channel, 0, MainBuffer.getNumSamples() );
+         MainPlusSideChain.copyFrom( sideChannel, 0, SideChainBuffer,
+                                     channel, 0, SideChainBuffer.getNumSamples() );
       }
+
    } else {
       Logger::outputDebugString( "clearing main input and side chain" );
 
       hasSideChain_ = false;
-      mainInput_.clear();
-      sideChainInput_.clear();
+      MainPlusSideChain.clear();
    }
 
 #endif // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
 
-   compressor_->process( mainInput_, sideChainInput_ );
+   compressor_->process( MainPlusSideChain );
 
+   // copy compressor output
    for ( int channel = 0; channel < numberOfChannels_; ++channel ) {
-      buffer.copyFrom( channel, 0, mainInput_,
+      buffer.copyFrom( channel, 0, MainPlusSideChain,
                        channel, 0, buffer.getNumSamples() );
    }
 

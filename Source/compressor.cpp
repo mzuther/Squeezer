@@ -690,10 +690,23 @@ double Compressor::getAverageMeterOutputLevel( int CurrentChannel )
 }
 
 
-void Compressor::process( AudioBuffer<double>& MainBuffer,
-                          AudioBuffer<double>& SideChainBuffer )
+void Compressor::process( AudioBuffer<double>& MainPlusSideChain )
 {
-   jassert( MainBuffer.getNumSamples() == SideChainBuffer.getNumSamples() );
+   jassert( MainPlusSideChain.getNumChannels() == 2 * NumberOfChannels );
+
+   // extract compressor input and side-chain
+   AudioBuffer<double> MainBuffer( NumberOfChannels, MainPlusSideChain.getNumSamples() );
+   AudioBuffer<double> SideChainBuffer( NumberOfChannels, MainPlusSideChain.getNumSamples() );
+
+   for ( int channel = 0; channel < NumberOfChannels; ++channel ) {
+      int mainChannel = channel;
+      int sideChannel = channel + NumberOfChannels;
+
+      MainBuffer.copyFrom( channel, 0, MainPlusSideChain,
+                           mainChannel, 0, MainPlusSideChain.getNumSamples() );
+      SideChainBuffer.copyFrom( channel, 0, MainPlusSideChain,
+                                sideChannel, 0, MainPlusSideChain.getNumSamples() );
+   }
 
    int nNumSamples = MainBuffer.getNumSamples();
 
@@ -880,6 +893,12 @@ void Compressor::process( AudioBuffer<double>& MainBuffer,
 
       // update meter ballistics and increment buffer location
       updateMeterBallistics();
+   }
+
+   // store compressor output
+   for ( int channel = 0; channel < NumberOfChannels; ++channel ) {
+      MainPlusSideChain.copyFrom( channel, 0, MainBuffer,
+                                  channel, 0, MainPlusSideChain.getNumSamples() );
    }
 }
 
