@@ -84,10 +84,10 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    ParameterGainStage->init();
    ParameterGainStage->setName( "Gain Stage" );
 
-   ParameterGainStage->addPreset( GainStage::FET,     "FET" );
-   ParameterGainStage->addPreset( GainStage::Optical, "Optical" );
+   ParameterGainStage->addPreset( GainStage<double>::FET,     "FET" );
+   ParameterGainStage->addPreset( GainStage<double>::Optical, "Optical" );
 
-   ParameterGainStage->setDefaultRealFloat( GainStage::FET, true );
+   ParameterGainStage->setDefaultRealFloat( GainStage<double>::FET, true );
    add( ParameterGainStage, selGainStage );
 
 

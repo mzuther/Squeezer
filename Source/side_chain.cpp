@@ -36,8 +36,8 @@ SideChain::SideChain( int nSampleRate ) :
        return value: none
    */
 {
-   gainStageFET.reset( 0.0 );
-   gainStageOptical.reset( 0.0 );
+   gainStageFET.initialise( 0.0 );
+   gainStageOptical.initialise( 0.0 );
 
    dSampleRate = ( double ) nSampleRate;
    dGainReductionIdeal = 0.0;
@@ -48,7 +48,7 @@ SideChain::SideChain( int nSampleRate ) :
 
    setRmsWindowSize( 10.0 );
    nCurveType = SideChain::CurveLogSmoothBranching;
-   nGainStageType = GainStage::FET;
+   nGainStageType = GainStage<double>::FET;
 
    setAttackRate( 10.0 );
    setReleaseRate( 100 );
@@ -165,10 +165,10 @@ void SideChain::setGainStage( int nGainStageTypeNew )
    // update gain compensation
    setThreshold( dThreshold );
 
-   if ( nGainStageType == GainStage::FET ) {
-      gainStageFET.reset( dGainReduction );
+   if ( nGainStageType == GainStage<double>::FET ) {
+      gainStageFET.initialise( dGainReduction );
    } else {
-      gainStageOptical.reset( dGainReduction );
+      gainStageOptical.initialise( dGainReduction );
    }
 }
 
@@ -330,7 +330,7 @@ double SideChain::getGainReduction( bool bAutoMakeupGain )
 {
    double dGainReductionTemp;
 
-   if ( nGainStageType == GainStage::FET ) {
+   if ( nGainStageType == GainStage<double>::FET ) {
       dGainReductionTemp = gainStageFET.processGainReduction( dGainReduction, dGainReductionIdeal );
    } else {
       dGainReductionTemp = gainStageOptical.processGainReduction( dGainReduction, dGainReductionIdeal );

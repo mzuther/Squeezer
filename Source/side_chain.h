@@ -88,8 +88,8 @@ private:
    double dDebugTimeInReleasePhase;
 #endif // DEBUG_RELEASE_RATE
 
-   GainStageFET gainStageFET;
-   GainStageOptical gainStageOptical;
+   GainStageFET<double> gainStageFET;
+   GainStageOptical<double> gainStageOptical;
 
    double dSampleRate;
    double dAutoGainReferenceLevel;

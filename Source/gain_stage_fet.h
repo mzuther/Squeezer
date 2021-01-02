@@ -30,17 +30,59 @@
 #include "gain_stage.h"
 
 
-class GainStageFET : virtual public GainStage
+template <typename FloatType>
+class GainStageFET :
+   virtual public GainStage<FloatType>
 {
 public:
-   explicit GainStageFET( int nSampleRate );
+   explicit GainStageFET( int sampleRate ) :
+      GainStage<FloatType>( sampleRate ),
+      gainReduction_( 0.0 )
+      /*  Constructor.
 
-   void reset( double dCurrentGainReduction ) override;
-   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal ) override;
+          nSampleRate: internal sample rate
+
+          return value: none
+      */
+   {
+   };
+
+
+   void initialise( FloatType currentGainReduction ) override
+   /*  Inititalise all relevant variables.
+
+       currentGainReduction: current gain reduction in decibels
+
+       return value: none
+   */
+   {
+      gainReduction_ = currentGainReduction;
+   }
+
+
+   FloatType processGainReduction( FloatType currentGainReduction,
+                                   FloatType idealGainReduction ) override
+   /*  Process current gain reduction.
+
+       currentGainReduction: calculated new gain reduction in decibels
+
+       idealReduction: calculated "ideal" gain reduction (without any
+       envelopes) decibels
+
+       return value: returns the processed gain reduction in decibel
+   */
+   {
+      ignoreUnused( idealGainReduction );
+
+      gainReduction_ = currentGainReduction;
+      return gainReduction_;
+   }
+
+
 private:
    JUCE_LEAK_DETECTOR( GainStageFET );
 
-   double dGainReduction;
+   FloatType gainReduction_;
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_FET_H

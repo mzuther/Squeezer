@@ -174,8 +174,6 @@ OBJECTS := \
 	$(OBJDIR)/include_frut_parameters.o \
 	$(OBJDIR)/include_frut_skin.o \
 	$(OBJDIR)/include_frut_widgets.o \
-	$(OBJDIR)/gain_stage_fet.o \
-	$(OBJDIR)/gain_stage_optical.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
 	$(OBJDIR)/meter_bar_level.o \
 	$(OBJDIR)/plugin_editor.o \
@@ -309,12 +307,6 @@ $(OBJDIR)/include_frut_skin.o: ../../../Source/frut/amalgamated/include_frut_ski
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_frut_widgets.o: ../../../Source/frut/amalgamated/include_frut_widgets.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/gain_stage_optical.o: ../../../Source/gain_stage_optical.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp

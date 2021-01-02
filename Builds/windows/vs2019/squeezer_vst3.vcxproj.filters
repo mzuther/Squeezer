@@ -146,12 +146,6 @@
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.cpp">
       <Filter>Source\frut\amalgamated</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\gain_stage_fet.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\gain_stage_optical.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp">
       <Filter>Source</Filter>
     </ClCompile>

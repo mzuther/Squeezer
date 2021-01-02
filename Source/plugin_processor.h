@@ -109,6 +109,10 @@ private:
 #endif // JucePlugin_PreferredChannelConfigurations
 
    frut::dsp::Dither dither_;
+   dsp::ProcessorChain<dsp::Gain<double>> processorChain_;
+   enum processorIndices {
+      gainIndex_,
+   };
 
    bool hasSideChain_;
    int numberOfChannels_;

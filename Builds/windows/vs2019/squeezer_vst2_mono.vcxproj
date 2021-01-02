@@ -234,8 +234,6 @@
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_parameters.cpp" />
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_skin.cpp" />
     <ClCompile Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.cpp" />
-    <ClCompile Include="..\..\..\Source\gain_stage_fet.cpp" />
-    <ClCompile Include="..\..\..\Source\gain_stage_optical.cpp" />
     <ClCompile Include="..\..\..\Source\meter_bar_gain_reduction.cpp" />
     <ClCompile Include="..\..\..\Source\meter_bar_level.cpp" />
     <ClCompile Include="..\..\..\Source\plugin_editor.cpp" />

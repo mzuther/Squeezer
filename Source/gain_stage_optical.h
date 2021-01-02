@@ -30,26 +30,122 @@
 #include "gain_stage.h"
 
 
-class GainStageOptical : virtual public GainStage
+template <typename FloatType>
+class GainStageOptical :
+   virtual public GainStage<FloatType>
 {
 public:
-   explicit GainStageOptical( int nSampleRate );
+   explicit GainStageOptical( int sampleRate ) :
+      GainStage<FloatType>( sampleRate ),
+      gainReduction_( 0.0 ),
+      decibelRange_( 37 ),
+      coefficientsPerDecibel_( 2 ),
+      numberOfCoefficients_( decibelRange_ * coefficientsPerDecibel_ )
+      /*  Constructor.
 
-   void reset( double dCurrentGainReduction ) override;
-   double processGainReduction( double dGainReductionNew, double dGainReductionIdeal ) override;
+          sampleRate: internal sample rate
+
+          return value: none
+      */
+   {
+      for ( int coefficient = 0; coefficient < numberOfCoefficients_; ++coefficient ) {
+         //  0 dB:  Attack: 16 ms, Release: 160 ms
+         //  6 dB:  Attack:  5 ms, Release:  53 ms
+         // 12 dB:  Attack:  3 ms, Release:  32 ms
+         // 18 dB:  Attack:  2 ms, Release:  23 ms
+         // 24 dB:  Attack:  2 ms, Release:  18 ms
+
+         FloatType decibels = ( FloatType ) coefficient / ( FloatType ) coefficientsPerDecibel_;
+         FloatType resistance = 480.0 / ( 3.0 + decibels );
+         FloatType attackRate = resistance / 10.0;
+         FloatType releaseRate = resistance;
+
+         // if (coefficient % (6 * coefficientsPerDecibel_) == 0)
+         // {
+         //     DBG(String(decibels) + " dB:  Attack: " + String(attackRate, 1) + " ms, Release: " + String(releaseRate, 1) + " ms");
+         // }
+
+         FloatType attackRateSeconds = attackRate / 1000.0;
+         FloatType releaseRateSeconds = releaseRate / 1000.0;
+
+         // logarithmic envelopes that reach 73% of the final reading
+         // in the given attack time
+         attackCoefficients_.add( exp( log( 0.27 ) / ( attackRateSeconds * ( FloatType ) sampleRate ) ) );
+         releaseCoefficients_.add( exp( log( 0.27 ) / ( releaseRateSeconds * ( FloatType ) sampleRate ) ) );
+      }
+   }
+
+
+   void initialise( FloatType currentGainReduction ) override
+   /*  Initialise all relevant variables.
+
+       currentGainReduction: current gain reduction in decibels
+
+       return value: none
+   */
+   {
+      gainReduction_ = currentGainReduction;
+   }
+
+
+   FloatType processGainReduction( FloatType currentGainReduction,
+                                   FloatType idealGainReduction ) override
+   /*  Process current gain reduction.
+
+       currentGainReduction: calculated new gain reduction in decibels
+
+       idealGainReduction: calculated "ideal" gain reduction (without
+       any envelopes) decibels
+
+       return value: returns the processed gain reduction in decibel
+    */
+   {
+      FloatType gainReductionOld = gainReduction_;
+
+      int coefficient = int( currentGainReduction * ( FloatType ) coefficientsPerDecibel_ );
+      coefficient = juce::jlimit( 0, numberOfCoefficients_ - 1, coefficient );
+
+      if ( currentGainReduction > gainReduction_ ) {
+         // algorithm adapted from Giannoulis et al., "Digital Dynamic
+         // Range Compressor Design - A Tutorial and Analysis", JAES,
+         // 60(6):399-408, 2012
+         gainReduction_ = ( attackCoefficients_[coefficient] * gainReductionOld ) +
+                          ( 1.0 - attackCoefficients_[coefficient] ) * currentGainReduction;
+
+         // otherwise, apply release rate if proposed gain reduction is
+         // below old gain reduction
+      } else {
+         // algorithm adapted from Giannoulis et al., "Digital Dynamic
+         // Range Compressor Design - A Tutorial and Analysis", JAES,
+         // 60(6):399-408, 2012
+         gainReduction_ = ( releaseCoefficients_[coefficient] * gainReductionOld ) +
+                          ( 1.0 - releaseCoefficients_[coefficient] ) * currentGainReduction;
+      }
+
+      // saturation of optical element
+      if ( gainReduction_ < idealGainReduction ) {
+         FloatType diff = idealGainReduction - gainReduction_;
+         FloatType limit = 24.0;
+
+         diff = limit - limit / ( 1.0 + diff / limit );
+         return idealGainReduction - diff;
+      } else {
+         return gainReduction_;
+      }
+   }
+
 
 private:
    JUCE_LEAK_DETECTOR( GainStageOptical );
 
-   double dSampleRate;
-   double dGainReduction;
+   FloatType gainReduction_;
 
-   const int nNumberOfDecibels;
-   const int nCoefficientsPerDecibel;
-   const int nNumberOfCoefficients;
+   const int decibelRange_;
+   const int coefficientsPerDecibel_;
+   const int numberOfCoefficients_;
 
-   Array<double> arrAttackCoefficients;
-   Array<double> arrReleaseCoefficients;
+   Array<FloatType> attackCoefficients_;
+   Array<FloatType> releaseCoefficients_;
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_OPTICAL_H

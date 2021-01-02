@@ -175,8 +175,6 @@ OBJECTS := \
 	$(OBJDIR)/include_frut_widgets.o \
 	$(OBJDIR)/par_boolean_unittest.o \
 	$(OBJDIR)/par_string_unittest.o \
-	$(OBJDIR)/gain_stage_fet.o \
-	$(OBJDIR)/gain_stage_optical.o \
 	$(OBJDIR)/meter_bar_gain_reduction.o \
 	$(OBJDIR)/meter_bar_level.o \
 	$(OBJDIR)/plugin_editor.o \
@@ -313,12 +311,6 @@ $(OBJDIR)/par_boolean_unittest.o: ../../../Source/frut/parameters/par_boolean_un
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/par_string_unittest.o: ../../../Source/frut/parameters/par_string_unittest.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/gain_stage_fet.o: ../../../Source/gain_stage_fet.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/gain_stage_optical.o: ../../../Source/gain_stage_optical.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/meter_bar_gain_reduction.o: ../../../Source/meter_bar_gain_reduction.cpp

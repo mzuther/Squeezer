@@ -29,25 +29,27 @@
 #include "FrutHeader.h"
 
 
+template <typename FloatType>
 class GainStage
 {
 public:
    enum Parameters { // public namespace!
       FET = 0,
       Optical,
-      NumberOfGainStages,
+      numberOfGainStages,
    };
 
    // Destructor.
    virtual ~GainStage() {};
 
-   virtual void reset( double dCurrentGainReduction ) = 0;
-   virtual double processGainReduction( double dGainReductionNew, double dGainReductionIdeal ) = 0;
+   virtual void initialise( FloatType currentGainReduction ) = 0;
+   virtual FloatType processGainReduction( FloatType currentGainReduction,
+                                           FloatType idealGainReduction ) = 0;
 
 protected:
-   explicit GainStage( int nSampleRate )
+   explicit GainStage( int sampleRate )
    {
-      ignoreUnused( nSampleRate );
+      ignoreUnused( sampleRate );
    };
 };
 

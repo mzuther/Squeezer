@@ -787,6 +787,11 @@ void SqueezerAudioProcessor::prepareToPlay(
       }
    }
 
+   processorChain_.prepare( { sampleRate, ( uint32 ) samplesPerBlock, ( uint32 ) numberOfChannels_ } );
+
+   auto& gain = processorChain_.template get<gainIndex_>();
+   gain.setGainDecibels( 0 );
+
    bool bBypassCompressor = pluginParameters_.getBoolean(
                                SqueezerPluginParameters::selBypass );
    float fRmsWindowSizeMilliSeconds = pluginParameters_.getRealFloat(
@@ -877,6 +882,8 @@ void SqueezerAudioProcessor::reset()
    // Use this method as the place to clear any delay lines, buffers,
    // etc, as it means there's been a break in the audio's
    // continuity.
+
+   processorChain_.reset();
 }
 
 
@@ -979,6 +986,10 @@ void SqueezerAudioProcessor::process(
    }
 
 #endif // JucePlugin_Build_VST && SQUEEZER_EXTERNAL_SIDECHAIN == 1
+
+   auto inOutBlock = dsp::AudioBlock<double>( MainPlusSideChain ).getSubsetChannelBlock (
+                        0, ( size_t ) MainPlusSideChain.getNumChannels() );
+   processorChain_.process( dsp::ProcessContextReplacing<double>( inOutBlock ) );
 
    compressor_->process( MainPlusSideChain );
 
