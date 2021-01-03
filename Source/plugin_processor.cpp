@@ -409,8 +409,8 @@ void SqueezerAudioProcessor::setParameter(
          pluginParameters_.setFloat( nIndex, fValue );
 
          if ( compressor_ ) {
-            int nReleaseRate = pluginParameters_.getRealInteger( nIndex );
-            compressor_->setReleaseRate( nReleaseRate );
+            float fReleaseRate = pluginParameters_.getRealFloat( nIndex );
+            compressor_->setReleaseRate( fReleaseRate );
          }
 
          break;
@@ -812,7 +812,7 @@ void SqueezerAudioProcessor::prepareToPlay(
 
    float fAttackRate = pluginParameters_.getRealFloat(
                           SqueezerPluginParameters::selAttackRate );
-   int nReleaseRate = pluginParameters_.getRealInteger(
+   int fReleaseRate = pluginParameters_.getRealFloat(
                          SqueezerPluginParameters::selReleaseRate );
 
    float fInputTrim = pluginParameters_.getRealFloat(
@@ -852,7 +852,7 @@ void SqueezerAudioProcessor::prepareToPlay(
    compressor_->setKneeWidth( fKneeWidth );
 
    compressor_->setAttackRate( fAttackRate );
-   compressor_->setReleaseRate( nReleaseRate );
+   compressor_->setReleaseRate( fReleaseRate );
 
    compressor_->setInputTrim( fInputTrim );
    compressor_->setAutoMakeupGain( bAutoMakeupGain );

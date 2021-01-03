@@ -180,7 +180,6 @@ OBJECTS := \
 	$(OBJDIR)/plugin_editor.o \
 	$(OBJDIR)/plugin_parameters.o \
 	$(OBJDIR)/plugin_processor.o \
-	$(OBJDIR)/side_chain.o \
 	$(OBJDIR)/skin.o \
 	$(OBJDIR)/squeezer_skin.o \
 
@@ -326,9 +325,6 @@ $(OBJDIR)/plugin_parameters.o: ../../../Source/plugin_parameters.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/plugin_processor.o: ../../../Source/plugin_processor.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/side_chain.o: ../../../Source/side_chain.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/skin.o: ../../../Source/skin.cpp

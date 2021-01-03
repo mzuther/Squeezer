@@ -60,7 +60,7 @@ Compressor::Compressor( int channels,
    setWetMix( 100 );
 
    for ( int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel ) {
-      SideChainProcessor.add( new SideChain( SampleRate ) );
+      SideChainProcessor.add( new SideChain<double>( SampleRate ) );
 
       InputSamples.add( 0.0 );
       SidechainSamples.add( 0.0 );
@@ -290,10 +290,10 @@ void Compressor::setAttackRate( double AttackRateNew )
 }
 
 
-int Compressor::getReleaseRate()
+double Compressor::getReleaseRate()
 /*  Get current release rate.
 
-    return value (integer): returns the current release rate in
+    return value (double): returns the current release rate in
     milliseconds
  */
 {
@@ -301,10 +301,10 @@ int Compressor::getReleaseRate()
 }
 
 
-void Compressor::setReleaseRate( int ReleaseRateNew )
+void Compressor::setReleaseRate( double ReleaseRateNew )
 /*  Set new release rate.
 
-    ReleaseRateNew (integer): new release rate in milliseconds
+    ReleaseRateNew (double): new release rate in milliseconds
 
     return value: none
  */
@@ -458,7 +458,7 @@ void Compressor::setMakeupGain( double MakeupGainNew )
  */
 {
    MakeupGainDecibel = MakeupGainNew;
-   MakeupGain = SideChain::decibel2level( MakeupGainDecibel );
+   MakeupGain = SideChain<double>::decibel2level( MakeupGainDecibel );
 }
 
 
@@ -779,7 +779,7 @@ void Compressor::process( AudioBuffer<double>& MainPlusSideChain )
                double LastGainReduction = -GainReductionWithMakeup[CurrentChannel];
 
                // apply feedback-loop
-               SideChainSample *= SideChain::decibel2level( LastGainReduction );
+               SideChainSample *= SideChain<double>::decibel2level( LastGainReduction );
 
                // "normal" feed-back mode (external side chain not
                // supported)
@@ -825,7 +825,7 @@ void Compressor::process( AudioBuffer<double>& MainPlusSideChain )
          }
 
          // convert side chain level to decibels
-         SideChainLevel = SideChain::level2decibel( SideChainLevel );
+         SideChainLevel = SideChain<double>::level2decibel( SideChainLevel );
 
          // send current trim-adjusted input sample to gain
          // reduction unit
@@ -860,7 +860,7 @@ void Compressor::process( AudioBuffer<double>& MainPlusSideChain )
          double OutputSample = InputSample;
 
          // apply gain reduction
-         OutputSample *= SideChain::decibel2level( CurrentGainReduction );
+         OutputSample *= SideChain<double>::decibel2level( CurrentGainReduction );
 
          // apply make-up gain
          OutputSample *= MakeupGain;
@@ -923,8 +923,8 @@ void Compressor::updateMeterBallistics()
       double OutputPeak = MeterOutputBuffer.getMagnitude( CurrentChannel, 0, MeterBufferSize );
 
       // convert peak meter levels from linear scale to decibels
-      InputPeak = SideChain::level2decibel( InputPeak );
-      OutputPeak = SideChain::level2decibel( OutputPeak );
+      InputPeak = SideChain<double>::level2decibel( InputPeak );
+      OutputPeak = SideChain<double>::level2decibel( OutputPeak );
 
       // apply peak meter ballistics
       peakMeterBallistics( InputPeak, PeakMeterInputLevels.getReference( CurrentChannel ) );
@@ -939,8 +939,8 @@ void Compressor::updateMeterBallistics()
 
       // convert average meter levels from linear scale to
       // decibels
-      InputRms = SideChain::level2decibel( InputRms );
-      OutputRms = SideChain::level2decibel( OutputRms );
+      InputRms = SideChain<double>::level2decibel( InputRms );
+      OutputRms = SideChain<double>::level2decibel( OutputRms );
 
       // apply average meter ballistics
       averageMeterBallistics( InputRms, AverageMeterInputLevels.getReference( CurrentChannel ) );

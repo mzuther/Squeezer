@@ -239,7 +239,6 @@
     <ClCompile Include="..\..\..\Source\plugin_editor.cpp" />
     <ClCompile Include="..\..\..\Source\plugin_parameters.cpp" />
     <ClCompile Include="..\..\..\Source\plugin_processor.cpp" />
-    <ClCompile Include="..\..\..\Source\side_chain.cpp" />
     <ClCompile Include="..\..\..\Source\skin.cpp" />
     <ClCompile Include="..\..\..\Source\squeezer_skin.cpp" />
   </ItemGroup>

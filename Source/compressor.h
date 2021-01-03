@@ -73,8 +73,8 @@ public:
    double getAttackRate();
    void setAttackRate( double AttackRateNew );
 
-   int getReleaseRate();
-   void setReleaseRate( int ReleaseRateNew );
+   double getReleaseRate();
+   void setReleaseRate( double ReleaseRateNew );
 
    int getCurve();
    void setCurve( int CurveTypeNew );
@@ -142,7 +142,7 @@ private:
    AudioBuffer<double> MeterInputBuffer;
    AudioBuffer<double> MeterOutputBuffer;
 
-   OwnedArray<SideChain> SideChainProcessor;
+   OwnedArray<SideChain<double>> SideChainProcessor;
    OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_HPF;
    OwnedArray<frut::dsp::IirFilterBox> SidechainFilter_LPF;
 

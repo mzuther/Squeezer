@@ -36,7 +36,7 @@ public:
    enum Parameters { // public namespace!
       FET = 0,
       Optical,
-      numberOfGainStages,
+      NumberOfGainStages,
    };
 
    // Destructor.

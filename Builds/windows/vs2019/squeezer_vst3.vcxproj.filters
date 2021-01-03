@@ -161,9 +161,6 @@
     <ClCompile Include="..\..\..\Source\plugin_processor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\side_chain.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Source\skin.cpp">
       <Filter>Source</Filter>
     </ClCompile>
