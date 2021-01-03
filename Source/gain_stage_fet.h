@@ -34,16 +34,9 @@ template <typename FloatType>
 class GainStageFET :
    virtual public GainStage<FloatType>
 {
-private:
-   JUCE_LEAK_DETECTOR( GainStageFET );
-
-   FloatType gainReduction_;
-
-
 public:
-   explicit GainStageFET( int sampleRate ) :
-      GainStage<FloatType>( sampleRate ),
-      gainReduction_( 0.0 )
+   explicit GainStageFET( FloatType sampleRate ) :
+      GainStage<FloatType>( sampleRate )
       /*  Constructor.
 
           nSampleRate: internal sample rate
@@ -54,15 +47,15 @@ public:
    };
 
 
-   void initialise( FloatType currentGainReduction ) override
-   /*  Inititalise all relevant variables.
+   void resetGainReduction( FloatType currentGainReduction ) override
+   /*  Reset gain reduction.
 
        currentGainReduction: current gain reduction in decibels
 
        return value: none
    */
    {
-      gainReduction_ = currentGainReduction;
+      ignoreUnused( currentGainReduction );
    }
 
 
@@ -80,8 +73,7 @@ public:
    {
       ignoreUnused( idealGainReduction );
 
-      gainReduction_ = currentGainReduction;
-      return gainReduction_;
+      return currentGainReduction;
    }
 };
 

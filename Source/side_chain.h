@@ -47,17 +47,7 @@ public:
 
 
 private:
-   JUCE_LEAK_DETECTOR( SideChain );
-
-#if DEBUG_RELEASE_RATE
-   SampleType timePassed_;
-
-   SampleType debugFinalValue90_;
-   SampleType debugTimeInReleasePhase_;
-#endif // DEBUG_RELEASE_RATE
-
-   GainStageFET<SampleType> gainStageFET_;
-   GainStageOptical<SampleType> gainStageOptical_;
+   std::unique_ptr<GainStage<SampleType>> gainStage_;
 
    SampleType sampleRate_;
    SampleType autoGainReferenceLevel_;
@@ -83,11 +73,19 @@ private:
    SampleType releaseRateMilliseconds_;
    SampleType releaseCoefficient_;
 
+#if DEBUG_RELEASE_RATE
+   SampleType timePassed_;
+
+   SampleType debugFinalValue90_;
+   SampleType debugTimeInReleasePhase_;
+#endif // DEBUG_RELEASE_RATE
+
+   JUCE_LEAK_DETECTOR( SideChain );
+
 
 public:
-   explicit SideChain( int sampleRate ) :
-      gainStageFET_( sampleRate ),
-      gainStageOptical_( sampleRate )
+   explicit SideChain( SampleType sampleRate ) :
+      sampleRate_( sampleRate )
       /*  Constructor.
 
           sampleRate: internal sample rate
@@ -95,34 +93,20 @@ public:
           return value: none
       */
    {
-      gainStageFET_.initialise( 0.0 );
-      gainStageOptical_.initialise( 0.0 );
-
-      sampleRate_ = ( SampleType ) sampleRate;
-      idealGainReduction_ = 0.0;
-
       setThreshold( -32.0 );
       setRatio( 2.0 );
       setKneeWidth( 0.0 );
 
+      setCurve( SideChain<SampleType>::CurveLogSmoothBranching );
+      setGainStage( GainStage<SampleType>::FET );
       setRmsWindowSize( 10.0 );
-      selectedCurve_ = SideChain<SampleType>::CurveLogSmoothBranching;
-      selectedGainStage_ = GainStage<SampleType>::FET;
 
+      // setReleaseRate() depends on setCurve()
       setAttackRate( 10.0 );
       setReleaseRate( 100 );
-      setCurve( selectedCurve_ );
-      setGainStage( selectedGainStage_ );
 
       // reset (i.e. initialise) all relevant variables
       reset();
-
-#if DEBUG_RELEASE_RATE
-      fTimePassed = 1.0 / sampleRate_;
-
-      debugFinalValue90_ = -1.0;
-      debugTimeInReleasePhase_ = 0.0;
-#endif // DEBUG_RELEASE_RATE
    }
 
 
@@ -133,10 +117,19 @@ public:
    */
    {
       gainReduction_ = 0.0;
+      idealGainReduction_ = 0.0;
       gainCompensation_ = 0.0;
       detectorOutputLevelSquared_ = 0.0;
 
+      // reference level is 0 dBFS (was K-20 or -20 dBFS before)
       autoGainReferenceLevel_ = 0.0;
+
+#if DEBUG_RELEASE_RATE
+      timePassed_ = 1.0 / sampleRate_;
+
+      debugFinalValue90_ = -1.0;
+      debugTimeInReleasePhase_ = 0.0;
+#endif // DEBUG_RELEASE_RATE
    }
 
 
@@ -168,7 +161,7 @@ public:
 
          // logarithmic envelope reaches 90% of the final reading
          // in the given attack time
-         SampleType rmsWindowSizeInSamples = sampleRate_ * rmsWindowSizeMilliseconds_ / 1000.0;
+         auto rmsWindowSizeInSamples = sampleRate_ * rmsWindowSizeMilliseconds_ / 1000.0;
          rmsWindowCoefficient_ = exp( log( 0.10 ) / rmsWindowSizeInSamples );
       }
    }
@@ -195,6 +188,7 @@ public:
       selectedCurve_ = selectedCurve;
       intermediateGainReduction_ = 0.0;
 
+      // setReleaseRate() depends on setCurve()
       setAttackRate( attackRateMilliseconds_ );
       setReleaseRate( releaseRateMilliseconds_ );
    }
@@ -220,14 +214,17 @@ public:
    {
       selectedGainStage_ = selectedGainStage;
 
+      if ( selectedGainStage_ == GainStage<SampleType>::FET ) {
+         gainStage_ = std::make_unique<GainStageFET<SampleType>>( sampleRate_ );
+      } else {
+         gainStage_ = std::make_unique<GainStageOptical<SampleType>>( sampleRate_ );
+      }
+
+      // avoid clicks
+      gainStage_->resetGainReduction( gainReduction_ );
+
       // update gain compensation
       setThreshold( threshold_ );
-
-      if ( selectedGainStage_ == GainStage<SampleType>::FET ) {
-         gainStageFET_.initialise( gainReduction_ );
-      } else {
-         gainStageOptical_.initialise( gainReduction_ );
-      }
    }
 
 
@@ -251,6 +248,7 @@ public:
    {
       threshold_ = threshold;
 
+      // update gain compensation
       gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
    }
 
@@ -274,6 +272,8 @@ public:
     */
    {
       internalCompressionRatio_ = 1.0 - ( 1.0 / compressionRatio );
+
+      // update gain compensation
       gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
    }
 
@@ -297,6 +297,8 @@ public:
     */
    {
       kneeWidth_ = kneeWidth;
+
+      // update gain compensation
       gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
    }
 
@@ -326,7 +328,7 @@ public:
       } else {
          // logarithmic envelope reaches 90% of the final reading in
          // the given attack time
-         SampleType attackRateInSamples = sampleRate_ * attackRateMilliseconds_ / 1000.0;
+         auto attackRateInSamples = sampleRate_ * attackRateMilliseconds_ / 1000.0;
          attackCoefficient_ = exp( log( 0.10 ) / attackRateInSamples );
       }
    }
@@ -355,7 +357,7 @@ public:
       if ( releaseRateMilliseconds_ <= 0.0 ) {
          releaseCoefficient_ = 0.0;
       } else {
-         SampleType releaseRateInSamples = sampleRate_ * releaseRateMilliseconds_ / 1000.0;
+         auto releaseRateInSamples = sampleRate_ * releaseRateMilliseconds_ / 1000.0;
 
          if ( selectedCurve_ == SideChain<SampleType>::CurveLogLin ) {
             // fall time: falls 10 dB per interval defined in release
@@ -379,16 +381,12 @@ public:
        return value: returns the current gain reduction in decibel
     */
    {
-      SampleType tempGainReduction;
+      jassert( gainStage_ != nullptr );
 
-      if ( selectedGainStage_ == GainStage<SampleType>::FET ) {
-         tempGainReduction = gainStageFET_.processGainReduction( gainReduction_, idealGainReduction_ );
-      } else {
-         tempGainReduction = gainStageOptical_.processGainReduction( gainReduction_, idealGainReduction_ );
-      }
+      auto tempGainReduction = gainStage_->processGainReduction(
+                                  gainReduction_, idealGainReduction_ );
 
       if ( useAutoMakeupGain ) {
-
          return tempGainReduction - gainCompensation_;
       } else {
          return tempGainReduction;
@@ -408,7 +406,7 @@ public:
       idealGainReduction_ = queryGainComputer( inputLevel );
 
       // filter calculated gain reduction through level detection filter
-      SampleType newGainReduction = applyRmsFilter( idealGainReduction_ );
+      auto newGainReduction = applyRmsFilter( idealGainReduction_ );
 
       // feed output from gain computer to level detector
       switch ( selectedCurve_ ) {
@@ -486,15 +484,10 @@ public:
          // calculate decibels from audio level (a factor of 20.0 is
          // needed to calculate *level* ratios, whereas 10.0 is needed
          // for *power* ratios!)
-         SampleType levelDecibels = 20.0 * log10( levelLinear );
+         auto levelDecibels = 20.0 * log10( levelLinear );
 
-         // to make meter ballistics look nice for low levels, do not
-         // return levels below "fMeterMinimumDecibel"
-         if ( levelDecibels < lowerLimitOnMeter ) {
-            return lowerLimitOnMeter;
-         } else {
-            return levelDecibels;
-         }
+         // make meter ballistics look nice at low levels
+         return juce::jmax( levelDecibels, lowerLimitOnMeter );
       }
    }
 
@@ -510,8 +503,7 @@ public:
       // calculate audio level from decibels (a divisor of 20.0 is
       // needed to calculate *level* ratios, whereas 10.0 is needed for
       // *power* ratios!)
-      SampleType levelLinear = pow( 10.0, levelDecibels / 20.0 );
-      return levelLinear;
+      return pow( 10.0, levelDecibels / 20.0 );
    }
 
 
@@ -522,12 +514,11 @@ private:
       if ( rmsWindowSizeMilliseconds_ <= 0.0 ) {
          return detectorInputLevel;
       } else {
-         SampleType detectorInputLevelSquaredNew = detectorInputLevel * detectorInputLevel;
+         auto detectorInputLevelSquaredNew = detectorInputLevel * detectorInputLevel;
          detectorOutputLevelSquared_ = ( rmsWindowCoefficient_ * detectorOutputLevelSquared_ ) +
                                        ( 1.0 - rmsWindowCoefficient_ ) * detectorInputLevelSquaredNew;
 
-         SampleType detectorOutputLevel = sqrt( detectorOutputLevelSquared_ );
-         return detectorOutputLevel;
+         return sqrt( detectorOutputLevelSquared_ );
       }
    }
 
@@ -540,7 +531,7 @@ private:
        return value: calculated gain reduction in decibels
     */
    {
-      SampleType aboveThreshold = inputLevel - threshold_;
+      auto aboveThreshold = inputLevel - threshold_;
 
       if ( kneeWidth_ == 0.0 ) {
          if ( inputLevel <= threshold_ ) {
@@ -557,7 +548,7 @@ private:
          } else if ( aboveThreshold > ( kneeWidth_ / 2.0 ) ) {
             return aboveThreshold * internalCompressionRatio_;
          } else {
-            SampleType factor = aboveThreshold + ( kneeWidth_ / 2.0 );
+            auto factor = aboveThreshold + ( kneeWidth_ / 2.0 );
             return factor * factor / ( kneeWidth_ * 2.0 ) * internalCompressionRatio_;
          }
       }
@@ -592,11 +583,8 @@ private:
          if ( releaseCoefficient_ == 0.0 ) {
             gainReduction_ = gainReduction;
          } else {
-            gainReduction_ -= releaseCoefficient_;
-
-            if ( gainReduction_ < gainReduction ) {
-               gainReduction_ = gainReduction;
-            }
+            // prevent oscillation
+            gainReduction_ = juce::jmax( gainReduction_ - releaseCoefficient_, gainReduction );
          }
       }
    }
@@ -622,9 +610,7 @@ private:
                                       ( 1.0 - releaseCoefficient_ ) * gainReduction;
 
          // maximally fast peak detection
-         if ( gainReduction > intermediateGainReduction_ ) {
-            intermediateGainReduction_ = gainReduction;
-         }
+         intermediateGainReduction_ = juce::jmax( intermediateGainReduction_, gainReduction );
       }
 
       // apply attack envelope

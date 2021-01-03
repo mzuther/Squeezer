@@ -42,12 +42,12 @@ public:
    // Destructor.
    virtual ~GainStage() {};
 
-   virtual void initialise( FloatType currentGainReduction ) = 0;
+   virtual void resetGainReduction( FloatType currentGainReduction ) = 0;
    virtual FloatType processGainReduction( FloatType currentGainReduction,
                                            FloatType idealGainReduction ) = 0;
 
 protected:
-   explicit GainStage( int sampleRate )
+   explicit GainStage( FloatType sampleRate )
    {
       ignoreUnused( sampleRate );
    };

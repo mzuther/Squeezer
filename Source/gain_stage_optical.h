@@ -35,8 +35,6 @@ class GainStageOptical :
    virtual public GainStage<FloatType>
 {
 private:
-   JUCE_LEAK_DETECTOR( GainStageOptical );
-
    FloatType gainReduction_;
 
    const int decibelRange_;
@@ -46,9 +44,11 @@ private:
    Array<FloatType> attackCoefficients_;
    Array<FloatType> releaseCoefficients_;
 
+   JUCE_LEAK_DETECTOR( GainStageOptical );
+
 
 public:
-   explicit GainStageOptical( int sampleRate ) :
+   explicit GainStageOptical( FloatType sampleRate ) :
       GainStage<FloatType>( sampleRate ),
       gainReduction_( 0.0 ),
       decibelRange_( 37 ),
@@ -83,14 +83,14 @@ public:
 
          // logarithmic envelopes that reach 73% of the final reading
          // in the given attack time
-         attackCoefficients_.add( exp( log( 0.27 ) / ( attackRateSeconds * ( FloatType ) sampleRate ) ) );
-         releaseCoefficients_.add( exp( log( 0.27 ) / ( releaseRateSeconds * ( FloatType ) sampleRate ) ) );
+         attackCoefficients_.add( exp( log( 0.27 ) / ( attackRateSeconds * sampleRate ) ) );
+         releaseCoefficients_.add( exp( log( 0.27 ) / ( releaseRateSeconds * sampleRate ) ) );
       }
    }
 
 
-   void initialise( FloatType currentGainReduction ) override
-   /*  Initialise all relevant variables.
+   void resetGainReduction( FloatType currentGainReduction ) override
+   /*  Reset gain reduction.
 
        currentGainReduction: current gain reduction in decibels
 
