@@ -812,8 +812,8 @@ void SqueezerAudioProcessor::prepareToPlay(
 
    float fAttackRate = pluginParameters_.getRealFloat(
                           SqueezerPluginParameters::selAttackRate );
-   int fReleaseRate = pluginParameters_.getRealFloat(
-                         SqueezerPluginParameters::selReleaseRate );
+   float fReleaseRate = pluginParameters_.getRealFloat(
+                           SqueezerPluginParameters::selReleaseRate );
 
    float fInputTrim = pluginParameters_.getRealFloat(
                          SqueezerPluginParameters::selInputTrim );

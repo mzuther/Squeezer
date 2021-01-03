@@ -38,7 +38,7 @@ template <typename SampleType>
 class SideChain
 {
 public:
-   enum Parameters { // public namespace!
+   enum Parameters {
       CurveLogLin = 0,
       CurveLogSmoothDecoupled,
       CurveLogSmoothBranching,
@@ -69,28 +69,28 @@ private:
    SampleType rmsWindowCoefficient_;
    SampleType detectorOutputLevelSquared_;
 
-   SampleType rmsWindowSizeMilliSeconds_;
-   int nCurveType;
-   int nGainStageType;
+   SampleType rmsWindowSizeMilliseconds_;
+   int selectedCurve_;
+   int selectedGainStage_;
 
-   SampleType dThreshold;
-   SampleType dRatioInternal;
+   SampleType threshold_;
+   SampleType internalCompressionRatio_;
    SampleType kneeWidth_;
 
-   SampleType dAttackRate;
-   SampleType dAttackCoefficient;
+   SampleType attackRateMilliseconds_;
+   SampleType attackCoefficient_;
 
-   int nReleaseRate;
-   SampleType dReleaseCoefficient;
+   SampleType releaseRateMilliseconds_;
+   SampleType releaseCoefficient_;
 
 
 public:
-   explicit SideChain( int nSampleRate ) :
-      gainStageFET_( nSampleRate ),
-      gainStageOptical_( nSampleRate )
+   explicit SideChain( int sampleRate ) :
+      gainStageFET_( sampleRate ),
+      gainStageOptical_( sampleRate )
       /*  Constructor.
 
-          nSampleRate: internal sample rate
+          sampleRate: internal sample rate
 
           return value: none
       */
@@ -98,7 +98,7 @@ public:
       gainStageFET_.initialise( 0.0 );
       gainStageOptical_.initialise( 0.0 );
 
-      sampleRate_ = ( SampleType ) nSampleRate;
+      sampleRate_ = ( SampleType ) sampleRate;
       idealGainReduction_ = 0.0;
 
       setThreshold( -32.0 );
@@ -106,19 +106,19 @@ public:
       setKneeWidth( 0.0 );
 
       setRmsWindowSize( 10.0 );
-      nCurveType = SideChain<SampleType>::CurveLogSmoothBranching;
-      nGainStageType = GainStage<SampleType>::FET;
+      selectedCurve_ = SideChain<SampleType>::CurveLogSmoothBranching;
+      selectedGainStage_ = GainStage<SampleType>::FET;
 
       setAttackRate( 10.0 );
       setReleaseRate( 100 );
-      setCurve( nCurveType );
-      setGainStage( nGainStageType );
+      setCurve( selectedCurve_ );
+      setGainStage( selectedGainStage_ );
 
       // reset (i.e. initialise) all relevant variables
       reset();
 
 #if DEBUG_RELEASE_RATE
-      fTimePassed = 1.0 / ( SampleType ) nSampleRate;
+      fTimePassed = 1.0 / sampleRate_;
 
       debugFinalValue90_ = -1.0;
       debugTimeInReleasePhase_ = 0.0;
@@ -146,30 +146,30 @@ public:
        return value: returns current current detector RMS window size
    */
    {
-      return rmsWindowSizeMilliSeconds_;
+      return rmsWindowSizeMilliseconds_;
    }
 
 
-   void setRmsWindowSize( SampleType dRmsWindowSizeMilliSecondsNew )
+   void setRmsWindowSize( SampleType rmsWindowSize )
    /*  Set new detector RMS window size.
 
-       dRmsWindowSizeMilliSecondsNew: new detector RMS window size; set
-       to 0.0 to disable RMS sensing
+       rmsWindowSize: new detector RMS window size; set to
+       0.0 to disable RMS sensing
 
        return value: none
    */
    {
       // bypass RMS sensing
-      if ( dRmsWindowSizeMilliSecondsNew <= 0.0 ) {
-         rmsWindowSizeMilliSeconds_ = 0.0;
+      if ( rmsWindowSize <= 0.0 ) {
+         rmsWindowSizeMilliseconds_ = 0.0;
          rmsWindowCoefficient_ = 0.0;
       } else {
-         rmsWindowSizeMilliSeconds_ = dRmsWindowSizeMilliSecondsNew;
-         SampleType dRmsWindowSizeSeconds = rmsWindowSizeMilliSeconds_ / 1000.0;
+         rmsWindowSizeMilliseconds_ = rmsWindowSize;
 
          // logarithmic envelope reaches 90% of the final reading
          // in the given attack time
-         rmsWindowCoefficient_ = exp( log( 0.10 ) / ( dRmsWindowSizeSeconds * sampleRate_ ) );
+         SampleType rmsWindowSizeInSamples = sampleRate_ * rmsWindowSizeMilliseconds_ / 1000.0;
+         rmsWindowCoefficient_ = exp( log( 0.10 ) / rmsWindowSizeInSamples );
       }
    }
 
@@ -180,23 +180,23 @@ public:
        return value: returns compressor curve type
     */
    {
-      return nCurveType;
+      return selectedCurve_;
    }
 
 
-   void setCurve( int nCurveTypeNew )
+   void setCurve( int selectedCurve )
    /*  Set new compressor curve type.
 
-       nCurveTypeNew: new compressor curve type
+       selectedCurve: new compressor curve type
 
        return value: none
     */
    {
-      nCurveType = nCurveTypeNew;
+      selectedCurve_ = selectedCurve;
       intermediateGainReduction_ = 0.0;
 
-      setAttackRate( dAttackRate );
-      setReleaseRate( nReleaseRate );
+      setAttackRate( attackRateMilliseconds_ );
+      setReleaseRate( releaseRateMilliseconds_ );
    }
 
 
@@ -206,24 +206,24 @@ public:
        return value: returns compressor gain stage type
     */
    {
-      return nGainStageType;
+      return selectedGainStage_;
    }
 
 
-   void setGainStage( int nGainStageTypeNew )
+   void setGainStage( int selectedGainStage )
    /*  Set new compressor gain stage type.
 
-       nGainStageTypeNew: new compressor gain stage type
+       selectedGainStage: new compressor gain stage type
 
        return value: none
     */
    {
-      nGainStageType = nGainStageTypeNew;
+      selectedGainStage_ = selectedGainStage;
 
       // update gain compensation
-      setThreshold( dThreshold );
+      setThreshold( threshold_ );
 
-      if ( nGainStageType == GainStage<SampleType>::FET ) {
+      if ( selectedGainStage_ == GainStage<SampleType>::FET ) {
          gainStageFET_.initialise( gainReduction_ );
       } else {
          gainStageOptical_.initialise( gainReduction_ );
@@ -237,19 +237,19 @@ public:
        return value: returns the current threshold in decibels
     */
    {
-      return dThreshold;
+      return threshold_;
    }
 
 
-   void setThreshold( SampleType dThresholdNew )
+   void setThreshold( SampleType threshold )
    /*  Set new threshold.
 
-       dThresholdNew: new threshold in decibels
+       threshold: new threshold in decibels
 
        return value: none
     */
    {
-      dThreshold = dThresholdNew;
+      threshold_ = threshold;
 
       gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
    }
@@ -261,19 +261,19 @@ public:
        return value: returns the current compression ratio
     */
    {
-      return 1.0 / ( 1.0 - dRatioInternal );
+      return 1.0 / ( 1.0 - internalCompressionRatio_ );
    }
 
 
-   void setRatio( SampleType dRatioNew )
+   void setRatio( SampleType compressionRatio )
    /*  Set new compression ratio.
 
-       dRatioNew: new compression ratio
+       compressionRatio: new compression ratio
 
        return value: none
     */
    {
-      dRatioInternal = 1.0 - ( 1.0 / dRatioNew );
+      internalCompressionRatio_ = 1.0 - ( 1.0 / compressionRatio );
       gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
    }
 
@@ -288,15 +288,15 @@ public:
    }
 
 
-   void setKneeWidth( SampleType dKneeWidthNew )
+   void setKneeWidth( SampleType kneeWidth )
    /*  Set new knee width.
 
-       dKneeWidthNew: new knee width in decibels
+       kneeWidth: new knee width in decibels
 
        return value: none
     */
    {
-      kneeWidth_ = dKneeWidthNew;
+      kneeWidth_ = kneeWidth;
       gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
    }
 
@@ -307,43 +307,42 @@ public:
        return value: returns the current attack rate in milliseconds
     */
    {
-      return dAttackRate;
+      return attackRateMilliseconds_;
    }
 
 
-   void setAttackRate( SampleType dAttackRateNew )
+   void setAttackRate( SampleType attackRate )
    /*  Set new attack rate.
 
-       dAttackRateNew: new attack rate in milliseconds
+       attackRate: new attack rate in milliseconds
 
        return value: none
     */
    {
-      dAttackRate = dAttackRateNew;
+      attackRateMilliseconds_ = attackRate;
 
-      if ( dAttackRate <= 0.0 ) {
-         dAttackCoefficient = 0.0;
+      if ( attackRateMilliseconds_ <= 0.0 ) {
+         attackCoefficient_ = 0.0;
       } else {
-         SampleType dAttackRateSeconds = dAttackRate / 1000.0;
-
          // logarithmic envelope reaches 90% of the final reading in
          // the given attack time
-         dAttackCoefficient = exp( log( 0.10 ) / ( dAttackRateSeconds * sampleRate_ ) );
+         SampleType attackRateInSamples = sampleRate_ * attackRateMilliseconds_ / 1000.0;
+         attackCoefficient_ = exp( log( 0.10 ) / attackRateInSamples );
       }
    }
 
 
-   int getReleaseRate()
+   SampleType getReleaseRate()
    /*  Get current release rate.
 
        return value: returns the current release rate in milliseconds
     */
    {
-      return nReleaseRate;
+      return releaseRateMilliseconds_;
    }
 
 
-   void setReleaseRate( int nReleaseRateNew )
+   void setReleaseRate( SampleType releaseRate )
    /*  Set new release rate.
 
        nReleaseRateNew: new release rate in milliseconds
@@ -351,78 +350,78 @@ public:
        return value: none
     */
    {
-      nReleaseRate = nReleaseRateNew;
+      releaseRateMilliseconds_ = releaseRate;
 
-      if ( nReleaseRate <= 0 ) {
-         dReleaseCoefficient = 0.0;
+      if ( releaseRateMilliseconds_ <= 0.0 ) {
+         releaseCoefficient_ = 0.0;
       } else {
-         SampleType dReleaseRateSeconds = nReleaseRate / 1000.0;
+         SampleType releaseRateInSamples = sampleRate_ * releaseRateMilliseconds_ / 1000.0;
 
-         if ( nCurveType == SideChain<SampleType>::CurveLogLin ) {
+         if ( selectedCurve_ == SideChain<SampleType>::CurveLogLin ) {
             // fall time: falls 10 dB per interval defined in release
             // rate (linear)
-            dReleaseCoefficient = 10.0 / ( dReleaseRateSeconds * sampleRate_ );
+            releaseCoefficient_ = 10.0 / releaseRateInSamples;
          } else {
             // logarithmic envelope reaches 90% of the final reading
             // in the given release time
-            dReleaseCoefficient = exp( log( 0.10 ) / ( dReleaseRateSeconds * sampleRate_ ) );
+            releaseCoefficient_ = exp( log( 0.10 ) / releaseRateInSamples );
          }
       }
    }
 
 
-   SampleType getGainReduction( bool bAutoMakeupGain )
+   SampleType getGainReduction( bool useAutoMakeupGain )
    /*  Get current gain reduction.
 
-       bAutoMakeupGain: determines whether the gain reduction should be
+       useAutoMakeupGain: determines whether the gain reduction should be
        level compensated or not
 
        return value: returns the current gain reduction in decibel
     */
    {
-      SampleType dGainReductionTemp;
+      SampleType tempGainReduction;
 
-      if ( nGainStageType == GainStage<SampleType>::FET ) {
-         dGainReductionTemp = gainStageFET_.processGainReduction( gainReduction_, idealGainReduction_ );
+      if ( selectedGainStage_ == GainStage<SampleType>::FET ) {
+         tempGainReduction = gainStageFET_.processGainReduction( gainReduction_, idealGainReduction_ );
       } else {
-         dGainReductionTemp = gainStageOptical_.processGainReduction( gainReduction_, idealGainReduction_ );
+         tempGainReduction = gainStageOptical_.processGainReduction( gainReduction_, idealGainReduction_ );
       }
 
-      if ( bAutoMakeupGain ) {
+      if ( useAutoMakeupGain ) {
 
-         return dGainReductionTemp - gainCompensation_;
+         return tempGainReduction - gainCompensation_;
       } else {
-         return dGainReductionTemp;
+         return tempGainReduction;
       }
    }
 
 
-   void processSample( SampleType dInputLevel )
+   void processSample( SampleType inputLevel )
    /*  Process a single audio sample value.
 
-       dInputLevel: current audio sample value in decibels
+       inputLevel: current audio sample value in decibels
 
        return value: current gain reduction in decibels
    */
    {
       // feed input level to gain computer
-      idealGainReduction_ = queryGainComputer( dInputLevel );
+      idealGainReduction_ = queryGainComputer( inputLevel );
 
       // filter calculated gain reduction through level detection filter
-      SampleType dGainReductionNew = applyRmsFilter( idealGainReduction_ );
+      SampleType newGainReduction = applyRmsFilter( idealGainReduction_ );
 
       // feed output from gain computer to level detector
-      switch ( nCurveType ) {
+      switch ( selectedCurve_ ) {
          case SideChain<SampleType>::CurveLogLin:
-            applyCurveLogLin( dGainReductionNew );
+            applyCurveLogLin( newGainReduction );
             break;
 
          case SideChain<SampleType>::CurveLogSmoothDecoupled:
-            applyCurveLogSmoothDecoupled( dGainReductionNew );
+            applyCurveLogSmoothDecoupled( newGainReduction );
             break;
 
          case SideChain<SampleType>::CurveLogSmoothBranching:
-            applyCurveLogSmoothBranching( dGainReductionNew );
+            applyCurveLogSmoothBranching( newGainReduction );
             break;
 
          default:
@@ -433,7 +432,7 @@ public:
 #if DEBUG_RELEASE_RATE
 
       // reset things during attack phase
-      if ( dGainReductionNew > gainReduction_ ) {
+      if ( newGainReduction > gainReduction_ ) {
          debugFinalValue90_ = -1.0;
          debugTimeInReleasePhase_ = 0.0;
          // we're in release phase
@@ -468,42 +467,42 @@ public:
    }
 
 
-   static SampleType level2decibel( SampleType dLevel )
+   static SampleType level2decibel( SampleType levelLinear )
    /*  Convert level from linear scale to decibels (dB).
 
-       dLevel: audio level
+       levelLinear: audio level
 
        return value: returns given level in decibels (dB) when above
-       "dMeterMinimumDecibel", otherwise "dMeterMinimumDecibel"
+       "lowerLimitOnMeter", otherwise "lowerLimitOnMeter"
    */
    {
       // just an inch below the meter's lowest segment
-      SampleType dMeterMinimumDecibel = -70.01;
+      SampleType lowerLimitOnMeter = -70.01;
 
       // log(0) is not defined, so return "fMeterMinimumDecibel"
-      if ( dLevel == 0.0 ) {
-         return dMeterMinimumDecibel;
+      if ( levelLinear == 0.0 ) {
+         return lowerLimitOnMeter;
       } else {
          // calculate decibels from audio level (a factor of 20.0 is
          // needed to calculate *level* ratios, whereas 10.0 is needed
          // for *power* ratios!)
-         SampleType dDecibels = 20.0 * log10( dLevel );
+         SampleType levelDecibels = 20.0 * log10( levelLinear );
 
          // to make meter ballistics look nice for low levels, do not
          // return levels below "fMeterMinimumDecibel"
-         if ( dDecibels < dMeterMinimumDecibel ) {
-            return dMeterMinimumDecibel;
+         if ( levelDecibels < lowerLimitOnMeter ) {
+            return lowerLimitOnMeter;
          } else {
-            return dDecibels;
+            return levelDecibels;
          }
       }
    }
 
 
-   static SampleType decibel2level( SampleType dDecibels )
+   static SampleType decibel2level( SampleType levelDecibels )
    /*  Convert level from decibels (dB) to linear scale.
 
-       dLevel: audio level in decibels (dB)
+       levelDecibels: audio level in decibels (dB)
 
        return value: given level in linear scale
    */
@@ -511,104 +510,102 @@ public:
       // calculate audio level from decibels (a divisor of 20.0 is
       // needed to calculate *level* ratios, whereas 10.0 is needed for
       // *power* ratios!)
-      SampleType dLevel = pow( 10.0, dDecibels / 20.0 );
-      return dLevel;
+      SampleType levelLinear = pow( 10.0, levelDecibels / 20.0 );
+      return levelLinear;
    }
 
 
 private:
-   SampleType applyRmsFilter( SampleType dDetectorInputLevel )
+   SampleType applyRmsFilter( SampleType detectorInputLevel )
    {
       // bypass RMS sensing
-      if ( rmsWindowSizeMilliSeconds_ <= 0.0 ) {
-         return dDetectorInputLevel;
+      if ( rmsWindowSizeMilliseconds_ <= 0.0 ) {
+         return detectorInputLevel;
       } else {
-         SampleType dDetectorInputLevelSquared = dDetectorInputLevel * dDetectorInputLevel;
-         SampleType dDetectorOutputLevelSquaredOld = detectorOutputLevelSquared_;
+         SampleType detectorInputLevelSquaredNew = detectorInputLevel * detectorInputLevel;
+         detectorOutputLevelSquared_ = ( rmsWindowCoefficient_ * detectorOutputLevelSquared_ ) +
+                                       ( 1.0 - rmsWindowCoefficient_ ) * detectorInputLevelSquaredNew;
 
-         detectorOutputLevelSquared_ = ( rmsWindowCoefficient_ * dDetectorOutputLevelSquaredOld ) + ( 1.0 - rmsWindowCoefficient_ ) * dDetectorInputLevelSquared;
-
-         SampleType dDetectorOutputLevel = sqrt( detectorOutputLevelSquared_ );
-         return dDetectorOutputLevel;
+         SampleType detectorOutputLevel = sqrt( detectorOutputLevelSquared_ );
+         return detectorOutputLevel;
       }
    }
 
 
-   SampleType queryGainComputer( SampleType dInputLevel )
+   SampleType queryGainComputer( SampleType inputLevel )
    /*  Calculate gain reduction and envelopes from input level.
 
-       dInputLevel: current input level in decibels
+       inputLevel: current input level in decibels
 
        return value: calculated gain reduction in decibels
     */
    {
-      SampleType dAboveThreshold = dInputLevel - dThreshold;
+      SampleType aboveThreshold = inputLevel - threshold_;
 
       if ( kneeWidth_ == 0.0 ) {
-         if ( dInputLevel <= dThreshold ) {
+         if ( inputLevel <= threshold_ ) {
             return 0.0;
          } else {
-            return dAboveThreshold * dRatioInternal;
+            return aboveThreshold * internalCompressionRatio_;
          }
       } else {
          // algorithm adapted from Giannoulis et al., "Digital Dynamic
          // Range Compressor Design - A Tutorial and Analysis", JAES,
          // 60(6):399-408, 2012
-         if ( dAboveThreshold < -( kneeWidth_ / 2.0 ) ) {
+         if ( aboveThreshold < -( kneeWidth_ / 2.0 ) ) {
             return 0.0;
-         } else if ( dAboveThreshold > ( kneeWidth_ / 2.0 ) ) {
-            return dAboveThreshold * dRatioInternal;
+         } else if ( aboveThreshold > ( kneeWidth_ / 2.0 ) ) {
+            return aboveThreshold * internalCompressionRatio_;
          } else {
-            SampleType factor = dAboveThreshold + ( kneeWidth_ / 2.0 );
-            return factor * factor / ( kneeWidth_ * 2.0 ) * dRatioInternal;
+            SampleType factor = aboveThreshold + ( kneeWidth_ / 2.0 );
+            return factor * factor / ( kneeWidth_ * 2.0 ) * internalCompressionRatio_;
          }
       }
    }
 
 
-   void applyCurveLogLin( SampleType dGainReductionNew )
+   void applyCurveLogLin( SampleType gainReduction )
    /*  Calculate detector with logarithmic attack and linear release
        ("Linear").
 
-       dGainReductionNew: calculated new gain reduction in decibels
+       gainReduction: calculated new gain reduction in decibels
 
        return value: none
    */
    {
       // apply attack rate if proposed gain reduction is above old gain
       // reduction
-      if ( dGainReductionNew >= gainReduction_ ) {
-         if ( dAttackCoefficient == 0.0 ) {
-            gainReduction_ = dGainReductionNew;
+      if ( gainReduction >= gainReduction_ ) {
+         if ( attackCoefficient_ == 0.0 ) {
+            gainReduction_ = gainReduction;
          } else {
             // algorithm adapted from Giannoulis et al., "Digital
             // Dynamic Range Compressor Design - A Tutorial and
             // Analysis", JAES, 60(6):399-408, 2012
-
-            SampleType dGainReductionOld = gainReduction_;
-            gainReduction_ = ( dAttackCoefficient * dGainReductionOld ) + ( 1.0 - dAttackCoefficient ) * dGainReductionNew;
+            gainReduction_ = ( attackCoefficient_ * gainReduction_ ) +
+                             ( 1.0 - attackCoefficient_ ) * gainReduction;
          }
 
          // otherwise, apply release rate if proposed gain reduction is
          // below old gain reduction
       } else {
-         if ( dReleaseCoefficient == 0.0 ) {
-            gainReduction_ = dGainReductionNew;
+         if ( releaseCoefficient_ == 0.0 ) {
+            gainReduction_ = gainReduction;
          } else {
-            gainReduction_ -= dReleaseCoefficient;
+            gainReduction_ -= releaseCoefficient_;
 
-            if ( gainReduction_ < dGainReductionNew ) {
-               gainReduction_ = dGainReductionNew;
+            if ( gainReduction_ < gainReduction ) {
+               gainReduction_ = gainReduction;
             }
          }
       }
    }
 
 
-   void applyCurveLogSmoothDecoupled( SampleType dGainReductionNew )
+   void applyCurveLogSmoothDecoupled( SampleType gainReduction )
    /*  Calculate smooth decoupled detector ("Smooth").
 
-       dGainReductionNew: calculated gain reduction in decibels
+       gainReduction: calculated gain reduction in decibels
 
        return value: none
    */
@@ -618,62 +615,60 @@ private:
       // 60(6):399-408, 2012
       //
       // apply release envelope
-      if ( dReleaseCoefficient == 0.0 ) {
-         intermediateGainReduction_ = dGainReductionNew;
+      if ( releaseCoefficient_ == 0.0 ) {
+         intermediateGainReduction_ = gainReduction;
       } else {
-         SampleType dGainReductionIntermediateOld = intermediateGainReduction_;
-         intermediateGainReduction_ = ( dReleaseCoefficient * dGainReductionIntermediateOld ) + ( 1.0 - dReleaseCoefficient ) * dGainReductionNew;
+         intermediateGainReduction_ = ( releaseCoefficient_ * intermediateGainReduction_ ) +
+                                      ( 1.0 - releaseCoefficient_ ) * gainReduction;
 
          // maximally fast peak detection
-         if ( dGainReductionNew > intermediateGainReduction_ ) {
-            intermediateGainReduction_ = dGainReductionNew;
+         if ( gainReduction > intermediateGainReduction_ ) {
+            intermediateGainReduction_ = gainReduction;
          }
       }
 
       // apply attack envelope
-      if ( dAttackCoefficient == 0.0 ) {
+      if ( attackCoefficient_ == 0.0 ) {
          gainReduction_ = intermediateGainReduction_;
       } else {
-         SampleType dGainReductionOld = gainReduction_;
-         gainReduction_ = ( dAttackCoefficient * dGainReductionOld ) + ( 1.0 - dAttackCoefficient ) * intermediateGainReduction_;
+         gainReduction_ = ( attackCoefficient_ * gainReduction_ ) +
+                          ( 1.0 - attackCoefficient_ ) * intermediateGainReduction_;
       }
    }
 
 
-   void applyCurveLogSmoothBranching( SampleType dGainReductionNew )
+   void applyCurveLogSmoothBranching( SampleType gainReduction )
    /*  Calculate smooth branching detector ("Logarithmic").
 
-       dGainReductionNew: calculated gain reduction in decibels
+       gainReduction: calculated gain reduction in decibels
 
        return value: none
    */
    {
       // apply attack rate if proposed gain reduction is above old gain
       // reduction
-      if ( dGainReductionNew > gainReduction_ ) {
-         if ( dAttackCoefficient == 0.0 ) {
-            gainReduction_ = dGainReductionNew;
+      if ( gainReduction > gainReduction_ ) {
+         if ( attackCoefficient_ == 0.0 ) {
+            gainReduction_ = gainReduction;
          } else {
             // algorithm adapted from Giannoulis et al., "Digital
             // Dynamic Range Compressor Design - A Tutorial and
             // Analysis", JAES, 60(6):399-408, 2012
-
-            SampleType dGainReductionOld = gainReduction_;
-            gainReduction_ = ( dAttackCoefficient * dGainReductionOld ) + ( 1.0 - dAttackCoefficient ) * dGainReductionNew;
+            gainReduction_ = ( attackCoefficient_ * gainReduction_ ) +
+                             ( 1.0 - attackCoefficient_ ) * gainReduction;
          }
 
          // otherwise, apply release rate if proposed gain reduction is
          // below old gain reduction
       } else {
-         if ( dReleaseCoefficient == 0.0 ) {
-            gainReduction_ = dGainReductionNew;
+         if ( releaseCoefficient_ == 0.0 ) {
+            gainReduction_ = gainReduction;
          } else {
             // algorithm adapted from Giannoulis et al., "Digital
             // Dynamic Range Compressor Design - A Tutorial and
             // Analysis", JAES, 60(6):399-408, 2012
-
-            SampleType dGainReductionOld = gainReduction_;
-            gainReduction_ = ( dReleaseCoefficient * dGainReductionOld ) + ( 1.0 - dReleaseCoefficient ) * dGainReductionNew;
+            gainReduction_ = ( releaseCoefficient_ * gainReduction_ ) +
+                             ( 1.0 - releaseCoefficient_ ) * gainReduction;
          }
       }
    }

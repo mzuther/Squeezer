@@ -34,6 +34,12 @@ template <typename FloatType>
 class GainStageFET :
    virtual public GainStage<FloatType>
 {
+private:
+   JUCE_LEAK_DETECTOR( GainStageFET );
+
+   FloatType gainReduction_;
+
+
 public:
    explicit GainStageFET( int sampleRate ) :
       GainStage<FloatType>( sampleRate ),
@@ -77,12 +83,6 @@ public:
       gainReduction_ = currentGainReduction;
       return gainReduction_;
    }
-
-
-private:
-   JUCE_LEAK_DETECTOR( GainStageFET );
-
-   FloatType gainReduction_;
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_FET_H

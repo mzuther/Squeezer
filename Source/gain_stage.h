@@ -33,7 +33,7 @@ template <typename FloatType>
 class GainStage
 {
 public:
-   enum Parameters { // public namespace!
+   enum Parameters {
       FET = 0,
       Optical,
       NumberOfGainStages,

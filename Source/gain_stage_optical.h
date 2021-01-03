@@ -34,6 +34,19 @@ template <typename FloatType>
 class GainStageOptical :
    virtual public GainStage<FloatType>
 {
+private:
+   JUCE_LEAK_DETECTOR( GainStageOptical );
+
+   FloatType gainReduction_;
+
+   const int decibelRange_;
+   const int coefficientsPerDecibel_;
+   const int numberOfCoefficients_;
+
+   Array<FloatType> attackCoefficients_;
+   Array<FloatType> releaseCoefficients_;
+
+
 public:
    explicit GainStageOptical( int sampleRate ) :
       GainStage<FloatType>( sampleRate ),
@@ -133,19 +146,6 @@ public:
          return gainReduction_;
       }
    }
-
-
-private:
-   JUCE_LEAK_DETECTOR( GainStageOptical );
-
-   FloatType gainReduction_;
-
-   const int decibelRange_;
-   const int coefficientsPerDecibel_;
-   const int numberOfCoefficients_;
-
-   Array<FloatType> attackCoefficients_;
-   Array<FloatType> releaseCoefficients_;
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_OPTICAL_H
