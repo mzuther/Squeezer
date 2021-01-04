@@ -334,7 +334,9 @@ void Compressor::setCurve( int CurveTypeNew )
  */
 {
    for ( int CurrentChannel = 0; CurrentChannel < NumberOfChannels; ++CurrentChannel ) {
-      SideChainProcessor[CurrentChannel]->setCurve( CurveTypeNew );
+      SideChainProcessor[CurrentChannel]->setCurve( CurveTypeNew,
+                                                    getAttackRate(),
+                                                    getReleaseRate() );
    }
 }
 

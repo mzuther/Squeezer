@@ -72,11 +72,11 @@ SqueezerPluginParameters::SqueezerPluginParameters() :
    ParameterCurveType->init();
    ParameterCurveType->setName( "Curve Type" );
 
-   ParameterCurveType->addPreset( SideChain<double>::CurveLogLin,             "Linear" );
-   ParameterCurveType->addPreset( SideChain<double>::CurveLogSmoothDecoupled, "Smooth" );
-   ParameterCurveType->addPreset( SideChain<double>::CurveLogSmoothBranching, "Logarithmic" );
+   ParameterCurveType->addPreset( CompressorCurve<double>::LogLin,             "Linear" );
+   ParameterCurveType->addPreset( CompressorCurve<double>::LogSmoothDecoupled, "Smooth" );
+   ParameterCurveType->addPreset( CompressorCurve<double>::LogSmoothBranching, "Logarithmic" );
 
-   ParameterCurveType->setDefaultRealFloat( SideChain<double>::CurveLogSmoothBranching, true );
+   ParameterCurveType->setDefaultRealFloat( CompressorCurve<double>::LogSmoothBranching, true );
    add( ParameterCurveType, selCurveType );
 
 

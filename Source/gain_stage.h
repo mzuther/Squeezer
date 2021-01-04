@@ -40,7 +40,7 @@ public:
    };
 
    // Destructor.
-   virtual ~GainStage() {};
+   virtual ~GainStage() {}
 
    virtual void resetGainReduction( FloatType currentGainReduction ) = 0;
    virtual FloatType processGainReduction( FloatType currentGainReduction,
@@ -50,7 +50,7 @@ protected:
    explicit GainStage( FloatType sampleRate )
    {
       ignoreUnused( sampleRate );
-   };
+   }
 };
 
 #endif  // SQUEEZER_GAIN_STAGE_H

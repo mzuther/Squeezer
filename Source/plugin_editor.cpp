@@ -631,12 +631,12 @@ void SqueezerAudioProcessorEditor::updateParameter( int Index )
 
       case SqueezerPluginParameters::selCurveType:
 
-         if ( FloatValue == ( SideChain<double>::CurveLogLin /
-                              float( SideChain<double>::NumberOfCurves - 1 ) ) ) {
+         if ( FloatValue == ( CompressorCurve<double>::LogLin /
+                              float( CompressorCurve<double>::NumberOfCurves - 1 ) ) ) {
             ButtonCurveLinear_.setToggleState( true,
                                                dontSendNotification );
-         } else if ( FloatValue == ( SideChain<double>::CurveLogSmoothDecoupled /
-                                     float( SideChain<double>::NumberOfCurves - 1 ) ) ) {
+         } else if ( FloatValue == ( CompressorCurve<double>::LogSmoothDecoupled /
+                                     float( CompressorCurve<double>::NumberOfCurves - 1 ) ) ) {
             ButtonCurveSmoothDecoupled_.setToggleState( true,
                                                         dontSendNotification );
          } else {
@@ -809,18 +809,18 @@ void SqueezerAudioProcessorEditor::buttonClicked( Button* Button )
    } else if ( Button == &ButtonCurveLinear_ ) {
       PluginProcessor_.changeParameter(
          SqueezerPluginParameters::selCurveType,
-         SideChain<double>::CurveLogLin /
-         float( SideChain<double>::NumberOfCurves - 1 ) );
+         CompressorCurve<double>::LogLin /
+         float( CompressorCurve<double>::NumberOfCurves - 1 ) );
    } else if ( Button == &ButtonCurveSmoothDecoupled_ ) {
       PluginProcessor_.changeParameter(
          SqueezerPluginParameters::selCurveType,
-         SideChain<double>::CurveLogSmoothDecoupled /
-         float( SideChain<double>::NumberOfCurves - 1 ) );
+         CompressorCurve<double>::LogSmoothDecoupled /
+         float( CompressorCurve<double>::NumberOfCurves - 1 ) );
    } else if ( Button == &ButtonCurveSmoothBranching_ ) {
       PluginProcessor_.changeParameter(
          SqueezerPluginParameters::selCurveType,
-         SideChain<double>::CurveLogSmoothBranching /
-         float( SideChain<double>::NumberOfCurves - 1 ) );
+         CompressorCurve<double>::LogSmoothBranching /
+         float( CompressorCurve<double>::NumberOfCurves - 1 ) );
    } else if ( Button == &ButtonKneeHard_ ) {
       PluginProcessor_.changeParameter(
          SqueezerPluginParameters::selKneeWidth,

@@ -32,46 +32,31 @@
 #include "FrutHeader.h"
 #include "gain_stage_fet.h"
 #include "gain_stage_optical.h"
+#include "compressor_curve.h"
 
 
 template <typename SampleType>
 class SideChain
 {
-public:
-   enum Parameters {
-      CurveLogLin = 0,
-      CurveLogSmoothDecoupled,
-      CurveLogSmoothBranching,
-      NumberOfCurves,
-   };
-
-
 private:
    std::unique_ptr<GainStage<SampleType>> gainStage_;
+   std::unique_ptr<CompressorCurve<SampleType>> compressorCurve_;
 
    SampleType sampleRate_;
    SampleType autoGainReferenceLevel_;
    SampleType gainReduction_;
    SampleType idealGainReduction_;
-   SampleType intermediateGainReduction_;
    SampleType gainCompensation_;
 
    SampleType rmsWindowCoefficient_;
    SampleType detectorOutputLevelSquared_;
 
    SampleType rmsWindowSizeMilliseconds_;
-   int selectedCurve_;
    int selectedGainStage_;
 
    SampleType threshold_;
    SampleType internalCompressionRatio_;
    SampleType kneeWidth_;
-
-   SampleType attackRateMilliseconds_;
-   SampleType attackCoefficient_;
-
-   SampleType releaseRateMilliseconds_;
-   SampleType releaseCoefficient_;
 
 #if DEBUG_RELEASE_RATE
    SampleType timePassed_;
@@ -97,13 +82,10 @@ public:
       setRatio( 2.0 );
       setKneeWidth( 0.0 );
 
-      setCurve( SideChain<SampleType>::CurveLogSmoothBranching );
+      // 10 ms attack rate, 100 ms release rate, logarithmic curves
+      setCurve( CompressorCurve<SampleType>::LogSmoothBranching, 10, 100 );
       setGainStage( GainStage<SampleType>::FET );
       setRmsWindowSize( 10.0 );
-
-      // setReleaseRate() depends on setCurve()
-      setAttackRate( 10.0 );
-      setReleaseRate( 100 );
 
       // reset (i.e. initialise) all relevant variables
       reset();
@@ -159,8 +141,8 @@ public:
       } else {
          rmsWindowSizeMilliseconds_ = rmsWindowSize;
 
-         // logarithmic envelope reaches 90% of the final reading
-         // in the given attack time
+         // logarithmic envelope reaches 90% of the final reading in
+         // the given attack time
          auto rmsWindowSizeInSamples = sampleRate_ * rmsWindowSizeMilliseconds_ / 1000.0;
          rmsWindowCoefficient_ = exp( log( 0.10 ) / rmsWindowSizeInSamples );
       }
@@ -173,24 +155,29 @@ public:
        return value: returns compressor curve type
     */
    {
-      return selectedCurve_;
+      return compressorCurve_->getCurve();
    }
 
 
-   void setCurve( int selectedCurve )
+   void setCurve( int selectedCurve,
+                  SampleType attackRate,
+                  SampleType releaseRate )
    /*  Set new compressor curve type.
 
        selectedCurve: new compressor curve type
 
+       attackRate: new attack rate in milliseconds
+
+       releaseRate: new release rate in milliseconds
+
        return value: none
     */
    {
-      selectedCurve_ = selectedCurve;
-      intermediateGainReduction_ = 0.0;
-
-      // setReleaseRate() depends on setCurve()
-      setAttackRate( attackRateMilliseconds_ );
-      setReleaseRate( releaseRateMilliseconds_ );
+      compressorCurve_ = CompressorCurve<SampleType>::create(
+                            selectedCurve,
+                            sampleRate_,
+                            attackRate,
+                            releaseRate );
    }
 
 
@@ -309,7 +296,7 @@ public:
        return value: returns the current attack rate in milliseconds
     */
    {
-      return attackRateMilliseconds_;
+      return compressorCurve_->getAttackRate();
    }
 
 
@@ -321,16 +308,7 @@ public:
        return value: none
     */
    {
-      attackRateMilliseconds_ = attackRate;
-
-      if ( attackRateMilliseconds_ <= 0.0 ) {
-         attackCoefficient_ = 0.0;
-      } else {
-         // logarithmic envelope reaches 90% of the final reading in
-         // the given attack time
-         auto attackRateInSamples = sampleRate_ * attackRateMilliseconds_ / 1000.0;
-         attackCoefficient_ = exp( log( 0.10 ) / attackRateInSamples );
-      }
+      compressorCurve_->setAttackRate( attackRate );
    }
 
 
@@ -340,35 +318,19 @@ public:
        return value: returns the current release rate in milliseconds
     */
    {
-      return releaseRateMilliseconds_;
+      return compressorCurve_->getReleaseRate();
    }
 
 
    void setReleaseRate( SampleType releaseRate )
    /*  Set new release rate.
 
-       nReleaseRateNew: new release rate in milliseconds
+       releaseRate: new release rate in milliseconds
 
        return value: none
     */
    {
-      releaseRateMilliseconds_ = releaseRate;
-
-      if ( releaseRateMilliseconds_ <= 0.0 ) {
-         releaseCoefficient_ = 0.0;
-      } else {
-         auto releaseRateInSamples = sampleRate_ * releaseRateMilliseconds_ / 1000.0;
-
-         if ( selectedCurve_ == SideChain<SampleType>::CurveLogLin ) {
-            // fall time: falls 10 dB per interval defined in release
-            // rate (linear)
-            releaseCoefficient_ = 10.0 / releaseRateInSamples;
-         } else {
-            // logarithmic envelope reaches 90% of the final reading
-            // in the given release time
-            releaseCoefficient_ = exp( log( 0.10 ) / releaseRateInSamples );
-         }
-      }
+      compressorCurve_->setReleaseRate( releaseRate );
    }
 
 
@@ -409,23 +371,7 @@ public:
       auto newGainReduction = applyRmsFilter( idealGainReduction_ );
 
       // feed output from gain computer to level detector
-      switch ( selectedCurve_ ) {
-         case SideChain<SampleType>::CurveLogLin:
-            applyCurveLogLin( newGainReduction );
-            break;
-
-         case SideChain<SampleType>::CurveLogSmoothDecoupled:
-            applyCurveLogSmoothDecoupled( newGainReduction );
-            break;
-
-         case SideChain<SampleType>::CurveLogSmoothBranching:
-            applyCurveLogSmoothBranching( newGainReduction );
-            break;
-
-         default:
-            DBG( "[Squeezer] sidechain::processSample ==> invalid detector" );
-            break;
-      }
+      gainReduction_ = compressorCurve_->processSample( newGainReduction );
 
 #if DEBUG_RELEASE_RATE
 
@@ -508,15 +454,21 @@ public:
 
 
 private:
-   SampleType applyRmsFilter( SampleType detectorInputLevel )
+   SampleType applyRmsFilter( SampleType inputLevel )
+   /*  Apply RMS sensing filter to input level.
+
+       inputLevel: current input level in decibels
+
+       return value: filtered input level in decibels
+    */
    {
       // bypass RMS sensing
       if ( rmsWindowSizeMilliseconds_ <= 0.0 ) {
-         return detectorInputLevel;
+         return inputLevel;
       } else {
-         auto detectorInputLevelSquaredNew = detectorInputLevel * detectorInputLevel;
+         auto inputLevelSquaredNew = inputLevel * inputLevel;
          detectorOutputLevelSquared_ = ( rmsWindowCoefficient_ * detectorOutputLevelSquared_ ) +
-                                       ( 1.0 - rmsWindowCoefficient_ ) * detectorInputLevelSquaredNew;
+                                       ( 1.0 - rmsWindowCoefficient_ ) * inputLevelSquaredNew;
 
          return sqrt( detectorOutputLevelSquared_ );
       }
@@ -550,111 +502,6 @@ private:
          } else {
             auto factor = aboveThreshold + ( kneeWidth_ / 2.0 );
             return factor * factor / ( kneeWidth_ * 2.0 ) * internalCompressionRatio_;
-         }
-      }
-   }
-
-
-   void applyCurveLogLin( SampleType gainReduction )
-   /*  Calculate detector with logarithmic attack and linear release
-       ("Linear").
-
-       gainReduction: calculated new gain reduction in decibels
-
-       return value: none
-   */
-   {
-      // apply attack rate if proposed gain reduction is above old gain
-      // reduction
-      if ( gainReduction >= gainReduction_ ) {
-         if ( attackCoefficient_ == 0.0 ) {
-            gainReduction_ = gainReduction;
-         } else {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
-            gainReduction_ = ( attackCoefficient_ * gainReduction_ ) +
-                             ( 1.0 - attackCoefficient_ ) * gainReduction;
-         }
-
-         // otherwise, apply release rate if proposed gain reduction is
-         // below old gain reduction
-      } else {
-         if ( releaseCoefficient_ == 0.0 ) {
-            gainReduction_ = gainReduction;
-         } else {
-            // prevent oscillation
-            gainReduction_ = juce::jmax( gainReduction_ - releaseCoefficient_, gainReduction );
-         }
-      }
-   }
-
-
-   void applyCurveLogSmoothDecoupled( SampleType gainReduction )
-   /*  Calculate smooth decoupled detector ("Smooth").
-
-       gainReduction: calculated gain reduction in decibels
-
-       return value: none
-   */
-   {
-      // algorithm adapted from Giannoulis et al., "Digital Dynamic
-      // Range Compressor Design - A Tutorial and Analysis", JAES,
-      // 60(6):399-408, 2012
-      //
-      // apply release envelope
-      if ( releaseCoefficient_ == 0.0 ) {
-         intermediateGainReduction_ = gainReduction;
-      } else {
-         intermediateGainReduction_ = ( releaseCoefficient_ * intermediateGainReduction_ ) +
-                                      ( 1.0 - releaseCoefficient_ ) * gainReduction;
-
-         // maximally fast peak detection
-         intermediateGainReduction_ = juce::jmax( intermediateGainReduction_, gainReduction );
-      }
-
-      // apply attack envelope
-      if ( attackCoefficient_ == 0.0 ) {
-         gainReduction_ = intermediateGainReduction_;
-      } else {
-         gainReduction_ = ( attackCoefficient_ * gainReduction_ ) +
-                          ( 1.0 - attackCoefficient_ ) * intermediateGainReduction_;
-      }
-   }
-
-
-   void applyCurveLogSmoothBranching( SampleType gainReduction )
-   /*  Calculate smooth branching detector ("Logarithmic").
-
-       gainReduction: calculated gain reduction in decibels
-
-       return value: none
-   */
-   {
-      // apply attack rate if proposed gain reduction is above old gain
-      // reduction
-      if ( gainReduction > gainReduction_ ) {
-         if ( attackCoefficient_ == 0.0 ) {
-            gainReduction_ = gainReduction;
-         } else {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
-            gainReduction_ = ( attackCoefficient_ * gainReduction_ ) +
-                             ( 1.0 - attackCoefficient_ ) * gainReduction;
-         }
-
-         // otherwise, apply release rate if proposed gain reduction is
-         // below old gain reduction
-      } else {
-         if ( releaseCoefficient_ == 0.0 ) {
-            gainReduction_ = gainReduction;
-         } else {
-            // algorithm adapted from Giannoulis et al., "Digital
-            // Dynamic Range Compressor Design - A Tutorial and
-            // Analysis", JAES, 60(6):399-408, 2012
-            gainReduction_ = ( releaseCoefficient_ * gainReduction_ ) +
-                             ( 1.0 - releaseCoefficient_ ) * gainReduction;
          }
       }
    }

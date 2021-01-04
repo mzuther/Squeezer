@@ -44,7 +44,7 @@ public:
           return value: none
       */
    {
-   };
+   }
 
 
    void resetGainReduction( FloatType currentGainReduction ) override

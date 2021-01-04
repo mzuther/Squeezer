@@ -21,6 +21,18 @@
     <ClInclude Include="..\..\..\Source\compressor.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\compressor_curve.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\compressor_curve_log_lin.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\compressor_curve_log_smooth_branching.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\compressor_curve_log_smooth_decoupled.h">
+      <Filter>Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\frut\FrutHeader.h">
       <Filter>Source\frut</Filter>
     </ClInclude>

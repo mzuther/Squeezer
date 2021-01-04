@@ -191,6 +191,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\build_id.h" />
     <ClInclude Include="..\..\..\Source\compressor.h" />
+    <ClInclude Include="..\..\..\Source\compressor_curve.h" />
+    <ClInclude Include="..\..\..\Source\compressor_curve_log_lin.h" />
+    <ClInclude Include="..\..\..\Source\compressor_curve_log_smooth_branching.h" />
+    <ClInclude Include="..\..\..\Source\compressor_curve_log_smooth_decoupled.h" />
     <ClInclude Include="..\..\..\Source\frut\FrutHeader.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_audio.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_dsp.h" />
