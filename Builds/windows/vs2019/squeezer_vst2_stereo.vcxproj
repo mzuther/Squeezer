@@ -202,6 +202,7 @@
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_parameters.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_skin.h" />
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.h" />
+    <ClInclude Include="..\..\..\Source\gain_computer.h" />
     <ClInclude Include="..\..\..\Source\gain_stage.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_fet.h" />
     <ClInclude Include="..\..\..\Source\gain_stage_optical.h" />

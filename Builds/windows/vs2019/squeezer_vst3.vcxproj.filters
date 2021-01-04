@@ -54,6 +54,9 @@
     <ClInclude Include="..\..\..\Source\frut\amalgamated\include_frut_widgets.h">
       <Filter>Source\frut\amalgamated</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\gain_computer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\Source\gain_stage.h">
       <Filter>Source</Filter>
     </ClInclude>

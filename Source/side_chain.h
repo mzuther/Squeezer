@@ -33,6 +33,7 @@
 #include "gain_stage_fet.h"
 #include "gain_stage_optical.h"
 #include "compressor_curve.h"
+#include "gain_computer.h"
 
 
 template <typename SampleType>
@@ -41,6 +42,7 @@ class SideChain
 private:
    std::unique_ptr<GainStage<SampleType>> gainStage_;
    std::unique_ptr<CompressorCurve<SampleType>> compressorCurve_;
+   GainComputer<SampleType> gainComputer_;
 
    SampleType sampleRate_;
    SampleType autoGainReferenceLevel_;
@@ -53,10 +55,6 @@ private:
 
    SampleType rmsWindowSizeMilliseconds_;
    int selectedGainStage_;
-
-   SampleType threshold_;
-   SampleType internalCompressionRatio_;
-   SampleType kneeWidth_;
 
 #if DEBUG_RELEASE_RATE
    SampleType timePassed_;
@@ -210,8 +208,7 @@ public:
       // avoid clicks
       gainStage_->resetGainReduction( gainReduction_ );
 
-      // update gain compensation
-      setThreshold( threshold_ );
+      updateGainCompensation();
    }
 
 
@@ -221,7 +218,7 @@ public:
        return value: returns the current threshold in decibels
     */
    {
-      return threshold_;
+      return gainComputer_.getThreshold();
    }
 
 
@@ -233,10 +230,8 @@ public:
        return value: none
     */
    {
-      threshold_ = threshold;
-
-      // update gain compensation
-      gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
+      gainComputer_.setThreshold( threshold );
+      updateGainCompensation();
    }
 
 
@@ -246,7 +241,7 @@ public:
        return value: returns the current compression ratio
     */
    {
-      return 1.0 / ( 1.0 - internalCompressionRatio_ );
+      return gainComputer_.getRatio();
    }
 
 
@@ -258,10 +253,8 @@ public:
        return value: none
     */
    {
-      internalCompressionRatio_ = 1.0 - ( 1.0 / compressionRatio );
-
-      // update gain compensation
-      gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
+      gainComputer_.setRatio( compressionRatio );
+      updateGainCompensation();
    }
 
 
@@ -271,7 +264,7 @@ public:
        return value: returns the current knee width in decibels
     */
    {
-      return kneeWidth_;
+      return gainComputer_.getKneeWidth();
    }
 
 
@@ -283,10 +276,8 @@ public:
        return value: none
     */
    {
-      kneeWidth_ = kneeWidth;
-
-      // update gain compensation
-      gainCompensation_ = queryGainComputer( autoGainReferenceLevel_ ) / 2.0;
+      gainComputer_.setKneeWidth( kneeWidth );
+      updateGainCompensation();
    }
 
 
@@ -365,7 +356,7 @@ public:
    */
    {
       // feed input level to gain computer
-      idealGainReduction_ = queryGainComputer( inputLevel );
+      idealGainReduction_ = gainComputer_.processGain( inputLevel );
 
       // filter calculated gain reduction through level detection filter
       auto newGainReduction = applyRmsFilter( idealGainReduction_ );
@@ -475,35 +466,15 @@ private:
    }
 
 
-   SampleType queryGainComputer( SampleType inputLevel )
-   /*  Calculate gain reduction and envelopes from input level.
+   void updateGainCompensation()
+   /*  Calculate new gain compensation using gain computer.
 
-       inputLevel: current input level in decibels
+       compressionRatio: new compression ratio
 
-       return value: calculated gain reduction in decibels
+       return value: none
     */
    {
-      auto aboveThreshold = inputLevel - threshold_;
-
-      if ( kneeWidth_ == 0.0 ) {
-         if ( inputLevel <= threshold_ ) {
-            return 0.0;
-         } else {
-            return aboveThreshold * internalCompressionRatio_;
-         }
-      } else {
-         // algorithm adapted from Giannoulis et al., "Digital Dynamic
-         // Range Compressor Design - A Tutorial and Analysis", JAES,
-         // 60(6):399-408, 2012
-         if ( aboveThreshold < -( kneeWidth_ / 2.0 ) ) {
-            return 0.0;
-         } else if ( aboveThreshold > ( kneeWidth_ / 2.0 ) ) {
-            return aboveThreshold * internalCompressionRatio_;
-         } else {
-            auto factor = aboveThreshold + ( kneeWidth_ / 2.0 );
-            return factor * factor / ( kneeWidth_ * 2.0 ) * internalCompressionRatio_;
-         }
-      }
+      gainCompensation_ = gainComputer_.processGain( autoGainReferenceLevel_ ) / 2.0;
    }
 };
 
