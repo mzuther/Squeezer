@@ -116,6 +116,9 @@ public:
 
    void process( AudioBuffer<double>& MainPlusSideChain );
 
+   static double level2decibel( double levelLinear );
+   static double decibel2level( double levelDecibels );
+
 private:
    JUCE_LEAK_DETECTOR( Compressor );
 

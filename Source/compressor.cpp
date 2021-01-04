@@ -460,7 +460,7 @@ void Compressor::setMakeupGain( double MakeupGainNew )
  */
 {
    MakeupGainDecibel = MakeupGainNew;
-   MakeupGain = SideChain<double>::decibel2level( MakeupGainDecibel );
+   MakeupGain = decibel2level( MakeupGainDecibel );
 }
 
 
@@ -781,7 +781,7 @@ void Compressor::process( AudioBuffer<double>& MainPlusSideChain )
                double LastGainReduction = -GainReductionWithMakeup[CurrentChannel];
 
                // apply feedback-loop
-               SideChainSample *= SideChain<double>::decibel2level( LastGainReduction );
+               SideChainSample *= decibel2level( LastGainReduction );
 
                // "normal" feed-back mode (external side chain not
                // supported)
@@ -827,7 +827,7 @@ void Compressor::process( AudioBuffer<double>& MainPlusSideChain )
          }
 
          // convert side chain level to decibels
-         SideChainLevel = SideChain<double>::level2decibel( SideChainLevel );
+         SideChainLevel = level2decibel( SideChainLevel );
 
          // send current trim-adjusted input sample to gain
          // reduction unit
@@ -862,7 +862,7 @@ void Compressor::process( AudioBuffer<double>& MainPlusSideChain )
          double OutputSample = InputSample;
 
          // apply gain reduction
-         OutputSample *= SideChain<double>::decibel2level( CurrentGainReduction );
+         OutputSample *= decibel2level( CurrentGainReduction );
 
          // apply make-up gain
          OutputSample *= MakeupGain;
@@ -925,8 +925,8 @@ void Compressor::updateMeterBallistics()
       double OutputPeak = MeterOutputBuffer.getMagnitude( CurrentChannel, 0, MeterBufferSize );
 
       // convert peak meter levels from linear scale to decibels
-      InputPeak = SideChain<double>::level2decibel( InputPeak );
-      OutputPeak = SideChain<double>::level2decibel( OutputPeak );
+      InputPeak = level2decibel( InputPeak );
+      OutputPeak = level2decibel( OutputPeak );
 
       // apply peak meter ballistics
       peakMeterBallistics( InputPeak, PeakMeterInputLevels.getReference( CurrentChannel ) );
@@ -941,8 +941,8 @@ void Compressor::updateMeterBallistics()
 
       // convert average meter levels from linear scale to
       // decibels
-      InputRms = SideChain<double>::level2decibel( InputRms );
-      OutputRms = SideChain<double>::level2decibel( OutputRms );
+      InputRms = level2decibel( InputRms );
+      OutputRms = level2decibel( OutputRms );
 
       // apply average meter ballistics
       averageMeterBallistics( InputRms, AverageMeterInputLevels.getReference( CurrentChannel ) );
@@ -1035,4 +1035,46 @@ void Compressor::logMeterBallistics( double MeterInertia,
       double AttackReleaseCoef = pow( 0.01, TimePassed / MeterInertia );
       Readout = AttackReleaseCoef * ( Readout - Level ) + Level;
    }
+}
+
+
+double Compressor::level2decibel( double levelLinear )
+/*  Convert level from linear scale to decibels (dB).
+
+    levelLinear: audio level
+
+    return value: returns given level in decibels (dB) when above
+    "lowerLimitOnMeter", otherwise "lowerLimitOnMeter"
+*/
+{
+   // just an inch below the meter's lowest segment
+   double lowerLimitOnMeter = -70.01;
+
+   // log(0) is not defined, so return "fMeterMinimumDecibel"
+   if ( levelLinear == 0.0 ) {
+      return lowerLimitOnMeter;
+   } else {
+      // calculate decibels from audio level (a factor of 20.0 is
+      // needed to calculate *level* ratios, whereas 10.0 is needed
+      // for *power* ratios!)
+      auto levelDecibels = 20.0 * log10( levelLinear );
+
+      // make meter ballistics look nice at low levels
+      return juce::jmax( levelDecibels, lowerLimitOnMeter );
+   }
+}
+
+
+double Compressor::decibel2level( double levelDecibels )
+/*  Convert level from decibels (dB) to linear scale.
+
+    levelDecibels: audio level in decibels (dB)
+
+    return value: given level in linear scale
+*/
+{
+   // calculate audio level from decibels (a divisor of 20.0 is
+   // needed to calculate *level* ratios, whereas 10.0 is needed for
+   // *power* ratios!)
+   return pow( 10.0, levelDecibels / 20.0 );
 }

@@ -402,48 +402,6 @@ public:
    }
 
 
-   static SampleType level2decibel( SampleType levelLinear )
-   /*  Convert level from linear scale to decibels (dB).
-
-       levelLinear: audio level
-
-       return value: returns given level in decibels (dB) when above
-       "lowerLimitOnMeter", otherwise "lowerLimitOnMeter"
-   */
-   {
-      // just an inch below the meter's lowest segment
-      SampleType lowerLimitOnMeter = -70.01;
-
-      // log(0) is not defined, so return "fMeterMinimumDecibel"
-      if ( levelLinear == 0.0 ) {
-         return lowerLimitOnMeter;
-      } else {
-         // calculate decibels from audio level (a factor of 20.0 is
-         // needed to calculate *level* ratios, whereas 10.0 is needed
-         // for *power* ratios!)
-         auto levelDecibels = 20.0 * log10( levelLinear );
-
-         // make meter ballistics look nice at low levels
-         return juce::jmax( levelDecibels, lowerLimitOnMeter );
-      }
-   }
-
-
-   static SampleType decibel2level( SampleType levelDecibels )
-   /*  Convert level from decibels (dB) to linear scale.
-
-       levelDecibels: audio level in decibels (dB)
-
-       return value: given level in linear scale
-   */
-   {
-      // calculate audio level from decibels (a divisor of 20.0 is
-      // needed to calculate *level* ratios, whereas 10.0 is needed for
-      // *power* ratios!)
-      return pow( 10.0, levelDecibels / 20.0 );
-   }
-
-
 private:
    SampleType applyRmsFilter( SampleType inputLevel )
    /*  Apply RMS sensing filter to input level.
