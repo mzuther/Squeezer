@@ -218,8 +218,6 @@ if archive_is_missing "gzip" "$release_dir/linux" ; then
 
     archive_create
 
-    archive_add "$binary_dir/lv2/squeezer_lv2_stereo_x64.so" ""
-    archive_add "$binary_dir/lv2/squeezer_lv2_mono_x64.so" ""
 
     archive_add "$binary_dir/Documentation" ""
 

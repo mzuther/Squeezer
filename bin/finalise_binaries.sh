@@ -80,8 +80,6 @@ mkdir -p "$binary_dir/debug_symbols"
 finalise_binary  "standalone/squeezer_x64"
 finalise_binary  "standalone/squeezer_mono_x64"
 
-finalise_binary  "lv2/squeezer_lv2_stereo_x64.so"
-finalise_binary  "lv2/squeezer_lv2_mono_x64.so"
 
 finalise_binary  "vst2/squeezer_vst2_x64.so"
 finalise_binary  "vst2/squeezer_vst2_mono_x64.so"

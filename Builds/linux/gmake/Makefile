@@ -16,8 +16,6 @@ ifeq ($(config),debug_x32)
   squeezer_vst2_sidechain_stereo_config = debug_x32
   squeezer_vst2_sidechain_mono_config = debug_x32
   squeezer_vst3_config = debug_x32
-  squeezer_lv2_stereo_config = debug_x32
-  squeezer_lv2_mono_config = debug_x32
   squeezer_unittest_config = debug_x32
 endif
 ifeq ($(config),debug_x64)
@@ -28,8 +26,6 @@ ifeq ($(config),debug_x64)
   squeezer_vst2_sidechain_stereo_config = debug_x64
   squeezer_vst2_sidechain_mono_config = debug_x64
   squeezer_vst3_config = debug_x64
-  squeezer_lv2_stereo_config = debug_x64
-  squeezer_lv2_mono_config = debug_x64
   squeezer_unittest_config = debug_x64
 endif
 ifeq ($(config),release_x32)
@@ -40,8 +36,6 @@ ifeq ($(config),release_x32)
   squeezer_vst2_sidechain_stereo_config = release_x32
   squeezer_vst2_sidechain_mono_config = release_x32
   squeezer_vst3_config = release_x32
-  squeezer_lv2_stereo_config = release_x32
-  squeezer_lv2_mono_config = release_x32
   squeezer_unittest_config = release_x32
 endif
 ifeq ($(config),release_x64)
@@ -52,12 +46,10 @@ ifeq ($(config),release_x64)
   squeezer_vst2_sidechain_stereo_config = release_x64
   squeezer_vst2_sidechain_mono_config = release_x64
   squeezer_vst3_config = release_x64
-  squeezer_lv2_stereo_config = release_x64
-  squeezer_lv2_mono_config = release_x64
   squeezer_unittest_config = release_x64
 endif
 
-PROJECTS := squeezer_standalone_stereo squeezer_standalone_mono squeezer_vst2_stereo squeezer_vst2_mono squeezer_vst2_sidechain_stereo squeezer_vst2_sidechain_mono squeezer_vst3 squeezer_lv2_stereo squeezer_lv2_mono squeezer_unittest
+PROJECTS := squeezer_standalone_stereo squeezer_standalone_mono squeezer_vst2_stereo squeezer_vst2_mono squeezer_vst2_sidechain_stereo squeezer_vst2_sidechain_mono squeezer_vst3 squeezer_unittest
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -105,18 +97,6 @@ ifneq (,$(squeezer_vst3_config))
 	@${MAKE} --no-print-directory -C . -f squeezer_vst3.make config=$(squeezer_vst3_config)
 endif
 
-squeezer_lv2_stereo:
-ifneq (,$(squeezer_lv2_stereo_config))
-	@echo "==== Building squeezer_lv2_stereo ($(squeezer_lv2_stereo_config)) ===="
-	@${MAKE} --no-print-directory -C . -f squeezer_lv2_stereo.make config=$(squeezer_lv2_stereo_config)
-endif
-
-squeezer_lv2_mono:
-ifneq (,$(squeezer_lv2_mono_config))
-	@echo "==== Building squeezer_lv2_mono ($(squeezer_lv2_mono_config)) ===="
-	@${MAKE} --no-print-directory -C . -f squeezer_lv2_mono.make config=$(squeezer_lv2_mono_config)
-endif
-
 squeezer_unittest:
 ifneq (,$(squeezer_unittest_config))
 	@echo "==== Building squeezer_unittest ($(squeezer_unittest_config)) ===="
@@ -131,8 +111,6 @@ clean:
 	@${MAKE} --no-print-directory -C . -f squeezer_vst2_sidechain_stereo.make clean
 	@${MAKE} --no-print-directory -C . -f squeezer_vst2_sidechain_mono.make clean
 	@${MAKE} --no-print-directory -C . -f squeezer_vst3.make clean
-	@${MAKE} --no-print-directory -C . -f squeezer_lv2_stereo.make clean
-	@${MAKE} --no-print-directory -C . -f squeezer_lv2_mono.make clean
 	@${MAKE} --no-print-directory -C . -f squeezer_unittest.make clean
 
 help:
@@ -154,8 +132,6 @@ help:
 	@echo "   squeezer_vst2_sidechain_stereo"
 	@echo "   squeezer_vst2_sidechain_mono"
 	@echo "   squeezer_vst3"
-	@echo "   squeezer_lv2_stereo"
-	@echo "   squeezer_lv2_mono"
 	@echo "   squeezer_unittest"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

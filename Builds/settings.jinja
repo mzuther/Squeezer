@@ -37,27 +37,6 @@
 
 
 {% set targets = {
-   'lv2': [
-      {
-       'name':            'squeezer_lv2_stereo',
-       'binary_linux':    'squeezer_lv2_stereo',
-       'binary_windows':  'Squeezer',
-       'description':     'LV2 plug-in (stereo)',
-       'defines': [
-          'SQUEEZER_STEREO=1',
-          'SQUEEZER_EXTERNAL_SIDECHAIN=1',
-      ]},
-
-      {
-       'name':            'squeezer_lv2_mono',
-       'binary_linux':    'squeezer_lv2_mono',
-       'binary_windows':  'Squeezer (mono)',
-       'description':     'LV2 plug-in (mono)',
-       'defines': [
-          'SQUEEZER_MONO=1',
-          'SQUEEZER_EXTERNAL_SIDECHAIN=1',
-      ]},
-   ],
    'standalone': [
       {
        'name':            'squeezer_standalone_stereo',
