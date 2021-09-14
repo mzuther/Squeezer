@@ -88,6 +88,10 @@ workspace "squeezer"
         "../Source/*-COPY.*",
     }
 
+    defines {
+       "JUCE_MODAL_LOOPS_PERMITTED=1"
+    }
+
     includedirs {
         "../JuceLibraryCode/",
         "../libraries/",

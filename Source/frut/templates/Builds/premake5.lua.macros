@@ -98,6 +98,10 @@ workspace "{{ project.name_lower }}"
         "../Source/*-COPY.*",
     }
 
+    defines {
+       "JUCE_MODAL_LOOPS_PERMITTED=1"
+    }
+
     includedirs {
 {% for line in includes.paths %}
         "../{{ line }}/",
