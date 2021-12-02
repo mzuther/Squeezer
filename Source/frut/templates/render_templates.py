@@ -33,12 +33,13 @@ import jinja2
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.join(script_dir, '..', '..', '..')
+settings_dir = 'settings'
 
 os.chdir(script_dir)
 
 
 def cache_templates(searchpath):
-    searchpath = [os.path.join(script_dir, 'settings'), searchpath]
+    searchpath = [os.path.join(script_dir, settings_dir), searchpath]
     templateLoader = jinja2.FileSystemLoader(searchpath)
     return jinja2.Environment(loader=templateLoader, trim_blocks=True)
 
@@ -56,7 +57,7 @@ def render_template(templates, input_file):
     else:
         newline = None
 
-    with open(output_file, mode='w', newline=newline) as f:
+    with open(output_file, mode='w', encoding='utf-8', newline=newline) as f:
         template = templates.get_template(template_file)
         output = template.render()
 
@@ -71,7 +72,7 @@ def render_template(templates, input_file):
 
 if __name__ == '__main__':
     for root_dir, directories, files in os.walk('.'):
-        if root_dir == os.path.join('.', 'settings'):
+        if root_dir == os.path.join('.', settings_dir):
             continue
 
         templates = cache_templates(root_dir)
