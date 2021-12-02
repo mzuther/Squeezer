@@ -38,6 +38,8 @@ settings_dir = 'settings'
 os.chdir(script_dir)
 
 
+# note: use relative paths to access templates in sub-directories
+# (https://stackoverflow.com/a/9644828)
 def cache_templates(searchpath):
     searchpath = [os.path.join(script_dir, settings_dir), searchpath]
     templateLoader = jinja2.FileSystemLoader(searchpath)
