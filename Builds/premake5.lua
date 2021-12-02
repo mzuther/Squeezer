@@ -4,7 +4,7 @@
 --  ========
 --  Flexible general-purpose audio compressor with a touch of citrus
 --  
---  Copyright (c) 2013-2020 Martin Zuther (http://www.mzuther.de/)
+--  Copyright (c) 2013-2021 Martin Zuther (http://www.mzuther.de/)
 --  
 --  This program is free software: you can redistribute it and/or modify
 --  it under the terms of the GNU General Public License as published by
