@@ -31,9 +31,8 @@ import stat
 
 import jinja2
 
-
 script_dir = os.path.dirname(os.path.abspath(__file__))
-project_dir = os.path.join(script_dir, '../../../')
+project_dir = os.path.join(script_dir, '..', '..', '..')
 
 os.chdir(script_dir)
 
@@ -72,7 +71,7 @@ def render_template(templates, input_file):
 
 if __name__ == '__main__':
     for root_dir, directories, files in os.walk('.'):
-        if root_dir == './settings':
+        if root_dir == os.path.join('.', 'settings'):
             continue
 
         templates = cache_templates(root_dir)
