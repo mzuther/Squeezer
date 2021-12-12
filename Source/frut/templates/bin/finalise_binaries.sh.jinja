@@ -1,4 +1,4 @@
-{# -------------------------------------------------------------------------- #}
+{# ========================================================================== #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -21,32 +21,150 @@
 {#                                                                            #}
 {#  Thank you for using free software!                                        #}
 {#                                                                            #}
-{# -------------------------------------------------------------------------- #}
-
+{# ========================================================================== #}
 
 {%- import 'frut.jinja' as frut -%}
 {%- import 'settings.jinja' as settings -%}
-{%- import 'finalise_binaries.sh.macros' as render -%}
 
-{{ render.preamble(settings.copyright) -}}
+{# ========================================================================== #}
+
+{%- macro render_preamble(copyright) %}
+#! /usr/bin/env bash
+
+{% for line in copyright -%}
+#  {{ line }}
+{% endfor %}
+
+
+###############################################################################
+#
+#  WARNING: this file was auto-generated, please do not edit!
+#
+###############################################################################
+
+binary_dir="./final"
+
+
+function finalise_binary
+{
+    input_file=$1
+    output_file="$binary_dir/$input_file"
+
+    if [ -f "./$input_file" ]; then
+        if [ ! -f "$output_file" ] || [ "./$input_file" -nt "$output_file" ]; then
+            printf "  Finalising binary:   %s -->\n" "$input_file"
+            printf "                       %s\n"     "$output_file"
+
+            mkdir -p "$(dirname "./$output_file")"
+            cp "./$input_file" "./$output_file"
+
+            printf "\n"
+        fi
+    fi
+}
+
+
+function finalise_symbols
+{
+    input_file=$1
+    output_file="$binary_dir/debug_symbols/$input_file"
+
+    if [ -f "./$input_file" ]; then
+        if [ ! -f "$output_file" ] || [ "./$input_file" -nt "$output_file" ]; then
+            printf "  Finalising symbols:  %s -->\n" "$input_file"
+            printf "                       %s\n"     "$output_file"
+
+            mkdir -p "$(dirname "./$output_file")"
+            cp "./$input_file" "./$output_file"
+
+            printf "\n"
+        fi
+    fi
+}
+
+
+printf "\n  === Finalising binaries ===\n\n"
+
+mkdir -p "$binary_dir/debug_symbols"
+
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_postamble() %}
+printf "  Done.\n\n\n"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_standalone_linux(project, target, platform) %}
+finalise_binary  "standalone/{{ target.binary_linux }}{{platform}}"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_lv2_linux(project, target, platform) %}
+finalise_binary  "lv2/{{ target.binary_linux }}{{platform}}.so"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst2_linux(project, target, platform) %}
+finalise_binary  "vst2/{{ target.binary_linux }}{{platform}}.so"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst3_linux(project, target, platform) %}
+{% if platform == '_x64' %}
+finalise_binary  "vst3/{{ project.name }}.vst3/Contents/x86_64-linux/{{ project.name }}.so"
+{% else %}
+finalise_binary  "vst3/{{ project.name }}.vst3/Contents/i386-linux/{{ project.name }}.so"
+{% endif %}
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_standalone_windows(project, target, platform) %}
+finalise_binary  "standalone/{{ target.binary_windows }}{{platform}}.exe"
+finalise_symbols "standalone/{{ target.binary_windows }}{{platform}}.pdb"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst2_windows(project, target, platform) %}
+finalise_binary  "vst2/{{ target.binary_windows }}{{platform}}.dll"
+finalise_symbols "vst2/{{ target.binary_windows }}{{platform}}.pdb"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst3_windows(project, target, platform) %}
+finalise_binary  "vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ project.name }}.vst3"
+finalise_symbols "vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ project.name }}.pdb"
+{% endmacro -%}
+
+{# ========================================================================== #}
+
+{{- render_preamble(settings.copyright) -}}
 
 
 {% for platform in ['_x64', ] -%}
 
 {% for target in settings.targets.standalone %}
-{{ render.standalone_linux(settings.project, target, platform) -}}
+{{ render_standalone_linux(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.lv2 %}
-{{ render.lv2_linux(settings.project, target, platform) -}}
+{{ render_lv2_linux(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst2 %}
-{{ render.vst2_linux(settings.project, target, platform) -}}
+{{ render_vst2_linux(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst3 %}
-{{ render.vst3_linux(settings.project, target, platform) -}}
+{{ render_vst3_linux(settings.project, target, platform) -}}
 {% endfor %}
 
 {% endfor -%}
@@ -55,17 +173,19 @@
 {% for platform in ['', ' x64'] -%}
 
 {% for target in settings.targets.standalone %}
-{{ render.standalone_windows(settings.project, target, platform) -}}
+{{ render_standalone_windows(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst2 %}
-{{ render.vst2_windows(settings.project, target, platform) -}}
+{{ render_vst2_windows(settings.project, target, platform) -}}
 {% endfor %}
 
 {% for target in settings.targets.vst3 %}
-{{ render.vst3_windows(settings.project, target, platform) -}}
+{{ render_vst3_windows(settings.project, target, platform) -}}
 {% endfor %}
 
 {% endfor %}
 
-{{- render.postamble() }}
+{{- render_postamble() -}}
+
+{# ========================================================================== #}

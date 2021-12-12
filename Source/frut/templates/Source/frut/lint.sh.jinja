@@ -1,4 +1,4 @@
-{# -------------------------------------------------------------------------- #}
+{# ========================================================================== #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -21,13 +21,16 @@
 {#                                                                            #}
 {#  Thank you for using free software!                                        #}
 {#                                                                            #}
-{# -------------------------------------------------------------------------- #}
-
+{# ========================================================================== #}
 
 {%- import 'frut.jinja' as frut -%}
 {%- import 'settings.jinja' as settings -%}
-{%- import 'lint.sh.macros' as render -%}
+{%- from 'Source/lint.sh.jinja' import render_preamble, render_postamble -%}
 
-{{ render.preamble(frut.copyright, frut.includes) }}
+{# ========================================================================== #}
 
-{{- render.postamble() }}
+{{- render_preamble(frut.copyright, frut.includes, true) }}
+
+{{- render_postamble() -}}
+
+{# ========================================================================== #}

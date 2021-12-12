@@ -1,4 +1,4 @@
-{# -------------------------------------------------------------------------- #}
+{# ========================================================================== #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -21,36 +21,433 @@
 {#                                                                            #}
 {#  Thank you for using free software!                                        #}
 {#                                                                            #}
-{# -------------------------------------------------------------------------- #}
-
+{# ========================================================================== #}
 
 {%- import 'frut.jinja' as frut -%}
 {%- import 'settings.jinja' as settings -%}
-{%- import 'package_releases.sh.macros' as render -%}
 
-{{ render.preamble(settings.project, settings.copyright, settings.version) }}
+{# ========================================================================== #}
+
+{%- macro render_preamble(project, copyright, version) %}
+#! /usr/bin/env bash
+
+{% for line in copyright -%}
+#  {{ line }}
+{% endfor %}
+
+
+###############################################################################
+#
+#  WARNING: this file was auto-generated, please do not edit!
+#
+###############################################################################
+
+version="$(git describe --first-parent)"
+
+binary_dir="./final"
+release_dir="./releases"
+
+resource_dir_standalone="./standalone/{{ project.name_lower }}"
+resource_dir_lv2="./lv2/{{ project.name_lower }}"
+resource_dir_vst2="./vst2/{{ project.name_lower }}"
+resource_dir_vst3="./vst3/{{ project.name }}.vst3/Contents/Resources"
+
+
+function archive_is_missing
+{
+    archive_type=$1
+    destination_dir=$2
+
+    if [ "$archive_type" = "bzip2" ]; then
+        archive_name="$archive_dir.tar.bz2"
+    elif [ "$archive_type" = "gzip" ]; then
+        archive_name="$archive_dir.tar.gz"
+    elif [ "$archive_type" = "zip" ]; then
+        archive_name="$archive_dir.zip"
+    fi
+
+    if [ -f "$destination_dir/$archive_name" ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+
+function archive_create
+{
+    rm -rf "/tmp/$archive_dir"
+
+    printf "  Creating archive in \"%s\" ...\n" "/tmp/$archive_dir"
+    mkdir -p "/tmp/$archive_dir"
+    printf "\n"
+}
+
+
+function archive_add
+{
+    source_file="$1"
+    source_file_display=$(realpath --relative-base . --no-symlinks "$source_file")
+    target_dir="/tmp/$archive_dir/$2"
+
+    if [ ! -d "$target_dir" ]; then
+        mkdir -p "$target_dir"
+    fi
+
+    if [ -f "$source_file" ]; then
+        printf "  [+] %s\n" "$source_file_display"
+        cp --dereference "$source_file" "$target_dir"
+    elif [ -d "$source_file" ]; then
+        printf "  [+] %s/*\n" "$source_file_display"
+        cp --dereference --recursive "$source_file/" "$target_dir"
+    else
+        printf "  [ ] %s  --> not added\n" "$source_file_display"
+    fi
+}
+
+
+function archive_del
+{
+    filename="$1"
+
+    if [ -f "/tmp/$archive_dir/$filename" ]; then
+        printf "  [-] %s\n" "$filename"
+        rm "/tmp/$archive_dir/$filename"
+    elif [ -d "/tmp/$archive_dir/$filename" ]; then
+        printf "  [-] %s/*\n" "$filename"
+        rm -rf "/tmp/$archive_dir/$filename/"
+    else
+        printf "  [ ] %s  --> not deleted\n" "$filename"
+    fi
+}
+
+
+function archive_compress
+{
+    archive_type=$1
+    old_dir=$(pwd)
+
+    printf "\n  Compressing archive ...\n"
+    cd /tmp || exit
+
+    if [ "$archive_type" = "bzip2" ]; then
+        archive_name="$archive_dir.tar.bz2"
+        rm -f "$archive_name"
+        tar --create --bzip2 --verbose --file "$archive_name" "$archive_dir" > /dev/null
+    elif [ "$archive_type" = "gzip" ]; then
+        archive_name="$archive_dir.tar.gz"
+        rm -f "$archive_name"
+        tar --create --gzip --verbose --file "$archive_name" "$archive_dir" > /dev/null
+    elif [ "$archive_type" = "zip" ]; then
+        archive_name="$archive_dir.zip"
+        rm -f "$archive_name"
+        zip --recurse-paths "$archive_name" "$archive_dir" > /dev/null
+    fi
+
+    cd "$old_dir" || exit
+}
+
+
+function archive_store
+{
+    archive_type=$1
+    destination_dir=$2
+
+    if [ ! -e "$destination_dir" ]; then
+        printf "  Creating folder \"%s\" ...\n" "$destination_dir"
+        mkdir -p "$destination_dir"
+    fi
+
+    if [ "$archive_type" = "bzip2" ]; then
+        archive_name="$archive_dir.tar.bz2"
+    elif [ "$archive_type" = "gzip" ]; then
+        archive_name="$archive_dir.tar.gz"
+    elif [ "$archive_type" = "zip" ]; then
+        archive_name="$archive_dir.zip"
+    fi
+
+    rm -rf "/tmp/$archive_dir/"
+
+    if [ -f "$destination_dir/$archive_name" ]; then
+        printf "  Overwriting"
+    else
+        printf "  Storing at"
+    fi
+
+    printf " \"%s\" ...\n" "$destination_dir/$archive_name"
+
+    mv "/tmp/$archive_name" "$destination_dir/$archive_name"
+
+    printf "  Done.\n\n\n"
+}
+
+
+# ----- General -----
+
+./finalise_binaries.sh
+
+printf "  === Creating release directories ===\n\n"
+
+mkdir -p "$release_dir/linux/i386"
+mkdir -p "$release_dir/linux/amd64"
+
+mkdir -p "$release_dir/windows/x32"
+mkdir -p "$release_dir/windows/x64"
+mkdir -p "$release_dir/windows/debug_symbols"
+
+printf "  Done.\n\n\n"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_postamble() %}
+# ----- Windows debug symbols -----
+
+archive_dir="debug-symbols_$version"
+
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    printf "  --- Windows debug symbols ---\n\n"
+
+    archive_create
+
+    archive_add "$binary_dir/debug_symbols/standalone" ""
+    archive_add "$binary_dir/debug_symbols/vst2" ""
+    archive_add "$binary_dir/debug_symbols/vst3" ""
+
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/$version/windows/debug_symbols"
+fi
+
+printf "  === Finishing up ===\n\n"
+printf "  Done.\n\n\n"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_standalone_linux(project, targets, additions, platform, bits) %}
+# ----- GNU/Linux Standalone ({{bits}} bit) -----
+
+archive_dir="{{ project.name_lower }}-linux{{bits}}-standalone_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux Standalone %s ({{bits}} bit) ---\n\n" "$version"
+
+    archive_create
+
+{% for target in targets %}
+    archive_add "$binary_dir/standalone/{{ target.binary_linux }}{{platform}}" ""
+{% endfor %}
+
+{% for scope in ['default', 'standalone', 'standalone_linux_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', project.name_lower) }}
+{% endfor -%}
+{% endfor %}
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/$version/linux"
+fi
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_lv2_linux(project, targets, additions, platform, bits) %}
+# ----- GNU/Linux LV2 ({{bits}} bit) -----
+
+archive_dir="{{ project.name_lower }}-linux{{bits}}-lv2_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux LV2 %s ({{bits}} bit) ---\n\n" "$version"
+
+    lv2_dir="./lv2/squeezer_lv2_x64"
+
+    archive_create
+
+{% for target in targets %}
+    archive_add "$binary_dir/lv2/{{ target.binary_linux }}{{platform}}.so" ""
+{% endfor %}
+
+{% for scope in ['default', 'lv2', 'lv2_linux_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_lv2') | replace('RESOURCE_OUTPUT', project.name_lower) }}
+{% endfor -%}
+{% endfor %}
+
+    archive_add "manifest.ttl" "$lv2_dir"
+    archive_add "squeezer_stereo.ttl" "$lv2_dir"
+    archive_add "squeezer_mono.ttl" "$lv2_dir"
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/$version/linux"
+fi
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst2_linux(project, targets, additions, platform, bits) %}
+# ----- GNU/Linux VST2 ({{bits}} bit) -----
+
+archive_dir="{{ project.name_lower }}-linux{{bits}}-vst2_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux VST2 %s ({{bits}} bit) ---\n\n" "$version"
+
+    archive_create
+
+{% for target in targets %}
+    archive_add "$binary_dir/vst2/{{ target.binary_linux }}{{platform}}.so" ""
+{% endfor %}
+
+{% for scope in ['default', 'vst2', 'vst2_linux_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', project.name_lower) }}
+{% endfor -%}
+{% endfor %}
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/$version/linux"
+fi
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst3_linux(project, targets, additions, platform, bits) %}
+# ----- GNU/Linux VST3 ({{bits}} bit) -----
+
+archive_dir="{{ project.name_lower }}-linux{{bits}}-vst3_$version"
+
+if archive_is_missing "gzip" "$release_dir/linux" ; then
+    printf "  --- GNU/Linux VST3 %s ({{bits}} bit) ---\n\n" "$version"
+
+    archive_create
+
+{% for target in targets %}
+{% if platform == '_x64' %}
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86_64-linux/{{ project.name }}.so" "{{ project.name }}.vst3/Contents/x86_64-linux"
+{% else %}
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/i386-linux/{{ project.name }}.so" "{{ project.name }}.vst3/Contents/i386-linux"
+{% endif %}
+{% endfor %}
+
+{% for scope in ['default', 'vst3', 'vst3_linux_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', project.name + '.vst3/Contents/Resources') }}
+{% endfor -%}
+{% endfor %}
+
+    archive_compress "gzip"
+    archive_store "gzip" "$release_dir/$version/linux"
+fi
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_standalone_windows(project, targets, additions, platform, bits) %}
+# ----- Windows Standalone ({{bits}} bit) -----
+
+archive_dir="{{ project.name_lower }}-w{{bits}}-standalone_$version"
+
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    printf "  --- Windows Standalone %s ({{bits}} bit) ---\n\n" "$version"
+
+    archive_create
+
+{% for target in targets %}
+    archive_add "$binary_dir/standalone/{{ target.binary_windows }}{{platform}}.exe" ""
+{% endfor %}
+
+{% for scope in ['default', 'standalone', 'standalone_windows_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_standalone') | replace('RESOURCE_OUTPUT', project.name_lower) }}
+{% endfor -%}
+{% endfor %}
+
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/$version/windows"
+fi
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst2_windows(project, targets, additions, platform, bits) %}
+# ----- Windows VST2 ({{bits}} bit) -----
+
+archive_dir="{{ project.name_lower }}-w{{bits}}-vst2_$version"
+
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    printf "  --- Windows VST2 %s ({{bits}} bit) ---\n\n" "$version"
+
+    archive_create
+
+{% for target in targets %}
+    archive_add "$binary_dir/vst2/{{ target.binary_windows }}{{platform}}.dll" ""
+{% endfor %}
+
+{% for scope in ['default', 'vst2', 'vst2_windows_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst2') | replace('RESOURCE_OUTPUT', project.name_lower) }}
+{% endfor -%}
+{% endfor %}
+
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/$version/windows"
+fi
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_vst3_windows(project, targets, additions, platform, bits) %}
+# ----- Windows VST3 ({{bits}} bit) -----
+
+archive_dir="{{ project.name_lower }}-w{{bits}}-vst3_$version"
+
+if archive_is_missing "zip" "$release_dir/windows" ; then
+    printf "  --- Windows VST3 %s ({{bits}} bit) ---\n\n" "$version"
+
+    archive_create
+
+{% for target in targets %}
+    archive_add "$binary_dir/vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win/{{ project.name }}.vst3" "{{ project.name }}.vst3/Contents/x86{{ platform | replace (' x', '_') }}-win"
+{% endfor %}
+
+{% for scope in ['default', 'vst3', 'vst3_windows_' + bits] %}
+{% for line in additions[scope] %}
+    {{ line | replace('RESOURCE_INPUT', '$resource_dir_vst3') | replace('RESOURCE_OUTPUT', project.name + '.vst3/Contents/Resources') }}
+{% endfor -%}
+{% endfor %}
+
+    archive_compress "zip"
+    archive_store "zip" "$release_dir/$version/windows"
+fi
+{% endmacro -%}
+
+{# ========================================================================== #}
+
+{{- render_preamble(settings.project, settings.copyright, settings.version) }}
 
 {% for platform, bits in [['_x64', '64'], ] -%}
 
-{{ render.standalone_linux(settings.project, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
+{{ render_standalone_linux(settings.project, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
 
-{{ render.lv2_linux(settings.project, settings.targets.lv2, settings.additions_packaging, platform, bits) }}
+{{ render_lv2_linux(settings.project, settings.targets.lv2, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst2_linux(settings.project, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
+{{ render_vst2_linux(settings.project, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst3_linux(settings.project, settings.targets.vst3, settings.additions_packaging, platform, bits) }}
+{{ render_vst3_linux(settings.project, settings.targets.vst3, settings.additions_packaging, platform, bits) -}}
 
-{% endfor -%}
+{% endfor %}
 
 
 {% for platform, bits in [['', '32'], [' x64', '64']] -%}
 
-{{ render.standalone_windows(settings.project, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
+{{ render_standalone_windows(settings.project, settings.targets.standalone, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst2_windows(settings.project, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
+{{ render_vst2_windows(settings.project, settings.targets.vst2, settings.additions_packaging, platform, bits) }}
 
-{{ render.vst3_windows(settings.project, settings.targets.vst3, settings.additions_packaging, platform, bits) }}
+{{ render_vst3_windows(settings.project, settings.targets.vst3, settings.additions_packaging, platform, bits) }}
 
 {% endfor %}
 
-{{- render.postamble() }}
+{{- render_postamble() -}}
+
+{# ========================================================================== #}

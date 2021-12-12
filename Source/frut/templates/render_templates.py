@@ -34,23 +34,32 @@ import jinja2
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_dir = os.path.join(script_dir, '..', '..', '..')
 settings_dir = 'settings'
+template_dir = '.'
 
 os.chdir(script_dir)
 
 
 # note: use relative paths to access templates in sub-directories
 # (https://stackoverflow.com/a/9644828)
-def cache_templates(searchpath):
+def cache_templates(searchpath, list_templates=False):
     searchpath = [os.path.join(script_dir, settings_dir), searchpath]
     templateLoader = jinja2.FileSystemLoader(searchpath)
-    return jinja2.Environment(loader=templateLoader, trim_blocks=True)
+
+    env = jinja2.Environment(loader=templateLoader, trim_blocks=True)
+
+    if list_templates:
+        for template in env.list_templates():
+            print('*', template)
+        print()
+
+    return env
 
 
 def render_template(templates, input_file):
     output_file = os.path.abspath(os.path.join(project_dir, input_file))
     output_file = os.path.splitext(output_file)[0]
 
-    template_file = os.path.split(input_file)[1]
+    template_file = os.path.normpath(input_file)
 
     print(os.path.relpath(output_file, project_dir))
 
@@ -73,11 +82,11 @@ def render_template(templates, input_file):
 
 
 if __name__ == '__main__':
-    for root_dir, directories, files in os.walk('.'):
-        if root_dir == os.path.join('.', settings_dir):
-            continue
+    templates = cache_templates(template_dir, list_templates=False)
 
-        templates = cache_templates(root_dir)
+    for root_dir, directories, files in os.walk(template_dir):
+        if root_dir == os.path.join(template_dir, settings_dir):
+            continue
 
         for filename in sorted(files):
             if filename.endswith('.jinja'):

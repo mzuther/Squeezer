@@ -1,4 +1,4 @@
-{# -------------------------------------------------------------------------- #}
+{# ========================================================================== #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -21,13 +21,43 @@
 {#                                                                            #}
 {#  Thank you for using free software!                                        #}
 {#                                                                            #}
-{# -------------------------------------------------------------------------- #}
-
+{# ========================================================================== #}
 
 {%- import 'frut.jinja' as frut -%}
 {%- import 'settings.jinja' as settings -%}
-{%- import 'format_code.bat.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.includes) }}
+{# ========================================================================== #}
 
-{{- render.postamble() }}
+{%- macro render_preamble(copyright, includes) %}
+@echo off
+
+{% for line in copyright -%}
+rem  {{ line }}
+{% endfor %}
+
+
+rem  ############################################################################
+rem
+rem  WARNING: this file was auto-generated, please do not edit!
+rem
+rem  ############################################################################
+
+@AStyle --recursive --exclude="resources" --options=./.astylerc "*.cpp"
+@echo.
+
+@AStyle --recursive --exclude="resources" --options=./.astylerc "*.h"
+@pause
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_postamble() %}
+{% endmacro -%}
+
+{# ========================================================================== #}
+
+{{- render_preamble(settings.copyright, settings.includes) }}
+
+{{- render_postamble() -}}
+
+{# ========================================================================== #}

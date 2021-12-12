@@ -1,4 +1,4 @@
-{# -------------------------------------------------------------------------- #}
+{# ========================================================================== #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -21,13 +21,16 @@
 {#                                                                            #}
 {#  Thank you for using free software!                                        #}
 {#                                                                            #}
-{# -------------------------------------------------------------------------- #}
-
+{# ========================================================================== #}
 
 {%- import 'frut.jinja' as frut -%}
 {%- import 'settings.jinja' as settings -%}
-{%- import '.astylerc.macros' as render -%}
+{%- from 'Source/.astylerc.jinja' import render_preamble, render_postamble -%}
 
-{{ render.preamble(frut.copyright, settings.code_indentation) }}
+{# ========================================================================== #}
 
-{{- render.postamble() }}
+{{- render_preamble(frut.copyright, settings.code_indentation) }}
+
+{{- render_postamble() -}}
+
+{# ========================================================================== #}

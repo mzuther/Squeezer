@@ -1,4 +1,4 @@
-{# -------------------------------------------------------------------------- #}
+{# ========================================================================== #}
 {#                                                                            #}
 {#  FrutJUCE                                                                  #}
 {#  ========                                                                  #}
@@ -21,13 +21,116 @@
 {#                                                                            #}
 {#  Thank you for using free software!                                        #}
 {#                                                                            #}
-{# -------------------------------------------------------------------------- #}
-
+{# ========================================================================== #}
 
 {%- import 'frut.jinja' as frut -%}
 {%- import 'settings.jinja' as settings -%}
-{%- import 'lint.sh.macros' as render -%}
 
-{{ render.preamble(settings.copyright, settings.includes) }}
+{# ========================================================================== #}
 
-{{- render.postamble() }}
+{%- macro render_preamble(copyright, includes, within_frut) %}
+#! /usr/bin/env bash
+
+{% for line in copyright -%}
+#  {{ line }}
+{% endfor %}
+
+
+###############################################################################
+#
+#  WARNING: this file was auto-generated, please do not edit!
+#
+###############################################################################
+
+project_home=$(pwd)/..{% if within_frut %}/..{% endif %}
+
+
+
+function lint_file
+{
+    filename="$1"
+    dirname=$(dirname "$1")
+    project_home="$2"
+
+    printf "%s\n" "$filename"
+
+    clang \
+        -x c++ - \
+{% for line in includes.files + includes.files_unittest %}
+        -include "$project_home/{{ line }}" \
+{% endfor %}
+{% for line in includes.paths + includes.paths_unittest %}
+        -I "$project_home/{{ line }}" \
+{% endfor %}
+        -I "$dirname" \
+        -fsyntax-only \
+        -fno-caret-diagnostics \
+        -fcolor-diagnostics \
+        -std=c++17 \
+        -Wall \
+        -Wno-pragma-once-outside-header \
+        < "$filename"
+
+    cppcheck \
+        --template=gcc \
+        --library="$project_home/Source/frut/cppcheck_googletest.cfg" \
+        --enable=style \
+{% for line in includes.files + includes.files_unittest %}
+        --include="$project_home/{{ line }}" \
+{% endfor %}
+        --inline-suppr \
+        --language=c++ \
+        --force \
+        --quiet \
+        "$filename" 2>&1 | \
+    sed -Ee 's/[^:]+://' | \
+    GREP_COLORS="mt=01;31" grep --extended-regexp --colour=always \
+                                --label "$filename" --with-filename \
+               '[^0-9:].*'
+
+    # find error-like codetags
+    GREP_COLORS="mt=01;31" grep --extended-regexp --colour=always \
+                                --with-filename --line-number \
+               '\<(BUG|FIXME|XXX)\>' \
+               "$filename"
+
+    # find warning-like codetags
+    GREP_COLORS="mt=01;33" grep --extended-regexp --colour=always \
+                                --with-filename --line-number \
+               '\<(HACK|TODO|@todo)\>' \
+               "$filename"
+}
+
+
+export -f lint_file
+printf "\n"
+
+{% if within_frut %}
+find . \( -iname "*.cpp" -or -iname "*.h" \) -print | \
+{% else %}
+find . -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | \
+    sort | \
+    parallel --will-cite --group \
+             lint_file {} "$project_home"
+
+find ./frut/amalgamated -maxdepth 1 \( -iname "*.cpp" -or -iname "*.h" \) -print | \
+{% endif %}
+    sort | \
+    parallel --will-cite --group \
+             lint_file {} "$project_home"
+
+printf "\n"
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- macro render_postamble() %}
+{% endmacro -%}
+
+{# ========================================================================== #}
+
+{{- render_preamble(settings.copyright, settings.includes, false) }}
+
+{{- render_postamble() -}}
+
+{# ========================================================================== #}
