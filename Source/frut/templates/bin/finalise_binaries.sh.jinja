@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -145,6 +146,8 @@ finalise_symbols "vst3/{{ project.name }}.vst3/Contents/x86{{ platform | replace
 {% endmacro -%}
 
 {# ========================================================================== #}
+
+{{- common.start_new_file('bin/finalise_binaries.sh') -}}
 
 {{- render_preamble(settings.copyright) -}}
 

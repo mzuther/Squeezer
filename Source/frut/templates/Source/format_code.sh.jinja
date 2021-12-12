@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -58,7 +59,17 @@ astyle --recursive --options=./.astylerc \
 
 {# ========================================================================== #}
 
+{{- common.start_new_file('Source/format_code.sh') -}}
+
 {{- render_preamble(settings.copyright, settings.includes) }}
+
+{{- render_postamble() -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('Source/frut/format_code.sh') -}}
+
+{{- render_preamble(frut.copyright, settings.includes) }}
 
 {{- render_postamble() -}}
 

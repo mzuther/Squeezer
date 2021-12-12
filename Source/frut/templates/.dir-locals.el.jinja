@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -77,7 +78,17 @@
 
 {# ========================================================================== #}
 
+{{- common.start_new_file('.dir-locals.el') -}}
+
 {{- render_preamble(settings.copyright, settings.includes, "") }}
+
+{{- render_postamble() -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('Source/frut/.dir-locals.el') -}}
+
+{{- render_preamble(frut.copyright, frut.includes, "../../") }}
 
 {{- render_postamble() -}}
 

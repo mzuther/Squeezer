@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -102,7 +103,17 @@
 
 {# ========================================================================== #}
 
+{{- common.start_new_file('Source/.astylerc') -}}
+
 {{- render_preamble(settings.copyright, settings.code_indentation) }}
+
+{{- render_postamble() -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('Source/frut/.astylerc') -}}
+
+{{- render_preamble(frut.copyright, settings.code_indentation) }}
 
 {{- render_postamble() -}}
 

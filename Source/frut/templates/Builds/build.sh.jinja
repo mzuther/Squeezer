@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -214,6 +215,8 @@ fi
 {% endmacro -%}
 
 {# ========================================================================== #}
+
+{{- common.start_new_file('Builds/build.sh') -}}
 
 {{- render_preamble(settings.copyright) }}
 

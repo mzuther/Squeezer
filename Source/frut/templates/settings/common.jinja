@@ -23,14 +23,7 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
-{%- from 'Source/format_code.sh.jinja' import render_preamble, render_postamble -%}
 
-{# ========================================================================== #}
-
-{{- render_preamble(frut.copyright, settings.includes) }}
-
-{{- render_postamble() -}}
-
-{# ========================================================================== #}
+{%- macro start_new_file(filename) %}
+### File: {{ filename }}
+{% endmacro -%}

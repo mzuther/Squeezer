@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -108,6 +109,8 @@ call :CopyVstDelete "vst3/{{ project.name }}.vst3" "%vst3_{{bits}}%"
 {% endmacro -%}
 
 {# ========================================================================== #}
+
+{{- common.start_new_file('bin/copy_vst.bat') -}}
 
 {{- render_preamble(settings.copyright, settings.vst2_category) }}
 

@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -148,6 +149,8 @@ printf "\n"
 {% endmacro -%}
 
 {# ========================================================================== #}
+
+{{- common.start_new_file('bin/link_vst.sh') -}}
 
 {{- render_preamble(settings.copyright, settings.project) -}}
 

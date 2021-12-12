@@ -23,8 +23,9 @@
 {#                                                                            #}
 {# ========================================================================== #}
 
-{%- import 'frut.jinja' as frut -%}
-{%- import 'settings.jinja' as settings -%}
+{%- import 'settings/common.jinja' as common -%}
+{%- import 'settings/frut.jinja' as frut -%}
+{%- import 'settings/settings.jinja' as settings -%}
 
 {# ========================================================================== #}
 
@@ -129,7 +130,17 @@ printf "\n"
 
 {# ========================================================================== #}
 
+{{- common.start_new_file('Source/lint.sh') -}}
+
 {{- render_preamble(settings.copyright, settings.includes, false) }}
+
+{{- render_postamble() -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('Source/frut/lint.sh') -}}
+
+{{- render_preamble(frut.copyright, frut.includes, true) }}
 
 {{- render_postamble() -}}
 
