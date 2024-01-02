@@ -31,6 +31,19 @@ that, it has quickly become my go-to generic compressor!
 *I hope that you have as much fun with this compressor as I had when I
 coded it!*
 
+## Download
+
+**Squeezer** can be downloaded in the [releases][] section (you may
+need to click on "Assets").
+
+I have dropped LV2 plug-in support for good.  However, you can still
+use LV2 - just download version **v2.5.3**.
+
+## Documentation
+
+For documentation, licenses and further information, please see the
+[manual][] and the directory [doc][].
+
 ## FAQ
 
 ### Squeezer crashes when the plug-in is loaded / opened
@@ -67,11 +80,6 @@ coded it!*
 - Unfortunately, I cannot do anything about it as I did not code this
   part of the application.  The stand-alone works well for me - try
   using another sound card or deleting the settings file.
-
-## Documentation
-
-For documentation, licenses and further information, please see the
-[manual][] and the directory [doc][].
 
 ## Code of conduct
 
@@ -110,4 +118,6 @@ in Europe and other countries.*
 [COC]:            https://github.com/mzuther/Squeezer/tree/master/CODE_OF_CONDUCT.markdown
 [doc]:            https://github.com/mzuther/Squeezer/tree/master/doc/
 [manual]:         https://github.com/mzuther/Squeezer/raw/master/doc/squeezer.pdf
+[releases]:       https://github.com/mzuther/Squeezer/releases
+
 [VC++ Redist]:    https://www.visualstudio.com/downloads/
