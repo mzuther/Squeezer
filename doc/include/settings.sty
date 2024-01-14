@@ -5,7 +5,7 @@
 \usepackage{avant}
 
 %% redefine headers
-\usepackage[headsepline]{scrpage2}
+\usepackage[headsepline]{scrlayer-scrpage}
 \pagestyle{scrheadings}
 
 \setkomafont{author}{%
@@ -42,7 +42,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{paralist}
 \usepackage{ucs}
-\usepackage[detect-all]{siunitx}
+\usepackage[mode=match, propagate-math-font=true, reset-math-version=false, reset-text-family=false, reset-text-series=false, reset-text-shape=false, text-family-to-math=true, text-series-to-math=true]{siunitx}
 \usepackage[hyphens,obeyspaces]{url}
 \usepackage{varioref}
 \usepackage{wrapfig}  % must be included after package "float"
@@ -123,6 +123,9 @@
 \DeclareSIUnit[]\LKFS{LKFS}
 \DeclareSIUnit[]\VRMS{V\textsubscript{RMS}}
 \DeclareSIUnit[]\VU{VU}
+
+%% fix look of negative numbers
+\renewcommand\textminus{--}
 
 %% scaling of screenshots
 \newcommand{\screenshotscale}{0.7}
