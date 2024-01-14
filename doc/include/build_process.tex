@@ -11,7 +11,7 @@
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Version:     \> 5.0.0 (alpha15) \\
+  Version:     \> 5.0.0 (beta2) \\
   License:     \> BSD \\
   Homepage:    \> \href{https://premake.github.io/}{premake.github.io}
 \end{tabbing}
@@ -32,7 +32,7 @@ install the necessary dependencies.
   \hspace*{6em}\=\=\kill
 
   Importance:  \> required \\
-  Linux:       \> Clang 10.0 (or gcc 9.3.0) \\
+  Linux:       \> Clang 14.0 (or gcc 11.2.0) \\
   Windows:     \> Visual Studio 2019 (and above) \\
   License:     \> proprietary (Visual Studio) / Open Source \\
 \end{tabbing}
@@ -84,7 +84,7 @@ the old license agreement!
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 3.8 (or higher) \\
+  Version:     \> 3.10 (or higher) \\
   License:     \> Python Software Foundation License \\
   Homepage:    \> \href{http://www.python.org/}{www.python.org}
 \end{tabbing}
@@ -102,7 +102,7 @@ You can download an installer from the website.
   \hspace*{6em}\=\=\kill
 
   Importance:  \> optional \\
-  Version:     \> 2.10 (or higher) \\
+  Version:     \> 3.0.3 (or higher) \\
   License:     \> BSD \\
   Homepage:    \> \href{http://jinja.pocoo.org/}{jinja.pocoo.org}
 \end{tabbing}
@@ -199,8 +199,8 @@ following statements:
 
 \begin{Verbatim64}
   sudo debootstrap --variant=buildd \
-    --arch amd64 focal \
-    /srv/chroot/focal_amd64 \
+    --arch amd64 jammy \
+    /srv/chroot/jammy_amd64 \
     http://archive.ubuntu.com/ubuntu
 \end{Verbatim64}
 
@@ -210,9 +210,9 @@ remove all preceding white space so that each line begins in the first
 column):
 
 \begin{Verbatim64}
-  [focal-amd64]
-  description=Ubuntu focal (amd64)
-  directory=/srv/chroot/focal_amd64
+  [jammy-amd64]
+  description=Ubuntu jammy (amd64)
+  directory=/srv/chroot/jammy_amd64
   profile=default
   personality=linux
   type=directory
@@ -220,28 +220,29 @@ column):
 \end{Verbatim64}
 
 Please make the necessary changes to \texttt{username}.  If you
-experience problems, you can try to change \texttt{focal} to a
-release name such as \texttt{buster}.
+experience problems, you can try to change \texttt{jammy} to an older
+Ubuntu release, or to a Debian release such as \texttt{bullseye}.
 
 When \path{debootstrap} is done, log in as superuser:
 
 \begin{Verbatim64}
-  sudo schroot -c focal-amd64
+  sudo schroot -c jammy-amd64
 \end{Verbatim64}
 
-First, install a few packages (\path{less}, \path{mc} and \path{vim}
-are optional, but might come in handy):
+First, install a few packages -- these are optional, but might come in
+handy:
 
 \begin{VerbatimBoth}
   apt update
-  apt -y install bash-completion less vim
+  apt -y install bash-completion less nano vim
 \end{VerbatimBoth}
 
-Then, use \path{vim} to change a line in \path{/etc/apt/sources.list}
-(please ignore the line break, it should be a single line):
+Then, use \path{nano} or \path{vim} to change a line in
+\path{/etc/apt/sources.list} (please ignore the line break, it should
+be a single line):
 
 \begin{VerbatimBoth}
-  deb http://archive.ubuntu.com/ubuntu focal
+  deb http://archive.ubuntu.com/ubuntu jammy
   main restricted universe
 \end{VerbatimBoth}
 
@@ -268,7 +269,7 @@ file \path{/etc/bash.bashrc} and unquote these lines:
 Finally, log out and log in as normal user:
 
 \begin{Verbatim64}
-  schroot -c focal-amd64
+  schroot -c jammy-amd64
 \end{Verbatim64}
 
 In this \path{chroot} shell, install the dependencies
@@ -283,7 +284,7 @@ After preparing the dependencies, start your \texttt{chroot}
 environment
 
 \begin{Verbatim64}
-  schroot -c focal-amd64
+  schroot -c jammy-amd64
 \end{Verbatim64}
 
 change into the directory \path{Builds} and execute
