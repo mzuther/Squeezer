@@ -6,7 +6,7 @@
 @rem  ========
 @rem  Flexible general-purpose audio compressor with a touch of citrus
 @rem
-@rem  Copyright (c) 2013-2021 Martin Zuther (http://www.mzuther.de/)
+@rem  Copyright (c) 2013-2024 Martin Zuther (http://www.mzuther.de/)
 @rem
 @rem  This program is free software: you can redistribute it and/or modify
 @rem  it under the terms of the GNU General Public License as published by
@@ -27,10 +27,12 @@
 
 @echo.
 @echo "=== Rendering templates ==="
-python.exe "../Source/frut/templates/render_templates.py"
+cd "../Source/frut/templates/stempelwerk/"
+python.exe -m src.StempelWerk "../settings.json"
 
 
 @echo.
+cd "../../../../Builds/"
 @premake5 --os=windows vs2019
 
 @echo.

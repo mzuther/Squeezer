@@ -6,7 +6,7 @@
 #  =======
 #  Custom directory walker
 #
-#  Copyright (c) 2022-2023 Martin Zuther (https://www.mzuther.de/)
+#  Copyright (c) 2022-2024 Martin Zuther (https://www.mzuther.de/)
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions

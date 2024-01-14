@@ -6,7 +6,7 @@
 #  ===========
 #  Automatic code generation from Jinja2 templates
 #
-#  Copyright (c) 2020-2023 Martin Zuther (https://www.mzuther.de/)
+#  Copyright (c) 2020-2024 Martin Zuther (https://www.mzuther.de/)
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -64,7 +64,7 @@ class StempelWerk:
     LICENSE = 'BSD 3-Clause License'
 
     APPLICATION_VERSION = f'{APPLICATION} v{VERSION}'
-    COPYRIGHT = f'{APPLICATION_VERSION:20} (c) 2020-2023 {AUTHOR}'
+    COPYRIGHT = f'{APPLICATION_VERSION:20} (c) 2020-2024 {AUTHOR}'
 
     # a lower verbosity value means less output on the console
     VERBOSITY_HIGH = 1
