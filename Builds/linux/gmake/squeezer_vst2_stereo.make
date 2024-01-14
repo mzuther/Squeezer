@@ -26,7 +26,7 @@ ifeq ($(config),debug_x32)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -fPIC -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -fPIC -g -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -61,7 +61,7 @@ ifeq ($(config),debug_x64)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -fPIC -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -fPIC -g -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -96,7 +96,7 @@ ifeq ($(config),release_x32)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -131,7 +131,7 @@ ifeq ($(config),release_x64)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_STEREO=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=0 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=1 -DJucePlugin_Build_VST3=0 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)

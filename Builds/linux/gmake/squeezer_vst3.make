@@ -26,13 +26,13 @@ ifeq ($(config),debug_x32)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/juce/modules/juce_audio_processors/format_types/VST3_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -fPIC -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -O0 -fPIC -g -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname="Squeezer\ Debug.so" -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib32 -m32 -shared -Wl,-soname="Squeezer\\ Debug.so" -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -61,13 +61,13 @@ ifeq ($(config),debug_x64)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -D_DEBUG=1 -DDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=1 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/juce/modules/juce_audio_processors/format_types/VST3_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -fPIC -g -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O0 -fPIC -g -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fno-inline -ggdb
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += -ldl -lfreetype -lpthread -lrt -lX11 -lXext
   LDDEPS +=
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname="Squeezer\ Debug.so" -Wl,--no-undefined
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname="Squeezer\\ Debug.so" -Wl,--no-undefined
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -96,7 +96,7 @@ ifeq ($(config),release_x32)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/juce/modules/juce_audio_processors/format_types/VST3_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m32 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -131,7 +131,7 @@ ifeq ($(config),release_x64)
   DEFINES += -DJUCE_MODAL_LOOPS_PERMITTED=1 -DLINUX=1 -DNDEBUG=1 -DJUCE_CHECK_MEMORY_LEAKS=0 -DSQUEEZER_VARIBUS=1 -DSQUEEZER_EXTERNAL_SIDECHAIN=1 -DJucePlugin_Build_Standalone=0 -DJucePlugin_Build_LV2=0 -DJucePlugin_Build_VST=0 -DJucePlugin_Build_VST3=1 -DJUCE_ALSA=0 -DJUCE_JACK=0 -DJUCE_WASAPI=0 -DJUCE_DIRECTSOUND=0
   INCLUDES += -I../../../JuceLibraryCode -I../../../libraries -I../../../libraries/juce/modules -I../../../Source/frut -I/usr/include -I/usr/include/freetype2 -I../../../libraries/vst2/VST2_SDK -I../../../libraries/juce/modules/juce_audio_processors/format_types/VST3_SDK
   FORCE_INCLUDE +=
-  ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+  ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fomit-frame-pointer -O3 -fPIC -Wall -Wextra -std=c++17 -DHAVE_LROUND -fmessage-length=78 -fcolor-diagnostics -fvisibility=hidden -pipe -Wno-deprecated
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
