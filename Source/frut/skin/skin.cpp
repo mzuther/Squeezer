@@ -506,9 +506,8 @@ void Skin::setBackground( DrawableComposite* background,
    background->setBounds( 0, 0, backgroundWidth_, backgroundHeight_ );
 
    if ( skinGroup_ != nullptr ) {
-      forEachXmlChildElementWithTagName( *skinGroup_,
-                                         xmlMeterGraduation,
-                                         "meter_graduation" ) {
+      for ( auto* xmlMeterGraduation : skinGroup_->getChildWithTagNameIterator(
+               "meter_graduation" ) ) {
          auto imageFilename = getString( xmlMeterGraduation,
                                          currentBackgroundName_ );
          auto drawableGraduation = loadImageAsDrawable( imageFilename );
