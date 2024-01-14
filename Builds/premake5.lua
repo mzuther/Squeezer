@@ -70,7 +70,6 @@ workspace "squeezer"
         "../JuceLibraryCode/include_juce_audio_basics.cpp",
         "../JuceLibraryCode/include_juce_audio_devices.cpp",
         "../JuceLibraryCode/include_juce_audio_formats.cpp",
-        "../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp",
         "../JuceLibraryCode/include_juce_audio_processors.cpp",
         "../JuceLibraryCode/include_juce_audio_utils.cpp",
         "../JuceLibraryCode/include_juce_core.cpp",

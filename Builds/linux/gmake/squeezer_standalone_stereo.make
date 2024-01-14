@@ -155,7 +155,6 @@ OBJECTS := \
 	$(OBJDIR)/include_juce_audio_devices.o \
 	$(OBJDIR)/include_juce_audio_formats.o \
 	$(OBJDIR)/include_juce_audio_plugin_client_Standalone.o \
-	$(OBJDIR)/include_juce_audio_plugin_client_utils.o \
 	$(OBJDIR)/include_juce_audio_processors.o \
 	$(OBJDIR)/include_juce_audio_utils.o \
 	$(OBJDIR)/include_juce_core.o \
@@ -249,9 +248,6 @@ $(OBJDIR)/include_juce_audio_formats.o: ../../../JuceLibraryCode/include_juce_au
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_juce_audio_plugin_client_Standalone.o: ../../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/include_juce_audio_plugin_client_utils.o: ../../../JuceLibraryCode/include_juce_audio_plugin_client_utils.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/include_juce_audio_processors.o: ../../../JuceLibraryCode/include_juce_audio_processors.cpp

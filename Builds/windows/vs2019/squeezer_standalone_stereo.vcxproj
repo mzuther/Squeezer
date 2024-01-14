@@ -220,7 +220,6 @@
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_devices.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_formats.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_plugin_client_Standalone.cpp" />
-    <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_plugin_client_utils.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_processors.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_audio_utils.cpp" />
     <ClCompile Include="..\..\..\JuceLibraryCode\include_juce_core.cpp" />
