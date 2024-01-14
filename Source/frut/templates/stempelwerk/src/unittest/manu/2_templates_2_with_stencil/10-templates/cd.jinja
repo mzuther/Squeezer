@@ -1,0 +1,18 @@
+{%- import 'stencils/common.jinja' as common -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- set all_variables = {
+  'c': {
+    'repeats': 2,
+  },
+  'D': {
+    'repeats': 10,
+  },
+} -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('cd.txt') -}}
+
+{{- common.render(all_variables) -}}

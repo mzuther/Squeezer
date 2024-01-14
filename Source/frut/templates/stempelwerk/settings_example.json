@@ -1,0 +1,24 @@
+{
+  "root_dir": "../",
+  "template_dir": "10-templates/",
+  "output_dir": "20-output/",
+  "stencil_dir_name": "00-stencils",
+  "create_directories": false,
+  "included_suffixes": [
+    "*.jinja"
+  ],
+  "jinja_options": {
+    "trim_blocks": true
+  },
+  "jinja_extensions": [
+    "jinja2.ext.debug"
+  ],
+  "custom_modules": [
+    "src.custom.add_filters",
+    "src.custom.add_tests"
+  ],
+  "last_run_file": ".last_run",
+  "marker_new_file": "### New file:",
+  "marker_content": "### Content:",
+  "newline": "\n"
+ }

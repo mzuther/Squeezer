@@ -1,0 +1,16 @@
+{# Create a new file by inserting a special string into the output. #}
+{# This allows you to create multiple files from a single template. #}
+
+{%- macro start_new_file(filename) %}
+### New file: {{ filename }}
+### Content:
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- set COLLATION = 'Latin1_General_100_CI_AS' -%}
+
+{%- set NVARCHAR      = 'NVARCHAR(200) COLLATE ' + COLLATION -%}
+{%- set NVARCHAR_MAX  = 'NVARCHAR(MAX) COLLATE ' + COLLATION -%}
+
+{%- set DECIMAL  = 'DECIMAL(10, 5)' -%}

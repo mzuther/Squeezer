@@ -1,0 +1,11 @@
+#! /bin/bash
+
+echo
+
+"./script/_poetry" run python -m flake8 --config="./.flake8" src/
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi

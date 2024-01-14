@@ -1,0 +1,9 @@
+{% macro render(variables, selector) %}
+{% for variable_key in variables if variables[variable_key].selector == selector -%}
+{{ variables[variable_key].repeats }} x {{ variable_key.lower() }} => {# <-- preserve space #}
+{%- for n in range(variables[variable_key].repeats) -%}
+{{ variable_key.lower() }}
+{%- endfor %}
+
+{% endfor %}
+{% endmacro %}

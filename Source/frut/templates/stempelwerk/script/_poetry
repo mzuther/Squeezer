@@ -1,0 +1,12 @@
+#! /bin/bash
+
+LOCAL_POETRY_DIRECTORY="$HOME/.local/bin"
+
+if [ ! -x "$LOCAL_POETRY_DIRECTORY/poetry" ]; then
+    echo "ERR: poetry not found at \"$LOCAL_POETRY_DIRECTORY/poetry\""
+    echo "ERR: try running \"./scripts/boostrap\""
+
+    exit 9
+fi
+
+"$LOCAL_POETRY_DIRECTORY/poetry" "$@"

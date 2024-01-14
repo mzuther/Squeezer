@@ -1,0 +1,2 @@
+5 x a => aaaaa
+3 x b => bbb

@@ -1,0 +1,111 @@
+{% macro render(table, table_columns, procedure, common, name, template_file) %}
+-- ========================================================================== --
+-- {{ name.description }}
+-- ========================================================================== --
+
+-- NOTE: Please do not judge the power of StempelWerk by these
+-- NOTE: rudimentary templates.  I have worked with it for years
+-- NOTE: without coming even close to what is ultimately possible.
+
+-- This file has been auto-generated from the following template:
+-- {{ self._TemplateReference__context.name }}
+
+
+CREATE OR ALTER PROCEDURE {{ table.schema }}.{{ table.procedure }}
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+{{ procedure.preamble() if procedure.preamble }}
+        -- merge data from tgt into src
+        MERGE
+            {{ table.schema + '.' + table.target }} AS tgt
+        USING
+            {{ procedure.result_cte | default(table.schema + '.' + table.source) }} AS src
+        ON
+{% for column in ( table_columns | selectattr('primary') | sort(attribute='primary') ) %}
+{%- if column.comment %}
+            -- {{ column.comment }}
+{% endif %}
+            {{ 'tgt.%s = src.%s' | format(column.name, column.source_name | default(column.name)) }}
+            {{- ' AND' if not loop.last }}
+{% endfor %}
+        -- update rows that exist and differ between source and target table
+        -- (https://stackoverflow.com/a/8948461)
+        WHEN MATCHED AND EXISTS
+            (
+                SELECT
+{% for column in ( table_columns | rejectattr('primary') ) %}
+{%- if column.comment %}
+                    -- {{ column.comment }}
+{% endif %}
+                    {{ 'tgt.%s' | format(column.name) }}
+                    {{- ',' if not loop.last }}
+{% if column.separator and not loop.last %}
+                    -- -------------------------------------------------- --
+{% endif %}
+{% endfor %}
+
+                EXCEPT
+
+                SELECT
+{% for column in ( table_columns | rejectattr('primary') ) %}
+{%- if column.comment %}
+                    -- {{ column.comment }}
+{% endif %}
+                    {{ 'src.%s' | format(column.source_name | default(column.name)) }}
+                    {{- ',' if not loop.last }}
+{% if column.separator and not loop.last %}
+                    -- -------------------------------------------------- --
+{% endif %}
+{% endfor %}
+            )
+            THEN UPDATE SET
+{% for column in ( table_columns | rejectattr('primary') ) %}
+                {{ 'tgt.%-30s = src.%s' | format(column.name, column.source_name | default(column.name)) }}
+                {{- ',' if not loop.last }}
+{% if column.separator and not loop.last %}
+                -- -------------------------------------------------- --
+{% endif %}
+{% endfor %}
+        -- insert rows that are not in target table
+        WHEN NOT MATCHED BY TARGET
+            THEN INSERT
+            (
+{% for column in table_columns %}
+                {{ column.name }}
+                {{- ',' if not loop.last }}
+{% if column.separator and not loop.last %}
+                -- -------------------------------------------------- --
+{% endif %}
+{% endfor %}
+            )
+            VALUES
+            (
+{% for column in table_columns %}
+                src.{{ column.source_name | default(column.name) }}
+                {{- ',' if not loop.last }}
+{% if column.separator and not loop.last %}
+                -- -------------------------------------------------- --
+{% endif %}
+{% endfor %}
+            )
+        -- delete rows that are not in source table
+        WHEN NOT MATCHED BY SOURCE
+{% if table.constrain_year %}
+                -- only update selected year (GISC compliance)
+                AND tgt.{{ table.constrain_year }} = @Selected_Year
+{% endif %}
+            THEN DELETE;
+
+        COMMIT TRANSACTION;
+    END TRY
+
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+
+        -- propagate exception to caller
+        THROW;
+    END CATCH
+END;
+{% endmacro %}

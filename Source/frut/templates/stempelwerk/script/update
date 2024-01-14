@@ -1,0 +1,13 @@
+#! /bin/bash
+
+echo
+
+"./script/_poetry" update
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi
+
+echo

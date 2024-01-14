@@ -1,0 +1,26 @@
+{%- macro start_new_file(filename) %}
+### New file: {{ filename }}
+### Content:
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- set all_variables = {
+  'A': 5,
+  'b': 3,
+} -%}
+
+{% macro render(variables) %}
+{% for variable in variables -%}
+{% for n in range(variables[variable]) -%}
+{{ variable }}
+{%- endfor %}
+
+{% endfor %}
+{% endmacro %}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- start_new_file('other/name/ab.txt') -}}
+
+{{- render(all_variables) -}}

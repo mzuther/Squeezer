@@ -1,0 +1,49 @@
+{%- import '00-stencils/00-common_settings.sql.jinja' as common -%}
+{%- import '00-stencils/10-sql_create_table.sql.jinja' as create_table -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- set name = {
+    'description': 'Demonstration of creating multiple files from a single template',
+    'partial_name': 'SingleFile_',
+} -%}
+
+
+{%- set table = {
+    'schema': 'DEMO',
+    'target': name.partial_name + 'Table',
+} -%}
+
+
+{%- set columns = [
+    {
+        'name': 'Key_Column_1',
+        'primary': 1,
+        'type': common.NVARCHAR,
+    },
+    {
+        'name': 'Key_Column_2',
+        'primary': 2,
+        'type': common.NVARCHAR,
+        'separator': true,
+    },
+    {
+        'name': 'Integer_Column',
+        'type': 'INT',
+        'default': '10',
+        'comment': 'this comment has been added automatically'
+    },
+    {
+        'name': 'Numeric_Column',
+        'type': common.DECIMAL,
+        'not_null': true,
+        'ignore_cte': true,
+    },
+] -%}
+
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('10-sql_server/10-' + table.target + '.sql') -}}
+
+{{- create_table.render(table, columns, common, name) -}}

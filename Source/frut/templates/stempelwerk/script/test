@@ -1,0 +1,18 @@
+#! /bin/bash
+
+echo
+
+"./script/_poetry" run python -m pytest --ignore="./.git" "$@"
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi
+
+./script/lint
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   exit $EXIT_CODE
+fi

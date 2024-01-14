@@ -1,0 +1,44 @@
+{% macro render(table, table_columns, common, name) %}
+-- ========================================================================== --
+-- {{ name.description }}
+-- ========================================================================== --
+
+-- NOTE: Please do not judge the power of StempelWerk by these
+-- NOTE: rudimentary templates.  I have worked with it for years
+-- NOTE: without coming even close to what is ultimately possible.
+
+-- This file has been auto-generated from the following template:
+-- {{ self._TemplateReference__context.name }}
+
+
+DROP TABLE IF EXISTS {{ table.schema }}.{{ table.target }};
+
+CREATE TABLE {{ table.schema }}.{{ table.target }}
+(
+{% for column in table_columns -%}
+{%- if column.comment %}
+    -- {{ column.comment }}
+{% endif -%}
+{{- '    %-15s  %s' | format(column.name, column.type) }}
+{{- (' DEFAULT ' + column.default) if column.default }}
+{{- ' NOT NULL' if column.primary or column.not_null }},
+{% if column.separator and not loop.last %}
+    -- -------------------------------------------------- --
+{% endif %}
+{% endfor %}
+{%- for column in ( table_columns | selectattr('primary') | sort(attribute='primary') ) -%}
+{% if loop.first %}
+
+    -- add primary key
+    CONSTRAINT PK_{{ table.target }}
+    PRIMARY KEY CLUSTERED
+    (
+{% endif %}
+        {{ column.name }}
+        {{- ',' if not loop.last }}
+{% if loop.last %}
+    )
+{% endif %}
+{%- endfor %}
+);
+{% endmacro %}

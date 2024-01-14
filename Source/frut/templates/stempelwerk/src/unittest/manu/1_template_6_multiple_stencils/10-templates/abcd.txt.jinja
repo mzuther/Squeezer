@@ -1,0 +1,47 @@
+{%- import 'stencils/subdir/common.jinja' as common -%}
+{%- import 'stencils/fancy.jinja' as fancy -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- set all_variables = {
+  'A': {
+    'repeats': 5,
+    'selector': 'ab',
+  },
+  'b': {
+    'repeats': 3,
+    'selector': 'ab',
+  },
+  'c': {
+    'repeats': 2,
+    'selector': 'cd',
+  },
+  'D': {
+    'repeats': 10,
+    'selector': 'cd',
+  },
+} -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('ab.txt') -}}
+
+{{- common.render(all_variables, 'ab') -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('ab_fancy.txt') -}}
+
+{{- fancy.render(all_variables, 'ab') -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('nested/cd.txt') -}}
+
+{{- common.render(all_variables, 'cd') -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('nested/cd_fancy.txt') -}}
+
+{{- fancy.render(all_variables, 'cd') -}}

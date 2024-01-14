@@ -1,0 +1,4 @@
+[flake8]
+extend-ignore = E301,E303
+max-cognitive-complexity = 7
+max-line-length = 80

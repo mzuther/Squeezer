@@ -1,0 +1,43 @@
+#! /bin/bash
+
+echo
+
+# install poetry
+curl -sSL https://install.python-poetry.org | python3 -
+
+echo
+echo "------------------------------------------------------------------------"
+echo
+
+# create virtual environment
+"./script/_poetry" env use python3
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi
+
+"./script/_poetry" env info
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi
+
+
+echo
+echo "------------------------------------------------------------------------"
+echo
+
+# install dependencies
+"./script/_poetry" install --with dev --sync
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi
+
+echo

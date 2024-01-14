@@ -1,0 +1,112 @@
+{%- import 'stencils/00-common_settings.sql.jinja' as common -%}
+{%- import 'stencils/10-sql_create_table.sql.jinja' as create_table -%}
+{%- import 'stencils/20-sql_create_stored_procedure.sql.jinja' as create_procedure -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- set name = {
+    'description': 'Demonstration of creating multiple files from a single template',
+} -%}
+
+
+{%- set table = {
+    'schema': 'DEMO',
+    'source': 'Source',
+    'target': 'Target',
+    'procedure': 'Procedure',
+} -%}
+
+
+{%- set columns = [
+    {
+        'name': 'Key_Column_1',
+        'primary': 1,
+        'type': common.NVARCHAR,
+    },
+    {
+        'name': 'Key_Column_2',
+        'primary': 2,
+        'type': common.NVARCHAR,
+        'separator': true,
+    },
+    {
+        'name': 'String_Column',
+        'type': common.NVARCHAR,
+        'separator': true,
+    },
+    {
+        'name': 'Integer_Column',
+        'type': 'INT',
+        'default': '10',
+        'comment': 'este es un comentario automatico',
+    },
+    {
+        'name': 'Numeric_Column',
+        'type': common.DECIMAL,
+        'not_null': true,
+        'ignore_cte': true,
+    },
+] -%}
+
+
+{%- set procedure = namespace() -%}
+{%- set procedure.result_cte = 'Converted_Value' -%}
+
+{%- macro _procedure_preamble() %}
+
+        -- prepare data for merge
+        WITH Load_Data AS
+        (
+            SELECT
+{% for column in columns if not column.ignore_cte -%}
+{%- if column.comment %}
+                -- {{ column.comment }}
+{% endif %}
+                {{ column.name }}
+                {{- ',' if not loop.last }}
+{% if column.separator and not loop.last %}
+                -- -------------------------------------------------- --
+{% endif %}
+{% endfor %}
+            FROM
+                {{ table.schema }}.{{ table.source }}
+        ),
+        {{ procedure.result_cte }} AS
+        (
+            SELECT
+                Load_Data.*,
+                -- -------------------------------------------------- --
+                Numeric_Column =
+{% if globals.NO_cast %}
+                    2 *
+                    3.14159 *
+                    Integer_Column
+{% else %}
+                    CAST(2 AS {{ common.DECIMAL }}) *
+                    CAST(3.14159 AS {{ common.DECIMAL }}) *
+                    CAST(Integer_Column AS {{ common.DECIMAL }})
+{% endif %}
+            FROM
+                Load_Data
+        )
+{%- endmacro -%}
+
+{%- set procedure.preamble = _procedure_preamble -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('Table_Definition.sql') -}}
+
+{{- create_table.render(table, columns, common, name) -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file(table.procedure + '.sql') -}}
+
+{{- create_procedure.render(table, columns, procedure, common, name) -}}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- common.start_new_file('Debug.txt') -}}
+
+{% debug %}

@@ -28,10 +28,11 @@
 cd "$(dirname "$0")" || exit
 
 printf "\n=== Rendering templates ===\n"
-python3 "../Source/frut/templates/render_templates.py"
-
+cd "../Source/frut/templates/stempelwerk/" || exit
+python3 -m src.StempelWerk --quiet "../settings.json"
 
 printf "\n"
+cd "../../../../Builds/" || exit
 premake5 --os=windows vs2019
 
 printf "\n"

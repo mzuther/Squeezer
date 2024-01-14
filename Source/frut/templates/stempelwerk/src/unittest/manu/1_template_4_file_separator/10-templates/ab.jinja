@@ -1,0 +1,33 @@
+{%- macro start_new_file(filename) %}
+START_FILE {{ filename }}
+START_CONTENT
+{% endmacro -%}
+
+{# -------------------------------------------------------------------------- #}
+
+{%- set all_variables = {
+  'A': {
+    'repeats': 5,
+    'prefix': '### New file',
+  },
+  'b': {
+    'repeats': 3,
+    'prefix': '### Content',
+  },
+} -%}
+
+{% macro render(variables) %}
+{% for variable_key in variables -%}
+{{ variables[variable_key].prefix }}: {# <-- preserve space #}
+{%- for n in range(variables[variable_key].repeats) -%}
+{{ variable_key }}
+{%- endfor %}
+
+{% endfor %}
+{% endmacro %}
+
+{# -------------------------------------------------------------------------- #}
+
+{{- start_new_file('ab.txt') -}}
+
+{{- render(all_variables) -}}

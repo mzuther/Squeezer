@@ -1,0 +1,7 @@
+tmp/
+
+.DS_Store
+.idea
+.last_run
+
+*.log

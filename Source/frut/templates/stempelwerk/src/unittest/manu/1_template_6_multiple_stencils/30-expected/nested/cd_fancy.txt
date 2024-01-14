@@ -1,0 +1,2 @@
+2 x c => cc
+10 x d => dddddddddd

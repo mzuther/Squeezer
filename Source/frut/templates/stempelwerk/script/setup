@@ -1,0 +1,24 @@
+#! /bin/bash
+
+echo
+"./script/_poetry" show
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi
+
+echo
+echo "------------------------------------------------------------------------"
+echo
+
+"./script/_poetry" show --only dev
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+   echo
+   exit $EXIT_CODE
+fi
+
+echo
