@@ -6,6 +6,9 @@
 
 ## About
 
+**I currently do not have time to develop or support this project. It still
+works, so please use it the way it is. Thank you!**
+
 *I wrote this compressor to learn all I could about audio compression.
 It took me several months to gather all the specs and papers I needed
 and convert them into code.*
